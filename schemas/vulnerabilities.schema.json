@@ -1,0 +1,259 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "vulnerability_id",
+    "aliases",
+    "repo_id",
+    "advisory_url",
+    "advisory_status",
+    "title",
+    "category_l1",
+    "category_l2",
+    "cwe_ids",
+    "severity",
+    "vulnerable_commit",
+    "affected_packages",
+    "fix_commits",
+    "fixed_releases",
+    "references"
+  ],
+  "properties": {
+    "vulnerability_id": {
+      "type": "string",
+      "pattern": "^(GHSA-[0-9A-Z-]+|CVE-[0-9]{4}-[0-9]+)$"
+    },
+    "aliases": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1
+    },
+    "repo_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "Optional historical evidence snapshot, not evaluation target."
+    },
+    "advisory_url": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "advisory_status": {
+      "enum": [
+        "reviewed",
+        "official_upstream"
+      ]
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category_l1": {
+      "type": "string",
+      "minLength": 1
+    },
+    "category_l2": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cwe_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^CWE-[0-9]+$"
+      },
+      "minItems": 1
+    },
+    "severity": {
+      "type": "object",
+      "required": [
+        "version",
+        "score",
+        "vector",
+        "level",
+        "source_url"
+      ],
+      "properties": {
+        "version": {
+          "enum": [
+            "3.1",
+            "4.0"
+          ]
+        },
+        "score": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "vector": {
+          "type": "string",
+          "pattern": "^CVSS:(3\\.1|4\\.0)/"
+        },
+        "level": {
+          "enum": [
+            "none",
+            "low",
+            "medium",
+            "high",
+            "critical"
+          ]
+        },
+        "source_url": {
+          "type": "string",
+          "pattern": "^https://"
+        }
+      },
+      "additionalProperties": true
+    },
+    "vulnerable_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "affected_packages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "package",
+          "ecosystem",
+          "affected_range"
+        ],
+        "properties": {
+          "package": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ecosystem": {
+            "type": "string",
+            "minLength": 1
+          },
+          "affected_range": {
+            "type": "string",
+            "minLength": 1
+          },
+          "purl": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "minItems": 1
+    },
+    "fix_commits": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "sha",
+          "url"
+        ],
+        "properties": {
+          "sha": {
+            "type": "string",
+            "pattern": "^[0-9a-f]{40}$"
+          },
+          "url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "branch": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "additionalProperties": true
+      },
+      "minItems": 1
+    },
+    "fixed_releases": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "package",
+          "ecosystem",
+          "version",
+          "release_url"
+        ],
+        "properties": {
+          "package": {
+            "type": "string",
+            "minLength": 1
+          },
+          "ecosystem": {
+            "type": "string",
+            "minLength": 1
+          },
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "release_url": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "tag": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "branch": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": true
+      },
+      "minItems": 1
+    },
+    "references": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^https://"
+      },
+      "minItems": 2
+    },
+    "published_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "verification_scope": {
+      "enum": [
+        "catalog_verified",
+        "evaluation_positive"
+      ]
+    },
+    "discovery_cutoff_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "source_type": {
+      "enum": [
+        "reviewed_advisory",
+        "upstream_advisory",
+        "external_research"
+      ]
+    }
+  }
+}

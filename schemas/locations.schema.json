@@ -1,0 +1,223 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "location_id",
+    "vulnerability_id",
+    "location_kind",
+    "critical_operation",
+    "trace",
+    "verification_method"
+  ],
+  "properties": {
+    "location_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "vulnerability_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "location_kind": {
+      "enum": [
+        "dataflow",
+        "logic",
+        "config",
+        "race",
+        "memory",
+        "other"
+      ]
+    },
+    "entry_point": {
+      "oneOf": [
+        {
+          "type": "object",
+          "required": [
+            "file",
+            "line",
+            "language",
+            "permalink",
+            "description"
+          ],
+          "properties": {
+            "file": {
+              "type": "string",
+              "minLength": 1
+            },
+            "line": {
+              "oneOf": [
+                {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                {
+                  "type": "string",
+                  "pattern": "^[1-9][0-9]*-[1-9][0-9]*$"
+                }
+              ]
+            },
+            "language": {
+              "type": "string",
+              "minLength": 1
+            },
+            "permalink": {
+              "type": "string",
+              "pattern": "^https://"
+            },
+            "function": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "description": {
+              "type": "string",
+              "minLength": 1
+            },
+            "code_excerpt": {
+              "type": "string",
+              "maxLength": 500
+            }
+          },
+          "additionalProperties": true
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "critical_operation": {
+      "type": "object",
+      "required": [
+        "file",
+        "line",
+        "language",
+        "permalink",
+        "description"
+      ],
+      "properties": {
+        "file": {
+          "type": "string",
+          "minLength": 1
+        },
+        "line": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 1
+            },
+            {
+              "type": "string",
+              "pattern": "^[1-9][0-9]*-[1-9][0-9]*$"
+            }
+          ]
+        },
+        "language": {
+          "type": "string",
+          "minLength": 1
+        },
+        "permalink": {
+          "type": "string",
+          "pattern": "^https://"
+        },
+        "function": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        },
+        "code_excerpt": {
+          "type": "string",
+          "maxLength": 500
+        }
+      },
+      "additionalProperties": true
+    },
+    "trace": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "file",
+          "line",
+          "language",
+          "permalink",
+          "description"
+        ],
+        "properties": {
+          "file": {
+            "type": "string",
+            "minLength": 1
+          },
+          "line": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 1
+              },
+              {
+                "type": "string",
+                "pattern": "^[1-9][0-9]*-[1-9][0-9]*$"
+              }
+            ]
+          },
+          "language": {
+            "type": "string",
+            "minLength": 1
+          },
+          "permalink": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "function": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1
+          },
+          "code_excerpt": {
+            "type": "string",
+            "maxLength": 500
+          }
+        },
+        "additionalProperties": true
+      },
+      "minItems": 0
+    },
+    "verification_method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "commit_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    }
+  },
+  "anyOf": [
+    {
+      "required": [
+        "snapshot_id"
+      ]
+    },
+    {
+      "required": [
+        "commit_sha"
+      ]
+    }
+  ]
+}

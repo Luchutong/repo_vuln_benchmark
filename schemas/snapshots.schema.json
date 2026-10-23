@@ -1,0 +1,173 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "snapshot_id",
+    "repo_id",
+    "vulnerable_commit"
+  ],
+  "properties": {
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^snap_[0-9a-f]{16}$"
+    },
+    "repo_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "vulnerable_commit": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "languages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role",
+          "scope",
+          "file_count",
+          "code_bytes",
+          "share_pct",
+          "detection_method",
+          "confidence"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1
+          },
+          "role": {
+            "enum": [
+              "programming",
+              "scripting",
+              "query",
+              "markup",
+              "config",
+              "other"
+            ]
+          },
+          "scope": {
+            "enum": [
+              "first_party",
+              "test",
+              "tooling",
+              "vendored",
+              "generated",
+              "submodule",
+              "docs",
+              "other"
+            ]
+          },
+          "file_count": {
+            "type": "integer",
+            "minimum": 1
+          },
+          "code_bytes": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "share_pct": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "representative_files": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "minItems": 0
+          },
+          "detection_method": {
+            "type": "string",
+            "minLength": 1
+          },
+          "confidence": {
+            "enum": [
+              "high",
+              "medium",
+              "low",
+              "ambiguous"
+            ]
+          },
+          "notes": {
+            "type": "string"
+          },
+          "embedded_nonadditive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": true
+      },
+      "minItems": 1
+    },
+    "language_tool": {
+      "type": "string",
+      "minLength": 1
+    },
+    "language_tool_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "full_scan": {
+      "const": true
+    },
+    "tracked_files_scanned": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "collected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "ambiguous_files": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 0
+    },
+    "evaluation_target": {
+      "type": "boolean"
+    },
+    "tag_or_release": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "components_in_scope": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "commit_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$",
+      "description": "Preferred neutral alias of legacy vulnerable_commit; both MUST match if present."
+    },
+    "purpose": {
+      "enum": [
+        "evaluation",
+        "historical_evidence"
+      ]
+    },
+    "selection_reason": {
+      "type": "string"
+    },
+    "release_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date"
+    }
+  }
+}

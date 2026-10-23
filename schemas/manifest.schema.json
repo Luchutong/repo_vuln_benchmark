@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "dataset_version",
+    "status",
+    "target_repository_count",
+    "evaluation_policy",
+    "source_cutoff_date"
+  ],
+  "properties": {
+    "dataset_version": {
+      "const": "0.3.1"
+    },
+    "status": {
+      "enum": [
+        "draft",
+        "release"
+      ]
+    },
+    "target_repository_count": {
+      "const": 50
+    },
+    "evaluation_policy": {
+      "const": "one_frozen_snapshot_snapshot_only_oracle"
+    },
+    "source_cutoff_date": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date",
+      "description": "Null while migration/cutoff not yet confirmed; release MUST be dated."
+    },
+    "freeze_timestamp": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "source_dataset_version": {
+      "type": "string"
+    },
+    "source_file_sha256": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
+    },
+    "evaluation_oracle_version": {
+      "type": "string"
+    },
+    "known_limitations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "versioned_selection_manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

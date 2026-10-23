@@ -1,0 +1,72 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "review_id",
+    "vulnerability_id",
+    "status",
+    "grade",
+    "source_crosscheck",
+    "commit_verified",
+    "fix_release_verified",
+    "location_verified",
+    "languages_verified",
+    "reviewer",
+    "independent_reviewer",
+    "reviewed_at"
+  ],
+  "properties": {
+    "review_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "vulnerability_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "const": "PASS"
+    },
+    "grade": {
+      "enum": [
+        "A",
+        "B"
+      ]
+    },
+    "source_crosscheck": {
+      "const": true
+    },
+    "commit_verified": {
+      "const": true
+    },
+    "fix_release_verified": {
+      "const": true
+    },
+    "location_verified": {
+      "const": true
+    },
+    "languages_verified": {
+      "const": true
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "independent_reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reproduction_reference": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "red_green_summary": {
+      "type": "string"
+    }
+  }
+}

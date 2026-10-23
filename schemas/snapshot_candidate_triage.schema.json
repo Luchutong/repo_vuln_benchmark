@@ -1,0 +1,141 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "repo-vuln-50/snapshot_candidate_triage",
+  "description": "One triage record per candidate and frozen evaluation snapshot. Triage is NOT proof of nonexistence of other vulnerabilities.",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "candidate_id",
+    "repo_id",
+    "snapshot_id",
+    "decision",
+    "basis",
+    "evidence_urls",
+    "review_method",
+    "checked_at"
+  ],
+  "properties": {
+    "candidate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repo_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "decision": {
+      "enum": [
+        "confirmed_affected",
+        "confirmed_not_affected",
+        "duplicate",
+        "out_of_scope",
+        "possible_affected",
+        "unknown"
+      ]
+    },
+    "vulnerability_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "canonical_candidate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "basis": {
+      "type": "string",
+      "minLength": 10
+    },
+    "evidence_urls": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^https://"
+      },
+      "uniqueItems": true
+    },
+    "review_method": {
+      "enum": [
+        "trusted_range_with_branch",
+        "source_diff",
+        "source_code_review",
+        "upstream_advisory",
+        "alias_cluster",
+        "unresolved"
+      ]
+    },
+    "checked_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "reviewed_by": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "enum": [
+              "confirmed_affected",
+              "confirmed_not_affected",
+              "out_of_scope",
+              "duplicate"
+            ]
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "then": {
+        "properties": {
+          "evidence_urls": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "confirmed_affected"
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "then": {
+        "required": [
+          "vulnerability_id"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "decision": {
+            "const": "duplicate"
+          }
+        },
+        "required": [
+          "decision"
+        ]
+      },
+      "then": {
+        "required": [
+          "canonical_candidate_id"
+        ]
+      }
+    }
+  ]
+}

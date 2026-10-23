@@ -1,0 +1,16 @@
+{
+  "total_budget_cny": 500,
+  "already_spent_cny_estimate": 40,
+  "warn_at_ratio": 0.8,
+  "halt_new_llm_calls_at_ratio": 1.0,
+  "limits": {
+    "max_attempts_per_candidate_per_stage": 2,
+    "max_estimated_cost_per_candidate_cny": 0.5
+  },
+  "routing": {
+    "first": "rule_based_version_and_diff",
+    "then": "cheap_model",
+    "last": "strong_model_or_human"
+  },
+  "note": "Illustrative; configuration does NOT provide real-time enforcement until integrated in agent call gateway."
+}

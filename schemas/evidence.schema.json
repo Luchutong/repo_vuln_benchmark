@@ -1,0 +1,64 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "evidence_id",
+    "target_type",
+    "target_id",
+    "field_path",
+    "source_url",
+    "retrieved_at",
+    "verification_method",
+    "result"
+  ],
+  "properties": {
+    "evidence_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "target_type": {
+      "enum": [
+        "repository",
+        "snapshot",
+        "vulnerability",
+        "location",
+        "review"
+      ]
+    },
+    "target_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "field_path": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_url": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "retrieved_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "verification_method": {
+      "type": "string",
+      "minLength": 1
+    },
+    "result": {
+      "enum": [
+        "PASS",
+        "FAIL",
+        "NEEDS_REVIEW"
+      ]
+    },
+    "short_note": {
+      "type": "string"
+    },
+    "sha256_of_observation": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    }
+  }
+}

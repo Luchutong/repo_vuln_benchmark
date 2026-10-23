@@ -1,0 +1,152 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "repo_id",
+    "snapshot_id",
+    "decision_status",
+    "selection_policy",
+    "selection_reason",
+    "selected_by",
+    "selected_at",
+    "candidate_count",
+    "evidence_urls",
+    "leakage_controls"
+  ],
+  "properties": {
+    "repo_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_id": {
+      "type": "string",
+      "pattern": "^snap_[0-9a-f]{16}$"
+    },
+    "decision_status": {
+      "enum": [
+        "proposed",
+        "frozen"
+      ]
+    },
+    "selection_policy": {
+      "enum": [
+        "pre_registered_stable_vulnerable_release",
+        "documented_exception"
+      ]
+    },
+    "selection_reason": {
+      "type": "string",
+      "minLength": 15
+    },
+    "selected_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "frozen_at": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "candidate_count": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "candidate_snapshot_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "vulnerability_count_at_selection": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "evidence_urls": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^https://"
+      }
+    },
+    "leakage_controls": {
+      "type": "object",
+      "required": [
+        "worktree_without_git_history",
+        "ground_truth_isolated",
+        "network_policy"
+      ],
+      "properties": {
+        "worktree_without_git_history": {
+          "type": "boolean"
+        },
+        "ground_truth_isolated": {
+          "type": "boolean"
+        },
+        "network_policy": {
+          "enum": [
+            "off",
+            "allowlist",
+            "uncontrolled"
+          ]
+        }
+      },
+      "additionalProperties": true
+    },
+    "exceptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "notes": {
+      "type": "string"
+    },
+    "reviewed_by": {
+      "type": "string",
+      "minLength": 1
+    },
+    "selection_reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approval_evidence_urls": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^https://"
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "decision_status": {
+            "const": "frozen"
+          }
+        },
+        "required": [
+          "decision_status"
+        ]
+      },
+      "then": {
+        "required": [
+          "reviewed_by",
+          "selection_reviewed_at",
+          "approval_evidence_urls",
+          "frozen_at"
+        ]
+      }
+    }
+  ]
+}

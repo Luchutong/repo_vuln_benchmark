@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "run_id",
+    "finding_id",
+    "snapshot_id",
+    "verdict",
+    "adjudication_reason",
+    "reviewer",
+    "independent_reviewer",
+    "reviewed_at",
+    "proof_references"
+  ],
+  "properties": {
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "finding_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict": {
+      "enum": [
+        "matched_known_tp",
+        "novel_confirmed_tp",
+        "confirmed_fp",
+        "unresolved",
+        "duplicate",
+        "out_of_scope"
+      ]
+    },
+    "canonical_vulnerability_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "adjudication_reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "independent_reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "proof_references": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "versioned_oracle_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "additionalProperties": true
+}

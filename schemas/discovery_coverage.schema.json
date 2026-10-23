@@ -1,0 +1,189 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": [
+    "repo_id",
+    "cutoff_date",
+    "scope",
+    "source_checks",
+    "passes",
+    "outcome",
+    "reviewer",
+    "reviewed_at",
+    "unresolved_candidates"
+  ],
+  "properties": {
+    "repo_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cutoff_date": {
+      "type": "string",
+      "format": "date"
+    },
+    "scope": {
+      "type": "object",
+      "required": [
+        "start_date",
+        "end_date",
+        "included_components"
+      ],
+      "properties": {
+        "start_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "end_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "included_components": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "excluded_components": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          }
+        },
+        "mode": {
+          "enum": [
+            "selected_snapshot_only"
+          ]
+        },
+        "evaluation_snapshot_id": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "source_checks": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "source",
+          "source_type",
+          "result",
+          "checked_at",
+          "query_or_url"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "minLength": 1
+          },
+          "source_type": {
+            "enum": [
+              "advisory",
+              "upstream",
+              "vulnerability_db",
+              "code_history",
+              "literature",
+              "other"
+            ]
+          },
+          "result": {
+            "enum": [
+              "PASS",
+              "PARTIAL",
+              "FAILED"
+            ]
+          },
+          "checked_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "query_or_url": {
+            "type": "string",
+            "minLength": 1
+          },
+          "records_found": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "passes": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "required": [
+          "ended_at",
+          "new_candidate_count",
+          "new_verified_count"
+        ],
+        "properties": {
+          "ended_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "new_candidate_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "new_verified_count": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "notes": {
+            "type": "string"
+          },
+          "new_relevant_candidate_count": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
+    },
+    "outcome": {
+      "enum": [
+        "PASS_KNOWN_SWEEP",
+        "NEEDS_REVIEW"
+      ]
+    },
+    "reviewer": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reviewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "unresolved_candidates": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "limitations": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "coverage_statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "relevance_unresolved_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "coverage_mode": {
+      "enum": [
+        "selected_snapshot_only"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

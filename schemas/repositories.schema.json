@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": true,
+  "type": "object",
+  "required": [
+    "repo_id",
+    "github_repo_id",
+    "canonical_url",
+    "full_name",
+    "owner",
+    "project_kind",
+    "quality",
+    "primary_language"
+  ],
+  "properties": {
+    "repo_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "github_repo_id": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "canonical_url": {
+      "type": "string",
+      "pattern": "^https://"
+    },
+    "full_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "project_kind": {
+      "type": "string",
+      "minLength": 1
+    },
+    "quality": {
+      "type": "object",
+      "required": [
+        "score",
+        "status",
+        "source_evidence_urls",
+        "summary"
+      ],
+      "properties": {
+        "score": {
+          "type": "integer",
+          "minimum": 75,
+          "maximum": 100
+        },
+        "status": {
+          "const": "PASS"
+        },
+        "source_evidence_urls": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^https://"
+          },
+          "minItems": 1
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "additionalProperties": true
+    },
+    "primary_language": {
+      "type": "string",
+      "minLength": 1
+    },
+    "representative_snapshot_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "evaluation_snapshot_id": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "pattern": "^snap_[0-9a-f]{16}$"
+    }
+  }
+}
