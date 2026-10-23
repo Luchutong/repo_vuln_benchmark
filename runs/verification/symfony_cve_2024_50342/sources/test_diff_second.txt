@@ -1,0 +1,68 @@
+commit b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa
+Author: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date:   Fri Nov 8 09:23:38 2024 +0100
+
+    [HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient
+
+diff --git a/src/Symfony/Component/HttpClient/Tests/HttpClientTestCase.php b/src/Symfony/Component/HttpClient/Tests/HttpClientTestCase.php
+index d1213f0ded..251a8f4ee1 100644
+--- a/src/Symfony/Component/HttpClient/Tests/HttpClientTestCase.php
++++ b/src/Symfony/Component/HttpClient/Tests/HttpClientTestCase.php
+@@ -16,6 +16,7 @@ use Symfony\Component\HttpClient\Exception\ClientException;
+ use Symfony\Component\HttpClient\Exception\InvalidArgumentException;
+ use Symfony\Component\HttpClient\Exception\TransportException;
+ use Symfony\Component\HttpClient\Internal\ClientState;
++use Symfony\Component\HttpClient\NoPrivateNetworkHttpClient;
+ use Symfony\Component\HttpClient\Response\StreamWrapper;
+ use Symfony\Component\Process\Exception\ProcessFailedException;
+ use Symfony\Component\Process\Process;
+@@ -466,4 +467,26 @@ abstract class HttpClientTestCase extends BaseHttpClientTestCase
+ 
+         $httpClient->request('GET', 'http:/localhost:8057/');
+     }
++
++    public function testNoPrivateNetwork()
++    {
++        $client = $this->getHttpClient(__FUNCTION__);
++        $client = new NoPrivateNetworkHttpClient($client);
++
++        $this->expectException(TransportException::class);
++        $this->expectExceptionMessage('Host "localhost" is blocked');
++
++        $client->request('GET', 'http://localhost:8888');
++    }
++
++    public function testNoPrivateNetworkWithResolve()
++    {
++        $client = $this->getHttpClient(__FUNCTION__);
++        $client = new NoPrivateNetworkHttpClient($client);
++
++        $this->expectException(TransportException::class);
++        $this->expectExceptionMessage('Host "symfony.com" is blocked');
++
++        $client->request('GET', 'http://symfony.com', ['resolve' => ['symfony.com' => '127.0.0.1']]);
++    }
+ }
+diff --git a/src/Symfony/Component/HttpClient/Tests/MockHttpClientTest.php b/src/Symfony/Component/HttpClient/Tests/MockHttpClientTest.php
+index e244c32526..9f38940334 100644
+--- a/src/Symfony/Component/HttpClient/Tests/MockHttpClientTest.php
++++ b/src/Symfony/Component/HttpClient/Tests/MockHttpClientTest.php
+@@ -304,7 +304,7 @@ class MockHttpClientTest extends HttpClientTestCase
+ 
+         switch ($testCase) {
+             default:
+-                return new MockHttpClient(function (string $method, string $url, array $options) use ($client) {
++                return new MockHttpClient(function (string $method, string $url, array $options) use ($client, $testCase) {
+                     try {
+                         // force the request to be completed so that we don't test side effects of the transport
+                         $response = $client->request($method, $url, ['buffer' => false] + $options);
+@@ -312,6 +312,9 @@ class MockHttpClientTest extends HttpClientTestCase
+ 
+                         return new MockResponse($content, $response->getInfo());
+                     } catch (\Throwable $e) {
++                        if (str_starts_with($testCase, 'testNoPrivateNetwork')) {
++                            throw $e;
++                        }
+                         $this->fail($e->getMessage());
+                     }
+                 });

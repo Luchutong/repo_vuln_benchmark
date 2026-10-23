@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_http",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Http/Http/src/Microsoft.AspNetCore.Http.csproj",
+  "retrieved_at": "2026-10-21T10:56:26.159Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core default HTTP feature implementations.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore</PackageTags>\n    <IsPackable>false</IsPackable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SharedSourceRoot)CancellationTokenSourcePool.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)CopyOnWriteDictionary\\*.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ValueTaskExtensions\\**\\*.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"..\\..\\Shared\\StreamCopyOperationInternal.cs\" Link=\"Internal\\StreamCopyOperationInternal.cs\" />\n    <Compile Include=\"..\\..\\Shared\\CookieHeaderParserShared.cs\" Link=\"Internal\\CookieHeaderParserShared.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)HttpRuleParser.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)MiddlewareInvokedKeys.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)HttpParseResult.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)Debugger\\HttpContextDebugFormatter.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)Debugger\\DictionaryItemDebugView.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)Debugger\\DictionaryDebugView.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)Debugger\\StringValuesDictionaryDebugView.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"..\\..\\WebUtilities\\src\\AspNetCoreTempDirectory.cs\" LinkBase=\"Internal\" />\n    <Compile Include=\"..\\..\\..\\Shared\\Dictionary\\AdaptiveCapacityDictionary.cs\" LinkBase=\"Internal\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Headers\\src\\Microsoft.Net.Http.Headers.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Extensions\\src\\Microsoft.AspNetCore.Http.Extensions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\WebUtilities\\src\\Microsoft.AspNetCore.WebUtilities.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\ObjectPool\\src\\Microsoft.Extensions.ObjectPool.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Servers\\Connections.Abstractions\\src\\Microsoft.AspNetCore.Connections.Abstractions.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Tests\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Http.Tests\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Hosting.Tests\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Http.MicroBenchmarks\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Routing.Tests\" />\n  </ItemGroup>\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "7d85eda9fa3ee039915f200291ed77d3d35af73e",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Http/Http/src/Microsoft.AspNetCore.Http.csproj",
+      "display_title": "Microsoft.AspNetCore.Http.csproj"
+    },
+    "isError": false
+  }
+}

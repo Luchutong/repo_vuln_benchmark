@@ -1,0 +1,179 @@
+{
+  "packet_id": "selrev_3955647_snap_033e9a6478460d9b",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "3955647",
+    "full_name": "lodash/lodash",
+    "canonical_url": "https://github.com/lodash/lodash",
+    "primary_language": "JavaScript",
+    "project_kind": "A modern JavaScript utility library delivering modularity, performance, & extras."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_033e9a6478460d9b",
+    "tag_or_release": "4.17.23",
+    "commit_sha": "dec55b7a3b382da075e2eac90089b4cd00a26cbb"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "dec55b7a3b382da075e2eac90089b4cd00a26cbb",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "994d2c60471db4e562d9409c8ee3066c7e46b6de",
+    "tree_file_count": 159,
+    "exported_file_count": 159,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/lodash__lodash/snap_033e9a6478460d9b.tar.gz",
+    "archive_sha256": "73bfcce0d6425f9a75365bf6d67ccda83c5242b102f62e7d33fc8cc96cd22c91",
+    "archive_bytes": 880722,
+    "manifest_path": "exports/lodash__lodash/snap_033e9a6478460d9b.manifest.jsonl",
+    "manifest_sha256": "b020932c58c38009899004233220b28a5565c288ff7205b15d4e0a6766464551"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "CHANGELOG"
+    ],
+    "cve_id_count": 3,
+    "cve_ids_sample": [
+      "CVE-2019-10744",
+      "CVE-2020-28500",
+      "CVE-2021-23337"
+    ],
+    "files_with_advisory_ids_count": 4,
+    "files_with_advisory_ids_sample": [
+      "dist/lodash.js",
+      "lodash.js",
+      "test/test.js",
+      "threat-model.md"
+    ],
+    "ghsa_id_count": 1,
+    "ghsa_ids_sample": [
+      "GHSA-XXJR-MMJV-4GPG"
+    ],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CONTRIBUTING.md",
+      ".github/workflows/browser-testing.yml",
+      ".github/workflows/ci-bun.yml",
+      ".github/workflows/ci-docs.yml",
+      ".github/workflows/ci-node.yml",
+      ".github/workflows/codeql.yml",
+      ".github/workflows/renovate.yml",
+      ".github/workflows/scorecards.yml",
+      "CHANGELOG",
+      "SECURITY.md",
+      "threat-model.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "node": [
+        "package-lock.json",
+        "package.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node"
+    ],
+    "toolchain_available": {
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-4800",
+      "aliases": [
+        "CVE-2026-4800",
+        "GHSA-r5fr-rjxr-66jc"
+      ],
+      "affected_packages": [
+        {
+          "ecosystem": "npm",
+          "package": "lodash",
+          "purl": "pkg:npm/lodash",
+          "affected_range": ">=4.0.0, <4.18.1",
+          "range_expressions": [
+            {
+              "source": "CVE.org CNA record (OpenJS Foundation), 2026-03-31",
+              "range": ">=4.0.0, <4.18.1",
+              "first_patched_version": "4.18.1"
+            },
+            {
+              "source": "GitHub repository advisory GHSA-r5fr-rjxr-66jc, updated 2026-10-15",
+              "range": ">=4.0.0, <4.18.1",
+              "first_patched_version": "4.18.1"
+            },
+            {
+              "source": "OSV GHSA-r5fr-rjxr-66jc, 2026-04-01",
+              "range": "introduced 4.0.0, fixed 4.18.0",
+              "first_patched_version": "4.18.0"
+            },
+            {
+              "source": "NVD CPE configuration, lastModified 2026-10-15",
+              "range": ">=4.0.0, <4.18.0",
+              "first_patched_version": "4.18.0"
+            }
+          ],
+          "versions_includes": "4.17.23",
+          "note": "4.17.23 is the frozen snapshot. The same range is published for lodash-es, lodash-amd and lodash.template; this dossier only verifies the `lodash` package at the tag.",
+          "range_completeness": {
+            "status": "published_lower_bound_incomplete",
+            "published_lower_bound": "4.0.0",
+            "upper_bound_verified": true,
+            "exhaustive": false,
+            "additional_verified_affected": [
+              {
+                "version": "3.10.1",
+                "package": "lodash",
+                "evidence": "The identical imports-key code injection reproduces on the 3.10.1 tag blob: lodash.js line 10727 assigns options.imports with assignWith(baseAssign({}, ...)) and line 10810 passes the keys to Function(importsKeys, ...), with no reForbiddenIdentifierChars check anywhere in 3.x. comma-pad and undefined-value payloads both set the marker. CVE-2021-23337's own OSV range starts at introduced 0, consistent with 3.x being affected.",
+                "source": "independent round-1 review D9, 2026-10-22"
+              }
+            ],
+            "first_affected_version": null,
+            "policy": "The dataset retains the authoritative published range in affected_range and does not rewrite it; the demonstrated wider exposure is recorded here, in discrepancies and in limitations, per the Django CVE-2020-7471 precedent (data_quality_findings.md item 23). No claim is made that 3.10.1 is the lowest affected version."
+          }
+        }
+      ],
+      "published_at": "2026-03-31T19:03:35Z",
+      "advisory_url": "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
+      "severity": {
+        "level": "high",
+        "metric_disagreement": "NVD's primary metric uses AC:L (9.8 CRITICAL); the CNA, the GitHub advisory and OSV use AC:H (8.1 HIGH). Both agree on C:H/I:H/A:H and on the impact of code execution. The dossier records the CNA score as the published severity and keeps NVD's number as a disagreement, not a replacement.",
+        "nvd_level": "CRITICAL",
+        "nvd_score": 9.8,
+        "nvd_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "published_level": "HIGH",
+        "published_score": 8.1,
+        "published_vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "score": 8.1,
+        "source": "CNA-published CVSS 3.1 (OpenJS Foundation CVE record); the GitHub advisory and OSV publish the identical vector and score. NVD independently scores 9.8 with AC:L.",
+        "source_url": "https://github.com/lodash/lodash/security/advisories/GHSA-r5fr-rjxr-66jc",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

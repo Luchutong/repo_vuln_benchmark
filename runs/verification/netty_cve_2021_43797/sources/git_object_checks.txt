@@ -1,0 +1,57 @@
+snapshot commit 97d04481 (netty-4.1.59.Final):
+commit
+fix commit 07aa6b59:
+commit
+ancestry:
+07aa anc 4.1.59 NO
+4.1.59 anc 07aa NO (shallow)
+4.1.59 critical site:
+        nameStart = findNonWhitespace(sb, 0, false);
+        valueStart = findNonWhitespace(sb, colonEnd, true);
+    private static int findNonWhitespace(AppendableCharSequence sb, int offset, boolean validateOWS) {
+        for (int result = offset; result < sb.length(); ++result) {
+            char c = sb.charAtUnsafe(result);
+            if (!Character.isWhitespace(c)) {
+                return result;
+            } else if (validateOWS && !isOWS(c)) {
+                // Only OWS is supported for whitespace
+                throw new IllegalArgumentException("Invalid separator, only a single space or horizontal tab allowed," +
+                        " but received a '" + c + "'");
+4.1.59 DefaultHttpHeaders validate cases:
+    private static void validateHeaderNameElement(byte value) {
+        switch (value) {
+        case 0x00:
+        case '\t':
+        case '\n':
+        case 0x0b:
+        case '\f':
+        case '\r':
+        case ' ':
+        case ',':
+        case ':':
+        case ';':
+        case '=':
+            throw new IllegalArgumentException(
+               "a header name cannot contain the following prohibited characters: =,;: \\t\\r\\n\\v\\f: " +
+                       value);
+        default:
+            // Check to see if the character is not an ASCII character, or invalid
+            if (value < 0) {
+                throw new IllegalArgumentException("a header name cannot contain non-ASCII character: " + value);
+            }
+        }
+    }
+
+    private static void validateHeaderNameElement(char value) {
+        switch (value) {
+        case 0x00:
+        case '\t':
+        case '\n':
+        case 0x0b:
+        case '\f':
+        case '\r':
+        case ' ':
+deeper ancestry (fetch --depth=600 of release commit 2e346c1d):
+4.1.59 is an ancestor of fix 07aa6b59 -> YES
+fix 07aa6b59 is an ancestor of 4.1.59 -> NO
+release commit 2e346c1d (netty-4.1.71.Final) contains fix 07aa6b59 -> YES

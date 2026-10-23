@@ -1,0 +1,111 @@
+From 89a1c4be161e436241e12b2378a719904b9bd96f Mon Sep 17 00:00:00 2001
+From: Steffen Deusch <steffen@deusch.me>
+Date: Tue, 7 Jul 2026 12:03:38 +0200
+Subject: [PATCH] fix presence keys colliding with object prototype chain
+
+---
+ assets/js/phoenix/presence.js | 25 +++++++++++++++++++++----
+ assets/test/presence_test.js  | 34 ++++++++++++++++++++++++++++++++++
+ 2 files changed, 55 insertions(+), 4 deletions(-)
+
+diff --git a/assets/js/phoenix/presence.js b/assets/js/phoenix/presence.js
+index cfb5af6c08..01a4259d27 100644
+--- a/assets/js/phoenix/presence.js
++++ b/assets/js/phoenix/presence.js
+@@ -8,7 +8,7 @@ export default class Presence {
+ 
+   constructor(channel, opts = {}){
+     let events = opts.events || {state: "presence_state", diff: "presence_diff"}
+-    this.state = {}
++    this.state = Object.create(null)
+     this.pendingDiffs = []
+     this.channel = channel
+     this.joinRef = null
+@@ -66,9 +66,10 @@ export default class Presence {
+    * @returns {Presence}
+    */
+   static syncState(currentState, newState, onJoin, onLeave){
+-    let state = this.clone(currentState)
+-    let joins = {}
+-    let leaves = {}
++    let state = this.toNullProtoObj(this.clone(currentState))
++    newState = this.toNullProtoObj(newState)
++    let joins = Object.create(null)
++    let leaves = Object.create(null)
+ 
+     this.map(state, (key, presence) => {
+       if(!newState[key]){
+@@ -107,6 +108,7 @@ export default class Presence {
+    * @returns {Presence}
+    */
+   static syncDiff(state, diff, onJoin, onLeave){
++    state = this.toNullProtoObj(state)
+     let {joins, leaves} = this.clone(diff)
+     if(!onJoin){ onJoin = function (){ } }
+     if(!onLeave){ onLeave = function (){ } }
+@@ -158,5 +160,20 @@ export default class Presence {
+     return Object.getOwnPropertyNames(obj).map(key => func(key, obj[key]))
+   }
+ 
++  // Presence keys are chosen on the server and may collide with
++  // Object.prototype properties ("__proto__", "constructor", ...), so any
++  // object indexed by presence key must not have a prototype chain
++  //
++  // TODO: replace the null-prototype objects with Maps in Phoenix 2.0
++  // (breaking change for the lower-level static API)
++  static toNullProtoObj(obj){
++    if(Object.getPrototypeOf(obj) === null){ return obj }
++    let cleaned = Object.create(null)
++    Object.getOwnPropertyNames(obj).forEach(key => {
++      cleaned[key] = obj[key]
++    })
++    return cleaned
++  }
++
+   static clone(obj){ return JSON.parse(JSON.stringify(obj)) }
+ }
+diff --git a/assets/test/presence_test.js b/assets/test/presence_test.js
+index 7ba85d74fc..4868e2dbcc 100644
+--- a/assets/test/presence_test.js
++++ b/assets/test/presence_test.js
+@@ -132,6 +132,40 @@ describe("syncDiff", function(){
+   })
+ })
+ 
++describe("keys colliding with Object.prototype properties", function(){
++  // built via JSON.parse because a "__proto__" key in an object literal would
++  // set the prototype instead of creating an own property
++  const protoState = JSON.parse(`{
++    "__proto__": {"metas": [{"id": 1, "phx_ref": "1"}]},
++    "constructor": {"metas": [{"id": 2, "phx_ref": "2"}]},
++    "hasOwnProperty": {"metas": [{"id": 3, "phx_ref": "3"}]}
++  }`)
++
++  it("syncState joins and leaves them without touching the prototype", function(){
++    let joined = []
++    let state = Presence.syncState({}, protoState, key => joined.push(key))
++
++    assert.equal(Object.getPrototypeOf(state), null)
++    assert.deepEqual(joined, ["__proto__", "constructor", "hasOwnProperty"])
++    assert.deepEqual(Presence.list(state, (key, {metas}) => metas[0].id), [1, 2, 3])
++
++    let left = []
++    state = Presence.syncState(state, {}, null, key => left.push(key))
++    assert.deepEqual(left, ["__proto__", "constructor", "hasOwnProperty"])
++    assert.deepEqual(Presence.list(state), [])
++    assert.equal(Object.prototype.metas, undefined)
++  })
++
++  it("syncDiff joins and leaves them without touching the prototype", function(){
++    let diff = JSON.parse(`{"joins": {"__proto__": {"metas": [{"id": 1, "phx_ref": "1"}]}}, "leaves": {}}`)
++    let state = Presence.syncDiff({}, diff)
++    assert.deepEqual(Presence.list(state, (key, {metas}) => [key, metas[0].id]), [["__proto__", 1]])
++
++    state = Presence.syncDiff(state, JSON.parse(`{"joins": {}, "leaves": {"__proto__": {"metas": [{"id": 1, "phx_ref": "1"}]}}}`))
++    assert.deepEqual(Presence.list(state), [])
++    assert.equal(Object.prototype.metas, undefined)
++  })
++})
+ 
+ describe("list", function(){
+   it("lists full presence by default", function(){

@@ -1,0 +1,1500 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="index, follow, all" />
+        <meta name="Author" content="Symfony" />
+        <meta name="color-scheme" content="light dark">
+        <meta name="view-transition" content="same-origin" />
+                    <meta name="description" content="CVE-2024-50341: Security::login does not take into account custom user_checker">
+                
+        <link rel="preconnect" href="https://connect.symfony.com">
+
+                <title>CVE-2024-50341: Security::login does not take into account custom user_checker (Symfony Blog)</title>
+
+                    <link rel="canonical" href="https://symfony.com/blog/cve-2024-50341-security-login-does-not-take-into-account-custom-user-checker">
+        
+        <link rel="search" type="application/opensearchdescription+xml" href="https://symfony.com/opensearch/documentation.xml" title="Symfony documentation">
+
+                <link rel="preload" as="style" href="/assets/vendor/bootstrap/dist/css/bootstrap.min-z0zQt-h.css">
+        
+                            
+<link rel="stylesheet" href="/assets/styles/layers-nC1QVJP.css">
+<link rel="stylesheet" href="/assets/styles/color-palette-slSz90E.css">
+<link rel="stylesheet" href="/assets/styles/design-tokens-4eojbL7.css">
+<link rel="stylesheet" href="/assets/styles/app-zC-zLhk.css">
+<link rel="stylesheet" href="/assets/styles/ui-components-rdUwkV-.css">
+<link rel="stylesheet" href="/assets/@symfony/ux-live-component/live.min-WRZuO3t.css">
+<link rel="stylesheet" href="/assets/styles/search-KloepOx.css">
+<link rel="stylesheet" href="/assets/styles/blog-2kum3ae.css">
+<link rel="stylesheet" href="/assets/styles/_webfont-jetbrains-mono-Ha-jryu.css">
+<link rel="stylesheet" href="/assets/styles/code-Lz5qS8Z.css">
+<link rel="stylesheet" href="/assets/styles/component-terminal-m6uQjoo.css">
+<script type="importmap" data-turbo-track="reload">
+{
+    "imports": {
+        "app": "/assets/app-uFThPXO.js",
+        "/assets/styles/layers.css": "data:application/javascript,",
+        "bootstrap/js/src/offcanvas": "/assets/vendor/bootstrap/js/src/offcanvas-w8T4qan.js",
+        "/assets/styles/color-palette.css": "data:application/javascript,",
+        "/assets/styles/design-tokens.css": "data:application/javascript,",
+        "/assets/styles/app.css": "data:application/javascript,",
+        "/assets/styles/ui-components.css": "data:application/javascript,",
+        "/assets/stimulus.js": "/assets/stimulus-NEEjnKA.js",
+        "@symfony/stimulus-bundle": "/assets/@symfony/stimulus-bundle/loader-IOzBDLu.js",
+        "@hotwired/stimulus": "/assets/vendor/@hotwired/stimulus/stimulus.index-ryewcoo.js",
+        "/assets/@symfony/stimulus-bundle/controllers.js": "/assets/@symfony/stimulus-bundle/controllers-zOfc2Bd.js",
+        "/assets/@symfony/ux-live-component/live_controller.js": "/assets/@symfony/ux-live-component/live_controller-BJiMPws.js",
+        "/assets/@symfony/ux-live-component/live.min.css": "data:application/javascript,",
+        "/assets/controllers/download_chart_controller.js": "/assets/controllers/download_chart_controller-c-oBQZq.js",
+        "/assets/controllers/eventsmap_controller.js": "/assets/controllers/eventsmap_controller-UYJmFEB.js",
+        "/assets/controllers/notification_preferences_controller.js": "/assets/controllers/notification_preferences_controller-BpjIdjW.js",
+        "search": "/assets/search-yBz7dyf.js",
+        "/assets/styles/search.css": "data:application/javascript,",
+        "@symfony/ux-live-component": "/assets/@symfony/ux-live-component/live_controller-BJiMPws.js",
+        "mousetrap": "/assets/vendor/mousetrap/mousetrap.index-OIqXzzk.js",
+        "blog": "/assets/blog-XvjynFa.js",
+        "/assets/styles/blog.css": "data:application/javascript,",
+        "/assets/code.js": "/assets/code-IwnH37E.js",
+        "bootstrap/js/src/popover": "/assets/vendor/bootstrap/js/src/popover-ljmPqYb.js",
+        "/assets/styles/_webfont-jetbrains-mono.css": "data:application/javascript,",
+        "/assets/styles/code.css": "data:application/javascript,",
+        "/assets/styles/component-terminal.css": "data:application/javascript,",
+        "@popperjs/core": "/assets/vendor/@popperjs/core/core.index-u58qDur.js",
+        "admin-bundles": "/assets/admin-bundles-CPqXpWD.js",
+        "admin-blog": "/assets/admin-blog-pkQH3jT.js",
+        "/assets/@symfony/ux-leaflet-map/map_controller.js": "/assets/@symfony/ux-leaflet-map/map_controller-uNnB9EZ.js",
+        "/assets/controllers/csrf_protection_controller.js": "/assets/controllers/csrf_protection_controller-6ynUAeX.js",
+        "terminal-recording-player": "/assets/asciinema-player-kU0otkx.js",
+        "backers": "/assets/backers-deZoJRj.js",
+        "/assets/styles/backers.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/backers-oOsZkG3.css`}))",
+        "cloud": "/assets/cloud-Y3cvlvn.js",
+        "/assets/styles/cloud.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/cloud-NwGMoTE.css`}))",
+        "code": "/assets/code-IwnH37E.js",
+        "packages": "/assets/packages-mFJjaF9.js",
+        "/assets/styles/packages.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/packages-xk6dBZr.css`}))",
+        "/assets/component-terminal.js": "/assets/component-terminal-34EnBuH.js",
+        "package-downloads": "/assets/package-downloads-8Sbsv8l.js",
+        "/assets/styles/package-downloads.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/package-downloads-FNW1Ycu.css`}))",
+        "doc": "/assets/doc-UvDaZEK.js",
+        "/assets/styles/doc.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/doc-de9HMsW.css`}))",
+        "download": "/assets/download-Z9gClTe.js",
+        "/assets/styles/download.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/download-GSt3msQ.css`}))",
+        "home": "/assets/home-WSsL0cL.js",
+        "/assets/styles/home.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/home-IlSsdkF.css`}))",
+        "jobs": "/assets/jobs-codahCP.js",
+        "/assets/styles/jobs.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/jobs-eu7Ihtd.css`}))",
+        "jobs-kiosk": "/assets/jobs-kiosk-yuFfljs.js",
+        "/assets/styles/jobs-kiosk.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/jobs-kiosk-LjlcXml.css`}))",
+        "legacy": "/assets/legacy-8KQ6njO.js",
+        "/assets/styles/legacy.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/legacy-FyCAY7P.css`}))",
+        "releases": "/assets/releases-D7YwSJo.js",
+        "/assets/styles/releases.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/releases-fRjhDMb.css`}))",
+        "support": "/assets/support-PSMhspK.js",
+        "twenty-years": "/assets/twenty-years-yrDjvQc.js",
+        "/assets/twenty_years/styles/twenty-years-compiled.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/twenty_years/styles/twenty-years-compiled-mhpsuj3.css`}))",
+        "/assets/twenty_years/init.js": "/assets/twenty_years/init-0isE53W.js",
+        "/assets/twenty_years/confettis-effect.js": "/assets/twenty_years/confettis-effect-DsF1PMs.js",
+        "/assets/twenty_years/boxes.js": "/assets/twenty_years/boxes-sgaDl6o.js",
+        "/assets/twenty_years/scroll-boxes.js": "/assets/twenty_years/scroll-boxes-cnHzl4Y.js",
+        "/assets/twenty_years/scroll-sections.js": "/assets/twenty_years/scroll-sections-calGxLD.js",
+        "/assets/twenty_years/scroll-timeline.js": "/assets/twenty_years/scroll-timeline-__wPjz5.js",
+        "tour": "/assets/tour-nh7splk.js",
+        "/assets/tour/styles/tour.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/tour/styles/tour-stp38Na.css`}))",
+        "/assets/tour/tour.js": "/assets/tour/tour-2IoLkoT.js",
+        "hackathon": "/assets/hackathon-5XRdAyu.js",
+        "/assets/hackathon/styles/tokens/fonts.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/hackathon/styles/tokens/fonts-AWmfIiq.css`}))",
+        "/assets/hackathon/styles/tokens/colors.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/hackathon/styles/tokens/colors-MXcWvAN.css`}))",
+        "/assets/hackathon/styles/tokens/typography.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/hackathon/styles/tokens/typography-ZRsyaWg.css`}))",
+        "/assets/hackathon/styles/tokens/spacing.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/hackathon/styles/tokens/spacing-bHNLD9U.css`}))",
+        "/assets/hackathon/styles/tokens/base.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/hackathon/styles/tokens/base-u_cJ7uw.css`}))",
+        "/assets/hackathon/styles/hackathon.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/hackathon/styles/hackathon-XsF8m4S.css`}))",
+        "/assets/hackathon/hackathon.js": "/assets/hackathon/hackathon-Y4b8FzU.js",
+        "/assets/hackathon/controllers/clipboard_controller.js": "/assets/hackathon/controllers/clipboard_controller-fkktG-F.js",
+        "/assets/hackathon/controllers/countdown_controller.js": "/assets/hackathon/controllers/countdown_controller-tfGnHpV.js",
+        "/assets/hackathon/controllers/hero_word_controller.js": "/assets/hackathon/controllers/hero_word_controller-5gRYkGz.js",
+        "/assets/hackathon/controllers/showcase_controller.js": "/assets/hackathon/controllers/showcase_controller-g8B5ixn.js",
+        "/assets/hackathon/controllers/tag_search_controller.js": "/assets/hackathon/controllers/tag_search_controller-Ixa1LTj.js",
+        "/assets/hackathon/controllers/theme_controller.js": "/assets/hackathon/controllers/theme_controller-Q3yf2yI.js",
+        "contributors": "/assets/contributors-IqqEvMl.js",
+        "/assets/styles/contributors.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/styles/contributors-KOu0Ml9.css`}))",
+        "sortablejs": "/assets/vendor/sortablejs/sortablejs.index-mcAJdC1.js",
+        "tom-select": "/assets/vendor/tom-select/tom-select.index-Gl5DD8U.js",
+        "tom-select/dist/css/tom-select.bootstrap5.min.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/vendor/tom-select/dist/css/tom-select.bootstrap5.min-rafe_gp.css`}))",
+        "clipboard": "/assets/vendor/clipboard/clipboard.index-vq49f2q.js",
+        "asciinema-player/dist/bundle/asciinema-player.min.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/vendor/asciinema-player/dist/bundle/asciinema-player.min-mBFoJY3.css`}))",
+        "bootstrap/dist/css/bootstrap.min.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/vendor/bootstrap/dist/css/bootstrap.min-z0zQt-h.css`}))",
+        "bootstrap/js/src/tab": "/assets/vendor/bootstrap/js/src/tab-BABa5p_.js",
+        "leaflet": "/assets/vendor/leaflet/leaflet.index-ee34P3g.js",
+        "leaflet/dist/leaflet.min.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/vendor/leaflet/dist/leaflet.min-YqA-lmN.css`}))",
+        "@hotwired/turbo": "/assets/vendor/@hotwired/turbo/turbo.index-J4AkTcK.js",
+        "emoji-mart": "/assets/vendor/emoji-mart/emoji-mart.index-Ox8Mtj1.js",
+        "@symfony/ux-leaflet-map": "/assets/@symfony/ux-leaflet-map/map_controller-uNnB9EZ.js",
+        "tippy.js": "/assets/vendor/tippy.js/tippy.js.index-Xz0wFJW.js",
+        "tippy.js/dist/tippy.css": "data:application/javascript,document.head.appendChild(Object.assign(document.createElement(`link`),{rel:`stylesheet`,href:`/assets/vendor/tippy.js/dist/tippy-LP-yd8O.css`}))",
+        "canvas-confetti": "/assets/vendor/canvas-confetti/canvas-confetti.index-_TLxkhw.js",
+        "gsap": "/assets/vendor/gsap/gsap.index-fe7Y0Cl.js",
+        "gsap/dist/ScrollTrigger.min.js": "/assets/vendor/gsap/dist/ScrollTrigger.min-kjs_lwz.js",
+        "gsap/dist/ScrollToPlugin.min.js": "/assets/vendor/gsap/dist/ScrollToPlugin.min-ctp8LSJ.js",
+        "asciinema-player": "/assets/vendor/asciinema-player/asciinema-player.index-boxQcdJ.js",
+        "qrcode": "/assets/vendor/qrcode/qrcode.index-eobH2-v.js",
+        "dijkstrajs": "/assets/vendor/dijkstrajs/dijkstrajs.index-tAecifC.js"
+    }
+}
+</script><script data-turbo-track="reload">
+if (!HTMLScriptElement.supports || !HTMLScriptElement.supports('importmap')) (function () {
+    const script = document.createElement('script');
+    script.src = 'https://ga.jspm.io/npm:es-module-shims@1.10.0/dist/es-module-shims.js';
+    if (document.currentScript?.nonce) script.nonce = document.currentScript.nonce;
+    script.setAttribute('crossorigin', 'anonymous');
+    script.setAttribute('integrity', 'sha384-ie1x72Xck445i0j4SlNJ5W5iGeL3Dpa0zD48MZopgWsjNB/lt60SuG1iduZGNnJn');
+    script.setAttribute('data-turbo-track', 'reload');
+    document.head.appendChild(script);
+})();
+</script>
+<link rel="modulepreload" href="/assets/app-uFThPXO.js">
+<link rel="modulepreload" href="/assets/vendor/bootstrap/js/src/offcanvas-w8T4qan.js">
+<link rel="modulepreload" href="/assets/stimulus-NEEjnKA.js">
+<link rel="modulepreload" href="/assets/@symfony/stimulus-bundle/loader-IOzBDLu.js">
+<link rel="modulepreload" href="/assets/vendor/@hotwired/stimulus/stimulus.index-ryewcoo.js">
+<link rel="modulepreload" href="/assets/@symfony/stimulus-bundle/controllers-zOfc2Bd.js">
+<link rel="modulepreload" href="/assets/@symfony/ux-live-component/live_controller-BJiMPws.js">
+<link rel="modulepreload" href="/assets/controllers/download_chart_controller-c-oBQZq.js">
+<link rel="modulepreload" href="/assets/controllers/eventsmap_controller-UYJmFEB.js">
+<link rel="modulepreload" href="/assets/controllers/notification_preferences_controller-BpjIdjW.js">
+<link rel="modulepreload" href="/assets/search-yBz7dyf.js">
+<link rel="modulepreload" href="/assets/vendor/mousetrap/mousetrap.index-OIqXzzk.js">
+<link rel="modulepreload" href="/assets/blog-XvjynFa.js">
+<link rel="modulepreload" href="/assets/code-IwnH37E.js">
+<link rel="modulepreload" href="/assets/vendor/bootstrap/js/src/popover-ljmPqYb.js">
+<link rel="modulepreload" href="/assets/vendor/@popperjs/core/core.index-u58qDur.js">
+<script type="module" data-turbo-track="reload">import 'app';import 'search';import 'blog';</script>
+        
+    <script type="module">import '@hotwired/turbo';</script>
+
+                        <script type="text/javascript" defer>
+            document.head.appendChild(Object.assign(document.createElement('link'), {
+                rel: 'stylesheet',
+                href: 'https://connect.symfony.com/css/sln.css',
+            }));
+            document.head.appendChild(Object.assign(document.createElement('script'), {
+                src: 'https://connect.symfony.com/sln.js?customize_url=https%3A%2F%2Fsymfony.com%2Faccount%2Fsln_customiser.js',
+                async: true,
+            }));
+        </script>
+        
+        <link rel="shortcut icon" type="image/svg+xml" href="/favicons/favicon.svg">
+        <link rel="alternate icon" type="image/png" sizes="180x180" href="/favicons/favicon-180x180.png">
+        <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+        <link rel="manifest" href="/static/webmanifest.json">
+        <meta name="msapplication-config" content="/static/browserconfig.xml" />
+        <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+        <meta name="theme-color" content="#171717" media="(prefers-color-scheme: dark)">
+        <meta name="apple-mobile-web-app-title" content="Symfony">
+
+        <meta property="fb:pages" content="211720082183067">
+        <meta name="twitter:site" content="@symfony">
+        <meta name="twitter:card" content="summary_large_image" />
+
+                        <meta property="og:type" content="article">
+            <meta property="og:title" content="CVE-2024-50341: Security::login does not take into account custom user_checker (Symfony Blog)">
+            <meta property="og:image" content="https://symfony.com/images/opengraph/symfony.png">
+            <meta property="og:image:alt" content="CVE-2024-50341: Security::login does not take into account custom user_checker">
+            <meta property="og:url" content="https://symfony.com/blog/cve-2024-50341-security-login-does-not-take-into-account-custom-user-checker">
+
+                            <meta property="og:description" content="CVE-2024-50341: Security::login does not take into account custom user_checker">
+                    
+            <meta property="article:published_time" content="2024-11-06T11:05:00+01:00">
+        <meta property="article:modified_time" content="2024-11-06T11:45:24+01:00">
+            <meta property="article:section" content="Security Advisories">
+    
+        <meta name="msapplication-TileColor" content="#171717">
+        <meta name="application-name" content="Symfony">
+        <meta name="msapplication-tooltip" content="Official Symfony website">
+
+                
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Symfony Blog Posts" href="https://feeds.feedburner.com/symfony/blog" />
+
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Symfony Blog comments" href="https://feeds.feedburner.com/symfony/blog/comments" />
+    <script async data-browser-key="708cc1e7d4caf1babcf4add8f85ee4bab46c2fc9583f44e11b2bd8fb8a6d87ab" data-sample-rate="0.010000" data-parent-trace-id="81147f38673b9a976e0b8cd095e11d39" data-transaction-name="App\Controller\BlogController::postAction" data-collector="https://ingest.blackfire-eu.observability-pipeline.blackfire.io" src="https://admin-pipeline.blackfire-eu.observability-pipeline.blackfire.io/js/probe.js"></script></head>
+
+    <body data-turbo="false" class="layout-blog" >
+        <a href="#main-content" class="visually-hidden-focusable skip-to-content">Skip to content</a>
+
+        <script>
+    function setSymfonyWebsiteColorScheme () {
+        const selectedColorScheme = localStorage.getItem('colorScheme') || 'sync';
+        const resolvedColorScheme = 'sync' === selectedColorScheme
+            ? matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+            : selectedColorScheme;
+
+        document.body.classList.remove('light-theme', 'dark-theme');
+        document.body.classList.add('light' === resolvedColorScheme ? 'light-theme' : 'dark-theme');
+        document.body.setAttribute('data-bs-theme', resolvedColorScheme);
+        localStorage.setItem('colorScheme', selectedColorScheme);
+    }
+
+    setSymfonyWebsiteColorScheme();
+    matchMedia('(prefers-color-scheme: dark)').addEventListener('change', setSymfonyWebsiteColorScheme);
+</script>
+
+
+        <script>
+            document.body.classList.add(
+                (navigator.appVersion.indexOf('Win') !== -1) ? 'windows' : (navigator.appVersion.indexOf('Mac') !== -1) ? 'macos' : 'linux'
+            );
+        </script>
+
+        <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"WebSite","name":"Symfony","url":"https:\/\/symfony.com","potentialAction":{"@type":"SearchAction","target":"https:\/\/symfony.com\/search?q={query}","query-input":"required name=query"}}</script>
+        <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Organization","url":"https:\/\/symfony.com","name":"Symfony","logo":"https:\/\/symfony.com\/images\/logos\/sf-positive.png","sameAs":["https:\/\/github.com\/symfony","https:\/\/x.com\/symfony","https:\/\/mastodon.social\/@symfony","https:\/\/www.linkedin.com\/company\/symfony-sas\/","https:\/\/www.facebook.com\/SymfonyFramework","https:\/\/www.youtube.com\/symfonytv","https:\/\/bsky.app\/profile\/symfony.com","https:\/\/www.threads.com\/@symfony"]}</script>
+        <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Event","eventAttendanceMode":"OfflineEventAttendanceMode","eventStatus":"https:\/\/schema.org\/EventScheduled","name":"SymfonyCon Warsaw 2026","image":"https:\/\/symfony.com\/images\/conferences\/sfcon.png","organizer":{"@type":"Organization","name":"Symfony","url":"https:\/\/symfony.com","logo":{"@type":"ImageObject","url":"https:\/\/symfony.com\/images\/logos\/sf-positive.png"}},"description":"A global Symfony conference in English, bringing together developers from around the world to share knowledge, network, and explore the latest in web development.","performer":[{"@type":"Person","name":"Anne-Julia Seitz","url":"https:\/\/connect.symfony.com\/profile\/dazs","image":"https:\/\/connect.symfony.com\/profile\/dazs.picture"},{"@type":"Person","name":"Jonas Kr\u00f6ger","url":"https:\/\/connect.symfony.com\/profile\/devicezero","image":"https:\/\/connect.symfony.com\/profile\/devicezero.picture"},{"@type":"Person","name":"Christopher Hertel","url":"https:\/\/connect.symfony.com\/profile\/chertel","image":"https:\/\/connect.symfony.com\/profile\/chertel.picture"},{"@type":"Person","name":"Florian Margaine","url":"https:\/\/connect.symfony.com\/profile\/ralt","image":"https:\/\/connect.symfony.com\/profile\/ralt.picture"},{"@type":"Person","name":"Stiven Llupa","url":"https:\/\/connect.symfony.com\/profile\/sllupa","image":"https:\/\/connect.symfony.com\/profile\/sllupa.picture"}],"location":{"@type":"Place","name":"Hilton Warsaw Hotel and Convention Centre","address":{"@type":"PostalAddress","streetAddress":"Grzybowska 63, 00-844 Warszawa, Poland","addressLocality":"Warsaw","addressCountry":"PL"},"geo":{"@type":"GeoCoordinates","latitude":52.233719,"longitude":20.986059}},"url":"https:\/\/live.symfony.com\/2026-warsaw-con\/","startDate":"2026-11-26","endDate":"2026-11-27","offers":[{"@type":"Offer","price":459,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2026-warsaw-con\/registration\/","validFrom":"2025-11-28T17:00:00+01:00","availability":"https:\/\/schema.org\/SoldOut"},{"@type":"Offer","price":569,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2026-warsaw-con\/registration\/","validFrom":"2026-04-09T00:00:00+02:00","availability":"https:\/\/schema.org\/SoldOut"},{"@type":"Offer","price":749,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2026-warsaw-con\/registration\/","validFrom":"2026-09-24T00:00:00+02:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":849,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2026-warsaw-con\/registration\/","validFrom":"2026-11-05T00:00:00+01:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":919,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2026-warsaw-con\/registration\/","validFrom":"2026-11-26T00:00:00+01:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":149,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2026-warsaw-con\/registration\/","validFrom":"2026-11-27T18:31:00+01:00","availability":"https:\/\/schema.org\/InStock"}]}</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Event","eventAttendanceMode":"OnlineEventAttendanceMode","eventStatus":"https:\/\/schema.org\/EventScheduled","name":"Symfony January 2027","image":"https:\/\/symfony.com\/images\/conferences\/sfcon.png","organizer":{"@type":"Organization","name":"Symfony","url":"https:\/\/symfony.com","logo":{"@type":"ImageObject","url":"https:\/\/symfony.com\/images\/logos\/sf-positive.png"}},"description":"A global virtual conference connecting developers worldwide to learn about the latest Symfony features, best practices, and modern PHP development.","performer":[],"location":{"@type":"VirtualLocation","url":"https:\/\/live.symfony.com\/2027-online-january\/"},"url":"https:\/\/live.symfony.com\/2027-online-january\/","startDate":"2027-01-14","endDate":"2027-01-15","offers":[{"@type":"Offer","price":79,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-online-january\/registration\/","validFrom":"2026-06-11T09:00:00+02:00","availability":"https:\/\/schema.org\/SoldOut"},{"@type":"Offer","price":119,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-online-january\/registration\/","validFrom":"2026-09-16T00:00:00+02:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":149,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-online-january\/registration\/","validFrom":"2026-11-11T00:00:00+01:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":149,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-online-january\/registration\/","validFrom":"2027-01-15T17:31:00+01:00","availability":"https:\/\/schema.org\/InStock"}]}</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Event","eventAttendanceMode":"OfflineEventAttendanceMode","eventStatus":"https:\/\/schema.org\/EventScheduled","name":"SymfonyLive Paris 2027","image":"https:\/\/symfony.com\/images\/conferences\/sflive.png","organizer":{"@type":"Organization","name":"Symfony","url":"https:\/\/symfony.com","logo":{"@type":"ImageObject","url":"https:\/\/symfony.com\/images\/logos\/sf-positive.png"}},"description":"Conf\u00e9rence locale pour les d\u00e9veloppeurs Symfony et PHP, avec des conf\u00e9rences techniques, des retours d\u0027exp\u00e9rience et des \u00e9changes entre professionnels.","performer":[],"location":{"@type":"Place","address":{"@type":"PostalAddress","streetAddress":"","addressLocality":"Paris","addressCountry":"FR"},"geo":{"@type":"GeoCoordinates","latitude":null,"longitude":null}},"url":"https:\/\/live.symfony.com\/2027-paris\/","startDate":"2027-03-25","endDate":"2027-03-26","offers":[{"@type":"Offer","price":349,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-paris\/registration\/","validFrom":"2026-03-27T16:00:00+01:00","availability":"https:\/\/schema.org\/SoldOut"},{"@type":"Offer","price":399,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-paris\/registration\/","validFrom":"2026-10-01T00:00:00+02:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":499,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-paris\/registration\/","validFrom":"2027-01-21T00:00:00+01:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":549,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-paris\/registration\/","validFrom":"2027-02-18T00:00:00+01:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":599,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-paris\/registration\/","validFrom":"2027-03-25T00:00:00+01:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":149,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-paris\/registration\/","validFrom":"2027-03-26T18:31:00+01:00","availability":"https:\/\/schema.org\/InStock"}]}</script>
+<script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"Event","eventAttendanceMode":"OfflineEventAttendanceMode","eventStatus":"https:\/\/schema.org\/EventScheduled","name":"SymfonyLive Germany 2027","image":"https:\/\/symfony.com\/images\/conferences\/sflive.png","organizer":{"@type":"Organization","name":"Symfony","url":"https:\/\/symfony.com","logo":{"@type":"ImageObject","url":"https:\/\/symfony.com\/images\/logos\/sf-positive.png"}},"description":"A local conference for developers focused on real-world Symfony and PHP topics, with talks, community exchange, and technical insights.","performer":[],"location":{"@type":"Place","name":"Smartvillage Cologne","address":{"@type":"PostalAddress","streetAddress":"Schanzenstra\u00dfe 6-20\/ Kupferwerk 2.19, 51063 K\u00f6ln","addressLocality":"Cologne","addressCountry":"DE"},"geo":{"@type":"GeoCoordinates","latitude":50.969242,"longitude":7.016126}},"url":"https:\/\/live.symfony.com\/2027-germany\/","startDate":"2027-05-20","endDate":"2027-05-21","offers":[{"@type":"Offer","price":399,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-germany\/registration\/","validFrom":"2026-07-28T00:00:00+02:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":499,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-germany\/registration\/","validFrom":"2026-12-03T00:00:00+01:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":549,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-germany\/registration\/","validFrom":"2027-04-01T00:00:00+02:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":599,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-germany\/registration\/","validFrom":"2027-04-29T00:00:00+02:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":649,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-germany\/registration\/","validFrom":"2027-05-20T00:00:00+02:00","availability":"https:\/\/schema.org\/InStock"},{"@type":"Offer","price":149,"priceCurrency":"EUR","url":"https:\/\/live.symfony.com\/2027-germany\/registration\/","validFrom":"2027-05-21T18:31:00+02:00","availability":"https:\/\/schema.org\/InStock"}]}</script>
+
+
+                <div id="sln"></div>
+        
+                    <header>
+    <div class="ui-page-container ">
+        <nav class="navbar navbar-expand-lg">
+            <a class="navbar-brand" href="/" aria-label="Symfony">
+                <span aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="260" height="66" viewBox="0 0 260 66"><circle fill="#1A171B" cx="32.455" cy="32.665" r="32.455"/><path fill="#FFF" d="M46.644 12.219c-3.297.115-6.175 1.932-8.317 4.446-2.372 2.756-3.95 6.025-5.087 9.362-2.034-1.667-3.603-3.825-6.866-4.766-2.522-.724-5.171-.425-7.607 1.39-1.154.862-1.949 2.165-2.327 3.39-.979 3.183 1.029 6.016 1.941 7.033l1.994 2.137c.411.419 1.401 1.512.917 3.079-.523 1.704-2.577 2.807-4.684 2.157-.941-.287-2.293-.988-1.99-1.975.125-.404.414-.706.569-1.055.142-.3.21-.525.253-.657.385-1.257-.141-2.892-1.487-3.307-1.256-.385-2.541-.08-3.039 1.537-.565 1.837.314 5.171 5.023 6.623 5.517 1.695 10.184-1.309 10.846-5.227.417-2.454-.691-4.277-2.721-6.622l-1.654-1.829c-1.002-1.001-1.346-2.707-.309-4.018.875-1.106 2.121-1.578 4.162-1.023 2.979.809 4.307 2.876 6.523 4.543-.915 3.001-1.513 6.013-2.054 8.714l-.33 2.014c-1.584 8.308-2.793 12.87-5.935 15.489-.633.45-1.538 1.124-2.902 1.171-.715.022-.946-.47-.956-.684-.017-.502.406-.732.687-.958.42-.229 1.055-.609 1.012-1.826-.046-1.438-1.237-2.685-2.959-2.628-1.29.044-3.256 1.258-3.182 3.48.077 2.295 2.216 4.015 5.441 3.906 1.724-.059 5.574-.761 9.368-5.271 4.416-5.17 5.651-11.097 6.58-15.435l1.037-5.727c.576.069 1.192.115 1.862.131 5.5.116 8.251-2.733 8.292-4.805.027-1.254-.823-2.488-2.013-2.46-.852.024-1.922.591-2.179 1.769-.251 1.156 1.75 2.199.186 3.212-1.111.719-3.103 1.226-5.908.814l.51-2.819c1.041-5.346 2.325-11.922 7.196-12.082.355-.018 1.654.016 1.684.875.009.287-.062.36-.398 1.017-.342.512-.471.948-.455 1.449.047 1.365 1.085 2.262 2.586 2.208 2.01-.065 2.588-2.022 2.555-3.027-.081-2.361-2.57-3.853-5.865-3.745z"/><path fill="#1A171B" d="M196.782 23.534c7.48 0 12.499 5.407 12.499 12.887 0 7.048-5.116 12.886-12.499 12.886-7.435 0-12.55-5.838-12.55-12.886 0-7.48 5.018-12.887 12.55-12.887zm0 22.109c5.306 0 7.671-4.827 7.671-9.222 0-4.68-2.847-9.217-7.671-9.217-4.877 0-7.724 4.537-7.724 9.217.001 4.394 2.365 9.222 7.724 9.222zM183.61 25.825v-1.713h-6.518v-2.341c0-3.33.483-5.842 4.391-5.842.072 0 .149.005.224.008.008 0 .007-.012.016-.012 1.085.08 1.987-.804 2.048-1.887l.08-1.486c-.915-.146-1.884-.29-3.039-.29-6.709 0-8.255 3.91-8.255 9.896v1.955h-5.795v1.913c.149.99.996 1.752 2.031 1.752.006 0 .009.005.016.005h3.748V48.73h2.5l.006-.001c1.04 0 1.892-.779 2.03-1.779V27.783h4.538a2.052 2.052 0 0 0 1.979-1.958zm-60.435-1.713c-.008 0-.013.006-.024.006-.956 0-1.882.657-2.286 1.545l-6.244 18.82h-.096l-6.106-18.81c-.399-.893-1.329-1.555-2.291-1.555-.011 0-.015-.006-.024-.006h-3.164l8.351 22.977c.291.821.871 2.077.871 2.606 0 .483-1.353 6.08-5.409 6.08-.1 0-.201-.009-.3-.017-1.034-.057-1.815.665-1.989 1.779l-.124 1.57c.82.145 1.645.338 3.092.338 5.984 0 7.769-5.455 9.46-10.185l9.073-25.149h-2.79zm-28.843 5c-3.747-1.917-7.847-3.218-7.918-7.076.012-4.097 3.776-5.172 6.677-5.169.012-.002.024-.002.031-.002 1.26 0 2.268.125 3.251.34.013 0 .011-.016.027-.016 1.039.076 1.911-.737 2.034-1.762l.083-1.488c-1.902-.473-3.889-.712-5.619-.712-6.309.039-10.992 3.213-11.007 9.268.009 5.296 3.578 7.349 7.416 9.207 3.764 1.81 7.888 3.305 7.924 7.674-.023 4.56-4.423 6.241-7.455 6.247-1.773-.006-3.698-.449-5.32-.96-1.017-.168-1.851.729-1.982 1.917l-.138 1.327c2.23.72 4.517 1.348 6.815 1.348h.027c7.065-.051 12.557-2.869 12.578-10.185-.011-5.645-3.604-8.016-7.424-9.958zm68.623 19.617l.006-.001c.98 0 1.796-.687 2.004-1.604V32.947c0-5.358-2.267-9.413-8.546-9.413-2.219 0-5.934 1.257-7.623 4.779-1.306-3.331-4.15-4.779-7-4.779-3.619 0-6.082 1.303-7.816 4.152h-.099v-1.532a2.058 2.058 0 0 0-2.055-2.036c-.008 0-.014-.006-.022-.006h-2.169v24.617h2.456l.006-.001a2.06 2.06 0 0 0 2.059-2.059c0-.03.011-.042.016-.063v-10.28c0-4.585 1.834-9.122 6.467-9.122 3.669 0 4.396 3.811 4.396 6.853V48.73h2.49l.007-.001a2.05 2.05 0 0 0 2.037-1.873v-10.53c0-4.585 1.835-9.122 6.468-9.122 3.667 0 4.393 3.811 4.393 6.853V48.73h2.525zm70.113 0l.008-.001a2.054 2.054 0 0 0 2.049-1.964v-12.66c0-6.611-2.85-10.571-9.222-10.571-3.426 0-6.705 1.691-8.059 4.491h-.097v-1.839c0-.001-.004-.001-.004-.006a2.057 2.057 0 0 0-2.058-2.061c-.011 0-.015-.006-.022-.006h-2.311v24.617h2.493l.007-.001a2.05 2.05 0 0 0 2.038-1.895v-9.495c0-5.984 2.319-10.135 7.482-10.135 3.96.24 5.211 3.038 5.211 8.783v12.742h2.485zm24.428-24.617c-.011 0-.014.006-.026.006-.954 0-1.883.657-2.283 1.545l-6.242 18.82h-.102l-6.104-18.81c-.401-.893-1.331-1.555-2.293-1.555-.007 0-.015-.006-.021-.006h-3.164l8.351 22.977c.291.821.873 2.077.873 2.606 0 .483-1.355 6.08-5.41 6.08-.102 0-.201-.009-.301-.017-1.033-.057-1.815.665-1.99 1.779l-.122 1.57c.82.145 1.645.338 3.091.338 5.984 0 7.772-5.455 9.462-10.185l9.074-25.149h-2.793z"/></svg></span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#header-nav-menu" aria-controls="header-nav-menu" aria-expanded="false" aria-label="Toggle navigation">
+                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+
+            </button>
+
+            <div class="offcanvas offcanvas-end" tabindex="-1" id="header-nav-menu">
+                <div class="offcanvas-header justify-content-end">
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close">Close</button>
+                </div>
+
+                <div class="offcanvas-body align-items-center">
+                    <div id="sensiolabs-highlight-responsive-menu"></div>
+
+                    <ul class="navbar-nav flex-grow-1" role="menubar" aria-label="Menu">
+                        <li role="none" class="nav-item">
+                            <span tabindex="0" class="nav-header" role="menuitem" aria-haspopup="true" aria-expanded="false">About</span>
+
+                            <div class="submenu">
+                                <ul role="menu" aria-label="About">
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M6 13q.687 1 2 1c1.313 0 2-.875 2-1.5c0-1.5-2-1-2-2C8 9.875 8.516 9 9.5 9c2.5 0 1.563 2 5.5 2q1 0 1-1"></path><path d="M9 17q-.143 1 1 1q2.571 0 3-6c.286-4 1.571-6 3-6q.857 0 1 1"></path><path d="M22 12c0 5.523-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2a10 10 0 0 1 10 10"></path></g></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/what-is-symfony">What is Symfony?</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7a4 4 0 1 0 8 0a4 4 0 1 0-8 0M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2m1-17.87a4 4 0 0 1 0 7.75M21 21v-2a4 4 0 0 0-3-3.85"></path></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/community">Community</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 6h3a1 1 0 0 1 1 1v11a2 2 0 0 1-4 0V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v12a3 3 0 0 0 3 3h11M8 8h4m-4 4h4m-4 4h4"></path></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/blog/">News</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2zm4 2v.01m4-.01v.01m4-.01v.01m4-.01v.01M6 14v.01M18 14v.01M10 14l4 .01"></path></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/doc/current/contributing/index.html">Contributing</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m9 5v.01"></path><path d="M12 13.5a1.5 1.5 0 0 1 1-1.5a2.6 2.6 0 1 0-3-4"></path></g></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/support">Support</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li role="none" class="nav-item">
+                            <span tabindex="0" class="nav-header" role="menuitem" aria-haspopup="true" aria-expanded="false">Documentation</span>
+
+                            <div class="submenu">
+                                <ul role="menu" aria-label="Documentation">
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M5 5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1zm4 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM5 8h4m0 8h4"></path><path d="m13.803 4.56l2.184-.53c.562-.135 1.133.19 1.282.732l3.695 13.418a1.02 1.02 0 0 1-.634 1.219l-.133.041l-2.184.53c-.562.135-1.133-.19-1.282-.732L13.036 5.82a1.02 1.02 0 0 1 .634-1.219zM14 9l4-1m-2 8l3.923-.98"></path></g></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/doc">Symfony Docs</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M19 4v16H7a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"></path><path d="M19 16H7a2 2 0 0 0-2 2M9 8h6"></path></g></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/book">Symfony Book</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m15 10l4.553-2.276A1 1 0 0 1 21 8.618v6.764a1 1 0 0 1-1.447.894L15 14zM3 8a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="https://symfonycasts.com">Screencasts</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m12 3l8 4.5v9L12 21l-8-4.5v-9zm0 9l8-4.5M12 12v9m0-9L4 7.5"></path></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/bundles">Symfony Bundles</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.657 18C4.085 18 2 15.993 2 13.517s2.085-4.482 4.657-4.482c.393-1.762 1.794-3.2 3.675-3.773c1.88-.572 3.956-.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99c1.913 0 3.464 1.56 3.464 3.486s-1.551 3.487-3.465 3.487H6.657"></path></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="/doc/cloud/">Symfony Cloud</a>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M22 9L12 5L2 9l10 4zv6"></path><path d="M6 10.6V16a6 3 0 0 0 12 0v-5.4"></path></g></svg>
+
+                                        </span>
+                                        <a role="menuitem" class="nav-link" href="https://sensiolabs.com/training?utm_source=symfony&utm_medium=symfony_submenu&utm_campaign=permanent_referral">Training</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li role="none" class="nav-item menu-services">
+                            <span tabindex="0" class="nav-header" role="menuitem" aria-haspopup="true" aria-expanded="false">Services</span>
+
+                            <div class="submenu">
+                                <ul role="menu" aria-label="Services">
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6.657 18C4.085 18 2 15.993 2 13.517s2.085-4.482 4.657-4.482c.393-1.762 1.794-3.2 3.675-3.773c1.88-.572 3.956-.193 5.444 1c1.488 1.19 2.162 3.007 1.77 4.769h.99c1.913 0 3.464 1.56 3.464 3.486s-1.551 3.487-3.465 3.487H6.657"></path></svg>
+
+                                        </span>
+                                        <span>
+                                            <a role="menuitem" class="nav-link" href="/cloud/">Upsun for Symfony</a>
+                                            <span class="nav-link-description">Best platform to deploy Symfony apps</span>
+                                        </span>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M8 5H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h5.697M18 12V7a2 2 0 0 0-2-2h-2"></path><path d="M8 5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v0a2 2 0 0 1-2 2h-2a2 2 0 0 1-2-2m0 6h4m-4 4h3m3 2.5a2.5 2.5 0 1 0 5 0a2.5 2.5 0 1 0-5 0m4.5 2L21 22"></path></g></svg>
+
+                                        </span>
+                                        <span>
+                                            <a role="menuitem" class="nav-link" href="https://insight.symfony.com">SymfonyInsight</a>
+                                            <span class="nav-link-description">Automatic quality checks for your apps</span>
+                                        </span>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M12 15a3 3 0 1 0 6 0a3 3 0 1 0-6 0"></path><path d="M13 17.5V22l2-1.5l2 1.5v-4.5"></path><path d="M10 19H5a2 2 0 0 1-2-2V7c0-1.1.9-2 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-1 1.73M6 9h12M6 12h3m-3 3h2"></path></g></svg>
+
+                                        </span>
+                                        <span>
+                                            <a role="menuitem" class="nav-link" href="https://certification.symfony.com">Symfony Certification</a>
+                                            <span class="nav-link-description">Prove your knowledge and boost your career</span>
+                                        </span>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 9a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2zm5-2V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2m-4 5v.01"></path><path d="M3 13a20 20 0 0 0 18 0"></path></g></svg>
+
+                                        </span>
+                                        <span>
+                                            <a role="menuitem" class="nav-link" href="https://sensiolabs.com/?utm_source=symfony&utm_medium=symfony_submenu&utm_campaign=permanent_referral">SensioLabs</a>
+                                            <span class="nav-link-description">Professional services to help you with Symfony</span>
+                                        </span>
+                                    </li>
+                                    <li role="none" class="nav-link-with-icon">
+                                        <span class="nav-link-icon">
+                                            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 12c2-2.96 0-7-1-8c0 3.038-1.773 4.741-3 6c-1.226 1.26-2 3.24-2 5a6 6 0 1 0 12 0c0-1.532-1.056-3.94-2-5c-1.786 3-2.791 3-4 2"></path></svg>
+
+                                        </span>
+                                        <span>
+                                            <a role="menuitem" class="nav-link" href="https://www.blackfire.io/?utm_source=symfony&amp;utm_medium=symfonycom_footer&amp;utm_campaign=profiler">Blackfire</a>
+                                            <span class="nav-link-description">Profile and monitor performance of your apps</span>
+                                        </span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
+
+                        <li role="none" class="d-lg-none">
+                            <span class="nav-header">Other</span>
+                        </li>
+
+                        <li role="none" class="nav-item nav-item-standalone">
+                            <a role="menuitem" class="nav-link" href="/blog/">Blog</a>
+                        </li>
+
+                        <li role="none" class="nav-item nav-item-standalone">
+                            <a role="menuitem" class="nav-link" href="/download">Download</a>
+                        </li>
+                    </ul>
+
+                    <div class="sensiolabs d-none d-lg-block text-center position-relative">
+                        <span class="byline">sponsored by</span>
+                        <a target="_blank" class="stretched-link d-inline-block mt-2 mt-md-0" rel="external noopener" href="https://sensiolabs.com/?utm_source=symfony&utm_medium=symfony_sponsoredby&utm_campaign=permanent_referral" title="SensioLabs, PHP services and software solutions for enterprise and community.">
+                                                        <span class="dark-theme d-md-none">
+
+        
+<svg version="1.1" x="0px" y="0px" viewBox="0 0 326.866 51.069" width="81px" height="13px" enable-background="new 0 0 326.866 51.069" space="preserve" class="logo-sensiolabs" fill="currentColor" aria-hidden="true"><style>
+    .logo-sensiolabs path.sensio-word { fill: #000000; }
+    .logo-sensiolabs path.labs-word { fill: #82E83F; }
+    .dark-theme .logo-sensiolabs path.sensio-word { fill: #FFFFFF; }
+  </style><g>
+	<path class="sensio-word" d="M10.459,33.728c0,6.486,5.091,9.012,10.872,9.012c3.784,0,9.563-1.094,9.563-6.073c0-5.26-7.362-6.147-14.586-8.059   c-7.294-1.911-14.656-4.71-14.656-13.861C1.652,4.779,11.147,0,20.022,0c10.253,0,19.679,4.439,19.679,15.702H29.242   c-0.344-5.87-4.54-7.373-9.7-7.373c-3.44,0-7.431,1.434-7.431,5.531c0,3.755,2.338,4.232,14.655,7.374   c3.577,0.887,14.586,3.141,14.586,14.2c0,8.944-7.087,15.635-20.435,15.635c-10.871,0-21.053-5.323-20.916-17.342H10.459z"></path>
+	<path class="sensio-word" d="M51.453,34.488c0.275,6.192,3.302,9.013,8.737,9.013c3.922,0,7.088-2.408,7.707-4.611h8.6   c-2.753,8.395-8.6,11.973-16.65,11.973c-11.215,0-18.165-7.706-18.165-18.713c0-10.666,7.363-18.784,18.165-18.784   c12.109,0,17.957,10.183,17.27,21.123H51.453z M67.347,28.295c-0.895-4.953-3.027-7.568-7.775-7.568   c-6.192,0-7.981,4.816-8.118,7.568H67.347z"></path>
+	<path class="sensio-word" d="M78.026,14.327h9.287v4.956h0.207c2.477-3.991,6.742-5.918,10.871-5.918c10.389,0,13.004,5.847,13.004,14.653v21.88h-9.771   v-20.09c0-5.849-1.72-8.738-6.263-8.738c-5.297,0-7.567,2.958-7.567,10.182v18.646h-9.769V14.327z"></path>
+	<path class="sensio-word" d="M121.47,38.34c0.069,4.267,3.647,5.986,7.5,5.986c2.817,0,6.396-1.101,6.396-4.54c0-2.96-4.059-3.991-11.075-5.505   c-5.642-1.238-11.282-3.233-11.282-9.496c0-9.08,7.842-11.42,15.479-11.42c7.773,0,14.93,2.613,15.685,11.352h-9.289   c-0.272-3.783-3.164-4.814-6.672-4.814c-2.199,0-5.434,0.412-5.434,3.301c0,3.509,5.503,3.99,11.074,5.3   c5.711,1.306,11.284,3.37,11.284,9.974c0,9.359-8.118,12.386-16.235,12.386c-8.256,0-16.307-3.096-16.721-12.522H121.47z"></path>
+	<path class="sensio-word" d="M155.728,8.823h-9.769v-8.05h9.769V8.823z M145.959,14.327h9.769v35.571h-9.769V14.327z"></path>
+	<path class="sensio-word" d="M175.05,13.365c11.214,0,18.438,7.43,18.438,18.783c0,11.283-7.225,18.714-18.438,18.714   c-11.146,0-18.37-7.431-18.37-18.714C156.68,20.795,163.904,13.365,175.05,13.365 M175.05,43.501c6.674,0,8.669-5.711,8.669-11.353   c0-5.712-1.995-11.422-8.669-11.422c-6.604,0-8.601,5.71-8.601,11.422C166.449,37.79,168.445,43.501,175.05,43.501"></path>
+</g><g>
+	<path class="labs-word" d="M195.349,49.579V1.357h9.817v40.03h19.409v8.191H195.349z"></path>
+	<path class="labs-word" d="M234.742,25.104l-8.457-1.526c0.95-3.404,2.587-5.925,4.909-7.562c2.32-1.636,5.77-2.454,10.347-2.454   c4.157,0,7.252,0.492,9.286,1.476c2.034,0.984,3.467,2.233,4.295,3.748c0.83,1.515,1.244,4.295,1.244,8.341l-0.1,10.879   c0,3.096,0.149,5.378,0.447,6.849c0.299,1.47,0.857,3.046,1.676,4.726h-9.221c-0.243-0.619-0.541-1.536-0.895-2.753   c-0.156-0.552-0.266-0.917-0.332-1.095c-1.592,1.549-3.295,2.709-5.107,3.482c-1.813,0.774-3.748,1.161-5.805,1.161   c-3.626,0-6.483-0.983-8.572-2.951c-2.09-1.968-3.135-4.455-3.135-7.463c0-1.989,0.476-3.764,1.426-5.323   c0.951-1.559,2.283-2.752,3.997-3.581c1.713-0.829,4.185-1.554,7.412-2.173c4.356-0.817,7.374-1.58,9.054-2.288v-0.929   c0-1.791-0.441-3.068-1.326-3.831s-2.554-1.144-5.008-1.144c-1.658,0-2.951,0.326-3.881,0.979   C236.069,22.323,235.317,23.467,234.742,25.104z M247.212,32.665c-1.193,0.397-3.084,0.873-5.671,1.426s-4.278,1.095-5.074,1.625   c-1.216,0.862-1.823,1.957-1.823,3.283c0,1.306,0.485,2.433,1.459,3.383c0.973,0.951,2.211,1.427,3.715,1.427   c1.68,0,3.283-0.553,4.809-1.658c1.127-0.841,1.867-1.868,2.222-3.085c0.243-0.796,0.364-2.31,0.364-4.543V32.665z"></path>
+	<path class="labs-word" d="M260.093,49.579V0.959h9.318V18.47c2.875-3.271,6.279-4.908,10.215-4.908c4.289,0,7.838,1.554,10.646,4.66   c2.808,3.106,4.212,7.567,4.212,13.382c0,6.015-1.432,10.646-4.295,13.896s-6.341,4.875-10.431,4.875   c-2.012,0-3.996-0.503-5.953-1.509s-3.643-2.493-5.058-4.461v5.174H260.093z M269.345,31.205c0,3.648,0.575,6.347,1.725,8.093   c1.614,2.477,3.759,3.715,6.435,3.715c2.056,0,3.808-0.879,5.257-2.637c1.447-1.758,2.172-4.527,2.172-8.309   c0-4.023-0.729-6.926-2.188-8.705c-1.46-1.78-3.328-2.67-5.604-2.67c-2.234,0-4.092,0.868-5.572,2.604   C270.086,25.031,269.345,27.668,269.345,31.205z"></path>
+	<path class="labs-word" d="M293.967,39.53l9.353-1.427c0.398,1.813,1.205,3.19,2.422,4.13c1.215,0.939,2.918,1.409,5.107,1.409   c2.409,0,4.223-0.442,5.438-1.327c0.817-0.618,1.228-1.447,1.228-2.487c0-0.707-0.222-1.293-0.664-1.758   c-0.464-0.441-1.504-0.851-3.117-1.227c-7.518-1.658-12.283-3.173-14.294-4.544c-2.786-1.901-4.179-4.544-4.179-7.927   c0-3.051,1.205-5.615,3.615-7.694c2.409-2.077,6.146-3.117,11.209-3.117c4.82,0,8.402,0.785,10.746,2.354   c2.344,1.57,3.957,3.892,4.842,6.965l-8.789,1.625c-0.376-1.37-1.089-2.421-2.139-3.15c-1.051-0.729-2.549-1.095-4.494-1.095   c-2.454,0-4.212,0.344-5.273,1.028c-0.707,0.486-1.061,1.117-1.061,1.891c0,0.663,0.309,1.227,0.928,1.691   c0.84,0.619,3.742,1.492,8.707,2.62c4.963,1.127,8.429,2.51,10.396,4.146c1.945,1.658,2.918,3.969,2.918,6.932   c0,3.229-1.348,6.003-4.045,8.324c-2.698,2.321-6.689,3.482-11.973,3.482c-4.799,0-8.596-0.973-11.393-2.919   C296.659,45.511,294.829,42.869,293.967,39.53z"></path>
+</g></svg>
+</span>
+                            <span class="d-none d-md-inline-block">
+
+        
+<svg version="1.1" x="0px" y="0px" viewBox="0 0 326.866 51.069" width="81px" height="13px" enable-background="new 0 0 326.866 51.069" space="preserve" class="logo-sensiolabs" fill="currentColor" aria-hidden="true"><style>
+    .logo-sensiolabs path.sensio-word { fill: #000000; }
+    .logo-sensiolabs path.labs-word { fill: #82E83F; }
+    .dark-theme .logo-sensiolabs path.sensio-word { fill: #FFFFFF; }
+  </style><g>
+	<path class="sensio-word" d="M10.459,33.728c0,6.486,5.091,9.012,10.872,9.012c3.784,0,9.563-1.094,9.563-6.073c0-5.26-7.362-6.147-14.586-8.059   c-7.294-1.911-14.656-4.71-14.656-13.861C1.652,4.779,11.147,0,20.022,0c10.253,0,19.679,4.439,19.679,15.702H29.242   c-0.344-5.87-4.54-7.373-9.7-7.373c-3.44,0-7.431,1.434-7.431,5.531c0,3.755,2.338,4.232,14.655,7.374   c3.577,0.887,14.586,3.141,14.586,14.2c0,8.944-7.087,15.635-20.435,15.635c-10.871,0-21.053-5.323-20.916-17.342H10.459z"></path>
+	<path class="sensio-word" d="M51.453,34.488c0.275,6.192,3.302,9.013,8.737,9.013c3.922,0,7.088-2.408,7.707-4.611h8.6   c-2.753,8.395-8.6,11.973-16.65,11.973c-11.215,0-18.165-7.706-18.165-18.713c0-10.666,7.363-18.784,18.165-18.784   c12.109,0,17.957,10.183,17.27,21.123H51.453z M67.347,28.295c-0.895-4.953-3.027-7.568-7.775-7.568   c-6.192,0-7.981,4.816-8.118,7.568H67.347z"></path>
+	<path class="sensio-word" d="M78.026,14.327h9.287v4.956h0.207c2.477-3.991,6.742-5.918,10.871-5.918c10.389,0,13.004,5.847,13.004,14.653v21.88h-9.771   v-20.09c0-5.849-1.72-8.738-6.263-8.738c-5.297,0-7.567,2.958-7.567,10.182v18.646h-9.769V14.327z"></path>
+	<path class="sensio-word" d="M121.47,38.34c0.069,4.267,3.647,5.986,7.5,5.986c2.817,0,6.396-1.101,6.396-4.54c0-2.96-4.059-3.991-11.075-5.505   c-5.642-1.238-11.282-3.233-11.282-9.496c0-9.08,7.842-11.42,15.479-11.42c7.773,0,14.93,2.613,15.685,11.352h-9.289   c-0.272-3.783-3.164-4.814-6.672-4.814c-2.199,0-5.434,0.412-5.434,3.301c0,3.509,5.503,3.99,11.074,5.3   c5.711,1.306,11.284,3.37,11.284,9.974c0,9.359-8.118,12.386-16.235,12.386c-8.256,0-16.307-3.096-16.721-12.522H121.47z"></path>
+	<path class="sensio-word" d="M155.728,8.823h-9.769v-8.05h9.769V8.823z M145.959,14.327h9.769v35.571h-9.769V14.327z"></path>
+	<path class="sensio-word" d="M175.05,13.365c11.214,0,18.438,7.43,18.438,18.783c0,11.283-7.225,18.714-18.438,18.714   c-11.146,0-18.37-7.431-18.37-18.714C156.68,20.795,163.904,13.365,175.05,13.365 M175.05,43.501c6.674,0,8.669-5.711,8.669-11.353   c0-5.712-1.995-11.422-8.669-11.422c-6.604,0-8.601,5.71-8.601,11.422C166.449,37.79,168.445,43.501,175.05,43.501"></path>
+</g><g>
+	<path class="labs-word" d="M195.349,49.579V1.357h9.817v40.03h19.409v8.191H195.349z"></path>
+	<path class="labs-word" d="M234.742,25.104l-8.457-1.526c0.95-3.404,2.587-5.925,4.909-7.562c2.32-1.636,5.77-2.454,10.347-2.454   c4.157,0,7.252,0.492,9.286,1.476c2.034,0.984,3.467,2.233,4.295,3.748c0.83,1.515,1.244,4.295,1.244,8.341l-0.1,10.879   c0,3.096,0.149,5.378,0.447,6.849c0.299,1.47,0.857,3.046,1.676,4.726h-9.221c-0.243-0.619-0.541-1.536-0.895-2.753   c-0.156-0.552-0.266-0.917-0.332-1.095c-1.592,1.549-3.295,2.709-5.107,3.482c-1.813,0.774-3.748,1.161-5.805,1.161   c-3.626,0-6.483-0.983-8.572-2.951c-2.09-1.968-3.135-4.455-3.135-7.463c0-1.989,0.476-3.764,1.426-5.323   c0.951-1.559,2.283-2.752,3.997-3.581c1.713-0.829,4.185-1.554,7.412-2.173c4.356-0.817,7.374-1.58,9.054-2.288v-0.929   c0-1.791-0.441-3.068-1.326-3.831s-2.554-1.144-5.008-1.144c-1.658,0-2.951,0.326-3.881,0.979   C236.069,22.323,235.317,23.467,234.742,25.104z M247.212,32.665c-1.193,0.397-3.084,0.873-5.671,1.426s-4.278,1.095-5.074,1.625   c-1.216,0.862-1.823,1.957-1.823,3.283c0,1.306,0.485,2.433,1.459,3.383c0.973,0.951,2.211,1.427,3.715,1.427   c1.68,0,3.283-0.553,4.809-1.658c1.127-0.841,1.867-1.868,2.222-3.085c0.243-0.796,0.364-2.31,0.364-4.543V32.665z"></path>
+	<path class="labs-word" d="M260.093,49.579V0.959h9.318V18.47c2.875-3.271,6.279-4.908,10.215-4.908c4.289,0,7.838,1.554,10.646,4.66   c2.808,3.106,4.212,7.567,4.212,13.382c0,6.015-1.432,10.646-4.295,13.896s-6.341,4.875-10.431,4.875   c-2.012,0-3.996-0.503-5.953-1.509s-3.643-2.493-5.058-4.461v5.174H260.093z M269.345,31.205c0,3.648,0.575,6.347,1.725,8.093   c1.614,2.477,3.759,3.715,6.435,3.715c2.056,0,3.808-0.879,5.257-2.637c1.447-1.758,2.172-4.527,2.172-8.309   c0-4.023-0.729-6.926-2.188-8.705c-1.46-1.78-3.328-2.67-5.604-2.67c-2.234,0-4.092,0.868-5.572,2.604   C270.086,25.031,269.345,27.668,269.345,31.205z"></path>
+	<path class="labs-word" d="M293.967,39.53l9.353-1.427c0.398,1.813,1.205,3.19,2.422,4.13c1.215,0.939,2.918,1.409,5.107,1.409   c2.409,0,4.223-0.442,5.438-1.327c0.817-0.618,1.228-1.447,1.228-2.487c0-0.707-0.222-1.293-0.664-1.758   c-0.464-0.441-1.504-0.851-3.117-1.227c-7.518-1.658-12.283-3.173-14.294-4.544c-2.786-1.901-4.179-4.544-4.179-7.927   c0-3.051,1.205-5.615,3.615-7.694c2.409-2.077,6.146-3.117,11.209-3.117c4.82,0,8.402,0.785,10.746,2.354   c2.344,1.57,3.957,3.892,4.842,6.965l-8.789,1.625c-0.376-1.37-1.089-2.421-2.139-3.15c-1.051-0.729-2.549-1.095-4.494-1.095   c-2.454,0-4.212,0.344-5.273,1.028c-0.707,0.486-1.061,1.117-1.061,1.891c0,0.663,0.309,1.227,0.928,1.691   c0.84,0.619,3.742,1.492,8.707,2.62c4.963,1.127,8.429,2.51,10.396,4.146c1.945,1.658,2.918,3.969,2.918,6.932   c0,3.229-1.348,6.003-4.045,8.324c-2.698,2.321-6.689,3.482-11.973,3.482c-4.799,0-8.596-0.973-11.393-2.919   C296.659,45.511,294.829,42.869,293.967,39.53z"></path>
+</g></svg>
+</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</header>
+
+        
+                    <aside class="highlight-top-horizontal">
+                                                    <script>
+    const all_conferences = [{"title":"SymfonyCon Warsaw 2026","texts":["November 26 \u2013 27, 2026","Worldwide event in English","+35 talks and workshops"],"texts_lang":"en","link":"https:\/\/live.symfony.com\/2026-warsaw-con","css_class":"sfcon","has_language_constraints":false,"required_language":null},{"title":"SymfonyOnline January 2027","texts":["January 14 \u2013 15, 2027","100% Online","+20 talks and workshops"],"texts_lang":"en","link":"https:\/\/live.symfony.com\/2027-online-january","css_class":"sfonline","has_language_constraints":false,"required_language":null},{"title":"SymfonyLive Paris 2027","texts":["25 \u2013 26 mars 2027","\u00c9v\u00e9nement francophone annuel","+25 sujets et formations"],"texts_lang":"fr","link":"https:\/\/live.symfony.com\/2027-paris","css_class":"sflive","has_language_constraints":true,"required_language":"fr"},{"title":"SymfonyLive Germany 2027","texts":["May 20 \u2013 21, 2027","+20 talks and workshops","Register now"],"texts_lang":"en","link":"https:\/\/live.symfony.com\/2027-germany","css_class":"sflive","has_language_constraints":false,"required_language":null}];
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const userTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        const frenchSpeaker = ['Europe/Paris', 'Europe/Brussels', 'Europe/Zurich'].includes(userTimezone);
+        const germanSpeaker = ['Europe/Berlin', 'Europe/Busingen', 'Europe/Luxembourg', 'Europe/Vienna', 'Europe/Zurich'].includes(userTimezone);
+
+        let conferences = [];
+        if (frenchSpeaker) {
+            conferences = all_conferences.filter(conference => !(conference.has_language_constraints && 'french' !== conference.required_language))
+        } else if (germanSpeaker) {
+            conferences = all_conferences.filter(conference => !(conference.has_language_constraints && 'german' !== conference.required_language))
+        } else {
+            conferences = all_conferences.filter(conference => !conference.has_language_constraints);
+        }
+
+        const conference = conferences[Math.floor(Math.random() * conferences.length)];
+        document.querySelector('.top-horizontal-highlights').classList.add(conference.css_class);
+
+        const highlightElement = document.querySelector('.top-horizontal-highlight');
+
+        const titleElement = document.createElement('a');
+        titleElement.classList.add('top-horizontal-highlight-title');
+        titleElement.classList.add('text-nowrap');
+        titleElement.href = conference.link;
+        titleElement.innerHTML = conference.title;
+        highlightElement.appendChild(titleElement);
+
+        conference.texts.forEach(function (text) {
+            const textItemElement = document.createElement('div');
+            textItemElement.classList.add('top-horizontal-highlight-data');
+            textItemElement.lang = conference.texts_lang ?? 'en';
+            textItemElement.innerText = text;
+
+            // hide the last element on small screens
+            if (conference.texts.indexOf(text) === conference.texts.length - 1) {
+                textItemElement.classList.add('d-none', 'd-lg-inline-flex');
+            }
+
+            highlightElement.appendChild(textItemElement);
+        });
+    });
+</script>
+
+<style>
+    .top-horizontal-highlights {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+        font-size: 14px;
+        position: relative;
+        width: 100%;
+        z-index: 10;
+    }
+
+    .top-horizontal-highlights.sfcon { background: #4c1d95; }
+    .top-horizontal-highlights.sfcon:hover { background: #5b21b6; }
+    .top-horizontal-highlights.sflive { background: #db2777; }
+    .top-horizontal-highlights.sflive:hover { background: #ec4899; }
+    .top-horizontal-highlights.sfonline { background: #1d4ed8; }
+    .top-horizontal-highlights.sfonline:hover { background: #2563eb; }
+    .top-horizontal-highlights a::after { content: ''; position: absolute; top: 0; left: 0; height: 100%; width: 100%; }
+    .top-horizontal-highlight { align-items: center; display: flex; flex-wrap: nowrap; padding: 8px 0; }
+    a.top-horizontal-highlight-title, a.top-horizontal-highlight-title:hover { color: rgba(255, 255, 255, 0.95); font-weight: 600; }
+    .top-horizontal-highlight-data { color: rgba(255, 255, 255, 0.85); display: none; font-size: 14px; margin-left: 30px; }
+    @media (min-width: 768px) {
+        .top-horizontal-highlights { font-size: 16px; height: 48px; }
+        .top-horizontal-highlight { padding: 12px 0; }
+        .top-horizontal-highlight-data { display: block; margin-left: 20px; }
+    }
+    @media (min-width: 1024px) {
+        .top-horizontal-highlight-data { display: block; margin-left: 35px; }
+    }
+
+    .dark-theme .top-horizontal-highlights.sfcon { background: #6326c0; }
+    .dark-theme .top-horizontal-highlights.sfcon:hover { background: #5b21b6; }
+    .dark-theme .top-horizontal-highlights.sflive { background: #be185d; }
+    .dark-theme .top-horizontal-highlights.sflive:hover { background: #db2777; }
+    .dark-theme .top-horizontal-highlights.sfonline { background: #1d4ed8; }
+    .dark-theme .top-horizontal-highlights.sfonline:hover { background: #2563eb; }
+</style>
+
+<div class="top-horizontal-highlights">
+    <div class="ui-page-container ">
+        <div class="top-horizontal-highlight">
+        </div>
+    </div>
+</div>
+
+                            </aside>
+        
+                        
+            <nav class="breadcrumb-nav d-none d-sm-block" aria-label="breadcrumb">
+            <div class="ui-page-container ">
+            <ol class="breadcrumb ui-text-muted flex-nowrap pt-2">
+                                                            <li class="breadcrumb-item ">
+                            <a href="https://symfony.com/" class="ui-link-muted">Home</a>
+                        </li>
+                                                                                <li class="breadcrumb-item text-truncate">
+                            <a href="/blog/" class="ui-link-muted">Blog</a>
+                        </li>
+                                                                                <li class="breadcrumb-item text-truncate active" aria-current="page">
+                            CVE-2024-50341: Security::login does not take into account custom user_checker
+                        </li>
+                                                </ol>
+            </div>
+        </nav>
+    
+    <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"item":{"@id":"https:\/\/symfony.com\/","name":"Home"}},{"@type":"ListItem","position":2,"item":{"@id":"\/blog\/","name":"Blog"}},{"@type":"ListItem","position":3,"item":{"@id":"\/blog\/cve-2024-50341-security-login-does-not-take-into-account-custom-user-checker","name":"CVE-2024-50341: Security::login does not take into account custom user_checker"}}]}</script>
+
+
+        
+        <main id="main-content" class="ui-page-main-content ">
+                <div class="ui-page-container">
+                                
+        
+                
+        <div class="ui-page-grid-content-right-sidebar">
+            <article class="content" >
+                    
+    
+<div  class="ui-heading">
+        <h1 id="cve-2024-50341-security-login-does-not-take-into-account-custom-user-checker"  class="ui-heading-title" style="view-transition-name: blog-post-title-3927">
+        
+                    <span class="ui-heading-title-prefix">CVE-2024-50341</span> Security::login does not take into account custom user_checker
+        
+        
+            </h1>
+
+            <p class="ui-heading-subtitle">        <span class="ui-text-md">
+            November 6, 2024
+        </span>
+
+        <span class="ui-text-md mx-1 mx-lg-2">&bull;</span>
+
+        <span class="ui-text-md d-inline-flex align-items-center">
+            <span class="d-none d-lg-inline-block me-2">Published by</span>
+                            <a class="ui-link-muted" href="https://connect.symfony.com/api/alternates/4aed4f5d-e0cb-4320-902f-885fddaa7d15">
+                    
+<img      width="28"
+     height="28"
+     alt="Avatar of Fabien Potencier"
+     src="https://connect.symfony.com/api/images/4aed4f5d-e0cb-4320-902f-885fddaa7d15.png?format=28x28"
+     onerror="this.onerror=null;
+         this.src='data:image/svg+xml;utf8,\
+         <svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\'>\
+             <style>\
+                 rect { fill: %23f5f5f5; }\
+                 @media (prefers-color-scheme: dark) { rect { fill: %23262626; } }\
+             </style>\
+             <rect width=\'100%\' height=\'100%\'/>\
+         </svg>'"
+     class="ui-avatar d-inline-block object-fit-cover ui-avatar-with-border me-2">
+
+                </a>
+            
+                            <a class="ui-link-muted" href="https://connect.symfony.com/api/alternates/4aed4f5d-e0cb-4320-902f-885fddaa7d15">Fabien Potencier</a>
+                    </span>
+    </p>
+    </div>
+
+    <section>
+        
+        
+        <div class="post-content">
+            
+            <div  class="ui-prose">
+    <h2>Affected versions</h2>
+
+<p>Symfony versions >=6.2, &lt;6.4.10; >=7.0, &lt;7.0.10; >=7.1, &lt;7.1.3 of the Symfony SecurityBundle component are affected by this security issue.</p>
+
+<p>The issue has been fixed in Symfony 6.4.10, 7.0.10, and 7.1.3.</p>
+
+<h2>Description</h2>
+
+<p>The custom <code>user_checker</code> defined on a firewall is not called when Login Programmaticaly with the <code>Security::login</code> method, leading to  unwanted login.</p>
+
+<h2>Resolution</h2>
+
+<p>The <code>Security::login</code> method now ensure to call the configured <code>user_checker</code>.</p>
+
+<p>The patch for this issue is available <a href="https://github.com/symfony/symfony/commit/22a0789a0085c3ee96f4ef715ecad8255cf0e105">here</a> for branch 6.4.</p>
+
+<h2>Credits</h2>
+
+<p>We would like to thank Oleg Andreyev, Antoine MAKDESSI for reporting the issue and Christian Flothmann for providing the fix.</p>
+
+            
+</div>
+
+            <div  class="blog-post-reactions-wrapper" data-controller="live" data-live-name-value="Blog:Reaction:Buttons" data-live-url-value="/_components/Blog:Reaction:Buttons" data-live-listeners-value="[{&quot;action&quot;:&quot;__invoke&quot;,&quot;event&quot;:&quot;reactionToggled&quot;}]" id="live-4064956118-0" data-live-props-value="{&quot;position&quot;:&quot;top&quot;,&quot;postSlug&quot;:&quot;cve-2024-50341-security-login-does-not-take-into-account-custom-user-checker&quot;,&quot;username&quot;:null,&quot;@attributes&quot;:{&quot;id&quot;:&quot;live-4064956118-0&quot;},&quot;@checksum&quot;:&quot;94hNUi89\/UbbOjYLhSWqsNQuSWQv6P94CDNadEDVUew=&quot;}">
+    
+    <details class="add-blog-post-reaction add-blog-post-reaction-top">
+        <summary>
+            
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0-18 0m6-2h.01M15 10h.01"></path><path d="M9.5 15a3.5 3.5 0 0 0 5 0"></path></g></svg>
+
+        </summary>
+
+        <div class="add-blog-post-reaction-buttons">
+                            <div class="login-to-add-blog-post-reaction">
+                    <a class="ui-link-underline" rel="nofollow" href="/connect/login?target=/blog/cve-2024-50341-security-login-does-not-take-into-account-custom-user-checker">Log in</a> to add a reaction to this post
+                </div>
+                    </div>
+    </details>
+
+    <div class="blog-post-reactions">
+                                    <button type="button" class="blog-post-reaction blog-post-reaction-anonymous-user">
+                    <span class="reaction-emoji">🚀</span> <span class="reaction-count">2</span>
+                </button>
+                        </div>
+</div>
+
+
+            <div class="ui-text-muted ui-text-sm my-4">
+                Published in
+                                    <a class="ui-bg-secondary rounded ms-1 py-1 px-2 ui-hover-bg-button-primary" href="/blog/category/security-advisories"><span>#</span>Security Advisories</a>
+                            </div>
+        </div>
+
+                    <div class="d-flex gap-2 mb-4">
+    
+
+<div  class="ui-alert ui-alert-warning m-0 col">
+    Have found a security issue in Symfony? Send the details to
+        <strong>security [at] symfony.com</strong> and don't
+        disclose it publicly until we can provide a fix for it.
+    </div>
+
+    <div class="col d-flex rounded ui-border-secondary border-2 p-3">
+        
+
+            
+<svg width="24px" height="24px" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" class="me-2 ui-text-muted flex-shrink-0"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M3 7a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><path d="m3 7l9 6l9-6"></path></g></svg>
+
+        <p>
+            <a rel="nofollow" href="/account/notifications">Manage your notification preferences</a>
+            to receive an email as soon as a Symfony security release is published.
+        </p>
+    </div>
+</div>
+
+        
+        
+
+<div  class="ui-box"><p class="mb-0">❤️ <b>Help the Symfony project!</b></p>
+            <p>
+                As with any Open-Source project, <a class="ui-prose-link" href="/doc/current/contributing.html">contributing</a>
+                code or documentation is the most common way to help, but we also have a wide range of
+                <a class="ui-prose-link" href="/sponsor">sponsoring opportunities</a>.
+            </p>
+        </div>
+
+        
+            
+
+<div  class="ui-box">            <p class="mb-1 d-flex justify-content-between">
+                <span>💼 <a class="ui-prose-link fw-semibold" href="/jobs/11ccc70">Lead Symfony Developer</a> at Starapple</span>
+                <a class="ui-link ui-text-sm fw-semibold" href="/jobs">View <span class="d-none d-md-inline">Symfony</span> jobs &rarr;</a>
+            </p>
+            <p>
+                <span class="fw-medium ui-text-sm">up to €6,000 / month</span>
+                <span class="ms-3 ui-text-sm"><span class="country-flag-wrapper d-inline-block me-1" style="vertical-align: -.1em"><svg xmlns="http://www.w3.org/2000/svg" class="country-flag" height="12" viewBox="0 0 513 342"><path fill="#FFF" d="M0 114h513v114H0z"/><path fill="#cd1f2a" d="M0 0h513v114H0z"/><path fill="#1d4185" d="M0 228h513v114H0z"/><title>Netherlands</title></svg></span>
+Remote + part-time onsite (Ede, Netherlands)
+                </span>
+            </p>
+        </div>
+    
+    </section>
+
+    <section>
+            
+<div  class="ui-heading">
+        <h2 id="comments"  class="ui-heading-title fs-4 mb-4">
+        
+                    <a class="ui-heading-link" title="Permanent link to this headline" href="#comments">Comments</a>
+        
+            </h2>
+
+    </div>
+
+
+<div class="post-comments-list" id="post-comments-list">
+</div>
+
+<div class="ui-box ui-box-secondary ui-box-large-paddings">
+                        <p class="text-lg fw-bold mb-2">Comments are closed.</p>
+            <p>To ensure that comments stay relevant, they are closed for old posts.</p>
+            </div>
+
+    </section>
+
+    <script type="application/ld+json">{"@context":"https:\/\/schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"\/blog\/cve-2024-50341-security-login-does-not-take-into-account-custom-user-checker"},"headline":"CVE-2024-50341: Security::login does not take into account custom user_checker","description":"CVE-2024-50341: Security::login does not take into account custom user_checker","articleBody":"\u003Ch2\u003EAffected versions\u003C\/h2\u003E\n\n\u003Cp\u003ESymfony versions \u003E=6.2, \u0026lt;6.4.10; \u003E=7.0, \u0026lt;7.0.10; \u003E=7.1, \u0026lt;7.1.3 of the Symfony SecurityBundle component are affected by this security issue.\u003C\/p\u003E\n\n\u003Cp\u003EThe issue has been fixed in Symfony 6.4.10, 7.0.10, and 7.1.3.\u003C\/p\u003E\n\n\u003Ch2\u003EDescription\u003C\/h2\u003E\n\n\u003Cp\u003EThe custom \u003Ccode\u003Euser_checker\u003C\/code\u003E defined on a firewall is not called when Login Programmaticaly with the \u003Ccode\u003ESecurity::login\u003C\/code\u003E method, leading to  unwanted login.\u003C\/p\u003E\n\n\u003Ch2\u003EResolution\u003C\/h2\u003E\n\n\u003Cp\u003EThe \u003Ccode\u003ESecurity::login\u003C\/code\u003E method now ensure to call the configured \u003Ccode\u003Euser_checker\u003C\/code\u003E.\u003C\/p\u003E\n\n\u003Cp\u003EThe patch for this issue is available \u003Ca href=\u0022https:\/\/github.com\/symfony\/symfony\/commit\/22a0789a0085c3ee96f4ef715ecad8255cf0e105\u0022\u003Ehere\u003C\/a\u003E for branch 6.4.\u003C\/p\u003E\n\n\u003Ch2\u003ECredits\u003C\/h2\u003E\n\n\u003Cp\u003EWe would like to thank Oleg Andreyev, Antoine MAKDESSI for reporting the issue and Christian Flothmann for providing the fix.\u003C\/p\u003E\n","datePublished":"2024-11-06T11:05:00+01:00","dateModified":"2024-11-06T11:45:24+01:00","author":{"@type":"Person","name":"Fabien Potencier"},"publisher":{"@type":"Organization","name":"Symfony","url":"https:\/\/symfony.com","logo":{"@type":"ImageObject","url":"https:\/\/symfony.com\/images\/logos\/sf-positive.png"}}}</script>
+
+            </article>
+
+            <aside class="sidebar">
+                            <ul class="ui-page-menu" role="menubar" aria-label="Blog">
+                    <li class="" role="menuitem">
+                <a href="/blog/">
+                    All Blog Posts
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/a-week-of-symfony">
+                    A Week of Symfony
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/case-studies">
+                    Case Studies
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/cloud">
+                    Cloud
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/community">
+                    Community
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/conferences">
+                    Conferences
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/diversity">
+                    Diversity
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/living-on-the-edge">
+                    Living on the edge
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/releases">
+                    Releases
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/security-advisories">
+                    Security Advisories
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/symfony-insight">
+                    Symfony Insight
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/twig">
+                    Twig
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://sensiolabs.com/blog?utm_source=symfony&amp;utm_medium=symfony_footer&amp;utm_campaign=permanent_referral">
+                    SensioLabs Blog
+                </a>
+            </li>
+            </ul>
+
+
+        <a class="ui-link-muted ui-text-sm d-flex align-items-center mb-3" href="/blog/archives/2026/10">
+        
+
+    
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="21px" class="me-2 ui-text-muted"><g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"><path d="M11.5 21H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v4.5M16 3v4M8 3v4m-4 4h16"></path><path d="M15 18a3 3 0 1 0 6 0a3 3 0 1 0-6 0m5.2 2.2L22 22"></path></g></svg>
+ Archives
+    </a>
+
+    <div class="mb-4">
+                        <div class="ui-rss-link ui-link-muted ui-text-sm d-flex align-items-center mb-3">
+                
+
+    
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="21px" class="me-2"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0-2 0M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path></svg>
+
+                <a href="https://feeds.feedburner.com/symfony/blog" title="Symfony Blog RSS feed">Blog Posts RSS</a>
+            </div>
+        
+    <div class="ui-rss-link ui-link-muted ui-text-sm d-flex align-items-center mb-3">
+        
+
+    
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="21px" class="me-2"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0-2 0M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path></svg>
+
+        <a href="https://feeds.feedburner.com/symfony/blog/comments" title="RSS Feed for Symfony Blog comments">Blog Comments RSS</a>
+    </div>
+    </div>
+
+    <div class="ui-highlights">
+            <div class="ui-highlight-item ui-highlight-hidden">
+            <div class="ui-highlight-carbon">
+                <script defer async type="text/javascript" src="//cdn.carbonads.com/carbon.js?serve=CKYILK3J&placement=symfonycom" id="_carbonads_js"></script>
+            </div>
+        </div>
+    
+                                        <div class="ui-highlight-item ui-highlight-hidden">
+                <div class="ui-highlight-symfony">
+                    <a href="https://www.blackfire.io/profiler?utm_source=symfony&amp;utm_medium=ad_red_logo&amp;utm_campaign=profiler">
+                        <img loading="lazy" src="/images/network/blackfire_02.png" height="100" width="130" alt="Symfony Code Performance Profiling" />
+                    </a>
+                    <p class="ui-highlight-symfony-text">
+                        <a href="https://www.blackfire.io/profiler?utm_source=symfony&amp;utm_medium=ad_red_logo&amp;utm_campaign=profiler">Symfony Code Performance Profiling</a>
+                    </p>
+                </div>
+            </div>
+                    <div class="ui-highlight-item ui-highlight-visible">
+                <div class="ui-highlight-symfony">
+                    <a href="https://sensiolabs.com/training/courses?utm_source=symfony&amp;utm_medium=symfony_ads&amp;utm_campaign=permanent_referral">
+                        <img loading="lazy" src="/images/network/sltraining_01.webp" height="100" width="130" alt="Be trained by SensioLabs experts (2 to 6 day sessions -- French or English)." />
+                    </a>
+                    <p class="ui-highlight-symfony-text">
+                        <a href="https://sensiolabs.com/training/courses?utm_source=symfony&amp;utm_medium=symfony_ads&amp;utm_campaign=permanent_referral">Be trained by SensioLabs experts (2 to 6 day sessions -- French or English).</a>
+                    </p>
+                </div>
+            </div>
+                    <div class="ui-highlight-item ui-highlight-hidden">
+                <div class="ui-highlight-symfony">
+                    <a href="https://insight.symfony.com/?utm_source=ad&amp;utm_medium=banner&amp;utm_campaign=insight&amp;utm_content=safe">
+                        <img loading="lazy" src="/images/network/sfinsight_02.png" height="100" width="130" alt="Be safe against critical risks to your projects and businesses" />
+                    </a>
+                    <p class="ui-highlight-symfony-text">
+                        <a href="https://insight.symfony.com/?utm_source=ad&amp;utm_medium=banner&amp;utm_campaign=insight&amp;utm_content=safe">Be safe against critical risks to your projects and businesses</a>
+                    </p>
+                </div>
+            </div>
+            </div>
+
+
+            </aside>
+        </div>
+    </div>
+        </main>
+
+                    <footer>
+    <h2 class="visually-hidden">Symfony footer</h2>
+
+    <div class="footer-content">
+                    <section class="footer-top-wrapper">
+                <div class="ui-page-container ">
+                    <div class="footer-top">
+                        <div class="symfony-contributor">
+                                            <div class="d-flex align-items-start px-4 py-3 ui-contributor ui-contributor-horizontal">
+            
+<img loading="lazy"     width="48"
+     height="48"
+     alt="Avatar of Matej Žilák, a Symfony contributor"
+     src="https://connect.symfony.com/api/images/04a6b3cc-c333-4a9a-9db9-85b7efb531f3.png?format=48x48"
+     onerror="this.onerror=null;
+         this.src='data:image/svg+xml;utf8,\
+         <svg xmlns=\'http://www.w3.org/2000/svg\' width=\'100%\' height=\'100%\'>\
+             <style>\
+                 rect { fill: %23f5f5f5; }\
+                 @media (prefers-color-scheme: dark) { rect { fill: %23262626; } }\
+             </style>\
+             <rect width=\'100%\' height=\'100%\'/>\
+         </svg>'"
+     class="ui-avatar d-inline-block object-fit-cover me-3">
+
+
+            <div>
+                <p class="mb-1">
+                    Thanks
+                    <strong>
+                                                    <a class="ui-link" href="https://connect.symfony.com/profile/teo_sk">Matej Žilák</a>
+                                            </strong>
+
+                                            (<strong>@teo_sk</strong>)
+                    
+                    for being a Symfony contributor
+                </p>
+
+                <p class="mb-1">
+                    <a class="ui-link" href="https://github.com/symfony/symfony/commits?author=teo-sk"><span role="tooltip" aria-label="1 commit">
+                            <strong>1</strong> commit</span></a>
+                    &bull;
+
+                    <span role="tooltip" aria-label="1 lines of code/doc changed"><strong>1</strong> lines changed</span>
+                </p>
+            </div>
+        </div>
+    
+
+                            <p class="mt-3 mb-0"><a class="ui-link fw-semibold" href="/contributors">View all contributors</a> that help us make Symfony</p>
+                        </div>
+
+                        <div class="contribute-to-symfony">
+                            
+<div  class="ui-heading">
+        <h3 id="become-a-symfony-contributor"  class="ui-heading-title ui-text-md">
+        
+                    Become a Symfony contributor
+        
+            </h3>
+
+    </div>
+                            <p class="mb-3">
+                                Be an active part of the community and contribute ideas, code and bug fixes.
+                                Both experts and newcomers are welcome.
+                            </p>
+
+                            <a class="ui-link fw-semibold" href="/doc/current/contributing/index.html">Learn how to contribute</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        
+        <section class="footer-bottom-wrapper">
+            <div class="ui-page-container ">
+                <div class="footer-bottom">
+                    <p class="mb-3">
+                        <b>Symfony</b>&trade; is a trademark of Symfony SAS. <a href="/trademark">All rights reserved</a>.
+                    </p>
+
+                    <ul class="ui-sitemap ">
+    <li>        <p class="mb-2 fw-semibold"><a href="/what-is-symfony">What is Symfony?</a></p>
+    <ul class="ui-sitemap-menu" role="menubar" aria-label="What is Symfony?">
+                    <li class="" role="menuitem">
+                <a href="/what-is-symfony">
+                    What is Symfony?
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/at-a-glance">
+                    Symfony at a Glance
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/packages">
+                    Symfony Packages
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/releases">
+                    Symfony Releases
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/doc/current/contributing/code/security.html">
+                    Security Policy
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/logo">
+                    Logo &amp; Screenshots
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/license">
+                    Trademark &amp; Licenses
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/legacy">
+                    symfony1 Legacy
+                </a>
+            </li>
+            </ul>
+</li>
+    <li>        <p class="mb-2 fw-semibold"><a href="/doc">Learn Symfony</a></p>
+    <ul class="ui-sitemap-menu" role="menubar" aria-label="Learn Symfony">
+                    <li class="active" role="menuitem">
+                <a href="/tour">
+                    Symfony Quick Tour
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/doc">
+                    Symfony Docs
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/book">
+                    Symfony Book
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/doc/current/reference/index.html">
+                    Reference
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/bundles">
+                    Bundles
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/doc/current/best_practices.html">
+                    Best Practices
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://sensiolabs.com/training/courses?utm_source=symfony&amp;utm_medium=symfony_footer&amp;utm_campaign=permanent_referral">
+                    Training
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://university.sensiolabs.com/e-learning-platform?utm_source=symfony&amp;utm_medium=symfony_footer&amp;utm_campaign=permanent_referral">
+                    eLearning Platform
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://certification.symfony.com/">
+                    Certification
+                </a>
+            </li>
+            </ul>
+</li>
+    <li>        <p class="mb-2 fw-semibold"><a href="https://symfonycasts.com/">Screencasts</a></p>
+    <ul class="ui-sitemap-menu" role="menubar" aria-label="Screencasts">
+                    <li class="" role="menuitem">
+                <a href="https://symfonycasts.com/tracks/symfony">
+                    Learn Symfony
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://symfonycasts.com/tracks/php">
+                    Learn PHP
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://symfonycasts.com/tracks/javascript">
+                    Learn JavaScript
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://symfonycasts.com/tracks/drupal">
+                    Learn Drupal
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://symfonycasts.com/tracks/rest">
+                    Learn RESTful APIs
+                </a>
+            </li>
+            </ul>
+</li>
+    <li>        <p class="mb-2 fw-semibold"><a href="/community">Community</a></p>
+    <ul class="ui-sitemap-menu" role="menubar" aria-label="Community">
+                    <li class="" role="menuitem">
+                <a href="/community">
+                    Symfony Community
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://connect.symfony.com/">
+                    SymfonyConnect
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/events/">
+                    Events &amp; Meetups
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/projects">
+                    Projects using Symfony
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/contributors">
+                    Contributors
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/jobs">
+                    Symfony Jobs
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/backers">
+                    Backers
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/doc/current/contributing/code_of_conduct/code_of_conduct.html">
+                    Code of Conduct
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/stats/downloads">
+                    Downloads Stats
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/support">
+                    Support
+                </a>
+            </li>
+            </ul>
+</li>
+    <li>        <p class="mb-2 fw-semibold"><a href="/blog/">Blog</a></p>
+    <ul class="ui-sitemap-menu" role="menubar" aria-label="Blog">
+                    <li class="" role="menuitem">
+                <a href="/blog/">
+                    All Blog Posts
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/a-week-of-symfony">
+                    A Week of Symfony
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/case-studies">
+                    Case Studies
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/cloud">
+                    Cloud
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/community">
+                    Community
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/conferences">
+                    Conferences
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/diversity">
+                    Diversity
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/living-on-the-edge">
+                    Living on the edge
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/releases">
+                    Releases
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/security-advisories">
+                    Security Advisories
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/symfony-insight">
+                    Symfony Insight
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/blog/category/twig">
+                    Twig
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://sensiolabs.com/blog?utm_source=symfony&amp;utm_medium=symfony_footer&amp;utm_campaign=permanent_referral">
+                    SensioLabs Blog
+                </a>
+            </li>
+            </ul>
+</li>
+    <li>
+                <p class="mb-2 fw-semibold"><a href="https://sensiolabs.com/?utm_source=symfony&amp;utm_medium=symfony_footer&amp;utm_campaign=permanent_referral">Services</a></p>
+    <ul class="ui-sitemap-menu" role="menubar" aria-label="Services">
+                    <li class="" role="menuitem">
+                <a href="https://sensiolabs.com/?utm_source=symfony&amp;utm_medium=symfony_footer&amp;utm_campaign=permanent_referral">
+                    SensioLabs services
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://sensiolabs.com/training?utm_source=symfony&amp;utm_medium=symfony_footer&amp;utm_campaign=permanent_referral">
+                    Train developers
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://insight.symfony.com/">
+                    Manage your project quality
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="https://www.blackfire.io/?utm_source=symfony&amp;utm_medium=symfonycom_footer&amp;utm_campaign=profiler">
+                    Improve your project performance
+                </a>
+            </li>
+                    <li class="" role="menuitem">
+                <a href="/cloud/">
+                    Host Symfony projects
+                </a>
+            </li>
+            </ul>
+
+
+                    <p class="mt-4 mb-2 fw-semibold"><a href="/cloud/">Powered by</a></p>
+            <a href="/cloud/" class="block deploy-logo" title="Upsun, a Platform-as-a-Service optimized for Symfony developers" aria-label="Upsun">
+                <svg height="1em" viewBox="32 34 321.93496 115.34414" width="1em" fill="currentColor" aria-hidden="true"><g transform="translate(-11.3 -9.3)"><g fill="currentColor"><path d="m163.8 105.4c-2.6 0-4.8-.6-6.7-1.7-1.8-1.1-3.3-2.6-4.2-4.5-1-1.9-1.4-4-1.4-6.4v-24.9h10.8v22.8c0 2 .5 3.5 1.5 4.5s2.4 1.5 4.3 1.5 3.1-.4 4.3-1.1c1.2-.8 2.2-1.8 3-3.2s1.1-3 1.1-4.7l.9 8.9c-1.2 2.6-3 4.8-5.3 6.4s-5.1 2.5-8.4 2.5zm12.9-.8v-8.7h-.2v-28.1h10.8v36.8z"></path><path d="m216.6 105.3c-3.5 0-6.3-.8-8.4-2.5-2.1-1.6-3.4-3.9-3.8-6.7h.6v23.2h-10.8v-51.6h10.6v8.1h-.7c.5-2.8 2-5 4.3-6.5s5.3-2.3 8.7-2.3 6.2.8 8.6 2.3c2.4 1.6 4.3 3.8 5.6 6.6s2 6.2 2 10-.7 7.3-2.1 10.2-3.3 5.1-5.8 6.7-5.5 2.4-8.9 2.4zm-3-8.6c2.6 0 4.6-.9 6.2-2.7s2.4-4.4 2.4-7.8-.8-5.9-2.4-7.7-3.7-2.7-6.3-2.7-4.6.9-6.2 2.7-2.4 4.4-2.4 7.8.8 6 2.4 7.8 3.7 2.7 6.3 2.7z"></path><path d="m254.3 105.4c-5.4 0-9.7-1.1-12.8-3.2-3.2-2.2-4.9-5.2-5.2-9h9.7c.2 1.6 1.1 2.9 2.5 3.7s3.4 1.3 5.9 1.3 3.9-.3 4.9-1 1.5-1.6 1.5-2.8-.3-1.6-.9-2.1-1.7-.9-3.3-1.3l-5.9-1.2c-4.4-.9-7.6-2.3-9.7-4.1-2.1-1.9-3.1-4.2-3.1-7.2s1.4-6.3 4.1-8.3 6.6-3 11.5-3 8.7 1 11.6 2.9c2.9 2 4.5 4.7 4.8 8.1h-9.7c-.2-1.2-.9-2.2-2-2.8s-2.8-1-4.9-1-3.4.3-4.3.8-1.4 1.3-1.4 2.3.4 1.5 1.1 2.1c.8.5 2 .9 3.8 1.3l6.6 1.4c3.7.8 6.5 2.2 8.4 4.3s2.8 4.6 2.8 7.4-1.4 6.4-4.2 8.4-6.8 3-11.9 3z"></path><path d="m286.9 105.4c-2.6 0-4.8-.6-6.7-1.7-1.8-1.1-3.3-2.6-4.2-4.5-1-1.9-1.4-4-1.4-6.4v-24.9h10.8v22.8c0 2 .5 3.5 1.5 4.5s2.4 1.5 4.3 1.5 3.1-.4 4.3-1.1c1.2-.8 2.2-1.8 3-3.2.7-1.4 1.1-3 1.1-4.7l.9 8.9c-1.2 2.6-3 4.8-5.3 6.4s-5.1 2.5-8.4 2.5zm12.9-.8v-8.7h-.2v-28.1h10.8v36.8z"></path><path d="m317.2 104.6v-36.8h10.6v8.7h.2v28.1zm25.7 0v-22.8c0-2-.5-3.5-1.6-4.5-1-1-2.5-1.5-4.5-1.5s-3.2.4-4.5 1.2-2.4 1.8-3.1 3.2c-.8 1.3-1.1 2.9-1.1 4.8l-.9-8.9c1.2-2.7 3-4.8 5.3-6.5 2.3-1.6 5.2-2.4 8.6-2.4s7.2 1.1 9.4 3.4 3.2 5.4 3.2 9.2v24.9h-10.8z"></path><path d="m86.6 64.9c12 0 21.6 9.7 21.6 21.6h21.6c0-23.9-19.4-43.3-43.3-43.3s-43.3 19.4-43.3 43.3h21.6c0-12 9.7-21.6 21.7-21.6z"></path><path d="m93.9 106.9c8.3-3 14.3-11 14.3-20.3h-43.2c0 9.4 6 17.3 14.3 20.3v.4h-30.6c7.3 13.4 21.6 22.5 38 22.5s30.6-9.1 38-22.5h-30.7v-.4z"></path></g></g><text font-family="SpaceGrotesk-Regular, 'Space Grotesk'" font-size="20.6" x="138.5" y="145.2"><tspan x="138.5" y="145.2">Formerly Platform.sh</tspan></text></svg>
+            </a>
+            </li>
+</ul>
+
+
+                    <div class="my-4">
+                        <h3><span>Follow Symfony</span></h3>
+                        <div class="d-flex align-items-center flex-wrap mt-3 row-gap-3 column-gap-4">
+                            <a href="https://github.com/symfony" target="_blank" rel="me external noopener noreferrer" title="Symfony on GitHub">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M12 .297c-6.63 0-12 5.373-12 12c0 5.303 3.438 9.8 8.205 11.385c.6.113.82-.258.82-.577c0-.285-.01-1.04-.015-2.04c-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729c1.205.084 1.838 1.236 1.838 1.236c1.07 1.835 2.809 1.305 3.495.998c.108-.776.417-1.305.76-1.605c-2.665-.3-5.466-1.332-5.466-5.93c0-1.31.465-2.38 1.235-3.22c-.135-.303-.54-1.523.105-3.176c0 0 1.005-.322 3.3 1.23c.96-.267 1.98-.399 3-.405c1.02.006 2.04.138 3 .405c2.28-1.552 3.285-1.23 3.285-1.23c.645 1.653.24 2.873.12 3.176c.765.84 1.23 1.91 1.23 3.22c0 4.61-2.805 5.625-5.475 5.92c.42.36.81 1.096.81 2.22c0 1.606-.015 2.896-.015 3.286c0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"></path></svg>
+
+                            </a>
+                            <a href="/slack" target="_blank" rel="external noopener noreferrer" title="Symfony on Slack">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M5.042 15.165a2.53 2.53 0 0 1-2.52 2.523A2.53 2.53 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52zm1.271 0a2.527 2.527 0 0 1 2.521-2.52a2.527 2.527 0 0 1 2.521 2.52v6.313A2.53 2.53 0 0 1 8.834 24a2.53 2.53 0 0 1-2.521-2.522zM8.834 5.042a2.53 2.53 0 0 1-2.521-2.52A2.53 2.53 0 0 1 8.834 0a2.53 2.53 0 0 1 2.521 2.522v2.52zm0 1.271a2.53 2.53 0 0 1 2.521 2.521a2.53 2.53 0 0 1-2.521 2.521H2.522A2.53 2.53 0 0 1 0 8.834a2.53 2.53 0 0 1 2.522-2.521zm10.122 2.521a2.53 2.53 0 0 1 2.522-2.521A2.53 2.53 0 0 1 24 8.834a2.53 2.53 0 0 1-2.522 2.521h-2.522zm-1.268 0a2.53 2.53 0 0 1-2.523 2.521a2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.53 2.53 0 0 1 2.523 2.522zm-2.523 10.122a2.53 2.53 0 0 1 2.523 2.522A2.53 2.53 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522zm0-1.268a2.527 2.527 0 0 1-2.52-2.523a2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.53 2.53 0 0 1-2.522 2.523z"></path></svg>
+
+                            </a>
+                            <a href="https://twitter.com/symfony" target="_blank" rel="me external noopener noreferrer" title="Symfony on Twitter">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584l-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"></path></svg>
+
+                            </a>
+                            <a href="https://mastodon.social/@symfony" target="_blank" rel="me external noopener noreferrer" title="Symfony on Mastodon">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127C.64 6.412.61 7.837.661 9.143c.074 1.874.088 3.745.26 5.611c.118 1.24.325 2.47.62 3.68c.55 2.237 2.777 4.098 4.96 4.857c2.336.792 4.849.923 7.256.38q.398-.092.786-.213c.585-.184 1.27-.39 1.774-.753a.06.06 0 0 0 .023-.043v-1.809a.05.05 0 0 0-.02-.041a.05.05 0 0 0-.046-.01a20.3 20.3 0 0 1-4.709.545c-2.73 0-3.463-1.284-3.674-1.818a5.6 5.6 0 0 1-.319-1.433a.053.053 0 0 1 .066-.054c1.517.363 3.072.546 4.632.546c.376 0 .75 0 1.125-.01c1.57-.044 3.224-.124 4.768-.422q.059-.011.11-.024c2.435-.464 4.753-1.92 4.989-5.604c.008-.145.03-1.52.03-1.67c.002-.512.167-3.63-.024-5.545m-3.748 9.195h-2.561V8.29c0-1.309-.55-1.976-1.67-1.976c-1.23 0-1.846.79-1.846 2.35v3.403h-2.546V8.663c0-1.56-.617-2.35-1.848-2.35c-1.112 0-1.668.668-1.67 1.977v6.218H4.822V8.102q0-1.965 1.011-3.12c.696-.77 1.608-1.164 2.74-1.164c1.311 0 2.302.5 2.962 1.498l.638 1.06l.638-1.06c.66-.999 1.65-1.498 2.96-1.498c1.13 0 2.043.395 2.74 1.164q1.012 1.155 1.012 3.12z"></path></svg>
+
+                            </a>
+                            <a href="https://www.linkedin.com/company/symfony-sas/" target="_blank" rel="me external noopener noreferrer" title="Symfony on LinkedIn">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037c-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85c3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.06 2.06 0 0 1-2.063-2.065a2.064 2.064 0 1 1 2.063 2.065m1.782 13.019H3.555V9h3.564zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0z"></path></svg>
+
+                            </a>
+                            <a href="https://www.facebook.com/SymfonyFramework" target="_blank" rel="me external noopener noreferrer" title="Symfony on Facebook">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M9.101 23.691v-7.98H6.627v-3.667h2.474v-1.58c0-4.085 1.848-5.978 5.858-5.978c.401 0 .955.042 1.468.103a9 9 0 0 1 1.141.195v3.325a9 9 0 0 0-.653-.036a27 27 0 0 0-.733-.009c-.707 0-1.259.096-1.675.309a1.7 1.7 0 0 0-.679.622c-.258.42-.374.995-.374 1.752v1.297h3.919l-.386 2.103l-.287 1.564h-3.246v8.245C19.396 23.238 24 18.179 24 12.044c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.628 3.874 10.35 9.101 11.647"></path></svg>
+
+                            </a>
+                            <a href="https://www.youtube.com/symfonytv" target="_blank" rel="me external noopener noreferrer" title="Symfony on YouTube">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M23.498 6.186a3.02 3.02 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.02 3.02 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.02 3.02 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.02 3.02 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814M9.545 15.568V8.432L15.818 12z"></path></svg>
+
+                            </a>
+                            <a href="https://bsky.app/profile/symfony.com" target="_blank" rel="me external noopener noreferrer" title="Symfony on BlueSky">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M12 10.8c-1.087-2.114-4.046-6.053-6.798-7.995C2.566.944 1.561 1.266.902 1.565C.139 1.908 0 3.08 0 3.768c0 .69.378 5.65.624 6.479c.815 2.736 3.713 3.66 6.383 3.364q.204-.03.415-.056q-.207.033-.415.056c-3.912.58-7.387 2.005-2.83 7.078c5.013 5.19 6.87-1.113 7.823-4.308c.953 3.195 2.05 9.271 7.733 4.308c4.267-4.308 1.172-6.498-2.74-7.078a9 9 0 0 1-.415-.056q.21.026.415.056c2.67.297 5.568-.628 6.383-3.364c.246-.828.624-5.79.624-6.478c0-.69-.139-1.861-.902-2.206c-.659-.298-1.664-.62-4.3 1.24C16.046 4.748 13.087 8.687 12 10.8"></path></svg>
+
+                            </a>
+                            <a href="https://www.threads.net/@symfony" target="_blank" rel="me external noopener noreferrer" title="Symfony on Threads">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="currentColor" d="M12.186 24h-.007c-3.581-.024-6.334-1.205-8.184-3.509C2.35 18.44 1.5 15.586 1.472 12.01v-.017c.03-3.579.879-6.43 2.525-8.482C5.845 1.205 8.6.024 12.18 0h.014c2.746.02 5.043.725 6.826 2.098c1.677 1.29 2.858 3.13 3.509 5.467l-2.04.569c-1.104-3.96-3.898-5.984-8.304-6.015c-2.91.022-5.11.936-6.54 2.717C4.307 6.504 3.616 8.914 3.589 12c.027 3.086.718 5.496 2.057 7.164c1.43 1.783 3.631 2.698 6.54 2.717c2.623-.02 4.358-.631 5.8-2.045c1.647-1.613 1.618-3.593 1.09-4.798c-.31-.71-.873-1.3-1.634-1.75c-.192 1.352-.622 2.446-1.284 3.272c-.886 1.102-2.14 1.704-3.73 1.79c-1.202.065-2.361-.218-3.259-.801c-1.063-.689-1.685-1.74-1.752-2.964c-.065-1.19.408-2.285 1.33-3.082c.88-.76 2.119-1.207 3.583-1.291a14 14 0 0 1 3.02.142c-.126-.742-.375-1.332-.75-1.757c-.513-.586-1.308-.883-2.359-.89h-.029c-.844 0-1.992.232-2.721 1.32l-1.757-1.18c.98-1.454 2.568-2.256 4.478-2.256h.044c3.194.02 5.097 1.975 5.287 5.388q.163.07.321.142c1.49.7 2.58 1.761 3.154 3.07c.797 1.82.871 4.79-1.548 7.158c-1.85 1.81-4.094 2.628-7.277 2.65Zm1.003-11.69q-.362 0-.739.021c-1.836.103-2.98.946-2.916 2.143c.067 1.256 1.452 1.839 2.784 1.767c1.224-.065 2.818-.543 3.086-3.71a10.5 10.5 0 0 0-2.215-.221"></path></svg>
+
+                            </a>
+                            <a href="https://symfonycasts.com/" target="_blank" rel="me external noopener noreferrer" title="Symfony Screencasts">
+                                
+
+        
+<svg viewBox="0 0 300 300" space="preserve" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421" width="32px" height="32px" fill="currentColor" aria-hidden="true"><g><path d="M300 30c0-16.557-13.443-30-30-30H30C13.443 0 0 13.443 0 30v240c0 16.557 13.443 30 30 30h240c16.557 0 30-13.443 30-30V30z" style="fill: currentColor"></path><path d="M94.679 204.481c-4.374-1.925-9.01-2.625-13.734-2.625-18.632 0-32.278 12.51-32.278 31.317 0 19.42 12.859 31.841 32.191 31.841 3.587 0 9.272-.262 13.909-2.187l-.257-4.156a3.1 3.1 0 0 0-3.988-2.776c-2.99.903-6.622 1.421-9.577 1.421-12.684 0-23.006-9.534-23.006-23.881 0-13.733 9.36-23.881 23.444-23.881 3.038 0 5.994.528 8.787 1.582a3.098 3.098 0 0 0 4.178-2.646l.331-4.009zm13.522 19.85a3.1 3.1 0 0 0 4.404 2.615c2.741-1.268 5.876-1.996 8.866-1.996 8.223 0 11.022 3.937 11.022 11.635-3.237-.175-5.511-.175-8.748-.175-8.485 0-20.732 3.499-20.732 14.696 0 9.709 6.736 13.908 16.358 13.908 7.523 0 11.897-4.111 13.822-6.823h.175v5.774h4.352a3.098 3.098 0 0 0 3.093-3.296 125.34 125.34 0 0 1-.097-5.452v-18.458c0-12.159-5.161-18.457-17.933-18.457-5.686 0-10.585 1.75-14.696 4.199l.114 1.83zm44.173 38.234c3.761 2.012 8.048 2.449 12.247 2.449 7.96 0 15.57-4.373 15.57-13.908 0-14.259-19.332-11.635-19.332-20.732 0-3.674 3.674-5.424 7.873-5.424 1.107 0 3.2.377 5.127.913a3.097 3.097 0 0 0 3.926-2.68l.307-3.131c-3.237-.963-6.386-1.75-10.235-1.75-8.835 0-15.746 4.461-15.746 13.734 0 12.509 19.333 11.809 19.333 19.944 0 4.812-4.637 6.386-8.398 6.386-1.512 0-3.954-.43-6.366-1.29a3.097 3.097 0 0 0-4.141 2.732l-.165 2.757zm71.142 0c3.761 2.012 8.048 2.449 12.247 2.449 7.96 0 15.57-4.373 15.57-13.908 0-14.259-19.332-11.635-19.332-20.732 0-3.674 3.674-5.424 7.873-5.424 1.107 0 3.2.377 5.127.913a3.097 3.097 0 0 0 3.926-2.68l.307-3.131c-3.237-.963-6.386-1.75-10.235-1.75-8.835 0-15.746 4.461-15.746 13.734 0 12.509 19.333 11.809 19.333 19.944 0 4.812-4.637 6.386-8.398 6.386-1.512 0-3.954-.43-6.366-1.29a3.097 3.097 0 0 0-4.141 2.732l-.165 2.757zm-29.36-43.213v-12.947h5.123a3.1 3.1 0 0 1 3.099 3.1v9.847h11.81v3.548a3.1 3.1 0 0 1-3.1 3.1h-8.71v24.406c0 5.161 3.15 7.96 6.911 7.96.702 0 1.351-.06 1.947-.167a3.101 3.101 0 0 1 3.652 3.05v2.541c-1.837.525-4.374 1.224-6.999 1.224-8.485 0-13.733-4.024-13.733-12.946V226h-5.052a3.1 3.1 0 0 1-3.099-3.1v-3.548h8.151zm-61.663 27.292c0 6.649-4.286 11.722-12.422 11.722-3.761 0-8.31-2.537-8.31-7.26 0-7.873 11.022-8.573 15.483-8.573 1.75 0 3.499.175 5.249.175v3.936zm136.934-67.652H30.577c-.355-.024-.449-.012-.794-.109-1.164-.326-2.062-1.423-2.145-2.636a3.007 3.007 0 0 1 1.409-2.719c.344-.209.73-.346 1.129-.401.133-.019.268-.019.401-.028H53c-7.987-7.798-9.293-17.234-7.409-23.363 2.511-8.144 8.984-9.683 15.314-7.741 6.779 2.096 9.432 10.333 7.493 16.657-.216.677-.562 1.805-1.274 3.324-.787 1.738-2.245 3.272-2.869 5.31-.693 2.253.33 4.211 2.099 5.813h27.289c1.97-1.871 3.447-4.169 4.233-6.74 2.444-7.89-2.548-13.398-4.615-15.512l-10.054-10.762c-4.598-5.12-14.713-19.398-9.779-35.432 1.904-6.184 5.91-12.742 11.724-17.083 12.275-9.147 25.621-10.648 38.327-6.995 16.448 4.729 24.347 15.602 34.59 24.005 5.735-16.818 13.683-33.283 25.635-47.176 10.794-12.652 25.297-21.822 41.908-22.39 16.596-.548 29.142 6.974 29.556 18.882.167 5.068-2.74 14.92-12.864 15.261-7.572.262-12.8-4.263-13.036-11.135-.085-2.519.566-4.724 2.292-7.301 1.688-3.304 2.049-3.683 2.006-5.12-.152-4.333-6.692-4.493-8.482-4.409-24.548.811-31.018 33.939-36.263 60.875l-2.569 14.205c14.136 2.067 24.172-.481 29.77-4.102 7.881-5.117-2.205-10.374-.933-16.191 1.288-5.931 6.683-8.794 10.969-8.914 6-.148 10.283 6.077 10.144 12.395-.216 10.444-14.069 24.793-41.783 24.207a96.847 96.847 0 0 1-9.38-.665l-5.228 28.86c-1.387 6.478-2.91 13.66-4.945 21.237h94.561l.401.028c.132.027.265.045.394.082a3.005 3.005 0 0 1 2.09 2.237c.272 1.308-.46 2.759-1.711 3.302-.246.107-.506.18-.773.217-.132.018-.267.018-.401.027zm-127.085-5.893c.469-2.383.942-4.832 1.422-7.35l1.674-10.152c2.723-13.608 5.741-28.784 10.342-43.905-11.162-8.404-17.847-18.821-32.86-22.892-10.29-2.793-16.562-.423-20.973 5.155-5.222 6.604-3.488 15.2 1.557 20.241l8.336 9.223c10.222 11.808 15.809 20.999 13.707 33.359-1.024 6.057-3.949 11.682-8.315 16.321h25.11z" style="fill: var(--footer-bottom-background)"></path></g></svg>
+
+                            </a>
+                            <a href="https://feeds.feedburner.com/symfony/blog" target="_blank" rel="external noopener noreferrer" title="Symfony Blog RSS">
+                                
+
+
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="32px"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 19a1 1 0 1 0 2 0a1 1 0 1 0-2 0M4 4a16 16 0 0 1 16 16M4 11a9 9 0 0 1 9 9"></path></svg>
+
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="theme">
+                        <form class="d-flex align-items-center">
+                            <label for="color-scheme-switcher">
+                                
+
+    
+<svg width="1em" height="1em" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" font-size="21px" class="me-1 ui-text-muted"><path fill="currentColor" d="M17 3.34A10 10 0 1 1 2 12l.005-.324A10 10 0 0 1 17 3.34M8 5.072A8 8 0 0 0 12.001 20L12 4a8 8 0 0 0-4 1.072"></path></svg>
+
+                                <span class="visually-hidden">Site appearance:</span>
+                            </label>
+                            <select id="color-scheme-switcher" autocomplete="off">
+                                <option value="light">Light mode</option>
+                                <option value="dark">Dark mode</option>
+                                <option value="sync" selected>Sync with system</option>
+                            </select>
+                        </form>
+                    </div>
+                    <script>
+                        const colorSchemeSwitcher = document.getElementById('color-scheme-switcher');
+                        colorSchemeSwitcher.value = localStorage.getItem('colorScheme') || 'sync';
+                        colorSchemeSwitcher.addEventListener('change', function () {
+                            localStorage.setItem('colorScheme', colorSchemeSwitcher.value);
+                            setSymfonyWebsiteColorScheme();
+                        });
+                    </script>
+                </div>
+            </div>
+        </section>
+    </div>
+</footer>
+
+        
+        <div id="search-modal-backdrop" class="search-container">
+            <div role="dialog" aria-modal="true" id="search-modal-content" tabindex="-1">
+                <button aria-label="Close modal" id="search-modal-close-button">CLOSE</button>
+                <div class="search-container"  data-controller="live" data-live-name-value="Search" data-live-url-value="/_components/Search" id="live-2308103015-0" data-live-props-value="{&quot;query&quot;:null,&quot;category&quot;:null,&quot;version&quot;:null,&quot;@attributes&quot;:{&quot;id&quot;:&quot;live-2308103015-0&quot;},&quot;@checksum&quot;:&quot;X\/UQ7QZpzsgMxLn13OvvBBeyKP5K4V+R\/uyvT4APocE=&quot;}">
+    <form id="form-search">
+        <div class="form-group form-search-input">
+            <label for="form-search-input" class="visually-hidden">Search Symfony Docs</label>
+                        <input type="search" name="q" data-model="query" value=""
+                   class="mousetrap form-control ui-form-control-rounded ui-form-control-search-icon form-search-input"
+                   placeholder="Search Symfony Docs" aria-label="Search in Symfony documentation"
+                   role="combobox" aria-autocomplete="list" aria-controls="search-results-listbox"
+                   aria-expanded="false"
+                   autocapitalize="off" autocomplete="off" autocorrect="off" spellcheck="false">
+        </div>
+                <button type="submit" class="visually-hidden" tabindex="-1">Search</button>
+    </form>
+
+        <p class="visually-hidden" role="status" aria-live="polite"></p>
+
+    </div>
+
+
+            </div>
+        </div>
+    </body>
+</html>

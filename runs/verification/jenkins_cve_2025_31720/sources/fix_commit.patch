@@ -1,0 +1,93 @@
+From bf32018bf075c06e5df649583557c82d42d8bb5c Mon Sep 17 00:00:00 2001
+From: Daniel Beck <daniel-beck@users.noreply.github.com>
+Date: Tue, 25 Mar 2025 21:02:02 +0000
+Subject: [PATCH] [SECURITY-3512]
+
+Co-authored-by: Kevin-CB <kguerroudj@cloudbees.com>
+---
+ .../main/java/hudson/model/ComputerSet.java   |  2 +
+ .../jenkins/security/Security3512Test.java    | 62 +++++++++++++++++++
+ 2 files changed, 64 insertions(+)
+ create mode 100644 test/src/test/java/jenkins/security/Security3512Test.java
+
+diff --git a/core/src/main/java/hudson/model/ComputerSet.java b/core/src/main/java/hudson/model/ComputerSet.java
+index cb8d19b78ad0..7ee8fd5b755c 100644
+--- a/core/src/main/java/hudson/model/ComputerSet.java
++++ b/core/src/main/java/hudson/model/ComputerSet.java
+@@ -291,6 +291,8 @@ public synchronized void doCreateItem(StaplerRequest2 req, StaplerResponse2 rsp,
+                 }
+             }
+ 
++            src.checkPermission(Computer.EXTENDED_READ);
++
+             // copy through XStream
+             String xml = Jenkins.XSTREAM.toXML(src);
+             Node result = (Node) Jenkins.XSTREAM.fromXML(xml);
+diff --git a/test/src/test/java/jenkins/security/Security3512Test.java b/test/src/test/java/jenkins/security/Security3512Test.java
+new file mode 100644
+index 000000000000..dbe252a36262
+--- /dev/null
++++ b/test/src/test/java/jenkins/security/Security3512Test.java
+@@ -0,0 +1,62 @@
++package jenkins.security;
++
++import static org.hamcrest.MatcherAssert.assertThat;
++import static org.hamcrest.Matchers.containsString;
++import static org.junit.Assert.assertEquals;
++
++import hudson.model.Computer;
++import hudson.slaves.DumbSlave;
++import java.net.URL;
++import jenkins.model.Jenkins;
++import org.htmlunit.HttpMethod;
++import org.htmlunit.WebRequest;
++import org.htmlunit.WebResponse;
++import org.junit.Rule;
++import org.junit.Test;
++import org.jvnet.hudson.test.Issue;
++import org.jvnet.hudson.test.JenkinsRule;
++import org.jvnet.hudson.test.MockAuthorizationStrategy;
++
++public class Security3512Test {
++
++    @Rule
++    public JenkinsRule j = new JenkinsRule();
++
++    @Test
++    @Issue("SECURITY-3512")
++    public void copyAgentTest() throws Exception {
++        Computer.EXTENDED_READ.setEnabled(true);
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        MockAuthorizationStrategy mockAuthorizationStrategy = new MockAuthorizationStrategy();
++        mockAuthorizationStrategy.grant(Jenkins.READ, Computer.CREATE, Computer.EXTENDED_READ).everywhere().to("alice");
++        mockAuthorizationStrategy.grant(Jenkins.READ, Computer.CREATE).everywhere().to("bob");
++        j.jenkins.setAuthorizationStrategy(mockAuthorizationStrategy);
++
++        DumbSlave agent = j.createOnlineSlave();
++
++        assertEquals(2, j.getInstance().getComputers().length);
++
++        String agentCopyURL = j.getURL() + "/computer/createItem?mode=copy&from=" + agent.getNodeName() + "&name=";
++
++        { // with ExtendedRead permission you can copy a node
++            try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false).login("alice")) {
++                WebResponse rsp = wc.getPage(wc.addCrumb(new WebRequest(new URL(agentCopyURL + "aliceAgent"),
++                        HttpMethod.POST))).getWebResponse();
++
++                assertEquals(200, rsp.getStatusCode());
++                assertEquals(3, j.getInstance().getComputers().length);
++            }
++        }
++
++        { // without ExtendedRead permission you cannot copy a node
++            try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false).login("bob")) {
++                WebResponse rsp = wc.getPage(wc.addCrumb(new WebRequest(new URL(agentCopyURL + "bobAgent"),
++                        HttpMethod.POST))).getWebResponse();
++
++                assertEquals(403, rsp.getStatusCode());
++                assertThat(rsp.getContentAsString(), containsString("bob is missing the Agent/ExtendedRead permission"));
++                assertEquals(3, j.getInstance().getComputers().length);
++            }
++        }
++    }
++}

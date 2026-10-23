@@ -1,0 +1,372 @@
+{
+  "candidate_id": "disc2_1bccc3f05172e8f4c3d38a09",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T04:20:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/rack/rack",
+    "full_name": "rack/rack",
+    "primary_language": "Ruby",
+    "project_kind": "web server interface",
+    "repo_id": "96071",
+    "snapshot_id": "snap_f97687a4e0807cb2"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2026-22860",
+    "aliases": [
+      "CVE-2026-22860",
+      "GHSA-mxw3-3hh2-x2mh"
+    ],
+    "title": "Rack::Directory's root check uses a raw string prefix comparison, so a path such as /../root_backup/ escapes the configured root and lists a sibling directory before 2.2.22, 3.1.20 and 3.2.5",
+    "category_l1": "path_traversal",
+    "category_l2": "sibling-directory escape via unseparated root prefix match in Rack::Directory (directory listing disclosure)",
+    "cwe_ids": [
+      "CWE-22",
+      "CWE-548"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "score": 7.5,
+      "level": "high",
+      "source": "CNA GitHub_M metric and both NVD Secondary metrics (security-advisories@github.com and a CNA-hosted metric) publish the identical CVSS 3.1 7.5 HIGH vector; OSV GHSA database_specific severity HIGH",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-22860"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "purl": "pkg:gem/rack",
+        "affected_range": "<2.2.22"
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "purl": "pkg:gem/rack",
+        "affected_range": ">=3.0.0.beta1,<3.1.20"
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "purl": "pkg:gem/rack",
+        "affected_range": ">=3.2.0,<3.2.5"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "main (3.x)",
+        "sha": "75c5745c286637a8f049a33790c71237762069e7",
+        "message": "Prevent directory traversal via root prefix bypass.",
+        "url": "https://github.com/rack/rack/commit/75c5745c286637a8f049a33790c71237762069e7"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "tag": "v2.2.22",
+        "version": "2.2.22",
+        "release_url": "https://github.com/rack/rack/releases/tag/v2.2.22",
+        "verified_content": "Tag v2.2.22 peels to 0cc2e00b. lib/rack/directory.rb blob e9e9bb5 differs from the v2.2.21 blob be72be0 only in the root-prefix fix and an unrelated directory-index href change (`git diff v2.2.21 v2.2.22 -- lib/rack/directory.rb` prints index be72be0..e9e9bb5). v2.2.22 defines @root_with_separator at line 79 and checks `expanded_path == @root || expanded_path.start_with?(@root_with_separator)` at line 118. The regression test is at test/spec_directory.rb:131."
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "tag": "v3.1.20",
+        "version": "3.1.20",
+        "release_url": "https://github.com/rack/rack/releases/tag/v3.1.20",
+        "verified_content": "Tag present upstream; inspected only for the regression test, which is at test/spec_directory.rb:152 with the same name."
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "tag": "v3.2.5",
+        "version": "3.2.5",
+        "release_url": "https://github.com/rack/rack/releases/tag/v3.2.5",
+        "verified_content": "Tag present upstream; inspected only for the regression test, which is at test/spec_directory.rb:152 with the same name."
+      }
+    ],
+    "published_at": "2026-02-18T18:45:02.095Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/rack/rack/security/advisories/GHSA-mxw3-3hh2-x2mh",
+    "references": [
+      "https://github.com/rack/rack/security/advisories/GHSA-mxw3-3hh2-x2mh",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-22860",
+      "https://github.com/rack/rack/commit/75c5745c286637a8f049a33790c71237762069e7"
+    ],
+    "vulnerable_commit": "1741c580d71cfca8e541e96cc372305c8892ee74",
+    "vulnerable_commit_basis": "tag 2.2.3 peels to 1741c580, inside the advisory range <2.2.22; its lib/rack/directory.rb blob be72be0 compares the expanded path against @root with a bare start_with?, and the same blob is still present at v2.2.21",
+    "vulnerable_version": "2.2.3",
+    "snapshot_id": "snap_f97687a4e0807cb2",
+    "repo_id": "96071",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2026_22860_snap_f97687a4e0807cb2",
+    "location_kind": "logic",
+    "snapshot_id": "snap_f97687a4e0807cb2",
+    "vulnerability_id": "CVE-2026-22860",
+    "verification_method": "Static read of lib/rack/directory.rb and lib/rack/utils.rb at tag 2.2.3, the v2.2.21 -> v2.2.22 tag diff, the upstream fix commit and its parent, the regression tests in v2.2.22/v3.1.20/v3.2.5, and the saved advisory records. No Ruby code was run and no request was made.",
+    "critical_operation": {
+      "file": "lib/rack/directory.rb",
+      "function": "Rack::Directory#check_forbidden",
+      "language": "Ruby",
+      "line": "115-115",
+      "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L115",
+      "code_excerpt": "      return if ::File.expand_path(::File.join(@root, path_info)).start_with?(@root)",
+      "description": "check_forbidden treats any expanded path that begins with the root string as inside the root. Because @root carries no trailing separator, a sibling directory whose name starts with the root's basename (root_test for root) passes the test: File.join(@root, '/../root_test/') keeps the '..', File.expand_path resolves it to the sibling, and start_with?('/tmp/x/root') is true. get() then builds path = File.join(@root, path_info) with the same unnormalised path, list_path stats it and list_directory serves a listing of the sibling, so filenames outside the configured root are disclosed. The fix compares against a root that ends in File::SEPARATOR (or equals the root exactly)."
+    },
+    "entry_point": {
+      "file": "lib/rack/directory.rb",
+      "function": "Rack::Directory#get",
+      "language": "Ruby",
+      "line": 90,
+      "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L90-L98",
+      "description": "get() is the Rack application entry point; path_info comes from env[PATH_INFO] after Utils.unescape_path, so a client controls it. Exposure requires Rack::Directory to be mounted in front of a root that has a same-prefix sibling directory, which the advisory states as the precondition."
+    },
+    "trace": [
+      {
+        "file": "lib/rack/directory.rb",
+        "function": "Rack::Directory#get",
+        "language": "Ruby",
+        "line": 92,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L92",
+        "description": "path_info = Utils.unescape_path(env[PATH_INFO]) — attacker-controlled request path"
+      },
+      {
+        "file": "lib/rack/directory.rb",
+        "function": "Rack::Directory#check_bad_request",
+        "language": "Ruby",
+        "line": 104,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L104",
+        "description": "Utils.valid_path? only rejects invalid encodings and NUL bytes (lib/rack/utils.rb:608-610), so a path containing '..' passes this gate"
+      },
+      {
+        "file": "lib/rack/directory.rb",
+        "function": "Rack::Directory#check_forbidden",
+        "language": "Ruby",
+        "line": 115,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L115",
+        "description": "the prefix test accepts a resolved sibling path that merely shares the root string, so no 403 is produced"
+      },
+      {
+        "file": "lib/rack/directory.rb",
+        "function": "Rack::Directory#get",
+        "language": "Ruby",
+        "line": 97,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L97-L98",
+        "description": "path = File.join(@root, path_info) keeps the '..' segment; list_path is called with it"
+      },
+      {
+        "file": "lib/rack/directory.rb",
+        "function": "Rack::Directory#list_path",
+        "language": "Ruby",
+        "line": 165,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L165-L170",
+        "description": "stat(path) resolves the '..' on the filesystem; for a directory it calls list_directory, which renders the entries of the sibling directory into a 200 HTML index"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_rack_osv_ghsa",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/osv_GHSA-mxw3-3hh2-x2mh.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-mxw3-3hh2-x2mh",
+      "retrieved_at": "2026-10-22T04:05:00Z",
+      "sha256_of_observation": "1fef1ab2210f8f8fcf3c678213f4d206918de7633b08e0cd008804db1dba66c8",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases CVE-2026-22860; github_reviewed true; published 2026-02-17",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (7.5) and database_specific severity HIGH",
+        "database_specific cwe_ids [CWE-22, CWE-548]",
+        "details quote the vulnerable expression File.expand_path(File.join(root, path_info)).start_with?(root) and the /var/www/root vs /var/www/root_backup example",
+        "RubyGems ranges: 0 -> 2.2.22, 3.0.0.beta1 -> 3.1.20, 3.2.0 -> 3.2.5"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_cve_v5",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/cve_v5_CVE-2026-22860.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-22860",
+      "retrieved_at": "2026-10-22T04:05:00Z",
+      "sha256_of_observation": "5b4b2223487c5e5fc87529841517094aaddc003193af50b809f1d0032144a506",
+      "verification_method": "CVE List v5 record (assigner GitHub_M)",
+      "result": "PASS",
+      "supports": [
+        "published 2026-02-18 by GitHub_M",
+        "CNA description: prior to 2.2.22, 3.1.20 and 3.2.5 Rack::Directory's path check used a string prefix match; /../root_example/ can escape the root when the target path starts with the root string",
+        "CNA CVSS 3.1 7.5 HIGH with the same vector as NVD and OSV",
+        "CNA problemTypes CWE-22 and CWE-548",
+        "CNA affected ranges match the OSV ranges",
+        "references the fix commit 75c5745c286637a8f049a33790c71237762069e7"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_nvd",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/nvd_CVE-2026-22860.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-22860",
+      "retrieved_at": "2026-10-22T04:05:00Z",
+      "sha256_of_observation": "09503d2a97f88b61dc825f12d3482342084e7f2d504461c5e47005a939a964e5",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "published 2026-02-18T19:21:43, status Modified",
+        "two Secondary CVSS 3.1 7.5 HIGH metrics with identical CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N (security-advisories@github.com and a CNA-hosted metric)",
+        "weaknesses CWE-22 and CWE-548 from security-advisories@github.com; CWE-22 also from the second source",
+        "CPE rack:rack ranges match the advisory (<2.2.22, 3.0.0-<3.1.20, 3.2.0-<3.2.5, all ruby target_sw)"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_git_checks",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/git_object_checks.txt",
+      "source_url": "https://github.com/rack/rack/commit/75c5745c286637a8f049a33790c71237762069e7",
+      "retrieved_at": "2026-10-22T04:18:00Z",
+      "sha256_of_observation": "ff7c8f34377fa41b19695d1fe3e82ab49240f9cbda2b689a0ba8dd121bacc516",
+      "verification_method": "per-tag shallow fetches in a bare mirror; git rev-parse / ls-tree / cat-file, the v2.2.21 -> v2.2.22 tag diff, and the fix commit's own diff against its parent",
+      "result": "PASS",
+      "supports": [
+        "tag 2.2.3 peels to 1741c580 and its lib/rack/directory.rb blob is be72be0, identical to the blob recorded in the snapshot inventory",
+        "tag v2.2.21 also carries blob be72be0, so the vulnerable check is unchanged right up to the release before the fix",
+        "`git diff v2.2.21 v2.2.22 -- lib/rack/directory.rb` prints index be72be0..e9e9bb5 and adds @root_with_separator and the separator-aware comparison",
+        "fix commit 75c5745c (parent f2f225f2) on main changes the same check; its diff index is a0c9c93..ca3c015, i.e. a separate 3.x blob",
+        "the regression test 'not allow directory traversal via root prefix bypass' exists in v2.2.22 (line 131) and in v3.1.20/v3.2.5 (line 152) and is absent at 2.2.3"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_vuln_file",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/directory_2.2.3.rb",
+      "source_url": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/directory.rb#L113-L121",
+      "retrieved_at": "2026-10-22T04:16:00Z",
+      "sha256_of_observation": "6b43bcf496ea04cfac67504b8c1682e451e8c938f48685776006129a060f4a70",
+      "verification_method": "git cat-file -p 2.2.3:lib/rack/directory.rb (199 lines)",
+      "result": "PASS",
+      "supports": [
+        "check_forbidden is defined at line 113",
+        "line 114 returns early unless the path contains '..'; line 115 is the bare start_with?(@root) check",
+        "get() at 90-100 passes the same path_info to File.join(@root, path_info) at line 97 and to list_path at line 98",
+        "list_path at 165-170 stats the unnormalised path and calls list_directory for directories",
+        "the file contains no @root_with_separator"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_fixed_file",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/directory_2.2.22.rb",
+      "source_url": "https://github.com/rack/rack/blob/0cc2e00b22dffc33955ef912569f01e515a406e1/lib/rack/directory.rb#L112-L121",
+      "retrieved_at": "2026-10-22T04:16:00Z",
+      "sha256_of_observation": "e90cb174989e7fcda45a9ccee9343611978bd5366ab1c97d987a4dabf76a316f",
+      "verification_method": "git cat-file -p v2.2.22:lib/rack/directory.rb (202 lines)",
+      "result": "PASS",
+      "supports": [
+        "@root_with_separator is assigned in initialize at line 79",
+        "check_forbidden now requires expanded_path == @root or expanded_path.start_with?(@root_with_separator) (lines 117-118)",
+        "so a sibling directory sharing the root prefix is rejected with 403"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_test_before",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/test_spec_directory_2.2.3.rb",
+      "source_url": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/test/spec_directory.rb",
+      "retrieved_at": "2026-10-22T04:16:00Z",
+      "sha256_of_observation": "7749ce8b471a5e4a427e63da90050dfea1842686279cc4dc8a0e858b73146ac5",
+      "verification_method": "git cat-file -p 2.2.3:test/spec_directory.rb (205 lines)",
+      "result": "PASS",
+      "supports": [
+        "no test name or body mentions a root prefix bypass",
+        "the traversal tests that do exist use '/cgi/../../lib' and '/cgi/%2E%2E/%2E%2E/lib', which resolve outside the root string and are therefore caught even by the flawed check"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_test_after",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/test_spec_directory_2.2.22.rb",
+      "source_url": "https://github.com/rack/rack/blob/0cc2e00b22dffc33955ef912569f01e515a406e1/test/spec_directory.rb#L131-L145",
+      "retrieved_at": "2026-10-22T04:16:00Z",
+      "sha256_of_observation": "90eb348bdff559525492d2410a8775486ba18dfde4f01b8be27bcf9d14fda605",
+      "verification_method": "git cat-file -p v2.2.22:test/spec_directory.rb (241 lines)",
+      "result": "PASS",
+      "supports": [
+        "line 131 adds it 'not allow directory traversal via root prefix bypass'",
+        "the test creates root and outside = \"#{root}_test\", touches outside/test.txt, and asserts that GET \"/../root_test/\" is forbidden",
+        "this is exactly the sibling-prefix case the fix addresses"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_fix_patch",
+      "artifact_path": "runs/verification/rack_cve_2026_22860/sources/fix_commit_75c5745.patch",
+      "source_url": "https://github.com/rack/rack/commit/75c5745c286637a8f049a33790c71237762069e7",
+      "retrieved_at": "2026-10-22T04:17:00Z",
+      "sha256_of_observation": "6b3f8fbe5999d39ad622200dca7a57d56292221540cf41835b6472d0797b0050",
+      "verification_method": "git diff f2f225f2 75c5745c (parent to fix commit)",
+      "result": "PASS",
+      "supports": [
+        "adds the CVE-2026-22860 CHANGELOG entry",
+        "adds @root_with_separator and rewrites check_forbidden",
+        "adds the 'root prefix bypass' regression test to test/spec_directory.rb"
+      ]
+    },
+    {
+      "evidence_id": "ev_rack_snapshot",
+      "artifact_path": "runs/language/snap_f97687a4e0807cb2/snapshot_proposal.json",
+      "source_url": "https://github.com/rack/rack/tree/1741c580d71cfca8e541e96cc372305c8892ee74",
+      "retrieved_at": "2026-10-22T04:19:00Z",
+      "sha256_of_observation": "44e10aed5afafeeffd5a33dc394bb9fe3f5f099922b2cebdcb769d08286ad0e0",
+      "verification_method": "existing snapshot inventory (github-linguist 9.7.0); tag resolution note recorded in the proposal",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_f97687a4e0807cb2, repo_id 96071, tag_or_release 2.2.3, tag_resolution_note 'tag 2.2.3 peels to 1741c580...'",
+        "202 tracked files scanned; Ruby first-party 69 files / 315,182 bytes / 36.79% share",
+        "full_scan true; the snapshot already existed before this vulnerability cycle, so no new snapshot was built"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 1, 2],
+    "aliases": [0, 1],
+    "critical_operation": [4, 8],
+    "cwe": [0, 1, 2],
+    "fix_commits": [3, 8],
+    "fixed_releases": [3, 5],
+    "languages": [9],
+    "severity": [0, 1, 2],
+    "vulnerable_commit": [3, 4, 9]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-mxw3-3hh2-x2mh, RubyGems ranges)",
+      "CVE List v5 record from GitHub_M",
+      "NVD analysis (two Secondary CVSS 3.1 7.5 HIGH metrics, CWE-22/CWE-548)",
+      "upstream git history (tags 2.2.3 / v2.2.21 / v2.2.22 / v3.1.20 / v3.2.5, fix commit 75c5745c)"
+    ],
+    "independent_of_primary": true,
+    "notes": "All three published sources carry the identical CVSS 3.1 7.5 HIGH vector and the same HIGH level; no source publishes a competing level or score. Both CWE-22 and CWE-548 are published by the CNA and GHSA and repeated by NVD from the GitHub secondary source. The affected ranges agree across CNA, NVD CPE and OSV, and the git objects confirm the snapshot's 2.2.3 blob is the vulnerable one while v2.2.22 is the first release carrying the fix.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read lib/rack/directory.rb at tag 2.2.3 and confirm line 115's bare start_with?(@root) check and the get() path flow at lines 90-98.",
+      "An independent reviewer must confirm that v2.2.21 carries the same vulnerable blob and that v2.2.22 is the first fixed release, with the regression test at test/spec_directory.rb:131.",
+      "An independent reviewer must assess whether the advisory's precondition (a sibling directory whose name shares the root prefix) is realistic enough for this dataset's impact criterion.",
+      "An independent reviewer must check whether any independent (non-vendor, non-reporter) reproduction or analysis exists; if not, evidence_independent is false and the entry stays below grade A.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No code was executed and no request was made: the traversal is read from the string check and the file-system path flow, not reproduced against a running server.",
+    "The escape requires a sibling directory whose name begins with the configured root's path string; if no such sibling exists there is no effect, and the advisory states this precondition explicitly.",
+    "Only directory listing (names, sizes, mtimes) is disclosed for the sibling; the entry does not claim arbitrary file read through this path, though the listing can reveal filenames that matter.",
+    "v3.1.20 and v3.2.5 were fetched only to read the regression test; their fix blobs and backport commits were not separately diffed.",
+    "No third-party reproduction or analysis was found in the saved sources; if none exists, the independent-evidence field will be false and the entry cannot reach grade A.",
+    "Whether an actual Rack server normalises '..' in PATH_INFO before Rack::Directory sees it varies by server; the advisory frames the flaw as exploitable when Rack::Directory is exposed, and the fix hardens the middleware itself."
+  ],
+  "open_questions": [
+    "Whether common Rack servers (Puma, WEBrick, falcon) pass an unnormalised '/../' PATH_INFO through to the middleware, which determines real-world reachability.",
+    "Whether the same prefix-comparison pattern appears in other Rack path checks (for example Rack::Files or Rack::Static) that this CVE does not cover.",
+    "Whether the 2.2.x backport commit has its own hash distinct from the main-branch 75c5745c; the v2.2.21 -> v2.2.22 tag diff proves the content, but the backport commit id was not retrieved because the GitHub API rate limit was hit."
+  ]
+}

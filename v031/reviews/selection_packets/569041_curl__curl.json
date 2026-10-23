@@ -1,0 +1,198 @@
+{
+  "packet_id": "selrev_569041_snap_0ec1c11542393304",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "569041",
+    "full_name": "curl/curl",
+    "canonical_url": "https://github.com/curl/curl",
+    "primary_language": "C",
+    "project_kind": "A command line tool and library for transferring data with URL syntax, supporting DICT, FILE, FTP, FTPS, GOPHER, GOPHERS, HTTP, HTTPS, IMAP, IMAPS, LDAP, LDAPS, MQTT, MQTTS, POP3, POP3S, RTSP, SCP, SFTP, SMTP, SMTPS, TELNET, TFTP, WS and WSS. libcurl offers a myriad of powerful features"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_0ec1c11542393304",
+    "tag_or_release": "curl-8_3_0",
+    "commit_sha": "6fa1d817e5b1a00d7d0c8168091877476b499317"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "6fa1d817e5b1a00d7d0c8168091877476b499317",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "34c08ad49a4240c7207182d9c06672f77ea1a337",
+    "tree_file_count": 3798,
+    "exported_file_count": 3798,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/curl__curl/snap_0ec1c11542393304.tar.gz",
+    "archive_sha256": "44a3b64c3116281cc0aa9b438928afd7b4c902ca61862f6b421c7248d841a6bb",
+    "archive_bytes": 3185618,
+    "manifest_path": "exports/curl__curl/snap_0ec1c11542393304.manifest.jsonl",
+    "manifest_sha256": "4ae2a514cffd47c6431c275965d36ca851b07e063393cbd925da418a884a1dc9"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "CHANGES",
+      "RELEASE-NOTES",
+      "docs/HISTORY.md",
+      "docs/RELEASE-PROCEDURE.md",
+      "scripts/release-notes.pl"
+    ],
+    "cve_id_count": 7,
+    "cve_ids_sample": [
+      "CVE-2000-0973",
+      "CVE-2010-4180",
+      "CVE-2016-0755",
+      "CVE-2019-15601",
+      "CVE-2019-3822",
+      "CVE-2022-32206",
+      "CVE-2022-43552"
+    ],
+    "files_with_advisory_ids_count": 4,
+    "files_with_advisory_ids_sample": [
+      "docs/SECURITY-ADVISORY.md",
+      "docs/SECURITY-PROCESS.md",
+      "docs/libcurl/libcurl-security.3",
+      "lib/vtls/openssl.c"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CODEOWNERS",
+      ".github/CONTRIBUTING.md",
+      ".github/FUNDING.yml",
+      ".github/ISSUE_TEMPLATE/bug_report.yml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/labeler.yml",
+      ".github/lock.yml",
+      ".github/scripts/cleanspell.pl",
+      ".github/scripts/spellcheck.words",
+      ".github/scripts/spellcheck.yaml",
+      ".github/stale.yml",
+      ".github/workflows/appveyor-status.yml",
+      ".github/workflows/awslc.yml",
+      ".github/workflows/codeql-analysis.yml",
+      ".github/workflows/fuzz.yml",
+      ".github/workflows/hacktoberfest-accepted.yml",
+      ".github/workflows/label.yml",
+      ".github/workflows/linkcheck.yml",
+      ".github/workflows/linux.yml",
+      ".github/workflows/linux32.yml",
+      ".github/workflows/macos.yml",
+      ".github/workflows/ngtcp2-linux.yml",
+      ".github/workflows/proselint.yml",
+      ".github/workflows/quiche-linux.yml",
+      ".github/workflows/reuse.yml",
+      ".github/workflows/spellcheck.yml",
+      ".github/workflows/torture.yml",
+      ".github/workflows/wolfssl.yml",
+      "CHANGES",
+      "RELEASE-NOTES",
+      "SECURITY.md",
+      "docs/HISTORY.md",
+      "docs/RELEASE-PROCEDURE.md",
+      "docs/SECURITY-ADVISORY.md",
+      "docs/SECURITY-PROCESS.md",
+      "scripts/release-notes.pl"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "cmake": [
+        "CMakeLists.txt"
+      ],
+      "configure": [
+        "Makefile.am",
+        "configure.ac"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "cmake",
+      "configure"
+    ],
+    "toolchain_available": {
+      "cmake": {
+        "cmake": true,
+        "make": true
+      },
+      "configure": {
+        "gcc": true,
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2023-38545",
+      "aliases": [
+        "CVE-2023-38545",
+        "CURL-CVE-2023-38545"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=7.69.0,<8.4.0",
+          "ecosystem": "generic",
+          "package": "curl",
+          "purl": "pkg:generic/curl"
+        }
+      ],
+      "published_at": "2023-10-18T03:52:14Z",
+      "advisory_url": "https://curl.se/docs/CVE-2023-38545.html",
+      "severity": {
+        "level": "critical",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 9.8 falls in Critical (9.0-10.0). The curl advisory and OSV use 8.8 HIGH with UI:R.",
+        "score": 9.8,
+        "source": "NVD primary metric nvd@nist.gov; the CNA supplied no CVSS",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-38545",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2023-46218",
+      "aliases": [
+        "CVE-2023-46218",
+        "CURL-CVE-2023-46218"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=7.46.0,<=8.4.0",
+          "ecosystem": "generic",
+          "package": "curl",
+          "purl": "pkg:generic/curl"
+        }
+      ],
+      "published_at": "2023-12-07T01:10:34Z",
+      "advisory_url": "https://curl.se/docs/CVE-2023-46218.html",
+      "severity": {
+        "level": "medium",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 6.5 falls in Medium (4.0-6.9); the curl advisory also labels it Medium while scoring it qualitatively, and OSV republishes the same 3.1 vector",
+        "score": 6.5,
+        "source": "NVD primary metric nvd@nist.gov; the CNA supplied no CVSS",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-46218",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

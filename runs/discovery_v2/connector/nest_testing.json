@@ -1,0 +1,24 @@
+{
+  "key": "nest_testing",
+  "repository": "nestjs/nest",
+  "path": "packages/testing/package.json",
+  "retrieved_at": "2026-10-21T10:56:23.455Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@nestjs/testing\",\n  \"version\": \"12.2.0\",\n  \"description\": \"Nest - modern, fast, powerful node.js web framework (@testing)\",\n  \"author\": \"Kamil Mysliwiec\",\n  \"license\": \"MIT\",\n  \"type\": \"module\",\n  \"main\": \"./index.js\",\n  \"exports\": {\n    \".\": \"./index.js\",\n    \"./package.json\": \"./package.json\",\n    \"./*.js\": \"./*.js\",\n    \"./*\": \"./*.js\"\n  },\n  \"homepage\": \"https://nestjs.com\",\n  \"funding\": {\n    \"type\": \"opencollective\",\n    \"url\": \"https://opencollective.com/nest\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/nestjs/nest.git\",\n    \"directory\": \"packages/testing\"\n  },\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"dependencies\": {\n    \"tslib\": \"2.8.1\"\n  },\n  \"peerDependencies\": {\n    \"@nestjs/common\": \"^12.0.0\",\n    \"@nestjs/core\": \"^12.0.0\",\n    \"@nestjs/microservices\": \"^12.0.0\",\n    \"@nestjs/platform-express\": \"^12.0.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"@nestjs/microservices\": {\n      \"optional\": true\n    },\n    \"@nestjs/platform-express\": {\n      \"optional\": true\n    }\n  },\n  \"gitHead\": \"ab3fb3d5ca7d51d078835e44a8db1b354f8b651b\"\n}\n",
+      "encoding": "utf-8",
+      "sha": "79f68c49e1521b69d593e9b88b7e902ddec93d34",
+      "display_url": "https://github.com/nestjs/nest/blob/master/packages/testing/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

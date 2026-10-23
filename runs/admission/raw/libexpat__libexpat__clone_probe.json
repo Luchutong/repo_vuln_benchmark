@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/libexpat/libexpat.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:33.095189+00:00", "elapsed_seconds": 1.054, "response": {"returncode": 0, "stdout": "628f49ba13f789b2f94e678367c8d5da474c12bc\tHEAD\n", "stderr": ""}}

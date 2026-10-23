@@ -1,0 +1,875 @@
+{
+ "consumed_at": "2026-10-23T00:00:00Z",
+ "consumed_reason": "repository now has a selected evaluation target (snap_ea53ce6e88becc8f); validator forbids proposals on selected repos",
+ "row": {
+  "advisory_count": 21,
+  "blockers": [
+   "source_level_confirmation_at_tag_commit_pending",
+   "independent_selection_review_pending",
+   "known_positive_oracle_review_pending"
+  ],
+  "candidates": [
+   {
+    "advisories": [
+     {
+      "advisory_id": "GHSA-8qx7-j2v2-x6q5",
+      "affected_ranges": [
+       "<=v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-55458"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-10-13T16:27:12Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "RFC 7230 \u00a76.1 compliance issue / Hop-by-hop headers that leak through",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5"
+     },
+     {
+      "advisory_id": "GHSA-6365-7ppr-5r92",
+      "affected_ranges": [
+       "< v2.11.5"
+      ],
+      "aliases": [],
+      "fix_refs": [],
+      "published_at": "2026-07-10T17:08:10Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "Connection created for the wrong upstream for forward_auth + reverse_proxy",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-6365-7ppr-5r92"
+     }
+    ],
+    "commit_sha": "e2eee6a7fce366321294c9c2a79f3146891dcbdf",
+    "explicit_affected_version_count": 0,
+    "in_range_advisory_count": 2,
+    "tag_or_release": "v2.11.4",
+    "version": "2.11.4"
+   },
+   {
+    "advisories": [
+     {
+      "advisory_id": "GHSA-8qx7-j2v2-x6q5",
+      "affected_ranges": [
+       "<=v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-55458"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-10-13T16:27:12Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "RFC 7230 \u00a76.1 compliance issue / Hop-by-hop headers that leak through",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5"
+     },
+     {
+      "advisory_id": "GHSA-j8px-rmrx-76h9",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-77281",
+       "CVE-2026-92284",
+       "CVE-2026-92700",
+       "GO-2026-6512"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7761",
+       "https://github.com/caddyserver/caddy/commit/176b043b0104cee3f894023cd5a598ac29e404bb"
+      ],
+      "published_at": "2026-09-18T13:09:27Z",
+      "source": "OSV",
+      "summary": "Caddy: rewrite placeholder re-expansion, unbounded body buffer DoS, and fileHidden case-sensitivity bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-j8px-rmrx-76h9"
+     },
+     {
+      "advisory_id": "GHSA-6365-7ppr-5r92",
+      "affected_ranges": [
+       "< v2.11.5"
+      ],
+      "aliases": [],
+      "fix_refs": [],
+      "published_at": "2026-07-10T17:08:10Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "Connection created for the wrong upstream for forward_auth + reverse_proxy",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-6365-7ppr-5r92"
+     },
+     {
+      "advisory_id": "GHSA-vcc4-2c75-vc9v",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-52846",
+       "GO-2026-5660"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:55Z",
+      "source": "OSV",
+      "summary": "Caddy: stripHTML template function bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-vcc4-2c75-vc9v"
+     },
+     {
+      "advisory_id": "GHSA-f59h-q822-g45g",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52845",
+       "GO-2026-5346"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7633"
+      ],
+      "published_at": "2026-06-16T21:28:28Z",
+      "source": "OSV",
+      "summary": "Caddy: FastCGI header normalization bypass in `forward_auth copy_headers`",
+      "url": "https://osv.dev/vulnerability/GHSA-f59h-q822-g45g"
+     },
+     {
+      "advisory_id": "GHSA-qrp7-cvwr-j2c6",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52844",
+       "GO-2026-5595"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:11Z",
+      "source": "OSV",
+      "summary": "Caddy: Windows `file_server` path authorization bypass via encoded backslash",
+      "url": "https://osv.dev/vulnerability/GHSA-qrp7-cvwr-j2c6"
+     }
+    ],
+    "commit_sha": "cc58caa1099240ef1a4c280b892260b380a85c86",
+    "explicit_affected_version_count": 0,
+    "in_range_advisory_count": 6,
+    "tag_or_release": "v2.11.3",
+    "version": "2.11.3"
+   },
+   {
+    "advisories": [
+     {
+      "advisory_id": "GHSA-8qx7-j2v2-x6q5",
+      "affected_ranges": [
+       "<=v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-55458"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-10-13T16:27:12Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "RFC 7230 \u00a76.1 compliance issue / Hop-by-hop headers that leak through",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5"
+     },
+     {
+      "advisory_id": "GHSA-j8px-rmrx-76h9",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-77281",
+       "CVE-2026-92284",
+       "CVE-2026-92700",
+       "GO-2026-6512"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7761",
+       "https://github.com/caddyserver/caddy/commit/176b043b0104cee3f894023cd5a598ac29e404bb"
+      ],
+      "published_at": "2026-09-18T13:09:27Z",
+      "source": "OSV",
+      "summary": "Caddy: rewrite placeholder re-expansion, unbounded body buffer DoS, and fileHidden case-sensitivity bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-j8px-rmrx-76h9"
+     },
+     {
+      "advisory_id": "GHSA-6365-7ppr-5r92",
+      "affected_ranges": [
+       "< v2.11.5"
+      ],
+      "aliases": [],
+      "fix_refs": [],
+      "published_at": "2026-07-10T17:08:10Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "Connection created for the wrong upstream for forward_auth + reverse_proxy",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-6365-7ppr-5r92"
+     },
+     {
+      "advisory_id": "GHSA-vcc4-2c75-vc9v",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-52846",
+       "GO-2026-5660"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:55Z",
+      "source": "OSV",
+      "summary": "Caddy: stripHTML template function bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-vcc4-2c75-vc9v"
+     },
+     {
+      "advisory_id": "GHSA-f59h-q822-g45g",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52845",
+       "GO-2026-5346"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7633"
+      ],
+      "published_at": "2026-06-16T21:28:28Z",
+      "source": "OSV",
+      "summary": "Caddy: FastCGI header normalization bypass in `forward_auth copy_headers`",
+      "url": "https://osv.dev/vulnerability/GHSA-f59h-q822-g45g"
+     },
+     {
+      "advisory_id": "GHSA-qrp7-cvwr-j2c6",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52844",
+       "GO-2026-5595"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:11Z",
+      "source": "OSV",
+      "summary": "Caddy: Windows `file_server` path authorization bypass via encoded backslash",
+      "url": "https://osv.dev/vulnerability/GHSA-qrp7-cvwr-j2c6"
+     },
+     {
+      "advisory_id": "GHSA-gx7w-56w6-g48x",
+      "affected_ranges": [
+       ">=0, <2.11.3",
+       "< v2.11.3"
+      ],
+      "aliases": [
+       "GO-2026-5408"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-05-19T19:36:13Z",
+      "source": "OSV",
+      "summary": "Caddy: Remote Admin Authorization Bypass on PKI Endpoints via Prefix-Based Path Matching",
+      "url": "https://osv.dev/vulnerability/GHSA-gx7w-56w6-g48x"
+     },
+     {
+      "advisory_id": "GHSA-wwhq-w58m-w29c",
+      "affected_ranges": [
+       ">=2.11.0, <unbounded",
+       "<=2.11.2",
+       ">=2.11.0, <2.11.3"
+      ],
+      "aliases": [
+       "GO-2026-5730"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7629"
+      ],
+      "published_at": "2026-05-19T19:35:47Z",
+      "source": "OSV",
+      "summary": "Caddy CVE-2026-30852 Fix Bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-wwhq-w58m-w29c"
+     },
+     {
+      "advisory_id": "GHSA-x5w9-xh9r-mvfc",
+      "affected_ranges": [
+       ">=2.4.0, <2.11.3",
+       "v2.4.0 and later"
+      ],
+      "aliases": [
+       "CVE-2026-45692",
+       "GO-2026-5743"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-05-19T15:51:31Z",
+      "source": "OSV",
+      "summary": "Caddy: Remote Admin Authorization Bypass in `/config` API via Array Index Normalization",
+      "url": "https://osv.dev/vulnerability/GHSA-x5w9-xh9r-mvfc"
+     },
+     {
+      "advisory_id": "GHSA-m675-2p33-xv9g",
+      "affected_ranges": [
+       ">=2.7.0, <2.11.3",
+       ">= 2.7.0, <= 2.10.2"
+      ],
+      "aliases": [
+       "CVE-2026-45135",
+       "GO-2026-5492"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7629"
+      ],
+      "published_at": "2026-05-18T13:40:58Z",
+      "source": "OSV",
+      "summary": "Caddy: Unsafe Unicode Handling in FastCGI splitPos Allows Execution of Non-PHP Files",
+      "url": "https://osv.dev/vulnerability/GHSA-m675-2p33-xv9g"
+     }
+    ],
+    "commit_sha": "ffb6ab0644f24c5ee6542aca6bd59b7a1b0a8f91",
+    "explicit_affected_version_count": 0,
+    "in_range_advisory_count": 10,
+    "tag_or_release": "v2.11.2",
+    "version": "2.11.2"
+   },
+   {
+    "advisories": [
+     {
+      "advisory_id": "GHSA-8qx7-j2v2-x6q5",
+      "affected_ranges": [
+       "<=v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-55458"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-10-13T16:27:12Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "RFC 7230 \u00a76.1 compliance issue / Hop-by-hop headers that leak through",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5"
+     },
+     {
+      "advisory_id": "GHSA-j8px-rmrx-76h9",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-77281",
+       "CVE-2026-92284",
+       "CVE-2026-92700",
+       "GO-2026-6512"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7761",
+       "https://github.com/caddyserver/caddy/commit/176b043b0104cee3f894023cd5a598ac29e404bb"
+      ],
+      "published_at": "2026-09-18T13:09:27Z",
+      "source": "OSV",
+      "summary": "Caddy: rewrite placeholder re-expansion, unbounded body buffer DoS, and fileHidden case-sensitivity bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-j8px-rmrx-76h9"
+     },
+     {
+      "advisory_id": "GHSA-6365-7ppr-5r92",
+      "affected_ranges": [
+       "< v2.11.5"
+      ],
+      "aliases": [],
+      "fix_refs": [],
+      "published_at": "2026-07-10T17:08:10Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "Connection created for the wrong upstream for forward_auth + reverse_proxy",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-6365-7ppr-5r92"
+     },
+     {
+      "advisory_id": "GHSA-vcc4-2c75-vc9v",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-52846",
+       "GO-2026-5660"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:55Z",
+      "source": "OSV",
+      "summary": "Caddy: stripHTML template function bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-vcc4-2c75-vc9v"
+     },
+     {
+      "advisory_id": "GHSA-f59h-q822-g45g",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52845",
+       "GO-2026-5346"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7633"
+      ],
+      "published_at": "2026-06-16T21:28:28Z",
+      "source": "OSV",
+      "summary": "Caddy: FastCGI header normalization bypass in `forward_auth copy_headers`",
+      "url": "https://osv.dev/vulnerability/GHSA-f59h-q822-g45g"
+     },
+     {
+      "advisory_id": "GHSA-qrp7-cvwr-j2c6",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52844",
+       "GO-2026-5595"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:11Z",
+      "source": "OSV",
+      "summary": "Caddy: Windows `file_server` path authorization bypass via encoded backslash",
+      "url": "https://osv.dev/vulnerability/GHSA-qrp7-cvwr-j2c6"
+     },
+     {
+      "advisory_id": "GHSA-gx7w-56w6-g48x",
+      "affected_ranges": [
+       ">=0, <2.11.3",
+       "< v2.11.3"
+      ],
+      "aliases": [
+       "GO-2026-5408"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-05-19T19:36:13Z",
+      "source": "OSV",
+      "summary": "Caddy: Remote Admin Authorization Bypass on PKI Endpoints via Prefix-Based Path Matching",
+      "url": "https://osv.dev/vulnerability/GHSA-gx7w-56w6-g48x"
+     },
+     {
+      "advisory_id": "GHSA-wwhq-w58m-w29c",
+      "affected_ranges": [
+       ">=2.11.0, <unbounded",
+       "<=2.11.2",
+       ">=2.11.0, <2.11.3"
+      ],
+      "aliases": [
+       "GO-2026-5730"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7629"
+      ],
+      "published_at": "2026-05-19T19:35:47Z",
+      "source": "OSV",
+      "summary": "Caddy CVE-2026-30852 Fix Bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-wwhq-w58m-w29c"
+     },
+     {
+      "advisory_id": "GHSA-x5w9-xh9r-mvfc",
+      "affected_ranges": [
+       ">=2.4.0, <2.11.3",
+       "v2.4.0 and later"
+      ],
+      "aliases": [
+       "CVE-2026-45692",
+       "GO-2026-5743"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-05-19T15:51:31Z",
+      "source": "OSV",
+      "summary": "Caddy: Remote Admin Authorization Bypass in `/config` API via Array Index Normalization",
+      "url": "https://osv.dev/vulnerability/GHSA-x5w9-xh9r-mvfc"
+     },
+     {
+      "advisory_id": "GHSA-m675-2p33-xv9g",
+      "affected_ranges": [
+       ">=2.7.0, <2.11.3",
+       ">= 2.7.0, <= 2.10.2"
+      ],
+      "aliases": [
+       "CVE-2026-45135",
+       "GO-2026-5492"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7629"
+      ],
+      "published_at": "2026-05-18T13:40:58Z",
+      "source": "OSV",
+      "summary": "Caddy: Unsafe Unicode Handling in FastCGI splitPos Allows Execution of Non-PHP Files",
+      "url": "https://osv.dev/vulnerability/GHSA-m675-2p33-xv9g"
+     },
+     {
+      "advisory_id": "GO-2026-4639",
+      "affected_ranges": [
+       ">=2.10.0, <2.11.2",
+       ">= 2.10.0, < v2.11.2"
+      ],
+      "aliases": [
+       "CVE-2026-30851",
+       "GHSA-7r4p-vjf4-gxv4"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/6608",
+       "https://github.com/caddyserver/caddy/pull/7545"
+      ],
+      "published_at": "2026-03-10T18:28:25Z",
+      "source": "OSV",
+      "summary": "Caddy forward_auth copy_headers allows Identity Injection and Privilege Escalation in github.com/caddyserver/caddy",
+      "url": "https://osv.dev/vulnerability/GO-2026-4639"
+     },
+     {
+      "advisory_id": "GO-2026-4644",
+      "affected_ranges": [
+       ">=2.7.5, <2.11.2",
+       ">= v2.7.5, <= v2.11.1"
+      ],
+      "aliases": [
+       "CVE-2026-30852",
+       "GHSA-m2w3-8f23-hxxf"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/5408"
+      ],
+      "published_at": "2026-03-10T18:28:25Z",
+      "source": "OSV",
+      "summary": "Caddy's vars_regexp double-expands user input, leaking env vars and files in github.com/caddyserver/caddy",
+      "url": "https://osv.dev/vulnerability/GO-2026-4644"
+     }
+    ],
+    "commit_sha": "6610e2f1bd8f54853006eefd3849c9965190e57f",
+    "explicit_affected_version_count": 0,
+    "in_range_advisory_count": 12,
+    "tag_or_release": "v2.11.1",
+    "version": "2.11.1"
+   },
+   {
+    "advisories": [
+     {
+      "advisory_id": "GHSA-8qx7-j2v2-x6q5",
+      "affected_ranges": [
+       "<=v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-55458"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-10-13T16:27:12Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "RFC 7230 \u00a76.1 compliance issue / Hop-by-hop headers that leak through",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5"
+     },
+     {
+      "advisory_id": "GHSA-j8px-rmrx-76h9",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-77281",
+       "CVE-2026-92284",
+       "CVE-2026-92700",
+       "GO-2026-6512"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7761",
+       "https://github.com/caddyserver/caddy/commit/176b043b0104cee3f894023cd5a598ac29e404bb"
+      ],
+      "published_at": "2026-09-18T13:09:27Z",
+      "source": "OSV",
+      "summary": "Caddy: rewrite placeholder re-expansion, unbounded body buffer DoS, and fileHidden case-sensitivity bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-j8px-rmrx-76h9"
+     },
+     {
+      "advisory_id": "GHSA-6365-7ppr-5r92",
+      "affected_ranges": [
+       "< v2.11.5"
+      ],
+      "aliases": [],
+      "fix_refs": [],
+      "published_at": "2026-07-10T17:08:10Z",
+      "source": "GitHubRepositoryAdvisory",
+      "summary": "Connection created for the wrong upstream for forward_auth + reverse_proxy",
+      "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-6365-7ppr-5r92"
+     },
+     {
+      "advisory_id": "GHSA-vcc4-2c75-vc9v",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "<= 2.11.3"
+      ],
+      "aliases": [
+       "CVE-2026-52846",
+       "GO-2026-5660"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:55Z",
+      "source": "OSV",
+      "summary": "Caddy: stripHTML template function bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-vcc4-2c75-vc9v"
+     },
+     {
+      "advisory_id": "GHSA-f59h-q822-g45g",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52845",
+       "GO-2026-5346"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7633"
+      ],
+      "published_at": "2026-06-16T21:28:28Z",
+      "source": "OSV",
+      "summary": "Caddy: FastCGI header normalization bypass in `forward_auth copy_headers`",
+      "url": "https://osv.dev/vulnerability/GHSA-f59h-q822-g45g"
+     },
+     {
+      "advisory_id": "GHSA-qrp7-cvwr-j2c6",
+      "affected_ranges": [
+       ">=0, <2.11.4",
+       ">=0, <unbounded",
+       "< v2.11.4"
+      ],
+      "aliases": [
+       "CVE-2026-52844",
+       "GO-2026-5595"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-06-16T21:28:11Z",
+      "source": "OSV",
+      "summary": "Caddy: Windows `file_server` path authorization bypass via encoded backslash",
+      "url": "https://osv.dev/vulnerability/GHSA-qrp7-cvwr-j2c6"
+     },
+     {
+      "advisory_id": "GHSA-gx7w-56w6-g48x",
+      "affected_ranges": [
+       ">=0, <2.11.3",
+       "< v2.11.3"
+      ],
+      "aliases": [
+       "GO-2026-5408"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-05-19T19:36:13Z",
+      "source": "OSV",
+      "summary": "Caddy: Remote Admin Authorization Bypass on PKI Endpoints via Prefix-Based Path Matching",
+      "url": "https://osv.dev/vulnerability/GHSA-gx7w-56w6-g48x"
+     },
+     {
+      "advisory_id": "GHSA-wwhq-w58m-w29c",
+      "affected_ranges": [
+       ">=2.11.0, <unbounded",
+       "<=2.11.2",
+       ">=2.11.0, <2.11.3"
+      ],
+      "aliases": [
+       "GO-2026-5730"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7629"
+      ],
+      "published_at": "2026-05-19T19:35:47Z",
+      "source": "OSV",
+      "summary": "Caddy CVE-2026-30852 Fix Bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-wwhq-w58m-w29c"
+     },
+     {
+      "advisory_id": "GHSA-x5w9-xh9r-mvfc",
+      "affected_ranges": [
+       ">=2.4.0, <2.11.3",
+       "v2.4.0 and later"
+      ],
+      "aliases": [
+       "CVE-2026-45692",
+       "GO-2026-5743"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-05-19T15:51:31Z",
+      "source": "OSV",
+      "summary": "Caddy: Remote Admin Authorization Bypass in `/config` API via Array Index Normalization",
+      "url": "https://osv.dev/vulnerability/GHSA-x5w9-xh9r-mvfc"
+     },
+     {
+      "advisory_id": "GHSA-m675-2p33-xv9g",
+      "affected_ranges": [
+       ">=2.7.0, <2.11.3",
+       ">= 2.7.0, <= 2.10.2"
+      ],
+      "aliases": [
+       "CVE-2026-45135",
+       "GO-2026-5492"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/7629"
+      ],
+      "published_at": "2026-05-18T13:40:58Z",
+      "source": "OSV",
+      "summary": "Caddy: Unsafe Unicode Handling in FastCGI splitPos Allows Execution of Non-PHP Files",
+      "url": "https://osv.dev/vulnerability/GHSA-m675-2p33-xv9g"
+     },
+     {
+      "advisory_id": "GO-2026-4639",
+      "affected_ranges": [
+       ">=2.10.0, <2.11.2",
+       ">= 2.10.0, < v2.11.2"
+      ],
+      "aliases": [
+       "CVE-2026-30851",
+       "GHSA-7r4p-vjf4-gxv4"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/6608",
+       "https://github.com/caddyserver/caddy/pull/7545"
+      ],
+      "published_at": "2026-03-10T18:28:25Z",
+      "source": "OSV",
+      "summary": "Caddy forward_auth copy_headers allows Identity Injection and Privilege Escalation in github.com/caddyserver/caddy",
+      "url": "https://osv.dev/vulnerability/GO-2026-4639"
+     },
+     {
+      "advisory_id": "GO-2026-4644",
+      "affected_ranges": [
+       ">=2.7.5, <2.11.2",
+       ">= v2.7.5, <= v2.11.1"
+      ],
+      "aliases": [
+       "CVE-2026-30852",
+       "GHSA-m2w3-8f23-hxxf"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/pull/5408"
+      ],
+      "published_at": "2026-03-10T18:28:25Z",
+      "source": "OSV",
+      "summary": "Caddy's vars_regexp double-expands user input, leaking env vars and files in github.com/caddyserver/caddy",
+      "url": "https://osv.dev/vulnerability/GO-2026-4644"
+     },
+     {
+      "advisory_id": "GHSA-5r3v-vc8m-m96g",
+      "affected_ranges": [
+       ">=0, <2.11.1",
+       "< v2.11.0"
+      ],
+      "aliases": [
+       "CVE-2026-27590",
+       "GO-2026-4536"
+      ],
+      "fix_refs": [],
+      "published_at": "2026-02-24T20:39:08Z",
+      "source": "OSV",
+      "summary": "Caddy: Unicode case-folding length expansion causes incorrect split_path index in FastCGI transport",
+      "url": "https://osv.dev/vulnerability/GHSA-5r3v-vc8m-m96g"
+     },
+     {
+      "advisory_id": "GHSA-879p-475x-rqh2",
+      "affected_ranges": [
+       ">=0, <2.11.1",
+       "(confirmed on main @ e0f8d9b2047af417d8faf354b675941f3dac9891)"
+      ],
+      "aliases": [
+       "CVE-2026-27589",
+       "GO-2026-4537"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/commit/65e0ddc22137bbbaa68c842ae0b98d0548504545"
+      ],
+      "published_at": "2026-02-24T20:37:35Z",
+      "source": "OSV",
+      "summary": "Caddy is vulnerable to cross-origin config application via local admin API /load ",
+      "url": "https://osv.dev/vulnerability/GHSA-879p-475x-rqh2"
+     },
+     {
+      "advisory_id": "GHSA-x76f-jf84-rqj8",
+      "affected_ranges": [
+       ">=0, <2.11.1",
+       "2.10.2"
+      ],
+      "aliases": [
+       "CVE-2026-27588",
+       "GO-2026-4541"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/commit/eec32a0bb5a11651c6a7b04ce82dc50610f2b27e"
+      ],
+      "published_at": "2026-02-24T20:34:01Z",
+      "source": "OSV",
+      "summary": "Caddy: MatchHost becomes case-sensitive for large host lists (>100), enabling host-based route/auth bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-x76f-jf84-rqj8"
+     },
+     {
+      "advisory_id": "GHSA-g7pc-pc7g-h8jh",
+      "affected_ranges": [
+       ">=0, <2.11.1",
+       "2.10.2"
+      ],
+      "aliases": [
+       "CVE-2026-27587",
+       "GO-2026-4538"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/commit/a1081194bfae4e0d8c227ec44aecb95eded55d1e"
+      ],
+      "published_at": "2026-02-24T20:31:31Z",
+      "source": "OSV",
+      "summary": "Caddy: MatchPath %xx (escaped-path) branch skips case normalization, enabling path-based route/auth bypass",
+      "url": "https://osv.dev/vulnerability/GHSA-g7pc-pc7g-h8jh"
+     },
+     {
+      "advisory_id": "GHSA-hffm-g8v7-wrv7",
+      "affected_ranges": [
+       ">=0, <2.11.1",
+       "v2.10.2"
+      ],
+      "aliases": [
+       "CVE-2026-27586",
+       "GO-2026-4539"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/commit/d42d39b4bc237c628f9a95363b28044cb7a7fe72"
+      ],
+      "published_at": "2026-02-24T20:22:53Z",
+      "source": "OSV",
+      "summary": "Caddy: mTLS client authentication silently fails open when CA certificate file is missing or malformed",
+      "url": "https://osv.dev/vulnerability/GHSA-hffm-g8v7-wrv7"
+     },
+     {
+      "advisory_id": "GHSA-4xrr-hq4w-6vf4",
+      "affected_ranges": [
+       ">=0, <2.11.1",
+       "< v2.11.0"
+      ],
+      "aliases": [
+       "CVE-2026-27585",
+       "GO-2026-4535"
+      ],
+      "fix_refs": [
+       "https://github.com/caddyserver/caddy/blob/68d50020eef0d4c3398b878f17c8092ca5b58ca0/modules/caddyhttp/fileserver/matcher.go#L361",
+       "https://github.com/caddyserver/caddy/blob/68d50020eef0d4c3398b878f17c8092ca5b58ca0/modules/caddyhttp/fileserver/matcher.go#L398"
+      ],
+      "published_at": "2026-02-24T20:16:55Z",
+      "source": "OSV",
+      "summary": "Caddy: Improper sanitization of glob characters in file matcher may lead to bypassing security protections",
+      "url": "https://osv.dev/vulnerability/GHSA-4xrr-hq4w-6vf4"
+     }
+    ],
+    "commit_sha": "03243e42fe46f6bf276cbbf5dcdc7e18fde461d7",
+    "explicit_affected_version_count": 0,
+    "in_range_advisory_count": 18,
+    "tag_or_release": "v2.11.0",
+    "version": "2.11.0"
+   }
+  ],
+  "errors": [],
+  "full_name": "caddyserver/caddy",
+  "generated_at": "2026-10-22T15:53:17Z",
+  "repo_id": "29207621",
+  "status": "candidates_proposed_pending_source_verification",
+  "tag_count": 157,
+  "tool_version": "propose_missing_snapshots/1.0",
+  "upstream_url": "https://github.com/caddyserver/caddy.git"
+ }
+}

@@ -1,0 +1,24 @@
+{
+  "key": "angular_elements",
+  "repository": "angular/angular",
+  "path": "packages/elements/package.json",
+  "retrieved_at": "2026-10-21T10:56:19.842Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/elements\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - library for using Angular Components as Custom Elements\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/core\": \"0.0.0-PLACEHOLDER\",\n    \"rxjs\": \"^6.5.3 || ^7.4.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/elements\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": false\n}\n",
+      "encoding": "utf-8",
+      "sha": "2e2a607a7cc31e877faf47c09d4def62e988add8",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/elements/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

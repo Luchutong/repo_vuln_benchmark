@@ -1,0 +1,442 @@
+{
+  "candidate_id": "disc2_e6f1bf56958252c129343fee",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T19:20:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-27624",
+    "aliases": [
+      "CVE-2025-27624",
+      "GHSA-7g95-jmg9-h524",
+      "BIT-jenkins-2025-27624"
+    ],
+    "title": "Jenkins doToggleCollapse accepts GET requests, allowing CSRF to toggle a user's sidepanel widget state",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.500",
+        "tag": "jenkins-2.500",
+        "release_url": "https://www.jenkins.io/changelog/#v2.500",
+        "verified_content": "The 2.500 release commit cb753134 has 923cdbc1 as its only parent; the SECURITY-3498 fix 84ef1a4d is the parent of 4a9a3ecd, which is the parent of 923cdbc1 (git merge-base --is-ancestor 84ef1a4d cb753134 exits 0). At cb753134 doToggleCollapse carries @POST (line 4168) and pane.jelly renders the trigger as class=\"collapse post\" (line 64). The CNA record also lists LTS 2.492.2 as unaffected; that backport was not fetched or asserted."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c",
+        "branch": "master",
+        "release": "2.500",
+        "message": "[SECURITY-3498]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c"
+      },
+      {
+        "sha": "02d4db379ac965641bb1382515c834cf4966ec5a",
+        "branch": "2.492.x LTS release commit (backport not fetched, ancestry not asserted)",
+        "release": "2.492.2",
+        "message": "[maven-release-plugin] prepare release jenkins-2.492.2",
+        "url": "https://github.com/jenkinsci/jenkins/commit/02d4db379ac965641bb1382515c834cf4966ec5a"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-352"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L",
+      "score": 5.4,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 5.4 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 5.4 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 5.4 MEDIUM; GHSA/OSV 5.4 MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27624",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 5.4,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L"
+        },
+        {
+          "version": "3.1",
+          "score": 5.4,
+          "level": "medium",
+          "source": "GHSA-7g95-jmg9-h524 / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L"
+        }
+      ]
+    },
+    "category_l1": "csrf",
+    "category_l2": "A state-changing endpoint without @POST is routed for GET, so a cross-site request from the victim's browser toggles the victim's pane collapse state",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3498",
+    "published_at": "2025-03-05T22:33:36Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3498",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-27624",
+      "https://github.com/advisories/GHSA-7g95-jmg9-h524",
+      "https://github.com/jenkinsci/jenkins/commit/84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c"
+    ]
+  },
+  "description": "Jenkins exposes /toggleCollapse, implemented by Jenkins.doToggleCollapse, to toggle the collapsed/expanded state of sidepanel widgets such as Build Queue and Build Executor Status. At 2.441 the method (4214-4221) has no @POST or @RequirePOST annotation, so Stapler routes GET requests to it. It reads the paneId request parameter and calls PaneStatusProperties.forCurrentUser().toggleCollapsed(paneId): for a logged-in user this adds or removes the attacker-chosen id in that user's persisted collapsed set (PersistedList owned by the user property, whose save() calls user.save()), and for an anonymous visitor it writes the same id into the session attribute jenkins_pane_<id>_collapsed. Because the state change is reachable with GET, an attacker page can embed an <img> or link to /toggleCollapse?paneId=... and the victim's browser performs the toggle without a crumb, which Jenkins enforces for POST requests. The impact is integrity of the victim's UI preferences (the published CVSS counts I:L and A:L, C:N). The 2.500 fix 84ef1a4d adds @POST to the method and converts both UI triggers (pane.jelly and executors.jelly) to class=\"collapse post\" with the lib.form.link.link adjunct; its regression test JenkinsTest.testPaneToggleCollapse asserts that a GET to toggleCollapse is rejected (404).",
+  "location": {
+    "location_id": "loc_CVE-2025-27624_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-27624",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/jenkins/model/Jenkins.java",
+    "function": "doToggleCollapse",
+    "language": "Java",
+    "line": "4214-4221",
+    "critical_operation": {
+      "file": "core/src/main/java/jenkins/model/Jenkins.java",
+      "function": "doToggleCollapse",
+      "language": "Java",
+      "line": "4214-4221",
+      "code_excerpt": "    public HttpResponse doToggleCollapse() throws ServletException, IOException {\n        final StaplerRequest request = Stapler.getCurrentRequest();\n        final String paneId = request.getParameter(\"paneId\");\n\n        PaneStatusProperties.forCurrentUser().toggleCollapsed(paneId);\n\n        return HttpResponses.forwardToPreviousPage();\n    }",
+      "description": "The state-changing handler has no @POST (or @RequirePOST) annotation and no permission check, so Stapler dispatches GET requests to it. The paneId query parameter is passed to PaneStatusProperties.toggleCollapsed, which mutates and persists the victim's collapsed-widget set.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/model/Jenkins.java#L4214-L4221"
+    },
+    "entry_point": {
+      "description": "Any cross-site GET such as /toggleCollapse?paneId=buildQueue (the UI emits it as a plain <a> href from pane.jelly); because the method is unannotated, the GET reaches the handler without a crumb check.",
+      "file": "core/src/main/resources/lib/layout/pane.jelly",
+      "function": "pane.jelly collapse trigger",
+      "language": "Jelly",
+      "line": 62,
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/lib/layout/pane.jelly#L62"
+    },
+    "trace": [
+      {
+        "description": "doToggleCollapse has no @POST and no permission check, so GET is routed to the state-changing handler",
+        "file": "core/src/main/java/jenkins/model/Jenkins.java",
+        "function": "doToggleCollapse",
+        "language": "Java",
+        "line": "4214-4221",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/model/Jenkins.java#L4214-L4221"
+      },
+      {
+        "description": "forCurrentUser returns the current user's PaneStatusProperties, or a session-backed fallback when no user is logged in",
+        "file": "core/src/main/java/hudson/model/PaneStatusProperties.java",
+        "function": "forCurrentUser",
+        "language": "Java",
+        "line": "85-91",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/PaneStatusProperties.java#L85-L91"
+      },
+      {
+        "description": "toggleCollapsed adds or removes the attacker-supplied paneId in the collapsed set",
+        "file": "core/src/main/java/hudson/model/PaneStatusProperties.java",
+        "function": "toggleCollapsed",
+        "language": "Java",
+        "line": "26-34",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/PaneStatusProperties.java#L26-L34"
+      },
+      {
+        "description": "the persisted collection's owner save() calls user.save(), so the toggle is stored in the victim's profile",
+        "file": "core/src/main/java/hudson/model/PaneStatusProperties.java",
+        "function": "save",
+        "language": "Java",
+        "line": "36-39",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/PaneStatusProperties.java#L36-L39"
+      },
+      {
+        "description": "the legitimate UI trigger is a plain anchor, so it issues GET; the fix changes it to a POST link",
+        "file": "core/src/main/resources/lib/layout/pane.jelly",
+        "function": "pane.jelly collapse trigger",
+        "language": "Jelly",
+        "line": 62,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/lib/layout/pane.jelly#L62"
+      },
+      {
+        "description": "the fix adds @POST to doToggleCollapse (2.500 line 4168) and the trigger becomes class=\"collapse post\" (2.500 line 64)",
+        "file": "core/src/main/java/jenkins/model/Jenkins.java",
+        "function": "doToggleCollapse",
+        "language": "Java",
+        "line": "4168-4176",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/jenkins/model/Jenkins.java#L4168-L4176"
+      }
+    ],
+    "verification_method": "Static read of Jenkins.java, PaneStatusProperties.java and lib/layout/pane.jelly at 2.441 and of Jenkins.java and pane.jelly at the 2.500 release commit, plus the 84ef1a4d patch and the new JenkinsTest.testPaneToggleCollapse; no Jenkins instance, HTTP request or browser was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_27624_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-27624",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "492debb94dbaf24054d4f642cb5f8d9fbd6cdf7d99c43f8ba401a6bb77fcb58b",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-03-05, assigner Jenkins",
+        "description: a CSRF vulnerability in Jenkins 2.499 and earlier, LTS 2.492.1 and earlier allows attackers to have users toggle their collapsed/expanded status of sidepanel widgets (e.g., Build Queue and Build Executor Status)",
+        "affected versions: 2.492.* unaffected from 2.492.2, weekly unaffected from 2.500; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3498"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-27624",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "0c4b40d73f2319e87e351424490ede9b6d95a9db97c8f55bde1b3568885ee687",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-03-05, status Analyzed",
+        "one CVSS 3.1 5.4 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L",
+        "there is no Primary metric",
+        "CWE-352 from the same Secondary source",
+        "CISA-ADP SSVC options: exploitation none, automatable no, technical impact partial"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-27624",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "4baa53d1e0396c9ac6e09a5b19f40d5abc2384578c6a788aec28ad3a58804827",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "aliases GHSA-7g95-jmg9-h524 and BIT-jenkins-2025-27624",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L (5.4 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 02d4db37 (2.492.2 release commit) and cb753134 (2.500 release commit)",
+        "OSV's extracted CPE ranges are weekly <2.500 and LTS <2.492.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-7g95-jmg9-h524",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "c1568e10a46d681776ea63daeaa6851e0c0f400f7729a71d3dc7ed3eec978514",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L (5.4), database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-352]",
+        "one Maven ECOSYSTEM range is introduced 0 -> fixed 2.492.2; the other is introduced 2.493 -> fixed 2.500, which conflicts with the CNA text for the weekly line"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_vuln_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/Jenkins_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/model/Jenkins.java#L4214-L4221",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "0577091dd737732eeef8e824f3fd72c4c5a23d2fe7468521ecbb6b143c33a79e",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 6e568583 matches the snapshot inventory (219734 bytes)",
+      "result": "PASS",
+      "supports": [
+        "doToggleCollapse at 4214-4221 reads the paneId request parameter and calls PaneStatusProperties.forCurrentUser().toggleCollapsed(paneId)",
+        "the method has no @POST or @RequirePOST annotation, while neighbouring handlers in the same class use @RequirePOST (e.g. doCancelQuietDown at 4207) and @POST elsewhere (4051, 4104, 4295), so the omission is real rather than a version where the annotation is unavailable",
+        "no permission check is performed, and the request is not restricted to POST"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_pane_status",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/PaneStatusProperties_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/PaneStatusProperties.java",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "8ff4c4537d558ef6bb214c93f08f1d6071bd077414cf2ecbd559949995f56852",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 29a46034 matches the snapshot inventory (2642 bytes)",
+      "result": "PASS",
+      "supports": [
+        "collapsed is a PersistedList<String> owned by the property (line 14)",
+        "toggleCollapsed (26-34) adds the supplied paneId to collapsed, or removes it if already present",
+        "save() (36-39) calls user.save(), so a change to the persisted list is written to the user's profile",
+        "forCurrentUser (85-91) returns current.getProperty(PaneStatusProperties.class), and the session-backed fallback at 61-83 stores the same value when no user is logged in"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_jelly_vuln",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/pane_2.441.jelly",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/lib/layout/pane.jelly#L62",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "8a7f108dbb642e47f093732916addf254e7275ef0f25a710153757b8cb7aea73",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob e7c4a04a matches the snapshot inventory (3507 bytes)",
+      "result": "PASS",
+      "supports": [
+        "line 62 renders the collapse control as a plain anchor: <a class=\"collapse\" href=\"${rootURL}/toggleCollapse?paneId=${attrs.id}\"",
+        "the UI therefore invokes the handler with GET, so the same URL shape works for a cross-site request"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_fixed_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/Jenkins_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/jenkins/model/Jenkins.java#L4168-L4176",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "b3fbee0f9f84c5a3c5b3606625dcd9e95b72de2716a7457b2153e0b3bec4cbde",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob d246e60e",
+      "result": "PASS",
+      "supports": [
+        "doToggleCollapse now carries @POST at line 4168 and the method body is at 4169-4176",
+        "a GET to the endpoint is no longer routed to the handler, which the fix's regression test asserts as a 404"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_jelly_fixed",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/pane_2.500.jelly",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/resources/lib/layout/pane.jelly#L64",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "973a6b59891dd76d6a5e317b4ff04d7f7eb6eb02deef7947aa9c9a2cbf8b1ea5",
+      "verification_method": "file read at the 2.500 release commit cb753134",
+      "result": "PASS",
+      "supports": [
+        "line 64 renders class=\"collapse post\" and line 62 includes lib.form.link.link, so the UI trigger submits a POST instead of following a plain link"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "336ab3b5bb2a9a147cfedcb4979e1fa80ab60f7a48cb7ddddf983fa034c741cb",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 84ef1a4d '[SECURITY-3498]', 2025-02-25, parent 68425e2c",
+        "the patch adds @POST to jenkins/model/Jenkins.java doToggleCollapse",
+        "it converts the triggers in lib/layout/pane.jelly and lib/hudson/executors.jelly to class=\"collapse post\" with the lib.form.link.link adjunct",
+        "it adds JenkinsTest.testPaneToggleCollapse, which expects a GET to toggleCollapse?paneId=foo to fail with 404 (the comment notes @RequirePOST would respond 405), and disables JavaScript in three AJAX tests that follow the link"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27624_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27624/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-21T19:18:00Z",
+      "sha256_of_observation": "7b760a07b349d80679cd6df4039f4ed6de6ec4ecc1e3a4168f2954e0c053c5dc",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and the Jenkins.java blob 6e568583, PaneStatusProperties.java blob 29a46034 and pane.jelly blob e7c4a04a match the inventory",
+        "fix commit 84ef1a4d is the parent of 4a9a3ecd, which is the parent of 923cdbc1, the only parent of the 2.500 release commit cb753134; git merge-base --is-ancestor 84ef1a4d cb753134 exits 0",
+        "CNA affected range 2.499 and earlier weekly / 2.492.1 and earlier LTS includes the 2.441 snapshot",
+        "the 2.492.2 LTS release commit 02d4db37 and its backport were not fetched, so no LTS ancestry is asserted"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      9
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      9,
+      10
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      9,
+      10
+    ],
+    "languages": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      10
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 handler source, the sink in PaneStatusProperties and the fix patch; the jelly rows support languages and the entry point.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 5.4 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (CSRF allowing a cross-site request to toggle a user's sidepanel widget collapse state) and on the fixed releases (2.500 weekly, 2.492.2 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 5.4 MEDIUM, which OSV/GHSA repeats as 5.4 MODERATE, and the CNA has no metric, so all published levels are medium. CWE-352 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM weekly range introduced=2.493 conflicts with the CNA text and the OSV GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. This root cause is distinct from the previously promoted jenkins entries: CVE-2024-23897 (CLI arbitrary file read), CVE-2024-23898 (CLI WebSocket hijacking), CVE-2024-43045 (My Views permission check), CVE-2025-27622 (agent config.xml redaction), CVE-2025-27623 (view config.xml redaction) and CVE-2025-27625 (backslash open redirect); it is a missing POST restriction on a state-changing Jenkins endpoint.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "independent_verdict": {
+      "reviewer_identity": "independent-reviewer (Claude Code; model deepseek-flash)",
+      "verdict_path": "runs/independent/jenkins_CVE-2025-27624_round1/verdict.json",
+      "verdict": "confirmed",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "fields_false": [],
+      "severity_level": "medium",
+      "location_file": "core/src/main/java/jenkins/model/Jenkins.java",
+      "location_line": "4214-4221"
+    },
+    "independent_corrections_accepted": [
+      "The reviewer independently confirmed the unannotated handler, the paneId sink and the fixed tree, and added the widget call sites lib/hudson/executors.jelly:140 (l:pane id=\"executors\") and lib/hudson/queue.jelly:48 (l:pane id=\"buildQueue\"), which correspond to the Build Executor Status and Build Queue widgets named in the advisory.",
+      "The reviewer also checked the upstream tags directly: jenkins-2.499 has no @POST (Jenkins.java:4168) while jenkins-2.492.2 (4166) and jenkins-2.500 (4169) carry it, which independently confirms the affected/fixed boundary and the 2.492.2 LTS backport that this dossier did not assert from local ancestry.",
+      "The reviewer noted the CNA record supplies neither CVSS nor CWE, and that no independent non-reporter PoC exists (CISA SSVC exploitation=none, EPSS 0.00441), which keeps the grade at B."
+    ],
+    "duplicate_check": "The reviewer compared CVE-2024-23897, CVE-2024-23898, CVE-2024-43045, CVE-2025-27622, CVE-2025-27623 and CVE-2025-27625 and found no duplicate: different advisory ids, fix commits (84ef1a4d vs 4a9a3ecd/923cdbc1), endpoints and code paths.",
+    "required_before_promotion": [
+      "An independent reviewer must read Jenkins.doToggleCollapse at 2.441 and confirm it lacks @POST and performs no permission check.",
+      "An independent reviewer must confirm PaneStatusProperties.toggleCollapsed mutates the victim's persisted state (or the session fallback) for the supplied paneId.",
+      "An independent reviewer must confirm 84ef1a4d is the fix, is contained in the 2.500 release, and that the fixed tree annotates the method @POST and converts the trigger to a POST link.",
+      "An independent reviewer must confirm the affected range (weekly <=2.499, LTS <=2.492.1) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are medium (5.4) and record CWE-352.",
+      "An independent reviewer must confirm the mechanism is distinct from the promoted jenkins entries.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or browser was run.",
+    "The attack requires a victim to load an attacker-controlled page while the endpoint is reachable from the victim's browser (UI:R); the impact is limited to the victim's pane collapse preferences, as reflected by C:N/I:L/A:L.",
+    "The crumb-check exemption for GET is a property of Jenkins' request handling that is evidenced by the fix choosing @POST rather than a token check; it was not exercised against a running instance.",
+    "Only one location row is recorded (Jenkins.doToggleCollapse). The sink in PaneStatusProperties and the Jelly trigger are recorded as trace/entry-point evidence.",
+    "The LTS backport and the 2.492.2 branch were not fetched into the local mirror; LTS ancestry is recorded from OSV and the CNA record, not asserted locally.",
+    "The GHSA ECOSYSTEM range introduced=2.493 conflicts with the CNA and the OSV GIT range; the conflict is documented, not resolved silently."
+  ],
+  "open_questions": [
+    "Whether other unannotated state-changing handlers share the same pattern was not enumerated beyond the advisory's scope.",
+    "Anonymous visitors hit the session fallback rather than the persisted user property; the advisory describes the affected users generally, and both paths accept an attacker-supplied paneId."
+  ]
+}

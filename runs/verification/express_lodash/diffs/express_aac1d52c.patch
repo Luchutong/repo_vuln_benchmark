@@ -1,0 +1,326 @@
+diff --git a/lib/response.js b/lib/response.js
+index 97a2ac2b..39da3d92 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -612,49 +612,20 @@ res.cookie = function(name, val, options){
+  * Examples:
+  *
+  *    res.location('/foo/bar').;
+  *    res.location('http://example.com');
+- *    res.location('../login'); // /blog/post/1 -> /blog/login
+- *
+- * Mounting:
+- *
+- *   When an application is mounted and `res.location()`
+- *   is given a path that does _not_ lead with "/" it becomes
+- *   relative to the mount-point. For example if the application
+- *   is mounted at "/blog", the following would become "/blog/login".
+- *
+- *      res.location('login');
+- *
+- *   While the leading slash would result in a location of "/login":
+- *
+- *      res.location('/login');
++ *    res.location('../login');
+  *
+  * @param {String} url
+  * @api public
+  */
+ 
+ res.location = function(url){
+-  var app = this.app
+-    , req = this.req
+-    , path;
++  var req = this.req;
+ 
+   // "back" is an alias for the referrer
+   if ('back' == url) url = req.get('Referrer') || '/';
+ 
+-  // relative
+-  if (!~url.indexOf('://') && 0 != url.indexOf('//')) {
+-    // relative to path
+-    if ('.' == url[0]) {
+-      path = req.originalUrl.split('?')[0];
+-      path = path + ('/' == path[path.length - 1] ? '' : '/');
+-      url = resolve(path, url);
+-      // relative to mount-point
+-    } else if ('/' != url[0]) {
+-      path = app.path();
+-      url = path + '/' + url;
+-    }
+-  }
+-
+   // Respond
+   this.set('Location', url);
+   return this;
+ };
+diff --git a/test/res.location.js b/test/res.location.js
+index b9810d31..2fb9ab73 100644
+--- a/test/res.location.js
++++ b/test/res.location.js
+@@ -17,172 +17,6 @@ describe('res', function(){
+         res.headers.should.have.property('location', 'http://google.com');
+         done();
+       })
+     })
+-   
+-    describe('with leading //', function(){
+-      it('should pass through scheme-relative urls', function(done){
+-        var app = express();
+-
+-        app.use(function(req, res){
+-          res.location('//cuteoverload.com').end();
+-        });
+-
+-        request(app)
+-        .get('/')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '//cuteoverload.com');
+-          done();
+-        })
+-      })
+-    })
+-   
+-    describe('with leading /', function(){
+-      it('should construct scheme-relative urls', function(done){
+-        var app = express();
+-
+-        app.use(function(req, res){
+-          res.location('/login').end();
+-        });
+-
+-        request(app)
+-        .get('/')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '/login');
+-          done();
+-        })
+-      })
+-    })
+-
+-    describe('with leading ./', function(){
+-      it('should construct path-relative urls', function(done){
+-        var app = express();
+-
+-        app.use(function(req, res){
+-          res.location('./edit').end();
+-        });
+-
+-        request(app)
+-        .get('/post/1')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '/post/1/edit');
+-          done();
+-        })
+-      })
+-    })
+-
+-    describe('with leading ../', function(){
+-      it('should construct path-relative urls', function(done){
+-        var app = express();
+-
+-        app.use(function(req, res){
+-          res.location('../new').end();
+-        });
+-
+-        request(app)
+-        .get('/post/1')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '/post/new');
+-          done();
+-        })
+-      })
+-    })
+-
+-    describe('with leading ./ and containing ..', function(){
+-      it('should construct path-relative urls', function(done){
+-        var app = express();
+-
+-        app.use(function(req, res){
+-          res.location('./skip/../../new').end();
+-        });
+-
+-        request(app)
+-        .get('/post/1')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '/post/new');
+-          done();
+-        })
+-      })
+-    })
+-    
+-    describe('without leading /', function(){
+-      it('should construct mount-point relative urls', function(done){
+-        var app = express();
+-
+-        app.use(function(req, res){
+-          res.location('login').end();
+-        });
+-
+-        request(app)
+-        .get('/')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '/login');
+-          done();
+-        })
+-      })
+-    })
+-    
+-    describe('when mounted', function(){
+-      describe('deeply', function(){
+-        it('should respect the mount-point', function(done){
+-          var app = express()
+-            , blog = express()
+-            , admin = express();
+-
+-          admin.use(function(req, res){
+-            res.location('login').end();
+-          });
+-
+-          app.use('/blog', blog);
+-          blog.use('/admin', admin);
+-
+-          request(app)
+-          .get('/blog/admin')
+-          .end(function(err, res){
+-            res.headers.should.have.property('location', '/blog/admin/login');
+-            done();
+-          })
+-        })
+-      })
+-
+-      describe('omitting leading /', function(){
+-        it('should respect the mount-point', function(done){
+-          var app = express()
+-            , admin = express();
+-
+-          admin.use(function(req, res){
+-            res.location('admin/login').end();
+-          });
+-
+-          app.use('/blog', admin);
+-
+-          request(app)
+-          .get('/blog')
+-          .end(function(err, res){
+-            res.headers.should.have.property('location', '/blog/admin/login');
+-            done();
+-          })
+-        })
+-      })
+-
+-      describe('providing leading /', function(){
+-        it('should ignore mount-point', function(done){
+-          var app = express()
+-            , admin = express();
+-
+-          admin.use(function(req, res){
+-            res.location('/admin/login').end();
+-          });
+-
+-          app.use('/blog', admin);
+-
+-          request(app)
+-          .get('/blog')
+-          .end(function(err, res){
+-            res.headers.should.have.property('location', '/admin/login');
+-            done();
+-          })
+-        })
+-      })
+-    })
+   })
+ })
+diff --git a/test/res.redirect.js b/test/res.redirect.js
+index 4640719c..dab3e6e0 100644
+--- a/test/res.redirect.js
++++ b/test/res.redirect.js
+@@ -104,9 +104,9 @@ describe('res', function(){
+       .get('/')
+       .set('Host', 'http://example.com')
+       .set('Accept', 'text/html')
+       .end(function(err, res){
+-        res.text.should.equal('<p>Moved Temporarily. Redirecting to <a href="/&lt;lame&gt;">/&lt;lame&gt;</a></p>');
++        res.text.should.equal('<p>Moved Temporarily. Redirecting to <a href="&lt;lame&gt;">&lt;lame&gt;</a></p>');
+         done();
+       })
+     })
+   })
+@@ -168,77 +168,5 @@ describe('res', function(){
+         done();
+       })
+     })
+   })
+-
+-  describe('responses redirected to relative paths', function(){
+-    function create(depth, parent) {
+-      var app = express();
+-
+-      if (parent) {
+-        parent.use('/depth' + depth, app);
+-      }
+-
+-      app.get('/', function(req, res){
+-        res.redirect('./index');
+-      });
+-
+-      app.get('/index', function(req, res){
+-        res.json({ depth: depth, content: 'index' });
+-      });
+-
+-      return app;
+-    }
+-
+-    var root = create(0);
+-    var depth1 = create(1, root);
+-    var depth2 = create(2, depth1);
+-    var depth3 = create(3, depth2);
+-
+-    root.use('/depth2', depth2);
+-    root.use('/depth3', depth3);
+-
+-    it('should not contain redundant leading slashes in the location header', function(done){
+-      request(root)
+-      .get('/')
+-      .end(function(err, res){
+-        res.headers.location.search(/^\/{2}/).should.equal(-1);
+-        done();
+-      })
+-    })
+-
+-    it('should preserve context when redirecting nested applications at any depth', function(done){
+-      request(root)
+-      .get('/depth1')
+-      .end(function(err, res){
+-        res.headers.should.have.property('location', '/depth1/index');
+-
+-        request(root)
+-        .get('/depth1/depth2')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '/depth1/depth2/index');
+-
+-          request(root)
+-          .get('/depth1/depth2/depth3')
+-          .end(function(err, res){
+-            res.headers.should.have.property('location', '/depth1/depth2/depth3/index');
+-            done();
+-          })
+-        })
+-      });
+-    })
+-
+-    it('should redirect correctly for nested applications that have been remounted', function(done){
+-      request(root)
+-      .get('/depth2')
+-      .end(function(err, res){
+-        res.headers.should.have.property('location', '/depth2/index');
+-        request(root)
+-        .get('/depth3')
+-        .end(function(err, res){
+-          res.headers.should.have.property('location', '/depth3/index');
+-          done();
+-        })
+-      })
+-    })
+-  })
+ })

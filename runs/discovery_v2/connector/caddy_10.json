@@ -1,0 +1,25 @@
+{
+  "key": "caddy_10",
+  "repository": "caddyserver/caddy",
+  "path": "go.mod",
+  "ref": "v1.0.0",
+  "retrieved_at": "2026-10-21T10:56:56.356Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "module github.com/mholt/caddy\n\ngo 1.12\n\nrequire (\n\tgithub.com/BurntSushi/toml v0.3.1 // indirect\n\tgithub.com/dustin/go-humanize v1.0.0\n\tgithub.com/flynn/go-shlex v0.0.0-20150515145356-3f9db97f8568\n\tgithub.com/go-acme/lego v2.5.0+incompatible\n\tgithub.com/google/uuid v1.1.1\n\tgithub.com/gorilla/websocket v1.4.0\n\tgithub.com/hashicorp/go-syslog v1.0.0\n\tgithub.com/jimstudt/http-authentication v0.0.0-20140401203705-3eca13d6893a\n\tgithub.com/klauspost/cpuid v1.2.0\n\tgithub.com/kylelemons/godebug v0.0.0-20170820004349-d65d576e9348 // indirect\n\tgithub.com/lucas-clemente/quic-go v0.10.2\n\tgithub.com/mholt/certmagic v0.5.0\n\tgithub.com/naoina/go-stringutil v0.1.0 // indirect\n\tgithub.com/naoina/toml v0.1.1\n\tgithub.com/russross/blackfriday v0.0.0-20170610170232-067529f716f4\n\tgolang.org/x/net v0.0.0-20190328230028-74de082e2cca\n\tgopkg.in/mcuadros/go-syslog.v2 v2.2.1\n\tgopkg.in/natefinch/lumberjack.v2 v2.0.0\n\tgopkg.in/yaml.v2 v2.2.2\n)\n",
+      "encoding": "utf-8",
+      "sha": "96d209aaea0951530ef31d566dab59f43aefa7b9",
+      "display_url": "https://github.com/caddyserver/caddy/blob/v1.0.0/go.mod",
+      "display_title": "go.mod"
+    },
+    "isError": false
+  }
+}

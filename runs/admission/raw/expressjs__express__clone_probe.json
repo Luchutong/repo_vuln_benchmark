@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/expressjs/express.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:31.342973+00:00", "elapsed_seconds": 1.446, "response": {"returncode": 0, "stdout": "0dee2c52c7c873498f8ed7d8ee4ddd0a04d3ada8\tHEAD\n", "stderr": ""}}

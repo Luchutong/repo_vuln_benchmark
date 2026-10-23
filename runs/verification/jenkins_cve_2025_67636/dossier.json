@@ -1,0 +1,378 @@
+{
+  "candidate_id": "disc2_c299a931a9221bb6b13c4c37",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T03:50:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-67636",
+    "aliases": [
+      "CVE-2025-67636",
+      "GHSA-p3f5-98cv-562j",
+      "BIT-jenkins-2025-67636"
+    ],
+    "title": "Jenkins does not mask password fields rendered under a view, exposing the encrypted secret to users with View/Read",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.540; LTS <=2.528.2 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.541",
+        "tag": "jenkins-2.541",
+        "release_url": "https://www.jenkins.io/changelog/#v2.541",
+        "verified_content": "The 2.541 release commit ea9c7278 has the SECURITY-1809 commit 3ee7380c as an ancestor (git merge-base --is-ancestor exits 0), and Functions.java at the tag is blob fbd5e8a6, the same blob as at 3ee7380c. The 2.528.3 release commit 40e29179 has the LTS backport 042de664 as an ancestor, and Functions.java at that tag is blob 10ebf6f7, the same blob as at 042de664. In both fixed trees Functions.getPasswordValue walks the request's ancestor chain and masks the value when the closest Item, Computer or View ancestor lacks CONFIGURE. The regression test Security1809Test asserts that a View/Read-only user sees ******** where a View/Read+View/Configure user sees the encrypted value."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "3ee7380c5e167fab865f58b52a81ef01c24b9eb2",
+        "branch": "master",
+        "release": "2.541",
+        "message": "[SECURITY-1809]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/3ee7380c5e167fab865f58b52a81ef01c24b9eb2"
+      },
+      {
+        "sha": "042de66464ac0fb194cfb275e1743603e14becd3",
+        "branch": "2.528.x LTS",
+        "release": "2.528.3",
+        "message": "[SECURITY-1809]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/042de66464ac0fb194cfb275e1743603e14becd3"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-862"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-67636",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "GHSA-p3f5-98cv-562j / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "missing_authorization",
+    "category_l2": "The f:password renderer decides masking from Item and Computer ancestors only, so when the control is rendered under a View no Configure check is applied and a View/Read-only user receives the encrypted secret value",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-1809",
+    "published_at": "2025-12-10T16:50:36Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-1809",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-67636",
+      "https://github.com/advisories/GHSA-p3f5-98cv-562j",
+      "https://github.com/jenkinsci/jenkins/commit/3ee7380c5e167fab865f58b52a81ef01c24b9eb2"
+    ]
+  },
+  "description": "Jenkins renders secret form fields through Functions.getPasswordValue, which backs the <f:password/> Jelly tag. At 2.441 the masking decision (lines 2150-2163) looks up only an Item ancestor and a Computer ancestor of the current request; if the closest such ancestor lacks CONFIGURE it returns ********, otherwise it falls through and returns Secret.getEncryptedValue() (2166-2168). Views are not part of that decision. When a password control is rendered on a view page - for example a view configuration page, the primary view, or a view-scoped action - the request has no Item or Computer ancestor, so no mask is applied and a user holding View/Read receives the encrypted Secret value on the page. Obtainable encrypted values are not equivalent to masking: the value is the stored Secret ciphertext rather than the placeholder, which the advisory treats as disclosure of encrypted password values. The 2.541/2.528.3 fix commits 3ee7380c and 042de664 replace the two lookups with a reverse walk over req.getAncestors() that checks the closest Item, Computer or View ancestor's CONFIGURE permission and masks when it is absent; the old two-lookup behavior is kept behind the nonRecursivePasswordMaskingPermissionCheck system property. Security1809Test adds a PasswordView that renders a Secret through f:password and asserts that the View/Read-only user sees ******** while the View/Read+View/Configure user sees the encrypted value (passwordIsMaskedForView, passwordIsMaskedForPrimaryView), plus agent, job, closest-ancestor and nested-folder cases.",
+  "location": {
+    "location_id": "loc_CVE-2025-67636_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-67636",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/hudson/Functions.java",
+    "function": "getPasswordValue",
+    "language": "Java",
+    "line": "2150-2163",
+    "critical_operation": {
+      "file": "core/src/main/java/hudson/Functions.java",
+      "function": "getPasswordValue",
+      "language": "Java",
+      "line": "2150-2163",
+      "code_excerpt": "/* Mask from Extended Read */\nStaplerRequest req = Stapler.getCurrentRequest();\nif (o instanceof Secret || ...) {\n    if (req != null) {\n        Item item = req.findAncestorObject(Item.class);\n        if (item != null && !item.hasPermission(Item.CONFIGURE)) return \"********\";\n        Computer computer = req.findAncestorObject(Computer.class);\n        if (computer != null && !computer.hasPermission(Computer.CONFIGURE)) return \"********\";\n    }\n}",
+      "description": "The mask decision consults only Item and Computer ancestors. A password control rendered under a View has neither, so the method skips both checks and returns the encrypted Secret at 2167 for a user who holds View/Read but not View/Configure.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Functions.java#L2150-L2163"
+    },
+    "entry_point": {
+      "description": "HTTP GET of a Jenkins page whose request ancestor chain contains a View but no Item or Computer, and whose Jelly template renders a Secret through <f:password/> (for example a view configuration page or a view-scoped action), as a user holding Overall/Read and View/Read but not View/Configure.",
+      "file": "core/src/main/java/hudson/Functions.java",
+      "function": "getPasswordValue",
+      "language": "Java",
+      "line": "2137-2151",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Functions.java#L2137-L2151"
+    },
+    "trace": [
+      {
+        "description": "the request is an ordinary GET; f:password calls getPasswordValue for the Secret bound to the form",
+        "file": "core/src/main/java/hudson/Functions.java",
+        "function": "getPasswordValue",
+        "language": "Java",
+        "line": "2137-2148",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Functions.java#L2137-L2148"
+      },
+      {
+        "description": "the masking block checks only Item and Computer ancestors, so a View-scoped page is not matched",
+        "file": "core/src/main/java/hudson/Functions.java",
+        "function": "getPasswordValue",
+        "language": "Java",
+        "line": "2150-2163",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Functions.java#L2150-L2163"
+      },
+      {
+        "description": "the method falls through and returns the encrypted Secret value to the client",
+        "file": "core/src/main/java/hudson/Functions.java",
+        "function": "getPasswordValue",
+        "language": "Java",
+        "line": "2165-2168",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Functions.java#L2165-L2168"
+      },
+      {
+        "description": "the fixed tree walks the ancestors in reverse and masks when the closest Item, Computer or View ancestor lacks CONFIGURE (2.541 lines 2271-2292)",
+        "file": "core/src/main/java/hudson/Functions.java",
+        "function": "getPasswordValue",
+        "language": "Java",
+        "line": "2271-2292",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3/core/src/main/java/hudson/Functions.java#L2271-L2292"
+      }
+    ],
+    "verification_method": "Static read of Functions.java at 2.441, at the two fix commits and at the fixed release tags, plus the 3ee7380c patch and its Security1809Test; no Jenkins instance, HTTP request or test was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_67636_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-67636",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "ff5391463224c74fe6bf59a148ddf379d64b6ccb317f5158a87286220dad4fce",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-12-10, assigner Jenkins",
+        "description: a missing permission check in Jenkins 2.540 and earlier, LTS 2.528.2 and earlier allows attackers with View/Read permission to view encrypted password values in views",
+        "affected versions: weekly unaffected from 2.541, LTS 2.528.* unaffected from 2.528.3; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-1809"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-67636",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "54ff0a6e3b65f2e73403384d8a3c9717497722ce1c855b3b856897793e4cd10e",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-12-10, status Analyzed",
+        "one CVSS 3.1 4.3 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "there is no Primary metric",
+        "CWE-862 from the same Secondary source"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-67636",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "4d16659a655b6c37fe563c325ab272cbc4bea1089a55188bb7422c40e6b4243c",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "aliases GHSA-p3f5-98cv-562j and BIT-jenkins-2025-67636",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 40e29179 (2.528.3 release commit) and ea9c7278 (2.541 release commit)",
+        "OSV's extracted CPE ranges are weekly <2.541 and LTS <2.528.3"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-p3f5-98cv-562j",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "b10acc761b0808b8e8586b4a3ee24435a74ca65999ce31a75b0367fa4e3e2632",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3), database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-862]",
+        "one Maven ECOSYSTEM range is introduced 0 -> fixed 2.528.3; the other is introduced 2.529 -> fixed 2.541, which conflicts with the CNA text and the CVE GIT range for the weekly line",
+        "references include https://github.com/jenkinsci/jenkins/commit/3ee7380c5e167fab865f58b52a81ef01c24b9eb2"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_vuln_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/Functions_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Functions.java#L2150-L2163",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "2696ab6704dd6045d843e1ce3adce2abcf7f7c799ea4619901f707beb455da35",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob d27160aa matches the snapshot inventory (92715 bytes)",
+      "result": "PASS",
+      "supports": [
+        "getPasswordValue at 2137-2183 is the <f:password/> renderer",
+        "the masking block at 2150-2163 consults only findAncestorObject(Item.class) and findAncestorObject(Computer.class); there is no View branch",
+        "when neither ancestor is present the method reaches 2166-2168 and returns ((Secret) o).getEncryptedValue()"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_fixed_master",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/Functions_2.541.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3ee7380c5e167fab865f58b52a81ef01c24b9eb2/core/src/main/java/hudson/Functions.java#L2271-L2292",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "4f1a14798d163bfde7a9806c900e3daed4c775ad11a94b00f433c20e75ffa413",
+      "verification_method": "file read at the 2.541 fix commit 3ee7380c; blob fbd5e8a6, identical to the blob at tag jenkins-2.541",
+      "result": "PASS",
+      "supports": [
+        "the fixed method walks req.getAncestors() in reverse and checks the closest Item, Computer or View ancestor",
+        "a View ancestor without View.CONFIGURE now returns ******** (2286-2291)",
+        "the previous two-lookup behavior is retained only behind the nonRecursivePasswordMaskingPermissionCheck system property (2261-2269)"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_fixed_lts",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/Functions_2.528.3.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/042de66464ac0fb194cfb275e1743603e14becd3/core/src/main/java/hudson/Functions.java#L2271-L2292",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "5cf8cf1fd26186750f447c2315a5d4c7b3c0ec35bb16c48641172de36761a810",
+      "verification_method": "file read at the LTS backport 042de664; blob 10ebf6f7, identical to the blob at tag jenkins-2.528.3",
+      "result": "PASS",
+      "supports": [
+        "the LTS tree carries the same ancestor walk and View/CONFIGURE check at 2286-2291",
+        "the LTS file differs from the master file outside this method because the branches diverged; the guard region is identical"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/3ee7380c5e167fab865f58b52a81ef01c24b9eb2",
+      "retrieved_at": "2026-10-22T03:33:00Z",
+      "sha256_of_observation": "40fcf0be29b24fa4c8120a5f8ed68726a72f0ce10d99de69a1c000e0fb0a0110",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 3ee7380c '[SECURITY-1809]', 2025-12-02, parent 4710d653",
+        "the production change replaces the Item/Computer findAncestorObject pair with the reverse ancestor walk that also covers View",
+        "it adds Security1809Test with passwordIsMaskedForView and passwordIsMaskedForPrimaryView (@Issue(\"SECURITY-1809\")), which assert that the View/Read-only user gets ******** and the View/Read+View/Configure user gets the encrypted value, plus agent, job, closest-ancestor and nested-folder cases"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67636_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67636/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-22T03:50:00Z",
+      "sha256_of_observation": "159428c7c003cdfae1237742c04b42cb23fcb82c6819f8e45d5107d93e377040",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and Functions.java blob d27160aa matches the inventory (92715 bytes)",
+        "master fix 3ee7380c is an ancestor of the 2.541 release commit ea9c7278 and its file blob fbd5e8a6 equals the blob at tag jenkins-2.541",
+        "LTS fix 042de664 is an ancestor of the 2.528.3 release commit 40e29179 and its file blob 10ebf6f7 equals the blob at tag jenkins-2.528.3; neither fix is an ancestor of the other line's release",
+        "CNA affected range 2.540 and earlier weekly / 2.528.2 and earlier LTS includes the 2.441 snapshot; the CVE GIT range is introduced 0",
+        "the GHSA ECOSYSTEM weekly range introduced 2.529 conflicts with the CNA and GIT range; the conflict is documented, not resolved silently"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      7,
+      8
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      7,
+      8
+    ],
+    "languages": [
+      4,
+      5,
+      6
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      8
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 renderer, both fixed trees and the fix patch; the git checks support the commit/release chain.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 4.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (password fields rendered under a view are not masked for users without View/Configure) and on the fixed releases (2.541 weekly, 2.528.3 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 4.3 MEDIUM, which OSV/GHSA repeats as 4.3 MODERATE, and the CNA has no metric, so all published levels are medium. CWE-862 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA text and the CVE GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. The earlier view config.xml redaction work (SECURITY-3496 / CVE-2025-27623, fixed in 2.500) is a different code path (View.doConfigDotXml) and a different advisory item; this dossier claims only the f:password masking decision in Functions.getPasswordValue.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read Functions.getPasswordValue at 2.441 and confirm the mask decision consults only Item and Computer ancestors and falls through to the encrypted value for View-scoped requests.",
+      "An independent reviewer must confirm the fix commits 3ee7380c/042de664 add the View-aware ancestor walk and are contained in releases 2.541 and 2.528.3.",
+      "An independent reviewer must confirm the affected range (weekly <=2.540, LTS <=2.528.2) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are medium (4.3) and record CWE-862.",
+      "An independent reviewer must confirm this entry is distinct from CVE-2025-27622 and CVE-2025-27623, and from CVE-2025-31720 and CVE-2025-31721.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or test was run.",
+    "Whether a stock Jenkins 2.441 page renders an f:password control under a View without an Item or Computer ancestor was not demonstrated dynamically; the fix's own regression test constructs such a view (PasswordView) and the advisory states the issue affects views, which is the basis for accepting the precondition.",
+    "The disclosure is of the encrypted Secret value, not the plaintext; the dataset records the impact exactly as the advisory does (view encrypted password values) and does not claim plaintext recovery.",
+    "The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA and the CVE GIT range; the conflict is documented, not resolved silently."
+  ],
+  "open_questions": [
+    "Which plugins render password controls directly under a view in the 2.441 era was not enumerated; the advisory and the regression test establish the class of pages."
+  ]
+}

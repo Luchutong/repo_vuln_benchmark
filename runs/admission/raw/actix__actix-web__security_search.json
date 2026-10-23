@@ -1,0 +1,1 @@
+{"tool":"github_search_commits","query":{"query":"CVE","repository_full_name":"actix/actix-web","topn":3,"sort":"committer-date","order":"desc"},"retrieved_at":"2026-10-21T10:54:31.250Z","is_error":false,"response":{"content":[{"type":"text","text":"Action completed."}],"structuredContent":{"commits":[]},"isError":false}}

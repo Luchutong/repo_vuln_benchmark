@@ -1,0 +1,544 @@
+{
+  "dossier_version": "1.0",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T01:05:00Z",
+  "prepared_by": "dataset-collector-repovuln50",
+  "candidate_id": "disc2_be24f9d21690504a8f276c7e",
+  "repository": {
+    "repo_id": "4164482",
+    "full_name": "django/django",
+    "canonical_url": "https://github.com/django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2021-28658",
+    "aliases": [
+      "CVE-2021-28658",
+      "GHSA-xgxc-v2qg-chmh",
+      "BIT-django-2021-28658",
+      "PYSEC-2021-6"
+    ],
+    "title": "Django MultiPartParser IE_sanitize strips only Windows backslash paths, allowing directory traversal through uploaded file names handed to upload handlers",
+    "category_l1": "path_traversal",
+    "category_l2": "directory traversal via crafted multipart upload file names (unix absolute paths and dot segments)",
+    "cwe_ids": [
+      "CWE-22"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "score": 5.3,
+      "level": "medium",
+      "source": "NVD primary metric nvd@nist.gov",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-28658"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=2.2,<2.2.20"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.0,<3.0.14"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.1,<3.1.8"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "master",
+        "sha": "d4d800ca1addc4141e03c5440a849bb64d1582cd",
+        "message": "Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files.",
+        "url": "https://github.com/django/django/commit/d4d800ca1addc4141e03c5440a849bb64d1582cd"
+      },
+      {
+        "branch": "3.2.x",
+        "sha": "2820fd1be5dfccbf1216c3845fad8580502473e1",
+        "message": "[3.2.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files.",
+        "url": "https://github.com/django/django/commit/2820fd1be5dfccbf1216c3845fad8580502473e1"
+      },
+      {
+        "branch": "3.1.x",
+        "sha": "cca0d98118cccf9ae0c6dcf2d6c57fc50469fbf0",
+        "message": "[3.1.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files.",
+        "url": "https://github.com/django/django/commit/cca0d98118cccf9ae0c6dcf2d6c57fc50469fbf0"
+      },
+      {
+        "branch": "3.0.x",
+        "sha": "e7fba62248f604c76da4f23dcf1db4a57b0808ea",
+        "message": "[3.0.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files.",
+        "url": "https://github.com/django/django/commit/e7fba62248f604c76da4f23dcf1db4a57b0808ea"
+      },
+      {
+        "branch": "2.2.x",
+        "sha": "4036d62bda0e9e9f6172943794b744a454ca49c2",
+        "message": "[2.2.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files.",
+        "url": "https://github.com/django/django/commit/4036d62bda0e9e9f6172943794b744a454ca49c2"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "3.0.14",
+        "tag": "3.0.14",
+        "release_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.14/",
+        "verified_content": "At tag 3.0.14 (f5280024) multipartparser.py blob db1b5ce8 contains sanitize_file_name with os.path.basename and the call site uses it; fix e7fba622 is an ancestor of the tag and absent from 3.0.13."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "2.2.20",
+        "tag": "2.2.20",
+        "release_url": "https://docs.djangoproject.com/en/2.2/releases/2.2.20/",
+        "verified_content": "At tag 2.2.20 (ad9fa56a) multipartparser.py blob 5a9cca89 contains the sanitize_file_name replacement; fix 4036d62b is an ancestor of the tag and the 2.2.19 blob f6f12ca7 differs."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "3.1.8",
+        "tag": "3.1.8",
+        "release_url": "https://docs.djangoproject.com/en/3.1/releases/3.1.8/",
+        "verified_content": "At tag 3.1.8 (c4928c91) multipartparser.py blob 2351055e contains the sanitize_file_name replacement; fix cca0d981 is an ancestor of the tag and the 3.1.7 blob b3472f7b differs."
+      }
+    ],
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_version": "3.0.2",
+    "vulnerable_commit_basis": "tag 3.0.2 peels to a3697439; its django/http/multipartparser.py blob fd8fce8b is byte-identical at 3.0.13 and differs at 3.0.14 (db1b5ce8), while the 3.0.x fix e7fba622 is absent from 3.0.13 and an ancestor of 3.0.14",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "repo_id": "4164482",
+    "published_at": "2021-04-06T15:15:13Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2021/apr/06/security-releases/",
+    "discovery_cutoff_date": "2026-10-21",
+    "references": [
+      "https://www.djangoproject.com/weblog/2021/apr/06/security-releases/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-28658",
+      "https://github.com/advisories/GHSA-xgxc-v2qg-chmh",
+      "https://docs.djangoproject.com/en/3.0/releases/3.0.14/",
+      "https://github.com/django/django/commit/d4d800ca1addc4141e03c5440a849bb64d1582cd",
+      "https://github.com/django/django/commit/2820fd1be5dfccbf1216c3845fad8580502473e1",
+      "https://github.com/django/django/commit/cca0d98118cccf9ae0c6dcf2d6c57fc50469fbf0",
+      "https://github.com/django/django/commit/e7fba62248f604c76da4f23dcf1db4a57b0808ea",
+      "https://github.com/django/django/commit/4036d62bda0e9e9f6172943794b744a454ca49c2"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2021-28658_snap_ab695ba3db678939",
+    "vulnerability_id": "CVE-2021-28658",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "location_kind": "logic",
+    "critical_operation": {
+      "file": "django/http/multipartparser.py",
+      "function": "MultiPartParser.IE_sanitize",
+      "language": "Python",
+      "line": "300-302",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/http/multipartparser.py#L300-L302",
+      "code_excerpt": "    def IE_sanitize(self, filename):\n        \"\"\"Cleanup filename from Internet Explorer full paths.\"\"\"\n        return filename and filename[filename.rfind(\"\\\\\") + 1:].strip()",
+      "description": "IE_sanitize only truncates a file name at the last backslash, i.e. it strips Windows-style full paths. Unix-style absolute names ('/tmp/hax0rd.txt'), forward-slash descendants ('subdir/x') and dot segments ('../../x'), including forms produced by HTML entities before the html.unescape() call at the use site, pass through unchanged. MultiPartParser.parse applies this helper to the Content-Disposition filename and then hands the result to every upload handler via handler.new_file(field_name, file_name, ...). Built-in memory/temporary-file handlers ignore the name, but a custom upload handler that uses file_name to build a storage path can be traversed outside its upload directory. The fix replaces IE_sanitize with sanitize_file_name(), which performs html.unescape, keeps the Windows backslash cleanup, and additionally applies os.path.basename, removing unix absolute paths, forward-slash descendants and leading dot segments; IE_sanitize is kept as an alias."
+    },
+    "entry_point": {
+      "file": "django/http/multipartparser.py",
+      "function": "MultiPartParser.parse",
+      "language": "Python",
+      "line": 104,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/http/multipartparser.py#L104",
+      "description": "parse() drives the multipart boundary parser and processes each FILE part's Content-Disposition filename before calling the upload handlers."
+    },
+    "trace": [
+      {
+        "description": "the Content-Disposition filename is read and decoded",
+        "file": "django/http/multipartparser.py",
+        "function": "MultiPartParser.parse",
+        "language": "Python",
+        "line": 209,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/http/multipartparser.py#L209"
+      },
+      {
+        "description": "the name is HTML-unescaped and passed through IE_sanitize, which strips only backslash-prefixed Windows paths",
+        "file": "django/http/multipartparser.py",
+        "function": "MultiPartParser.parse",
+        "language": "Python",
+        "line": 212,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/http/multipartparser.py#L212"
+      },
+      {
+        "description": "the surviving name is handed to each upload handler as file_name",
+        "file": "django/http/multipartparser.py",
+        "function": "MultiPartParser.parse",
+        "language": "Python",
+        "line": 230,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/http/multipartparser.py#L230"
+      }
+    ],
+    "verification_method": "Static read of multipartparser.py at 3.0.2, 3.0.13, 3.0.14, 2.2.19 and 2.2.20, of the 3.0.x/2.2.x fix and test diffs and of the 3.0.14 release notes; git blob identity and tag ancestry were checked against a local clone. No upload was performed and no test suite run."
+  },
+  "field_evidence": {
+    "identity": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      5
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "affected_ranges": [
+      0,
+      2,
+      5
+    ],
+    "vulnerable_commit": [
+      6,
+      7
+    ],
+    "fix_commits": [
+      3,
+      6,
+      12,
+      15
+    ],
+    "fixed_releases": [
+      3,
+      6,
+      9,
+      11,
+      17
+    ],
+    "critical_operation": [
+      6,
+      7,
+      9,
+      12,
+      14
+    ],
+    "languages": [
+      18
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "Django security release announcement",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "OSV/GHSA record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "The Django announcement, NVD, OSV/GHSA and the fixed tags agree on the three ranges (2.2 <2.2.20, 3.0 <3.0.14, 3.1 <3.1.8) and on the IE_sanitize root cause. NVD assigns CWE-22 and CVSS 3.1 5.3 MEDIUM; GHSA labels the issue MODERATE with the same vector; the Django advisory labels it low. The MITRE CNA record is a placeholder (vendor/product/version n/a, problemType n/a, no CVSS). OSV's GIT introduced events again name unrelated security-archive documentation commits, and the fixed events are the 2.2.20/3.0.14/3.1.8 release commit, so fix verification used the five vendor-listed changesets and git ancestry instead.",
+    "severity_disagreement": true
+  },
+  "review": {
+    "independent_reviews": 0,
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "required_before_promotion": [
+      "An independent reviewer must read MultiPartParser.IE_sanitize and its call site at 3.0.2 and confirm that only backslash-prefixed paths are stripped.",
+      "An independent reviewer must confirm e7fba622 is absent from 3.0.2 and 3.0.13 and an ancestor of 3.0.14, and that 3.0.14 uses sanitize_file_name with os.path.basename.",
+      "An independent reviewer must confirm the 3.1.8 and 2.2.20 fixes and the three release boundaries against a second source family.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No multipart upload was sent and no Django test suite was executed; the finding is static.",
+    "The advisory states that built-in upload handlers were not affected; impact depends on a custom upload handler using file_name for path construction, and the specific handler was not surveyed.",
+    "The MITRE CVE v5 CNA record is a placeholder (vendor/product/version n/a, problemType n/a, no CVSS).",
+    "NVD also carries a CVSS 2.0 metric of 5.0 (AV:N/AC:L/Au:N/C:P/I:N/A:N); the canonical score follows the NVD primary CVSS 3.1 metric.",
+    "The Django advisory's qualitative severity is low while NVD rates 5.3 MEDIUM and GHSA labels the issue MODERATE; the qualitative labels are recorded as source disagreement, not reconciled.",
+    "OSV's GIT range events are conversion artifacts: introduced events are later documentation commits and fixed events are the release commits; they were not used as fix evidence.",
+    "The fix leaves name components that are not absolute and contain no slash unchanged (os.path.basename of 'subdir/x' is 'x'; of '../../x' is 'x'), so the sanitizer is name-based and does not itself reject an upload; no residual weakness beyond that intended normalisation is claimed.",
+    "No downstream distribution backport (Debian, Fedora, SUSE, NetApp) was verified; only upstream tags and commits are used.",
+    "The snapshot inventory status is NEEDS_REVIEW with 67 ambiguous files, not a clean PASS."
+  ],
+  "open_questions": [
+    "Which custom upload handlers in the wild build storage paths from the supplied file_name was not surveyed.",
+    "Whether any built-in handler in the 3.0.2 tree indirectly uses file_name for disk paths was checked only by reading the handler classes, not exercised."
+  ],
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev_django202128658_osv_cve",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/osv_cve.json",
+      "sha256_of_observation": "8c691e029e48de85e05f8aa8a3a854aa7acfa9ccb3e2ec94e622249ba896fc72",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2021-28658",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "OSV CVE-2021-28658 aliases BIT-django-2021-28658, GHSA-xgxc-v2qg-chmh and PYSEC-2021-6",
+        "the details text names MultiPartParser and crafted upload file names, with 2.2 <2.2.20, 3.0 <3.0.14 and 3.1 <3.1.8",
+        "the severity array carries CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django202128658_cve_v5",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/cve_v5.json",
+      "sha256_of_observation": "b7b194c059d338aa29051604ca48cb39bb07182538b300586181794e1f82c17b",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-28658",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "MITRE CVE-2021-28658 is PUBLISHED and uses the same description",
+        "the CNA affected block is vendor/product/version n/a and problemTypes is n/a",
+        "the CNA references include the Django advisory and the 3.1 security archive"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django202128658_nvd",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/nvd_cve.json",
+      "sha256_of_observation": "5119dffc2b65e1dc3079e1155968aac732f1a570d75f2545df4a1b46198881be",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-28658",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "NVD primary CVSS 3.1 is 5.3 MEDIUM with vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+        "NVD carries a legacy CVSS 2.0 metric of 5.0",
+        "NVD assigns CWE-22 (path traversal)",
+        "NVD CPE ranges are >=2.2 <2.2.20, >=3.0 <3.0.14 and >=3.1 <3.1.8, plus downstream Debian and Fedora entries"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django202128658_advisory",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/djangoproject_security.html",
+      "sha256_of_observation": "9a4a99d8e8d129f5835e09a2bdb62c79d0a3425ef523c895a47cd47096635bfe",
+      "source_url": "https://www.djangoproject.com/weblog/2021/apr/06/security-releases/",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "the announcement dated 2021-04-06 issues Django 3.1.8, 3.0.14 and 2.2.20 for CVE-2021-28658",
+        "affected supported versions are main, 3.2, 3.1, 3.0 and 2.2",
+        "the advisory text says MultiPartParser allowed directory-traversal via uploaded files with crafted file names and that built-in upload handlers were not affected",
+        "the five changeset hrefs point to d4d800ca, 2820fd1b, cca0d981, e7fba622 and 4036d62b"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django202128658_ghsa_page",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/ghsa_page.html",
+      "sha256_of_observation": "97b0ff93afdc94358df69850d6794b4067eca4cef3d8fbe94fe4833222625da2",
+      "source_url": "https://github.com/advisories/GHSA-xgxc-v2qg-chmh",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "GHSA-xgxc-v2qg-chmh is the GitHub-reviewed advisory for CVE-2021-28658",
+        "the page lists the same five fix commits and the three release versions",
+        "the qualitative GitHub severity is Moderate"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django202128658_osv_ghsa",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/osv_ghsa.json",
+      "sha256_of_observation": "a7cc9d30d827f8d8a5342888da9c01a4525c6751fdf21f5130305167e90d221d",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-xgxc-v2qg-chmh",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "GHSA-xgxc-v2qg-chmh aliases CVE-2021-28658, BIT-django-2021-28658 and PYSEC-2021-6",
+        "three PyPI ranges: >=2.2 <2.2.20, >=3.0 <3.0.14 and >=3.1 <3.1.8, with 3.0.2 in the 3.0 list",
+        "the severity array carries CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N and a CVSS 4.0 vector with VC:L/VI:N/VA:N",
+        "cwe_ids is CWE-22 and severity is MODERATE"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django202128658_git_checks",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/git_object_checks.txt",
+      "sha256_of_observation": "e9293b2fb948d88333b9413f30672a88a4c3b50533d9c8ca2354def82f270721",
+      "source_url": "https://github.com/django/django",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "tags 3.0.2, 3.0.13, 3.0.14, 2.2.19, 2.2.20, 3.1.7, 3.1.8, 3.2 and 3.2.1 peel to the recorded commits",
+        "multipartparser.py blob fd8fce8b at 3.0.2 and 3.0.13 changes to db1b5ce8 at 3.0.14; 2.2.19 is f6f12ca7 and 2.2.20 is 5a9cca89; 3.1.7 is b3472f7b and 3.1.8 is 2351055e",
+        "e7fba622 is absent from 3.0.13 and an ancestor of 3.0.14; 4036d62b is an ancestor of 2.2.20; cca0d981 is an ancestor of 3.1.8; 2820fd1b is an ancestor of 3.2; master d4d800ca is not an ancestor of 3.2",
+        "3.0.2 defines IE_sanitize at 300-302 and contains no os.path.basename; 3.0.14 defines sanitize_file_name with os.path.basename"
+      ],
+      "verification_method": "git show / git rev-parse / git merge-base in a local clone"
+    },
+    {
+      "evidence_id": "ev_django202128658_mp_302",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/multipartparser_3.0.2.py",
+      "sha256_of_observation": "0aad60393f9d9b1dee09232eed8398625d7a91362d0385d89bb183c0eb00cbd4",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/http/multipartparser.py",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "IE_sanitize returns filename and filename[filename.rfind('\\\\') + 1:].strip()",
+        "parse() applies IE_sanitize(html.unescape(file_name)) at line 212 and passes the result to handler.new_file at line 230",
+        "no os.path.basename or forward-slash handling exists in the file"
+      ],
+      "verification_method": "git show 3.0.2:django/http/multipartparser.py"
+    },
+    {
+      "evidence_id": "ev_django202128658_mp_3013",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/multipartparser_3.0.13.py",
+      "sha256_of_observation": "0aad60393f9d9b1dee09232eed8398625d7a91362d0385d89bb183c0eb00cbd4",
+      "source_url": "https://github.com/django/django/blob/04a9b7df3fe627d03547a01330a20dfcbf2e8bd5/django/http/multipartparser.py",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "the file at 3.0.13 is byte-identical to 3.0.2 and still contains the backslash-only IE_sanitize",
+        "this fixes the vulnerable boundary immediately before the 3.0.14 release"
+      ],
+      "verification_method": "git show 3.0.13:django/http/multipartparser.py"
+    },
+    {
+      "evidence_id": "ev_django202128658_mp_3014",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/multipartparser_3.0.14.py",
+      "sha256_of_observation": "e7309830cd9a1753e5c7952a0bd6e6cce1ff445db1235b0bd68d68b80b5b1f3a",
+      "source_url": "https://github.com/django/django/blob/f52800243545af658c27f83623b5fc72ae6b8dcf/django/http/multipartparser.py",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "sanitize_file_name performs html.unescape, strips the Windows backslash prefix and returns os.path.basename",
+        "the parse() call site uses sanitize_file_name and IE_sanitize remains as an alias",
+        "the file imports os for basename"
+      ],
+      "verification_method": "git show 3.0.14:django/http/multipartparser.py"
+    },
+    {
+      "evidence_id": "ev_django202128658_mp_2219",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/multipartparser_2.2.19.py",
+      "sha256_of_observation": "9d5b0efe5b5d754d96c061e99b1df7f9ad8b3c1bcb0af86c48a242ad7306611b",
+      "source_url": "https://github.com/django/django/blob/21a5547793a24357a985390970b489aeeca06d45/django/http/multipartparser.py",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2.19 file is the unfixed pre-image containing IE_sanitize",
+        "its blob differs from 3.0.2 only through branch-specific surrounding code"
+      ],
+      "verification_method": "git show 2.2.19:django/http/multipartparser.py"
+    },
+    {
+      "evidence_id": "ev_django202128658_mp_2220",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/multipartparser_2.2.20.py",
+      "sha256_of_observation": "5c15f276250624a96d1886ffdae0dedb87852fdf4f908768f8528789abf417a2",
+      "source_url": "https://github.com/django/django/blob/ad9fa56a17bf9691615e9bb6e41d08d51cfe8a5d/django/http/multipartparser.py",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2.20 file contains sanitize_file_name with os.path.basename and the updated call site",
+        "this establishes the 2.2 fixed boundary"
+      ],
+      "verification_method": "git show 2.2.20:django/http/multipartparser.py"
+    },
+    {
+      "evidence_id": "ev_django202128658_fix_diff_30",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/fix_diff_3.0.x.txt",
+      "sha256_of_observation": "ddd8956808c169af56722af3cf10181e700cdf75ebb3ade2f55b7c7d2bff391a",
+      "source_url": "https://github.com/django/django/compare/3.0.13...3.0.14",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "the diff adds import os, replaces the IE_sanitize call with sanitize_file_name and rewrites the helper to use os.path.basename",
+        "IE_sanitize is retained as an alias of sanitize_file_name"
+      ],
+      "verification_method": "git diff 3.0.13 3.0.14"
+    },
+    {
+      "evidence_id": "ev_django202128658_fix_diff_22",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/fix_diff_2.2.x.txt",
+      "sha256_of_observation": "38646bf644b06c746d372940e54455e0acde95308471c828a8dbeaae46870c0d",
+      "source_url": "https://github.com/django/django/compare/2.2.19...2.2.20",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2 diff applies the same sanitize_file_name/os.path.basename change"
+      ],
+      "verification_method": "git diff 2.2.19 2.2.20"
+    },
+    {
+      "evidence_id": "ev_django202128658_test_diff_30",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/test_diff_3.0.x.txt",
+      "sha256_of_observation": "091e8d76fb535654742a6287e85fff5aeacaa0d29a66af30659452b4bd6351e0",
+      "source_url": "https://github.com/django/django/compare/3.0.13...3.0.14",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "CANDIDATE_TRAVERSAL_FILE_NAMES lists unix absolute paths, Windows absolute paths, mixed separators, descendant paths, dot segments and HTML-entity forms",
+        "the tests assert the custom upload handler receives the basename rather than the traversal name",
+        "the handler fixture records the file_name it is given"
+      ],
+      "verification_method": "git diff 3.0.13 3.0.14 -- tests/file_uploads"
+    },
+    {
+      "evidence_id": "ev_django202128658_stat_30",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/fix_commit_stat_3.0.x.txt",
+      "sha256_of_observation": "7a4437172198e8cfeb2e63ef1117c0494a5b27af9d3fda6a8ace6bcbc8dd3b06",
+      "source_url": "https://github.com/django/django/commit/e7fba62248f604c76da4f23dcf1db4a57b0808ea",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "e7fba622 changes django/http/multipartparser.py, the 2.2.20 and 3.0.14 release notes and the file_uploads test app",
+        "the commit message credits Claude Paroz for the initial patch and Dennis Brinkrolf for the report",
+        "the message states it is a backport of d4d800ca from main"
+      ],
+      "verification_method": "git show --stat e7fba622"
+    },
+    {
+      "evidence_id": "ev_django202128658_stat_22",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/fix_commit_stat_2.2.x.txt",
+      "sha256_of_observation": "9118d2f4759b8ca2c3ac1fc74394fc66c506f4ecd6ab7e70efa4740cae040865",
+      "source_url": "https://github.com/django/django/commit/4036d62bda0e9e9f6172943794b744a454ca49c2",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "4036d62b changes the same parser module and tests",
+        "the message states it is a backport of d4d800ca from main"
+      ],
+      "verification_method": "git show --stat 4036d62b"
+    },
+    {
+      "evidence_id": "ev_django202128658_relnotes_3014",
+      "artifact_path": "runs/verification/django_cve_2021_28658/sources/release_notes_3.0.14.html",
+      "sha256_of_observation": "9cdf9fac801e6eaad8c81fb6d72947a5bb7e9a736ebbbfe52c68d14cac2cad03",
+      "source_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.14/",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 3.0.14 release notes contain the CVE-2021-28658 section",
+        "they repeat the MultiPartParser/uploaded-file description and the low severity label"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django202128658_snapshot",
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "retrieved_at": "2026-10-22T01:00:00Z",
+      "result": "PASS",
+      "supports": [
+        "snapshot snap_ab695ba3db678939 is the django 3.0.2 tree a3697439",
+        "the language inventory is github-linguist 9.7.0 over the full tree with full_scan=true",
+        "the inventory status is NEEDS_REVIEW with 67 ambiguous files, and Python is the largest language by code bytes"
+      ],
+      "verification_method": "read of the permitted language inventory artifact"
+    }
+  ]
+}

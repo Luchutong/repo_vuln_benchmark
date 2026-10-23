@@ -1,0 +1,24 @@
+{
+  "repo": "nestjs/nest",
+  "query": "official GitHub Releases collection",
+  "observations": [
+    {
+      "path": "runs/discovery_v2/connector/nestjs__nest_releases_1.json",
+      "page": 1,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:21.593Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/nestjs__nest_releases_2.json",
+      "page": 2,
+      "records": 71,
+      "retrieved_at": "2026-10-21T11:03:25.377Z",
+      "status": "PASS"
+    }
+  ],
+  "pagination_complete": true,
+  "total_records": 171,
+  "status": "PASS_QUERY_ONLY",
+  "limitation": "GitHub Releases excludes tag-only releases, historical external security advisories, deleted releases and security reports without release text."
+}

@@ -1,0 +1,27 @@
+commit cdb367c92a0ba72ddc0cbd13ff42b0e6df709554
+Author: Mariusz Felisiak <felisiak.mariusz@gmail.com>
+Date:   Fri Aug 21 12:43:45 2020 +0200
+
+    [3.0.x] Fixed CVE-2020-24584 -- Fixed permission escalation in intermediate-level directories of the file system cache on Python 3.7+.
+    
+    Backport of f56b57976133129b0b351a38bba4ac882badabf0 from master.
+
+diff --git a/django/core/cache/backends/filebased.py b/django/core/cache/backends/filebased.py
+index 48b8df90ab..64cc175b18 100644
+--- a/django/core/cache/backends/filebased.py
++++ b/django/core/cache/backends/filebased.py
+@@ -113,7 +113,13 @@ class FileBasedCache(BaseCache):
+             self._delete(fname)
+ 
+     def _createdir(self):
+-        os.makedirs(self._dir, 0o700, exist_ok=True)
++        # Set the umask because os.makedirs() doesn't apply the "mode" argument
++        # to intermediate-level directories.
++        old_umask = os.umask(0o077)
++        try:
++            os.makedirs(self._dir, 0o700, exist_ok=True)
++        finally:
++            os.umask(old_umask)
+ 
+     def _key_to_file(self, key, version=None):
+         """

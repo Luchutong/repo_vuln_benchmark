@@ -1,0 +1,166 @@
+# tag, ancestry and fixed-source checks at 2026-10-21
+
+## release tag commits (annotated tags peeled with ^{})
+v6.20.44   505ebcdeaa9ca56d6d7dbf38ed4f53998c973ed0
+v6.20.45   841d842bbdc8e08c6364a8c06212c7286bbf0b9a
+v7.30.6    ecdafad1dda3c790af186a6d18479ea4757ef9ee
+v7.30.7    0fe75bafb8703c6c8184792b91ce5e27ad80aa7b
+v8.83.27   e1afe088b4ca613fb96dc57e6d8dbcb8cc2c6b49
+v8.83.28   83e64679d0688ee83b9224b60831dcf4b1a812f7
+v9.52.16   082345d76fc6a55b649572efe10b11b03e279d24
+v9.52.17   a069cf17e4943fb88d2a91c92690004fb3236dab
+v10.48.22  c4ea52bb044faef4a103d7dd81746c01b2ec860e
+v10.48.23  625269ca4881d2b50eded2045cb930960a181d98
+v11.30.0   dff716442d9c229d716be82ccc9a7de52eb97193
+v11.31.0   365090ed2c68244e3141cdb5e247cdf3dfba2c40
+
+## vulnerable release v11.30.0 (2024-10-30), Application::detectEnvironment
+   757	     * @param  \Closure  $callback
+   758	     * @return string
+   759	     */
+   760	    public function detectEnvironment(Closure $callback)
+   761	    {
+   762	        $args = $_SERVER['argv'] ?? null;
+   763	
+   764	        return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);
+   765	    }
+
+## per-branch fix commits
+commit: 841d842bbdc8e08c6364a8c06212c7286bbf0b9a
+parents: 7e82e1a272a72d75b4cd7f35a2267e9af5d642c2
+author_date: 2024-11-12T09:42:46-06:00
+subject: version
+
+commit: 639b22220784a1d6a2b16ea490eac383b0794d46
+parents: 88dd075b9f1beaff93796a0ee51818796ca04654
+author_date: 2024-11-12T09:41:59-06:00
+subject: version
+
+commit: eded6bdfc05af9b5437d107b4d092558fe46292c
+parents: 99fa2e33da0e6534bdc698bc6e6e685303111d5f
+author_date: 2024-11-12T09:30:55-06:00
+subject: check if running in console
+
+commit: 695097c9dc11645230b97e13128efa6e2735d6ab
+parents: dc2e925b2d75fc2673a5919c7ad727d68059c08e
+author_date: 2024-11-12T09:30:28-06:00
+subject: check if running in console
+
+commit: 8c07b6301b2a177a34ee5fdbca11443e3e541a15
+parents: 7ccb4dc680b41433ab8e17f1a94d728c4dd6d16d
+author_date: 2024-11-12T09:29:47-06:00
+subject: check for running in console
+
+commit: 18b326d22d831e1fe05e737209e367e30796d5f3
+parents: cdf07b6678ea64a2a5a9fbe83df9bf4a6586c0a7
+author_date: 2024-11-08T13:12:42+10:00
+subject: only use argv on console
+
+merge commit bringing env-check into 11.x:
+6d537742bc3599e87757c1f981e59706dd77021d Merge branch 'env-check' into 11.x
+parents: 4500be36903eadb14e0811fe8705720729b0a1f5 18b326d22d831e1fe05e737209e367e30796d5f3
+
+## ancestry: fix present in fixed tag, absent from immediately preceding tag
+841d842bbdc8e08c6364a8c06212c7286bbf0b9a in v6.20.45=YES; in v6.20.44=NO
+639b22220784a1d6a2b16ea490eac383b0794d46 in v7.30.7=YES; in v7.30.6=NO
+eded6bdfc05af9b5437d107b4d092558fe46292c in v8.83.28=YES; in v8.83.27=NO
+695097c9dc11645230b97e13128efa6e2735d6ab in v9.52.17=YES; in v9.52.16=NO
+8c07b6301b2a177a34ee5fdbca11443e3e541a15 in v10.48.23=YES; in v10.48.22=NO
+18b326d22d831e1fe05e737209e367e30796d5f3 in v11.31.0=YES; in v11.30.0=NO
+
+## immediately preceding releases still contain the unconditional argv read
+=== v6.20.44
+547:    public function detectEnvironment(Closure $callback)
+548-    {
+549-        $args = $_SERVER['argv'] ?? null;
+550-
+551-        return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);
+=== v7.30.6
+558:    public function detectEnvironment(Closure $callback)
+559-    {
+560-        $args = $_SERVER['argv'] ?? null;
+561-
+562-        return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);
+=== v8.83.27
+603:    public function detectEnvironment(Closure $callback)
+604-    {
+605-        $args = $_SERVER['argv'] ?? null;
+606-
+607-        return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);
+=== v9.52.16
+610:    public function detectEnvironment(Closure $callback)
+611-    {
+612-        $args = $_SERVER['argv'] ?? null;
+613-
+614-        return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);
+=== v10.48.22
+697:    public function detectEnvironment(Closure $callback)
+698-    {
+699-        $args = $_SERVER['argv'] ?? null;
+700-
+701-        return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);
+
+## fixed-source check in every release named by the CVE
+=== v6.20.45
+547:    public function detectEnvironment(Closure $callback)
+548-    {
+549-        $args = $this->runningInConsole() && $_SERVER['argv']
+550-            ? $_SERVER['argv']
+551-            : null;
+=== v7.30.7
+558:    public function detectEnvironment(Closure $callback)
+559-    {
+560-        $args = $this->runningInConsole() && $_SERVER['argv']
+561-            ? $_SERVER['argv']
+562-            : null;
+=== v8.83.28
+603:    public function detectEnvironment(Closure $callback)
+604-    {
+605-        $args = $this->runningInConsole() && $_SERVER['argv']
+606-            ? $_SERVER['argv']
+607-            : null;
+=== v9.52.17
+610:    public function detectEnvironment(Closure $callback)
+611-    {
+612-        $args = $this->runningInConsole() && $_SERVER['argv']
+613-            ? $_SERVER['argv']
+614-            : null;
+=== v10.48.23
+697:    public function detectEnvironment(Closure $callback)
+698-    {
+699-        $args = $this->runningInConsole() && $_SERVER['argv']
+700-            ? $_SERVER['argv']
+701-            : null;
+=== v11.31.0
+760:    public function detectEnvironment(Closure $callback)
+761-    {
+762-        $args = $this->runningInConsole() && $_SERVER['argv']
+763-            ? $_SERVER['argv']
+764-            : null;
+
+## upstream regression test for this fix
+fix commits change only src/Illuminate/Foundation/Application.php; no test file is part of any of them.
+841d842 version
+
+ src/Illuminate/Foundation/Application.php | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
+639b222 version
+
+ src/Illuminate/Foundation/Application.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+eded6bd check if running in console
+
+ src/Illuminate/Foundation/Application.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+695097c check if running in console
+
+ src/Illuminate/Foundation/Application.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+8c07b63 check for running in console
+
+ src/Illuminate/Foundation/Application.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
+18b326d only use argv on console
+
+ src/Illuminate/Foundation/Application.php | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)

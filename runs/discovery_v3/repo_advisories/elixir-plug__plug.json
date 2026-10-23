@@ -1,0 +1,833 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 6,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "PJUllrich",
+          "type": "reporter"
+        },
+        {
+          "login": "josevalim",
+          "type": "remediation_developer"
+        },
+        {
+          "login": "maennchen",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/10426523?v=4",
+            "events_url": "https://api.github.com/users/PJUllrich/events{/privacy}",
+            "followers_url": "https://api.github.com/users/PJUllrich/followers",
+            "following_url": "https://api.github.com/users/PJUllrich/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PJUllrich/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/PJUllrich",
+            "id": 10426523,
+            "login": "PJUllrich",
+            "node_id": "MDQ6VXNlcjEwNDI2NTIz",
+            "organizations_url": "https://api.github.com/users/PJUllrich/orgs",
+            "received_events_url": "https://api.github.com/users/PJUllrich/received_events",
+            "repos_url": "https://api.github.com/users/PJUllrich/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/PJUllrich/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PJUllrich/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/PJUllrich",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+            "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+            "followers_url": "https://api.github.com/users/josevalim/followers",
+            "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+            "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/josevalim",
+            "id": 9582,
+            "login": "josevalim",
+            "node_id": "MDQ6VXNlcjk1ODI=",
+            "organizations_url": "https://api.github.com/users/josevalim/orgs",
+            "received_events_url": "https://api.github.com/users/josevalim/received_events",
+            "repos_url": "https://api.github.com/users/josevalim/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/josevalim",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/333918?v=4",
+            "events_url": "https://api.github.com/users/maennchen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/maennchen/followers",
+            "following_url": "https://api.github.com/users/maennchen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/maennchen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/maennchen",
+            "id": 333918,
+            "login": "maennchen",
+            "node_id": "MDQ6VXNlcjMzMzkxOA==",
+            "organizations_url": "https://api.github.com/users/maennchen/orgs",
+            "received_events_url": "https://api.github.com/users/maennchen/received_events",
+            "repos_url": "https://api.github.com/users/maennchen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/maennchen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/maennchen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/maennchen",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-56814",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 6.9,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-770"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-770",
+          "name": "Allocation of Resources Without Limits or Throttling"
+        }
+      ],
+      "description": "### Summary\r\n\r\n`Plug.Parsers.MULTIPART`, the multipart request-body parser in the `plug` Elixir library that handles file uploads and multipart forms, does not charge its `:length` budget against file uploads. An unauthenticated remote attacker who can reach any multipart endpoint can send a single request composed of many empty-body file parts that stays well under the configured `:length` limit (8 MB by default), exhausting inodes and disk and growing memory (denial of service).\r\n\r\n### Details\r\n\r\n`Plug.Parsers.MULTIPART` (`lib/plug/parsers/multipart.ex`) pops the operator-configured `:length` option and self-manages a cumulative `limit` variable that is supposed to bound per-request resource use. The flaw is in what `limit` is not actually charged for file uploads, allowing an attacker to stream an arbitrary number of such parts in one request. The result is an unbounded number of temporary files (inode/disk exhaustion), plus unbounded retained `Plug.Upload` structs and accumulator entries (memory growth). The only external mitigation is a reverse-proxy request-size cap, which lies outside the parser. The fix charges `limit` for header bytes and enforces a bound on part count, erroring with `:too_large` once exceeded.\r\n\r\n### Impact\r\n\r\nAn unauthenticated attacker can bypass the `:length` budget that operators depend on and, with a single HTTP request, force a Plug application to create an unbounded number of temporary files and retain an unbounded number of `Plug.Upload` structs, exhausting host inodes and disk and growing memory. Any application using `Plug.Parsers` with the `:multipart` parser (the standard path for file uploads and multipart forms) is affected, degrading or crashing the service for all users.\r\n\r\n### References\r\n\r\n* Introduction commit: https://github.com/elixir-plug/plug/commit/c52b2f32c90bccd718202bafccb5f95594e30183\r\n* Patch commit: https://github.com/elixir-plug/plug/commit/981597d3a4271ede64373c7a731702a42c500dd6\r\n",
+      "ghsa_id": "GHSA-95qv-c9g9-rm63",
+      "html_url": "https://github.com/elixir-plug/plug/security/advisories/GHSA-95qv-c9g9-rm63",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-95qv-c9g9-rm63"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-56814"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-07-09T09:58:08Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+        "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+        "followers_url": "https://api.github.com/users/josevalim/followers",
+        "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+        "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/josevalim",
+        "id": 9582,
+        "login": "josevalim",
+        "node_id": "MDQ6VXNlcjk1ODI=",
+        "organizations_url": "https://api.github.com/users/josevalim/orgs",
+        "received_events_url": "https://api.github.com/users/josevalim/received_events",
+        "repos_url": "https://api.github.com/users/josevalim/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/josevalim",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Multipart `:length` limit is not charged for file uploads",
+      "updated_at": "2026-07-09T09:58:08Z",
+      "url": "https://api.github.com/repos/elixir-plug/plug/security-advisories/GHSA-95qv-c9g9-rm63",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.16.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.4.0 and < 1.16.6"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.17.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.17.0 and < 1.17.4"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.18.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.18.0 and < 1.18.5"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.19.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.19.0 and < 1.19.5"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.20.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.20.0 and < 1.20.3"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 8,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "PJUllrich",
+          "type": "reporter"
+        },
+        {
+          "login": "josevalim",
+          "type": "remediation_developer"
+        },
+        {
+          "login": "maennchen",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/10426523?v=4",
+            "events_url": "https://api.github.com/users/PJUllrich/events{/privacy}",
+            "followers_url": "https://api.github.com/users/PJUllrich/followers",
+            "following_url": "https://api.github.com/users/PJUllrich/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PJUllrich/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/PJUllrich",
+            "id": 10426523,
+            "login": "PJUllrich",
+            "node_id": "MDQ6VXNlcjEwNDI2NTIz",
+            "organizations_url": "https://api.github.com/users/PJUllrich/orgs",
+            "received_events_url": "https://api.github.com/users/PJUllrich/received_events",
+            "repos_url": "https://api.github.com/users/PJUllrich/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/PJUllrich/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PJUllrich/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/PJUllrich",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+            "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+            "followers_url": "https://api.github.com/users/josevalim/followers",
+            "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+            "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/josevalim",
+            "id": 9582,
+            "login": "josevalim",
+            "node_id": "MDQ6VXNlcjk1ODI=",
+            "organizations_url": "https://api.github.com/users/josevalim/orgs",
+            "received_events_url": "https://api.github.com/users/josevalim/received_events",
+            "repos_url": "https://api.github.com/users/josevalim/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/josevalim",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/333918?v=4",
+            "events_url": "https://api.github.com/users/maennchen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/maennchen/followers",
+            "following_url": "https://api.github.com/users/maennchen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/maennchen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/maennchen",
+            "id": 333918,
+            "login": "maennchen",
+            "node_id": "MDQ6VXNlcjMzMzkxOA==",
+            "organizations_url": "https://api.github.com/users/maennchen/orgs",
+            "received_events_url": "https://api.github.com/users/maennchen/received_events",
+            "repos_url": "https://api.github.com/users/maennchen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/maennchen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/maennchen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/maennchen",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-56813",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 2.1,
+          "vector_string": "CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:L/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-141"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-141",
+          "name": "Improper Neutralization of Parameter/Argument Delimiters"
+        }
+      ],
+      "description": "### Summary\r\n\r\n`Plug.Conn.Cookies.encode/2` in the Elixir `plug` library builds the `Set-Cookie` response header by interpolating the cookie `path`, `domain` and `same_site` attributes directly into the header string without validating the `;` character. Any Plug application that reflects attacker-controlled data into a cookie attribute lets an unauthenticated attacker inject additional cookie attributes through `;`. Plug already handles `\\r\\n` and null bytes accordingly, so header injection is not possible.\r\n\r\n### Impact\r\n\r\nAn unauthenticated attacker whose input is reflected into a cookie can inject arbitrary cookie attributes. Every Plug-based application that places untrusted data into a cookie attribute is affected, they must either upgrade their Plug version or ensure the untrusted data does not have the `;` character in it.\r\n\r\n### References\r\n\r\n* Introduction commit: https://github.com/elixir-plug/plug/commit/f26876aa67aaeb38e616638aa3efbcc2fe2906a5\r\n* Patch commit: https://github.com/elixir-plug/plug/commit/c6575800b2c4e15af1904df87522ca8a23da020c\r\n",
+      "ghsa_id": "GHSA-wpmj-jh88-rpgm",
+      "html_url": "https://github.com/elixir-plug/plug/security/advisories/GHSA-wpmj-jh88-rpgm",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-wpmj-jh88-rpgm"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-56813"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-07-09T09:58:13Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+        "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+        "followers_url": "https://api.github.com/users/josevalim/followers",
+        "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+        "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/josevalim",
+        "id": 9582,
+        "login": "josevalim",
+        "node_id": "MDQ6VXNlcjk1ODI=",
+        "organizations_url": "https://api.github.com/users/josevalim/orgs",
+        "received_events_url": "https://api.github.com/users/josevalim/received_events",
+        "repos_url": "https://api.github.com/users/josevalim/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/josevalim",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Cookie attribute injection: `encode/2` interpolates attribute values without escaping",
+      "updated_at": "2026-07-09T09:58:13Z",
+      "url": "https://api.github.com/repos/elixir-plug/plug/security-advisories/GHSA-wpmj-jh88-rpgm",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.16.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 0.1.0 and < 1.16.6"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.17.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.17.0 and < 1.17.4"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.18.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.18.0 and < 1.18.5"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.19.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.19.0 and < 1.19.5"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.20.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.20.0 and < 1.20.3"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 6,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "braidonw",
+          "type": "reporter"
+        },
+        {
+          "login": "josevalim",
+          "type": "remediation_developer"
+        },
+        {
+          "login": "maennchen",
+          "type": "coordinator"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/3460918?v=4",
+            "events_url": "https://api.github.com/users/braidonw/events{/privacy}",
+            "followers_url": "https://api.github.com/users/braidonw/followers",
+            "following_url": "https://api.github.com/users/braidonw/following{/other_user}",
+            "gists_url": "https://api.github.com/users/braidonw/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/braidonw",
+            "id": 3460918,
+            "login": "braidonw",
+            "node_id": "MDQ6VXNlcjM0NjA5MTg=",
+            "organizations_url": "https://api.github.com/users/braidonw/orgs",
+            "received_events_url": "https://api.github.com/users/braidonw/received_events",
+            "repos_url": "https://api.github.com/users/braidonw/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/braidonw/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/braidonw/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/braidonw",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+            "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+            "followers_url": "https://api.github.com/users/josevalim/followers",
+            "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+            "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/josevalim",
+            "id": 9582,
+            "login": "josevalim",
+            "node_id": "MDQ6VXNlcjk1ODI=",
+            "organizations_url": "https://api.github.com/users/josevalim/orgs",
+            "received_events_url": "https://api.github.com/users/josevalim/received_events",
+            "repos_url": "https://api.github.com/users/josevalim/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/josevalim",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "coordinator",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/333918?v=4",
+            "events_url": "https://api.github.com/users/maennchen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/maennchen/followers",
+            "following_url": "https://api.github.com/users/maennchen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/maennchen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/maennchen",
+            "id": 333918,
+            "login": "maennchen",
+            "node_id": "MDQ6VXNlcjMzMzkxOA==",
+            "organizations_url": "https://api.github.com/users/maennchen/orgs",
+            "received_events_url": "https://api.github.com/users/maennchen/received_events",
+            "repos_url": "https://api.github.com/users/maennchen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/maennchen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/maennchen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/maennchen",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-54892",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 8.7,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-407"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-407",
+          "name": "Inefficient Algorithmic Complexity"
+        }
+      ],
+      "description": "### Summary\r\n\r\nPlug's nested-parameter decoder (`Plug.Conn.Query`) parses URL-encoded keys in time quadratic in their bracket-nesting depth. Any unauthenticated remote attacker that can reach a Plug-based HTTP endpoint can pin a BEAM scheduler for minutes with a single small request.\r\n\r\n### Details\r\n\r\nFor a key like `a[a][a]...=1`, `Plug.Conn.Query.split_keys/6` (in `lib/plug/conn/query.ex`) builds an accumulator of `:binary.part` prefixes (`a`, `a[a]`, `a[a][a]`, …) that grow ~3 bytes per level. `Plug.Conn.Query.insert_keys/3` then does one `Map.put` per level keyed on that growing prefix, hashing the full byte range each time, and `Plug.Conn.Query.finalize_pointer/2` repeats the prefix-keyed walk to materialize the structure. Total cost is `O(N²)` in nesting depth.\r\n\r\nThe same code path handles query strings, `application/x-www-form-urlencoded` bodies, and multipart field names via `Plug.Conn.Query.decode/4` and `decode_each/2`. The default `Plug.Parsers.URLENCODED` cap is 1 MB (~333,000 nesting levels), but `Plug.Parsers` accepts urlencoded payloads up to its overall body limit (20 MB by default), so an attacker can scale the per-request work well beyond the urlencoded-specific cap. The decoder shows ~4× scaling per 2× input (16k levels ≈ 195 ms on a single scheduler).\r\n\r\n### PoC\r\n\r\n1. POST `a[a][a]...[a]=1` as `application/x-www-form-urlencoded` to any endpoint of a Plug-based app. Even at the 1 MB urlencoded-parser default the payload carries ~333,000 nesting levels; with the broader `Plug.Parsers` body limit (20 MB default) a single request can carry millions.\r\n2. Launch one such request per scheduler concurrently. Each pins a scheduler for minutes; legitimate traffic stalls once all schedulers are busy.\r\n\r\n### Impact\r\n\r\nA single low-bandwidth sender can render any internet-reachable Plug-based service (most Phoenix and standalone Elixir/Erlang web stacks) unresponsive. No credentials, specific endpoint, or prior knowledge of the application is required.\r\n\r\n### References\r\n\r\n* Introduction commit: https://github.com/elixir-plug/plug/commit/712b875d3442c765d8d37e546ffd5ad9f8afcc55\r\n* Patch commit: https://github.com/elixir-plug/plug/commit/b4aa8a0665ce2726a6d5af44467fb4f59595b107",
+      "ghsa_id": "GHSA-j43x-5hjq-rgxf",
+      "html_url": "https://github.com/elixir-plug/plug/security/advisories/GHSA-j43x-5hjq-rgxf",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-j43x-5hjq-rgxf"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-54892"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-06-23T11:25:28Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+        "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+        "followers_url": "https://api.github.com/users/josevalim/followers",
+        "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+        "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/josevalim",
+        "id": 9582,
+        "login": "josevalim",
+        "node_id": "MDQ6VXNlcjk1ODI=",
+        "organizations_url": "https://api.github.com/users/josevalim/orgs",
+        "received_events_url": "https://api.github.com/users/josevalim/received_events",
+        "repos_url": "https://api.github.com/users/josevalim/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/josevalim",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": " Plug: quadratic-time decoding of nested query/body parameters enables denial of service",
+      "updated_at": "2026-06-23T11:25:28Z",
+      "url": "https://api.github.com/repos/elixir-plug/plug/security-advisories/GHSA-j43x-5hjq-rgxf",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.15.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.15.0 and < 1.15.5"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.16.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.16.0 and < 1.16.4"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.17.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.17.0 and < 1.17.2"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.18.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.18.0 and < 1.18.3"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.19.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.19.0 and < 1.19.3"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "maennchen",
+          "type": "coordinator"
+        },
+        {
+          "login": "josevalim",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "coordinator",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/333918?v=4",
+            "events_url": "https://api.github.com/users/maennchen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/maennchen/followers",
+            "following_url": "https://api.github.com/users/maennchen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/maennchen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/maennchen",
+            "id": 333918,
+            "login": "maennchen",
+            "node_id": "MDQ6VXNlcjMzMzkxOA==",
+            "organizations_url": "https://api.github.com/users/maennchen/orgs",
+            "received_events_url": "https://api.github.com/users/maennchen/received_events",
+            "repos_url": "https://api.github.com/users/maennchen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/maennchen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/maennchen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/maennchen",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+            "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+            "followers_url": "https://api.github.com/users/josevalim/followers",
+            "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+            "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/josevalim",
+            "id": 9582,
+            "login": "josevalim",
+            "node_id": "MDQ6VXNlcjk1ODI=",
+            "organizations_url": "https://api.github.com/users/josevalim/orgs",
+            "received_events_url": "https://api.github.com/users/josevalim/received_events",
+            "repos_url": "https://api.github.com/users/josevalim/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/josevalim",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-8468",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 8.2,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-770"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-770",
+          "name": "Allocation of Resources Without Limits or Throttling"
+        }
+      ],
+      "description": "### Summary\r\n\r\nAn Allocation of Resources Without Limits or Throttling vulnerability in `Plug.Conn.read_part_headers/2` allows an unauthenticated attacker to exhaust server memory by sending a crafted `multipart/form-data` request, causing a denial of service.\r\n\r\n### Details\r\n\r\n`Plug.Conn.read_part_headers/2` in `lib/plug/conn.ex` does not obey its `:length` parameter. There is no upper bound on the size of the accumulated buffer. By contrast, the sibling function `read_part_body` has an explicit `byte_size(acc) > length` guard that stops accumulation once a limit is reached. No such guard exists in `read_part_headers`.\r\n\r\n### Impact\r\n\r\nThis is a denial-of-service vulnerability. Any application using `Plug.Parsers` with the `:multipart` parser, or calling `Plug.Conn.read_part_headers/2` directly, is affected. An unauthenticated remote attacker can trigger the issue by sending crafted HTTP requests with no special privileges.\r\n\r\n### References\r\n\r\n* Intro Commit: https://github.com/elixir-plug/plug/commit/c52b2f32c90bccd718202bafccb5f95594e30183\r\n* Patch Commit: https://github.com/elixir-plug/plug/commit/d878b42efea9f12b243dc3e362a2ed048a798203",
+      "ghsa_id": "GHSA-468c-vq7p-gh64",
+      "html_url": "https://github.com/elixir-plug/plug/security/advisories/GHSA-468c-vq7p-gh64",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-468c-vq7p-gh64"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-8468"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-05-14T09:37:35Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+        "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+        "followers_url": "https://api.github.com/users/josevalim/followers",
+        "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+        "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/josevalim",
+        "id": 9582,
+        "login": "josevalim",
+        "node_id": "MDQ6VXNlcjk1ODI=",
+        "organizations_url": "https://api.github.com/users/josevalim/orgs",
+        "received_events_url": "https://api.github.com/users/josevalim/received_events",
+        "repos_url": "https://api.github.com/users/josevalim/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/josevalim",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Unbounded buffer accumulation in multipart header parsing causes denial of service in Plug",
+      "updated_at": "2026-05-14T09:37:35Z",
+      "url": "https://api.github.com/repos/elixir-plug/plug/security-advisories/GHSA-468c-vq7p-gh64",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.15.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.4.0 and < 1.15.4"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.16.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.16.0 and < 1.16.3"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.17.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.17.0 and < 1.17.1"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.18.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.18.0 and < 1.18.2"
+        },
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug"
+          },
+          "patched_versions": "1.19.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.19.0 and < 1.19.2"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "elixir-plug/plug",
+    "url": "https://api.github.com/repos/elixir-plug/plug/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:06.972104+00:00",
+  "tool": "github_rest_readonly"
+}

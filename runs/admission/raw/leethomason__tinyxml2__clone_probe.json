@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/leethomason/tinyxml2.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:32.880982+00:00", "elapsed_seconds": 1.062, "response": {"returncode": 0, "stdout": "8224e427b655b83dae5e2298f1e6919523a78737\tHEAD\n", "stderr": ""}}

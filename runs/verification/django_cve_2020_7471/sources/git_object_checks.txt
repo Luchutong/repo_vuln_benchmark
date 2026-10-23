@@ -1,0 +1,50 @@
+# commands and output
+$ git rev-parse "refs/tags/3.0.2^{}" "refs/tags/3.0.3^{}"
+a36974395ebc03a41928db1743074575b143330d
+c459a4661b2e96b53d3784c76e1fd5651b8cdc4a
+$ git show -s --format="%H %P %ad %s" --date=iso 505826b469b16ab36693360da9e11fd13213421b
+505826b469b16ab36693360da9e11fd13213421b 673444da5e721c0d23809076c5d5d74224457d23 2019-12-31 12:46:06 -0500 [3.0.x] Fixed CVE-2020-7471 -- Properly escaped StringAgg(delimiter) parameter.
+$ git merge-base --is-ancestor eb31d845323618d688ad429479c6dda973056136 3.0.2^{} / 3.0.3^{}
+3.0.2: NOT ancestor
+3.0.3: NOT ancestor
+$ git merge-base --is-ancestor c67a368c16e4680b324b4f385398d638db4d8147 3.0.2^{} / 3.0.3^{}
+3.0.2: NOT ancestor
+3.0.3: NOT ancestor
+$ git merge-base --is-ancestor 001b0634cd309e372edb6d7d95d083d02b8e37bd 3.0.2^{} / 3.0.3^{}
+3.0.2: NOT ancestor
+3.0.3: NOT ancestor
+$ git merge-base --is-ancestor 505826b469b16ab36693360da9e11fd13213421b 3.0.2^{} / 3.0.3^{}
+3.0.2: NOT ancestor
+3.0.3: ancestor
+$ git ls-tree -r --name-only 3.0.2^{} | wc -l
+6163
+
+# additional fixed-release checks
+$ git rev-parse 1.11.28^{} / 2.2.10^{}
+e09f09b965ef47ffd99abd2c26ba7416751cffa6
+b2c33a57b3b98f1e90bbc2a2be2c5a6d814eed29
+$ git merge-base --is-ancestor 001b063 1.11.28^{}
+yes
+$ git merge-base --is-ancestor c67a368 2.2.10^{}
+yes
+$ grep fixed StringAgg templates
+refs/tags/1.11.28^{}:django/contrib/postgres/aggregates/general.py:51:        delimiter_expr = Value(str(delimiter))
+refs/tags/1.11.28^{}:django/contrib/postgres/aggregates/general.py:52:        super(StringAgg, self).__init__(expression, delimiter_expr, distinct=distinct, **extra)
+refs/tags/2.2.10^{}:django/contrib/postgres/aggregates/general.py:59:        delimiter_expr = Value(str(delimiter))
+refs/tags/2.2.10^{}:django/contrib/postgres/aggregates/general.py:60:        super().__init__(expression, delimiter_expr, **extra)
+
+# exposure in unsupported lines and StringAgg introduction
+$ git show -s --format="%H %ad %s" --date=short e4cf8c8420634d6f2dc8ce873246256ce635972d
+e4cf8c8420634d6f2dc8ce873246256ce635972d 2015-02-08 Fixed #24301 -- Added PostgreSQL-specific aggregate functions
+$ git show 1.9^{}:django/contrib/postgres/aggregates/general.py | grep delimiter
+35:    template = "%(function)s(%(expressions)s, '%(delimiter)s')"
+38:        super(StringAgg, self).__init__(expression, delimiter=delimiter, **extra)
+$ git show 1.10.8^{}:django/contrib/postgres/aggregates/general.py | grep delimiter
+35:    template = "%(function)s(%(expressions)s, '%(delimiter)s')"
+38:        super(StringAgg, self).__init__(expression, delimiter=delimiter, **extra)
+$ git show 2.0^{}:django/contrib/postgres/aggregates/general.py | grep delimiter
+50:    template = "%(function)s(%(distinct)s%(expressions)s, '%(delimiter)s')"
+54:        super().__init__(expression, delimiter=delimiter, distinct=distinct, **extra)
+$ git show 2.1.15^{}:django/contrib/postgres/aggregates/general.py | grep delimiter
+54:    template = "%(function)s(%(distinct)s%(expressions)s, '%(delimiter)s')"
+58:        super().__init__(expression, delimiter=delimiter, distinct=distinct, **extra)

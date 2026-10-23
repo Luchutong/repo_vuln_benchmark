@@ -1,0 +1,313 @@
+{
+  "candidate_id": "disc2_1284bdb1ae69ee453abf460d",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/hyper_cve_2021_21299/sources/osv_ghsa.json",
+      "evidence_id": "ev_hyper_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:40:00Z",
+      "sha256_of_observation": "7e628181300b867fe244ada82a141028502d28e20248370a17ec7b7b2c71134c",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-6hfq-h8hq-87mf",
+      "supports": [
+        "aliases CVE-2021-21299 and RUSTSEC-2021-0020",
+        "affected crate ranges <0.13.10, >=0.14.0 <0.14.3, <0.12.36",
+        "CVSS 3.1 4.8 vector",
+        "CWE-444",
+        "fix commit reference"
+      ],
+      "verification_method": "OSV API query for crates.io hyper, response cached"
+    },
+    {
+      "artifact_path": "runs/verification/hyper_cve_2021_21299/sources/cve_v5.json",
+      "evidence_id": "ev_hyper_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:40:00Z",
+      "sha256_of_observation": "49d6b6b28ecbd2dd69d87317fafd98e81a0566b6d82a809466f747a307d16143",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-21299",
+      "supports": [
+        "title",
+        "CWE-444",
+        "CVSS 3.1 4.8 MEDIUM",
+        "published date",
+        "affected versions <0.13.10 and >=0.14.0,<0.14.3"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner GitHub_M)"
+    },
+    {
+      "artifact_path": "runs/verification/hyper_cve_2021_21299/sources/nvd_cve.json",
+      "evidence_id": "ev_hyper_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:40:00Z",
+      "sha256_of_observation": "0131a3b69c4f2a5f949ccb1e64679da656cc2749f9f7ef59fb7907d3ed5900fa",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-21299",
+      "supports": [
+        "NVD primary CVSS 3.1 8.1 HIGH and CNA 4.8 MEDIUM",
+        "description of multiple Transfer-Encoding interpretation",
+        "CPE ranges 0.12.0-0.13.10 and 0.14.0-0.14.3",
+        "fix commit reference"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/hyper_cve_2021_21299/sources/git_object_checks.txt",
+      "evidence_id": "ev_hyper_fix_commit",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:50:00Z",
+      "sha256_of_observation": "c0860b9ab0782a29d03bb93485744bc0654a736a56577d19bd85d697c031e28e",
+      "source_url": "https://github.com/hyperium/hyper/commit/8f93123efef5c1361086688fe4f34c83c89cec02",
+      "supports": [
+        "fix commit",
+        "fix adds the else branch resetting is_te_chunked",
+        "fix is an ancestor of v0.14.3",
+        "fix is not an ancestor of v0.14.2",
+        "tag and commit identities"
+      ],
+      "verification_method": "exact-SHA shallow fetch; diff against first parent 4d2125c6; merge-base --is-ancestor against both tags"
+    },
+    {
+      "artifact_path": "runs/verification/hyper_cve_2021_21299/sources/role_rs_v0.14.2.rs",
+      "evidence_id": "ev_hyper_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:49:00Z",
+      "sha256_of_observation": "8601b69688a97534cc78c149d3acf632163c669a2a4102d920dfc80de46f8219",
+      "source_url": "https://github.com/hyperium/hyper/blob/8861f9a7867216c81ea14ac6224c11a1303e7761/src/proto/h1/role.rs#L200-L213",
+      "supports": [
+        "root-cause region",
+        "Transfer-Encoding loop sets is_te_chunked on any chunked value and never clears it",
+        "line 261 rejects only when no value was chunked"
+      ],
+      "verification_method": "file read from the exact v0.14.2 tag commit"
+    },
+    {
+      "artifact_path": "runs/verification/hyper_cve_2021_21299/sources/role_rs_v0.14.3.rs",
+      "evidence_id": "ev_hyper_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:49:00Z",
+      "sha256_of_observation": "143a6a4d05937c8ed32e268e8400fcb6d925c9860a5b882c145d48686821a67c",
+      "source_url": "https://github.com/hyperium/hyper/blob/48d4594930da4e227039cfa254411b85c98b63c5/src/proto/h1/role.rs#L213-L218",
+      "supports": [
+        "fixed release content",
+        "else branch clears is_te_chunked for a non-chunked Transfer-Encoding value"
+      ],
+      "verification_method": "file read at the v0.14.3 tag commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_735b41cb13177d03/snapshot_proposal.json",
+      "evidence_id": "ev_hyper_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:51:20Z",
+      "sha256_of_observation": "c088d38221b165639de28d0bf6e0be929b276ed885c9a35a611af7d3f55dd8f1",
+      "source_url": "https://github.com/hyperium/hyper/tree/8861f9a7867216c81ea14ac6224c11a1303e7761",
+      "supports": [
+        "snapshot_id",
+        "Rust first-party 63.77%",
+        "tree oid aa4f215d",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 93 tracked files, enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      1
+    ],
+    "fix_commits": [
+      0,
+      3
+    ],
+    "fixed_releases": [
+      5,
+      3
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      3
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "Location was established by static reading; no request-smuggling/desync exchange was executed.",
+    "Only the 0.14.x line was verified at source. The advisory's 0.12.x and 0.13.x ranges were not inspected at their own tags.",
+    "Exploitability requires a front-end proxy that parses the duplicated Transfer-Encoding headers differently; a standalone hyper server cannot desync by itself.",
+    "The 0.14.3 release contains the fix by ancestry and content, but no release artifact signature or crates.io tarball digest was checked."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "                    is_te = true;\n                    if headers::is_chunked_(&value) {\n                        is_te_chunked = true;\n                        decoder = DecodedLength::CHUNKED;\n                    }",
+      "description": "The HTTP/1 server header loop handles every Transfer-Encoding header independently. A value that contains 'chunked' sets is_te_chunked and switches the decoder to CHUNKED, but a later Transfer-Encoding value that is not chunked neither clears that flag nor changes the decoder. The post-loop guard at line 261 only rejects the request when no Transfer-Encoding value was chunked, so 'Transfer-Encoding: chunked' followed by 'Transfer-Encoding: afterlol' is accepted as a chunked body. RFC 7230 section 3.3.3 requires the final encoding to be chunked; an upstream proxy that follows the rule sees a different message boundary, enabling request smuggling. The fix adds an else branch that sets is_te_chunked = false, so any non-chunked value invalidates the request.",
+      "file": "src/proto/h1/role.rs",
+      "function": "Server::parse (Transfer-Encoding handling)",
+      "language": "Rust",
+      "line": "200-213",
+      "permalink": "https://github.com/hyperium/hyper/blob/8861f9a7867216c81ea14ac6224c11a1303e7761/src/proto/h1/role.rs#L200-L213"
+    },
+    "entry_point": {
+      "description": "Untrusted HTTP/1.1 request headers are parsed here; every Transfer-Encoding header value is examined in file order.",
+      "file": "src/proto/h1/role.rs",
+      "function": "Server::parse",
+      "language": "Rust",
+      "line": 210,
+      "permalink": "https://github.com/hyperium/hyper/blob/8861f9a7867216c81ea14ac6224c11a1303e7761/src/proto/h1/role.rs#L210-L213"
+    },
+    "location_id": "loc_GHSA_6hfq_h8hq_87mf_snap_735b41cb13177d03",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_735b41cb13177d03",
+    "trace": [
+      {
+        "description": "Header loop visits each Transfer-Encoding value in order",
+        "file": "src/proto/h1/role.rs",
+        "function": "Server::parse",
+        "language": "Rust",
+        "line": 195,
+        "permalink": "https://github.com/hyperium/hyper/blob/8861f9a7867216c81ea14ac6224c11a1303e7761/src/proto/h1/role.rs#L195-L214"
+      },
+      {
+        "description": "A chunked value sets is_te_chunked; no else branch exists for a non-chunked value",
+        "file": "src/proto/h1/role.rs",
+        "function": "Server::parse",
+        "language": "Rust",
+        "line": 210,
+        "permalink": "https://github.com/hyperium/hyper/blob/8861f9a7867216c81ea14ac6224c11a1303e7761/src/proto/h1/role.rs#L210-L213"
+      },
+      {
+        "description": "Final guard rejects only when no Transfer-Encoding value was chunked, so the mixed pair passes",
+        "file": "src/proto/h1/role.rs",
+        "function": "Server::parse",
+        "language": "Rust",
+        "line": 261,
+        "permalink": "https://github.com/hyperium/hyper/blob/8861f9a7867216c81ea14ac6224c11a1303e7761/src/proto/h1/role.rs#L261-L264"
+      }
+    ],
+    "verification_method": "Static read of role.rs at the exact v0.14.2 commit 8861f9a7867216c81ea14ac6224c11a1303e7761, diffed against fix commit 8f93123efef5c1361086688fe4f34c83c89cec02 and tag v0.14.3. No code executed.",
+    "vulnerability_id": "GHSA-6hfq-h8hq-87mf"
+  },
+  "open_questions": [
+    "Whether a specific proxy/CDN pairing produces a usable desync was not tested; the dossier records the parsing divergence only.",
+    "The 0.12.x and 0.13.x branches may need separate fix commits; only the 0.14.3 fix commit was inspected."
+  ],
+  "prepared_at": "2026-10-21T13:52:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/hyperium/hyper",
+    "full_name": "hyperium/hyper",
+    "license": "MIT",
+    "primary_language": "Rust",
+    "project_kind": "library",
+    "repo_id": "23500865",
+    "snapshot_id": "snap_735b41cb13177d03"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read role.rs at v0.14.2 and confirm the missing else branch and the line 261 guard.",
+      "An independent reviewer must confirm v0.14.3 contains the else branch and that the fix commit is an ancestor of the tag.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA + OSV)",
+      "CVE List v5 CNA record (assigner GitHub_M)",
+      "NVD analysis"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA and NVD agree on CWE-444, the affected version lines and the fix commit, but disagree on severity: the CNA/GHSA vector is CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N (4.8 MEDIUM) while NVD's primary metric is CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H (8.1 HIGH). Both scores are recorded; the canonical severity uses the NVD primary metric and the CNA score is kept as an alternate. NVD CPE ranges cover 0.12.0-0.13.10 and 0.14.0-0.14.3; OSV additionally caps the 0.12 line at 0.12.36 and the 0.13 line at 0.13.10. Only the 0.14.x range is claimed in affected_packages because that is the source line actually read.",
+    "severity_disagreement": true
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/hyperium/hyper/security/advisories/GHSA-6hfq-h8hq-87mf",
+    "affected_packages": [
+      {
+        "affected_range": ">=0.14.0, <0.14.3",
+        "ecosystem": "crates.io",
+        "package": "hyper",
+        "purl": "pkg:cargo/hyper"
+      }
+    ],
+    "aliases": [
+      "GHSA-6hfq-h8hq-87mf",
+      "CVE-2021-21299",
+      "RUSTSEC-2021-0020"
+    ],
+    "category_l1": "injection",
+    "category_l2": "HTTP request smuggling",
+    "cwe_ids": [
+      "CWE-444"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "fix(http1): fix server misinterpretting multiple Transfer-Encoding headers",
+        "sha": "8f93123efef5c1361086688fe4f34c83c89cec02",
+        "url": "https://github.com/hyperium/hyper/commit/8f93123efef5c1361086688fe4f34c83c89cec02"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "crates.io",
+        "package": "hyper",
+        "release_url": "https://github.com/hyperium/hyper/releases/tag/v0.14.3",
+        "tag": "v0.14.3",
+        "verified_content": "At the v0.14.3 commit role.rs sets is_te_chunked = false when a Transfer-Encoding value is not chunked; v0.14.2 has no such else branch",
+        "version": "0.14.3"
+      }
+    ],
+    "published_at": "2021-02-11T18:00:18Z",
+    "references": [
+      "https://github.com/hyperium/hyper/security/advisories/GHSA-6hfq-h8hq-87mf",
+      "https://github.com/hyperium/hyper/commit/8f93123efef5c1361086688fe4f34c83c89cec02",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-21299",
+      "https://rustsec.org/advisories/RUSTSEC-2021-0020.html",
+      "https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn"
+    ],
+    "repo_id": "23500865",
+    "severity": {
+      "alternate_scores": [
+        {
+          "level": "medium",
+          "score": 4.8,
+          "source": "GitHub_M CNA / GHSA advisory",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+          "version": "3.1"
+        }
+      ],
+      "level": "high",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 8.1 falls in High (7.0-8.9).",
+      "score": 8.1,
+      "source": "NVD primary metric nvd@nist.gov; CNA scored the same issue 4.8 MEDIUM, recorded as an alternate",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-21299",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_735b41cb13177d03",
+    "source_type": "upstream_advisory",
+    "title": "Multiple Transfer-Encoding headers misinterprets request payload",
+    "vulnerability_id": "GHSA-6hfq-h8hq-87mf",
+    "vulnerable_commit": "8861f9a7867216c81ea14ac6224c11a1303e7761",
+    "vulnerable_commit_basis": "lightweight tag v0.14.2 points directly at commit 8861f9a...; Cargo.toml at that commit declares version 0.14.2 and 0.14.2 is inside >=0.14.0,<0.14.3",
+    "vulnerable_version": "0.14.2"
+  }
+}

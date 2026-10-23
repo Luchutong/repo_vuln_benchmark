@@ -1,0 +1,86 @@
+From 4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e Mon Sep 17 00:00:00 2001
+From: Daniel Beck <daniel-beck@users.noreply.github.com>
+Date: Tue, 25 Feb 2025 16:17:32 +0000
+Subject: [PATCH] [SECURITY-3501]
+
+---
+ core/src/main/java/hudson/Util.java           |  2 +-
+ core/src/test/java/hudson/UtilTest.java       |  6 +++-
+ .../jenkins/security/Security3501Test.java    | 33 +++++++++++++++++++
+ 3 files changed, 39 insertions(+), 2 deletions(-)
+ create mode 100644 test/src/test/java/jenkins/security/Security3501Test.java
+
+diff --git a/core/src/main/java/hudson/Util.java b/core/src/main/java/hudson/Util.java
+index 8e9f1002f3d9..4783535bd89e 100644
+--- a/core/src/main/java/hudson/Util.java
++++ b/core/src/main/java/hudson/Util.java
+@@ -1651,7 +1651,7 @@ public static boolean isAbsoluteUri(@NonNull String uri) {
+      * @since 2.3 / 1.651.2
+      */
+     public static boolean isSafeToRedirectTo(@NonNull String uri) {
+-        return !isAbsoluteUri(uri) && !uri.startsWith("//");
++        return !isAbsoluteUri(uri) && !uri.startsWith("\\") && !uri.replace('\\', '/').startsWith("//");
+     }
+ 
+     /**
+diff --git a/core/src/test/java/hudson/UtilTest.java b/core/src/test/java/hudson/UtilTest.java
+index ac08dccb5d22..135da2562800 100644
+--- a/core/src/test/java/hudson/UtilTest.java
++++ b/core/src/test/java/hudson/UtilTest.java
+@@ -416,12 +416,16 @@ public void testIsAbsoluteUri() {
+     }
+ 
+     @Test
+-    @Issue("SECURITY-276")
++    @Issue({"SECURITY-276", "SECURITY-3501"})
+     public void testIsSafeToRedirectTo() {
+         assertFalse(Util.isSafeToRedirectTo("http://foobar/"));
+         assertFalse(Util.isSafeToRedirectTo("mailto:kk@kohsuke.org"));
+         assertFalse(Util.isSafeToRedirectTo("d123://test/"));
+         assertFalse(Util.isSafeToRedirectTo("//google.com"));
++        assertFalse(Util.isSafeToRedirectTo("\\\\google.com"));
++        assertFalse(Util.isSafeToRedirectTo("\\/google.com"));
++        assertFalse(Util.isSafeToRedirectTo("/\\google.com"));
++        assertFalse(Util.isSafeToRedirectTo("\\google.com"));
+ 
+         assertTrue(Util.isSafeToRedirectTo("foo/bar/abc:def"));
+         assertTrue(Util.isSafeToRedirectTo("foo?abc:def"));
+diff --git a/test/src/test/java/jenkins/security/Security3501Test.java b/test/src/test/java/jenkins/security/Security3501Test.java
+new file mode 100644
+index 000000000000..f266b2f4c1c5
+--- /dev/null
++++ b/test/src/test/java/jenkins/security/Security3501Test.java
+@@ -0,0 +1,33 @@
++package jenkins.security;
++
++import static org.hamcrest.MatcherAssert.assertThat;
++import static org.hamcrest.Matchers.is;
++
++import java.util.List;
++import org.htmlunit.FailingHttpStatusCodeException;
++import org.junit.Assert;
++import org.junit.Rule;
++import org.junit.Test;
++import org.jvnet.hudson.test.JenkinsRule;
++import org.jvnet.hudson.test.RealJenkinsRule;
++
++public class Security3501Test {
++    @Rule
++    public RealJenkinsRule jj = new RealJenkinsRule();
++
++    @Test
++    public void testRedirects() throws Throwable {
++        jj.then(Security3501Test::_testRedirects);
++    }
++
++    public static void _testRedirects(JenkinsRule j) throws Exception {
++        List<String> prohibitedPaths = List.of("%5C%5Cexample.org", "%5C/example.org", "/%5Cexample.org", "//example.org", "https://example.org", "\\example.org");
++        for (String path : prohibitedPaths) {
++            try (JenkinsRule.WebClient wc = j.createWebClient().withRedirectEnabled(false)) {
++                final FailingHttpStatusCodeException fhsce = Assert.assertThrows(FailingHttpStatusCodeException.class, () -> wc.goTo("userContent?path=" + path));
++                assertThat(fhsce.getStatusCode(), is(302));
++                assertThat(fhsce.getResponse().getResponseHeaderValue("Location"), is(j.getURL().toExternalForm() + "userContent/"));
++            }
++        }
++    }
++}

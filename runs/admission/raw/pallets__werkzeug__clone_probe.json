@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/pallets/werkzeug.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:34.441868+00:00", "elapsed_seconds": 1.14, "response": {"returncode": 0, "stdout": "665e760ca6325a348ce03e5cf780b17e4be01848\tHEAD\n", "stderr": ""}}

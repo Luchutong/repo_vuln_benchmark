@@ -1,0 +1,390 @@
+{
+ "candidate_id": "disc2_f9a42ffea6ae172ea270f839",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:10:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45063",
+  "aliases": [
+   "CVE-2026-45063",
+   "GHSA-ph86-p8f6-f9r2"
+  ],
+  "title": "Symfony X509Authenticator uses an unanchored emailAddress regex, allowing identity spoofing via a crafted certificate Subject DN",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/security-http",
+    "purl": "pkg:composer/symfony/security-http",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/security-http",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 the emailAddress alternative is anchored to the start of the DN or a comma/slash boundary; fix 59ef4840 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: tag v5.4.52 peels to eabc5f9e and X509Authenticator.php blob 13e0c82b matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "59ef484029601a7af06f5e06c6ed921fdcea5a0d",
+    "branch": "5.4",
+    "message": "[Security] Anchor emailAddress regex to RDN boundary in X509Authenticator",
+    "url": "https://github.com/symfony/symfony/commit/59ef484029601a7af06f5e06c6ed921fdcea5a0d"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-290"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N",
+   "score": 9.1,
+   "level": "critical",
+   "numeric_level_rationale": "CVSS 4.0 base 9.1 falls in Critical (9.0-10.0); the CNA and NVD (Secondary) both publish this vector with attack requirements present",
+   "source": "GitHub_M CNA CVSS 4.0 metric, also republished by NVD as its only, Secondary metric",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-ph86-p8f6-f9r2"
+  },
+  "category_l1": "authentication_bypass",
+  "category_l2": "an unanchored emailAddress= regex matches inside the value of another RDN, so a certificate with a free-text CN can assert a victim email address",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45063",
+  "published_at": "2026-05-27T16:50:42Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45063",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-ph86-p8f6-f9r2",
+   "https://github.com/symfony/symfony/commit/59ef484029601a7af06f5e06c6ed921fdcea5a0d",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45063",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45063_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45063",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php",
+  "function": "X509Authenticator::extractUsername",
+  "language": "PHP",
+  "line": "49",
+  "critical_operation": {
+   "code_excerpt": "        if ($request->server->has($this->userKey)) {\n            $username = $request->server->get($this->userKey);\n        } elseif (\n            $request->server->has($this->credentialsKey)\n            && preg_match('#emailAddress=([^,/@]++@[^,/]++)#', $request->server->get($this->credentialsKey), $matches)\n        ) {\n            $username = $matches[1];\n        }",
+   "description": "extractUsername falls back to parsing SSL_CLIENT_S_DN when SSL_CLIENT_S_DN_Email is absent. The regex looks for emailAddress= anywhere in the DN string and captures the following address. Because it is not anchored to an RDN boundary, a certificate whose CN value contains the text \"emailAddress=victim@example.com\" is parsed as that email address, and the captured value becomes the authenticated username. The 5.4.52 fix requires the match to start at the string start or after a comma or slash, and also accepts the dotted OID form.",
+   "file": "src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php",
+   "function": "X509Authenticator::extractUsername",
+   "language": "PHP",
+   "line": 49,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L49"
+  },
+  "entry_point": {
+   "description": "extractUsername() receives the Request built by the web server after it validated the client certificate and passed the Subject DN in SSL_CLIENT_S_DN. The DN is attacker-influenced only through the CA-issued certificate subject, so the attacker needs a certificate from a trusted CA whose CN accepts free text.",
+   "file": "src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php",
+   "function": "X509Authenticator::extractUsername",
+   "language": "PHP",
+   "line": 42,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L42"
+  },
+  "trace": [
+   {
+    "description": "The web server validates the client certificate and forwards its Subject DN as SSL_CLIENT_S_DN",
+    "file": "src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php",
+    "function": "X509Authenticator::extractUsername",
+    "language": "PHP",
+    "line": 42,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L42-L49"
+   },
+   {
+    "description": "With no SSL_CLIENT_S_DN_Email, the unanchored regex is applied to the whole DN string",
+    "file": "src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php",
+    "function": "X509Authenticator::extractUsername",
+    "language": "PHP",
+    "line": 49,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L49"
+   },
+   {
+    "description": "The captured address is returned as the authenticated username",
+    "file": "src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php",
+    "function": "X509Authenticator::extractUsername",
+    "language": "PHP",
+    "line": 51,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L51"
+   }
+  ],
+  "verification_method": "Static read of X509Authenticator.php at v5.4.45 and v5.4.52, the 5.4 fix diff, tag ancestry and blob comparison; no code was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45063_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "a2a3cfd3e08b4d587e35c11065bc10e33e2734d54efe40c2461c5e26e9f3200f",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45063",
+   "supports": [
+    "NVD status Analyzed; description: X509Authenticator extracts the user identifier from SSL_CLIENT_S_DN with an unanchored regex, so emailAddress= can be smuggled inside another RDN value such as CN",
+    "NVD carries CVSS 4.0 9.1 CRITICAL AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N as a Secondary metric from security-advisories@github.com",
+    "NVD lists CWE-290 from the GitHub advisory"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45063_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "9d333bebc37b7896ccb52cc16467318c011d92267eb416a239c3f1fd95e67140",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45063",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M; affected ranges <5.4.52, >=6.0.0-BETA1 <6.4.40, >=7.0.0-BETA1 <7.4.12, >=8.0.0-BETA1 <8.0.12",
+    "CNA supplies CVSS 4.0 9.1 CRITICAL AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:N and CWE-290 (Authentication Bypass by Spoofing)",
+    "CNA references the 5.4 fix commit 59ef484029601a7af06f5e06c6ed921fdcea5a0d and the v5.4.52 release"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45063_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "819e6b21ae7de9e5115272caa0650223b33bfdd44a99573049097f60a9fbe1e9",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-ph86-p8f6-f9r2",
+   "supports": [
+    "GHSA-ph86-p8f6-f9r2 aliases CVE-2026-45063 and is github_reviewed with database severity HIGH and cwe_ids CWE-290",
+    "affected ranges: symfony/security-http and symfony/symfony 0..5.4.52, 6.0.0..6.4.40, 7.0.0..7.4.12, 8.0.0..8.0.12",
+    "the GHSA body names ccb3f724c7ff55670a6fe3521c7bf1514cceb478 as the 5.4 patch, but that commit does not exist upstream and its patch URL returns Not Found; the real 5.4 fix is 59ef4840"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45063_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "eae1ecbd6b514b56e4876a74ce3f633b853f9e92a6236ebae26a044cc1a2b138",
+   "source_url": "https://symfony.com/cve-2026-45063",
+   "supports": [
+    "affected versions <5.4.52, >=6 <6.4.40, >=7 <7.4.12, >=8 <8.0.12 of the Security HTTP component; fixed in 5.4.52",
+    "description matches the CNA text: an unanchored emailAddress= regex can match inside another RDN value, allowing identity spoofing with a CA-issued certificate whose CN is attacker-chosen",
+    "resolution states the regex is now anchored to an RDN boundary (start of string or after a comma/slash)"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45063_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "47a3ee484f966f517d0dd78067c47afed57a8308c3fa6dd91c3635fbbea9abe0",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-ph86-p8f6-f9r2",
+   "supports": [
+    "the GitHub advisory page carries the same description, resolution and affected ranges as the symfony.com page",
+    "the page links the 5.4 fix commit ccb3f724, which is a dead link; the CNA reference 59ef4840 resolves and matches the advisory text",
+    "the advisory credits Claude Mythos Preview (via Project Glasswing)"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45063_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "6a912de2cabb5a4adc5052b21142a3882eb258393ef0a7c48b58231b53bdf7ff",
+   "source_url": "https://github.com/symfony/symfony/commit/59ef484029601a7af06f5e06c6ed921fdcea5a0d",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit 59ef4840 is dated 2026-04-17, subject \"[Security] Anchor emailAddress regex to RDN boundary in X509Authenticator\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "X509Authenticator.php blob is 8f30a239 at v5.4.45 (equal to the patch pre-image) and 13e0c82b at v5.4.52 (equal to the patch post-image)",
+    "the commit named in the GHSA body, ccb3f724, does not exist in the repository and its patch URL returns Not Found"
+   ],
+   "verification_method": "git merge-base --is-ancestor in both directions; git cat-file; git show; blob comparison"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/x509authenticator_5.4.45.php",
+   "evidence_id": "ev_symfony_45063_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "52584abf1143ec79ef70ba95fe54d6623e8c4dfcf31b0a1c9d4e0f10df8794ce",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L42-L59",
+   "supports": [
+    "extractUsername() reads SSL_CLIENT_S_DN_Email directly when present; otherwise it applies preg_match to SSL_CLIENT_S_DN",
+    "the pattern #emailAddress=([^,/@]++@[^,/]++)# is unanchored, so emailAddress= is recognized anywhere in the DN string, including inside the value of CN or another RDN",
+    "the captured address becomes the authenticated username without further canonicalization"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 8f30a239)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/x509authenticator_5.4.52.php",
+   "evidence_id": "ev_symfony_45063_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "01c02f32ea6abd149ecca124ac8318db70e073d2ad053bb5daff405af3288e2b",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L42-L59",
+   "supports": [
+    "at v5.4.52 the pattern is #(?:^|[,/])\\s*(?:emailAddress|1\\.2\\.840\\.113549\\.1\\.9\\.1)=([^,/@]++@[^,/]++)#",
+    "the match must start at the beginning of the DN or after a comma or slash, so emailAddress= inside a CN value no longer matches",
+    "the RFC 4514 dotted OID form for emailAddress is accepted as well"
+   ],
+   "verification_method": "file read at v5.4.52 (blob 13e0c82b)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/fix_commit_alt.patch",
+   "evidence_id": "ev_symfony_45063_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "732cbec0d05a0a2ea15f062b47c746591d452ad4b1de450700c01783a90bd1ea",
+   "source_url": "https://github.com/symfony/symfony/commit/59ef484029601a7af06f5e06c6ed921fdcea5a0d.patch",
+   "supports": [
+    "the 5.4 patch changes exactly one line in X509Authenticator::extractUsername to anchor the emailAddress alternative to an RDN boundary",
+    "the patch adds a regression test covering a CN value that contains emailAddress=",
+    "the patch touches only X509Authenticator.php and X509AuthenticatorTest.php"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45063_dead_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+   "source_url": "https://github.com/symfony/symfony/commit/ccb3f724c7ff55670a6fe3521c7bf1514cceb478.patch",
+   "supports": [
+    "fetching the commit link printed in the GHSA body returns the literal text \"Not Found\"",
+    "git cat-file cannot resolve ccb3f724c7ff55670a6fe3521c7bf1514cceb478, confirming the reference is dead",
+    "the CNA/OSV reference list and the advisory text disagree on the 5.4 fix SHA; the resolvable fix is 59ef4840"
+   ],
+   "verification_method": "HTTP fetch of the patch URL; git cat-file"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45063/sources/x509authenticator_5.4.45.php",
+   "evidence_id": "ev_symfony_45063_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "52584abf1143ec79ef70ba95fe54d6623e8c4dfcf31b0a1c9d4e0f10df8794ce",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php#L1-L12",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Component\\Security\\Http\\Authenticator",
+    "the snapshot inventory records the Security Http component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "languages": [
+   10
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tag"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-290, the mechanism, the affected <5.4.52 range and the v5.4.52 release. The GHSA body and OSV reference name a nonexistent fix commit ccb3f724; the CNA reference 59ef4840 resolves, is dated 2026-04-17 and matches the advisory resolution. NVD carries only the CNA 4.0 9.1 vector as a Secondary metric. GHSA labels the issue HIGH while its 4.0 vector computes to 9.1 Critical; the canonical severity uses the published CNA/NVD 4.0 score.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read X509Authenticator::extractUsername at v5.4.45 and confirm the emailAddress regex is unanchored.",
+   "An independent reviewer must confirm 59ef4840 is absent from v5.4.45 and present in v5.4.52 with the RDN-boundary anchor, and that ccb3f724 does not exist.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No mTLS stack, certificate or PHP runtime was executed; the finding is static.",
+  "The attacker model requires a certificate issued by a CA the web server trusts, with a CN that accepts the text \"emailAddress=...\" without encoding; the advisory asserts this is possible for some CAs but no specific CA was tested.",
+  "Only the 5.4 branch was fetched and compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "The GHSA body and OSV record name a dead fix commit ccb3f724; the dossier uses the resolvable CNA commit 59ef4840.",
+  "GHSA severity HIGH and the 4.0 vector score 9.1 Critical disagree; the canonical severity keeps the published 4.0 vector and records the label difference."
+ ],
+ "open_questions": [
+  "Which CAs allow an unescaped emailAddress= sequence inside a CN value was not surveyed.",
+  "Whether the web server passes a normalized or raw DN representation was not tested."
+ ]
+}

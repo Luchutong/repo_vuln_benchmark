@@ -1,0 +1,113 @@
+From d4dcd5b9dd9e462fec8220e33e3e6c822b7e88a6 Mon Sep 17 00:00:00 2001
+From: Florian Apolloner <florian@apolloner.eu>
+Date: Mon, 29 Nov 2021 11:52:03 +0100
+Subject: [PATCH] Fixed #30530, CVE-2021-44420 -- Fixed potential bypass of an
+ upstream access control based on URL paths.
+
+Thanks Sjoerd Job Postmus and TengMA(@te3t123) for reports.
+---
+ django/urls/resolvers.py   |  8 ++++++--
+ docs/releases/2.2.25.txt   |  6 +++++-
+ docs/releases/3.1.14.txt   |  6 +++++-
+ docs/releases/3.2.10.txt   |  9 +++++++--
+ tests/urlpatterns/tests.py | 13 +++++++++++++
+ 5 files changed, 36 insertions(+), 6 deletions(-)
+
+diff --git a/django/urls/resolvers.py b/django/urls/resolvers.py
+index 6ea18dd22faf..110ad87cdb86 100644
+--- a/django/urls/resolvers.py
++++ b/django/urls/resolvers.py
+@@ -165,7 +165,11 @@ def __init__(self, regex, name=None, is_endpoint=False):
+         self.converters = {}
+ 
+     def match(self, path):
+-        match = self.regex.search(path)
++        match = (
++            self.regex.fullmatch(path)
++            if self._is_endpoint and self.regex.pattern.endswith('$')
++            else self.regex.search(path)
++        )
+         if match:
+             # If there are any named groups, use those as kwargs, ignoring
+             # non-named groups. Otherwise, pass all non-named arguments as
+@@ -255,7 +259,7 @@ def _route_to_regex(route, is_endpoint=False):
+         converters[parameter] = converter
+         parts.append('(?P<' + parameter + '>' + converter.regex + ')')
+     if is_endpoint:
+-        parts.append('$')
++        parts.append(r'\Z')
+     return ''.join(parts), converters
+ 
+ 
+diff --git a/docs/releases/2.2.25.txt b/docs/releases/2.2.25.txt
+index e8e552d80e64..1662451a3064 100644
+--- a/docs/releases/2.2.25.txt
++++ b/docs/releases/2.2.25.txt
+@@ -6,4 +6,8 @@ Django 2.2.25 release notes
+ 
+ Django 2.2.25 fixes a security issue with severity "low" in 2.2.24.
+ 
+-...
++CVE-2021-44420: Potential bypass of an upstream access control based on URL paths
++=================================================================================
++
++HTTP requests for URLs with trailing newlines could bypass an upstream access
++control based on URL paths.
+diff --git a/docs/releases/3.1.14.txt b/docs/releases/3.1.14.txt
+index 45775c3ce62b..fb6fef88842d 100644
+--- a/docs/releases/3.1.14.txt
++++ b/docs/releases/3.1.14.txt
+@@ -6,4 +6,8 @@ Django 3.1.14 release notes
+ 
+ Django 3.1.14 fixes a security issue with severity "low" in 3.1.13.
+ 
+-...
++CVE-2021-44420: Potential bypass of an upstream access control based on URL paths
++=================================================================================
++
++HTTP requests for URLs with trailing newlines could bypass an upstream access
++control based on URL paths.
+diff --git a/docs/releases/3.2.10.txt b/docs/releases/3.2.10.txt
+index 18f0f9f09a77..290880d684f3 100644
+--- a/docs/releases/3.2.10.txt
++++ b/docs/releases/3.2.10.txt
+@@ -4,8 +4,13 @@ Django 3.2.10 release notes
+ 
+ *December 7, 2021*
+ 
+-Django 3.2.10 fixes a security issue with severity "low" and several bugs in
+-3.2.9.
++Django 3.2.10 fixes a security issue with severity "low" and a bug in 3.2.9.
++
++CVE-2021-44420: Potential bypass of an upstream access control based on URL paths
++=================================================================================
++
++HTTP requests for URLs with trailing newlines could bypass an upstream access
++control based on URL paths.
+ 
+ Bugfixes
+ ========
+diff --git a/tests/urlpatterns/tests.py b/tests/urlpatterns/tests.py
+index dca9f630866a..cf942fe72ba1 100644
+--- a/tests/urlpatterns/tests.py
++++ b/tests/urlpatterns/tests.py
+@@ -169,6 +169,19 @@ def test_whitespace_in_route(self):
+         match = p.resolve('space%s/1/' % string.whitespace)
+         self.assertEqual(match.kwargs, {'num': 1})
+ 
++    def test_path_trailing_newlines(self):
++        tests = [
++            '/articles/2003/\n',
++            '/articles/2010/\n',
++            '/en/foo/\n',
++            '/included_urls/extra/\n',
++            '/regex/1/\n',
++            '/users/1/\n',
++        ]
++        for url in tests:
++            with self.subTest(url=url), self.assertRaises(Resolver404):
++                resolve(url)
++
+ 
+ @override_settings(ROOT_URLCONF='urlpatterns.converter_urls')
+ class ConverterTests(SimpleTestCase):

@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/jbeder/yaml-cpp.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:32.835267+00:00", "elapsed_seconds": 2.084, "response": {"returncode": 0, "stdout": "c5e65360373d1d99d6b6848c991cd4fcee435009\tHEAD\n", "stderr": ""}}

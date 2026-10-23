@@ -1,0 +1,24 @@
+{
+  "key": "nest_microservices",
+  "repository": "nestjs/nest",
+  "path": "packages/microservices/package.json",
+  "retrieved_at": "2026-10-21T10:56:22.245Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@nestjs/microservices\",\n  \"version\": \"12.2.0\",\n  \"description\": \"Nest - modern, fast, powerful node.js web framework (@microservices)\",\n  \"author\": \"Kamil Mysliwiec\",\n  \"license\": \"MIT\",\n  \"type\": \"module\",\n  \"main\": \"./index.js\",\n  \"exports\": {\n    \".\": \"./index.js\",\n    \"./package.json\": \"./package.json\",\n    \"./*.js\": \"./*.js\",\n    \"./*\": \"./*.js\"\n  },\n  \"homepage\": \"https://nestjs.com\",\n  \"funding\": {\n    \"type\": \"opencollective\",\n    \"url\": \"https://opencollective.com/nest\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/nestjs/nest.git\",\n    \"directory\": \"packages/microservices\"\n  },\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"dependencies\": {\n    \"iterare\": \"1.2.1\",\n    \"tslib\": \"2.8.1\"\n  },\n  \"devDependencies\": {\n    \"@nestjs/common\": \"12.2.0\",\n    \"@nestjs/core\": \"12.2.0\"\n  },\n  \"peerDependencies\": {\n    \"@grpc/grpc-js\": \"*\",\n    \"@nats-io/transport-node\": \"*\",\n    \"@nestjs/common\": \"^12.0.0\",\n    \"@nestjs/core\": \"^12.0.0\",\n    \"@nestjs/websockets\": \"^12.0.0\",\n    \"amqp-connection-manager\": \"*\",\n    \"amqplib\": \"*\",\n    \"cache-manager\": \"*\",\n    \"ioredis\": \"*\",\n    \"kafkajs\": \"*\",\n    \"mqtt\": \"*\",\n    \"reflect-metadata\": \"^0.1.12 || ^0.2.0\",\n    \"rxjs\": \"^7.1.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"@grpc/grpc-js\": {\n      \"optional\": true\n    },\n    \"@nats-io/transport-node\": {\n      \"optional\": true\n    },\n    \"@nestjs/websockets\": {\n      \"optional\": true\n    },\n    \"cache-manager\": {\n      \"optional\": true\n    },\n    \"kafkajs\": {\n      \"optional\": true\n    },\n    \"mqtt\": {\n      \"optional\": true\n    },\n    \"ioredis\": {\n      \"optional\": true\n    },\n    \"amqplib\": {\n      \"optional\": true\n    },\n    \"amqp-connection-manager\": {\n      \"optional\": true\n    }\n  },\n  \"gitHead\": \"ab3fb3d5ca7d51d078835e44a8db1b354f8b651b\"\n}\n",
+      "encoding": "utf-8",
+      "sha": "416c55634a65e910496d5f3d7d3fe949e241710e",
+      "display_url": "https://github.com/nestjs/nest/blob/master/packages/microservices/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

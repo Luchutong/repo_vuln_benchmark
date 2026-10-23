@@ -1,0 +1,138 @@
+{
+  "packet_id": "selrev_3219804_snap_a47bcab3f2c97e92",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "3219804",
+    "full_name": "libarchive/libarchive",
+    "canonical_url": "https://github.com/libarchive/libarchive",
+    "primary_language": "C",
+    "project_kind": "Multi-format archive and compression library"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_a47bcab3f2c97e92",
+    "tag_or_release": "v3.7.7",
+    "commit_sha": "b439d586f53911c84be5e380445a8a259e19114c"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "b439d586f53911c84be5e380445a8a259e19114c",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "c400e4164c3ef8add5b97993fcdebe35193c9fcf",
+    "tree_file_count": 1240,
+    "exported_file_count": 1240,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/libarchive__libarchive/snap_a47bcab3f2c97e92.tar.gz",
+    "archive_sha256": "5a4634d7a41736cb72e9ca36392cf2cd011a58c898ad99f57968c741c49e3efc",
+    "archive_bytes": 5433436,
+    "manifest_path": "exports/libarchive__libarchive/snap_a47bcab3f2c97e92.manifest.jsonl",
+    "manifest_sha256": "0507d067bf0ea160f93533d1cde91ec2d8557016ffd915a82f969f8ba0d7abae"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "NEWS",
+      "build/release/release.sh"
+    ],
+    "cve_id_count": 1,
+    "cve_ids_sample": [
+      "CVE-2006-5680"
+    ],
+    "files_with_advisory_ids_count": 1,
+    "files_with_advisory_ids_sample": [
+      "contrib/libarchive.1aix53.spec"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/dependabot.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/cifuzz.yml",
+      ".github/workflows/codeql.yml",
+      ".github/workflows/scorecard.yml",
+      "NEWS",
+      "SECURITY.md",
+      "build/release/release.sh"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "cmake": [
+        "CMakeLists.txt"
+      ],
+      "configure": [
+        "Makefile.am",
+        "configure.ac"
+      ],
+      "make": [
+        "Makefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "cmake",
+      "configure",
+      "make"
+    ],
+    "toolchain_available": {
+      "cmake": {
+        "cmake": true,
+        "make": true
+      },
+      "configure": {
+        "gcc": true,
+        "make": true
+      },
+      "make": {
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2025-5915",
+      "aliases": [
+        "CVE-2025-5915"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<3.8.0",
+          "ecosystem": "generic",
+          "package": "libarchive",
+          "purl": "pkg:generic/libarchive"
+        }
+      ],
+      "published_at": "2025-06-09T19:49:02Z",
+      "advisory_url": "https://github.com/libarchive/libarchive/pull/2599",
+      "severity": {
+        "level": "medium",
+        "numeric_level_rationale": "CVSS 3.1 numeric 6.6 falls in Medium (4.0-6.9). The CNA and both NVD entries agree on this vector.",
+        "score": 6.6,
+        "source": "Red Hat CNA metric; NVD repeats the same vector as a Secondary entry and has no Primary metric",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-5915",
+        "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

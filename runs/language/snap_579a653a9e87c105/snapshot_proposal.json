@@ -1,0 +1,186 @@
+{
+  "ambiguous_files": [],
+  "collected_at": "2026-10-22T19:23:05.541256Z",
+  "components_in_scope": [
+    "all tracked upstream files; submodules recorded as unresolved gitlinks"
+  ],
+  "evaluation_target": false,
+  "full_scan": true,
+  "language_tool": "github-linguist + explicit container extraction + versioned scope rules",
+  "language_tool_version": "github-linguist 9.7.0; inventory_snapshot.py sha256=acb56dc9c10c3a97b0263330e85a16eb1effdeb9eefa96f7aba7f7aeb5c4d5a3",
+  "languages": [
+    {
+      "code_bytes": 12,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Git Attributes",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".gitattributes"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.000850034143
+    },
+    {
+      "code_bytes": 3,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".npmignore"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 0.000212508536
+    },
+    {
+      "code_bytes": 29,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".gitignore"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.002054249179
+    },
+    {
+      "code_bytes": 578,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "JSON",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "package.json"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 0.040943311223
+    },
+    {
+      "code_bytes": 471,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "JavaScript",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.md"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 0.033363840114
+    },
+    {
+      "code_bytes": 1322023,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1046,
+      "name": "JavaScript",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "_DataView.js",
+        "_Hash.js",
+        "_LazyWrapper.js",
+        "_ListCache.js",
+        "_LodashWrapper.js"
+      ],
+      "role": "scripting",
+      "scope": "first_party",
+      "share_pct": 93.647057323469
+    },
+    {
+      "code_bytes": 86004,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "JavaScript",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "core.min.js",
+        "lodash.min.js"
+      ],
+      "role": "scripting",
+      "scope": "generated",
+      "share_pct": 6.092194703154
+    },
+    {
+      "code_bytes": 1107,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.md"
+      ],
+      "role": "markup",
+      "scope": "docs",
+      "share_pct": 0.078415649695
+    },
+    {
+      "code_bytes": 37,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "Shell",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.md"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 0.002620938608
+    },
+    {
+      "code_bytes": 1952,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "LICENSE"
+      ],
+      "role": "other",
+      "scope": "docs",
+      "share_pct": 0.138272220601
+    }
+  ],
+  "repo_id": "3955647",
+  "scan_details": {
+    "binary_files": 0,
+    "bounded_detection_files": [
+      "lodash.js"
+    ],
+    "bounded_detection_note": "Pinned Linguist bounds detector input at 128KiB; full file byte sizes and all tracked files are counted.",
+    "enumeration_matches_git_ls_tree": true,
+    "git_tree_oid": "f21431ce30148fdb891813e0b82846e622589b5b",
+    "source_code_retained_in_publishable_artifacts": false,
+    "submodules": 0,
+    "symlinks": 0
+  },
+  "snapshot_id": "snap_579a653a9e87c105",
+  "tag_or_release": "4.17.22-npm",
+  "tag_resolution_note": "tag 4.17.22-npm resolved to 5feb6b9b0359eaa1dbae68dd981e7267da188a03 before inventory",
+  "tracked_files_scanned": 1054,
+  "vulnerable_commit": "5feb6b9b0359eaa1dbae68dd981e7267da188a03"
+}

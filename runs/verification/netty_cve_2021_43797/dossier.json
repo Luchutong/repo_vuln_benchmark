@@ -1,0 +1,379 @@
+{
+ "candidate_id": "disc2_ca57e8bf868f4e6bba6d3158",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T04:10:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "1064563",
+  "full_name": "netty/netty",
+  "canonical_url": "https://github.com/netty/netty",
+  "primary_language": "Java",
+  "project_kind": "asynchronous event-driven network application framework",
+  "snapshot_id": "snap_bb344e672a0544ef"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2021-43797",
+  "aliases": [
+   "CVE-2021-43797",
+   "GHSA-wx5j-54mm-rqqq"
+  ],
+  "title": "Netty HTTP decoder skips whitespace and control characters around header names instead of rejecting them, enabling HTTP request smuggling",
+  "repo_id": "1064563",
+  "snapshot_id": "snap_bb344e672a0544ef",
+  "vulnerable_commit": "97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+  "affected_packages": [
+   {
+    "ecosystem": "Maven",
+    "package": "io.netty:netty-codec-http",
+    "purl": "pkg:maven/io.netty/netty-codec-http",
+    "affected_range": ">=4.0.0,<4.1.71.Final"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Maven",
+    "package": "io.netty:netty-codec-http",
+    "version": "4.1.71.Final",
+    "tag": "netty-4.1.71.Final",
+    "release_url": "https://github.com/netty/netty/releases/tag/netty-4.1.71.Final",
+    "verified_content": "At the 4.1.71 release commit both findNonWhitespace() call sites validate OWS unconditionally, and validateHeaderNameElement() rejects 0x1c-0x1f"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "07aa6b5938a8b6ed7a6586e066400e2643897323",
+    "branch": "4.1",
+    "message": "Merge pull request from GHSA-wx5j-54mm-rqqq",
+    "url": "https://github.com/netty/netty/commit/07aa6b5938a8b6ed7a6586e066400e2643897323"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-444"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+   "score": 6.5,
+   "level": "medium",
+   "numeric_level_rationale": "CNA, NVD Secondary and NVD Primary all publish CVSS 3.1 6.5 Medium with the same vector; the OSV/GHSA label is MODERATE. No material disagreement.",
+   "source": "GitHub_M CNA and nvd@nist.gov (NVD Primary), both CVSS 3.1 6.5 Medium",
+   "source_url": "https://github.com/netty/netty/security/advisories/GHSA-wx5j-54mm-rqqq",
+   "all_published_scores": [
+    {
+     "version": "3.1",
+     "score": 6.5,
+     "level": "medium",
+     "source": "GitHub_M CNA (also NVD Secondary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N"
+    },
+    {
+     "version": "3.1",
+     "score": 6.5,
+     "level": "medium",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N"
+    },
+    {
+     "version": "2.0",
+     "score": 4.3,
+     "level": "medium",
+     "source": "nvd@nist.gov (CVSS v2)",
+     "vector": "AV:N/AC:M/Au:N/C:N/I:P/A:N"
+    }
+   ],
+   "ghsa_label_note": "GHSA/OSV labels the issue MODERATE and uses the same CVSS 3.1 6.5 vector as the CNA. NVD also records a legacy CVSS v2 4.3 score."
+  },
+  "category_l1": "http_request_smuggling",
+  "category_l2": "Header-name parsing: whitespace/control characters around the field name are skipped instead of rejected, so a downstream proxy sees a sanitized request",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/netty/netty/security/advisories/GHSA-wx5j-54mm-rqqq",
+  "published_at": "2021-12-09T19:15:00Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://github.com/netty/netty/security/advisories/GHSA-wx5j-54mm-rqqq",
+   "https://github.com/netty/netty/pull/11891",
+   "https://github.com/netty/netty/commit/07aa6b5938a8b6ed7a6586e066400e2643897323",
+   "https://nvd.nist.gov/vuln/detail/CVE-2021-43797",
+   "https://github.com/netty/netty/releases/tag/netty-4.1.71.Final"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2021-43797_snap_bb344e672a0544ef",
+  "vulnerability_id": "CVE-2021-43797",
+  "snapshot_id": "snap_bb344e672a0544ef",
+  "location_kind": "logic",
+  "file": "codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java",
+  "function": "HttpObjectDecoder::splitHeader",
+  "language": "Java",
+  "line": 826,
+  "critical_operation": {
+   "code_excerpt": "        nameStart = findNonWhitespace(sb, 0, false);",
+   "description": "splitHeader() locates the start of the header name with findNonWhitespace(sb, 0, false). The third argument disables OWS validation, so any leading whitespace, including characters that are not legal optional whitespace, is silently skipped and the name is re-based past it. The same loop later passes true for the value side, but the name boundary has already been normalised. The header-name validators in DefaultHttpHeaders also accept 0x1c-0x1f, so control characters adjacent to the name can be stripped rather than rejected. Because Netty acts as an intermediary and forwards the re-serialized, sanitized header, an upstream proxy that would have rejected the invalid request never sees the illegal bytes, enabling HTTP request smuggling (CWE-444). The 4.1.71 fix makes findNonWhitespace() validate OWS at both call sites and rejects 0x1c-0x1f in header names.",
+   "file": "codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java",
+   "function": "HttpObjectDecoder::splitHeader",
+   "language": "Java",
+   "line": 826,
+   "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java#L826"
+  },
+  "entry_point": {
+   "description": "A remote peer sends an HTTP request or response whose header name is wrapped in illegal whitespace or control characters; Netty decodes it and may forward it as an intermediary.",
+   "file": "codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java",
+   "function": "HttpObjectDecoder::decode",
+   "language": "Java",
+   "line": 613,
+   "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java#L613"
+  },
+  "trace": [
+   {
+    "description": "request decoding reaches splitHeader() when a header line is complete",
+    "file": "codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java",
+    "function": "HttpObjectDecoder::decode",
+    "language": "Java",
+    "line": 613,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java#L613"
+   },
+   {
+    "description": "splitHeader() skips leading non-OWS whitespace without validation",
+    "file": "codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java",
+    "function": "HttpObjectDecoder::splitHeader",
+    "language": "Java",
+    "line": 826,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java#L826"
+   },
+   {
+    "description": "findNonWhitespace() only enforces OWS when validateOWS is true",
+    "file": "codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java",
+    "function": "HttpObjectDecoder::findNonWhitespace",
+    "language": "Java",
+    "line": 900,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java#L900"
+   },
+   {
+    "description": "DefaultHttpHeaders::validateHeaderNameElement lacks the 0x1c-0x1f cases",
+    "file": "codec-http/src/main/java/io/netty/handler/codec/http/DefaultHttpHeaders.java",
+    "function": "DefaultHttpHeaders::validateHeaderNameElement",
+    "language": "Java",
+    "line": 368,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/DefaultHttpHeaders.java#L368"
+   }
+  ],
+  "verification_method": "Static read of HttpObjectDecoder.java and DefaultHttpHeaders.java at 4.1.59 and the 4.1.71 release tree, plus the fix patch and git ancestry; no HTTP traffic was generated or proxied."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/cve_v5.json",
+   "evidence_id": "ev_netty_43797_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "2da34c9418d7e9fa823b55399d15338b033204103b9556071f788041017d241f",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-43797",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M",
+    "CNA title: HTTP fails to validate against control chars in header names which may lead to HTTP request smuggling",
+    "CNA CVSS 3.1 6.5 MEDIUM AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+    "problemTypes CWE-444",
+    "references name fix commit 07aa6b59 and PR 11891"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/nvd_cve.json",
+   "evidence_id": "ev_netty_43797_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "8bbe82f4010495a90265ef5e969657f586c9940a4daa4ac00d0957b8d11898f7",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-43797",
+   "supports": [
+    "NVD status Modified",
+    "NVD Primary CVSS 3.1 6.5 MEDIUM from nvd@nist.gov with the same vector as the CNA",
+    "NVD Secondary CVSS 3.1 6.5 MEDIUM from security-advisories@github.com",
+    "legacy CVSS v2 4.3 Medium",
+    "weaknesses CWE-444"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/osv_ghsa.json",
+   "evidence_id": "ev_netty_43797_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "c1331dd43c0d5193b9d65470a05d6d5ffee0ca9029bb6c10888a0f00dd9a9805",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-wx5j-54mm-rqqq",
+   "supports": [
+    "GHSA-wx5j-54mm-rqqq aliases CVE-2021-43797, github_reviewed, database severity MODERATE",
+    "cwe_ids CWE-444",
+    "affected io.netty:netty-codec-http from 4.0.0 fixed 4.1.71.Final",
+    "details: Netty skips control/whitespace chars around header names instead of failing; a proxy forwarding the sanitized request hides the invalid usage from the next hop",
+    "references name fix commit 07aa6b59 and PR 11891"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/ghsa.html",
+   "evidence_id": "ev_netty_43797_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "84a66512345b8942e9273cc6818a54bd19248e4dfdcf56760bec335987987452",
+   "source_url": "https://github.com/netty/netty/security/advisories/GHSA-wx5j-54mm-rqqq",
+   "supports": [
+    "the advisory reproduces the impact statement about header-name control characters and request smuggling",
+    "the page links the fix commit and the 4.1.71 release",
+    "the advisory label is Moderate"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/HttpObjectDecoder_4.1.59.java",
+   "evidence_id": "ev_netty_43797_vuln_decoder",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "fa847f218b62c75ba227653921cbc2c68c663374f23f2ca2e01f70e31c276a32",
+   "source_url": "https://github.com/netty/netty/blob/netty-4.1.59.Final/codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java#L826",
+   "supports": [
+    "splitHeader() starts at line 818",
+    "line 826 calls findNonWhitespace(sb, 0, false), disabling OWS validation at the name boundary",
+    "line 861 calls findNonWhitespace(sb, colonEnd, true) only for the value side",
+    "findNonWhitespace() at line 900 throws only when validateOWS is true"
+   ],
+   "verification_method": "file read at commit 97d04481 (netty-4.1.59.Final)"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/DefaultHttpHeaders_4.1.59.java",
+   "evidence_id": "ev_netty_43797_vuln_headers",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "1670b776f4bd79396f71080e5e2a1bbc94f962e156ac5f275ca62208dc166c98",
+   "source_url": "https://github.com/netty/netty/blob/netty-4.1.59.Final/codec-http/src/main/java/io/netty/handler/codec/http/DefaultHttpHeaders.java#L368",
+   "supports": [
+    "validateHeaderNameElement(byte) at line 368 rejects 0x00, tab, LF, VT, FF, CR, space, comma, colon, semicolon and equals",
+    "it has no cases for 0x1c, 0x1d, 0x1e or 0x1f",
+    "the char overload at line 392 has the same gap"
+   ],
+   "verification_method": "file read at commit 97d04481"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/HttpObjectDecoder_4.1.71.java",
+   "evidence_id": "ev_netty_43797_fixed_decoder",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "2b7c03c6ec044e78d1f0caf0eacd8ecd393f06f521f264e6d880d9c66ad63cc7",
+   "source_url": "https://github.com/netty/netty/blob/netty-4.1.71.Final/codec-http/src/main/java/io/netty/handler/codec/http/HttpObjectDecoder.java#L827",
+   "supports": [
+    "line 827 calls findNonWhitespace(sb, 0) with the validateOWS parameter removed",
+    "line 862 calls findNonWhitespace(sb, colonEnd) the same way",
+    "findNonWhitespace() now throws for any non-OWS whitespace at either boundary"
+   ],
+   "verification_method": "file read at release commit 2e346c1d (netty-4.1.71.Final)"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/fix_commit.patch",
+   "evidence_id": "ev_netty_43797_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "03077121e021d0050f6cfea033ec82fc0c72ef6bcc54679aeaaa162d36461bcb",
+   "source_url": "https://github.com/netty/netty/commit/07aa6b5938a8b6ed7a6586e066400e2643897323.patch",
+   "supports": [
+    "the patch removes the validateOWS flag and always rejects non-OWS whitespace",
+    "it adds 0x1c-0x1f rejection to both validateHeaderNameElement overloads",
+    "it adds request and response decoder tests for control characters around header names"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_43797/sources/git_object_checks.txt",
+   "evidence_id": "ev_netty_43797_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T04:10:00Z",
+   "sha256_of_observation": "fbed9d8366e10314dddafde4bd69c04cc25c5943e028a077925587d691e32057",
+   "source_url": "https://github.com/netty/netty/commit/07aa6b5938a8b6ed7a6586e066400e2643897323",
+   "supports": [
+    "the 4.1.59 snapshot commit 97d04481 contains the vulnerable call sites",
+    "fix 07aa6b59 is not an ancestor of 4.1.59",
+    "4.1.59 is an ancestor of fix 07aa6b59",
+    "the 4.1.71 release commit 2e346c1d contains fix 07aa6b59"
+   ],
+   "verification_method": "git cat-file/merge-base with fetched release and fix histories"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   4,
+   5,
+   7
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   2,
+   3,
+   7,
+   8
+  ],
+  "fixed_releases": [
+   3,
+   6,
+   8
+  ],
+  "languages": [
+   3,
+   4
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "vulnerable_commit": [
+   8
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-444, the header-name whitespace/control-character defect, the 4.0.0-4.1.71.Final range and fix 07aa6b59. All published scores agree on 6.5 Medium (plus a legacy CVSS v2 4.3).",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read splitHeader()/findNonWhitespace() at 4.1.59 and confirm the name-boundary call disables OWS validation.",
+   "An independent reviewer must confirm 07aa6b59 is not an ancestor of 4.1.59 and that 4.1.71 contains it, and that the fix validates both boundaries and adds 0x1c-0x1f.",
+   "An independent reviewer must confirm the affected range and the 4.1.71.Final fixed release.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No HTTP request was crafted and no proxy was exercised; the smuggling impact is established statically from the decoding and re-serialization path.",
+  "Only the 4.1 branch was inspected; other affected branches were not diffed.",
+  "The impact depends on Netty being used as an intermediary that re-serializes headers; a direct origin server may reject the malformed request itself."
+ ],
+ "open_questions": [
+  "The precise set of characters that Character.isWhitespace() treats as whitespace but RFC 7230 does not was not enumerated beyond the cited control range.",
+  "Whether every Netty HTTP codec path reaches splitHeader() was not exhaustively audited."
+ ]
+}

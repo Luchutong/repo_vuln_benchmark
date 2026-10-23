@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/aaubry/YamlDotNet.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:29.366806+00:00", "elapsed_seconds": 1.085, "response": {"returncode": 0, "stdout": "4f7e6e346649ec2a402607a3c1ea352c6fb5ecd3\tHEAD\n", "stderr": ""}}

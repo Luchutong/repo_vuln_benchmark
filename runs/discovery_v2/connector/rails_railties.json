@@ -1,0 +1,24 @@
+{
+  "key": "rails_railties",
+  "repository": "rails/rails",
+  "path": "railties/railties.gemspec",
+  "retrieved_at": "2026-10-21T10:56:18.874Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"../RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"railties\"\n  s.version     = version\n  s.summary     = \"Tools for creating, working with, and running Rails applications.\"\n  s.description = \"Rails internals: application bootup, plugins, generators, and rake tasks.\"\n\n  s.required_ruby_version = \">= 3.3.5\"\n\n  s.license = \"MIT\"\n\n  s.author   = \"David Heinemeier Hansson\"\n  s.email    = \"david@loudthinking.com\"\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files        = Dir[\"CHANGELOG.md\", \"README.rdoc\", \"MIT-LICENSE\", \"RDOC_MAIN.md\", \"exe/**/*\", \"lib/**/{*,.[a-z]*}\"]\n  s.require_path = \"lib\"\n\n  s.bindir      = \"exe\"\n  s.executables = [\"rails\"]\n\n  s.rdoc_options << \"--exclude\" << \".\"\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/blob/v#{version}/railties/CHANGELOG.md\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}/railties\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  # NOTE: Please read our dependency guidelines before updating versions:\n  # https://edgeguides.rubyonrails.org/security.html#dependency-management-and-cves\n\n  s.add_dependency \"activesupport\", version\n  s.add_dependency \"actionpack\",    version\n\n  s.add_dependency \"rackup\", \">= 1.0.0\"\n  s.add_dependency \"rake\", \">= 12.2\"\n  s.add_dependency \"thor\", \"~> 1.0\", \">= 1.2.2\"\n  s.add_dependency \"zeitwerk\", \"~> 2.6\"\n  s.add_dependency \"irb\", \"~> 1.13\"\n  s.add_dependency \"tsort\", \">= 0.2\"\n\n  s.add_development_dependency \"actionview\", version\nend\n",
+      "encoding": "utf-8",
+      "sha": "12a6fbab1d24055b04933db1795bc2c3975875cc",
+      "display_url": "https://github.com/rails/rails/blob/main/railties/railties.gemspec",
+      "display_title": "railties.gemspec"
+    },
+    "isError": false
+  }
+}

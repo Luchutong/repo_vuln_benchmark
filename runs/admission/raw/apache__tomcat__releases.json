@@ -1,0 +1,1 @@
+{"tool":"github_fetch","query":{"url":"https://api.github.com/repos/apache/tomcat/releases?per_page=3"},"retrieved_at":"2026-10-21T10:54:32.460Z","is_error":false,"response":{"content":"[]","title":"releases","url":"https://api.github.com/repos/apache/tomcat/releases?per_page=3"}}

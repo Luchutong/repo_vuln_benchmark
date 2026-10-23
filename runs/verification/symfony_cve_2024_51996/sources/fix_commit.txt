@@ -1,0 +1,108 @@
+From 81354d392c5f0b7a52bcbd729d6f82501e94135a Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?J=C3=A9r=C3=A9my=20Deruss=C3=A9?= <jeremy@derusse.com>
+Date: Thu, 7 Nov 2024 09:29:25 +0100
+Subject: [PATCH] [security-http] Check owner of persisted remember-me cookie
+
+---
+ .../PersistentRememberMeHandler.php           | 19 +++++++++--
+ .../PersistentRememberMeHandlerTest.php       | 34 +++++++++++++++++--
+ 2 files changed, 48 insertions(+), 5 deletions(-)
+
+diff --git a/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php b/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php
+index 2b8759a2f070e..438db1b8c4b02 100644
+--- a/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php
++++ b/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php
+@@ -66,9 +66,16 @@ public function consumeRememberMeCookie(RememberMeDetails $rememberMeDetails): U
+             throw new AuthenticationException('The cookie is incorrectly formatted.');
+         }
+ 
+-        [$series, $tokenValue] = explode(':', $rememberMeDetails->getValue());
++        [$series, $tokenValue] = explode(':', $rememberMeDetails->getValue(), 2);
+         $persistentToken = $this->tokenProvider->loadTokenBySeries($series);
+ 
++        if ($persistentToken->getUserIdentifier() !== $rememberMeDetails->getUserIdentifier() || $persistentToken->getClass() !== $rememberMeDetails->getUserFqcn()) {
++            throw new AuthenticationException('The cookie\'s hash is invalid.');
++        }
++
++        // content of $rememberMeDetails is not trustable. this prevents use of this class
++        unset($rememberMeDetails);
++
+         if ($this->tokenVerifier) {
+             $isTokenValid = $this->tokenVerifier->verifyToken($persistentToken, $tokenValue);
+         } else {
+@@ -78,11 +85,17 @@ public function consumeRememberMeCookie(RememberMeDetails $rememberMeDetails): U
+             throw new CookieTheftException('This token was already used. The account is possibly compromised.');
+         }
+ 
+-        if ($persistentToken->getLastUsed()->getTimestamp() + $this->options['lifetime'] < time()) {
++        $expires = $persistentToken->getLastUsed()->getTimestamp() + $this->options['lifetime'];
++        if ($expires < time()) {
+             throw new AuthenticationException('The cookie has expired.');
+         }
+ 
+-        return parent::consumeRememberMeCookie($rememberMeDetails->withValue($persistentToken->getLastUsed()->getTimestamp().':'.$rememberMeDetails->getValue().':'.$persistentToken->getClass()));
++        return parent::consumeRememberMeCookie(new RememberMeDetails(
++            $persistentToken->getClass(),
++            $persistentToken->getUserIdentifier(),
++            $expires,
++            $persistentToken->getLastUsed()->getTimestamp().':'.$series.':'.$tokenValue.':'.$persistentToken->getClass()
++        ));
+     }
+ 
+     public function processRememberMe(RememberMeDetails $rememberMeDetails, UserInterface $user): void
+diff --git a/src/Symfony/Component/Security/Http/Tests/RememberMe/PersistentRememberMeHandlerTest.php b/src/Symfony/Component/Security/Http/Tests/RememberMe/PersistentRememberMeHandlerTest.php
+index 76472b1d5733c..33ea98ff56385 100644
+--- a/src/Symfony/Component/Security/Http/Tests/RememberMe/PersistentRememberMeHandlerTest.php
++++ b/src/Symfony/Component/Security/Http/Tests/RememberMe/PersistentRememberMeHandlerTest.php
+@@ -80,7 +80,7 @@ public function testConsumeRememberMeCookieValid()
+         $this->tokenProvider->expects($this->any())
+             ->method('loadTokenBySeries')
+             ->with('series1')
+-            ->willReturn(new PersistentToken(InMemoryUser::class, 'wouter', 'series1', 'tokenvalue', new \DateTime('-10 min')))
++            ->willReturn(new PersistentToken(InMemoryUser::class, 'wouter', 'series1', 'tokenvalue', $lastUsed = new \DateTime('-10 min')))
+         ;
+ 
+         $this->tokenProvider->expects($this->once())->method('updateToken')->with('series1');
+@@ -98,11 +98,41 @@ public function testConsumeRememberMeCookieValid()
+ 
+         $this->assertSame($rememberParts[0], $cookieParts[0]); // class
+         $this->assertSame($rememberParts[1], $cookieParts[1]); // identifier
+-        $this->assertSame($rememberParts[2], $cookieParts[2]); // expire
++        $this->assertEqualsWithDelta($lastUsed->getTimestamp() + 31536000, (int) $cookieParts[2], 2); // expire
+         $this->assertNotSame($rememberParts[3], $cookieParts[3]); // value
+         $this->assertSame(explode(':', $rememberParts[3])[0], explode(':', $cookieParts[3])[0]); // series
+     }
+ 
++    public function testConsumeRememberMeCookieInvalidOwner()
++    {
++        $this->tokenProvider->expects($this->any())
++            ->method('loadTokenBySeries')
++            ->with('series1')
++            ->willReturn(new PersistentToken(InMemoryUser::class, 'wouter', 'series1', 'tokenvalue', new \DateTime('-10 min')))
++        ;
++
++        $rememberMeDetails = new RememberMeDetails(InMemoryUser::class, 'jeremy', 360, 'series1:tokenvalue');
++
++        $this->expectException(AuthenticationException::class);
++        $this->expectExceptionMessage('The cookie\'s hash is invalid.');
++        $this->handler->consumeRememberMeCookie($rememberMeDetails);
++    }
++
++    public function testConsumeRememberMeCookieInvalidValue()
++    {
++        $this->tokenProvider->expects($this->any())
++            ->method('loadTokenBySeries')
++            ->with('series1')
++            ->willReturn(new PersistentToken(InMemoryUser::class, 'wouter', 'series1', 'tokenvalue', new \DateTime('-10 min')))
++        ;
++
++        $rememberMeDetails = new RememberMeDetails(InMemoryUser::class, 'wouter', 360, 'series1:tokenvalue:somethingelse');
++
++        $this->expectException(AuthenticationException::class);
++        $this->expectExceptionMessage('This token was already used. The account is possibly compromised.');
++        $this->handler->consumeRememberMeCookie($rememberMeDetails);
++    }
++
+     public function testConsumeRememberMeCookieValidByValidatorWithoutUpdate()
+     {
+         $verifier = $this->createMock(TokenVerifierInterface::class);

@@ -1,0 +1,79 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). The snapshot
+tag jenkins-2.441 was already present; fix commit 923cdbc1 and release commit
+cb753134 (2.500) were fetched with --depth=20.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/Computer.java'
+  1759397d0b6d7eb895de415a82fcfe5a5747ee45     (67896 bytes; matches file_inventory.json)
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/cli/GetNodeCommand.java'
+  62dd21826029ea4eca94cd0260a894aa21ed0f8e     (1858 bytes; matches file_inventory.json)
+
+Vulnerable code at 2.441 (Computer.java, blob 1759397d):
+  doConfigDotXml at 1548-1570. The GET branch (1551-1560) calls
+  checkPermission(EXTENDED_READ) at 1553 and then
+  Jenkins.XSTREAM2.toXMLUTF8(node, rsp.getOutputStream()) at 1559, without
+  checking CONFIGURE and without any redaction. POST (updateByXml) does require
+  CONFIGURE (line 1578), so only the read path is affected.
+  GetNodeCommand.run (blob 62dd2182) calls node.checkPermission(EXTENDED_READ)
+  and then Jenkins.XSTREAM2.toXMLUTF8(node, stdout); no CONFIGURE check.
+  Computer.EXTENDED_READ is declared at line 1837 with the enable flag
+  SystemProperties.getBoolean("hudson.security.ExtendedReadPermission"), i.e. the
+  permission is disabled by default and only exists when that property is set.
+  At 2.441 core/src/main/java/jenkins/security/ contains only
+  RedactSecretJsonInErrorMessageSanitizer.java: neither ExtendedReadRedaction nor
+  ExtendedReadSecretRedaction exists yet ($ git ls-tree jenkins-2.441 .../jenkins/security/).
+
+Fix commit: 923cdbc165e8b8523ae960dfee5f7354878532d5
+  Subject "[SECURITY-3495][SECURITY-3496]", 2025-02-25 16:17:38 +0000,
+  parent 4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e.
+  Diff touches hudson/cli/GetNodeCommand.java, hudson/cli/GetViewCommand.java,
+  hudson/model/Computer.java, hudson/model/View.java and adds the SECURITY-3495 /
+  SECURITY-3496 tests to test/src/test/java/lib/form/PasswordTest.java.
+  For the node path: when the caller lacks CONFIGURE, the XML is serialized to a
+  ByteArrayOutputStream and passed through ExtendedReadRedaction.applyAll(xml)
+  before being written to the response/stdout.
+  $ git show -s --format='%H %P | %ci | %s' 923cdbc1
+  923cdbc165e8b8523ae960dfee5f7354878532d5 4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e | 2025-02-25 16:17:38 +0000 | [SECURITY-3495][SECURITY-3496]
+  The fix commit adds no new redaction class: ExtendedReadRedaction exists since
+  2.479 (@since 2.479) and ExtendedReadSecretRedaction is its @Extension
+  implementation, which replaces any element body matching Secret.ENCRYPTED_VALUE_PATTERN
+  with "********" when Secret.decrypt succeeds.
+
+Fixed release:
+  Jenkins 2.500 (weekly): release commit
+  cb753134b40dde5feeb228f5f2c90d03184fe063
+  ("[maven-release-plugin] prepare release jenkins-2.500"), whose only parent is
+  923cdbc1. At cb753134 Computer.java is blob 6539fa33 and doConfigDotXml is at
+  1521-1552 with the CONFIGURE branch at 1532-1541; GetNodeCommand.java is blob
+  6b62729d with the same branch at 58-67.
+  OSV also names 02d4db379ac965641bb1382515c834cf4966ec5a, the
+  "[maven-release-plugin] prepare release jenkins-2.492.2" commit: its parent is
+  f2eb8ebd24da05230d66c854c953c83b1ba0212a, the LTS backport. The LTS branch was
+  not fetched into the local mirror, so only the weekly ancestry is asserted here.
+
+Affected range:
+  CNA record: Jenkins 2.499 and earlier, LTS 2.492.1 and earlier; unaffected from
+  2.492.2 (LTS) and 2.500 (weekly), defaultStatus affected.
+  NVD/OSV CPE ranges: * up to 2.500 (weekly) and LTS up to 2.492.2 (OSV's extracted
+  CPE range). The GHSA ECOSYSTEM ranges are inconsistent with the CNA:
+  it lists introduced 2.493 -> fixed 2.500 for one range and 0 -> 2.492.2 for the
+  other, which would exclude 2.441; the CNA text and the OSV CVE GIT range
+  (introduced 0) both include it. The snapshot 2.441 is inside the CNA affected
+  range.
+
+Public records:
+  CVE List v5 CVE-2025-27622, state PUBLISHED, datePublished 2025-03-05,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N;
+  CWE-312 from the same Secondary source; no Primary metric.
+  OSV/GHSA-p34j-r3ch-c985: same CVSS 3.1 vector, database_specific severity
+  MODERATE; CVSS 4.0 not published.
+  Jenkins advisory: https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3495
+
+No Jenkins instance, HTTP request, CLI invocation or test was run; all checks are
+static reads of git objects, the fix patch and public records.

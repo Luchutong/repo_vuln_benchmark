@@ -1,0 +1,24 @@
+{
+  "key": "angular__angular_security",
+  "repository": "angular/angular",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:08.176Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "Angular is part of Google [Open Source Software Vulnerability Reward Program](https://bughunters.google.com/about/rules/6521337925468160/google-open-source-software-vulnerability-reward-program-rules). For vulnerabilities in Angular, please submit your report [here](https://bughunters.google.com/report).\n\nFor more information, check out [Angular's security policy](https://angular.dev/best-practices/security).\n",
+      "encoding": "utf-8",
+      "sha": "0361308689abd47cda5595ca78f2a4a3cb1d6be0",
+      "display_url": "https://github.com/angular/angular/blob/main/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

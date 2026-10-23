@@ -1,0 +1,12 @@
+Source: https://github.com/libarchive/libarchive/issues/2565
+Title: [BUG] A heap-buffer-overflow in `copy_from_lzss_window` at `libarchive/archive_read_support_format_rar.c:3114:5`
+Retrieved: 2026-10-21 via GitHub HTML page (API was rate-limited)
+
+Page metadata description:
+"Description Version: Latest commit 29fd918 Environment:Ubuntu 20.04.6 LTS, Clang 18.1.8
+Fuzzing harness: https://github.com/google/oss-fuzz/blob/master/projects/libarchive/libarchive_fuzzer.cc
+Please let me know if you encounter any issu..."
+
+The issue title names the crash site as archive_read_support_format_rar.c:3114:5, which in the
+v3.7.7 tree is the second memcpy in copy_from_lzss_window():
+    memcpy(buffer, &rar->lzss.window[0], length - firstpart);

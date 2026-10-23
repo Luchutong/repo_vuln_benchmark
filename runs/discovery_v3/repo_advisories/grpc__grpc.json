@@ -1,0 +1,94 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": null,
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-400"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-400",
+          "name": "Uncontrolled Resource Consumption"
+        }
+      ],
+      "description": "### Impact\r\nMultiple heap memory exhaustion bugs were identified and fixed in gRPC-C++. They are as follows:\r\n\r\n#### Unbounded Decompression\r\n\r\ngRPC-C++ did not place any bounds on the size of a decompressed message. As a result during decompression, it could allocate more bytes than GRPC_ARG_MAX_MESSAGE_LENGTH bytes to hold the decompressed message. A carefully crafted zip bomb message could force a server to allocate unbounded amount of data eventually leading to an OOM.\r\n\r\nThis vulnerability is mitigated by ensuring that (1) the transport rejects messages larger than the max message length as soon as it sees the message size, before allocating any memory for the message and (2) the decompression filter checks the max message length during the message decompression phase and fails the RPC during the decompression stage if the limit is exceeded.\r\n\r\n#### Goaway message parsing\r\n\r\nA vulnerability existed in gRPC-C++ GOAWAY parsing where the HTTP2 transport would read a GOAWAY frame header and allocate memory equal to the length specified in the header. The intent of this memory was to store any debug text associated with the GOAWAY. However there was no bounds checking on the actual length of the allocated memory and this memory was allocated upfront even before parsing the rest of the GOAWAY frame. A malicious GOAWAY message could thus trigger a large allocation at its peer by simply sending the frame header containing the large payload length without actually including any payload in it. This could lead to an OOM at its peer.\r\n\r\nThis vulnerability is fixed by ensuring that memory required to hold the \"debug_text\" is not allocated upfront and instead is allocated as needed as the payload arrives.\r\n\r\n#### OOM via HTTP2 data fragmentation\r\n\r\nAn unauthenticated remote attacker can initiate a gRPC stream and purposefully fragment their payload into millions of tiny (e.g., 1-byte) HTTP/2 DATA frames. Even if the total payload volume falls within the configured connection and stream flow-control windows, each independent fragment incurs memory overhead due to internal tracking structures and queue allocation.\r\n\r\nRepeated fragmentation massively inflates the heap space consumed by the stream. An attacker multiplexing multiple concurrent streams can exhaust the memory bounds of the runtime, forcing a runtime panic or OutOfMemory condition and leading to a remote Denial of Service (DoS).\r\n\r\nThis vulnerability is mitigated by implementing receive buffer compaction i.e small consecutive data buffers are automatically coalesced into larger buffers.\r\n\r\n### Patches\r\n\r\nFixes for each of these bugs have been merged to `master` and also included in patch releases 1.83.1 and 1.82.2\r\n\r\n### Workarounds\r\n\r\nThe fixes are all enabled by default but still protected via experiments: `message_size_refactoring`, `ph2_perf_01` and `header_data_frame`.  If an unforeseen issue arises, these experiments can be selectively disabled by setting the environment variable `GRPC_EXPERIMENTS=-message_size_refactoring,-ph2_perf_01,-header_data_frame`.\r\n\r\nThese experiment overrides only exist temporarily and will be removed in future releases.\r\n\r\n\r\n",
+      "ghsa_id": "GHSA-hf3w-6hpw-qp67",
+      "html_url": "https://github.com/grpc/grpc/security/advisories/GHSA-hf3w-6hpw-qp67",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-hf3w-6hpw-qp67"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-08-28T04:41:49Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/5564114?v=4",
+        "events_url": "https://api.github.com/users/Vignesh2208/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Vignesh2208/followers",
+        "following_url": "https://api.github.com/users/Vignesh2208/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Vignesh2208/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Vignesh2208",
+        "id": 5564114,
+        "login": "Vignesh2208",
+        "node_id": "MDQ6VXNlcjU1NjQxMTQ=",
+        "organizations_url": "https://api.github.com/users/Vignesh2208/orgs",
+        "received_events_url": "https://api.github.com/users/Vignesh2208/received_events",
+        "repos_url": "https://api.github.com/users/Vignesh2208/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Vignesh2208/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Vignesh2208/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Vignesh2208",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Multiple heap memory exhaustion (OOM) bug fixes in gRPC-C++",
+      "updated_at": "2026-08-28T04:41:49Z",
+      "url": "https://api.github.com/repos/grpc/grpc/security-advisories/GHSA-hf3w-6hpw-qp67",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "c++, python, ruby, objective-c, php",
+            "name": "github.com/grpc/grpc"
+          },
+          "patched_versions": "1.83.1 and 1.82.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<= 1.83.0"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "grpc/grpc",
+    "url": "https://api.github.com/repos/grpc/grpc/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:13.633081+00:00",
+  "tool": "github_rest_readonly"
+}

@@ -1,0 +1,69 @@
+commit a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa
+Author: Wouter de Jong <wouter@wouterj.nl>
+Date:   Tue Oct 15 10:18:46 2024 +0200
+
+    Do not read from argv on non-CLI SAPIs
+
+diff --git a/src/Symfony/Component/Runtime/Tests/phpt/kernel.php b/src/Symfony/Component/Runtime/Tests/phpt/kernel.php
+index ba29d34ffc..b7c43c5c8b 100644
+--- a/src/Symfony/Component/Runtime/Tests/phpt/kernel.php
++++ b/src/Symfony/Component/Runtime/Tests/phpt/kernel.php
+@@ -17,19 +17,21 @@ require __DIR__.'/autoload.php';
+ 
+ class TestKernel implements HttpKernelInterface
+ {
++    private $env;
+     private $var;
+ 
+-    public function __construct(string $var)
++    public function __construct(string $env, string $var)
+     {
++        $this->env = $env;
+         $this->var = $var;
+     }
+ 
+     public function handle(Request $request, $type = self::MASTER_REQUEST, $catch = true): Response
+     {
+-        return new Response('OK Kernel '.$this->var);
++        return new Response('OK Kernel (env='.$this->env.') '.$this->var);
+     }
+ }
+ 
+ return function (array $context) {
+-    return new TestKernel($context['SOME_VAR']);
++    return new TestKernel($context['APP_ENV'], $context['SOME_VAR']);
+ };
+diff --git a/src/Symfony/Component/Runtime/Tests/phpt/kernel.phpt b/src/Symfony/Component/Runtime/Tests/phpt/kernel.phpt
+index e739eb0924..e7df91e750 100644
+--- a/src/Symfony/Component/Runtime/Tests/phpt/kernel.phpt
++++ b/src/Symfony/Component/Runtime/Tests/phpt/kernel.phpt
+@@ -9,4 +9,4 @@ require $_SERVER['SCRIPT_FILENAME'] = __DIR__.'/kernel.php';
+ 
+ ?>
+ --EXPECTF--
+-OK Kernel foo_bar
++OK Kernel (env=dev) foo_bar
+diff --git a/src/Symfony/Component/Runtime/Tests/phpt/kernel_register_argc_argv.phpt b/src/Symfony/Component/Runtime/Tests/phpt/kernel_register_argc_argv.phpt
+new file mode 100644
+index 0000000000..4da82d2ac6
+--- /dev/null
++++ b/src/Symfony/Component/Runtime/Tests/phpt/kernel_register_argc_argv.phpt
+@@ -0,0 +1,18 @@
++--TEST--
++Test HttpKernelInterface with register_argc_argv=1
++--INI--
++display_errors=1
++register_argc_argv=1
++--FILE--
++<?php
++
++// emulating PHP behavior with register_argc_argv=1
++$_GET['-e_test'] = '';
++$_SERVER['argc'] = 1;
++$_SERVER['argv'] = [' ', '-e', 'test'];
++
++require $_SERVER['SCRIPT_FILENAME'] = __DIR__.'/kernel.php';
++
++?>
++--EXPECTF--
++OK Kernel (env=dev) foo_bar

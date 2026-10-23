@@ -1,0 +1,134 @@
+From 84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c Mon Sep 17 00:00:00 2001
+From: Daniel Beck <daniel-beck@users.noreply.github.com>
+Date: Tue, 25 Feb 2025 16:17:26 +0000
+Subject: [PATCH] [SECURITY-3498]
+
+---
+ core/src/main/java/jenkins/model/Jenkins.java        |  1 +
+ core/src/main/resources/lib/hudson/executors.jelly   |  4 +++-
+ core/src/main/resources/lib/layout/pane.jelly        |  4 +++-
+ test/src/test/java/hudson/model/ComputerSetTest.java |  2 +-
+ test/src/test/java/hudson/model/ComputerTest.java    |  2 +-
+ test/src/test/java/jenkins/model/JenkinsTest.java    | 11 +++++++++++
+ test/src/test/java/lib/layout/AjaxTest.java          |  4 ++--
+ 7 files changed, 22 insertions(+), 6 deletions(-)
+
+diff --git a/core/src/main/java/jenkins/model/Jenkins.java b/core/src/main/java/jenkins/model/Jenkins.java
+index 73ba93769614..d246e60e3022 100644
+--- a/core/src/main/java/jenkins/model/Jenkins.java
++++ b/core/src/main/java/jenkins/model/Jenkins.java
+@@ -4165,6 +4165,7 @@ public synchronized HttpRedirect doCancelQuietDown() {
+         return new HttpRedirect(".");
+     }
+ 
++    @POST
+     public HttpResponse doToggleCollapse() throws ServletException, IOException {
+         final StaplerRequest2 request = Stapler.getCurrentRequest2();
+         final String paneId = request.getParameter("paneId");
+diff --git a/core/src/main/resources/lib/hudson/executors.jelly b/core/src/main/resources/lib/hudson/executors.jelly
+index 2c2b48159b3b..ef602de8c003 100644
+--- a/core/src/main/resources/lib/hudson/executors.jelly
++++ b/core/src/main/resources/lib/hudson/executors.jelly
+@@ -174,7 +174,9 @@ THE SOFTWARE.
+           ${executorDetails}
+         </span>
+       </j:if>
+-      <a class="collapse" href="${rootURL}/toggleCollapse?paneId=executors"
++      <st:adjunct includes="lib.form.link.link"/>
++      <!-- TODO improve l:link so the `a` can be changed to `l:link`. -->
++      <a class="collapse post" href="${rootURL}/toggleCollapse?paneId=executors"
+          tooltip="${paneIsCollapsed ? '%Expand' : '%Collapse'}" data-tooltip-append-to-parent="true">
+         <j:set var="svgIconId" value="${paneIsCollapsed ? 'chevron-up' : 'chevron-down'}" />
+         <l:icon src="symbol-${svgIconId}" />
+diff --git a/core/src/main/resources/lib/layout/pane.jelly b/core/src/main/resources/lib/layout/pane.jelly
+index e7c4a04a8245..b88c42df1bde 100644
+--- a/core/src/main/resources/lib/layout/pane.jelly
++++ b/core/src/main/resources/lib/layout/pane.jelly
+@@ -59,7 +59,9 @@ THE SOFTWARE.
+       </span>
+ 
+       <j:if test="${attrs.id != null}">
+-        <a class="collapse" href="${rootURL}/toggleCollapse?paneId=${attrs.id}"
++        <st:adjunct includes="lib.form.link.link"/>
++        <!-- TODO improve l:link so the `a` can be changed to `l:link`. -->
++        <a class="collapse post" href="${rootURL}/toggleCollapse?paneId=${attrs.id}"
+            title="${paneIsCollapsed ? '%expand' : '%collapse'}">
+ 
+           <j:set var="svgIconId" value="${paneIsCollapsed ? 'chevron-up' : 'chevron-down'}" />
+diff --git a/test/src/test/java/hudson/model/ComputerSetTest.java b/test/src/test/java/hudson/model/ComputerSetTest.java
+index e137cbfec823..2a091ca7844c 100644
+--- a/test/src/test/java/hudson/model/ComputerSetTest.java
++++ b/test/src/test/java/hudson/model/ComputerSetTest.java
+@@ -173,7 +173,7 @@ public void testTerminatedNodeAjaxExecutorsDoesNotShowTrace() throws Exception {
+                 new OfflineCause.ChannelTermination(new RuntimeException(message))
+         );
+ 
+-        WebClient wc = j.createWebClient();
++        WebClient wc = j.createWebClient().withJavaScriptEnabled(false);
+         Page page = wc.getPage(wc.createCrumbedUrl(HasWidgetHelper.getWidget(j.jenkins.getComputer(), ExecutorsWidget.class).orElseThrow().getUrl() + "ajax"));
+         String content = page.getWebResponse().getContentAsString();
+         assertThat(content, not(containsString(message)));
+diff --git a/test/src/test/java/hudson/model/ComputerTest.java b/test/src/test/java/hudson/model/ComputerTest.java
+index 3acac9b9fcc9..ee0cf8a686c2 100644
+--- a/test/src/test/java/hudson/model/ComputerTest.java
++++ b/test/src/test/java/hudson/model/ComputerTest.java
+@@ -285,7 +285,7 @@ public void testTerminatedNodeAjaxExecutorsDoesNotShowTrace() throws Exception {
+                 new OfflineCause.ChannelTermination(new RuntimeException(message))
+         );
+ 
+-        WebClient wc = j.createWebClient();
++        WebClient wc = j.createWebClient().withJavaScriptEnabled(false);
+         Page page = wc.getPage(wc.createCrumbedUrl(HasWidgetHelper.getWidget(agent.toComputer(), ExecutorsWidget.class).orElseThrow().getUrl() + "ajax"));
+         String content = page.getWebResponse().getContentAsString();
+         assertThat(content, not(containsString(message)));
+diff --git a/test/src/test/java/jenkins/model/JenkinsTest.java b/test/src/test/java/jenkins/model/JenkinsTest.java
+index acef3b6a2300..f4a5b3761609 100644
+--- a/test/src/test/java/jenkins/model/JenkinsTest.java
++++ b/test/src/test/java/jenkins/model/JenkinsTest.java
+@@ -72,6 +72,7 @@
+ import hudson.util.FormValidation;
+ import hudson.util.HttpResponses;
+ import hudson.util.VersionNumber;
++import jakarta.servlet.http.HttpServletResponse;
+ import java.io.File;
+ import java.io.IOException;
+ import java.net.HttpURLConnection;
+@@ -130,6 +131,16 @@ public class JenkinsTest {
+     @Rule
+     public TemporaryFolder tmp = new TemporaryFolder();
+ 
++    @Test
++    @Issue("SECURITY-3498")
++    public void testPaneToggleCollapse() throws Exception {
++        try (WebClient wc = j.createWebClient()) {
++            final FailingHttpStatusCodeException ex = assertThrows(FailingHttpStatusCodeException.class, () -> wc.goTo("toggleCollapse?paneId=foo"));
++            // @POST responds 404 when the verb is wrong; @RequirePOST would respond 405.
++            assertThat(ex.getStatusCode(), is(HttpServletResponse.SC_NOT_FOUND));
++        }
++    }
++
+     @Test
+     @Issue("SECURITY-3073")
+     public void verifyUploadedFingerprintFilePermission() throws Exception {
+diff --git a/test/src/test/java/lib/layout/AjaxTest.java b/test/src/test/java/lib/layout/AjaxTest.java
+index d25b4e34cd4a..f039d488dfe4 100644
+--- a/test/src/test/java/lib/layout/AjaxTest.java
++++ b/test/src/test/java/lib/layout/AjaxTest.java
+@@ -61,7 +61,7 @@ public class AjaxTest {
+     @Test
+     @Issue("JENKINS-65288")
+     public void ajaxPageRenderingPossibleWithoutJellyTrace() throws Exception {
+-        JenkinsRule.WebClient wc = r.createWebClient();
++        JenkinsRule.WebClient wc = r.createWebClient().withJavaScriptEnabled(false);
+         HtmlPage htmlPage = wc.goTo(getExecutorsWidgetAjaxViewUrl());
+         r.assertGoodStatus(htmlPage);
+     }
+@@ -76,7 +76,7 @@ public void ajaxPageRenderingPossibleWithJellyTrace() throws Exception {
+         try {
+             JellyFacet.TRACE = true;
+ 
+-            JenkinsRule.WebClient wc = r.createWebClient();
++            JenkinsRule.WebClient wc = r.createWebClient().withJavaScriptEnabled(false);
+             HtmlPage htmlPage = wc.goTo(getExecutorsWidgetAjaxViewUrl());
+             r.assertGoodStatus(htmlPage);
+         } finally {

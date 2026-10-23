@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/go-gitea/gitea.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:31.864144+00:00", "elapsed_seconds": 1.378, "response": {"returncode": 0, "stdout": "a8e1057f5e75b0f8cf11191acfde161aa9d88bd2\tHEAD\n", "stderr": ""}}

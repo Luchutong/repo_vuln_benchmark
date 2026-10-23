@@ -1,0 +1,458 @@
+{
+ "candidate_id": "disc2_6432f804111d59a829bef58a",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:20:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45067",
+  "aliases": [
+   "CVE-2026-45067",
+   "GHSA-qpmx-3rfj-7rhv"
+  ],
+  "title": "Symfony Mime Address constructor accepts CRLF in a quoted-string local part, enabling mail header and SMTP command injection",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/mime",
+    "purl": "pkg:composer/symfony/mime",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/mime",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 Address::__construct rejects control characters before validating; fix a1c42cbe is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: tag v5.4.52 peels to eabc5f9e and Address.php blob b51e5985 matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "a1c42cbe517bc146a54da7505a107ded317478fe",
+    "branch": "5.4",
+    "message": "[Mime] Reject email addresses containing line breaks in Address",
+    "url": "https://github.com/symfony/symfony/commit/a1c42cbe517bc146a54da7505a107ded317478fe"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-93"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+   "score": 6.3,
+   "level": "medium",
+   "numeric_level_rationale": "CVSS 4.0 base 6.3 falls in Medium (4.0-6.9); the CNA publishes this vector and NVD carries it as its only, Secondary metric. The GHSA label HIGH disagrees with the 6.3 score; the canonical severity keeps the published vector and score.",
+   "source": "GitHub_M CNA CVSS 4.0 metric, republished by NVD as a Secondary metric",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-qpmx-3rfj-7rhv",
+   "ghsa_label_note": "The GitHub advisory is labelled HIGH using a different vector, CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N (PR:L, VI:H, AT:N), which the independent reviewer computed as 7.1 High; the global advisory page shows High while the repo-scoped page shows Moderate, so GitHub's own surfaces disagree. This diverges from the CNA 6.3 MEDIUM vector recorded above."
+  },
+  "category_l1": "injection",
+  "category_l2": "CRLF injection: a quoted-string local part containing raw line breaks survives address validation and is emitted into mail headers and SMTP MAIL FROM/RCPT TO commands",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45067",
+  "published_at": "2026-07-14T17:41:53Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45067",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-qpmx-3rfj-7rhv",
+   "https://github.com/symfony/symfony/commit/a1c42cbe517bc146a54da7505a107ded317478fe",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45067",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45067_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45067",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Mime/Address.php",
+  "function": "Address::__construct",
+  "language": "PHP",
+  "line": "55",
+  "critical_operation": {
+   "code_excerpt": "        $this->address = trim($address);\n        $this->name = trim(str_replace([\"\\n\", \"\\r\"], '', $name));\n\n        if (!self::$validator->isValid($this->address, class_exists(MessageIDValidation::class) ? new MessageIDValidation() : new RFCValidation())) {\n            throw new RfcComplianceException(sprintf('Email \"%s\" does not comply with addr-spec of RFC 2822.', $address));\n        }",
+   "description": "Address::__construct is documented as the validation boundary for every Mailer address. It trims the address, strips CR/LF from the display name, and then treats EmailValidator::isValid with RFCValidation as sufficient. A local part written as an RFC-5322 quoted string can contain raw CRLF bytes, which that validator accepts, so the value is stored verbatim. Address::getEncodedAddress() goes through IdnAddressEncoder, which leaves the local part untouched, and the value is later inserted into rendered headers and into sprintf(\"MAIL FROM:<%s>\\r\\n\") / sprintf(\"RCPT TO:<%s>\\r\\n\"), so the embedded CRLF starts a new header or SMTP command. The 5.4.52 fix adds a rejection of any address containing bytes in [\\x00-\\x1F\\x7F].",
+   "file": "src/Symfony/Component/Mime/Address.php",
+   "function": "Address::__construct",
+   "language": "PHP",
+   "line": 55,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Address.php#L52-L57"
+  },
+  "entry_point": {
+   "description": "Application code constructs an Address from a user-influenced string, for example a contact form \"from\" or \"reply-to\" field, or passes it to Envelope. The constructor is the only gate between that input and the transport.",
+   "file": "src/Symfony/Component/Mime/Address.php",
+   "function": "Address::__construct",
+   "language": "PHP",
+   "line": 42,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Address.php#L42"
+  },
+  "trace": [
+   {
+    "description": "Application passes a user-supplied address to the constructor; trim() does not remove interior CRLF",
+    "file": "src/Symfony/Component/Mime/Address.php",
+    "function": "Address::__construct",
+    "language": "PHP",
+    "line": 52,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Address.php#L52"
+   },
+   {
+    "description": "the validator accepts the quoted-string local part with embedded CRLF, so the address is stored",
+    "file": "src/Symfony/Component/Mime/Address.php",
+    "function": "Address::__construct",
+    "language": "PHP",
+    "line": 55,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Address.php#L55"
+   },
+   {
+    "description": "getEncodedAddress leaves the local part untouched, preserving the control bytes",
+    "file": "src/Symfony/Component/Mime/Encoder/IdnAddressEncoder.php",
+    "function": "IdnAddressEncoder::encodeString",
+    "language": "PHP",
+    "line": 32,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Encoder/IdnAddressEncoder.php#L30-L45"
+   },
+   {
+    "description": "the SMTP transport formats the address into MAIL FROM/RCPT TO command lines, so CRLF starts a new command",
+    "file": "src/Symfony/Component/Mailer/Transport/Smtp/SmtpTransport.php",
+    "function": "SmtpTransport::doMailFromCommand",
+    "language": "PHP",
+    "line": 235,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/Smtp/SmtpTransport.php#L235"
+   }
+  ],
+  "verification_method": "Static read of Address.php at v5.4.45 and v5.4.52, the 5.4 fix diff and its test provider, the encoder and SMTP/header emission sites, tag peels, blob comparison and ancestry; no PHP code or SMTP session was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45067_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "b9b631e9702374fea834e09737722bcd3684f5c4a1a8bde2ee5923e713da76d1",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45067",
+   "supports": [
+    "NVD status is Awaiting Analysis and the record has no configurations/CPE block",
+    "NVD carries only a CVSS 4.0 6.3 MEDIUM metric marked Secondary from security-advisories@github.com; there is no NVD-primary metric",
+    "NVD reproduces the GitHub description of the Mime Address constructor accepting addresses with raw line breaks"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45067_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "3ae850c03e239d97414983bc9865300df3af36a1ad0381d4b3514db50862be9d",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45067",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T17:41:53Z",
+    "affected range <5.4.52 (and the 6.4.40/7.4.12/8.0.12 ranges), product symfony",
+    "CNA CVSS 4.0 6.3 MEDIUM AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N and CWE-93",
+    "the CNA description states the Address constructor accepts a quoted-string local part containing raw CRLF and that the value is later emitted into headers and MAIL FROM/RCPT TO lines",
+    "the CNA reference list names the fix commit a1c42cbe517bc146a54da7505a107ded317478fe"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45067_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "a8c60a1fb35e87f896dd2ff6b55f8f78935154eb778cf9c01d50113d016ff99e",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-qpmx-3rfj-7rhv",
+   "supports": [
+    "GHSA-qpmx-3rfj-7rhv aliases CVE-2026-45067, github_reviewed, cwe_ids CWE-93, database severity HIGH",
+    "affected symfony/mime and symfony/symfony: 0..5.4.52, 6.0.0..6.4.40, 7.0.0..7.4.12, 8.0.0..8.0.12",
+    "the GHSA body gives the example \"x\\r\\nBcc: attacker@evil\"@example.com and says the constructor now rejects addresses containing line breaks",
+    "the GHSA body names fix commit dc2dbd29211eb4ddc451373fa1374fb926e94604, which does not exist upstream; the CNA reference a1c42cbe resolves"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45067_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "dd4e3daf52d0ad59962ac8b0bab416f0557c70e74355bde0cb1fbf6e91712e40",
+   "source_url": "https://symfony.com/cve-2026-45067",
+   "supports": [
+    "affected Symfony versions <5.4.52, >=6 <6.4.40, >=7 <7.4.12, >=8 <8.0.12 of the Mime component; fixed in 5.4.52, 6.4.40, 7.4.12, 8.0.12",
+    "description matches the CNA text: the Address constructor accepts an RFC-5322 quoted-string local part with raw CRLF, and the value reaches rendered headers and SMTP MAIL FROM/RCPT TO lines",
+    "resolution: the Address constructor now rejects addresses containing line breaks",
+    "credits Claude Mythos Preview (via Project Glasswing)"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45067_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "783e01761a06725f57eeed599f18f1fbe176ec5c9403a1e781c8568cfbfae09d",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-qpmx-3rfj-7rhv",
+   "supports": [
+    "the GitHub advisory page carries the same description, resolution and ranges as symfony.com",
+    "the page links the dead commit dc2dbd29 as the 5.4 patch",
+    "the advisory label is HIGH while its CVSS 4.0 vector computes to 6.3 MEDIUM"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45067_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "ddfc2653b809413fc8c32d57bd1d54df680a9f1f1ed59ac6f53f64c97227e90a",
+   "source_url": "https://github.com/symfony/symfony/commit/a1c42cbe517bc146a54da7505a107ded317478fe",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit a1c42cbe is dated 2026-05-05 with subject \"[Mime] Reject email addresses containing line breaks in Address\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "Address.php blob is ae83efd7 at v5.4.45 (patch pre-image) and b51e5985 at v5.4.52 (patch post-image)",
+    "commit dc2dbd29211eb4ddc451373fa1374fb926e94604 named by the GHSA does not exist upstream and its patch URL returns Not Found",
+    "the emission-site excerpts show getEncodedAddress flowing into MAIL FROM/RCPT TO and the header body builders"
+   ],
+   "verification_method": "git rev-parse/merge-base/cat-file/show; blob-id comparison; patch fetch"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/address_5.4.45.php",
+   "evidence_id": "ev_symfony_45067_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "f0262c79d34488a80909f050d578fccba7a6d02c6924abdfdbe21c01baf6b97a",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Address.php#L42-L58",
+   "supports": [
+    "the constructor trims the address and strips CR/LF from the display name only",
+    "it then relies solely on EmailValidator::isValid with RFCValidation (or MessageIDValidation when available) as the validity gate",
+    "there is no control-character check on $this->address, so a quoted-string local part containing raw CRLF is stored as-is"
+   ],
+   "verification_method": "file read at v5.4.45 (blob ae83efd7)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/address_5.4.52.php",
+   "evidence_id": "ev_symfony_45067_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "0e6109422f3d1ee3d51a82699c00f5c5bc59d78db051236925b9596787bf7655",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Mime/Address.php#L42-L62",
+   "supports": [
+    "at v5.4.52 the constructor rejects any address matching /[\\x00-\\x1F\\x7F]/ with InvalidArgumentException before calling EmailValidator",
+    "the check covers CR, LF, NUL, HTAB, DEL and other control characters in the local part or the domain"
+   ],
+   "verification_method": "file read at v5.4.52 (blob b51e5985)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/patch_a1c42cbe517bc146a54da7505a107ded317478fe.txt",
+   "evidence_id": "ev_symfony_45067_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "0242d71502d47ec1c966ba0d6a9c33f2c88b595398485180dc33e3052d5176dd",
+   "source_url": "https://github.com/symfony/symfony/commit/a1c42cbe517bc146a54da7505a107ded317478fe.patch",
+   "supports": [
+    "the patch adds the control-character check to Address::__construct",
+    "the test data provider includes \"x\\r\\nBcc: attacker@evil\"@example.com, CR-only, LF-only, NUL, HTAB, DEL and a control character in the domain",
+    "the pre-image blob ae83efd7 and post-image blob b51e5985 match the file contents at v5.4.45 and v5.4.52"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/patch_dc2dbd29211eb4ddc451373fa1374fb926e94604.txt",
+   "evidence_id": "ev_symfony_45067_dead_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "0019dfc4b32d63c1392aa264aed2253c1e0c2fb09216f8e2cc269bbfb8bb49b5",
+   "source_url": "https://github.com/symfony/symfony/commit/dc2dbd29211eb4ddc451373fa1374fb926e94604.patch",
+   "supports": [
+    "fetching the commit link printed in the GHSA body returns the literal text \"Not Found\"",
+    "git cat-file cannot resolve dc2dbd29211eb4ddc451373fa1374fb926e94604, confirming the reference is dead",
+    "the CNA reference and the advisory text disagree on the 5.4 fix SHA; the resolvable fix is a1c42cbe"
+   ],
+   "verification_method": "HTTP fetch of the patch URL; git cat-file"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/idnaddressencoder_5.4.45.php",
+   "evidence_id": "ev_symfony_45067_encoder",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "2c5cbf4658ba5288fbd43635b831bc0447d223ad2425aaffd38fe46ec4f6d639",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Encoder/IdnAddressEncoder.php#L28-L46",
+   "supports": [
+    "encodeString splits at the last @, re-encodes only the domain when it contains non-ASCII characters, and returns the local part untouched",
+    "getEncodedAddress therefore preserves raw CRLF bytes embedded in a quoted-string local part"
+   ],
+   "verification_method": "file read at v5.4.45"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/mailer_Transport_Smtp_SmtpTransport.php",
+   "evidence_id": "ev_symfony_45067_smtp",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "6f37d0cc1ffd2a70d892e80eb75d60f05e16b48db792e95c65c430a7c953f0c4",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/Smtp/SmtpTransport.php#L199-L240",
+   "supports": [
+    "doSend() passes $envelope->getSender()->getEncodedAddress() and each recipient getEncodedAddress() to the SMTP command helpers",
+    "doMailFromCommand() formats \"MAIL FROM:<%s>\\r\\n\" and doRcptToCommand() formats \"RCPT TO:<%s>\\r\\n\" with the address inserted verbatim",
+    "a CRLF inside the address therefore terminates the SMTP command and starts an attacker-chosen one"
+   ],
+   "verification_method": "file read at v5.4.45"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/mime_Header_MailboxHeader.php",
+   "evidence_id": "ev_symfony_45067_mailbox_header",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "d6d4edcd683295045288869fc88b183d35cda1fdfc328fde17f9675d1cfc2d1a",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Header/MailboxHeader.php#L64-L78",
+   "supports": [
+    "getBodyAsString() starts from $this->address->getEncodedAddress() and appends the display name",
+    "the address string is emitted into the rendered header without stripping control characters"
+   ],
+   "verification_method": "file read at v5.4.45"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/mime_Header_MailboxListHeader.php",
+   "evidence_id": "ev_symfony_45067_mailbox_list",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "0192622d5a5a9f118d577039de10ebada42f532e21dcaa7a24acb35991f0a951",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Header/MailboxListHeader.php#L100-L125",
+   "supports": [
+    "each address is serialized with getEncodedAddress() before being joined into the header body",
+    "no control-character filtering happens at this layer"
+   ],
+   "verification_method": "file read at v5.4.45"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45067/sources/address_5.4.45.php",
+   "evidence_id": "ev_symfony_45067_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "f0262c79d34488a80909f050d578fccba7a6d02c6924abdfdbe21c01baf6b97a",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Address.php#L1-L14",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Component\\Mime",
+    "the snapshot inventory records the Mime component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   14
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-93, the CRLF-in-quoted-string mechanism, the <5.4.52 range and the v5.4.52 release. The GHSA body and symfony.com both print a dead 5.4 fix commit dc2dbd29; the CNA reference a1c42cbe resolves and matches the resolution text and the diff. NVD is still Awaiting Analysis, has no CPE configuration, and carries only the CNA 4.0 6.3 vector as a Secondary metric. GHSA labels the issue HIGH although the published score is 6.3 Medium.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Address::__construct at v5.4.45 and confirm there is no control-character rejection before the validator call.",
+   "An independent reviewer must confirm the quoted-string example is accepted by the validator path being used, or record that only the advisory asserts it.",
+   "An independent reviewer must confirm a1c42cbe is absent from v5.4.45 and present in v5.4.52, and that dc2dbd29 does not exist.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No PHP runtime, egulias validator, Symfony Mailer or SMTP server was executed; the finding is static.",
+  "Acceptance of \"x\\r\\nBcc: attacker@evil\"@example.com by egulias EmailValidator is asserted by the advisory and its regression test provider; the library behavior itself was not executed.",
+  "Exploitability requires application code to accept a user-controlled address; no specific application was tested.",
+  "Only the 5.4 branch was fetched and compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "NVD status is Awaiting Analysis with no CPE configuration; the 6.3 MEDIUM score is the CNA vector republished as Secondary. GHSA labels it HIGH, which disagrees with the score."
+ ],
+ "open_questions": [
+  "Whether the installed egulias version in the snapshot accepts the exact quoted-string example was not executed.",
+  "Which header builders are reached in a given Mailer configuration (MailboxHeader versus MailboxListHeader) depends on how the application sets the address."
+ ]
+}

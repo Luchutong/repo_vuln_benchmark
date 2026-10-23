@@ -1,0 +1,138 @@
+{
+  "packet_id": "selrev_57920736_snap_b3a6891886ef2160",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "57920736",
+    "full_name": "rustls/rustls",
+    "canonical_url": "https://github.com/rustls/rustls",
+    "primary_language": "Rust",
+    "project_kind": "A modern TLS library in Rust"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_b3a6891886ef2160",
+    "tag_or_release": "v/0.23.4",
+    "commit_sha": "1dee8b13134d877ade94dda7b68c7bf072e18d62"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "1dee8b13134d877ade94dda7b68c7bf072e18d62",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "a5b4489707a12eabbaa169e2414c35f0ba1816f6",
+    "tree_file_count": 890,
+    "exported_file_count": 887,
+    "symlink_count": 3,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/rustls__rustls/snap_b3a6891886ef2160.tar.gz",
+    "archive_sha256": "38a630d9480cd7b90f7c0b0b1a14de0213616986f06888fd7092466818f02161",
+    "archive_bytes": 2625806,
+    "manifest_path": "exports/rustls__rustls/snap_b3a6891886ef2160.manifest.jsonl",
+    "manifest_sha256": "0969f8299443b4366ffaa68ff77fb47317b75a229d678174a9517afd7b6903a1"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 13,
+    "cve_ids_sample": [
+      "CVE-2011-3389",
+      "CVE-2012-4929",
+      "CVE-2014-0160",
+      "CVE-2014-0224",
+      "CVE-2014-1266",
+      "CVE-2014-3466",
+      "CVE-2014-3566",
+      "CVE-2015-0204",
+      "CVE-2015-4000",
+      "CVE-2016-0800",
+      "CVE-2016-2107",
+      "CVE-2016-2108",
+      "CVE-2016-2183"
+    ],
+    "files_with_advisory_ids_count": 2,
+    "files_with_advisory_ids_sample": [
+      "rustls/src/manual/implvulns.rs",
+      "rustls/src/manual/tlsvulns.rs"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/ISSUE_TEMPLATE/bug_report.md",
+      ".github/ISSUE_TEMPLATE/dependency-update.md",
+      ".github/ISSUE_TEMPLATE/feature_request.md",
+      ".github/codecov.yml",
+      ".github/dependabot.yml",
+      ".github/workflows/build.yml",
+      ".github/workflows/cifuzz.yml",
+      ".github/workflows/daily-tests.yml",
+      ".github/workflows/docs.yml",
+      "CHANGELOG.md",
+      "SECURITY.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "rust": [
+        "Cargo.toml"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "rust"
+    ],
+    "toolchain_available": {
+      "rust": {
+        "cargo": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-32650",
+      "aliases": [
+        "CVE-2024-32650",
+        "GHSA-6g7w-8wpp-frhj",
+        "RUSTSEC-2024-0336"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0.23.0,<0.23.5",
+          "ecosystem": "crates.io",
+          "package": "rustls",
+          "purl": "pkg:cargo/rustls"
+        }
+      ],
+      "published_at": "2024-04-19T16:05:44Z",
+      "advisory_url": "https://github.com/rustls/rustls/security/advisories/GHSA-6g7w-8wpp-frhj",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); CNA and the NVD secondary metric agree.",
+        "score": 7.5,
+        "source": "CVE v5 CNA metric, mirrored by NVD secondary metric from security-advisories@github.com",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-32650",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

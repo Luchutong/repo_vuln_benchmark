@@ -1,0 +1,129 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "PJUllrich",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/10426523?v=4",
+            "events_url": "https://api.github.com/users/PJUllrich/events{/privacy}",
+            "followers_url": "https://api.github.com/users/PJUllrich/followers",
+            "following_url": "https://api.github.com/users/PJUllrich/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PJUllrich/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/PJUllrich",
+            "id": 10426523,
+            "login": "PJUllrich",
+            "node_id": "MDQ6VXNlcjEwNDI2NTIz",
+            "organizations_url": "https://api.github.com/users/PJUllrich/orgs",
+            "received_events_url": "https://api.github.com/users/PJUllrich/received_events",
+            "repos_url": "https://api.github.com/users/PJUllrich/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/PJUllrich/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PJUllrich/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/PJUllrich",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-32688",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 8.7,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-770"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-770",
+          "name": "Allocation of Resources Without Limits or Throttling"
+        }
+      ],
+      "description": "## Summary\r\n\r\nAn unauthenticated remote denial-of-service vulnerability in `Plug.Cowboy.Conn` allows any attacker who can reach an HTTPS Plug.Cowboy listener via HTTP/2 to permanently exhaust the BEAM atom table and crash the entire Erlang VM.\r\n\r\n## Am I Affected?\r\n\r\nAll users running plug_cowboy with HTTP/2 may be affected, this includes Phoenix applications. If another HTTP adapter such as Bandit is used, then you are not affected. If the HTTP/2 endpoint is exposed directly (without a proxy) then you are affected. If a proxy is in use then it depends on the proxy configuration. Many proxies use HTTP/1.1 internally, and would be unaffected.\r\n\r\n## Impact\r\n\r\nThe vulnerability will allow crashing the Erlang VM (BEAM) via atom exhaustion.\r\n\r\n## Mitigation\r\n\r\nUsers are advised to update to plug_cowboy v2.8.1 to mitigate this issue.\r\n\r\n## Credits\r\nThanks to Peter Ullrich for finding and responsibly disclosing this vulnerability to the Plug project.",
+      "ghsa_id": "GHSA-q8x4-x7mp-5vg2",
+      "html_url": "https://github.com/elixir-plug/plug_cowboy/security/advisories/GHSA-q8x4-x7mp-5vg2",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-q8x4-x7mp-5vg2"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-32688"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-04-27T13:34:23Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/477511?v=4",
+        "events_url": "https://api.github.com/users/Gazler/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Gazler/followers",
+        "following_url": "https://api.github.com/users/Gazler/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Gazler/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Gazler",
+        "id": 477511,
+        "login": "Gazler",
+        "node_id": "MDQ6VXNlcjQ3NzUxMQ==",
+        "organizations_url": "https://api.github.com/users/Gazler/orgs",
+        "received_events_url": "https://api.github.com/users/Gazler/received_events",
+        "repos_url": "https://api.github.com/users/Gazler/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Gazler/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Gazler/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Gazler",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Unauthenticated remote DoS in Plug.Cowboy via HTTP/2 `:scheme` atom-table exhaustion",
+      "updated_at": "2026-04-27T13:34:23Z",
+      "url": "https://api.github.com/repos/elixir-plug/plug_cowboy/security-advisories/GHSA-q8x4-x7mp-5vg2",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "plug_cowboy"
+          },
+          "patched_versions": "2.8.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 2.0.0 and < 2.8.1"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "elixir-plug/plug_cowboy",
+    "url": "https://api.github.com/repos/elixir-plug/plug_cowboy/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:07.936796+00:00",
+  "tool": "github_rest_readonly"
+}

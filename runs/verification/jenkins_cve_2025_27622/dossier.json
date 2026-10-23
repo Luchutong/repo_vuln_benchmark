@@ -1,0 +1,447 @@
+{
+  "candidate_id": "disc2_d998a13515e2a5e5a3c80292",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T19:12:22Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-27622",
+    "aliases": [
+      "CVE-2025-27622",
+      "GHSA-p34j-r3ch-c985",
+      "BIT-jenkins-2025-27622"
+    ],
+    "title": "Jenkins exposes encrypted secret values in agent config.xml to Extended Read users",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.500",
+        "tag": "jenkins-2.500",
+        "release_url": "https://www.jenkins.io/changelog/#v2.500",
+        "verified_content": "The 2.500 release commit cb753134 has 923cdbc1 as its only parent. In the 2.500 tree Computer.doConfigDotXml (1521-1552) and GetNodeCommand.run both send the serialized agent XML through ExtendedReadRedaction.applyAll unless the caller has CONFIGURE, and the @Extension ExtendedReadSecretRedaction replaces encrypted Secret element bodies with ********. The CNA record also lists LTS 2.492.2 as unaffected; that backport was not fetched or asserted."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "923cdbc165e8b8523ae960dfee5f7354878532d5",
+        "branch": "master",
+        "release": "2.500",
+        "message": "[SECURITY-3495][SECURITY-3496]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/923cdbc165e8b8523ae960dfee5f7354878532d5"
+      },
+      {
+        "sha": "f2eb8ebd24da05230d66c854c953c83b1ba0212a",
+        "branch": "2.492.x LTS backport (parent of the 2.492.2 release commit; not fetched locally, ancestry not asserted)",
+        "release": "2.492.2",
+        "message": "[SECURITY-3495][SECURITY-3496] LTS backport",
+        "url": "https://github.com/jenkinsci/jenkins/commit/f2eb8ebd24da05230d66c854c953c83b1ba0212a"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-312"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE. The CNA container has no CVSS metric. Every published severity level is MEDIUM, so the level is consistent and the score is not averaged across sources.",
+      "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MEDIUM",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27622",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "GHSA-p34j-r3ch-c985 / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "information_disclosure",
+    "category_l2": "Missing redaction on the agent config.xml read paths: users holding Agent/Extended Read but not Agent/Configure receive the XSTREAM XML with encrypted secret values",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3495",
+    "published_at": "2025-03-05T22:33:34Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3495",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-27622",
+      "https://github.com/advisories/GHSA-p34j-r3ch-c985",
+      "https://github.com/jenkinsci/jenkins/commit/923cdbc165e8b8523ae960dfee5f7354878532d5"
+    ]
+  },
+  "description": "Jenkins exposes an agent's configuration through Computer.doConfigDotXml (REST, GET on .../computer/<name>/config.xml) and the CLI get-node command. Both paths require only Computer.EXTENDED_READ and then serialize the Node with Jenkins.XSTREAM2.toXMLUTF8, which writes every Secret field as its encrypted value. At 2.441 there is no CONFIGURE check on the read path and no redaction: the write path (updateByXml) does require CONFIGURE at line 1578, but the read path at 1551-1560 in Computer.java and line 55 in GetNodeCommand.java returns the XML verbatim. A user granted Agent/Extended Read to inspect agent status can therefore read the encrypted secret values stored in the agent configuration, and those values are intended only for users who may configure the agent. The 2.500 fix 923cdbc1 keeps the EXTENDED_READ requirement and adds a CONFIGURE branch: callers without CONFIGURE get the XML passed through ExtendedReadRedaction.applyAll, whose ExtendedReadSecretRedaction extension replaces encrypted Secret bodies with ********. The permission is not enabled by default: Computer.EXTENDED_READ is created with enabled=SystemProperties.getBoolean(\"hudson.security.ExtendedReadPermission\"), so the exposure requires that property to be on.",
+  "location": {
+    "location_id": "loc_CVE-2025-27622_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-27622",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/hudson/model/Computer.java",
+    "function": "doConfigDotXml",
+    "language": "Java",
+    "line": "1551-1560",
+    "critical_operation": {
+      "file": "core/src/main/java/hudson/model/Computer.java",
+      "function": "doConfigDotXml",
+      "language": "Java",
+      "line": "1551-1560",
+      "code_excerpt": "        if (req.getMethod().equals(\"GET\")) {\n            // read\n            checkPermission(EXTENDED_READ);\n            rsp.setContentType(\"application/xml\");\n            Node node = getNode();\n            if (node == null) {\n                throw HttpResponses.notFound();\n            }\n            Jenkins.XSTREAM2.toXMLUTF8(node, rsp.getOutputStream());\n            return;",
+      "description": "The GET branch of doConfigDotXml checks only EXTENDED_READ (line 1553) and then writes the full node XML with Jenkins.XSTREAM2.toXMLUTF8 at line 1559. Nothing checks CONFIGURE and nothing redacts Secret values, so an Extended Read holder receives the encrypted secret values from the agent configuration.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/Computer.java#L1551-L1560"
+    },
+    "entry_point": {
+      "description": "Authenticated HTTP GET of /computer/<node>/config.xml (REST) or the CLI get-node command; both require Agent/Extended Read, enabled by hudson.security.ExtendedReadPermission.",
+      "file": "core/src/main/java/hudson/model/Computer.java",
+      "function": "doConfigDotXml",
+      "language": "Java",
+      "line": "1551-1560",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/Computer.java#L1551-L1560"
+    },
+    "trace": [
+      {
+        "description": "GET branch requires only EXTENDED_READ",
+        "file": "core/src/main/java/hudson/model/Computer.java",
+        "function": "doConfigDotXml",
+        "language": "Java",
+        "line": 1553,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/Computer.java#L1553"
+      },
+      {
+        "description": "the node is serialized with XSTREAM2 to the response, exposing Secret fields as encrypted values",
+        "file": "core/src/main/java/hudson/model/Computer.java",
+        "function": "doConfigDotXml",
+        "language": "Java",
+        "line": 1559,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/Computer.java#L1559"
+      },
+      {
+        "description": "the CLI get-node command has the same shape: EXTENDED_READ then verbatim XSTREAM2 output",
+        "file": "core/src/main/java/hudson/cli/GetNodeCommand.java",
+        "function": "run",
+        "language": "Java",
+        "line": "53-55",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/GetNodeCommand.java#L53-L55"
+      },
+      {
+        "description": "the write path already requires CONFIGURE (updateByXml line 1578), so the asymmetry is on the read path",
+        "file": "core/src/main/java/hudson/model/Computer.java",
+        "function": "updateByXml",
+        "language": "Java",
+        "line": 1578,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/Computer.java#L1578"
+      },
+      {
+        "description": "the fix adds the CONFIGURE branch and ExtendedReadRedaction.applyAll at 2.500",
+        "file": "core/src/main/java/hudson/model/Computer.java",
+        "function": "doConfigDotXml",
+        "language": "Java",
+        "line": "1532-1541",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/model/Computer.java#L1532-L1541"
+      }
+    ],
+    "verification_method": "Static read of Computer.java and GetNodeCommand.java at 2.441 and at the 2.500 release commit, of the 923cdbc1 patch and of the Jenkins/NVD/OSV records; no Jenkins instance, HTTP request or CLI invocation was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_27622_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-27622",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "b2d599a5b2adb970aa39ab36500cdf2c33ca5c352a10aff040e6d66a8250e716",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-03-05, assigner Jenkins",
+        "description: Jenkins 2.499 and earlier, LTS 2.492.1 and earlier does not redact encrypted values of secrets when accessing config.xml of agents via REST API or CLI, allowing attackers with Agent/Extended Read permission to view encrypted values of secrets",
+        "affected versions: 2.492.* unaffected from 2.492.2, weekly unaffected from 2.500; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3495"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-27622",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "79d0fbdca28cb6c0e8fde0e066de36aa82083ae79fb57c2210539543dcd1a39b",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-03-05, status Analyzed",
+        "one CVSS 3.1 4.3 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "there is no Primary metric",
+        "CWE-312 from the same Secondary source"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-27622",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "5037b4d47c00ef3cbe6e34d7e31049e7869c8883795f887fd9289c3c1c2b9d06",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "alias GHSA-p34j-r3ch-c985",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 02d4db37 (2.492.2 release commit) and cb753134 (2.500 release commit)",
+        "OSV's extracted CPE ranges are weekly <2.500 and LTS <2.492.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-p34j-r3ch-c985",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "3905a452a7bf6f560106755afde55507014002084903ad3329cbddee5c91649b",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3 MEDIUM), database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-312]",
+        "details repeat the Jenkins advisory text for SECURITY-3495",
+        "the GHSA ECOSYSTEM ranges are inconsistent with the CNA text: one range says introduced 2.493 fixed 2.500, the other 0 -> 2.492.2, which would exclude 2.441"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_vuln_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/Computer_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/Computer.java#L1548-L1570",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "0e54d6341d19ae4664d47023b7127fa5d129ce86344b474191d62659fc559824",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 1759397d matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "doConfigDotXml at 1548-1570; the GET branch at 1551-1560 calls checkPermission(EXTENDED_READ) at 1553 and then Jenkins.XSTREAM2.toXMLUTF8(node, rsp.getOutputStream()) at 1559",
+        "there is no CONFIGURE check and no redaction on the read path",
+        "the POST branch calls updateByXml, whose first statement (line 1578) is checkPermission(CONFIGURE), so only the read path is affected",
+        "Computer.EXTENDED_READ is declared at 1837 with the enable flag SystemProperties.getBoolean(\"hudson.security.ExtendedReadPermission\"), so the permission is disabled by default and must be enabled for the path to be reachable"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_vuln_cli",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/GetNodeCommand_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/GetNodeCommand.java#L50-L58",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "e5ddd24175c93f49ba78e5e3b70049e9afbbf6a98906d64134d199281838a36f",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 62dd2182 matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "run() at 50-58 calls node.checkPermission(Computer.EXTENDED_READ) at 53",
+        "line 55 then writes Jenkins.XSTREAM2.toXMLUTF8(node, stdout) with no CONFIGURE check and no redaction, so the CLI get-node command has the same defect as the REST endpoint"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_fixed_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/Computer_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/model/Computer.java#L1521-L1552",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "734fe55c23e22238f53acac07610aaf8d05ee90409d1941bf75255b3c9265449",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 6539fa33",
+      "result": "PASS",
+      "supports": [
+        "doConfigDotXml at 1521-1552 still requires EXTENDED_READ for GET (line 1526)",
+        "lines 1532-1541 branch on hasPermission(CONFIGURE): holders get the raw XSTREAM2 XML, everyone else gets the serialized XML passed through ExtendedReadRedaction.applyAll before it is written",
+        "the fix therefore redacts the XML for Extended Read holders instead of returning it verbatim"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_fixed_cli",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/GetNodeCommand_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/cli/GetNodeCommand.java#L51-L72",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "b229f34fb62f1d710666c77c764f681b5fc6415e8b0b875a5bb9ffd1735b3694",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 6b62729d",
+      "result": "PASS",
+      "supports": [
+        "run() keeps node.checkPermission(Computer.EXTENDED_READ) at 56",
+        "lines 58-67 mirror the REST fix: CONFIGURE holders get the raw XML, other callers get ExtendedReadRedaction.applyAll(xml)"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_redaction_api",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/ExtendedReadRedaction_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/jenkins/security/ExtendedReadRedaction.java",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "22871e496f439cf3c3c8d07ba6b2ff6b1dc653a6a71e2cefe48f110453934347",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 7baec196",
+      "result": "PASS",
+      "supports": [
+        "interface ExtendedReadRedaction is an ExtensionPoint with apply(String) and static applyAll, documented @since 2.479",
+        "it exists at 2.500 but not at 2.441 (the snapshot's jenkins/security package contains only RedactSecretJsonInErrorMessageSanitizer.java), so the API the fix calls was added between snapshot and fix"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_redaction_impl",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/ExtendedReadSecretRedaction_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/jenkins/security/ExtendedReadSecretRedaction.java",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "c7b21686d5891be5835b4b89c2c598812ddec266197d752fb9ed44c7c7e141b3",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 91a79f35",
+      "result": "PASS",
+      "supports": [
+        "@Extension implementation of ExtendedReadRedaction",
+        "apply() matches element bodies against Secret.ENCRYPTED_VALUE_PATTERN and replaces them with \"********\" when Secret.decrypt succeeds, which is the redaction the advisory describes"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/923cdbc165e8b8523ae960dfee5f7354878532d5",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "f23cd0eb849ac83027eca69277d96c6f3d59e6560a9151d72caea23da6ff923b",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 923cdbc1 '[SECURITY-3495][SECURITY-3496]', 2025-02-25, parent 4a9a3ecd",
+        "the patch adds the CONFIGURE/ExtendedReadRedaction branch to Computer.doConfigDotXml and GetNodeCommand.run (and the sibling View paths for SECURITY-3496)",
+        "it adds PasswordTest#testNodeSecrets, which asserts that an Extended Read user sees <secret>********</secret> while an admin sees the encrypted value"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27622_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27622/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-21T19:12:22Z",
+      "sha256_of_observation": "a9187c03fddb57da2a5d29c178c3ce9d4e549b46cd084ebf355bf55ed9ac3ae0",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and the Computer.java blob 1759397d matches the inventory (67896 bytes); GetNodeCommand.java is blob 62dd2182",
+        "fix commit 923cdbc1 is the direct parent of the 2.500 release commit cb753134 (git show -s: cb753134 has parent 923cdbc1 only)",
+        "CNA affected range 2.499 and earlier weekly / 2.492.1 and earlier LTS includes the 2.441 snapshot",
+        "the LTS backport f2eb8ebd (parent of the 2.492.2 release commit 02d4db37) was not fetched, so no LTS ancestry is asserted"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      10
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      10,
+      11
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      10,
+      11
+    ],
+    "languages": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      11
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. The critical_operation mapping uses the two 2.441 source files and the fix patch; the redaction API/implementation rows support languages and the fixed-release description.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 4.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (agent config.xml read through REST or CLI is not redacted for Extended Read holders) and on the fixed releases (2.500 weekly, 2.492.2 LTS). NVD publishes no Primary metric; the only NVD metric is the CISA-ADP Secondary 4.3 MEDIUM, which OSV/GHSA repeats, and the CNA has no metric, so all published levels are MEDIUM. CWE-312 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM range for one package says introduced 2.493, which conflicts with the CNA text (2.499 and earlier) and with the OSV GIT range (introduced 0); this dataset follows the CNA text and the GIT range, and the conflict is recorded rather than silently resolved. This root cause is distinct from the previously promoted jenkins entries: CVE-2024-23897 (CLI arbitrary file read via '@' expansion), CVE-2024-23898 (CLI WebSocket hijacking) and CVE-2024-43045 (missing permission check on the My Views action) involve different entry points and fixes.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read Computer.java and GetNodeCommand.java at 2.441 and confirm the GET/CLI read paths require only EXTENDED_READ and emit unredacted XSTREAM2 XML.",
+      "An independent reviewer must confirm 923cdbc1 is the fix and is contained in the 2.500 release.",
+      "An independent reviewer must confirm the affected range (weekly <=2.499, LTS <=2.492.1) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are MEDIUM (4.3) and record CWE-312.",
+      "An independent reviewer must confirm the mechanism is distinct from CVE-2024-23897, CVE-2024-23898 and CVE-2024-43045, and from the sibling CVE-2025-27623 (view config.xml).",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "independent-reviewer (Claude Code; model deepseek-flash)",
+      "verdict_path": "runs/independent/jenkins_CVE-2025-27622_round1/verdict.json",
+      "verdict": "confirmed",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "fields_false": [],
+      "severity_level": "MEDIUM",
+      "location_file": "core/src/main/java/hudson/model/Computer.java",
+      "location_line": 1559
+    },
+    "independent_corrections_accepted": [
+      "No field was refuted. The reviewer supplied the exact serialization link: XStream2.AssociatedConverterImpl registers Secret$ConverterImpl, whose marshal writes getEncryptedValue() (Secret.java:279), so the exported XML carries the encrypted values rather than plaintext.",
+      "The reviewer confirmed the permission caveat independently: Computer.EXTENDED_READ is declared at 1837 with its enable flag at 1843 reading hudson.security.ExtendedReadPermission, which is false by default.",
+      "The reviewer explained the GHSA range nuance: the weekly ECOSYSTEM range is encoded as introduced 2.493 -> fixed 2.500, while the LTS range is introduced 0 -> fixed 2.492.2; the union covers 2.441 and the vendor advisory says 2.499 and earlier, so affected_range stays true rather than treating the machine encoding as a contrary fact."
+    ],
+    "duplicate_check": "The reviewer confirmed this is distinct from the promoted jenkins entries: CVE-2024-23897 (SECURITY-3314, CLI '@' file read), CVE-2024-23898 (SECURITY-3315, CLI WebSocket origin validation) and CVE-2024-43045 (SECURITY-3349, My Views permission check). It is also distinct from the sibling CVE-2025-27623 (SECURITY-3496), which shares the fix commit but covers view config.xml and View/Read rather than agent config.xml and Agent/Extended Read."
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request, CLI command or test was executed.",
+    "The exposure requires Computer.EXTENDED_READ, which is disabled by default and only enabled when hudson.security.ExtendedReadPermission is set; deployments that never enable it are not exposed through this path.",
+    "Only the encrypted value of a Secret is disclosed; decrypting it additionally requires the Jenkins master key. The advisory scores confidentiality as partial (C:L) on that basis.",
+    "Only one location row is recorded (Computer.doConfigDotXml). The CLI GetNodeCommand and the sibling View paths (CVE-2025-27623) share the same defect but are not separate locations or vulnerabilities here.",
+    "The LTS backport f2eb8ebd and the 2.492.2 branch were not fetched into the local mirror; LTS ancestry is recorded from OSV and the CNA record, not asserted locally.",
+    "The GHSA ECOSYSTEM range introduced=2.493 conflicts with the CNA and the OSV GIT range; the conflict is documented, not resolved by choosing one silently."
+  ],
+  "open_questions": [
+    "Whether every Node subclass or NodeProperty serializes secrets as Secret (and therefore as encrypted values) was not exhaustively enumerated; the advisory and the regression test use a NodeProperty with a Secret field, which is the documented case.",
+    "Whether the 2.492.2 backport is byte-identical in behaviour was not checked locally."
+  ]
+}

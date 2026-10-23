@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/phoenixframework/phoenix.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:34.728643+00:00", "elapsed_seconds": 1.197, "response": {"returncode": 0, "stdout": "e5880ef7390d6fb4759d6cf9a957a310cefca7c4\tHEAD\n", "stderr": ""}}

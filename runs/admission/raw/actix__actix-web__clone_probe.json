@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/actix/actix-web.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:29.687936+00:00", "elapsed_seconds": 1.406, "response": {"returncode": 0, "stdout": "2db7119a990511e90e234d8ba118234b51bce68a\tHEAD\n", "stderr": ""}}

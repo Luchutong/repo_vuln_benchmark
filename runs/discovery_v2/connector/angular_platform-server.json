@@ -1,0 +1,24 @@
+{
+  "key": "angular_platform-server",
+  "repository": "angular/angular",
+  "path": "packages/platform-server/package.json",
+  "retrieved_at": "2026-10-21T10:56:20.887Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/platform-server\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - library for using Angular in Node.js\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/common\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/compiler\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/core\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/platform-browser\": \"0.0.0-PLACEHOLDER\",\n    \"rxjs\": \"^6.5.3 || ^7.4.0\"\n  },\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\",\n    \"xhr2\": \"^0.2.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/platform-server\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": [\n    \"./fesm2022/init.mjs\"\n  ]\n}\n",
+      "encoding": "utf-8",
+      "sha": "6c05cfcf1fe96e3b2c8f6fc6486cc7772bfd97f3",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/platform-server/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

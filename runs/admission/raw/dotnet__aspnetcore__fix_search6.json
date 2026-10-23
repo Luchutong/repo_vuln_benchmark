@@ -1,0 +1,1 @@
+{"tool":"github_search_commits","query":{"query":"CVE-2025-55315","repository_full_name":"dotnet/aspnetcore","topn":5},"retrieved_at":"2026-10-21T11:52:45.718Z","is_error":false,"response":{"content":[{"type":"text","text":"Action completed."}],"structuredContent":{"commits":[]},"isError":false}}

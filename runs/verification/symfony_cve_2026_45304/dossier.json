@@ -1,0 +1,408 @@
+{
+ "candidate_id": "disc2_27b69948a58bfe752c6a436e",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T02:10:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45304",
+  "aliases": [
+   "CVE-2026-45304",
+   "GHSA-4qpc-3hr4-r2p4"
+  ],
+  "title": "Symfony YAML Parser resolves collection aliases without a bound, allowing exponential memory allocation from a small document",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/yaml",
+    "purl": "pkg:composer/symfony/yaml",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/yaml",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 ParserState::countAlias() bounds collection-alias resolution at 128 by default; fix e77391b2 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: Parser.php blob cda68ac1 and Inline.php blob c3fcf223 differ from v5.4.45 as the patch describes"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "e77391b2e4f18821198f010d573674c8ed4a970a",
+    "branch": "5.4",
+    "message": "[Yaml] Bound collection-alias resolution in the parser",
+    "url": "https://github.com/symfony/symfony/commit/e77391b2e4f18821198f010d573674c8ed4a970a"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-776"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+   "score": 8.7,
+   "level": "high",
+   "numeric_level_rationale": "CVSS 4.0 base 8.7 (CNA) and the NVD Primary CVSS 3.1 7.5 both fall in High (7.0-8.9). The GHSA page and OSV label LOW with a VA:L vector, inconsistent with both published scores.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-4qpc-3hr4-r2p4",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 8.7,
+     "level": "high",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+   ],
+   "ghsa_label_note": "The GHSA page and OSV database_specific.severity say LOW and the OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U (VA:L) with no separately stated numeric score."
+  },
+  "category_l1": "denial_of_service",
+  "category_l2": "Exponential memory allocation through recursive collection-alias expansion (Billion Laughs) in the YAML parser",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45304",
+  "published_at": "2026-07-14T18:48:49Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45304",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-4qpc-3hr4-r2p4",
+   "https://github.com/symfony/symfony/commit/e77391b2e4f18821198f010d573674c8ed4a970a",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45304",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45304_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45304",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Yaml/Parser.php",
+  "function": "Parser::parseValue",
+  "language": "PHP",
+  "line": 737,
+  "critical_operation": {
+   "code_excerpt": "                throw new ParseException(sprintf('Reference \"%s\" does not exist.', $value), $this->currentLineNb + 1, $this->currentLine, $this->filename);\n            }\n\n            return $this->refs[$value];",
+   "description": "Parser::parseValue() handles a \"*alias\" value by looking the name up in $this->refs and returning the referenced value directly. At v5.4.45 the only guards are the missing-reference and circular-reference checks; the returned value may be an array or stdClass that itself contains aliases, so nested collection aliases expand multiplicatively at resolution time and a small untrusted document can allocate multi-gigabyte structures. The same unbounded return exists in the merge-key path (Parser.php line 256) and in Inline::evaluateScalar() (Inline.php line 594). The 5.4.52 fix routes all three paths through ParserState::countAlias(), which counts array/stdClass/TaggedValue resolutions and throws once the configurable limit (default 128) is exceeded; scalar aliases remain unrestricted.",
+   "file": "src/Symfony/Component/Yaml/Parser.php",
+   "function": "Parser::parseValue",
+   "language": "PHP",
+   "line": 737,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L737"
+  },
+  "entry_point": {
+   "description": "Yaml::parse() (or Parser::parse()) called on untrusted YAML containing anchors and \"*alias\" references to collections.",
+   "file": "src/Symfony/Component/Yaml/Parser.php",
+   "function": "Parser::parse",
+   "language": "PHP",
+   "line": 85,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L85"
+  },
+  "trace": [
+   {
+    "description": "parseValue() sees a \"*alias\" token and looks it up in $this->refs",
+    "file": "src/Symfony/Component/Yaml/Parser.php",
+    "function": "Parser::parseValue",
+    "language": "PHP",
+    "line": 723,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L723-L737"
+   },
+   {
+    "description": "the referenced collection is returned without counting or size checking",
+    "file": "src/Symfony/Component/Yaml/Parser.php",
+    "function": "Parser::parseValue",
+    "language": "PHP",
+    "line": 737,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L737"
+   },
+   {
+    "description": "inline alias resolution returns $references[$value] with the same absence of a bound",
+    "file": "src/Symfony/Component/Yaml/Inline.php",
+    "function": "Inline::evaluateScalar",
+    "language": "PHP",
+    "line": 594,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Inline.php#L591-L594"
+   }
+  ],
+  "verification_method": "Static read of Parser.php, Inline.php and ParserState.php at v5.4.45 and v5.4.52, the 5.4 fix diff and tests, tag peels and ancestry; no PHP or YAML document was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45304_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "4f0ee6ae7856bcdb7e69bbfa392377e8595a6355782ff154e227f94e200a2821",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45304",
+   "supports": [
+    "NVD status Analyzed; description states the YAML Parser resolves collection aliases recursively so a small untrusted document expands into a multi-gigabyte structure and exhausts memory",
+    "NVD Primary CVSS 3.1 7.5 HIGH from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)",
+    "NVD Secondary CVSS 4.0 8.7 HIGH from security-advisories@github.com",
+    "NVD weakness CWE-776 sourced to security-advisories@github.com",
+    "NVD CPE cpe:2.3:a:sensiolabs:symfony with versionEndExcluding 5.4.52 and the 6.4.40/7.4.12/8.0.12 branch bounds"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45304_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "73dcf0862853e7532a516e94c60c078f239198c2d77a205004f58d426d325a8e",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45304",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T18:48:49Z",
+    "affected products symfony and yaml, ranges <5.4.52, >=6.0.0-BETA1 <6.4.40, >=7.0.0-BETA1 <7.4.12, >=8.0.0-BETA1 <8.0.12",
+    "CNA CVSS 4.0 8.7 HIGH AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+    "problemType CWE-776",
+    "the CNA reference list names fix commit e77391b2e4f18821198f010d573674c8ed4a970a and the v5.4.52/v6.4.40/v7.4.12/v8.0.12 release tags"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45304_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "6412185ab28ad0cc23c0dfcfcbfd460b42f9c875564a4b6ed9d4c085f91d9abc",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-4qpc-3hr4-r2p4",
+   "supports": [
+    "GHSA-4qpc-3hr4-r2p4 aliases CVE-2026-45304, github_reviewed, cwe_ids CWE-776, database severity LOW",
+    "affected symfony/yaml and symfony/symfony with fixed events 5.4.52, 6.4.40, 7.4.12 and 8.0.12",
+    "the OSV details describe aliases that reference collections and reproduce exponentially at resolution time (Billion Laughs)",
+    "resolution: ParserState counts collection alias resolutions with a default limit of 128, following the SnakeYAML model; scalar aliases stay unrestricted",
+    "the OSV CVSS_V4 vector uses VA:L and is labelled LOW, unlike the CNA VA:H 8.7 HIGH metric"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45304_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "4768c1e34fea37571c3191ce57028fc45f1633fe4527086f5efc5855d5ac0643",
+   "source_url": "https://symfony.com/cve-2026-45304",
+   "supports": [
+    "the advisory page repeats the affected ranges and fixed versions",
+    "it states a small untrusted YAML input can expand into a multi-gigabyte structure and exhaust memory",
+    "the resolution counts collection-alias resolutions in a shared ParserState object with a default limit of 128 and keeps scalar aliases unrestricted"
+   ],
+   "verification_method": "symfony.com advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45304_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "92525af51e6a6cd1b53dd8a4282605d4802edb8042d2be9a831164f6abe77067",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-4qpc-3hr4-r2p4",
+   "supports": [
+    "the GitHub advisory page carries the same description and resolution as the other advisory surfaces",
+    "the page links fix commit e77391b2, consistent with the CNA reference",
+    "the advisory label is Low"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45304_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "f1beb1d2cf88925dbead7784692950bad2d7d36db460e1ee82070dd57e0fa53b",
+   "source_url": "https://github.com/symfony/symfony/commit/e77391b2e4f18821198f010d573674c8ed4a970a",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit e77391b2 is dated 2026-05-08 with subject \"[Yaml] Bound collection-alias resolution in the parser\" and is the security merge ea2c154997",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "Parser.php blob 6b5b273a at v5.4.45 and cda68ac1 at v5.4.52; Inline.php 5e4e5f7a to c3fcf223",
+    "ParserState.php does not exist at v5.4.45 and is introduced by the prerequisite commit 914f427e, itself absent from v5.4.45 and present in v5.4.52"
+   ],
+   "verification_method": "git rev-parse/merge-base/log; file existence; blob comparison"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/parser_5.4.45.php",
+   "evidence_id": "ev_symfony_45304_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "66318c33b7eba8e21dfaf392bd42ef56b5cd6933e1fb51133cc5f895cd32d292",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L737",
+   "supports": [
+    "parseValue() resolves \"*alias\" by looking up $this->refs and returns the referenced value at line 737",
+    "the only guards are the missing-reference and circular-reference checks at lines 729-735; there is no count or size limit",
+    "the merge-key path returns $this->refs[$refName] at line 256 with the same lack of a bound",
+    "there is no ParserState or alias counter in this file at v5.4.45"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 6b5b273a)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/inline_5.4.45.php",
+   "evidence_id": "ev_symfony_45304_inline_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "8a08388d89b58f1580c0a51bb9449e44d23911fdaf29c761815fecb56c21d9ac",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Inline.php#L594",
+   "supports": [
+    "evaluateScalar() resolves an inline \"*alias\" and returns $references[$value] at line 594",
+    "the only guard is the missing-reference exception at line 591"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 5e4e5f7a)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/parserstate_5.4.52.php",
+   "evidence_id": "ev_symfony_45304_fixed_state",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "b4407034736f5492b4379c848da7fed566abc3e27943d3d773fc81a4cbc9d2db",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Yaml/ParserState.php#L54-L71",
+   "supports": [
+    "ParserState declares maxAliasesForCollections and collectionAliasCount",
+    "countAlias() unwraps TaggedValue and counts only array/stdClass values",
+    "it throws a ParseException once collectionAliasCount exceeds maxAliasesForCollections",
+    "aliasesEnabled lets Yaml::PARSE_EXCEPTION_ON_ALIAS reject every alias"
+   ],
+   "verification_method": "file read at v5.4.52"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45304/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45304_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:10:00Z",
+   "sha256_of_observation": "8df35482ef88386c494d0ce6d9d56bfe7beaa8393b79e8fa74b90eb1ce3c0ddf",
+   "source_url": "https://github.com/symfony/symfony/commit/e77391b2e4f18821198f010d573674c8ed4a970a.patch",
+   "supports": [
+    "the patch adds DEFAULT_MAX_ALIASES_FOR_COLLECTIONS = 128 and the constructor argument",
+    "it calls countAlias() from Inline::evaluateScalar, Parser::doParse and Parser::parseValue",
+    "ParserState::countAlias() implements the counter and the exception",
+    "the parser tests include a Billion Laughs document rejected at a configured limit of 5, a TaggedValue case, and a scalar-alias exemption",
+    "Yaml::PARSE_EXCEPTION_ON_ALIAS is added"
+   ],
+   "verification_method": "unified diff read"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   6,
+   7,
+   8
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-776, the recursive collection-alias expansion, the <5.4.52 range, the v5.4.52 release and fix commit e77391b2. Numeric severity splits: NVD Primary CVSS 3.1 7.5, CNA CVSS 4.0 8.7, and a GHSA/OSV LOW label with VA:L.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Parser::parseValue at v5.4.45 and confirm the alias lookup returns $this->refs[$value] with no count or size bound.",
+   "An independent reviewer must confirm the merge-key path and Inline::evaluateScalar have the same unbounded return.",
+   "An independent reviewer must confirm e77391b2 is absent from v5.4.45 and present in v5.4.52, and that the fix introduces ParserState::countAlias with a default limit of 128.",
+   "An independent reviewer must confirm ParserState.php is absent at v5.4.45 and that the prerequisite commit 914f427e is also absent from that tag.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No PHP or YAML document was executed; the finding is static and the memory blow-up was not measured.",
+  "The 5.4 branch is the only one compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "At v5.4.45 there is no ParserState; the fix depends on 914f427e (recursion-depth bounding, CVE-2026-45133) which landed just before it, so the backport history is coupled.",
+  "The GHSA label LOW and OSV VA:L vector disagree materially with the CNA 8.7 and NVD 7.5 scores."
+ ],
+ "open_questions": [
+  "Whether the merge-key path (line 256) alone is sufficient for exponential growth was not analysed beyond reading the code.",
+  "Whether the 5.4 fix also needs the 914f427e prerequisite to apply cleanly to arbitrary downstream patch sets was not assessed.",
+  "CWE-776 is defined for XML DTD entity expansion; all three primary sources apply it to YAML alias expansion, which is an upstream classification choice rather than a dossier error."
+ ]
+}

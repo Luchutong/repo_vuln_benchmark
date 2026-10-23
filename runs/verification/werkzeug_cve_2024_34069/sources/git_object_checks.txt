@@ -1,0 +1,18 @@
+repo: https://github.com/pallets/werkzeug
+tag 3.0.2 (lightweight): d70dcea305bf842c5a3b55265b5ffac2db012e23
+tag 3.0.3 (annotated): dea2a1d146f9683959e2e06dde92918c983e711b peels to f9995e967979eb694d6b31536cc65314fd7e9c8c
+fix commit: 3386395b24c7371db11a5b8eaac0c91da5362692 (merge, 'Merge pull request from GHSA-2g68-c3qc-8985')
+fix parents: 71b69dfb7df3d912e66bab87fbb1f21f83504967 (restrict debugger trusted hosts), 890b6b62634fa61224222aee31081c61b054ff01 (only require trusted host for evalex)
+merge-base --is-ancestor 3386395 3.0.3^{}: TRUE
+rev-list --count 3386395..3.0.3^{}: 1 (release version 3.0.3)
+merge-base --is-ancestor 3386395 3.0.2: FALSE
+
+3386395 Merge pull request from GHSA-2g68-c3qc-8985
+
+ CHANGES.rst                           |  5 +++++
+ docs/debug.rst                        | 35 ++++++++++++++++++++++++++++++-----
+ src/werkzeug/debug/__init__.py        | 31 ++++++++++++++++++++++++++++---
+ src/werkzeug/debug/shared/debugger.js |  4 ++--
+ src/werkzeug/sansio/utils.py          |  2 +-
+ src/werkzeug/serving.py               |  3 +++
+ 6 files changed, 69 insertions(+), 11 deletions(-)

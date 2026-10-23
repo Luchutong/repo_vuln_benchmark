@@ -1,0 +1,64 @@
+repository: https://github.com/symfony/symfony
+checks run: 2026-10-21T17:03:29Z
+
+$ git rev-parse v5.4.45^{}
+2b66d7d7d8129531229708ef708860844db91944
+$ git rev-parse v5.4.52^{}
+eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+$ git log -1 --format='%H %ci %s' 59ef484029601a7af06f5e06c6ed921fdcea5a0d
+59ef484029601a7af06f5e06c6ed921fdcea5a0d 2026-04-17 15:15:08 +0200 [Security] Anchor emailAddress regex to RDN boundary in X509Authenticator
+
+reference named in the GHSA body: ccb3f724c7ff55670a6fe3521c7bf1514cceb478
+git cat-file -t ccb3f724...: fatal: git cat-file: could not get object info
+https://github.com/symfony/symfony/commit/ccb3f724... patch fetch returned: Not Found
+
+$ git merge-base --is-ancestor 59ef4840... v5.4.45^{}  -> exit 1 (1 = not an ancestor)
+$ git merge-base --is-ancestor 59ef4840... v5.4.52^{}  -> exit 0 (0 = ancestor)
+
+$ git rev-parse v5.4.45:src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php
+8f30a23993a66c0658b5acf6114173c658b4f5b8
+$ git rev-parse v5.4.52:src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php
+13e0c82b3799335e5e1e264e4b4307d2184853a6
+
+patch pre-image blob (from fix_commit_alt.patch): 8f30a23993a66
+patch post-image blob (from fix_commit_alt.patch): 13e0c82b37993
+
+v5.4.45 extractUsername (lines 42-59):
+    protected function extractUsername(Request $request): string
+    {
+        $username = null;
+        if ($request->server->has($this->userKey)) {
+            $username = $request->server->get($this->userKey);
+        } elseif (
+            $request->server->has($this->credentialsKey)
+            && preg_match('#emailAddress=([^,/@]++@[^,/]++)#', $request->server->get($this->credentialsKey), $matches)
+        ) {
+            $username = $matches[1];
+        }
+
+        if (null === $username) {
+            throw new BadCredentialsException(sprintf('SSL credentials not found: %s, %s', $this->userKey, $this->credentialsKey));
+        }
+
+        return $username;
+    }
+
+v5.4.52 extractUsername (lines 42-59):
+    protected function extractUsername(Request $request): string
+    {
+        $username = null;
+        if ($request->server->has($this->userKey)) {
+            $username = $request->server->get($this->userKey);
+        } elseif (
+            $request->server->has($this->credentialsKey)
+            && preg_match('#(?:^|[,/])\s*(?:emailAddress|1\.2\.840\.113549\.1\.9\.1)=([^,/@]++@[^,/]++)#', $request->server->get($this->credentialsKey), $matches)
+        ) {
+            $username = $matches[1];
+        }
+
+        if (null === $username) {
+            throw new BadCredentialsException(sprintf('SSL credentials not found: %s, %s', $this->userKey, $this->credentialsKey));
+        }
+
+        return $username;
+    }

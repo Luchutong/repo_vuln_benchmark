@@ -1,0 +1,432 @@
+{
+  "candidate_id": "disc2_cbe05ac4189f6e6a52078518",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T04:05:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/django/django",
+    "full_name": "django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "repo_id": "4164482",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2021-33203",
+    "aliases": [
+      "CVE-2021-33203",
+      "GHSA-68w8-qjq3-2gfm",
+      "PYSEC-2021-98",
+      "BIT-django-2021-33203"
+    ],
+    "title": "Django admindocs TemplateDetailView joins an unsanitized URL path onto the template directories, allowing staff users to probe arbitrary files (path traversal) before 3.1.12 and 3.2.4",
+    "category_l1": "path_traversal",
+    "category_l2": "unsanitized URL-derived path joined onto template directories in admindocs TemplateDetailView",
+    "cwe_ids": [
+      "CWE-22"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N",
+      "score": 4.9,
+      "level": "medium",
+      "source": "NVD Primary metric nvd@nist.gov, identical to the OSV/GHSA CVSS_V3 metric; OSV GHSA severity MODERATE (same level) and CVSS 4.0 AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:N/VA:N; the CNA container has no CVSS metric",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-33203"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=0,<2.2.24"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.0,<3.1.12"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.2,<3.2.4"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "3.1.x",
+        "sha": "20c67a0693c4ede2b09af02574823485e82e4c8f",
+        "message": "[3.1.x] Fixed CVE-2021-33203 -- Fixed potential path-traversal via admindocs' TemplateDetailView.",
+        "url": "https://github.com/django/django/commit/20c67a0693c4ede2b09af02574823485e82e4c8f"
+      },
+      {
+        "branch": "3.2.x",
+        "sha": "dfaba12cda060b8b292ae1d271b44bf810b1c5b9",
+        "message": "[3.2.x] Fixed CVE-2021-33203 -- Fixed potential path-traversal via admindocs' TemplateDetailView.",
+        "url": "https://github.com/django/django/commit/dfaba12cda060b8b292ae1d271b44bf810b1c5b9"
+      },
+      {
+        "branch": "2.2.x",
+        "sha": "053cc9534d174dc89daba36724ed2dcb36755b90",
+        "message": "[2.2.x] Fixed CVE-2021-33203 -- Fixed potential path-traversal via admindocs' TemplateDetailView.",
+        "url": "https://github.com/django/django/commit/053cc9534d174dc89daba36724ed2dcb36755b90"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "tag": "3.1.12",
+        "version": "3.1.12",
+        "release_url": "https://github.com/django/django/releases/tag/3.1.12",
+        "verified_content": "Fix commit 20c67a06 is an ancestor of release commit 625d3c1c (exit 0); the release commit's direct parent is the later CVE-2021-33571 fix 203d4ab9. django/contrib/admindocs/views.py blob 60b357e9 at this tag imports safe_join at line 19 and calls Path(safe_join(directory, template)) at line 333."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "tag": "3.2.4",
+        "version": "3.2.4",
+        "release_url": "https://github.com/django/django/releases/tag/3.2.4",
+        "verified_content": "Fix commit dfaba12c is an ancestor of release commit 843c34b3 (exit 0); the release commit's direct parent is the later CVE-2021-33571 fix 9f75e2e5. django/contrib/admindocs/views.py at this tag is byte-identical to 3.1.12 (blob 60b357e9), with safe_join at line 333."
+      }
+    ],
+    "published_at": "2021-06-08T17:52:20.000Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2021/jun/02/security-releases/",
+    "references": [
+      "https://docs.djangoproject.com/en/3.2/releases/security/",
+      "https://www.djangoproject.com/weblog/2021/jun/02/security-releases/",
+      "https://groups.google.com/g/django-announce",
+      "https://github.com/django/django/commit/20c67a0693c4ede2b09af02574823485e82e4c8f",
+      "https://github.com/django/django/commit/dfaba12cda060b8b292ae1d271b44bf810b1c5b9",
+      "https://github.com/django/django/commit/053cc9534d174dc89daba36724ed2dcb36755b90",
+      "https://security.netapp.com/advisory/ntap-20210727-0004/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-33203",
+      "https://osv.dev/vulnerability/GHSA-68w8-qjq3-2gfm"
+    ],
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_commit_basis": "annotated tag 3.0.2 (tag object 27431091) peels to a3697439; the snapshot is inside the advisory range >=3.0,<3.1.12 and its admindocs/views.py blob 0474c38f joins the URL-derived template path without safe_join at line 331",
+    "vulnerable_version": "3.0.2",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "repo_id": "4164482",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2021_33203_snap_ab695ba3db678939",
+    "location_kind": "logic",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "vulnerability_id": "CVE-2021-33203",
+    "verification_method": "Static read of django/contrib/admindocs/views.py at 3.0.2, 3.0.14, 3.1.12 and 3.2.4, admindocs/urls.py at 3.0.2, the admin_docs tests at 3.0.2/3.1.12, and the two fix diffs. No code executed.",
+    "critical_operation": {
+      "file": "django/contrib/admindocs/views.py",
+      "function": "TemplateDetailView.get_context_data",
+      "language": "Python",
+      "line": "331-331",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/views.py#L331",
+      "code_excerpt": "                template_file = Path(directory) / template\n                if template_file.exists():\n                    with template_file.open() as f:\n                        template_contents = f.read()",
+      "description": "TemplateDetailView.get_context_data takes `template` from self.kwargs (the URL) and joins it onto each configured template directory with pathlib's `/` operator at line 331, with no sanitation. An absolute value such as '/etc/passwd' makes pathlib discard `directory`, and a value such as '../passwd' escapes it; the following template_file.exists() (332, 340) then reports the existence of the targeted file and the file is opened and read into template_contents (333-334), which is placed in the context (341). The stock template_detail.html only renders the path and the exists flag, but the advisory notes that a customized admindocs template that renders `template.contents` exposes the contents too. The fix replaces the join with Path(safe_join(directory, template)), so a path outside the template directory raises SuspiciousFileOperation and yields HTTP 400 (the added regression test asserts 400 for '/etc/passwd' and '../passwd')."
+    },
+    "entry_point": {
+      "file": "django/contrib/admindocs/urls.py",
+      "function": "urlpatterns",
+      "language": "Python",
+      "line": 46,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/urls.py#L46",
+      "description": "The route 'templates/<path:template>/' captures the URL segment with the <path:...> converter, which matches slashes and a leading slash, and passes it as the template kwarg to TemplateDetailView. The admindocs URLs are only active when the project installs django.contrib.admindocs and includes admindocs.urls."
+    },
+    "trace": [
+      {
+        "file": "django/contrib/admindocs/urls.py",
+        "function": "urlpatterns",
+        "language": "Python",
+        "line": 46,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/urls.py#L46-L48",
+        "description": "templates/<path:template>/ routes a slashed, attacker-chosen path into TemplateDetailView"
+      },
+      {
+        "file": "django/contrib/admindocs/views.py",
+        "function": "BaseAdminDocsView.dispatch",
+        "language": "Python",
+        "line": 33,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/views.py#L33-L38",
+        "description": "dispatch is decorated with staff_member_required, so a staff session is required"
+      },
+      {
+        "file": "django/contrib/admindocs/views.py",
+        "function": "TemplateDetailView.get_context_data",
+        "language": "Python",
+        "line": 331,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/views.py#L331",
+        "description": "Path(directory) / template accepts an absolute or ../-prefixed template path and resolves outside the template directory"
+      },
+      {
+        "file": "django/contrib/admindocs/views.py",
+        "function": "TemplateDetailView.get_context_data",
+        "language": "Python",
+        "line": 332,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/views.py#L332-L341",
+        "description": "exists() reports arbitrary file existence and the file is read into template_contents for the template context"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_django_osv_ghsa",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/osv_GHSA-68w8-qjq3-2gfm.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-68w8-qjq3-2gfm",
+      "retrieved_at": "2026-10-22T03:30:00Z",
+      "sha256_of_observation": "1e3a321cf7a5b2cb42ae4ffc2df52499d888644b50d79c5067d50ce87e2a64c8",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases BIT-django-2021-33203, CVE-2021-33203, PYSEC-2021-98",
+        "PyPI ranges: introduced 0 fixed 2.2.24, introduced 3.0 fixed 3.1.12, introduced 3.2 fixed 3.2.4",
+        "CVSS_V3 4.9 AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N and CVSS_V4 AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:N/VA:N",
+        "database_specific severity MODERATE, cwe_ids [CWE-22], github_reviewed true",
+        "references the three fix commits 20c67a06, dfaba12c, 053cc953"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_cve_v5",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/cve_v5_CVE-2021-33203.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-33203",
+      "retrieved_at": "2026-10-22T03:30:00Z",
+      "sha256_of_observation": "56c3ad12fe1179c7941462020cbbc006d561d7e1b04dbdd1b8a2c0e543daebee",
+      "verification_method": "CVE List v5 MITRE record",
+      "result": "PASS",
+      "supports": [
+        "CVE published 2021-06-08T17:52:20, state PUBLISHED, assigner mitre",
+        "CNA description: Django before 2.2.24, 3.x before 3.1.12 and 3.2.x before 3.2.4; staff members could use TemplateDetailView to check the existence of arbitrary files; file contents exposed only if the default admindocs templates were customized to show them; directory traversal outside the template root directories",
+        "CNA has no CVSS metric and no CWE",
+        "CNA references the Django security releases page and the announcement"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_nvd",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/nvd_CVE-2021-33203.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-33203",
+      "retrieved_at": "2026-10-22T03:30:00Z",
+      "sha256_of_observation": "fd83bbb4fbe08ad39e4236616387e22b6363c314e63371cf6de4f6c56c2e3325",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "NVD status Modified, published 2021-06-08T18:15:08",
+        "NVD Primary CVSS 3.1 4.9 MEDIUM CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N",
+        "legacy CVSS 2.0 4.0",
+        "CWE-22 from the NVD Primary source",
+        "CPE ranges <2.2.24; >=3.0.0,<3.1.12; >=3.2.0,<3.2.4"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_git_checks",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/git_object_checks.txt",
+      "source_url": "https://github.com/django/django/commit/20c67a0693c4ede2b09af02574823485e82e4c8f",
+      "retrieved_at": "2026-10-22T04:00:00Z",
+      "sha256_of_observation": "b61749919f556c50493fa36b9deac0c3c636a79d6accd849c3c02a3f10e1fc56",
+      "verification_method": "tag reads and exact-SHA fetches in a bare mirror; git ls-tree / cat-file / merge-base --is-ancestor; blob ids compared across 3.0.2, 3.0.14, 3.1.12, 3.2.4",
+      "result": "PASS",
+      "supports": [
+        "annotated tag 3.0.2 peels to a3697439",
+        "3.0.2 admindocs/views.py blob is 0474c38f (414 lines) and joins Path(directory) / template at line 331",
+        "3.0.2 admindocs/urls.py routes templates/<path:template>/ to TemplateDetailView at lines 45-49",
+        "fix commits 20c67a06 (3.1.x), dfaba12c (3.2.x), 053cc953 (2.2.x) with their real parents read via cat-file -p (the commits are shallow roots, so %P is empty)",
+        "fix commits 20c67a06 and dfaba12c are ancestors of release commits 625d3c1c (3.1.12) and 843c34b3 (3.2.4)",
+        "fixed blob 60b357e9 at 3.1.12 and 3.2.4 has the safe_join import at line 19 and the sanitized join at line 333",
+        "3.0.14 admindocs/views.py blob is identical to 3.0.2 (0474c38f), so the 3.0.x line contains no fix",
+        "snapshot 3.0.2 lies inside >=3.0,<3.1.12"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_vuln_file",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/admindocs_views_3.0.2.py",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/views.py#L331",
+      "retrieved_at": "2026-10-22T03:45:00Z",
+      "sha256_of_observation": "de9d6e478af41a06b505fb155f6bf669f575f577bf54e4b04e3f4117e7bdb307",
+      "verification_method": "file read at the 3.0.2 commit (git show 3.0.2:django/contrib/admindocs/views.py)",
+      "result": "PASS",
+      "supports": [
+        "vulnerable root-cause line 331: template_file = Path(directory) / template",
+        "the next statements call template_file.exists(), open and read the file (333-334), and store contents in the context (341)",
+        "TemplateDetailView is defined at line 317 and takes template from self.kwargs at line 321",
+        "the file does not import safe_join"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fixed_3_1_12",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/admindocs_views_3.1.12.py",
+      "source_url": "https://github.com/django/django/blob/625d3c1c643b0eb5c84339415ca0ba9f1728efa2/django/contrib/admindocs/views.py#L333",
+      "retrieved_at": "2026-10-22T03:45:00Z",
+      "sha256_of_observation": "4b24b9799939caff8c0ed1e287dea65cf0b59aec5cb224569410bfbb45a38186",
+      "verification_method": "file read at the 3.1.12 commit",
+      "result": "PASS",
+      "supports": [
+        "from django.utils._os import safe_join at line 19",
+        "template_file = Path(safe_join(directory, template)) at line 333",
+        "the read into template_contents is otherwise unchanged"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fixed_3_2_4",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/admindocs_views_3.2.4.py",
+      "source_url": "https://github.com/django/django/blob/843c34b3ab921c1acf77ee2014a97bc7975595b8/django/contrib/admindocs/views.py#L333",
+      "retrieved_at": "2026-10-22T03:45:00Z",
+      "sha256_of_observation": "4b24b9799939caff8c0ed1e287dea65cf0b59aec5cb224569410bfbb45a38186",
+      "verification_method": "file read at the 3.2.4 commit",
+      "result": "PASS",
+      "supports": [
+        "from django.utils._os import safe_join at line 19",
+        "template_file = Path(safe_join(directory, template)) at line 333",
+        "the 3.2.4 file is byte-identical to the 3.1.12 file, so the same fix is present on both branches"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_regression_test",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/test_admin_docs_3.1.12.py",
+      "source_url": "https://github.com/django/django/blob/625d3c1c643b0eb5c84339415ca0ba9f1728efa2/tests/admin_docs/test_views.py#L139-L154",
+      "retrieved_at": "2026-10-22T03:45:00Z",
+      "sha256_of_observation": "c2bb6688ef837f6d8f057e1d6bbbe6d464c0d97fc292c2016595b6acb2e364fb",
+      "verification_method": "file read at the 3.1.12 commit",
+      "result": "PASS",
+      "supports": [
+        "AdminDocViewDefaultEngineOnly.test_template_detail_path_traversal uses cases ['/etc/passwd', '../passwd'] and asserts status 400 (lines 139-154)",
+        "the test logs in a superuser, confirming the staff-only precondition",
+        "the 3.0.2 test file has no path_traversal test (grep returns only test_template_detail)"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_urls",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/admindocs_urls_3.0.2.py",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admindocs/urls.py#L45-L49",
+      "retrieved_at": "2026-10-22T03:45:00Z",
+      "sha256_of_observation": "cdd1da57ad3224c8ee2ea3bdc54d07fa3ee1cf53e64ac7a9116640d861fe788d",
+      "verification_method": "file read at the 3.0.2 commit",
+      "result": "PASS",
+      "supports": [
+        "route 'templates/<path:template>/' maps to views.TemplateDetailView at lines 45-49",
+        "the <path:...> converter accepts slashes and a leading slash in the captured value"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fix_patch_3_1",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/fix_commit_20c67a06_3.1.patch",
+      "source_url": "https://github.com/django/django/commit/20c67a0693c4ede2b09af02574823485e82e4c8f",
+      "retrieved_at": "2026-10-22T03:35:00Z",
+      "sha256_of_observation": "42da30c4e51a5eadd57ef4e233bd16c2b5cf0083ead132252606d89047b92fcf",
+      "verification_method": "git diff aa8781c0 20c67a06 in the local mirror (parent taken from cat-file -p)",
+      "result": "PASS",
+      "supports": [
+        "adds `from django.utils._os import safe_join`",
+        "replaces Path(directory) / template with Path(safe_join(directory, template))",
+        "adds the CVE-2021-33203 release-note section for 2.2.24 and 3.1.12",
+        "adds test_template_detail_path_traversal asserting 400 for '/etc/passwd' and '../passwd'"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fix_patch_3_2",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/fix_commit_dfaba12c_3.2.patch",
+      "source_url": "https://github.com/django/django/commit/dfaba12cda060b8b292ae1d271b44bf810b1c5b9",
+      "retrieved_at": "2026-10-22T03:35:00Z",
+      "sha256_of_observation": "db23dd43e7af7fd0032a7645cb1a95c53bbb588278aeea5e3200cdf1919820a5",
+      "verification_method": "git diff aed14095 dfaba12c in the local mirror (parent taken from cat-file -p)",
+      "result": "PASS",
+      "supports": [
+        "the same views.py change on the 3.2 branch",
+        "adds the release-note section to 2.2.24, 3.1.12 and 3.2.4",
+        "adds the same regression test"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_unfixed_3_0_14",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/admindocs_views_3.0.14.py",
+      "source_url": "https://github.com/django/django/blob/f52800243545af658c27f83623b5fc72ae6b8dcf/django/contrib/admindocs/views.py#L331",
+      "retrieved_at": "2026-10-22T04:02:00Z",
+      "sha256_of_observation": "de9d6e478af41a06b505fb155f6bf669f575f577bf54e4b04e3f4117e7bdb307",
+      "verification_method": "file read at the 3.0.14 commit",
+      "result": "PASS",
+      "supports": [
+        "3.0.14 (last 3.0.x release, 2021-04-06) admindocs/views.py is byte-identical to 3.0.2",
+        "the vulnerable Path(directory) / template is still at line 331",
+        "the 3.0.x line never received the fix; the first fixed releases are 3.1.12 and 3.2.4"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_test_3_0_2",
+      "artifact_path": "runs/verification/django_cve_2021_33203/sources/test_admin_docs_3.0.2.py",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/tests/admin_docs/test_views.py#L106-L108",
+      "retrieved_at": "2026-10-22T03:45:00Z",
+      "sha256_of_observation": "8f709ce7ff33bd9a528f5c4f488d06aea897c3172f1fa6451afda7431113caaf",
+      "verification_method": "file read at the 3.0.2 commit",
+      "result": "PASS",
+      "supports": [
+        "the 3.0.2 test file has test_template_detail at lines 106-108 but no path-traversal test",
+        "no test asserts a 400 for an out-of-tree template path at 3.0.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_snapshot",
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "retrieved_at": "2026-10-21T14:17:32Z",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_ab695ba3db678939, tag_or_release 3.0.2, vulnerable_commit a3697439",
+        "6163 tracked files scanned, git tree oid ec5992e4",
+        "Python first-party 815 files / 4,480,847 bytes / 15.24% share"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [1, 0, 2],
+    "aliases": [0, 1],
+    "critical_operation": [4, 8],
+    "cwe": [0, 2],
+    "fix_commits": [3, 9, 10],
+    "fixed_releases": [3, 5, 6],
+    "languages": [13],
+    "severity": [0, 2],
+    "vulnerable_commit": [3, 4, 13]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-68w8-qjq3-2gfm and CVE-2021-33203, PyPI ranges)",
+      "CVE List v5 MITRE record",
+      "NVD analysis (Primary CVSS 3.1 and CWE-22)",
+      "upstream git history (tags 3.0.2-3.2.4, fixes 20c67a06/dfaba12c/053cc953)"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA (mitre) gives the affected versions and the description but no CVSS and no CWE. NVD supplies its own Primary CVSS 3.1 4.9 MEDIUM and CWE-22, so it is an independent assessment rather than a mirror. OSV/GHSA repeats the 3.1 vector, adds a CVSS 4.0 vector, severity MODERATE and the same CWE. All published severity levels are MEDIUM/MODERATE (4.9); no level conflict. The git evidence matches the advisory ranges: 3.0.2 and 3.0.14 carry the vulnerable blob, 3.1.12 and 3.2.4 carry the fixed blob and the fix commits are ancestors of their release commits.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read django/contrib/admindocs/views.py at 3.0.2 and confirm line 331 joins the URL-derived template path onto the template directory without safe_join.",
+      "An independent reviewer must confirm the <path:template> route supplies an unsanitized value and that the following exists()/read exposes arbitrary file existence (and contents with a customized template).",
+      "An independent reviewer must confirm 20c67a06/dfaba12c are the fixes, that they are ancestors of 3.1.12/3.2.4, and that 3.0.14 is still unfixed.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No code was executed: the traversal is read from the pathlib join and the fix, not reproduced, and no HTTP request was made.",
+    "django.contrib.admindocs is an optional application and BaseAdminDocsView.dispatch requires a staff account (staff_member_required at views.py:33); projects without admindocs installed or without a staff user are not exposed.",
+    "The stock admin_doc/template_detail.html renders only template.file and the exists flag, so with unmodified templates the impact is file-existence disclosure; content disclosure requires the customized template described in the advisory.",
+    "Only 3.1.12 and 3.2.4 were content-verified as fixed; the 2.2.24 fix (053cc953) is recorded from the advisory/OSV and was not content-verified here.",
+    "The 3.0.x line never received a fixed release (3.0.14 still carries blob 0474c38f), so users of this snapshot must upgrade to 3.1.12/3.2.4 or later; the dataset records the flaw at 3.0.2 without a same-line fixed release.",
+    "The CNA record carries no CVSS or CWE; severity and CWE rest on NVD (Primary) and GHSA, which agree.",
+    "The advisory gives no reporter or reproduction reference, so no independent reproduction is available and grade A is not attainable."
+  ],
+  "open_questions": [
+    "Whether the Django exception handler in every supported deployment maps SuspiciousFileOperation to 400 (the regression test asserts 400, which implies it in the test settings) was not verified outside the test.",
+    "The advisory does not enumerate which customized admin templates would render contents; that exposure depends on the project's own template.",
+    "Whether the 2.2.24 fix is byte-equivalent to the 3.1.12/3.2.4 fix was not content-verified; only the 3.1/3.2 trees were read."
+  ]
+}

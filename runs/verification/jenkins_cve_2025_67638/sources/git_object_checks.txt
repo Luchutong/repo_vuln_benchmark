@@ -1,0 +1,99 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; master fix 4710d653 and LTS fix c3d776a4 (both
+"[SECURITY-783]"), and the release tags jenkins-2.541 / jenkins-2.528.3 were fetched
+with --depth=5. The 2.541 history was later deepened
+(`git fetch --deepen=80 gh refs/tags/jenkins-2.541`) because
+`git merge-base --is-ancestor 4710d653 ea9c7278` returned exit 1 against the depth-5
+shallow boundary, a false negative: after deepening, the same check returns exit 0
+and `git log ea9c7278` shows 4710d653 in the release ancestry.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly'
+  5603d9d8f2c6079a10f0ae0351506e83cc8b1b08     (2223 bytes, 48 lines)
+  $ git rev-parse 'jenkins-2.441:core/src/main/resources/lib/hudson/project/config-trigger.jelly'
+  9d3651d6e1a2048fae440cf695b1b2d1e5a2d4c6
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/BuildAuthorizationToken.java'
+  f101eb3d6e7466b2073baa079891942d7a0c3341     (4216 bytes, 114 lines)
+
+Vulnerable code at 2.441:
+  config-trigger.jelly (job configuration form, Build Triggers section):
+    39      <!-- pseudo-trigger to configure URL to trigger builds remotely. -->
+    40      <st:include page="/hudson/model/BuildAuthorizationToken/config.jelly" />
+  BuildAuthorizationToken/config.jelly (blob 5603d9d8):
+    37        <f:entry title="${%Authentication Token}">
+    38          <f:textbox name="authToken" value="${it.authToken.token}" />
+  `it.authToken` is an AbstractProject field (AbstractProject.java:228) and
+  getToken() returns the stored String verbatim (BuildAuthorizationToken.java
+  94-96, field `private final String token;` at 49), so the job configuration form
+  renders the build authorization token in clear text in an ordinary text input.
+  f:textbox is a plain <input type="text">; nothing masks or conceals the value,
+  so anyone able to see the configuration page - a shoulder surfer, a screen
+  share or recording, a browser extension or autofill/credential manager that
+  captures form fields - can read the token, which is the only secret needed to
+  trigger builds remotely.
+
+Fix commits:
+  $ git show -s --format='%H %P | %ci | %s' 4710d653 c3d776a4
+  4710d65339251aaf1d1599f19545db99be24d981 1366fa95dfff89ee0261b1db0fb4f28dcdbeee33 | 2025-12-02 13:46:01 +0000 | [SECURITY-783]  (master)
+  c3d776a4d4b5c517ee469a6c0d9b651774eb6a92 <parent outside shallow boundary> | 2025-11-26 08:56:19 +0000 | [SECURITY-783]  (2.528.x LTS)
+  Both change config.jelly to:
+    38          <f:password name="authToken" value="${it.authToken.encryptedToken}" />
+    39          <div class="clearfix"/><!-- f:password in readOnlyMode only has a span, not a div, so the following text would be on the same line as "****" -->
+  The control is now a password control fed with the encrypted Secret rather than
+  the plaintext String. At 2.441, lib/form/password.jelly renders readOnlyMode value
+  as "****" (line 67) and otherwise resolves the value through
+  h.getPasswordValue (line 76) with hidingPasswordFields enabled by default
+  (Functions.java 418-421); getPasswordValue masks with "********" when the
+  current user lacks Item/CONFIGURE (Functions.java 2150-2163) and otherwise
+  returns the Secret's encrypted value (2166-2168), so the plaintext is no longer
+  placed in the page.
+  File blob: config.jelly is 97b16ee0 at both fix commits and at both release tags.
+  Regression coverage: BuildAuthorizationTokenMigrationTest (added by the same
+  commit) exercises the config.xml storage/redaction side; it asserts the clear
+  <authToken> value is replaced by the encrypted value and that GET config.xml
+  returns <authToken>********</authToken> for a user without CONFIGURE. It does
+  not drive the configuration form's password control itself.
+
+Fixed releases:
+  Jenkins 2.541 (weekly): tag jenkins-2.541, release commit
+    ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3 (parent efa18163).
+  Jenkins 2.528.3 (LTS): tag jenkins-2.528.3, release commit
+    40e29179c3edf88b685d7043ab7c37cc8591138f (parent 92b61576).
+  $ git merge-base --is-ancestor 4710d653 ea9c7278 -> exit 0 (after --deepen)
+  $ git merge-base --is-ancestor c3d776a4 40e29179 -> exit 0
+
+Affected range:
+  CNA record: Jenkins 2.540 and earlier, LTS 2.528.2 and earlier; unaffected from
+  2.541 (weekly) and 2.528.3 (LTS), defaultStatus affected.
+  OSV CVE GIT range: introduced 0 -> fixed 40e29179 (2.528.3) and ea9c7278 (2.541).
+  The GHSA ECOSYSTEM weekly range is introduced 2.529 -> fixed 2.541, which conflicts
+  with the CNA text and with the CVE GIT range; the LTS range is 0 -> 2.528.3.
+  Snapshot 2.441 is inside the CNA/GIT affected range.
+
+Related sibling (kept separate, see advisory):
+  SECURITY-783 is also the subject of CVE-2025-67637 (the token is stored
+  unencrypted in job config.xml); this dossier covers only the unmasked display on
+  the job configuration form, which is CVE-2025-67638. Both are fixed by the same
+  commits 4710d653 / c3d776a4, which change both the Java type and the Jelly view.
+
+Public records:
+  CVE List v5 CVE-2025-67638, state PUBLISHED, datePublished 2025-12-10,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE. Description:
+  Jenkins 2.540 and earlier, LTS 2.528.2 and earlier does not mask build
+  authorization tokens displayed on the job configuration form, increasing the
+  potential for attackers to observe and capture them.
+  CISA-ADP (Secondary) metrics: CVSS 3.1 4.3 MEDIUM
+  CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N and CWE-312.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), CWE-312 from the same source; no Primary metric.
+  OSV/GHSA-hxjg-2jvf-h3rx: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-312].
+  Jenkins advisory 2025-12-10: https://www.jenkins.io/security/advisory/2025-12-10/
+  #SECURITY-783.
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

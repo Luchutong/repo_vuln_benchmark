@@ -1,0 +1,291 @@
+{
+  "candidate_id": "disc2_c9c0e971dae74f19daaafce3",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_21295/sources/osv_ghsa.json",
+      "evidence_id": "ev_netty_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:40:00Z",
+      "sha256_of_observation": "4397e5e42de199c31154ee28fa9ff84345776df359918d71c2bbdea991c338db",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-wm47-8v5p-wjpj",
+      "supports": [
+        "aliases",
+        "affected range 4.0.0-4.1.60.Final",
+        "fixed version 4.1.60.Final",
+        "CVSS vector",
+        "fix commit reference"
+      ],
+      "verification_method": "OSV API query for Maven io.netty:netty-codec-http2, response cached"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_21295/sources/cve_v5.json",
+      "evidence_id": "ev_netty_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:40:00Z",
+      "sha256_of_observation": "419d730ef00f67c0ecbf197d510616eb862c78914ca7c06700d5bfbf32195f95",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-21295",
+      "supports": [
+        "title",
+        "CWE-444",
+        "CVSS 3.1 5.9 MEDIUM",
+        "published date",
+        "fix commit reference"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner GitHub_M)"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_21295/sources/nvd_cve.json",
+      "evidence_id": "ev_netty_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:40:00Z",
+      "sha256_of_observation": "658f4129c1f595cc645b6f40b333e8a2db2ae39d9ec328f03ad1551e18132234",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-21295",
+      "supports": [
+        "NVD primary CVSS 3.1 5.9 MEDIUM (same vector as CNA)",
+        "description of request smuggling",
+        "published date"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_21295/sources/git_object_checks.txt",
+      "evidence_id": "ev_netty_fix_commit",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:41:00Z",
+      "sha256_of_observation": "0fe2d3d5f4d8e8d45aa37edfb4aab91985c4b2a67df66aa34485a9c4250e697b",
+      "source_url": "https://github.com/netty/netty/commit/89c241e3b1795ff257af4ad6eadc616cb2fb3dc4",
+      "supports": [
+        "fix commit",
+        "fix is an ancestor of 4.1.60.Final",
+        "changed files and added validation"
+      ],
+      "verification_method": "exact-SHA shallow fetch; patch vs first parent inspected; GitHub compare against tag 4.1.60 commit"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_21295/sources/DefaultHttp2ConnectionDecoder_4.1.59.java",
+      "evidence_id": "ev_netty_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:41:00Z",
+      "sha256_of_observation": "154bb04fdd7874aa545591b53f7b854223c6956ebc684ebb8866704b66dcf4ea",
+      "source_url": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java#L231-L379",
+      "supports": [
+        "root-cause region",
+        "onDataRead and onHeadersRead without content-length validation",
+        "no contentLengthKey or verifyContentLength"
+      ],
+      "verification_method": "file read from the exact 4.1.59.Final tag commit"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_21295/sources/DefaultHttp2ConnectionDecoder_4.1.60.java",
+      "evidence_id": "ev_netty_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:41:00Z",
+      "sha256_of_observation": "6087c0c72646c410e81446e84b8b55662a67fd73cdff1f65cc0fc300a9bd9427",
+      "source_url": "https://github.com/netty/netty/blob/eef26e8bb571612b76235841a84f605b9ae5d777/codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java#L234-L415",
+      "supports": [
+        "fixed release content",
+        "verifyContentLength added at 234 and called at 314 and 415",
+        "content-length normalized and stored at 404"
+      ],
+      "verification_method": "file read at the 4.1.60.Final tag commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_bb344e672a0544ef/snapshot_proposal.json",
+      "evidence_id": "ev_netty_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:42:00Z",
+      "sha256_of_observation": "0a93c1d8e946234d6d1ceaf75c88697f0d3b6053077f3d1e0b5d89410f7509e8",
+      "source_url": "https://github.com/netty/netty/tree/97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+      "supports": [
+        "snapshot_id",
+        "Java first-party share 60.98%",
+        "tree oid 218ab49e",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 3117 tracked files, enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      1
+    ],
+    "fix_commits": [
+      0,
+      3
+    ],
+    "fixed_releases": [
+      5,
+      3
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      3
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "Location was established by static reading; no HTTP/2-to-HTTP/1 desynchronization was reproduced.",
+    "Exploitability depends on a deployment that translates HTTP/2 to HTTP/1 and reuses the backend connection; the advisory describes the general risk, not a specific deployment.",
+    "Only the netty-codec-http2 module was read; the org.jboss.netty:netty and io.netty:netty aggregate ranges from OSV were not individually verified."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "stream.headersReceived(isInformational);\nencoder.flowController().updateDependencyTree(streamId, streamDependency, weight, exclusive);\n\nlistener.onHeadersRead(ctx, streamId, headers, streamDependency, weight, exclusive, padding, endOfStream);\n\n// If the headers completes this stream, close it.\nif (endOfStream) {\n    lifecycleManager.closeStreamRemote(stream, ctx.newSucceededFuture());\n}",
+      "description": "This region is the HTTP/2 request read path. onDataRead forwards DATA payloads to the listener without comparing the received byte count to any declared Content-Length, and onHeadersRead forwards HEADERS without normalizing or storing Content-Length. RFC 7540 section 8.1.2.6 requires that mismatch to be treated as a stream error. Without it, a front-end that translates HTTP/2 to HTTP/1 can be desynchronized from the backend, enabling request smuggling. The fix adds per-stream ContentLength tracking, verifyContentLength on DATA and end-of-headers, and HttpUtil.normalizeAndGetContentLength.",
+      "file": "codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java",
+      "function": "onDataRead / onHeadersRead",
+      "language": "Java",
+      "line": "231-379",
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java#L370-L379"
+    },
+    "entry_point": {
+      "description": "Inbound HTTP/2 HEADERS frames are accepted and forwarded without parsing or recording a Content-Length header.",
+      "file": "codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java",
+      "function": "onHeadersRead",
+      "language": "Java",
+      "line": 325,
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java#L325-L379"
+    },
+    "location_id": "loc_GHSA_wm47_8v5p_wjpj_snap_bb344e672a0544ef",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "trace": [
+      {
+        "description": "DATA bytes handed to the listener with no Content-Length comparison",
+        "file": "codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java",
+        "function": "onDataRead",
+        "language": "Java",
+        "line": 292,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java#L292"
+      },
+      {
+        "description": "HEADERS forwarded without extracting Content-Length",
+        "file": "codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java",
+        "function": "onHeadersRead",
+        "language": "Java",
+        "line": 370,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http2/src/main/java/io/netty/handler/codec/http2/DefaultHttp2ConnectionDecoder.java#L370-L373"
+      }
+    ],
+    "verification_method": "Static read of DefaultHttp2ConnectionDecoder.java at the exact 4.1.59.Final commit 97d044812dc84288ea2c44c0862c5b1c26cb5b2d, diffed against fix commit 89c241e3b1795ff257af4ad6eadc616cb2fb3dc4 and tag 4.1.60.Final. No code executed.",
+    "vulnerability_id": "GHSA-wm47-8v5p-wjpj"
+  },
+  "open_questions": [
+    "Whether a Content-Length mismatch raises a stream error for all frame orderings was not dynamically tested.",
+    "The exact commit ordering between the security merge and the 4.1.60.Final tag is recorded from GitHub compare (ahead 5), not from a local full-history merge-base."
+  ],
+  "prepared_at": "2026-10-21T14:44:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/netty/netty",
+    "full_name": "netty/netty",
+    "license": "Apache-2.0",
+    "primary_language": "Java",
+    "project_kind": "library",
+    "repo_id": "1064563",
+    "snapshot_id": "snap_bb344e672a0544ef"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read the decoder at 4.1.59 and confirm there is no Content-Length validation.",
+      "An independent reviewer must confirm 4.1.60.Final contains verifyContentLength and that the fix commit is an ancestor of the tag.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA + OSV)",
+      "CVE List v5 CNA record (assigner GitHub_M)",
+      "NVD analysis"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA and NVD agree on CWE-444, the 4.0.0-4.1.60.Final range and the 5.9 vector. OSV additionally lists org.jboss.netty:netty and io.netty:netty as introduced-0 without a fixed version; this dossier records the netty-codec-http2 range because that is the module whose source was verified. The advisory fix commit is a merge commit from a private security branch; the change set was verified against its first parent."
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/netty/netty/security/advisories/GHSA-wm47-8v5p-wjpj",
+    "affected_packages": [
+      {
+        "affected_range": ">=4.0.0, <4.1.60.Final",
+        "ecosystem": "Maven",
+        "package": "io.netty:netty-codec-http2",
+        "purl": "pkg:maven/io.netty/netty-codec-http2"
+      }
+    ],
+    "aliases": [
+      "GHSA-wm47-8v5p-wjpj",
+      "CVE-2021-21295",
+      "BIT-zookeeper-2021-21295"
+    ],
+    "category_l1": "injection",
+    "category_l2": "HTTP request smuggling",
+    "cwe_ids": [
+      "CWE-444"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "Merge pull request from GHSA-wm47-8v5p-wjpj",
+        "sha": "89c241e3b1795ff257af4ad6eadc616cb2fb3dc4",
+        "url": "https://github.com/netty/netty/commit/89c241e3b1795ff257af4ad6eadc616cb2fb3dc4"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "io.netty:netty-codec-http2",
+        "release_url": "https://github.com/netty/netty/releases/tag/netty-4.1.60.Final",
+        "tag": "netty-4.1.60.Final",
+        "verified_content": "At the 4.1.60.Final commit the decoder records the normalized Content-Length per stream and calls verifyContentLength on data frames and end-of-headers; 4.1.59.Final has neither",
+        "version": "4.1.60.Final"
+      }
+    ],
+    "published_at": "2021-03-09T18:35:19Z",
+    "references": [
+      "https://github.com/netty/netty/security/advisories/GHSA-wm47-8v5p-wjpj",
+      "https://github.com/netty/netty/commit/89c241e3b1795ff257af4ad6eadc616cb2fb3dc4",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-21295",
+      "https://github.com/Netflix/zuul/pull/980"
+    ],
+    "repo_id": "1064563",
+    "severity": {
+      "level": "medium",
+      "numeric_level_rationale": "CVSS 3.1 numeric 5.9 falls in Medium (4.0-6.9).",
+      "score": 5.9,
+      "source": "GitHub_M CNA metric; NVD primary carries the identical vector and score",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-21295",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "source_type": "upstream_advisory",
+    "title": "Possible request smuggling in HTTP/2 due to missing Content-Length validation",
+    "vulnerability_id": "GHSA-wm47-8v5p-wjpj",
+    "vulnerable_commit": "97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+    "vulnerable_commit_basis": "annotated tag netty-4.1.59.Final (tag object da69023f) peels to commit 97d04481...; 4.1.59.Final is inside >=4.0.0,<4.1.60.Final",
+    "vulnerable_version": "4.1.59.Final"
+  }
+}

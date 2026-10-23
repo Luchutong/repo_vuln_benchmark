@@ -1,0 +1,371 @@
+{
+ "candidate_id": "disc2_bb6f682c14ef0633261e94dc",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T06:30:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "1420053",
+  "full_name": "guzzle/guzzle",
+  "canonical_url": "https://github.com/guzzle/guzzle",
+  "primary_language": "PHP",
+  "project_kind": "extensible PHP HTTP client",
+  "snapshot_id": "snap_efe695448113758a"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2022-31091",
+  "aliases": [
+   "CVE-2022-31091",
+   "GHSA-q559-8m2m-g699"
+  ],
+  "title": "Guzzle treats a redirect to the same host on a different port as same-origin and forwards Authorization and Cookie headers",
+  "repo_id": "1420053",
+  "snapshot_id": "snap_efe695448113758a",
+  "vulnerable_commit": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "guzzlehttp/guzzle",
+    "purl": "pkg:composer/guzzlehttp/guzzle",
+    "affected_range": ">=7.0,<7.4.5"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "guzzlehttp/guzzle",
+    "purl": "pkg:composer/guzzlehttp/guzzle",
+    "affected_range": ">=6.0,<6.5.8",
+    "note": "The 6.x branch was fixed in 6.5.8; the 6.5.8 tag is not present in the local mirror, so that fixed release is recorded from the CNA/NVD/OSV range and was not diffed."
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "guzzlehttp/guzzle",
+    "version": "7.4.5",
+    "tag": "7.4.5",
+    "release_url": "https://github.com/guzzle/guzzle/releases/tag/7.4.5",
+    "verified_content": "At 7.4.5 RedirectMiddleware uses Psr7\\UriComparator::isCrossOrigin() for both header stripping and curl credential removal, and requires psr7 ^1.9 || ^2.4 which provides that comparator"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+    "branch": "7.4",
+    "message": "Release 7.4.5",
+    "url": "https://github.com/guzzle/guzzle/commit/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-200"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N",
+   "score": 7.7,
+   "level": "high",
+   "numeric_level_rationale": "CNA, NVD Primary, NVD Secondary and GHSA/OSV all publish CVSS 3.1 7.7 High with the same vector; NVD additionally publishes a legacy CVSS 2.0 score of 4.0 Medium, which is a metric-version difference, not a conflict within CVSS 3.1.",
+   "source": "GitHub_M CNA and nvd@nist.gov (NVD Primary), both CVSS 3.1 7.7 High",
+   "source_url": "https://github.com/guzzle/guzzle/security/advisories/GHSA-q559-8m2m-g699",
+   "all_published_scores": [
+    {
+     "version": "3.1",
+     "score": 7.7,
+     "level": "high",
+     "source": "GitHub_M CNA",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.7,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary) and security-advisories@github.com (NVD Secondary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N"
+    },
+    {
+     "version": "2.0",
+     "score": 4.0,
+     "level": "medium",
+     "source": "nvd@nist.gov (NVD Primary, legacy CVSSv2)",
+     "vector": "AV:N/AC:L/Au:S/C:P/I:N/A:N"
+    }
+   ],
+   "ghsa_label_note": "GHSA/OSV labels the issue HIGH and publishes the same CVSS 3.1 vector."
+  },
+  "category_l1": "sensitive_data_exposure",
+  "category_l2": "Redirect handling: the same-origin test compares host and scheme but ignores the port, so credentials survive a redirect to another service on the same host",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/guzzle/guzzle/security/advisories/GHSA-q559-8m2m-g699",
+  "published_at": "2022-06-20T00:00:00Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://github.com/guzzle/guzzle/security/advisories/GHSA-q559-8m2m-g699",
+   "https://github.com/guzzle/guzzle/commit/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+   "https://nvd.nist.gov/vuln/detail/CVE-2022-31091",
+   "https://github.com/guzzle/guzzle/releases/tag/7.4.5"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2022-31091_snap_efe695448113758a",
+  "vulnerability_id": "CVE-2022-31091",
+  "snapshot_id": "snap_efe695448113758a",
+  "location_kind": "logic",
+  "file": "src/RedirectMiddleware.php",
+  "function": "RedirectMiddleware::modifyRequest",
+  "language": "PHP",
+  "line": 202,
+  "critical_operation": {
+   "code_excerpt": "        // Remove Authorization and Cookie headers if required.\n        if (self::shouldStripSensitiveHeaders($request->getUri(), $modify['uri'])) {\n            $modify['remove_headers'][] = 'Authorization';\n            $modify['remove_headers'][] = 'Cookie';\n        }",
+   "description": "modifyRequest() builds the follow-up request for a redirect and calls shouldStripSensitiveHeaders() to decide whether to drop Authorization and Cookie. That helper returns true on a host difference (line 222) or on an https->http downgrade (line 226); it never calls getPort(), so a redirect from https://host:8443/ to https://host:9443/ is treated as same-origin and the victim's Authorization and Cookie headers are forwarded to whatever service listens on the other port. The same-origin notion is also incomplete on a second, separate site: checkRedirect() unsets curl-managed credentials (CURLOPT_HTTPAUTH/CURLOPT_USERPWD) only when the host differs (line 92), so it misses both scheme and port changes there. The 7.4.5 fix replaces both tests with Psr7\\UriComparator::isCrossOrigin(), which compares host, scheme and port (CWE-200).",
+   "file": "src/RedirectMiddleware.php",
+   "function": "RedirectMiddleware::modifyRequest",
+   "language": "PHP",
+   "line": 202,
+   "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L202"
+  },
+  "entry_point": {
+   "description": "A Guzzle client follows a redirect issued by a server to the same host but a different port; the follow-up request carries the original Authorization and Cookie headers.",
+   "file": "src/RedirectMiddleware.php",
+   "function": "RedirectMiddleware::checkRedirect",
+   "language": "PHP",
+   "line": 80,
+   "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L80"
+  },
+  "trace": [
+   {
+    "description": "checkRedirect() computes nextRequest from the Location header",
+    "file": "src/RedirectMiddleware.php",
+    "function": "RedirectMiddleware::checkRedirect",
+    "language": "PHP",
+    "line": 89,
+    "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L89"
+   },
+   {
+    "description": "curl-managed credentials are unset only on host change",
+    "file": "src/RedirectMiddleware.php",
+    "function": "RedirectMiddleware::checkRedirect",
+    "language": "PHP",
+    "line": 92,
+    "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L92"
+   },
+   {
+    "description": "sensitive headers are stripped only if shouldStripSensitiveHeaders() returns true",
+    "file": "src/RedirectMiddleware.php",
+    "function": "RedirectMiddleware::modifyRequest",
+    "language": "PHP",
+    "line": 202,
+    "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L202"
+   },
+   {
+    "description": "the helper compares host and scheme but never port",
+    "file": "src/RedirectMiddleware.php",
+    "function": "RedirectMiddleware::shouldStripSensitiveHeaders",
+    "language": "PHP",
+    "line": 218,
+    "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L218"
+   }
+  ],
+  "verification_method": "Static read of RedirectMiddleware.php at 7.4.4 and 7.4.5, the release patch and git ancestry; no HTTP client or redirect flow was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/cve_v5.json",
+   "evidence_id": "ev_guzzle_31091_cve",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "347d6a28b6ee06e4d3f69f6948fe9e44fbddcbf2151662d1a42c01de568376cb",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-31091",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M",
+    "CNA description: on a redirect to the same host but a different port, Authorization and Cookie headers are not removed",
+    "CNA CVSS 3.1 7.7 HIGH AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N",
+    "CNA problemTypes CWE-200",
+    "affected Guzzle before 7.4.5"
+   ],
+   "verification_method": "CVE List v5 CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/nvd_cve.json",
+   "evidence_id": "ev_guzzle_31091_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "b5875a1115cb180ecc5c884adec28998786f54911969eb35c7913cb0fbfd7efd",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-31091",
+   "supports": [
+    "NVD Primary CVSS 3.1 7.7 HIGH from nvd@nist.gov with the same vector",
+    "NVD Secondary CVSS 3.1 7.7 HIGH from security-advisories@github.com",
+    "published 2022-06-27"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/osv_ghsa.json",
+   "evidence_id": "ev_guzzle_31091_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "95d8e7b0f48cf75af7ddaf374934d32832ff8a4ed94e1d88d465f9054076209d",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-q559-8m2m-g699",
+   "supports": [
+    "GHSA-q559-8m2m-g699 aliases CVE-2022-31091, github_reviewed, database severity HIGH",
+    "cwe_ids CWE-200, CVSS 3.1 7.7 HIGH vector identical to the CNA",
+    "details: a change in port must be treated as a change in origin so Authorization and Cookie are stripped on redirect",
+    "references name fix commit 1dd98b05 and fixed release 7.4.5"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/ghsa.html",
+   "evidence_id": "ev_guzzle_31091_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "0a91332efda82ffdd28b6a30c540ecd5c82df0e11ca1991ea1ebd69a7998b657",
+   "source_url": "https://github.com/guzzle/guzzle/security/advisories/GHSA-q559-8m2m-g699",
+   "supports": [
+    "upstream advisory states Authorization and Cookie are sensitive and must be removed when the redirect changes port",
+    "it notes the earlier 7.4.2 partial fix covered only host changes",
+    "it directs Guzzle 7 users to upgrade to 7.4.5"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/RedirectMiddleware_7.4.4.php",
+   "evidence_id": "ev_guzzle_31091_vuln_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "2120cecae06107a1121e7f1197f0f3ca25c4d3450ee7297a864516eb67695d93",
+   "source_url": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L202",
+   "supports": [
+    "line 202 calls shouldStripSensitiveHeaders() before following the redirect",
+    "lines 218-231 return false when only the port changes",
+    "line 222 compares hosts case-insensitively and line 226 compares schemes, but getPort() is never consulted",
+    "line 92 unsets curl HTTPAUTH credentials only when the host differs"
+   ],
+   "verification_method": "file read at snapshot commit e3ff079b (7.4.4)"
+  },
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/RedirectMiddleware_7.4.5.php",
+   "evidence_id": "ev_guzzle_31091_fixed_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "7477e88573346851ae36ce1d1f518eeb19630d91a9351b60ca5354a885e0b878",
+   "source_url": "https://github.com/guzzle/guzzle/blob/7.4.5/src/RedirectMiddleware.php#L200",
+   "supports": [
+    "line 200 strips Authorization and Cookie when Psr7\\UriComparator::isCrossOrigin() is true",
+    "line 92 uses the same cross-origin predicate before unsetting curl HTTPAUTH credentials",
+    "isCrossOrigin() from psr7 1.9/2.4 compares host, scheme and port"
+   ],
+   "verification_method": "file read at release tag 7.4.5 (1dd98b05)"
+  },
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/fix_commit.patch",
+   "evidence_id": "ev_guzzle_31091_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "fc596de60af27ed4c7fc84c4e908258d60db77af91712bd83890a8042bbf0d3b",
+   "source_url": "https://github.com/guzzle/guzzle/commit/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+   "supports": [
+    "the patch replaces shouldStripSensitiveHeaders() with UriComparator::isCrossOrigin()",
+    "it replaces the host-only curl credential condition with the same cross-origin test",
+    "it raises the psr7 requirement to ^1.9 || ^2.4 and adds redirect tests for port and scheme changes"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/guzzle_cve_2022_31091/sources/git_object_checks.txt",
+   "evidence_id": "ev_guzzle_31091_git",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:30:00Z",
+   "sha256_of_observation": "76e11dbc4f8646dabcdb2e505e629fe2a5a9a077290240310b559ec9392dec41",
+   "source_url": "https://github.com/guzzle/guzzle/commit/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+   "supports": [
+    "snapshot commit e3ff079b is the 7.4.4 tree",
+    "fix 1dd98b05 is not an ancestor of 7.4.4 (merge-base exit 1)",
+    "fix 1dd98b05 is the 7.4.5 release commit and tag 7.4.5 contains it",
+    "the 7.4.4 source has no getPort() check in the strip predicate"
+   ],
+   "verification_method": "git log/merge-base/tag with local bare mirror"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   4,
+   6
+  ],
+  "cwe": [
+   0,
+   2
+  ],
+  "fix_commits": [
+   2,
+   6,
+   7
+  ],
+  "fixed_releases": [
+   2,
+   3,
+   5,
+   6,
+   7
+  ],
+  "languages": [
+   4,
+   5
+  ],
+  "severity": [
+   0,
+   1,
+   2
+  ],
+  "vulnerable_commit": [
+   7
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on the port-not-compared defect, the 7.x range ending at 7.4.5 and CVSS 3.1 7.7 High. The CNA/NVD affected range also covers the 6.x branch below 6.5.8. The CNA description says the earlier 7.4.2 fix did not cover scheme or port; independently, at 7.4.4 the header-stripping predicate already handled the https->http downgrade, while the curl-managed-credentials path still compared host only, so the fixed commit closes two related but distinct sites. CWE-200 is stated by the CNA and OSV; NVD publishes NVD-CWE-noinfo, i.e. it does not classify rather than contradicting.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read RedirectMiddleware::modifyRequest()/shouldStripSensitiveHeaders() at 7.4.4 and confirm the port is not compared.",
+   "An independent reviewer must confirm 1dd98b05 is not an ancestor of 7.4.4 and is the 7.4.5 release containing the UriComparator change.",
+   "An independent reviewer must confirm the affected range and the 7.4.5 fixed release, including the psr7 dependency bump.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "independent_corrections_accepted": [
+   "The reviewer supplied the 6.x <6.5.8 range the dossier had omitted; recorded as a second affected range with the verification gap noted.",
+   "The reviewer clarified that at 7.4.4 the header path already stripped on https->http, and the scheme gap remained only in the curl-managed-credentials path; the location description now separates the two sites.",
+   "The reviewer noted NVD publishes NVD-CWE-noinfo rather than CWE-200; source_crosscheck now records this."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No HTTP client or redirect flow was executed; the leak is established statically from the header-stripping predicate.",
+  "Exploitation requires the redirect target on the other port to be controlled by or readable to the attacker, and requires Guzzle redirects to be enabled.",
+  "Only the 7.4 branch was diffed; the 6.5.8 fixed release is recorded from the advisory ranges and its tree was not inspected because the mirror lacks that tag."
+ ],
+ "open_questions": [
+  "Whether any code path bypasses modifyRequest() when redirects are followed was not exhaustively audited.",
+  "How curl-managed credentials interact with the header path in every handler stack was not tested."
+ ]
+}

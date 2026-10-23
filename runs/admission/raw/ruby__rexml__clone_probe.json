@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/ruby/rexml.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:35.295195+00:00", "elapsed_seconds": 0.941, "response": {"returncode": 0, "stdout": "0fee9c5bfab3ae311ed5958ec760db19a2c95eeb\tHEAD\n", "stderr": ""}}

@@ -1,0 +1,18 @@
+commit b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa
+Author: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date:   Fri Nov 8 09:23:38 2024 +0100
+
+    [HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient
+
+ src/Symfony/Component/HttpClient/HttpOptions.php   |  2 ++
+ .../Component/HttpClient/NativeHttpClient.php      | 12 +++++++++--
+ .../HttpClient/NoPrivateNetworkHttpClient.php      | 17 ++++++++++++++--
+ .../Component/HttpClient/Response/AmpResponse.php  | 11 +++++++++--
+ .../Component/HttpClient/Response/AsyncContext.php |  4 ++--
+ .../HttpClient/Response/AsyncResponse.php          |  4 ++--
+ .../Component/HttpClient/Response/CurlResponse.php | 11 +++++++++--
+ .../HttpClient/Tests/HttpClientTestCase.php        | 23 ++++++++++++++++++++++
+ .../HttpClient/Tests/MockHttpClientTest.php        |  5 ++++-
+ .../Component/HttpClient/TraceableHttpClient.php   |  4 ++--
+ .../Contracts/HttpClient/HttpClientInterface.php   |  8 +++++---
+ 11 files changed, 83 insertions(+), 18 deletions(-)

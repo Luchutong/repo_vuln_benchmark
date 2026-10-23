@@ -1,0 +1,24 @@
+{
+  "key": "rails_rails",
+  "repository": "rails/rails",
+  "path": "rails.gemspec",
+  "retrieved_at": "2026-10-21T10:56:17.674Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"rails\"\n  s.version     = version\n  s.summary     = \"Full-stack web application framework.\"\n  s.description = \"Ruby on Rails is a full-stack web framework optimized for programmer happiness and sustainable productivity. It encourages beautiful code by favoring convention over configuration.\"\n\n  s.required_ruby_version     = \">= 3.3.5\"\n  s.required_rubygems_version = \">= 1.8.11\"\n\n  s.license = \"MIT\"\n\n  s.author   = \"David Heinemeier Hansson\"\n  s.email    = \"david@loudthinking.com\"\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files = [\"README.md\", \"MIT-LICENSE\"]\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/releases/tag/v#{version}\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  s.add_dependency \"activesupport\", version\n  s.add_dependency \"actionpack\",    version\n  s.add_dependency \"actionview\",    version\n  s.add_dependency \"activemodel\",   version\n  s.add_dependency \"activerecord\",  version\n  s.add_dependency \"actionmailer\",  version\n  s.add_dependency \"activejob\",     version\n  s.add_dependency \"actioncable\",   version\n  s.add_dependency \"activestorage\", version\n  s.add_dependency \"actionmailbox\", version\n  s.add_dependency \"actiontext\",    version\n  s.add_dependency \"railties\",      version\n\n  s.add_dependency \"bundler\", \">= 1.15.0\"\nend\n",
+      "encoding": "utf-8",
+      "sha": "86a5a7efb5698bbff4df06cced13e8b8201e68a3",
+      "display_url": "https://github.com/rails/rails/blob/main/rails.gemspec",
+      "display_title": "rails.gemspec"
+    },
+    "isError": false
+  }
+}

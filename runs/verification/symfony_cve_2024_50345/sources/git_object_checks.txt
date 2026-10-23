@@ -1,0 +1,69 @@
+repository: https://github.com/symfony/symfony
+checks run: 2026-10-21T17:00:50Z
+
+tag v5.4.45 peel: 2b66d7d7d8129531229708ef708860844db91944
+tag v5.4.46 peel: 057d88bef2d18a10d3b0b8fb093332131dc58e2f
+tag v6.4.13 peel: 5128d5b8dd1f5b946a0fdc7dae6a8c13c5d21ac8
+tag v6.4.14 peel: d1797e5b5b549673b1d5aac7a081af8db9f258e6
+tag v7.1.6 peel: da35c47b031b16acac449a4459424e55cbb20892
+tag v7.1.7 peel: 5001143568bc2bce9ec77f7a85076aa75d38795e
+
+$ git log -1 --format='%H %ci %s' 5a9b08e5740af795854b1b639b7d45b9cbfe8819
+5a9b08e5740af795854b1b639b7d45b9cbfe8819 2024-10-29 13:11:15 +0100 [HttpFoundation] Reject URIs that contain invalid characters
+
+fix 5a9b08e ancestor of v5.4.45: NO
+fix 5a9b08e ancestor of v5.4.46: YES
+fix 5a9b08e ancestor of v6.4.13: NO
+fix 5a9b08e ancestor of v6.4.14: YES
+fix 5a9b08e ancestor of v7.1.6: NO
+fix 5a9b08e ancestor of v7.1.7: YES
+
+$ git log -1 ad0a241e...
+ad0a241e7928596cd3ceea09178510d07d8a8a4e 2024-11-05 16:52:21 +0100 security #cve-2024-50345 [HttpFoundation] Reject URIs that contain invalid characters (nicolas-grekas)
+$ git show --stat ad0a241e...
+ad0a241e7928596cd3ceea09178510d07d8a8a4e security #cve-2024-50345 [HttpFoundation] Reject URIs that contain invalid characters (nicolas-grekas)
+
+ src/Symfony/Component/HttpFoundation/Request.php   | 17 ++++++++++++
+ .../Component/HttpFoundation/Tests/RequestTest.php | 30 ++++++++++++++++++++--
+ 2 files changed, 45 insertions(+), 2 deletions(-)
+
+blobs:
+v5.4.45 Request.php: 561cb887fc453eb98bc04f28dcbe56854c45d896
+v5.4.46 Request.php: c5f10a73a549ee561fa55c5f4014e828e6dbbdbc
+patch pre-image blob (from fix_diff.txt): 561cb887fc
+patch post-image blob (from fix_diff.txt): e404b4cd01
+
+v5.4.45 Request::create URI parsing (lines 355-366):
+        $server['PATH_INFO'] = '';
+        $server['REQUEST_METHOD'] = strtoupper($method);
+
+        if (false === ($components = parse_url($uri)) && '/' === ($uri[0] ?? '')) {
+            $components = parse_url($uri.'#');
+            unset($components['fragment']);
+        }
+
+        if (isset($components['host'])) {
+            $server['SERVER_NAME'] = $components['host'];
+            $server['HTTP_HOST'] = $components['host'];
+        }
+
+v5.4.46 Request::create validation (lines 361-379):
+        if (false === ($components = parse_url($uri)) && '/' === ($uri[0] ?? '')) {
+            $components = parse_url($uri.'#');
+            unset($components['fragment']);
+        }
+
+        if (false === $components) {
+            throw new BadRequestException('Invalid URI.');
+        }
+
+        if (false !== ($i = strpos($uri, '\\')) && $i < strcspn($uri, '?#')) {
+            throw new BadRequestException('Invalid URI: A URI cannot contain a backslash.');
+        }
+        if (\strlen($uri) !== strcspn($uri, "\r\n\t")) {
+            throw new BadRequestException('Invalid URI: A URI cannot contain CR/LF/TAB characters.');
+        }
+        if ('' !== $uri && (\ord($uri[0]) <= 32 || \ord($uri[-1]) <= 32)) {
+            throw new BadRequestException('Invalid URI: A URI must not start nor end with ASCII control characters or spaces.');
+        }
+

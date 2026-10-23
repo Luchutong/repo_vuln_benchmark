@@ -1,0 +1,1132 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "0xcrypto",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/6683856?v=4",
+            "events_url": "https://api.github.com/users/0xcrypto/events{/privacy}",
+            "followers_url": "https://api.github.com/users/0xcrypto/followers",
+            "following_url": "https://api.github.com/users/0xcrypto/following{/other_user}",
+            "gists_url": "https://api.github.com/users/0xcrypto/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/0xcrypto",
+            "id": 6683856,
+            "login": "0xcrypto",
+            "node_id": "MDQ6VXNlcjY2ODM4NTY=",
+            "organizations_url": "https://api.github.com/users/0xcrypto/orgs",
+            "received_events_url": "https://api.github.com/users/0xcrypto/received_events",
+            "repos_url": "https://api.github.com/users/0xcrypto/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/0xcrypto/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/0xcrypto/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/0xcrypto",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2021-3603",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "If a function is defined that has the same name as the default built-in email address validation scheme (`php`), it will be called in default configuration as when no validation scheme is provided, the default scheme's callable `php` was being called. If an attacker is able to inject such a function into the application (a much bigger issue), it will be called whenever an email address is validated, such as when calling `validateAddress()`.\r\n\r\n### Impact\r\nLow impact – exploitation requires that an attacker can already inject code into an application, but it provides a trigger pathway.\r\n\r\n### Patches\r\nThis is patched in PHPMailer 6.5.0 by denying the use of simple strings as validator function names, which is a very minor BC break.\r\n\r\n### Workarounds\r\nInject your own email validator function.\r\n\r\n### References\r\nReported by [Vikrant Singh Chauhan](mailto:vi@hackberry.xyz) via [huntr.dev](https://www.huntr.dev/).\r\n[CVE-2021-3603](https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2021-3603)\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open an issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n* [Email us](mailto:phpmailer@synchromedia.co.uk).\r\n",
+      "ghsa_id": "GHSA-77mr-wc79-m8j3",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-77mr-wc79-m8j3",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-77mr-wc79-m8j3"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-3603"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-06-16T15:58:56Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "A validation function with the same name as a built-in validator can be called",
+      "updated_at": "2021-06-16T15:58:56Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-77mr-wc79-m8j3",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "phpmailer/phpmailer"
+          },
+          "patched_versions": "6.5.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<6.5.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2021-34551",
+      "cvss": {
+        "score": 5.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:L/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:H/UI:N/S:U/C:H/I:L/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "PHPMailer 6.4.1 contains a possible remote code execution vulnerability through the `$lang_path` parameter of the `setLanguage()` method. If the `$lang_path` parameter is passed unfiltered from user input, it can be set to [a UNC path](https://docs.microsoft.com/en-us/dotnet/standard/io/file-path-formats#unc-paths), and if an attacker is also able to create a remote mount on the server that the UNC path points to, a script file under their control may be executed. \r\n\r\n### Impact\r\nArbitrary code may be run by a remote attacker under the web server or PHP process running on Window hosts.\r\n\r\n### Patches\r\nMitigated in PHPMailer 6.5.0 by no longer treating translation files as PHP code, but by parsing their text content directly.\r\nThis approach avoids the possibility of executing unknown code while retaining backward compatibility. This isn't ideal, so the current translation format is deprecated and will be replaced in the next major release.\r\n\r\n### Workarounds\r\nAny of:\r\n* Ensure that calling code does not pass unfiltered user-supplied data to the `$lang_path` parameter of the `setLanguage()` method.\r\n* Block or filter the use of unknown UNC paths in this parameter (or altogether).\r\n* Ensure that unauthorised users do not have the ability to read from unknown remote servers via UNC paths.\r\n* Run on an OS that does not support UNC paths\r\n\r\n### References\r\n[CVE-2021-34551](https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2021-34551).\r\n\r\nReported by [listensec.com](https://listensec.com) via Tidelift.\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open an issue in [PHPMailer](https://github.com/PHPMailer/PHPMailer)\r\n* [Email the maintainers](mailto:phpmailer@synchromedia.co.uk)\r\n",
+      "ghsa_id": "GHSA-7q44-r25x-wm4q",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-7q44-r25x-wm4q",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-7q44-r25x-wm4q"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-34551"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-06-16T15:58:34Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Remote Code Execution vulnerability in PHPMailer 6.4.1 running on Windows",
+      "updated_at": "2021-06-16T15:58:34Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-7q44-r25x-wm4q",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "phpmailer/phpmailer"
+          },
+          "patched_versions": "6.5.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<6.5.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "farisv",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/44131180?v=4",
+            "events_url": "https://api.github.com/users/farisv/events{/privacy}",
+            "followers_url": "https://api.github.com/users/farisv/followers",
+            "following_url": "https://api.github.com/users/farisv/following{/other_user}",
+            "gists_url": "https://api.github.com/users/farisv/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/farisv",
+            "id": 44131180,
+            "login": "farisv",
+            "node_id": "MDQ6VXNlcjQ0MTMxMTgw",
+            "organizations_url": "https://api.github.com/users/farisv/orgs",
+            "received_events_url": "https://api.github.com/users/farisv/received_events",
+            "repos_url": "https://api.github.com/users/farisv/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/farisv/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/farisv/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/farisv",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2020-36326",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-641"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-641",
+          "name": "Improper Restriction of Names for Files and Other Resources"
+        }
+      ],
+      "description": "### Impact\r\nThis is a reintroduction of an earlier issue (CVE-2018-19296) by an unrelated bug fix in PHPMailer 6.1.8.  An external file may be unexpectedly executable if it is used as a path to an attachment file via PHP's support for `.phar` files. Exploitation requires that an attacker is able to provide an unfiltered path to a file to attach, or to trick calling code into generating one. See [this article](https://knasmueller.net/5-answers-about-php-phar-exploitation) for more info.\r\n\r\n### Patches\r\nThis issue was patched in the PHPMailer 6.4.1 release. This release also implements stricter filtering for attachment paths; paths that look like *any* kind of URL are rejected.\r\n\r\n### Workarounds\r\nValidate paths to loaded files using the same pattern as used in [`isPermittedPath()`](https://github.com/PHPMailer/PHPMailer/blob/master/src/PHPMailer.php#L1815) before using them in *any* PHP file function, such as `file_exists`. This method can't be used directly because it is protected, but you can implement the same thing in calling code. Note that this should be applied to *all* user-supplied paths passed into such functions; it's not a problem specific to PHPMailer.\r\n\r\n### Credit\r\nThis issue was found by [Fariskhi Vidyan](https://github.com/farisv), reported and managed via Tidelift.",
+      "ghsa_id": "GHSA-m298-fh5c-jc66",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-m298-fh5c-jc66",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-m298-fh5c-jc66"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2020-36326"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-04-29T13:09:47Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Object injection in PHPMailer/PHPMailer",
+      "updated_at": "2026-06-25T20:23:32Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-m298-fh5c-jc66",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "phpmailer/phpmailer"
+          },
+          "patched_versions": "6.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "6.1.8 - 6.4.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2020-13625",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nCWE-116: Incorrect output escaping.\r\n\r\nAn attachment added like this (note the double quote within the attachment name, which is entirely valid):\r\n\r\n    $mail->addAttachment('/tmp/attachment.tmp', 'filename.html\";.jpg');\r\n\r\nWill result in a message containing these headers:\r\n\r\n    Content-Type: application/octet-stream; name=\"filename.html\";.jpg\"\r\n    Content-Disposition: attachment; filename=\"filename.html\";.jpg\"\r\n\r\nThe attachment will be named `filename.html`, and the trailing `\";.jpg\"` will be ignored. Mail filters that reject `.html` attachments but permit `.jpg` attachments may be fooled by this.\r\n\r\nNote that the MIME type itself is obtained automatically from the *source filename* (in this case `attachment.tmp`, which maps to a generic `application/octet-stream` type), and not the *name* given to the attachment (though these are the same if a separate name is not provided), though it can be set explicitly in other parameters to attachment methods.\r\n\r\n### Patches\r\nPatched in PHPMailer 6.1.6 by escaping double quotes within the name using a backslash, as per RFC822 section 3.4.1, resulting in correctly escaped headers like this:\r\n\r\n    Content-Type: application/octet-stream; name=\"filename.html\\\";.jpg\"\r\n    Content-Disposition: attachment; filename=\"filename.html\\\";.jpg\"\r\n\r\n### Workarounds\r\nReject or filter names and filenames containing double quote (`\"`) characters before passing them to attachment functions such as `addAttachment()`.\r\n\r\n### References\r\n[CVE-2020-13625](https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2020-13625).\r\n[PHPMailer 6.1.6 release](https://github.com/PHPMailer/PHPMailer/releases/tag/v6.1.6)\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open an issue in [the PHPMailer repo](https://github.com/PHPMailer/PHPMailer/issues)\r\n",
+      "ghsa_id": "GHSA-f7hx-fqxw-rvvj",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-f7hx-fqxw-rvvj",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-f7hx-fqxw-rvvj"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2020-13625"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-05-27T12:32:47Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "2020-05-26 Insufficient output escaping of attachment names",
+      "updated_at": "2020-05-27T12:32:47Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-f7hx-fqxw-rvvj",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "packagist",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "6.1.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<=6.1.5"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2018-19296",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "PHPMailer versions prior to 6.0.6 and 5.2.27 are vulnerable to an object injection attack by passing phar:// paths into `addAttachment()` and other functions that may receive unfiltered local paths, possibly leading to RCE. See [this article](https://knasmueller.net/5-answers-about-php-phar-exploitation) for more info on this type of vulnerability. Mitigated by blocking the use of paths containing URL-protocol style prefixes such as `phar://`. Reported by Sehun Oh of cyberone.kr.\r\n\r\n### Impact\r\nObject injection, possible remote code execution\r\n\r\n### Patches\r\nFixed in 6.0.6 and 5.2.27\r\n\r\n### Workarounds\r\nValidate and sanitise user input before using.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2018-19296\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-7w4p-72j7-v7c2",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-7w4p-72j7-v7c2",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-7w4p-72j7-v7c2"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2018-19296"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:13:29Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "2018-11-16 Phar object injection",
+      "updated_at": "2020-03-05T21:13:29Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-7w4p-72j7-v7c2",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "6.0.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 6.0.6"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2017-5223",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "An issue was discovered in PHPMailer before 5.2.22. PHPMailer's `msgHTML` method applies transformations to an HTML document to make it usable as an email message body. One of the transformations is to convert relative image URLs into attachments using a script-provided base directory. If no base directory is provided, it resolves to `/`, meaning that relative image URLs get treated as absolute local file paths and added as attachments. To form a remote vulnerability, the msgHTML method must be called, passed an unfiltered, user-supplied HTML document, and must not set a base directory.\r\n\r\n### Impact\r\nArbitrary local files can be attached to email messages.\r\n\r\n### Patches\r\nFixed in 5.2.22\r\n\r\n### Workarounds\r\nValidate input before using user-supplied file paths.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2017-5223\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-4x5h-cr29-fhp6",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-4x5h-cr29-fhp6",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-4x5h-cr29-fhp6"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2017-5223"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:13:42Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "2017-01-09 Local file disclosure",
+      "updated_at": "2020-03-05T21:13:42Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-4x5h-cr29-fhp6",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "5.2.22",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.22"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2017-11503",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "PHPMailer versions prior to 5.2.24 (released July 26th 2017) have an XSS vulnerability in one of the code examples, CVE-2017-11503. The code_generator.phps example did not filter user input prior to output. This file is distributed with a `.phps` extension, so it it not normally executable unless it is explicitly renamed, and the file is not included when PHPMailer is loaded through composer, so it is safe by default. There was also an undisclosed potential XSS vulnerability in the default exception handler (unused by default). Patches for both issues kindly provided by Patrick Monnerat of the Fedora Project.\r\n\r\n### Impact\r\nPHPMailer 5.2.23 has XSS in the \"From Email Address\" and \"To Email Address\" fields of code_generator.php.\r\n\r\n### Patches\r\nFixed in 5.2.24\r\n\r\n### Workarounds\r\nNone.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2017-11503\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-58mj-pw57-4vm2",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-58mj-pw57-4vm2",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-58mj-pw57-4vm2"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2017-11503"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:13:54Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "2017-07-20 Cross-site scripting",
+      "updated_at": "2020-03-05T21:13:54Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-58mj-pw57-4vm2",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "5.2.24",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.24"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2016-10045",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nThe `isMail` transport in PHPMailer before 5.2.20 might allow remote attackers to pass extra parameters to the `mail` command and consequently execute arbitrary code by leveraging improper interaction between the `escapeshellarg` function and internal escaping performed in the mail function in PHP. NOTE: this vulnerability exists because of an incorrect fix for CVE-2016-10033.\r\n\r\nThis issue really emphasises that it's worth avoiding the built-in PHP `mail()` function entirely.\r\n\r\n### Patches\r\nFixed in 5.2.20\r\n\r\n### Workarounds\r\nSend via SMTP to localhost instead of calling the `mail()` function.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2016-10045\r\nSee also https://nvd.nist.gov/vuln/detail/CVE-2016-10033\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-4pc3-96mx-wwc8",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-4pc3-96mx-wwc8",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-4pc3-96mx-wwc8"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2016-10045"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:14:08Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "critical",
+      "state": "published",
+      "submission": null,
+      "summary": "2016-12-30 Remote code execution",
+      "updated_at": "2020-03-05T21:14:08Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-4pc3-96mx-wwc8",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "5.2.20",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.20"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2016-10033",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nThe `mailSend` function in the default `isMail` transport in PHPMailer before 5.2.18 might allow remote attackers to pass extra parameters to the mail command and consequently execute arbitrary code via a \\\" (backslash double quote) in a crafted `Sender` property.\r\n\r\n### Patches\r\nFixed in 5.2.18\r\n\r\n### Workarounds\r\nFilter and validate user input before passing it to internal functions.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2016-10033\r\nRelated to a follow-on issue in https://nvd.nist.gov/vuln/detail/CVE-2016-10045\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-5f37-gxvh-23v6",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-5f37-gxvh-23v6",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-5f37-gxvh-23v6"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2016-10033"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:14:20Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "critical",
+      "state": "published",
+      "submission": null,
+      "summary": "2016-12-30 Remote code execution",
+      "updated_at": "2020-03-05T21:14:20Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-5f37-gxvh-23v6",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "5.2.18",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.18"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2015-8476",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nAttackers could inject arbitrary SMTP commands via by exploiting the fact that valid email addresses may contain line breaks, which are not handled correctly in some contexts.\r\n\r\n### Patches\r\nFixed in 5.2.14 in [this commit](https://github.com/PHPMailer/PHPMailer/commit/6687a96a18b8f12148881e4ddde795ae477284b0).\r\n\r\n### Workarounds\r\nManually strip line breaks from email addresses before passing them to PHPMailer.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2015-8476\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-738m-f33v-qc2r",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-738m-f33v-qc2r",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-738m-f33v-qc2r"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2015-8476"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:14:35Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "2015-12-16 SMTP Injection",
+      "updated_at": "2020-03-05T21:14:35Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-738m-f33v-qc2r",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "5.2.14",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.14"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2012-0796",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nArbitrary additional email headers can be injected via crafted From or Sender headers.\r\n\r\n### Patches\r\nFixed in 2.2.1\r\n\r\n### Workarounds\r\nFilter user-supplied values prior to using them in From or Sender properties.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2012-0796\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-398j-f7m7-795j",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-398j-f7m7-795j",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-398j-f7m7-795j"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2012-0796"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:14:47Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "2012-07-17 Email header injection",
+      "updated_at": "2020-03-05T21:14:47Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-398j-f7m7-795j",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "2.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.2.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2006-5734",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nArbitrary local file inclusion via the `$lang` property, remotely exploitable if host application passes unfiltered user data into that property. The 3 CVEs listed are applications that used PHPMailer that were vulnerable to this problem.\r\n\r\n### Patches\r\nIt's not known exactly when this was fixed in the host applications, but it was fixed in PHPMailer 5.2.0.\r\n\r\n### Workarounds\r\nFilter and validate user-supplied data before use.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2006-5734\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2007-3215\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2007-2021\r\nExample exploit: https://www.exploit-db.com/exploits/14893\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-8jc3-5p29-qgjx",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-8jc3-5p29-qgjx",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-8jc3-5p29-qgjx"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2006-5734"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:14:58Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "2006-11-06 Local file inclusion",
+      "updated_at": "2020-03-05T21:14:58Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-8jc3-5p29-qgjx",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "5.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2007-3215",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nShell command injection, remotely exploitable if host application does not filter user data appropriately.\r\n\r\n### Patches\r\nFixed in 1.7.4\r\n\r\n### Workarounds\r\nFilter and validate user-supplied data before putting in the into the `Sender` property.\r\n\r\n### References\r\nhttps://nvd.nist.gov/vuln/detail/CVE-2007-3215\r\n\r\n### For more information\r\nIf you have any questions or comments about this advisory:\r\n* Open a private issue in [the PHPMailer project](https://github.com/PHPMailer/PHPMailer)\r\n",
+      "ghsa_id": "GHSA-6h78-85v2-mmch",
+      "html_url": "https://github.com/PHPMailer/PHPMailer/security/advisories/GHSA-6h78-85v2-mmch",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-6h78-85v2-mmch"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2007-3215"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-05T21:15:12Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/81561?v=4",
+        "events_url": "https://api.github.com/users/Synchro/events{/privacy}",
+        "followers_url": "https://api.github.com/users/Synchro/followers",
+        "following_url": "https://api.github.com/users/Synchro/following{/other_user}",
+        "gists_url": "https://api.github.com/users/Synchro/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/Synchro",
+        "id": 81561,
+        "login": "Synchro",
+        "node_id": "MDQ6VXNlcjgxNTYx",
+        "organizations_url": "https://api.github.com/users/Synchro/orgs",
+        "received_events_url": "https://api.github.com/users/Synchro/received_events",
+        "repos_url": "https://api.github.com/users/Synchro/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/Synchro/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/Synchro/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/Synchro",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "2007-06-14 Shell command injection",
+      "updated_at": "2020-03-05T21:15:12Z",
+      "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories/GHSA-6h78-85v2-mmch",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "PHPMailer"
+          },
+          "patched_versions": "1.7.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 1.7.4"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "PHPMailer/PHPMailer",
+    "url": "https://api.github.com/repos/PHPMailer/PHPMailer/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:35.638607+00:00",
+  "tool": "github_rest_readonly"
+}

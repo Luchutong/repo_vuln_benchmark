@@ -1,0 +1,49 @@
+CVE-2026-45304 -- static git object checks (symfony/symfony, local bare mirror /tmp/symfony_git)
+Generated 2026-10-22
+
+tag peels
+  v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+  v5.4.52 -> eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+
+fix commit
+  e77391b2e4f18821198f010d573674c8ed4a970a
+  author date 2026-05-08 22:46:13 +0200
+  subject "[Yaml] Bound collection-alias resolution in the parser"
+  merge commit ea2c154997 "security #cve-2026-45304 ..."
+
+ancestry
+  git merge-base --is-ancestor e77391b2 v5.4.52 -> YES
+  git merge-base --is-ancestor e77391b2 v5.4.45 -> NO
+
+prerequisite commit (introduces ParserState)
+  914f427ed9630ddb3904dafba763e53d9f133fe3 "[Yaml] Bound recursion depth in the parser" (2026-05-08 22:44:36 +0200)
+  ancestor of v5.4.52 -> YES
+  ancestor of v5.4.45 -> NO
+  src/Symfony/Component/Yaml/ParserState.php exists at v5.4.52, absent at v5.4.45
+
+blob ids
+  Parser.php      v5.4.45 6b5b273a77ead2a84da5f2532b1aebfcb2de1aff
+                  v5.4.52 cda68ac1393cc06712ed2802e61e794a6155a23e
+  Inline.php      v5.4.45 5e4e5f7a877bc89208b1defd4b8111d56289b3da
+                  v5.4.52 c3fcf2232c4b3d637d6e9bc80a77d16a2d518082
+  ParserState.php v5.4.45 absent
+                  v5.4.52 (post-image in the e77391b2 diff is 6ef04b8dff882)
+
+vulnerable behaviour at v5.4.45 (Parser.php)
+  line 720: private function parseValue(string $value, int $flags, string $context)
+  line 723-735: "*alias" lookup in $this->refs, with only circular-reference and missing-reference checks
+  line 737: return $this->refs[$value];   -- the referenced collection is returned as-is, with no count or size bound
+  line 256: $refValue = $this->refs[$refName];   -- merge-key path, same unbounded return
+  Inline.php line 594: return $references[$value];   -- inline "*alias" path, same unbounded return
+  no ParserState, no alias counter, no maxAliasesForCollections at this tag
+
+fixed behaviour at v5.4.52
+  Parser::DEFAULT_MAX_ALIASES_FOR_COLLECTIONS = 128 (new)
+  ParserState::countAlias() increments collectionAliasCount for array/stdClass/TaggedValue values and throws once it exceeds the limit
+  countAlias is called from Inline::evaluateScalar (inline aliases), Parser::doParse (merge aliases) and Parser::parseValue (plain aliases)
+  Yaml::PARSE_EXCEPTION_ON_ALIAS lets callers reject every alias
+  scalar aliases are deliberately not counted
+
+patch contents (e77391b2)
+  CHANGELOG, Inline.php, Parser.php, ParserState.php, ParserTest.php, YamlTest.php, Yaml.php
+  tests include a "Billion Laughs"-style document rejected at a configured limit of 5

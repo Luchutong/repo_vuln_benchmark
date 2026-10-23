@@ -1,0 +1,11 @@
+{
+  "calls": 0,
+  "calls_without_cost": 0,
+  "cost_by_stage_and_model": [],
+  "measured_spend_cny": 0,
+  "untracked_historical_spend_cny": "DO NOT ASSUME ZERO",
+  "total_budget_cny": 500.0,
+  "tracked_remaining_cny": 500.0,
+  "tokens": {},
+  "warning": "Cannot claim total or enforce budget until all provider calls are instrumented."
+}

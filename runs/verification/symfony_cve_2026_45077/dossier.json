@@ -1,0 +1,407 @@
+{
+ "candidate_id": "disc2_672416b1c86852304e0dba0f",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:55:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45077",
+  "aliases": [
+   "CVE-2026-45077",
+   "GHSA-m7v2-7gxm-vc2v"
+  ],
+  "title": "Symfony MonologBridge server:log binds to 0.0.0.0:9911 by default and unserializes every received frame without an allowed_classes allowlist",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/monolog-bridge",
+    "purl": "pkg:composer/symfony/monolog-bridge",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/monolog-bridge",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 the default host is 127.0.0.1:9911 and unserialize() passes allowed_classes [Data::class, Stub::class]; fix 0891b2f2 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: tag v5.4.52 peels to eabc5f9e; ServerLogCommand.php blob db0a072e matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "0891b2f293896c488e26943dc034334364b77fc4",
+    "branch": "5.4",
+    "message": "[MonologBridge] Bind server:log to localhost by default",
+    "url": "https://github.com/symfony/symfony/commit/0891b2f293896c488e26943dc034334364b77fc4"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-502",
+   "CWE-668"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:H/SC:N/SI:N/SA:N",
+   "score": 8.3,
+   "level": "high",
+   "numeric_level_rationale": "CVSS 4.0 base 8.3 (CNA) and the NVD Primary CVSS 3.1 8.6 both fall in High (7.0-8.9); the OSV/GHSA label is also High. The OSV top-level CVSS_V4 vector differs from the CNA vector (AT:N and VC:H/VI:H instead of AT:P and VC:L/VI:L) and has no separately published numeric score in the record.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 8.6 HIGH metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-m7v2-7gxm-vc2v",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 8.3,
+     "level": "high",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:H/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 8.6,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:H"
+    }
+   ],
+   "ghsa_label_note": "The GHSA page/OSV publish a different CVSS_V4 vector, CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U, whose GitHub overall score is 8.1 High; the CNA vector is AT:P/VC:L/VI:L at 8.3 High and the NVD Primary 3.1 is 8.6 High. Labels agree but the components and scores differ."
+  },
+  "category_l1": "insecure_deserialization",
+  "category_l2": "Unauthenticated PHP object deserialization of frames received on a TCP listener bound to all interfaces by default",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/blog/cve-2026-45077-unauthenticated-php-object-deserialization-in-monologbridge-server-log-listener",
+  "published_at": "2026-07-14T17:46:33Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/blog/cve-2026-45077-unauthenticated-php-object-deserialization-in-monologbridge-server-log-listener",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-m7v2-7gxm-vc2v",
+   "https://github.com/symfony/symfony/commit/0891b2f293896c488e26943dc034334364b77fc4",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45077",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45077_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45077",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php",
+  "function": "ServerLogCommand::execute",
+  "language": "PHP",
+  "line": 109,
+  "critical_operation": {
+   "code_excerpt": "        foreach ($this->getLogs($socket) as $clientId => $message) {\n            $record = unserialize(base64_decode($message));\n\n            // Impossible to decode the message, give up.\n            if (false === $record) {\n                continue;\n            }",
+   "description": "ServerLogCommand::execute() starts a TCP listener and passes every received line to unserialize(base64_decode($message)) with no allowed_classes argument, no signature or integrity check, and no authentication. Because configure() defaults --host to 0.0.0.0:9911, any host that can reach the port can deliver a frame; the only rejection afterwards is false === $record, which does not prevent magic methods from running during deserialization. displayLog() then requires array $record, so a non-array payload raises a type error after the payload has been instantiated. The 5.4.52 fix defaults the host to 127.0.0.1:9911, restricts unserialize() to VarDumper Data/Stub classes and discards non-array records.",
+   "file": "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php",
+   "function": "ServerLogCommand::execute",
+   "language": "PHP",
+   "line": 109,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L109-L115"
+  },
+  "entry_point": {
+   "description": "A TCP connection to the server:log listener on port 9911. With the default --host 0.0.0.0:9911 the listener accepts connections on every interface, not only loopback.",
+   "file": "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php",
+   "function": "ServerLogCommand::configure",
+   "language": "PHP",
+   "line": 60,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L60"
+  },
+  "trace": [
+   {
+    "description": "getLogs() accepts each incoming connection with stream_socket_accept() and yields every fgets() line as a message",
+    "file": "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php",
+    "function": "ServerLogCommand::getLogs",
+    "language": "PHP",
+    "line": 143,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L143"
+   },
+   {
+    "description": "execute() passes the base64-decoded frame to unserialize() without allowed_classes",
+    "file": "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php",
+    "function": "ServerLogCommand::execute",
+    "language": "PHP",
+    "line": 109,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L109"
+   },
+   {
+    "description": "displayLog() declares array $record, so a non-array payload fails after deserialization has already run",
+    "file": "src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php",
+    "function": "ServerLogCommand::displayLog",
+    "language": "PHP",
+    "line": 149,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L149-L149"
+   }
+  ],
+  "verification_method": "Static read of ServerLogCommand.php at v5.4.45 and v5.4.52, the 5.4 fix diff, tag peels and ancestry; no PHP, socket, listener or serialized payload was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45077_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "f6913f61fa9a4aefb6ffdd9fe329b498e975842d3b7401ca855e9df2c8031289",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45077",
+   "supports": [
+    "NVD status Analyzed; description states the server:log listener binds to 0.0.0.0:9911 by default and processes each frame with unserialize(base64_decode($message)) without authentication, integrity checks or an allowed_classes allowlist",
+    "NVD Primary CVSS 3.1 8.6 HIGH from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:H)",
+    "NVD Secondary CVSS 4.0 8.3 HIGH from security-advisories@github.com",
+    "NVD weaknesses CWE-502 and CWE-668, both sourced to security-advisories@github.com",
+    "NVD CPE is cpe:2.3:a:sensiolabs:symfony with versionEndExcluding 5.4.52 and the 6.4.40/7.4.12/8.0.12 branch bounds"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45077_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "f16a7b8aa53b46a7ce1ca6269f0fce544548f7d3f30bdea5292f05d3862e6c95",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45077",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T17:46:33Z",
+    "affected products symfony and monolog-bridge, ranges <5.4.52, >=6.0.0-BETA1 <6.4.40, >=7.0.0-BETA1 <7.4.12, >=8.0.0-BETA1 <8.0.12",
+    "CNA CVSS 4.0 8.3 HIGH AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:H/SC:N/SI:N/SA:N",
+    "problemTypes CWE-502 and CWE-668",
+    "the CNA reference list names fix commit 0891b2f293896c488e26943dc034334364b77fc4 and the v5.4.52/v6.4.40/v7.4.12/v8.0.12 release tags"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45077_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "9f88b61db50b4ffdbd55daffd838453a901281627b1aaee181cf9e240e658d48",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-m7v2-7gxm-vc2v",
+   "supports": [
+    "GHSA-m7v2-7gxm-vc2v aliases CVE-2026-45077, github_reviewed, cwe_ids CWE-502 and CWE-668, database severity HIGH",
+    "affected symfony/monolog-bridge and symfony/symfony with fixed events 5.4.52, 6.4.40, 7.4.12 and 8.0.12",
+    "the OSV details repeat the 0.0.0.0:9911 default and the unauthenticated unserialize() of every received frame",
+    "the OSV top-level CVSS_V4 vector (VC:H/VI:H/VA:H, AT:N, E:U) differs from the CNA vector (VC:L/VI:L/VA:H, AT:P)"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/symfony_blog.html",
+   "evidence_id": "ev_symfony_45077_blog",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "c1db84c97565ccfaa5e8981c85613f9e02e5986c465604ca1c720d4340afeb39",
+   "source_url": "https://symfony.com/blog/cve-2026-45077-unauthenticated-php-object-deserialization-in-monologbridge-server-log-listener",
+   "supports": [
+    "the advisory names ServerLogCommand, the default 0.0.0.0:9911 bind, and unserialize(base64_decode($message)) without allowlist, authentication or integrity check",
+    "it states the minimum impact is unauthenticated denial of service and that object injection with magic-method side effects is reachable before the array type-check",
+    "resolution: default --host becomes 127.0.0.1:9911 and unserialize() is restricted to Symfony\\Component\\VarDumper\\Caster\\* and Cloner\\* classes",
+    "affected versions are <5.4.52, >=6 <6.4.40, >=7 <7.4.12, >=8 <8.0.12"
+   ],
+   "verification_method": "symfony.com security blog post text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45077_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "ab7c419f95dcd02cea62b8029996ed1438c4f9c4904ec3d32ee984f70152bbd3",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-m7v2-7gxm-vc2v",
+   "supports": [
+    "the GitHub advisory page carries the same description and resolution as the symfony.com blog post",
+    "the page lists the same four fixed releases and the same fix commit 0891b2f2",
+    "the advisory label is High"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45077_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "c9cfacacbb1779a0a1d049da44c125eb1af44f2d1207d31a8e6381a014c56b39",
+   "source_url": "https://github.com/symfony/symfony/commit/0891b2f293896c488e26943dc034334364b77fc4",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit 0891b2f2 is dated 2026-05-07 with subject \"[MonologBridge] Bind server:log to localhost by default\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "ServerLogCommand.php blob 03811ab1 at v5.4.45 and db0a072e at v5.4.52 match the patch pre/post images",
+    "the patch changes the default host to 127.0.0.1:9911, adds allowed_classes and an is_array gate, and serializes datetime as a string"
+   ],
+   "verification_method": "git rev-parse/merge-base/log/show; blob comparison; patch read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/serverlogcommand_5.4.45.php",
+   "evidence_id": "ev_symfony_45077_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "76a9afb6d75079709f602b260d9214d9cdb630aabea297c036721ee601769f4b",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L109",
+   "supports": [
+    "configure() sets the default host option to 0.0.0.0:9911 at line 60",
+    "execute() calls stream_socket_server() at line 104 and then unserialize(base64_decode($message)) at line 109 with no allowed_classes argument",
+    "the only validation is the false === $record check at line 112, which does not stop object instantiation during unserialize()",
+    "displayLog() at line 149 declares array $record, so a non-array payload raises a type error after the payload has already been deserialized",
+    "getLogs() accepts connections with stream_socket_accept() and yields fgets() lines without any authentication (lines 126-146)"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 03811ab1)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/serverlogcommand_5.4.52.php",
+   "evidence_id": "ev_symfony_45077_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "54f026481128f3efaf989904d1e2dfa5a1902e94213967f7f9df613211703a82",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L111-L117",
+   "supports": [
+    "the default host is 127.0.0.1:9911",
+    "unserialize() now passes ['allowed_classes' => [Data::class, Stub::class]]",
+    "the record is discarded with continue unless it is an array",
+    "a string datetime is converted back with DateTimeImmutable::createFromFormat before displayLog()"
+   ],
+   "verification_method": "file read at v5.4.52 (blob db0a072e)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45077_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "d0b392ba37bc21b13b76949ad8ad641ce2d00a1d4cedb25c15f672df8e4ffd35",
+   "source_url": "https://github.com/symfony/symfony/commit/0891b2f293896c488e26943dc034334364b77fc4.patch",
+   "supports": [
+    "the patch changes the host default, adds the allowed_classes allowlist and the is_array gate in ServerLogCommand.php",
+    "ServerLogHandler.php now formats datetime as a string before serializing, so legitimate records no longer need a DateTime object",
+    "tests for ServerLogHandler and ConsoleFormatter were updated",
+    "the patch does not otherwise change the socket-communication design"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45077/sources/serverlogcommand_5.4.45.php",
+   "evidence_id": "ev_symfony_45077_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:55:00Z",
+   "sha256_of_observation": "76a9afb6d75079709f602b260d9214d9cdb630aabea297c036721ee601769f4b",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php#L1-L20",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Bridge\\Monolog\\Command",
+    "the snapshot inventory records the Monolog bridge component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   9
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security blog post",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-502/CWE-668, the 0.0.0.0:9911 default, the unauthenticated unserialize() of every frame, the four fixed releases and fix commit 0891b2f2. Severity labels agree (High) but the numeric vectors differ: NVD Primary CVSS 3.1 8.6, CNA CVSS 4.0 8.3, and an OSV CVSS_V4 vector with AT:N/VC:H/VI:H that has no numeric score.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read ServerLogCommand::execute at v5.4.45 and confirm unserialize(base64_decode($message)) has no allowed_classes and no prior authentication.",
+   "An independent reviewer must confirm the default --host is 0.0.0.0:9911 and that getLogs() accepts off-host connections.",
+   "An independent reviewer must confirm 0891b2f2 is absent from v5.4.45 and present in v5.4.52, and that the fix changes the host default, adds the allowlist and the is_array gate.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No PHP, socket listener, serialized payload or gadget chain was executed; the finding is static.",
+  "Exploitation beyond denial of service depends on usable gadget chains in the target autoload set, as the advisory itself notes.",
+  "The listener is a development-time helper; exposure depends on running server:log on a reachable host.",
+  "Only the 5.4 branch was fetched and compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "The OSV CVSS_V4 vector (AT:N/VC:H/VI:H) differs from the CNA vector and carries no separately published numeric score.",
+  "The symfony.com blog says the allowlist covers Symfony\\Component\\VarDumper\\Caster\\* and Cloner\\* classes, while the code allows only Data and Stub (both in Cloner); the blog wording is broader than the implementation."
+ ],
+ "open_questions": [
+  "Whether ServerLogHandler exposes a similar unsafe path on the producer side was not audited.",
+  "Whether the same default host appears in the 6.x/7.x/8.x branches was not checked."
+ ]
+}

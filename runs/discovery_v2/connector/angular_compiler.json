@@ -1,0 +1,24 @@
+{
+  "key": "angular_compiler",
+  "repository": "angular/angular",
+  "path": "packages/compiler/package.json",
+  "retrieved_at": "2026-10-21T10:56:19.842Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/compiler\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - the compiler library\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/compiler\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": [\n    \"./fesm2022/compiler.mjs\"\n  ]\n}\n",
+      "encoding": "utf-8",
+      "sha": "b9e21733ed546852209058fac4cb0eeb1c251785",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/compiler/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

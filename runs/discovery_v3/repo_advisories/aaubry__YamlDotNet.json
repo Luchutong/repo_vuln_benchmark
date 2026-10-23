@@ -1,0 +1,9 @@
+{
+  "advisories": [],
+  "query": {
+    "repository_full_name": "aaubry/YamlDotNet",
+    "url": "https://api.github.com/repos/aaubry/YamlDotNet/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:23:52.262377+00:00",
+  "tool": "github_rest_readonly"
+}

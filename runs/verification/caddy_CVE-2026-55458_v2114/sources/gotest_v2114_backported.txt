@@ -1,0 +1,18 @@
+=== RUN   TestFinalizeResponse_101_StripsHopByHopHeaders
+{"level":"error","ts":1792696203.9089894,"msg":"can't switch protocols using non-Hijacker ResponseWriter","type":"*httptest.ResponseRecorder"}
+    hopheaders_test.go:61: Alt-Svc = "h2=\"evil.com:443\"; ma=86400", want empty (should be stripped)
+    hopheaders_test.go:61: Keep-Alive = "timeout=999", want empty (should be stripped)
+    hopheaders_test.go:61: Proxy-Authenticate = "Basic realm=\"phish\"", want empty (should be stripped)
+--- FAIL: TestFinalizeResponse_101_StripsHopByHopHeaders (0.00s)
+=== RUN   TestFinalizeResponse_101_StripsConnectionNamedHeaders
+{"level":"error","ts":1792696203.9091253,"msg":"can't switch protocols using non-Hijacker ResponseWriter","type":"*httptest.ResponseRecorder"}
+    hopheaders_test.go:105: X-Custom-Id = "should-be-stripped", want empty (named in Connection, should be stripped)
+    hopheaders_test.go:108: Connection = "Upgrade, X-Custom-ID", want "Upgrade"
+--- FAIL: TestFinalizeResponse_101_StripsConnectionNamedHeaders (0.00s)
+=== RUN   TestFinalizeResponse_200_StillStripsHopByHop
+--- PASS: TestFinalizeResponse_200_StillStripsHopByHop (0.00s)
+=== RUN   TestFinalizeResponse_101_NoUpgradeRequest
+--- PASS: TestFinalizeResponse_101_NoUpgradeRequest (0.00s)
+FAIL
+FAIL	github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy	0.022s
+FAIL

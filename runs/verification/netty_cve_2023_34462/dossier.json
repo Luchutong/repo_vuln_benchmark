@@ -1,0 +1,485 @@
+{
+  "candidate_id": "disc2_712f7fa1c5102e023adfabaf",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T03:10:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "1064563",
+    "full_name": "netty/netty",
+    "canonical_url": "https://github.com/netty/netty",
+    "primary_language": "Java",
+    "project_kind": "asynchronous event-driven network application framework",
+    "snapshot_id": "snap_bb344e672a0544ef"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2023-34462",
+    "aliases": [
+      "CVE-2023-34462",
+      "GHSA-6mjq-h674-j845"
+    ],
+    "title": "Netty SniHandler allocates a ClientHello-sized buffer from an unvalidated length, up to 16MB per connection",
+    "repo_id": "1064563",
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "vulnerable_commit": "97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+    "affected_packages": [
+      {
+        "ecosystem": "maven",
+        "package": "io.netty:netty-handler",
+        "purl": "pkg:maven/io.netty/netty-handler",
+        "affected_range": "<4.1.94.Final"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "maven",
+        "package": "io.netty:netty-handler",
+        "version": "4.1.94.Final",
+        "tag": "netty-4.1.94.Final",
+        "release_url": "https://github.com/netty/netty/releases/tag/netty-4.1.94.Final",
+        "verified_content": "At 4.1.94.Final SslClientHelloHandler has MAX_CLIENT_HELLO_LENGTH=0xFFFFFF, a maxClientHelloLength field and constructors, and rejects handshakeLength > maxClientHelloLength with TooLongFrameException before allocating; SniHandler and AbstractSniHandler expose the limit through new constructors. The guard requires maxClientHelloLength != 0, and most default paths pass 0: AbstractSniHandler() calls this(0, 0L), SniHandler(Mapping) -> SniHandler(AsyncMapping) -> this(mapping, 0, 0L), and the handshake-timeout-only constructors delegate with 0 as well. The no-argument SslClientHelloHandler defaults to 0xFFFFFF, which getUnsignedMedium can never exceed. The mitigation therefore only takes effect when the application explicitly passes a maxClientHelloLength in [1, 0xFFFFFF]."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "535da17e45201ae4278c0479e6162bb4127d4c32",
+        "branch": "4.1",
+        "release": "4.1.94.Final",
+        "message": "Merge pull request from GHSA-6mjq-h674-j845",
+        "url": "https://github.com/netty/netty/commit/535da17e45201ae4278c0479e6162bb4127d4c32"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-400",
+      "CWE-770"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+      "score": 6.5,
+      "level": "medium",
+      "numeric_level_rationale": "The CNA (GitHub_M) publishes 6.5 Medium, NVD publishes the same 6.5 vector as both Primary and Secondary, and the GitHub advisory records database severity MODERATE with the same vector. All published scores are 6.5 Medium, so the level is consistent.",
+      "source": "CNA / NVD Primary and Secondary 6.5 Medium; GitHub advisory (OSV) 6.5 with database severity MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-34462",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 6.5,
+          "level": "medium",
+          "source": "CVE List v5 CNA (GitHub_M)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 6.5,
+          "level": "medium",
+          "source": "NVD Primary (nvd@nist.gov)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 6.5,
+          "level": "medium",
+          "source": "NVD Secondary (security-advisories@github.com)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 6.5,
+          "level": "medium",
+          "source": "GitHub advisory / OSV (database severity MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ]
+    },
+    "category_l1": "denial_of_service",
+    "category_l2": "Unbounded allocation: the ClientHello handshake length (attacker-controlled 24-bit field) is used directly as ByteBuf capacity before the bytes arrive, so a short crafted record costs up to 16MB of heap per connection",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/netty/netty/security/advisories/GHSA-6mjq-h674-j845",
+    "published_at": "2023-06-22T23:00:12Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/netty/netty/security/advisories/GHSA-6mjq-h674-j845",
+      "https://github.com/netty/netty/commit/535da17e45201ae4278c0479e6162bb4127d4c32",
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-34462",
+      "https://osv.dev/vulnerability/GHSA-6mjq-h674-j845",
+      "https://github.com/netty/netty/releases/tag/netty-4.1.94.Final"
+    ]
+  },
+  "description": "Netty's SniHandler waits for the TLS ClientHello to select an SslContext, and inherits its record decoding from SslClientHelloHandler (SniHandler line 37 extends AbstractSniHandler, which line 32 extends SslClientHelloHandler). At 4.1.59 SslClientHelloHandler.decode reads the handshake length with in.getUnsignedMedium at lines 117-118; that is a 24-bit value controlled by the peer and can be as large as 0xFFFFFF (about 16MB). When the declared handshake does not fit in the current TLS record, lines 130-132 call ctx.alloc().buffer(handshakeLength) with that value and no upper bound, before any of those bytes have arrived, and line 141 copies the record payload into the buffer. A client can therefore send a small record whose declared handshake length is 0xFFFFFF and make the server hold a 16MB buffer per connection; repeating this on many connections, with no idle timeout to release them, exhausts the heap. The 4.1.94.Final fix 535da17e adds maxClientHelloLength and throws TooLongFrameException before the allocation when handshakeLength exceeds a configured limit, and exposes the limit through new SniHandler and AbstractSniHandler constructors. The protection is opt-in only: MAX_CLIENT_HELLO_LENGTH stays 0xFFFFFF (a value handshakeLength can never exceed) and the default AbstractSniHandler()/SniHandler(Mapping) paths pass maxClientHelloLength=0, which disables the check, so upgrading alone does not change the default allocation bound.",
+  "location": {
+    "location_id": "loc_CVE-2023-34462_snap_bb344e672a0544ef",
+    "vulnerability_id": "CVE-2023-34462",
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "location_kind": "logic",
+    "file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+    "function": "decode",
+    "language": "Java",
+    "line": "117-132",
+    "critical_operation": {
+      "file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+      "function": "decode",
+      "language": "Java",
+      "line": "130-132",
+      "code_excerpt": "                                    } else {\n                                        if (handshakeBuffer == null) {\n                                            handshakeBuffer = ctx.alloc().buffer(handshakeLength);\n                                        } else {",
+      "description": "handshakeLength comes from in.getUnsignedMedium (lines 117-118), a three-byte field in the peer's ClientHello header, so it ranges up to 0xFFFFFF (16777215 bytes). The else branch at 130-132 allocates a ByteBuf of exactly that capacity when the ClientHello is split across records, with no maximum and before the payload is received. SniHandler inherits this decode unchanged. The fix inserts a maxClientHelloLength check at 4.1.94 lines 140-147 before this allocation and throws TooLongFrameException.",
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java#L130-L132"
+    },
+    "entry_point": {
+      "description": "A TCP server with SniHandler in its pipeline: SniHandler (line 37 extends AbstractSniHandler<SslContext>, itself extending SslClientHelloHandler) receives the inbound TLS records through the inherited ByteToMessageDecoder.decode callback.",
+      "file": "handler/src/main/java/io/netty/handler/ssl/SniHandler.java",
+      "function": "SniHandler",
+      "language": "Java",
+      "line": 37,
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SniHandler.java#L37"
+    },
+    "trace": [
+      {
+        "description": "SniHandler extends AbstractSniHandler and does not override decode, so all ClientHello handling is inherited from SslClientHelloHandler",
+        "file": "handler/src/main/java/io/netty/handler/ssl/SniHandler.java",
+        "function": "SniHandler",
+        "language": "Java",
+        "line": 37,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SniHandler.java#L37"
+      },
+      {
+        "description": "AbstractSniHandler extends SslClientHelloHandler and passes only the handshake timeout to super",
+        "file": "handler/src/main/java/io/netty/handler/ssl/AbstractSniHandler.java",
+        "function": "AbstractSniHandler",
+        "language": "Java",
+        "line": 32,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/AbstractSniHandler.java#L32"
+      },
+      {
+        "description": "decode accepts an SSLv3/TLS handshake record and reads the handshake type (must be ClientHello, type 1)",
+        "file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+        "function": "decode",
+        "language": "Java",
+        "line": "101-113",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java#L101-L113"
+      },
+      {
+        "description": "the attacker-controlled 24-bit handshakeLength is read with getUnsignedMedium",
+        "file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+        "function": "decode",
+        "language": "Java",
+        "line": "115-118",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java#L115-L118"
+      },
+      {
+        "description": "when the ClientHello spans records, ctx.alloc().buffer(handshakeLength) allocates up to 16MB with no bound before the data arrives",
+        "file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+        "function": "decode",
+        "language": "Java",
+        "line": "130-132",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java#L130-L132"
+      },
+      {
+        "description": "the record payload is copied into the oversized handshake buffer and the buffer is retained until the declared length is reached",
+        "file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+        "function": "decode",
+        "language": "Java",
+        "line": "140-146",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java#L140-L146"
+      },
+      {
+        "description": "the 4.1.94 fix rejects handshakeLength > maxClientHelloLength with TooLongFrameException before allocating",
+        "file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+        "function": "decode",
+        "language": "Java",
+        "line": "140-147",
+        "permalink": "https://github.com/netty/netty/blob/da1a448d5bc4f36cc1744db93fcaf64e198db2bd/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java#L140-L147"
+      },
+      {
+        "description": "SniHandler gains constructors that pass maxClientHelloLength to the base class",
+        "file": "handler/src/main/java/io/netty/handler/ssl/SniHandler.java",
+        "function": "SniHandler",
+        "language": "Java",
+        "line": "62-64",
+        "permalink": "https://github.com/netty/netty/blob/da1a448d5bc4f36cc1744db93fcaf64e198db2bd/handler/src/main/java/io/netty/handler/ssl/SniHandler.java#L62-L64"
+      }
+    ],
+    "verification_method": "Static read of SslClientHelloHandler, SniHandler and AbstractSniHandler at 4.1.59.Final and 4.1.94.Final, of the 535da17e patch, and of local git tags/objects; no server, socket or handshake was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_netty_34462_cve_v5",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2023-34462",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "7b384cc490b93fc15a6482290d67f3ca706aa12fed8a302d1b862d90dfee8bfe",
+      "verification_method": "CVE List v5 CNA (GitHub_M) record",
+      "result": "PASS",
+      "supports": [
+        "CVE state PUBLISHED, published 2023-06-22, assigner GitHub_M, source advisory GHSA-6mjq-h674-j845",
+        "description: SniHandler can allocate up to 16MB of heap per channel during the TLS handshake; the value comes from the ClientHello record and no check is done, so a crafted packet makes SslClientHelloHandler allocate a 16MB ByteBuf, not fail decode and loop out without an exception; fixed in 4.1.94.Final",
+        "affected netty '< 4.1.94.Final'; CWE-400; CVSS 3.1 6.5 MEDIUM (AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)",
+        "references the fix commit 535da17e and the GHSA"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_nvd",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2023-34462",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "081ddfec48ad4f0678bd7c55f916cacbf61a594b933ed73c9f25a0fa1e941394",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "NVD status Modified, published 2023-06-22, last modified 2026-06-17",
+        "CVSS 3.1 6.5 MEDIUM as NVD Primary (nvd@nist.gov) and as Secondary (security-advisories@github.com), same vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+        "weaknesses: CWE-770 Primary from nvd@nist.gov, CWE-400 Secondary from security-advisories@github.com",
+        "CPE configuration cpe:2.3:a:netty:netty:*:*:*:*:*:*:*:* (all versions before the fix range)"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_osv_cve",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2023-34462",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "86ed9fd3e576773c405da72fa0e48a3e9261dc0ecedfff19d4160d46d27e063f",
+      "verification_method": "OSV.dev API record generated from cvelistV5",
+      "result": "PASS",
+      "supports": [
+        "OSV CVE-2023-34462 with alias GHSA-6mjq-h674-j845",
+        "GIT range on https://github.com/netty/netty with fixed events 535da17e and da1a448d",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_osv_ghsa",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-6mjq-h674-j845",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "605ef86f196a93ffa683b693bc06478df847632f5b619e9fa35719872b919fff",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "summary: netty-handler SniHandler 16MB allocation; database severity MODERATE; cwe_ids CWE-400 and CWE-770",
+        "package io.netty:netty-handler (Maven), introduced 0, fixed 4.1.94.Final, purl pkg:maven/io.netty/netty-handler",
+        "details: no checks; a crafted packet makes SslClientHelloHandler allocate a 16MB ByteBuf, not fail decode, and exit the loop without an exception; without an idle timeout each connection costs 16MB and can cause OutOfMemoryError / DDoS"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_vuln_schl",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/SslClientHelloHandler_4.1.59.java",
+      "source_url": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "57d0742f5dac23dcff1f9d970226041152e1983bbe111a6d936051d1e27fa47d",
+      "verification_method": "Static read of the snapshot git blob (ee1cd388, 13659 bytes, matches file_inventory.json)",
+      "result": "PASS",
+      "supports": [
+        "decode at line 48 is the ByteToMessageDecoder callback for inbound TLS records",
+        "lines 117-118 read handshakeLength with in.getUnsignedMedium, a 24-bit value up to 0xFFFFFF (16MB), directly from the attacker's ClientHello header",
+        "lines 130-132 execute ctx.alloc().buffer(handshakeLength) for the declared length before that many bytes have arrived, with no maximum and no comparison against maxClientHelloLength (the field does not exist)",
+        "line 141 copies the record payload into the oversized buffer; if the declared length is never reached the buffer stays allocated per channel"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_vuln_sni",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/SniHandler_4.1.59.java",
+      "source_url": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/SniHandler.java",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "384ab82e76c15ee1d38b682ea9cc37ff63736ab6717fb9f397b86f42f8082279",
+      "verification_method": "Static read of the snapshot git blob (5ca51b91, 6934 bytes, matches file_inventory.json)",
+      "result": "PASS",
+      "supports": [
+        "line 37: public class SniHandler extends AbstractSniHandler<SslContext>",
+        "SniHandler defines no decode override and no allocation limit; it only supplies lookup/onLookupComplete, so the inherited SslClientHelloHandler.decode performs the 16MB allocation",
+        "no constructor accepts a maximum ClientHello length in 4.1.59"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_vuln_asni",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/AbstractSniHandler_4.1.59.java",
+      "source_url": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/handler/src/main/java/io/netty/handler/ssl/AbstractSniHandler.java",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "d3278d28b5043b9d1e51cbae25cd5c473957fcfb9c84b48896f91bb270eec0e9",
+      "verification_method": "Static read of the snapshot git blob (59ee6953, 6115 bytes, matches file_inventory.json)",
+      "result": "PASS",
+      "supports": [
+        "line 32: public abstract class AbstractSniHandler<T> extends SslClientHelloHandler<T>",
+        "the class passes only a handshake timeout to super; there is no maxClientHelloLength constructor parameter in 4.1.59"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_fixed_schl",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/SslClientHelloHandler_4.1.94.java",
+      "source_url": "https://github.com/netty/netty/blob/da1a448d5bc4f36cc1744db93fcaf64e198db2bd/handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "b77e230c1c94e5fd606d04e9afac64c9378795fe18c428e6f6de1af0327250a2",
+      "verification_method": "Static read of the 4.1.94.Final release blob (2cb3076a, 15321 bytes)",
+      "result": "PASS",
+      "supports": [
+        "MAX_CLIENT_HELLO_LENGTH = 0xFFFFFF and maxClientHelloLength field added; the no-arg SslClientHelloHandler constructor defaults to 0xFFFFFF",
+        "lines 140-147 reject handshakeLength > maxClientHelloLength only when maxClientHelloLength != 0, with TooLongFrameException, input skip, SniCompletionEvent and SslUtils.handleHandshakeFailure",
+        "allocation at line 161 now runs only after that check, but the check cannot fire at the 0xFFFFFF default because getUnsignedMedium returns at most 0xFFFFFF"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_fixed_sni",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/SniHandler_4.1.94.java",
+      "source_url": "https://github.com/netty/netty/blob/da1a448d5bc4f36cc1744db93fcaf64e198db2bd/handler/src/main/java/io/netty/handler/ssl/SniHandler.java",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "0d62afb15537539d10f24e76823ad93c419909b4423efc7594f80b15961f2ba8",
+      "verification_method": "Static read of the 4.1.94.Final release blob (0f1d069c, 9250 bytes)",
+      "result": "PASS",
+      "supports": [
+        "new public constructors accept maxClientHelloLength: Mapping overload at 62-64 and AsyncMapping overload at 97-99, both forwarding to AbstractSniHandler(maxClientHelloLength, handshakeTimeoutMillis)",
+        "the old Mapping-only constructor at 50 and the handshake-timeout-only constructors at 110 and 121 reach this(mapping, 0, handshakeTimeoutMillis), i.e. maxClientHelloLength 0, which disables the check",
+        "so the fix exposes an opt-in maximum; the default paths remain unbounded up to the 0xFFFFFF protocol maximum"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_fixed_asni",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/AbstractSniHandler_4.1.94.java",
+      "source_url": "https://github.com/netty/netty/blob/da1a448d5bc4f36cc1744db93fcaf64e198db2bd/handler/src/main/java/io/netty/handler/ssl/AbstractSniHandler.java",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "a36ab364a87909072eb349bd35388b6d2009f841b34efc665b74b25cc30480be",
+      "verification_method": "Static read of the 4.1.94.Final release blob (5abf8a1b, 8223 bytes)",
+      "result": "PASS",
+      "supports": [
+        "line 139 adds protected AbstractSniHandler(int maxClientHelloLength, long handshakeTimeoutMillis) calling super(maxClientHelloLength)",
+        "the pre-existing protected AbstractSniHandler(long) at line 131 now delegates with maxClientHelloLength 0, and AbstractSniHandler() calls this(0, 0L)"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_patch",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/fix_commit.patch",
+      "source_url": "https://github.com/netty/netty/commit/535da17e45201ae4278c0479e6162bb4127d4c32",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "24e9e9ebf876bb9d7eeb59caab25ffbe5a22a6c8f7555e54ed2b7cd6306ebd58",
+      "verification_method": "git show 535da17e in the local mirror (/tmp/netty_vuln.git)",
+      "result": "PASS",
+      "supports": [
+        "commit 535da17e, 'Merge pull request from GHSA-6mjq-h674-j845', parent 1bb825b7, 2023-06-20",
+        "motivation states the ClientHello can span multiple records and reach 16MB, so a user-definable maximum length is added",
+        "touches SslClientHelloHandler, AbstractSniHandler, SniHandler and SniHandlerTest only"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_34462_git",
+      "artifact_path": "runs/verification/netty_cve_2023_34462/sources/git_object_checks.txt",
+      "source_url": "https://github.com/netty/netty",
+      "retrieved_at": "2026-10-22T03:10:00Z",
+      "sha256_of_observation": "23e287c1659a5b9a66e2dbe7170674a3f0279c3c0c24a1c5a8dd20709d2f9bf1",
+      "verification_method": "git rev-parse / merge-base over fetched tags and commits in a local bare mirror of https://github.com/netty/netty (see git_object_checks.txt)",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag netty-4.1.59.Final dereferences to commit 97d04481; SslClientHelloHandler blob ee1cd388 matches file_inventory.json byte count 13659",
+        "the same blob ee1cd388 is present at netty-4.1.93.Final, the last release before the fix",
+        "fix 535da17e has parent 1bb825b7; 4.1.94.Final is release commit da1a448d whose parent is 535da17e, and merge-base --is-ancestor 535da17e da1a448d returns 0",
+        "fixed blobs at 4.1.94.Final: SslClientHelloHandler 2cb3076a, SniHandler 0f1d069c, AbstractSniHandler 5abf8a1b"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      3
+    ],
+    "aliases": [
+      0,
+      3
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6
+    ],
+    "cwe": [
+      0,
+      1,
+      3
+    ],
+    "fix_commits": [
+      0,
+      3,
+      10,
+      11
+    ],
+    "fixed_releases": [
+      0,
+      3,
+      7,
+      8,
+      9,
+      11
+    ],
+    "languages": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "severity": [
+      0,
+      1,
+      3
+    ],
+    "vulnerable_commit": [
+      4,
+      11
+    ]
+  },
+  "field_evidence_note": "Indexes into the evidence array, as in the other netty dossiers.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 CNA (GitHub_M) record",
+      "NVD analysis (Modified; Primary and Secondary metrics agree)",
+      "GitHub advisory / OSV records",
+      "upstream git tags, commits and the fix patch"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD, OSV and the GitHub advisory agree on the mechanism (SniHandler/SslClientHelloHandler allocates up to 16MB from the ClientHello-declared length), on the 6.5 Medium CVSS 3.1 vector and on the 4.1.94.Final fix. CWE differs by source but not by family: the CNA lists CWE-400, NVD lists CWE-770 as Primary with CWE-400 Secondary, and GHSA lists both. The patch and the 4.1.94 source confirm the fix adds a configurable maximum and a TooLongFrameException check; the independent reviewer established that the default maximum is not effectively lowered (0xFFFFFF cannot be exceeded and the default constructor paths pass 0, which disables the check), so the mitigation is opt-in and this is recorded as a limitation. This root cause is distinct from the previously promoted netty entries: CVE-2021-37136 (Bzip2 decompression resource use), CVE-2021-37137 (Snappy frame decoder resource use), CVE-2021-43797 (CRLF injection in header validation), CVE-2021-21295 (HTTP/2 request smuggling) and CVE-2024-29025 (unbounded form-field accumulation in HttpPostRequestDecoder); none shares this file, class or fix commit.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read SslClientHelloHandler, SniHandler and AbstractSniHandler at 4.1.59 and confirm the unvalidated handshakeLength allocation.",
+      "An independent reviewer must confirm 535da17e is the fix and is contained in 4.1.94.Final.",
+      "An independent reviewer must confirm the affected range <4.1.94.Final and that 4.1.59 is inside it.",
+      "An independent reviewer must confirm all published severity levels are 6.5 Medium and record CWE-400/CWE-770 as published.",
+      "An independent reviewer must confirm the mechanism is distinct from the previously promoted netty entries.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "deepseek-flash (independent review agent)",
+      "verdict_path": "runs/independent/netty_CVE-2023-34462_round1/verdict.json",
+      "verdict": "vulnerable_commit",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "fields_false": [],
+      "severity_level": "medium",
+      "location_file": "handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java",
+      "location_line": "117-132"
+    },
+    "independent_corrections_accepted": [
+      "The fix does not lower the default maximum. MAX_CLIENT_HELLO_LENGTH remains 0xFFFFFF, which getUnsignedMedium can never exceed, so the > comparison cannot fire on that default; moreover AbstractSniHandler() and SniHandler(Mapping) pass maxClientHelloLength=0, and the guard requires maxClientHelloLength != 0, so the default paths are entirely unchecked. Protection is opt-in via an explicit maximum in [1, 0xFFFFFF].",
+      "The entry point is confirmed as inherited: SniHandler -> AbstractSniHandler -> SslClientHelloHandler, and neither subclass overrides decode; a ~9-byte record declaring handshakeLength=0xFFFFFF reaches the allocation.",
+      "4.1.59 is in range: 535da17e is not an ancestor of 4.1.59 but is an ancestor of netty-4.1.94.Final (release commit da1a448d), and 4.1.94.Final is published on Maven Central.",
+      "Severity and CWEs confirmed from public records: CNA GitHub_M 6.5 MEDIUM, NVD Primary and Secondary 6.5 MEDIUM, GHSA MODERATE; CWE-400 (CNA/GHSA) and CWE-770 (NVD Primary/GHSA)."
+    ],
+    "duplicate_check": "The reviewer confirmed this is distinct from the prior netty entries using public records: CVE-2021-37136 (Bzip2Decoder, codec-compression), CVE-2021-37137 (SnappyFrameDecoder, codec-compression), CVE-2021-43797 (HTTP header-name CRLF, codec-http), CVE-2021-21295 (HTTP/2 request smuggling, codec-http2) and CVE-2024-29025 (HttpPostRequestDecoder form accumulation, codec-http). Different packages, mechanisms and fix commits."
+  },
+  "limitations": [
+    "Static verification only; no TLS server, socket, handshake or allocation was run and no memory exhaustion was attempted.",
+    "The advisory attributes the allocation to SniHandler, but the load-bearing code is the inherited SslClientHelloHandler.decode; the location row points there and SniHandler is recorded as the entry point.",
+    "The 4.1.94 fix does not lower the default maximum: MAX_CLIENT_HELLO_LENGTH remains 0xFFFFFF (a value getUnsignedMedium cannot exceed) and AbstractSniHandler()/SniHandler(Mapping) pass maxClientHelloLength=0, which disables the guard. Only applications that explicitly pass a maxClientHelloLength in [1, 0xFFFFFF] are protected; upgrading alone leaves the default allocation bound unchanged.",
+    "The issue is a resource-exhaustion DoS and depends on the application exposing SniHandler on a reachable TCP port without an idle timeout to release stalled handshakes.",
+    "Only one location row is recorded (SslClientHelloHandler.decode); the same allocation affects any subclass of SslClientHelloHandler, not only SniHandler.",
+    "The local mirror is shallow at the fetched tags; ancestry of the fix in 4.1.94.Final was checked with merge-base against fetched commits and the parent relationship of the release commit."
+  ],
+  "open_questions": [
+    "Whether other 4.1.x or 4.0.x release lines received the same fix commit was not investigated; OSV names only the 4.1 branch commits.",
+    "The advisory treats 4.1.94 as the fixed release even though the default behaviour is unchanged; this dataset records the fix as present but opt-in rather than asserting a default reduction."
+  ]
+}

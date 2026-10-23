@@ -1,0 +1,9 @@
+{
+  "tool_version": "build_audit_exports/1.1",
+  "generated_at": "2026-10-23T00:28:56Z",
+  "rows": 32,
+  "exported": 32,
+  "excluded_files": 135,
+  "redacted_files": 24,
+  "failures": []
+}

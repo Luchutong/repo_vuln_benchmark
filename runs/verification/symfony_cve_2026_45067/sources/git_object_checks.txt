@@ -1,0 +1,133 @@
+# git object checks for CVE-2026-45067 (collected 2026-10-22, static only)
+## tag peels (bare clone /tmp/symfony_git)
+v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+v5.4.52 -> eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+
+## fix commit a1c42cbe517bc146a54da7505a107ded317478fe
+a1c42cbe517bc146a54da7505a107ded317478fe
+2026-05-05 16:35:32 +0200
+[Mime] Reject email addresses containing line breaks in Address
+
+## GHSA/advisory-page fix commit dc2dbd29211eb4ddc451373fa1374fb926e94604 (dead)
+git cat-file: fatal: git cat-file: could not get object info
+patch URL result: Not Found
+
+## ancestry of the real fix
+fix ancestor of v5.4.45: NO
+fix ancestor of v5.4.52: YES
+
+## blob ids for src/Symfony/Component/Mime/Address.php
+v5.4.45: ae83efd73e9b2f631010ccfc1ee535a0a9a147e3
+v5.4.52: b51e59850537577591e08f49666b9b9e267df5e6
+sha1 of the downloaded v5.4.45 file as a git blob: ae83efd73e9b2f631010ccfc1ee535a0a9a147e3
+sha1 of the downloaded v5.4.52 file as a git blob: b51e59850537577591e08f49666b9b9e267df5e6
+patch pre-image: ae83efd73e9b2; patch post-image: b51e598505375
+
+## vulnerable constructor at v5.4.45 (Address.php lines 42-58)
+    public function __construct(string $address, string $name = '')
+    {
+        if (!class_exists(EmailValidator::class)) {
+            throw new LogicException(sprintf('The "%s" class cannot be used as it needs "%s"; try running "composer require egulias/email-validator".', __CLASS__, EmailValidator::class));
+        }
+
+        if (null === self::$validator) {
+            self::$validator = new EmailValidator();
+        }
+
+        $this->address = trim($address);
+        $this->name = trim(str_replace(["\n", "\r"], '', $name));
+
+        if (!self::$validator->isValid($this->address, class_exists(MessageIDValidation::class) ? new MessageIDValidation() : new RFCValidation())) {
+            throw new RfcComplianceException(sprintf('Email "%s" does not comply with addr-spec of RFC 2822.', $address));
+        }
+    }
+
+## fixed constructor at v5.4.52 (Address.php lines 42-62)
+    public function __construct(string $address, string $name = '')
+    {
+        if (!class_exists(EmailValidator::class)) {
+            throw new LogicException(sprintf('The "%s" class cannot be used as it needs "%s"; try running "composer require egulias/email-validator".', __CLASS__, EmailValidator::class));
+        }
+
+        if (null === self::$validator) {
+            self::$validator = new EmailValidator();
+        }
+
+        $this->address = trim($address);
+        $this->name = trim(str_replace(["\n", "\r"], '', $name));
+
+        if (preg_match('/[\x00-\x1F\x7F]/', $this->address)) {
+            throw new InvalidArgumentException('Email address contains control characters.');
+        }
+
+        if (!self::$validator->isValid($this->address, class_exists(MessageIDValidation::class) ? new MessageIDValidation() : new RFCValidation())) {
+            throw new RfcComplianceException(sprintf('Email "%s" does not comply with addr-spec of RFC 2822.', $address));
+        }
+    }
+
+## emission sites at v5.4.45
+SmtpTransport.php:199              $this->doMailFromCommand($envelope->getSender()->getEncodedAddress());
+SmtpTransport.php:235          $this->executeCommand(sprintf("MAIL FROM:<%s>\r\n", $address), [250]);
+SmtpTransport.php:240          $this->executeCommand(sprintf("RCPT TO:<%s>\r\n", $address), [250, 251, 252]);
+MailboxHeader.php:66           $str = $this->address->getEncodedAddress();
+MailboxListHeader.php:110             $str = $address->getEncodedAddress();
+IdnAddressEncoder leaves the local part untouched; only the domain is re-encoded when non-ASCII.
+
+## fix patch
+From a1c42cbe517bc146a54da7505a107ded317478fe Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Thu, 16 Apr 2026 19:09:23 +0200
+Subject: [PATCH] [Mime] Reject email addresses containing line breaks in
+ Address
+
+---
+ src/Symfony/Component/Mime/Address.php        |  4 ++++
+ .../Component/Mime/Tests/AddressTest.php      | 20 +++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+
+diff --git a/src/Symfony/Component/Mime/Address.php b/src/Symfony/Component/Mime/Address.php
+index ae83efd73e9b2..b51e598505375 100644
+--- a/src/Symfony/Component/Mime/Address.php
++++ b/src/Symfony/Component/Mime/Address.php
+@@ -52,6 +52,10 @@ public function __construct(string $address, string $name = '')
+         $this->address = trim($address);
+         $this->name = trim(str_replace(["\n", "\r"], '', $name));
+ 
++        if (preg_match('/[\x00-\x1F\x7F]/', $this->address)) {
++            throw new InvalidArgumentException('Email address contains control characters.');
++        }
++
+         if (!self::$validator->isValid($this->address, class_exists(MessageIDValidation::class) ? new MessageIDValidation() : new RFCValidation())) {
+             throw new RfcComplianceException(sprintf('Email "%s" does not comply with addr-spec of RFC 2822.', $address));
+         }
+diff --git a/src/Symfony/Component/Mime/Tests/AddressTest.php b/src/Symfony/Component/Mime/Tests/AddressTest.php
+index 4c64010d9601e..894c22afbcbac 100644
+--- a/src/Symfony/Component/Mime/Tests/AddressTest.php
++++ b/src/Symfony/Component/Mime/Tests/AddressTest.php
+@@ -38,6 +38,26 @@ public function testConstructorWithInvalidAddress()
+         new Address('fab   pot@symfony.com');
+     }
+ 
++    /**
++     * @dataProvider provideAddressesWithControlCharacters
++     */
++    public function testConstructorRejectsControlCharactersInAddress(string $address)
++    {
++        $this->expectException(InvalidArgumentException::class);
++        new Address($address);
++    }
++
++    public static function provideAddressesWithControlCharacters(): iterable
++    {
++        yield 'CRLF in quoted-string' => ["\"x\r\nBcc: attacker@evil\"@example.com"];
++        yield 'CR only' => ["foo\r@example.com"];
++        yield 'LF only' => ["foo\n@example.com"];
++        yield 'NUL byte' => ["foo\x00@example.com"];
++        yield 'HTAB' => ["foo\t@example.com"];
++        yield 'DEL (0x7F)' => ["foo\x7F@example.com"];
++        yield 'control char in domain' => ["foo@example\x01.com"];
++    }
++
+     public function testCreate()
+     {
+         $this->assertSame($a = new Address('fabien@symfony.com'), Address::create($a));

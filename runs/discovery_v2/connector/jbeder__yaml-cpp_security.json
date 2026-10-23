@@ -1,0 +1,24 @@
+{
+  "key": "jbeder__yaml-cpp_security",
+  "repository": "jbeder/yaml-cpp",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:02.632Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\n## Supported Versions\n\nSecurity updates are applied only to the latest release.\n\n## Reporting a Vulnerability\n\nIf you have discovered a security vulnerability in this project, please report it privately. **Do not disclose it as a public issue.** This gives us time to work with you to fix the issue before public exposure, reducing the chance that the exploit will be used before a patch is released.\n\nPlease disclose it at [security advisory](https://github.com/jbeder/yaml-cpp/security/advisories/new).\n\nThis project is maintained by a team of volunteers on a reasonable-effort basis. As such, vulnerabilities will be disclosed in a best effort base.\n",
+      "encoding": "utf-8",
+      "sha": "06a17511b95d7fea41f1a19023f36a1e53e534b3",
+      "display_url": "https://github.com/jbeder/yaml-cpp/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

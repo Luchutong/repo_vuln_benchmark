@@ -1,0 +1,10 @@
+test_conflicting_snapshots_require_explicit_resolution (test_migration_and_validation.TestMigration.test_conflicting_snapshots_require_explicit_resolution) ... ok
+test_dry_run_never_writes (test_migration_and_validation.TestMigration.test_dry_run_never_writes) ... ok
+test_manual_choice_preserves_selected_oracle (test_migration_and_validation.TestMigration.test_manual_choice_preserves_selected_oracle) ... ok
+test_multiple_targets_rejected_by_validator (test_migration_and_validation.TestMigration.test_multiple_targets_rejected_by_validator) ... ok
+test_release_must_have_50_and_frozen_target (test_migration_and_validation.TestMigration.test_release_must_have_50_and_frozen_target) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.647s
+
+OK

@@ -1,0 +1,24 @@
+{
+  "key": "angular_platform-browser-dynamic",
+  "repository": "angular/angular",
+  "path": "packages/platform-browser-dynamic/package.json",
+  "retrieved_at": "2026-10-21T10:56:20.887Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/platform-browser-dynamic\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - library for using Angular in a web browser with JIT compilation\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/core\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/common\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/compiler\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/platform-browser\": \"0.0.0-PLACEHOLDER\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/platform-browser-dynamic\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": [\n    \"./fesm2022/platform-browser-dynamic.mjs\",\n    \"./fesm2022/testing.mjs\"\n  ]\n}\n",
+      "encoding": "utf-8",
+      "sha": "463a4df6c01d8add2dd17ff961ee82ac6b8c7f8d",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/platform-browser-dynamic/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

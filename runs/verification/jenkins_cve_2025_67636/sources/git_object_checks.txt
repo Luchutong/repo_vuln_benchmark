@@ -1,0 +1,96 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; master fix 3ee7380c, LTS fix 042de664 (both
+"[SECURITY-1809]"), and the release tags jenkins-2.541 / jenkins-2.528.3 were fetched
+with --depth=5.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/Functions.java'
+  d27160aaa8a217e59a76c664d10c17849c51ba8d     (92715 bytes; matches file_inventory.json)
+
+Vulnerable code at 2.441 (Functions.java, blob d27160aa):
+  getPasswordValue at 2137-2183 renders <f:password/>. The mask decision only looks
+  for Item and Computer ancestors:
+    2150  /* Mask from Extended Read */
+    2151  StaplerRequest req = Stapler.getCurrentRequest();
+    2152  if (o instanceof Secret || Secret.BLANK_NONSECRET_PASSWORD_FIELDS_WITHOUT_ITEM_CONFIGURE) {
+    2153      if (req != null) {
+    2154          Item item = req.findAncestorObject(Item.class);
+    2155          if (item != null && !item.hasPermission(Item.CONFIGURE)) {
+    2156              return "********";
+    2157          }
+    2158          Computer computer = req.findAncestorObject(Computer.class);
+    2159          if (computer != null && !computer.hasPermission(Computer.CONFIGURE)) {
+    2160              return "********";
+    2161          }
+    2162      }
+    2163  }
+    2166  if (o instanceof Secret) {
+    2167      return ((Secret) o).getEncryptedValue();
+  When the password control is rendered under a View (view configuration page or a
+  view-scoped action) there is no Item or Computer ancestor, so no mask applies and a
+  user with View/Read receives the encrypted Secret value instead of "********".
+
+Fix commits:
+  $ git show -s --format='%H %P | %ci | %s' 3ee7380c 042de664
+  3ee7380c5e167fab865f58b52a81ef01c24b9eb2 4710d65339251aaf1d1599f19545db99be24d981 | 2025-12-02 13:46:07 +0000 | [SECURITY-1809]  (master)
+  042de66464ac0fb194cfb275e1743603e14becd3 c3d776a4d4b5c517ee469a6c0d9b651774eb6a92 | 2025-11-26 08:56:25 +0000 | [SECURITY-1809]  (2.528.x LTS)
+  Both replace the two findAncestorObject lookups with a walk over
+  req.getAncestors() in reverse order, checking the closest Item, Computer or View
+  ancestor and returning "********" when its CONFIGURE permission is missing:
+    2257  /* Mask from Extended Read */
+    2258  StaplerRequest2 req = Stapler.getCurrentRequest2();
+    2271      List<Ancestor> ancestors = req.getAncestors();
+    2272      for (Ancestor ancestor : Iterators.reverse(ancestors)) {
+    2274          if (type instanceof Item item) { if (!item.hasPermission(Item.CONFIGURE)) return "********"; break; }
+    2280          if (type instanceof Computer computer) { if (!computer.hasPermission(Computer.CONFIGURE)) return "********"; break; }
+    2286          if (type instanceof View view) { if (!view.hasPermission(View.CONFIGURE)) return "********"; break; }
+  The old behavior is kept behind the NON_RECURSIVE_PASSWORD_MASKING_PERMISSION_CHECK
+  system-property escape hatch (Functions.class.getName() + ".nonRecursivePasswordMaskingPermissionCheck").
+  File blobs: master fix fbd5e8a6 (same as tag jenkins-2.541), LTS fix 10ebf6f7 (same
+  as tag jenkins-2.528.3); the two differ outside this method because the branches
+  diverged.
+  Regression test: Security1809Test (new file) creates a PasswordView that renders a
+  Secret through f:password, then asserts that a user with View/Read+View/Configure
+  gets the encrypted value while a user with only View/Read gets "********"
+  (passwordIsMaskedForView, passwordIsMaskedForPrimaryView), plus agent, job, closest
+  ancestor and nested-folder cases.
+
+Fixed releases:
+  Jenkins 2.541 (weekly): tag jenkins-2.541, release commit
+    ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3 (parent efa18163).
+  Jenkins 2.528.3 (LTS): tag jenkins-2.528.3, release commit
+    40e29179c3edf88b685d7043ab7c37cc8591138f (parent 92b61576).
+  $ git merge-base --is-ancestor 3ee7380c ea9c7278 -> exit 0
+  $ git merge-base --is-ancestor 042de664 40e29179 -> exit 0
+  (3ee7380c is not an ancestor of the LTS release; the LTS line carries its own
+  backport 042de664, and vice versa.)
+
+Affected range:
+  CNA record: Jenkins 2.540 and earlier, LTS 2.528.2 and earlier; unaffected from
+  2.541 (weekly) and 2.528.3 (LTS), defaultStatus affected.
+  OSV CVE GIT range: introduced 0 -> fixed 40e29179 (2.528.3) and ea9c7278 (2.541).
+  The GHSA ECOSYSTEM weekly range is introduced 2.529 -> fixed 2.541, which conflicts
+  with the CNA text and with the CVE GIT range; the LTS range is 0 -> 2.528.3.
+  Snapshot 2.441 is inside the CNA/GIT affected range.
+
+Public records:
+  CVE List v5 CVE-2025-67636, state PUBLISHED, datePublished 2025-12-10,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE. Description:
+  a missing permission check in Jenkins 2.540 and earlier, LTS 2.528.2 and earlier
+  allows attackers with View/Read permission to view encrypted password values in
+  views.
+  CISA-ADP (Secondary) metrics: CVSS 3.1 4.3 MEDIUM
+  CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N and CWE-862.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), CWE-862 from the same source; no Primary metric.
+  OSV/GHSA-p3f5-98cv-562j: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-862].
+  Jenkins advisory 2025-12-10: https://www.jenkins.io/security/advisory/2025-12-10/
+  #SECURITY-1809.
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

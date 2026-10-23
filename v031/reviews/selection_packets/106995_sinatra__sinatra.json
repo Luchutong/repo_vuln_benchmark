@@ -1,0 +1,194 @@
+{
+  "packet_id": "selrev_106995_snap_5ab17df9ee6e4957",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "106995",
+    "full_name": "sinatra/sinatra",
+    "canonical_url": "https://github.com/sinatra/sinatra",
+    "primary_language": "Ruby",
+    "project_kind": "Classy web-development dressed in a DSL (official / canonical repo)"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_5ab17df9ee6e4957",
+    "tag_or_release": "v4.0.1",
+    "commit_sha": "7dc5940e44cfa6d176b267f2165aa8116032669d"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "7dc5940e44cfa6d176b267f2165aa8116032669d",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "b65107d8754b6a399d23ffd1330542e4d5c14e68",
+    "tree_file_count": 289,
+    "exported_file_count": 289,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/sinatra__sinatra/snap_5ab17df9ee6e4957.tar.gz",
+    "archive_sha256": "639f863fd49d4625de350580f96f25799a5298ba2d4ad59d5cdbe4dcc0983a63",
+    "archive_bytes": 264282,
+    "manifest_path": "exports/sinatra__sinatra/snap_5ab17df9ee6e4957.manifest.jsonl",
+    "manifest_sha256": "52791abed06a0d6d179019208ec563817a48fd3e09d780ea85fb016bc831289a"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/workflows/release.yml",
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 2,
+    "cve_ids_sample": [
+      "CVE-2018-11627",
+      "CVE-2018-7212"
+    ],
+    "files_with_advisory_ids_count": 1,
+    "files_with_advisory_ids_sample": [
+      "CHANGELOG.md"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/workflows/CODEOWNERS",
+      ".github/workflows/release.yml",
+      ".github/workflows/test.yml",
+      "CHANGELOG.md",
+      "SECURITY.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "ruby": [
+        "Gemfile",
+        "Rakefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "ruby"
+    ],
+    "toolchain_available": {
+      "ruby": {
+        "ruby": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-21510",
+      "aliases": [
+        "CVE-2024-21510",
+        "GHSA-hxx2-7vcw-mqr3"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">= 0, < 4.1.0",
+          "ecosystem": "RubyGems",
+          "package": "sinatra",
+          "purl": "pkg:gem/sinatra",
+          "range_expressions": [
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "4.1.0"
+                }
+              ],
+              "source": "OSV GHSA-hxx2-7vcw-mqr3",
+              "type": "ECOSYSTEM",
+              "versions_includes": "4.0.1"
+            },
+            {
+              "first_patched_version": "4.1.0",
+              "range": "< 4.1.0",
+              "source": "GitHub advisory API"
+            },
+            {
+              "patched_versions": [
+                ">= 4.1.0"
+              ],
+              "source": "ruby-advisory-db"
+            },
+            {
+              "note": "no fixed version is expressed",
+              "range": "version 0.0.0, lessThan '*' (all versions)",
+              "source": "CVE CNA / NVD"
+            },
+            {
+              "note": "affected[0] has no ranges, only database_specific.source",
+              "range": null,
+              "source": "OSV CVE-2024-21510 lookup"
+            }
+          ]
+        }
+      ],
+      "published_at": "2024-11-01T06:30:34Z",
+      "advisory_url": "https://github.com/advisories/GHSA-hxx2-7vcw-mqr3",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 5.4,
+            "source": "CVE CNA (Snyk)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N/E:P",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.4,
+            "source": "NVD Secondary (report@snyk.io)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.4,
+            "source": "GitHub advisory API",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "MODERATE",
+            "score": 5.4,
+            "source": "OSV GHSA-hxx2-7vcw-mqr3",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.3,
+            "source": "OSV GHSA-hxx2-7vcw-mqr3 / ruby-advisory-db",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "CVSS 3.1 base 5.4 falls in Medium (4.0-6.9). The CNA (Snyk) CVSS 3.1 metric, the NVD Secondary metric (same source), the GHSA API score and the GHSA/OSV label (MODERATE) agree on the medium tier. The CVSS 4.0 vector published by OSV/rubysec scores 5.3 (Medium, per ruby-advisory-db); it is a different framework, not a disagreement in level. NVD has no Primary metric (vulnStatus Deferred).",
+        "score": 5.4,
+        "source": "CVE CNA (Snyk) CVSS 3.1, republished as the NVD Secondary metric; GitHub advisory API severity medium; OSV/GHSA label MODERATE; ruby-advisory-db cvss_v3 5.4 and cvss_v4 5.3",
+        "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-21510",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "review_id": "selrev_16072585_snap_aca73214a7703174_2026-10-23",
+  "snapshot_id": "snap_aca73214a7703174",
+  "repo_id": "16072585",
+  "full_name": "phoenixframework/phoenix",
+  "reviewed_by": "independent-reviewer-deepseek-flash-20261023",
+  "reviewed_at": "2026-10-22T17:08:33Z",
+  "verdict": "accept",
+  "tag_resolution": {
+    "tag": "v1.8.8",
+    "peeled_commit": "99df0a99da13265cb8b5cd3a506a79b3de34339f",
+    "matches": true,
+    "tag_type": "lightweight (ref points directly at a commit object; git cat-file -t refs/tags/v1.8.8 == commit, no annotated tag object, no ^{} line in git ls-remote)",
+    "commit_date": "2026-06-10T18:14:48Z (2026-06-10 20:14:48 +0200)",
+    "commit_subject": "Release v1.8.8",
+    "tree_sha": "4047ddd8925439832cfc7db4998739ee477e686b",
+    "stable_release": true,
+    "method": "export https_proxy=http://172.21.96.1:7890 http_proxy=http://172.21.96.1:7890; git ls-remote --tags https://github.com/phoenixframework/phoenix.git 'refs/tags/v1.8.*'; git clone --bare --filter=blob:none; git cat-file -t refs/tags/v1.8.8; git rev-parse refs/tags/v1.8.8^{tree}; git log -1 --format='%H %T %ci %s' refs/tags/v1.8.8"
+  },
+  "export_checks": {
+    "archive_sha256_matches": true,
+    "manifest_sha256_matches": true,
+    "no_git_metadata": true,
+    "counts_reconcile": true,
+    "archive_sha256_recomputed": "e225eeb013d80a0d34c339e740345ff88f240b3bcf0690542d2c5c28aa493b3b",
+    "manifest_sha256_recomputed": "22f66ad98708eea61e13a3be987625566d93e4dddba3d1e6f88bb02a44aba045",
+    "archive_bytes": 1375746,
+    "tree_file_count": 478,
+    "exported_file_count": 478,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "count_identity": "478 + 0 + 0 == 478",
+    "git_path_scan": "tar tzf ... | grep -E '(^|/)\\.git(/|$)' -> 0 matches; all 478 tar entries are regular files (no directories, no symlinks)"
+  },
+  "manifest_vs_tree": {
+    "manifest_rows": 478,
+    "manifest_unique_paths": 478,
+    "git_tree_paths": 478,
+    "paths_in_manifest_not_tree": 0,
+    "paths_in_tree_not_manifest": 0,
+    "full_archive_rehash_against_manifest": "478/478 files present, sha256 and size match",
+    "git_blob_sample": "12 randomly sampled paths (seed 20261023) compared via git rev-parse refs/tags/v1.8.8:<path> + git cat-file blob: 12/12 sha256+size match, including binary fixtures (favicon.ico, PNG guide asset) and priv/static/phoenix.min.js",
+    "mode_reconciliation": "git ls-tree modes 475x100644 + 3x100755; manifest 475x0644 + 3x0755 on exactly the same three paths (integration_test/docker.sh, integration_test/test.sh, lib/mix/tasks/phx.gen.release.ex)"
+  },
+  "build_ok": true,
+  "build_notes": "Rebuilt independently by this reviewer after a local user-space Elixir/Erlang toolchain became available (the earlier false was correct for the then-current environment: mix/elixir/erl were absent, exit 127). Toolchain verified: Erlang/OTP 25 [erts-13.2.2.5], Elixir 1.17.3 (compiled with OTP 25), Mix 1.17.3, Hex 2.5.4; mix.exs requires elixir '~> 1.15', satisfied. Fresh extract of exports/phoenixframework__phoenix/snap_aca73214a7703174.tar.gz (sha256 e225eeb0...) into a NEW empty dir /tmp/phx_build_reviewer_indep_20261023 (not the collector's dir), 478 files. Commands and exit codes: 'mix deps.get' exit 0 (Hex deps fetched through the proxy, pinned by the in-tree mix.lock); 'mix compile' exit 0 ending in 'Generated phoenix app' (74 .ex files compiled; 2 benign 'check/guard will always yield the same result' warnings in lib/phoenix/code_reloader/server.ex); 'mix run -e ...' exit 0 reporting phoenix_vsn=1.8.8, elixir=1.17.3; 92 .beam files under _build/dev/lib/phoenix/ebin. The project is buildable as exported.",
+  "audit_checks": {
+    "remaining_advisory_id_count": 0,
+    "excluded_count": 2,
+    "redacted_count": 0,
+    "excluded_paths": [
+      {"path": "CHANGELOG.md", "advisory_ids": ["CVE-2026-32689", "GHSA-628h-q48j-jr6q"]},
+      {"path": "guides/security.md", "advisory_ids": ["CVE-2020-15150"]}
+    ],
+    "audit_archive_sha256_recomputed": "8b6bd35392e950ee3c9760c5c297e8a461214a09322fb42e425fca35901bdaf3",
+    "audit_manifest_sha256_recomputed": "92e11c8110ea61b3a9af47eed6308dbc30540db7479ea26e02c61c0c54dbe807",
+    "audit_archive_matches_row": true,
+    "audit_file_count": 476,
+    "audit_count_reconciles": "478 - 2 excluded == 476",
+    "excluded_paths_absent_from_audit_archive": true,
+    "independent_advisory_scan": "regex scan of all extracted audit files for CVE-/GHSA- identifiers returned 0 matches"
+  },
+  "anchors_checked": [
+    {
+      "vulnerability_id": "CVE-2026-56811",
+      "url": "https://api.osv.dev/v1/vulns/CVE-2026-56811",
+      "affected": true,
+      "basis": "OSV lists Hex package phoenix affected range >=1.8.0-rc.0,<1.8.9 (GHSA/CPE ranges: 0.11.0-1.5.15, 1.6.0-rc.0-1.6.17, 1.7.0-rc.0-1.7.24, 1.8.0-rc.0-1.8.9) and enumerates v1.8.8 explicitly in affected versions. Aliases EEF-CVE-2026-56811, GHSA-6983-jfq8-485w.",
+      "fixed_release": "1.8.9",
+      "fix_commit": "16e295d2fccab185d1292322e2bee5d46c725c8a",
+      "fix_commit_ancestry": "git merge-base --is-ancestor 16e295d2... v1.8.9 -> exit 0 (ancestor); same check against v1.8.8 -> exit 1 (not an ancestor)",
+      "additional_sources": [
+        "https://api.github.com/advisories/GHSA-6983-jfq8-485w (GHSA: >= 1.8.0-rc.0, < 1.8.9; first_patched_version 1.8.9)",
+        "https://cna.erlef.org/cves/CVE-2026-56811.html (EEF CNA: 'from 1.8.0-rc.0 before 1.8.9')",
+        "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-56811 (NVD cpeMatch 1.8.0 <= v < 1.8.9, CVSS 4.0 8.7 HIGH / CVSS 3.1 7.5 HIGH)"
+      ]
+    }
+  ],
+  "release_sanity": {
+    "release_date": "2026-06-10",
+    "review_date": "2026-10-23",
+    "age_days": 135,
+    "age_years": 0.37,
+    "over_four_years": false,
+    "clearly_obsolete": false,
+    "notes": "Stable release, ~4.4 months old at review time. It is intentionally the vulnerable version (superseded by v1.8.9 and later v1.8.16), which is expected for a vulnerable evaluation target, not an obsolescence problem."
+  },
+  "independent_checks": [
+    "git ls-remote --tags resolved v1.8.8 -> 99df0a99da13265cb8b5cd3a506a79b3de34339f, equal to packet commit_sha and to snapshot_exports row",
+    "tag object type is commit (lightweight), not a tag object; no ^{} peeled ref for v1.8.8",
+    "commit tree sha 4047ddd8925439832cfc7db4998739ee477e686b equals packet tree_sha",
+    "git ls-tree -r at v1.8.8 yields 478 paths (475 blobs 100644, 3 blobs 100755), matching tree_file_count",
+    "sha256 of snap_aca73214a7703174.tar.gz == e225eeb0... and of .manifest.jsonl == 22f66ad9... (both match packet)",
+    "archive has 478 regular-file entries, no directories, no symlinks, no .git paths",
+    "manifest path set == git tree path set (478 == 478, zero diff both ways)",
+    "all 478 extracted archive files match manifest sha256 and size",
+    "12/12 random git blob samples match manifest sha256/size",
+    "manifest modes reconcile with git tree modes (3 executables)",
+    "audit export row: remaining_advisory_id_count = 0, excluded_count = 2, redacted_count = 0",
+    "audit archive sha256 and manifest sha256 match the audit row; 476 files = 478 - 2 excluded; excluded paths absent from audit archive",
+    "independent regex scan of the audit export found zero CVE-/GHSA- identifiers",
+    "CVE-2026-56811 confirmed from OSV, GHSA API, EEF CNA page and NVD; v1.8.8 is in the affected version set; fixed version 1.8.9",
+    "fix commit 16e295d2fccab185d1292322e2bee5d46c725c8a is an ancestor of v1.8.9 and not of v1.8.8",
+    "release v1.8.8 dated 2026-06-10, 135 days old at review; not over four years old, not obsolete",
+    "independent rebuild after toolchain became available: fresh extract (478 files) -> mix deps.get exit 0 -> mix compile exit 0 ('Generated phoenix app') -> mix run reports phoenix 1.8.8; 92 beam files produced"
+  ],
+  "build_environment": {
+    "erlang": "Erlang/OTP 25 [erts-13.2.2.5]",
+    "elixir": "1.17.3 (compiled with Erlang/OTP 25)",
+    "mix": "1.17.3",
+    "hex": "2.5.4",
+    "path": "/home/luchitong/.local/erlang/usr/lib/erlang/bin:/home/luchitong/.local/elixir/bin:$PATH",
+    "mix_home": "/home/luchitong/.local/mix",
+    "hex_home": "/home/luchitong/.local/hex",
+    "build_dir": "/tmp/phx_build_reviewer_indep_20261023",
+    "extract_source_sha256": "e225eeb013d80a0d34c339e740345ff88f240b3bcf0690542d2c5c28aa493b3b",
+    "commands": [
+      {"cmd": "mix deps.get", "exit": 0},
+      {"cmd": "mix compile", "exit": 0, "stdout_tail": "Generated phoenix app"},
+      {"cmd": "mix run -e 'IO.puts(\"phoenix_vsn=...\")'", "exit": 0, "output": "phoenix_vsn=1.8.8 elixir=1.17.3"}
+    ],
+    "beam_file_count": 92,
+    "warnings": "2 benign compile warnings ('this check/guard will always yield the same result') at lib/phoenix/code_reloader/server.ex:245 and :359"
+  },
+  "limitations": [
+    "The successful build was performed with a user-space OTP 25 / Elixir 1.17.3 toolchain installed after the first review pass; the earlier build_ok=false reflected the environment at that time and is superseded.",
+    "The clone used --filter=blob:none; blobs were lazily fetched over the proxy for the sampled and full-tree verifications, but the full manifest was verified against the local archive, which was itself cross-checked against git blobs.",
+    "Network verification went through the WSL host proxy 172.21.96.1:7890; all public sources, including Hex package fetches during the rebuild, were reachable at review time.",
+    "The audit-export regex scan is lexical (same class of method as the collector) and does not prove semantic absence of vulnerability hints, only absence of identifier strings."
+  ],
+  "notes": "All eight required checks were performed independently of the packet. Checks 1-5 pass, release sanity is clean, and check 6 now passes too: after a local Elixir/Erlang toolchain was installed, this reviewer reproduced a successful build from a fresh extract of the exported archive (mix deps.get exit 0, mix compile exit 0, phoenix 1.8.8 compiled). The snapshot is accepted. The packet's facts (commit, tree, counts, hashes, audit counts, anchor ranges) were all reproduced from upstream git and the local exports without relying on the packet's assertions."
+}

@@ -1,0 +1,24 @@
+{
+  "key": "rails_activerecord",
+  "repository": "rails/rails",
+  "path": "activerecord/activerecord.gemspec",
+  "retrieved_at": "2026-10-21T10:56:18.874Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"../RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"activerecord\"\n  s.version     = version\n  s.summary     = \"Object-relational mapper framework (part of Rails).\"\n  s.description = \"Databases on Rails. Build a persistent domain model by mapping database tables to Ruby classes. Strong conventions for associations, validations, aggregations, migrations, and testing come baked-in.\"\n\n  s.required_ruby_version = \">= 3.3.5\"\n\n  s.license = \"MIT\"\n\n  s.author   = \"David Heinemeier Hansson\"\n  s.email    = \"david@loudthinking.com\"\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files        = Dir[\"CHANGELOG.md\", \"MIT-LICENSE\", \"README.rdoc\", \"examples/**/*\", \"lib/**/*\"]\n  s.require_path = \"lib\"\n\n  s.extra_rdoc_files = %w(README.rdoc)\n  s.rdoc_options.concat [\"--main\",  \"README.rdoc\"]\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/blob/v#{version}/activerecord/CHANGELOG.md\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}/activerecord\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  # NOTE: Please read our dependency guidelines before updating versions:\n  # https://edgeguides.rubyonrails.org/security.html#dependency-management-and-cves\n\n  s.add_dependency \"activesupport\", version\n  s.add_dependency \"activemodel\",   version\n  s.add_dependency \"timeout\", \">= 0.4.0\"\nend\n",
+      "encoding": "utf-8",
+      "sha": "297c98f314cbf6469e7274353f908a6a9ad4c32e",
+      "display_url": "https://github.com/rails/rails/blob/main/activerecord/activerecord.gemspec",
+      "display_title": "activerecord.gemspec"
+    },
+    "isError": false
+  }
+}

@@ -1,0 +1,409 @@
+{
+  "candidate_id": "disc2_f873b7cbeee313b9cd3a4066",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "prepared_at": "2026-10-21T15:45:00Z",
+  "repository": {
+    "repo_id": "458058",
+    "full_name": "symfony/symfony",
+    "canonical_url": "https://github.com/symfony/symfony",
+    "primary_language": "PHP",
+    "project_kind": "web framework monorepo of reusable components",
+    "snapshot_id": "snap_39105a8a3ceb9fe4"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-50340",
+    "repo_id": "458058",
+    "snapshot_id": "snap_39105a8a3ceb9fe4",
+    "aliases": [
+      "CVE-2024-50340",
+      "GHSA-x8vp-gf4q-mw5j"
+    ],
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://symfony.com/blog/cve-2024-50340-ability-to-change-environment-from-query",
+    "source_type": "upstream_advisory",
+    "title": "Symfony Runtime reads query-string-derived argv on web SAPIs, letting a crafted URL change APP_ENV or APP_DEBUG",
+    "category_l1": "injection",
+    "category_l2": "argv/environment injection through register_argc_argv on non-CLI SAPIs",
+    "cwe_ids": [
+      "CWE-74"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "published_at": "2024-11-06T21:09:46Z",
+    "vulnerable_version": "5.4.45",
+    "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+    "vulnerable_commit_basis": "annotated tag v5.4.45 peels to 2b66d7d7...; the runtime fix a77b308c is absent from this tag and the file matches the fix commit's parent 5ebc4c3c",
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "score": 7.3,
+      "level": "high",
+      "source": "GitHub_M CNA record (CVE List v5) and GHSA-x8vp-gf4q-mw5j; NVD carries the same vector only as a Secondary metric and marks the record Deferred",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50340",
+      "numeric_level_rationale": "CNA CVSS 3.1 numeric 7.3 falls in High (7.0-8.9); the GHSA page displays a CVSS v4.0 6.9 Moderate score alongside the same 3.1 vector"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/runtime",
+        "purl": "pkg:composer/symfony/runtime",
+        "affected_range": ">=5.3,<5.4.46"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/runtime",
+        "purl": "pkg:composer/symfony/runtime",
+        "affected_range": ">=6.0,<6.4.14"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/runtime",
+        "purl": "pkg:composer/symfony/runtime",
+        "affected_range": ">=7.0,<7.1.7"
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa",
+        "branch": "5.4",
+        "message": "Do not read from argv on non-CLI SAPIs",
+        "url": "https://github.com/symfony/symfony/commit/a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/runtime",
+        "version": "5.4.46",
+        "tag": "v5.4.46",
+        "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.46",
+        "verified_content": "At tag v5.4.46 (057d88be) SymfonyRuntime::__construct only calls getInput when $_GET is empty and getInput throws when $_GET is non-empty with register_argc_argv=On; fix a77b308c is an ancestor"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/runtime",
+        "version": "6.4.14",
+        "tag": "v6.4.14",
+        "release_url": "https://github.com/symfony/symfony/releases/tag/v6.4.14",
+        "verified_content": "At tag v6.4.14 (d1797e5b) the same guard is present; fix a77b308c is an ancestor"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/runtime",
+        "version": "7.1.7",
+        "tag": "v7.1.7",
+        "release_url": "https://github.com/symfony/symfony/releases/tag/v7.1.7",
+        "verified_content": "At tag v7.1.7 (50011435) the same guard is present; fix a77b308c is an ancestor"
+      }
+    ],
+    "references": [
+      "https://symfony.com/blog/cve-2024-50340-ability-to-change-environment-from-query",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-50340",
+      "https://github.com/symfony/symfony/security/advisories/GHSA-x8vp-gf4q-mw5j",
+      "https://github.com/symfony/symfony/commit/a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa",
+      "https://osv.dev/vulnerability/CVE-2024-50340"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2024-50340_snap_39105a8a3ceb9fe4",
+    "vulnerability_id": "CVE-2024-50340",
+    "snapshot_id": "snap_39105a8a3ceb9fe4",
+    "location_kind": "dataflow",
+    "verification_method": "Static read of SymfonyRuntime.php at v5.4.45 and the three fixed tags, the fix commit and its phpt regression tests, plus peeled-tag ancestry checks; no PHP runtime or web server was executed.",
+    "entry_point": {
+      "file": "src/Symfony/Component/Runtime/SymfonyRuntime.php",
+      "function": "__construct",
+      "language": "PHP",
+      "line": 90,
+      "description": "Runtime bootstrap constructed by the front controller. On a web SAPI with register_argc_argv=On, PHP populates $_SERVER['argv'] from the query string, so the constructor's argv branch processes attacker-controlled values.",
+      "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Runtime/SymfonyRuntime.php#L90"
+    },
+    "critical_operation": {
+      "file": "src/Symfony/Component/Runtime/SymfonyRuntime.php",
+      "function": "__construct",
+      "language": "PHP",
+      "line": 98,
+      "code_excerpt": "        } elseif (isset($_SERVER['argv']) && class_exists(ArgvInput::class)) {\n            $this->options = $options;\n            $this->getInput();\n        }",
+      "description": "In 5.4.45 the constructor treats the presence of $_SERVER['argv'] as proof of a CLI SAPI. It calls getInput(), which builds ArgvInput and applies --env/-e and --no-debug to putenv/$_SERVER/$_ENV without checking the SAPI or $_GET. When register_argc_argv=On on a web SAPI, a crafted query string becomes argv, so an unauthenticated request can switch APP_ENV (for example to dev) or set APP_DEBUG. The fix requires $_GET to be empty at the call site and makes getInput throw when $_GET is non-empty and register_argc_argv is on.",
+      "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Runtime/SymfonyRuntime.php#L98"
+    },
+    "trace": [
+      {
+        "file": "src/Symfony/Component/Runtime/SymfonyRuntime.php",
+        "function": "__construct",
+        "language": "PHP",
+        "line": 90,
+        "description": "runtime bootstrap creates SymfonyRuntime",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Runtime/SymfonyRuntime.php#L90"
+      },
+      {
+        "file": "src/Symfony/Component/Runtime/SymfonyRuntime.php",
+        "function": "__construct",
+        "language": "PHP",
+        "line": 98,
+        "description": "argv presence alone selects the console-input path",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Runtime/SymfonyRuntime.php#L98"
+      },
+      {
+        "file": "src/Symfony/Component/Runtime/SymfonyRuntime.php",
+        "function": "getInput",
+        "language": "PHP",
+        "line": 217,
+        "description": "getInput constructs ArgvInput from the query-derived argv without a SAPI/register_argc_argv check",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Runtime/SymfonyRuntime.php#L217"
+      },
+      {
+        "file": "src/Symfony/Component/Runtime/SymfonyRuntime.php",
+        "function": "getInput",
+        "language": "PHP",
+        "line": 225,
+        "description": "--env/-e and --no-debug are written into $_SERVER/$_ENV via putenv, changing kernel environment and debug mode",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Runtime/SymfonyRuntime.php#L225"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_symfony50340_blog",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/symfony_blog.html",
+      "source_url": "https://symfony.com/blog/cve-2024-50340-ability-to-change-environment-from-query",
+      "retrieved_at": "2026-10-21T15:33:00Z",
+      "sha256_of_observation": "e7805dc66057fe3dd30122d9359315713e36268ddddea5683ce99be4f4f77ad4",
+      "verification_method": "official upstream advisory HTML read; no code executed",
+      "result": "PASS",
+      "supports": [
+        "affected: Symfony <5.4.46, >=6 <6.4.14, >=7 <7.1.7 of the Runtime component",
+        "when register_argc_argv is on, a crafted query string can change the environment or debug mode used by the kernel",
+        "fixed in 5.4.46, 6.4.14 and 7.1.7 by ignoring argv for non-CLI SAPIs"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_cna",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-50340",
+      "retrieved_at": "2026-10-21T15:33:00Z",
+      "sha256_of_observation": "22bb435bba0a0152f580d08b6e8ed684b2f64d4242cc0a512a7200a7c899c563",
+      "verification_method": "CVE List v5 CNA JSON read",
+      "result": "PASS",
+      "supports": [
+        "assigner GitHub_M, published 2024-11-06",
+        "CWE-74",
+        "CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L, base 7.3 HIGH",
+        "affected strings <5.4.46, >=6.0.0 <6.4.14, >=7.0.0 <7.1.7"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_nvd",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-50340",
+      "retrieved_at": "2026-10-21T15:33:00Z",
+      "sha256_of_observation": "216c7b81afd194baa369c21ae14c5bf7faf302c37a1ad4e4f2ec973671df1020",
+      "verification_method": "NVD 2.0 API JSON read",
+      "result": "PASS",
+      "supports": [
+        "NVD has no nvd@nist.gov CVSS metric for this CVE; the only CVSS entry is a Secondary 7.3 from security-advisories@github.com",
+        "CWE-74",
+        "description names patched versions 5.4.46, 6.4.14 and 7.1.7"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_osv",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-50340",
+      "retrieved_at": "2026-10-21T15:32:00Z",
+      "sha256_of_observation": "396f5bbbacc772af7a3bdf44b0d4ac1b6f69a9ec941e00decc5b15a117d0bcbe",
+      "verification_method": "OSV API JSON read",
+      "result": "PASS",
+      "supports": [
+        "GIT ranges reference fixed release commits 057d88be, d1797e5b, 50011435 plus the source fix a77b308c",
+        "severity CVSS 3.1 7.3 HIGH"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_git_checks",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/git_object_checks.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa",
+      "retrieved_at": "2026-10-21T15:40:00Z",
+      "sha256_of_observation": "8c4f5754297a0f00bca166b062432e0cef0e61e48338bfc76ed8151572c3c65f",
+      "verification_method": "exact-tag shallow fetches with --deepen in a bare repository; rev-parse of peeled tags; merge-base --is-ancestor; git log --grep",
+      "result": "PASS",
+      "supports": [
+        "v5.4.45 peels to 2b66d7d7 and v5.4.46 to 057d88be",
+        "a77b308c has parent 5ebc4c3c and message 'Do not read from argv on non-CLI SAPIs'",
+        "a77b308c is absent from v5.4.45, v6.4.13 and v7.1.6, and is an ancestor of v5.4.46, v6.4.14 and v7.1.7",
+        "the security merge 30810edc names cve-2024-50340 and has a77b308c as a parent"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_vulnerable_source",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/SymfonyRuntime_v5.4.45.php",
+      "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Runtime/SymfonyRuntime.php#L90-L100",
+      "retrieved_at": "2026-10-21T15:38:00Z",
+      "sha256_of_observation": "c53ad374ebdb5a7021c37b56826639c4bf2bf6bb5901878d78e604ddadf61ed7",
+      "verification_method": "git show of the file at tag v5.4.45; read-only",
+      "result": "PASS",
+      "supports": [
+        "line 98 checks only isset($_SERVER['argv']) and the ArgvInput class",
+        "line 100 calls getInput with no SAPI or $_GET guard",
+        "getInput at line 217 applies --env/-e and --no-debug to $_SERVER/$_ENV"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_fixed_source",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/SymfonyRuntime_v5.4.46.php",
+      "source_url": "https://github.com/symfony/symfony/blob/057d88bef2d18a10d3b0b8fb093332131dc58e2f/src/Symfony/Component/Runtime/SymfonyRuntime.php#L98-L220",
+      "retrieved_at": "2026-10-21T15:38:00Z",
+      "sha256_of_observation": "bb235c03f88ec6f72857a260480965f3b5ba718a61a9aa80216631e6fadc0575",
+      "verification_method": "git show of the file at tag v5.4.46; read-only",
+      "result": "PASS",
+      "supports": [
+        "the constructor now requires empty($_GET) before calling getInput",
+        "getInput throws when $_GET is non-empty and register_argc_argv is On",
+        "the exception text is 'CLI applications cannot be run safely on non-CLI SAPIs with register_argc_argv=On.'"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_fix_diff",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/fix_diff.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa",
+      "retrieved_at": "2026-10-21T15:38:00Z",
+      "sha256_of_observation": "2597fd4a9bdde719b387a226a3f091e3a34883bffa25cb3cef9436ac05f6df77",
+      "verification_method": "git show of the fix commit, SymfonyRuntime.php hunk only",
+      "result": "PASS",
+      "supports": [
+        "the complete source fix in SymfonyRuntime.php is the two-guard change",
+        "no other Runtime production file is changed"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_regression_test",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/test_diff.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa",
+      "retrieved_at": "2026-10-21T15:38:00Z",
+      "sha256_of_observation": "a985f52260db72c9278ab0f0785ee4cb589ff98244b5129fe7c35fef815881ea",
+      "verification_method": "git show of the fix commit for Runtime/Tests/phpt; read-only",
+      "result": "PASS",
+      "supports": [
+        "new phpt kernel_register_argc_argv.phpt sets register_argc_argv=1 and argv [' ', '-e', 'test'] while $_GET is non-empty",
+        "the expected response keeps env=dev, proving the injected -e test is ignored",
+        "the upstream test was read, not executed"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_ghsa",
+      "artifact_path": "runs/verification/symfony_cve_2024_50340/sources/ghsa_page.html",
+      "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-x8vp-gf4q-mw5j",
+      "retrieved_at": "2026-10-21T15:32:00Z",
+      "sha256_of_observation": "3b8e5e0f98a545a63eeb986a5c2e65c1d59fb50468b58ac99c4d38bc65515ba2",
+      "verification_method": "GitHub advisory HTML read; the REST API was not used",
+      "result": "PASS",
+      "supports": [
+        "GitHub advisory GHSA-x8vp-gf4q-mw5j duplicates the Symfony text and carries the 7.3 HIGH 3.1 vector",
+        "the page also shows a CVSS v4.0 6.9 Moderate rating",
+        "credits Vladimir Dusheyko (reporter) and Wouter de Jong (fix)"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50340_snapshot",
+      "artifact_path": "runs/language/snap_39105a8a3ceb9fe4/snapshot_proposal.json",
+      "source_url": "https://github.com/symfony/symfony/tree/2b66d7d7d8129531229708ef708860844db91944",
+      "retrieved_at": "2026-10-21T15:25:31Z",
+      "sha256_of_observation": "f21911b9286584aa9c4dc0121f233575890c42b13362b11abb22777acb2d2e3e",
+      "verification_method": "inventory_snapshot.py with pinned github-linguist 9.7.0; enumeration matches git ls-tree",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_39105a8a3ceb9fe4 at tag v5.4.45",
+        "11040 tracked files scanned; 150 ambiguous files",
+        "PHP first-party 3327 files / 11,758,368 bytes / 25.45% of tracked nonbinary bytes",
+        "full_scan=true"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "aliases": [
+      1,
+      3
+    ],
+    "severity": [
+      1,
+      2
+    ],
+    "cwe": [
+      1,
+      2
+    ],
+    "affected_ranges": [
+      2,
+      3
+    ],
+    "fix_commits": [
+      4,
+      7
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      4
+    ],
+    "vulnerable_commit": [
+      4,
+      5
+    ],
+    "critical_operation": [
+      5,
+      6,
+      7
+    ],
+    "languages": [
+      10
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "independent_of_primary": true,
+    "severity_disagreement": true,
+    "families": [
+      "Symfony security advisory (blog)",
+      "GitHub advisory GHSA / CVE List v5 CNA record",
+      "NVD analysis",
+      "OSV record",
+      "upstream git history and release tags"
+    ],
+    "notes": "All families agree on the fixed releases (5.4.46, 6.4.14, 7.1.7) and on the two-guard source fix. They disagree on the alias, severity representation, CWE set and lower bound: the correct GHSA is GHSA-x8vp-gf4q-mw5j; the CNA/NVD CVSS v3.1 is 7.3 HIGH while the GHSA page's primary CVSS v4.0 is 6.9 MODERATE; the CNA/NVD list only CWE-74 while GHSA/OSV add CWE-20; the CNA writes '<5.4.46' while GHSA/OSV/FriendsOfPHP write '>=5.3.0'. NVD carried no Primary metric and marked the record Deferred. OSV's GIT endpoints are release commits with the source fix appended as REFERENCES_COMMIT. The canonical fields use the CNA vector, CWE-74, and the >=5.3.0 lower bound."
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No PHP runtime, web server or HTTP request was executed. The claim that register_argc_argv=On populates $_SERVER['argv'] from the query string is taken from the advisory and the upstream phpt test, which emulates that behavior explicitly.",
+    "The phpt regression test was read, not run; it asserts env=dev survives an argv of [' ', '-e', 'test'] when $_GET is non-empty.",
+    "The fix only guards the non-CLI path when $_GET is non-empty; the advisory's wording ('ignores argv for non-CLI SAPIs') is broader than the code, which relies on $_GET as the web-request signal.",
+    "The vulnerable snapshot is v5.4.45; the same snapshot is also the evaluation target for CVE-2024-50345, which is legitimate because both vulnerabilities exist at the same exact SHA. The 6.4 and 7.1 branches were checked only for fix ancestry and fixed-file content.",
+    "The repository snapshot has 11040 tracked files and 150 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+    "No dynamic red/green test was run, so no reproduction_reference exists and the entry is grade B at best.",
+    "The correct GitHub advisory alias is GHSA-x8vp-gf4q-mw5j. GHSA-qq5c-677p-737q, initially assumed from an adjacent candidate row, belongs to CVE-2024-51736 (symfony/process cmd.exe hijack); the independent reviewer caught the mix-up and the dossier now uses the alias confirmed by the CVE record references, OSV, GitHub HTML and the advisory-database.",
+    "NVD has no nvd@nist.gov CVSS metric for this CVE: its only cvssMetricV31 entry is Secondary (source security-advisories@github.com), weaknesses are also Secondary, configurations are null and vulnStatus is Deferred. The canonical 7.3 HIGH therefore comes from the CNA/GHSA record, not from an NVD analysis.",
+    "Severity representations disagree across sources: the CNA/NVD v3.1 vector is 7.3 HIGH, while the GHSA page's primary CVSS v4.0 vector is 6.9 MODERATE (CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N).",
+    "CWE sets disagree: the CNA and NVD list only CWE-74; the GHSA/OSV record adds CWE-20. The canonical cwe_ids keeps CWE-74.",
+    "The affected lower bound disagrees: the CNA writes '< 5.4.46' literally, while GHSA/OSV/FriendsOfPHP write '>= 5.3.0' because symfony/runtime was introduced in 5.3. The canonical 5.4 range is '>=5.3,<5.4.46'.",
+    "OSV's GIT fixed endpoints are the release commits 057d88be, d1797e5b and 50011435; the source fix a77b308c appears only as a trailing fixed event tagged REFERENCES_COMMIT. The release commits are not used as the fix commit.",
+    "The CVE description contains two drafting errors: it writes 'register_argv_argc' instead of 'register_argc_argv' and 'non-SAPI PHP runtimes' instead of non-CLI SAPIs.",
+    "The GitHub REST API was rate-limited from the shared egress IP, so the repository numeric id 458058 was not re-checked through the API by the reviewer; it is taken from the existing catalog and is not part of the promoted vulnerability fields."
+  ],
+  "open_questions": [
+    "Which production deployments actually run with register_argc_argv=On was not measured; the vulnerability is conditional on that directive.",
+    "Whether the injected APP_ENV can be escalated beyond information disclosure in a specific application (for example dev toolbar, profiler, or debug error pages) is application-specific and outside this snapshot."
+  ],
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read SymfonyRuntime::__construct and getInput at v5.4.45 and confirm the missing SAPI/$_GET guard.",
+      "An independent reviewer must confirm a77b308c is absent from v5.4.45/v6.4.13/v7.1.6 and an ancestor of v5.4.46/v6.4.14/v7.1.7.",
+      "An independent reviewer must check the 7.3 HIGH vector, CWE-74, and the NVD Secondary-only metric.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ]
+}

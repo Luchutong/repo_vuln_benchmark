@@ -1,0 +1,24 @@
+{
+  "key": "actix_cargo",
+  "repository": "actix/actix-web",
+  "path": "Cargo.toml",
+  "retrieved_at": "2026-10-21T10:55:21.744Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "[workspace]\nresolver = \"2\"\nmembers = [\n  \"actix-files\",\n  \"actix-http-test\",\n  \"actix-http\",\n  \"actix-multipart\",\n  \"actix-multipart-derive\",\n  \"actix-router\",\n  \"actix-test\",\n  \"actix-web-codegen\",\n  \"actix-web\",\n  \"awc\",\n]\n\n[workspace.package]\nhomepage = \"https://actix.rs\"\nrepository = \"https://github.com/actix/actix-web\"\nlicense = \"MIT OR Apache-2.0\"\nedition = \"2021\"\nrust-version = \"1.89\"\n\n[profile.dev]\n# Disabling debug info speeds up builds a bunch and we don't rely on it for debugging that much.\ndebug = 0\n\n[profile.release]\nlto = true\nopt-level = 3\ncodegen-units = 1\n\n[patch.crates-io]\nactix-files = { path = \"actix-files\" }\nactix-http = { path = \"actix-http\" }\nactix-http-test = { path = \"actix-http-test\" }\nactix-multipart = { path = \"actix-multipart\" }\nactix-multipart-derive = { path = \"actix-multipart-derive\" }\nactix-router = { path = \"actix-router\" }\nactix-test = { path = \"actix-test\" }\nactix-web = { path = \"actix-web\" }\nactix-web-codegen = { path = \"actix-web-codegen\" }\nawc = { path = \"awc\" }\n\n# uncomment for quick testing against local actix-net repo\n# actix-service = { path = \"../actix-net/actix-service\" }\n# actix-macros = { path = \"../actix-net/actix-macros\" }\n# actix-rt = { path = \"../actix-net/actix-rt\" }\n# actix-codec = { path = \"../actix-net/actix-codec\" }\n# actix-utils = { path = \"../actix-net/actix-utils\" }\n# actix-tls = { path = \"../actix-net/actix-tls\" }\n# actix-server = { path = \"../actix-net/actix-server\" }\n\n[workspace.lints.rust]\nrust_2018_idioms = { level = \"deny\", priority = -1 }\nfuture_incompatible = { level = \"deny\", priority = -1 }\nnonstandard_style = { level = \"deny\", priority = -1 }\nlinker_messages = { level = \"allow\" }\n\n[workspace.lints.clippy]\n# clone_on_ref_ptr = { level = \"deny\" }\n",
+      "encoding": "utf-8",
+      "sha": "48085c80ffd6c3632268de89b3d342c39edf202d",
+      "display_url": "https://github.com/actix/actix-web/blob/main/Cargo.toml",
+      "display_title": "Cargo.toml"
+    },
+    "isError": false
+  }
+}

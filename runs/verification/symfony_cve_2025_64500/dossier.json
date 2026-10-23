@@ -1,0 +1,377 @@
+{
+ "candidate_id": "disc2_6de381da94157d895176a235",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:05:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2025-64500",
+  "aliases": [
+   "CVE-2025-64500",
+   "GHSA-3rg7-wf37-54rm"
+  ],
+  "title": "Symfony HttpFoundation incorrectly parses PATH_INFO, returning URL paths without a leading slash and enabling limited authorization bypass",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "purl": "pkg:composer/symfony/http-foundation",
+    "affected_range": ">=0,<5.4.50"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=2.0.0,<5.4.50"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "version": "5.4.50",
+    "tag": "v5.4.50",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.50",
+    "verified_content": "At v5.4.50 preparePathInfo prepends \"/\" whenever the substring after baseUrl does not start with it; fix 9962b91b is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.50",
+    "tag": "v5.4.50",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.50",
+    "verified_content": "Same tree: tag v5.4.50 peels to 4b031a79 and contains the Request.php change from 9962b91b"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "9962b91b12bb791322fa73836b350836b6db7cac",
+    "branch": "5.4",
+    "message": "[HttpFoundation] Fix parsing pathinfo with no leading slash",
+    "url": "https://github.com/symfony/symfony/commit/9962b91b12bb791322fa73836b350836b6db7cac"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-647"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+   "score": 7.3,
+   "level": "high",
+   "numeric_level_rationale": "CVSS 3.1 numeric 7.3 falls in High (7.0-8.9); the metric is supplied by the GitHub_M CNA and republished by NVD as its only, secondary metric, with low impact on all three properties",
+   "source": "GitHub advisory (GitHub_M CNA) CVSS 3.1 vector; NVD carries the same vector as a secondary metric only",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-3rg7-wf37-54rm"
+  },
+  "category_l1": "authorization_bypass",
+  "category_l2": "PATH_INFO computed after stripping the base URL is returned without a leading slash, so access-control rules that assume \"/\"-prefixed paths can be bypassed",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/blog/cve-2025-64500-incorrect-parsing-of-path-info-can-lead-to-limited-authorization-bypass",
+  "published_at": "2025-11-12T21:50:37Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/blog/cve-2025-64500-incorrect-parsing-of-path-info-can-lead-to-limited-authorization-bypass",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-3rg7-wf37-54rm",
+   "https://github.com/symfony/symfony/commit/9962b91b12bb791322fa73836b350836b6db7cac",
+   "https://nvd.nist.gov/vuln/detail/CVE-2025-64500",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.50"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2025-64500_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2025-64500",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/HttpFoundation/Request.php",
+  "function": "Request::preparePathInfo",
+  "language": "PHP",
+  "line": "1973-1979",
+  "critical_operation": {
+   "code_excerpt": "        $pathInfo = substr($requestUri, \\strlen($baseUrl));\n        if (false === $pathInfo || '' === $pathInfo) {\n            // If substr() returns false then PATH_INFO is set to an empty string\n            return '/';\n        }\n\n        return $pathInfo;",
+   "description": "preparePathInfo removes the computed base URL from the request URI and returns the remainder unchanged unless it is false or empty. Nothing forces the remainder to begin with \"/\", so a URI whose base URL ends mid-segment (for example \"/api/index.phpfoo\" with baseUrl \"/api/index.php\") yields pathInfo \"foo\". The 5.4.50 fix prefixes \"/\" whenever the remainder does not already start with it.",
+   "file": "src/Symfony/Component/HttpFoundation/Request.php",
+   "function": "Request::preparePathInfo",
+   "language": "PHP",
+   "line": "1973-1979",
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L1973-L1979"
+  },
+  "entry_point": {
+   "description": "getPathInfo(), reached from any HttpFoundation Request built from the PHP server variables, lazily calls preparePathInfo(); REQUEST_URI and SCRIPT_NAME are the request-controlled inputs used to compute requestUri and baseUrl.",
+   "file": "src/Symfony/Component/HttpFoundation/Request.php",
+   "function": "Request::getPathInfo",
+   "language": "PHP",
+   "line": 870,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L870"
+  },
+  "trace": [
+   {
+    "description": "The Request is built from server variables and getRequestUri() returns REQUEST_URI with the query string still present",
+    "file": "src/Symfony/Component/HttpFoundation/Request.php",
+    "function": "Request::getRequestUri",
+    "language": "PHP",
+    "line": 1041,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L1041"
+   },
+   {
+    "description": "getPathInfo() lazily invokes preparePathInfo() to derive the path",
+    "file": "src/Symfony/Component/HttpFoundation/Request.php",
+    "function": "Request::getPathInfo",
+    "language": "PHP",
+    "line": 873,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L870-L877"
+   },
+   {
+    "description": "preparePathInfo strips the base URL and returns a remainder that may not start with \"/\"",
+    "file": "src/Symfony/Component/HttpFoundation/Request.php",
+    "function": "Request::preparePathInfo",
+    "language": "PHP",
+    "line": 1973,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L1973-L1979"
+   }
+  ],
+  "verification_method": "Static read of Request.php at v5.4.45 and v5.4.50, the 5.4 fix diff, tag ancestry and blob comparison; no code was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_64500_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "94c2ec890370cee77671af9b1254a9a52ddc9137c1346ada74315376da87231d",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-64500",
+   "supports": [
+    "NVD description: starting in 2.0.0 and before 5.4.50, 6.4.29 and 7.3.7 the Request class improperly interprets some PATH_INFO, representing URLs with a path that does not start with \"/\", which can bypass access-control rules built with that prefix assumption",
+    "NVD carries exactly one CVSS 3.1 metric, type Secondary from security-advisories@github.com: 7.3 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+    "NVD lists CWE-647 from the GitHub advisory and the CISA-ADP SSVC record (exploitation none, automatable no, technical impact partial)",
+    "NVD references the 5.4 fix commit 9962b91b12bb791322fa73836b350836b6db7cac and the GHSA-3rg7-wf37-54rm advisory"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_64500_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "02bde789799bb59097ef870908ebb0a8818da877e5b32b9d0a2672a32e42a5d8",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-64500",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, CNA affected ranges >=2.0.0 <5.4.50, >=6.0.0 <6.4.29 and >=7.0.0 <7.3.7",
+    "the CNA supplies CVSS 3.1 7.3 AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L and CWE-647 (Use of Non-Canonical URL Paths for Authorization Decisions)",
+    "the CNA description states the Request class can represent URLs with a path that does not start with \"/\" before 5.4.50/6.4.29/7.3.7"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_64500_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "5f9ef398f260f0604dfb412702621214f0130ab6c2f4672fbcd511960d19b0b7",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-3rg7-wf37-54rm",
+   "supports": [
+    "GHSA-3rg7-wf37-54rm aliases CVE-2025-64500 and is marked github_reviewed with severity HIGH and cwe_ids CWE-647",
+    "affected ranges: symfony/http-foundation 0..5.4.50, 6.0.0..6.4.29, 7.0.0..7.3.7 and symfony/symfony 2.0.0..5.4.50, 6.0.0..6.4.29, 7.0.0..7.3.7",
+    "the OSV details name the 5.4 patch commit 9962b91b and credit Andrew Atkinson, Chris Smith and Nicolas Grekas"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_64500_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "90dc74abd1ec3228c862043949ae7d91354fdbca9262b3c7e7a4765a6ff52ae0",
+   "source_url": "https://symfony.com/blog/cve-2025-64500-incorrect-parsing-of-path-info-can-lead-to-limited-authorization-bypass",
+   "supports": [
+    "affected versions: Symfony <5.4.50, >=6 <6.4.29, >=7 <7.3.7 of the HTTP Foundation component; fixed in 5.4.50, 6.4.29 and 7.3.7",
+    "description and resolution match the CNA text: PATH_INFO can lack the leading slash, and Request now ensures URL paths always start with \"/\"",
+    "the page links the branch 5.4 patch and credits Andrew Atkinson (discovery), Chris Smith (report) and Nicolas Grekas (fix)"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/ghsa.html",
+   "evidence_id": "ev_symfony_64500_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "2abb3f4f4fd36816a40428377282097a0b1b0387bae45c08afca056da94dbcfe",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-3rg7-wf37-54rm",
+   "supports": [
+    "the GitHub advisory page carries the same description, resolution and credits as the symfony.com page",
+    "the page shows severity High 7.3 with CVSS v3 vector AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+    "the advisory links the 5.4 patch commit 9962b91b"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_64500_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "55881fe6cd81fae52e32758dffe2a5c04b8f88b1835ad0d3585de90039b5624b",
+   "source_url": "https://github.com/symfony/symfony/commit/9962b91b12bb791322fa73836b350836b6db7cac",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.50 peels to 4b031a79",
+    "fix commit 9962b91b is dated 2025-11-03, subject \"[HttpFoundation] Fix parsing pathinfo with no leading slash\"",
+    "the fix is an ancestor of v5.4.50 and not an ancestor of v5.4.45",
+    "Request.php blob is 561cb887 at v5.4.45 and 393b5472 at v5.4.50; 393b5472 is also the post-image blob of the fix patch, while the pre-image d1103cf8 differs from the v5.4.45 blob because other commits touched the file between v5.4.45 and the fix"
+   ],
+   "verification_method": "git merge-base --is-ancestor in both directions; git show; blob comparison"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/request_5.4.45.php",
+   "evidence_id": "ev_symfony_64500_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "6964b4db0f8474d55ac0bd0b2be2df8d8e8fcbc3b803f031c8ebc5417eb1ba08",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L1973-L1979",
+   "supports": [
+    "preparePathInfo computes $pathInfo = substr($requestUri, strlen($baseUrl))",
+    "when the remainder is non-empty it is returned unchanged, with no check that it starts with \"/\"",
+    "for a request URI such as \"/index.phpfoo\" with baseUrl \"/index.php\" the method returns \"foo\" instead of \"/foo\""
+   ],
+   "verification_method": "file read at v5.4.45 (blob 561cb887)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/request_5.4.50.php",
+   "evidence_id": "ev_symfony_64500_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "4d1c982fe5b7635717749045e5ac36da4a178bb4c049dd7c188e618e0d820e96",
+   "source_url": "https://github.com/symfony/symfony/blob/4b031a7937fcfde214a18b16c18fd670f2fc5e2f/src/Symfony/Component/HttpFoundation/Request.php#L1985-L1991",
+   "supports": [
+    "at v5.4.50 preparePathInfo returns \"/\".$pathInfo whenever the remainder is false, empty or does not start with \"/\"",
+    "the returned path therefore always begins with \"/\" after the fix",
+    "the rest of preparePathInfo (query-string removal and baseUrl handling) is unchanged"
+   ],
+   "verification_method": "file read at v5.4.50 (blob 393b5472)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/fix_commit.txt",
+   "evidence_id": "ev_symfony_64500_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "524085bdbbd9ceb450ee11733fb0c658b863be62d497ebc64d594ea83b20c79e",
+   "source_url": "https://github.com/symfony/symfony/commit/9962b91b12bb791322fa73836b350836b6db7cac.patch",
+   "supports": [
+    "the 5.4 patch replaces the two-branch empty check with \"false === $pathInfo || '' === $pathInfo || '/' !== $pathInfo[0]\" returning \"/\".$pathInfo",
+    "the patch adds a RequestTest case with request URI \"/api/index.phpfoo\" and baseUrl \"/api/index.php\" expecting pathInfo \"/foo\"",
+    "the patch touches only Request.php and RequestTest.php"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2025_64500/sources/request_5.4.45.php",
+   "evidence_id": "ev_symfony_64500_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:05:00Z",
+   "sha256_of_observation": "6964b4db0f8474d55ac0bd0b2be2df8d8e8fcbc3b803f031c8ebc5417eb1ba08",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L1-L5",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Component\\HttpFoundation",
+    "the snapshot inventory records the HttpFoundation component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "languages": [
+   9
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tag"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on affected <5.4.50 and on the missing leading-slash guarantee. NVD has no primary metric and republishes the CNA/GHSA 7.3 vector. The symfony.com and GHSA texts are identical. OSV ranges are the only machine-readable ranges and are consistent with the advisory pages.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Request.php at v5.4.45 and confirm preparePathInfo returns a remainder without a leading slash.",
+   "An independent reviewer must confirm 9962b91b is absent from v5.4.45 and present in v5.4.50 with the leading-slash fix.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.50.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No Symfony application, web server or PoC was executed; the finding is static.",
+  "The advisory describes the impact as bypassing \"some\" access-control rules that assume a leading slash; the exact set of affected access-control configurations was not enumerated.",
+  "Only the 5.4 branch was fetched and compared; the 6.4.29 and 7.3.7 fixes were not diffed.",
+  "NVD has no primary CVSS metric; the 7.3 vector is the GitHub advisory (GitHub_M CNA) metric, recorded as secondary by NVD.",
+  "The v5.4.45 blob differs from the fix patch pre-image because unrelated commits changed Request.php between v5.4.45 and the fix; equivalence was established on the preparePathInfo code block, not on blob identity."
+ ],
+ "open_questions": [
+  "Which concrete Symfony security/access_control configurations (access_control path regexes, firewall request matchers) are bypassable with a slash-less path was not surveyed.",
+  "Whether front controllers or web servers normalize such URIs before PHP sees REQUEST_URI was not tested."
+ ],
+ "field_evidence_unused": []
+}

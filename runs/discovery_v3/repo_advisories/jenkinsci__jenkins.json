@@ -1,0 +1,9 @@
+{
+  "advisories": [],
+  "query": {
+    "repository_full_name": "jenkinsci/jenkins",
+    "url": "https://api.github.com/repos/jenkinsci/jenkins/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:17.872339+00:00",
+  "tool": "github_rest_readonly"
+}

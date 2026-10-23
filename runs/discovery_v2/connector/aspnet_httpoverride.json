@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_httpoverride",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Middleware/HttpOverrides/src/Microsoft.AspNetCore.HttpOverrides.csproj",
+  "retrieved_at": "2026-10-21T10:56:27.552Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core basic middleware for supporting HTTP method overrides. Includes:\n* X-Forwarded-* headers to forward headers from a proxy.\n* HTTP method override header.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;proxy;headers;xforwarded</PackageTags>\n    <IsPackable>false</IsPackable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Extensions\\src\\Microsoft.AspNetCore.Http.Extensions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SharedSourceRoot)Obsoletions.cs\" LinkBase=\"Shared\" />\n  </ItemGroup>\n\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "c37425a7f7a1ec1a566c23b19caf08f561efeaa5",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/HttpOverrides/src/Microsoft.AspNetCore.HttpOverrides.csproj",
+      "display_title": "Microsoft.AspNetCore.HttpOverrides.csproj"
+    },
+    "isError": false
+  }
+}

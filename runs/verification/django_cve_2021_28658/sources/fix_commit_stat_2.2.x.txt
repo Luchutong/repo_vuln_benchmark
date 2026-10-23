@@ -1,0 +1,19 @@
+commit 4036d62bda0e9e9f6172943794b744a454ca49c2
+Author: Mariusz Felisiak <felisiak.mariusz@gmail.com>
+Date:   Tue Mar 16 10:19:00 2021 +0100
+
+    [2.2.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files.
+    
+    Thanks Claude Paroz for the initial patch.
+    Thanks Dennis Brinkrolf for the report.
+    
+    Backport of d4d800ca1addc4141e03c5440a849bb64d1582cd from main.
+
+ django/http/multipartparser.py      | 13 ++++---
+ docs/releases/2.2.20.txt            | 15 ++++++++
+ docs/releases/index.txt             |  1 +
+ tests/file_uploads/tests.py         | 72 ++++++++++++++++++++++++++++---------
+ tests/file_uploads/uploadhandler.py | 31 ++++++++++++++++
+ tests/file_uploads/urls.py          |  1 +
+ tests/file_uploads/views.py         | 12 ++++++-
+ 7 files changed, 124 insertions(+), 21 deletions(-)

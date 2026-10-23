@@ -1,0 +1,447 @@
+{
+  "candidate_id": "disc2_2eaf567404a7ed7e46292efa",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T19:22:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-27623",
+    "aliases": [
+      "CVE-2025-27623",
+      "GHSA-rfh6-9r2q-98vf",
+      "BIT-jenkins-2025-27623"
+    ],
+    "title": "Jenkins does not redact view config.xml for users with View/Read, exposing encrypted secret values",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.500",
+        "tag": "jenkins-2.500",
+        "release_url": "https://www.jenkins.io/changelog/#v2.500",
+        "verified_content": "The 2.500 release commit cb753134 has 923cdbc1 as its only parent, so the SECURITY-3495/3496 fix is contained in the release (git merge-base --is-ancestor 923cdbc1 cb753134 exits 0). At cb753134 View.doConfigDotXmlImpl (980-1007) checks READ at 983 and branches on hasPermission(CONFIGURE) at 988, passing the XML through ExtendedReadRedaction.applyAll at 995 for callers without CONFIGURE; GetViewCommand has the same branch at 55-64. The CNA record also lists LTS 2.492.2 as unaffected; that backport was not fetched or asserted."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "923cdbc165e8b8523ae960dfee5f7354878532d5",
+        "branch": "master",
+        "release": "2.500",
+        "message": "[SECURITY-3495][SECURITY-3496]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/923cdbc165e8b8523ae960dfee5f7354878532d5"
+      },
+      {
+        "sha": "02d4db379ac965641bb1382515c834cf4966ec5a",
+        "branch": "2.492.x LTS release commit (backport not fetched, ancestry not asserted)",
+        "release": "2.492.2",
+        "message": "[maven-release-plugin] prepare release jenkins-2.492.2",
+        "url": "https://github.com/jenkinsci/jenkins/commit/02d4db379ac965641bb1382515c834cf4966ec5a"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-312"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27623",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "GHSA-rfh6-9r2q-98vf / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "sensitive_data_exposure",
+    "category_l2": "View config.xml is served unredacted to callers who hold View/Read but not Configure, so encrypted secret values in view properties are disclosed over REST and CLI",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3496",
+    "published_at": "2025-03-05T22:33:35Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3496",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-27623",
+      "https://github.com/advisories/GHSA-rfh6-9r2q-98vf",
+      "https://github.com/jenkinsci/jenkins/commit/923cdbc165e8b8523ae960dfee5f7354878532d5"
+    ]
+  },
+  "description": "Jenkins serves a view's configuration at /view/<name>/config.xml and through the get-view CLI command. At 2.441 View.doConfigDotXml (1198-1221) checks only View.READ before calling writeXml, and GetViewCommand.run (50-51) likewise checks only View.READ. writeXml marshals the whole view with XStream2, including its ViewProperty objects; a Secret inside such a property is serialized by Secret.ConverterImpl as its encrypted value, so a caller who has View/Read but not Configure receives those encrypted values. At this version there is no redaction layer at all: jenkins.security.ExtendedReadRedaction was introduced in 2.479 and ExtendedReadSecretRedaction does not exist in the 2.441 tree. The 2.500 fix 923cdbc1 keeps the READ check but branches on hasPermission(CONFIGURE): callers with CONFIGURE still receive the XML unchanged, while everyone else has it buffered and passed through ExtendedReadRedaction.applyAll, where ExtendedReadSecretRedaction replaces any element body matching Secret.ENCRYPTED_VALUE_PATTERN with ******** when Secret.decrypt succeeds. The accompanying PasswordTest.testViewSecrets asserts that a user with View/Read but not CONFIGURE sees <secret>********</secret> over both REST and CLI.",
+  "location": {
+    "location_id": "loc_CVE-2025-27623_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-27623",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/hudson/model/View.java",
+    "function": "doConfigDotXml",
+    "language": "Java",
+    "line": "1198-1221",
+    "critical_operation": {
+      "file": "core/src/main/java/hudson/model/View.java",
+      "function": "doConfigDotXml",
+      "language": "Java",
+      "line": "1198-1221",
+      "code_excerpt": "    @WebMethod(name = \"config.xml\")\n    public HttpResponse doConfigDotXml(StaplerRequest req) throws IOException {\n        if (req.getMethod().equals(\"GET\")) {\n            // read\n            checkPermission(READ);\n            return new HttpResponse() {\n                public void generateResponse(...) {\n                    rsp.setContentType(\"application/xml\");\n                    View.this.writeXml(rsp.getOutputStream());\n                }\n            };\n        }",
+      "description": "The GET branch authorizes only with View.READ and then serializes the full view, including ViewProperty secrets, without any redaction. Users who may read the view but may not configure it receive the encrypted secret values.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/View.java#L1198-L1221"
+    },
+    "entry_point": {
+      "description": "HTTP GET /view/<name>/config.xml with a user holding Overall/Read and View/Read; the same data is reachable through the get-view CLI command.",
+      "file": "core/src/main/java/hudson/cli/GetViewCommand.java",
+      "function": "run",
+      "language": "Java",
+      "line": "48-54",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/GetViewCommand.java#L48-L54"
+    },
+    "trace": [
+      {
+        "description": "doConfigDotXml GET branch requires only READ and calls writeXml with no redaction",
+        "file": "core/src/main/java/hudson/model/View.java",
+        "function": "doConfigDotXml",
+        "language": "Java",
+        "line": "1198-1221",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/View.java#L1198-L1221"
+      },
+      {
+        "description": "writeXml serializes the whole view with XStream2, so ViewProperty fields (including Secret) are marshalled",
+        "file": "core/src/main/java/hudson/model/View.java",
+        "function": "writeXml",
+        "language": "Java",
+        "line": "1223-1230",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/View.java#L1223-L1230"
+      },
+      {
+        "description": "the CLI path checks only View.READ and writes the same unredacted XML",
+        "file": "core/src/main/java/hudson/cli/GetViewCommand.java",
+        "function": "run",
+        "language": "Java",
+        "line": "48-54",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/GetViewCommand.java#L48-L54"
+      },
+      {
+        "description": "at 2.441 no ExtendedReadRedaction class exists in jenkins.security (introduced in 2.479), so nothing applies a redaction",
+        "file": "core/src/main/java/hudson/model/View.java",
+        "function": "doConfigDotXml",
+        "language": "Java",
+        "line": "1198-1221",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/View.java#L1198-L1221"
+      },
+      {
+        "description": "the fix branches on CONFIGURE and applies ExtendedReadRedaction.applyAll for other callers (2.500 lines 988-995)",
+        "file": "core/src/main/java/hudson/model/View.java",
+        "function": "doConfigDotXmlImpl",
+        "language": "Java",
+        "line": "980-1007",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/model/View.java#L980-L1007"
+      }
+    ],
+    "verification_method": "Static read of View.java and GetViewCommand.java at 2.441 and at the 2.500 release commit, of the redaction interfaces at 2.500, the 923cdbc1 patch and the new PasswordTest.testViewSecrets; no Jenkins instance, HTTP request or CLI invocation was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_27623_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-27623",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "60805fbeda6d11f9c19e1225c79fdc7e207802d8d8cf20f1e2c8ccfe016c27bc",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-03-05, assigner Jenkins",
+        "description: Jenkins 2.499 and earlier, LTS 2.492.1 and earlier does not redact encrypted values of secrets when accessing config.xml of views via REST API or CLI, allowing attackers with View/Read permission to view encrypted values of secrets",
+        "affected versions: 2.492.* unaffected from 2.492.2, weekly unaffected from 2.500; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3496"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-27623",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "da1c63f4a438856e2b5f7b406aa14070f3cc521eb9825879e0f19462712b7a20",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-03-05, status Analyzed",
+        "one CVSS 3.1 4.3 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "there is no Primary metric",
+        "CWE-312 from the same Secondary source",
+        "CISA-ADP SSVC options: exploitation none, automatable no, technical impact partial"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-27623",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "a9fe906e150d755c37bd6fe893e32b6cb918da3304c6e850f2259fd57d9aa9ac",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "aliases GHSA-rfh6-9r2q-98vf and BIT-jenkins-2025-27623",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 02d4db37 (2.492.2 release commit) and cb753134 (2.500 release commit)",
+        "OSV's extracted CPE ranges are weekly <2.500 and LTS <2.492.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-rfh6-9r2q-98vf",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "132f476c08ffe4265ac75c09f0a9b6337e9f2f218bcb4fc8be25d78b2d7c757f",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3), database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-312]",
+        "one Maven ECOSYSTEM range is introduced 0 -> fixed 2.492.2; the other is introduced 2.493 -> fixed 2.500, which conflicts with the CNA text for the weekly line"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_view_vuln",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/View_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/View.java#L1198-L1221",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "2f99cae60fd7560e5eea0a2de47ca7c5305219ec7e3c342c3d28639d2a4a4376",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 6bd923cd matches the snapshot inventory (53254 bytes)",
+      "result": "PASS",
+      "supports": [
+        "@WebMethod(name = \"config.xml\") doConfigDotXml at 1198-1221: the GET branch calls checkPermission(READ) at 1201 and View.this.writeXml(rsp.getOutputStream()) at 1206 with no CONFIGURE check and no redaction",
+        "the POST branch (1211-1215) goes through updateByXml, which requires CONFIGURE at 1237, so only the read path is affected",
+        "writeXml at 1223-1230 marshals the view with XStream2 and does not redact ViewProperty contents"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_cli_vuln",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/GetViewCommand_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/GetViewCommand.java#L48-L54",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "36a52e27c7e76323a93c76bd00eb164df06db2a7c6b13c955fc16bdc063d460b",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob e94bb794 matches the snapshot inventory (1727 bytes)",
+      "result": "PASS",
+      "supports": [
+        "run at 48-54 checks only view.checkPermission(View.READ) at line 50",
+        "it then calls view.writeXml(stdout) at line 51, so the CLI returns the same unredacted config.xml"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_view_fixed",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/View_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/model/View.java#L980-L1007",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "89ee101e429f1e85ad2b13cfe6ea08a59daa535489949c1bdefa9e079617a190",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 56aa4274",
+      "result": "PASS",
+      "supports": [
+        "doConfigDotXmlImpl at 980-1007 still checks READ at 983, then branches on hasPermission(CONFIGURE) at 988",
+        "for callers without CONFIGURE the XML is buffered and passed through ExtendedReadRedaction.applyAll at 995 before being written"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_cli_fixed",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/GetViewCommand_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/cli/GetViewCommand.java#L55-L64",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "123c35bcc55343da4065c3b852b8a9a50f228c4c66ccc51f9abe217e668495f0",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 020b55f7",
+      "result": "PASS",
+      "supports": [
+        "run still checks View.READ at 53, then branches on view.hasPermission(View.CONFIGURE) at 55",
+        "callers without CONFIGURE get the XML after ExtendedReadRedaction.applyAll at 62"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_redaction_iface",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/ExtendedReadRedaction_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/jenkins/security/ExtendedReadRedaction.java",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "22871e496f439cf3c3c8d07ba6b2ff6b1dc653a6a71e2cefe48f110453934347",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 7baec196",
+      "result": "PASS",
+      "supports": [
+        "the interface is annotated @since 2.479, so it does not exist in the 2.441 tree",
+        "applyAll iterates every registered ExtendedReadRedaction and returns the successively redacted XML"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_redaction_impl",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/ExtendedReadSecretRedaction_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/jenkins/security/ExtendedReadSecretRedaction.java",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "c7b21686d5891be5835b4b89c2c598812ddec266197d752fb9ed44c7c7e141b3",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 91a79f35",
+      "result": "PASS",
+      "supports": [
+        "SECRET_PATTERN matches an element body equal to Secret.ENCRYPTED_VALUE_PATTERN",
+        "when Secret.decrypt succeeds the body is replaced with ********, which is what removes encrypted secret values from the view config.xml"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/923cdbc165e8b8523ae960dfee5f7354878532d5",
+      "retrieved_at": "2026-10-21T19:20:00Z",
+      "sha256_of_observation": "5e83cf7e3b5e3e22c0aa03ffe82e04a861a0bad8d082c4a4b7fb72cfa3e933a2",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 923cdbc1 '[SECURITY-3495][SECURITY-3496]', 2025-02-25, parent 4a9a3ecd",
+        "the View hunk replaces the direct writeXml call with the hasPermission(CONFIGURE) branch and ExtendedReadRedaction.applyAll",
+        "the GetViewCommand hunk adds the same branch around view.writeXml",
+        "the patch adds PasswordTest.testViewSecrets (@Issue(\"SECURITY-3496\")), which asserts a ViewProperty secret appears as <secret>********</secret> for a View/Read-only user over both REST and CLI"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27623_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27623/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-21T19:22:00Z",
+      "sha256_of_observation": "557b4b3d784bb07a3e4e31a86bc9b7bb77978d135e74b0c6d79eb52287b64358",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and the View.java blob 6bd923cd (53254 bytes) and GetViewCommand.java blob e94bb794 (1727 bytes) match the inventory",
+        "fix commit 923cdbc1 is the only parent of the 2.500 release commit cb753134; git merge-base --is-ancestor 923cdbc1 cb753134 exits 0",
+        "CNA affected range 2.499 and earlier weekly / 2.492.1 and earlier LTS includes the 2.441 snapshot",
+        "the 2.492.2 LTS release commit 02d4db37 and its backport were not fetched, so no LTS ancestry is asserted"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      10
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      10,
+      11
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      10,
+      11
+    ],
+    "languages": [
+      4,
+      5,
+      6,
+      7,
+      8,
+      9
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      11
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 REST handler, the 2.441 CLI command and the fix patch; the fixed-tree rows plus redaction classes support the fixed release and languages.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 4.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (view config.xml is not redacted for View/Read users, exposing encrypted secret values via REST or CLI) and on the fixed releases (2.500 weekly, 2.492.2 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 4.3 MEDIUM, which OSV/GHSA repeats as 4.3 MODERATE, and the CNA has no metric, so all published levels are medium. CWE-312 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM weekly range introduced=2.493 conflicts with the CNA text and the OSV GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. This entry shares its fix commit with the promoted CVE-2025-27622 (SECURITY-3495, agent config.xml) but is a distinct advisory item (SECURITY-3496, view config.xml), just as the upstream patch names both issues; it is also distinct from CVE-2024-23897, CVE-2024-23898, CVE-2024-43045, CVE-2025-27624 and CVE-2025-27625.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "independent_verdict": {
+      "reviewer_identity": "independent-reviewer (Claude Code; model deepseek-flash)",
+      "verdict_path": "runs/independent/jenkins_CVE-2025-27623_round1/verdict.json",
+      "verdict": "confirmed",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "fields_false": [],
+      "severity_level": "medium",
+      "location_file": "core/src/main/java/hudson/model/View.java",
+      "location_line": "1198-1208"
+    },
+    "independent_corrections_accepted": [
+      "The reviewer confirmed the REST GET branch (View.java:1198-1208) and the CLI command (GetViewCommand.java:50-51), and added a complementary fact: AbstractItem.writeConfigDotXml (AbstractItem.java:873-891) already masks secret values for jobs at this snapshot, so the view endpoint is an invariant gap rather than a missing feature.",
+      "The reviewer checked the upstream tags directly: jenkins-2.500 peels to cb753134 and its direct parent is the fix 923cdbc1, and jenkins-2.492.2 also carries the ExtendedReadRedaction branch, which independently confirms the LTS backport that this dossier did not assert from local ancestry.",
+      "The reviewer found one source inconsistency: the GHSA-rfh6-9r2q-98vf summary line describes the agent scenario (CVE-2025-27622 wording) while its details and reference point to #SECURITY-3496; this is a copy/paste error in the advisory summary, not a different vulnerability, and it does not affect severity agreement."
+    ],
+    "duplicate_check": "The reviewer compared CVE-2025-27622 (same fix commit, SECURITY-3495, agent config.xml, Agent/Extended Read) and found this to be a separate advisory item (SECURITY-3496, view config.xml, View/Read); CVE-2024-23897, CVE-2024-23898, CVE-2024-43045, CVE-2025-27624 and CVE-2025-27625 were also checked and are distinct.",
+    "required_before_promotion": [
+      "An independent reviewer must read View.doConfigDotXml at 2.441 and confirm the GET branch checks only READ and calls writeXml unredacted.",
+      "An independent reviewer must confirm GetViewCommand at 2.441 checks only View.READ and writes the same XML.",
+      "An independent reviewer must confirm 923cdbc1 is the fix, is contained in the 2.500 release, and that the fixed tree branches on CONFIGURE and applies redaction.",
+      "An independent reviewer must confirm the affected range (weekly <=2.499, LTS <=2.492.1) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are medium (4.3) and record CWE-312.",
+      "An independent reviewer must confirm this entry is distinct from CVE-2025-27622 despite the shared fix commit.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or CLI invocation was run.",
+    "The impact is disclosure of encrypted secret values; whether those values can be decrypted depends on the deployment's secret key handling, which the published CVSS reflects as C:L.",
+    "The redaction mechanism is described from the 2.500 sources; the vulnerable 2.441 tree has no redaction layer at all, so the fix cannot be shown by a before/after predicate on the same class.",
+    "Only one location row is recorded (View.doConfigDotXml). GetViewCommand and writeXml are recorded as entry-point/trace evidence.",
+    "The LTS backport and the 2.492.2 branch were not fetched into the local mirror; LTS ancestry is recorded from OSV and the CNA record, not asserted locally.",
+    "The GHSA ECOSYSTEM range introduced=2.493 conflicts with the CNA and the OSV GIT range; the conflict is documented, not resolved silently."
+  ],
+  "open_questions": [
+    "Which ViewProperty implementations store secrets in practice was not enumerated; the upstream test uses a synthetic ViewPropertyWithSecret.",
+    "Other config.xml endpoints with the same privilege model are outside this CVE's scope; the sibling agent endpoint is covered separately."
+  ]
+}

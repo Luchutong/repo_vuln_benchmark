@@ -1,0 +1,83 @@
+From 9749cd43c5e09b3735093623670b21b9d8a056cb Mon Sep 17 00:00:00 2001
+From: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date: Fri, 8 May 2026 22:46:58 +0200
+Subject: [PATCH] [Yaml] Harden the Parser::cleanup() regexes against
+ catastrophic backtracking
+
+The `%YAML` header regex (`#^\\%YAML[: ][\\d\\.]+.*\\n#u`) and the
+leading-comment / document-marker regexes in `Parser::cleanup()` had
+overlapping quantifiers that caused catastrophic backtracking on
+crafted input. Rewrite all four regexes with possessive quantifiers
+and unambiguous character classes.
+---
+ src/Symfony/Component/Yaml/Parser.php         |  8 +++----
+ .../Component/Yaml/Tests/ParserTest.php       | 21 +++++++++++++++++++
+ 2 files changed, 25 insertions(+), 4 deletions(-)
+
+diff --git a/src/Symfony/Component/Yaml/Parser.php b/src/Symfony/Component/Yaml/Parser.php
+index 08b97b2ada2d5..cda68ac1393cc 100644
+--- a/src/Symfony/Component/Yaml/Parser.php
++++ b/src/Symfony/Component/Yaml/Parser.php
+@@ -1044,11 +1044,11 @@ private function cleanup(string $value): string
+ 
+         // strip YAML header
+         $count = 0;
+-        $value = preg_replace('#^\%YAML[: ][\d\.]+.*\n#u', '', $value, -1, $count);
++        $value = preg_replace('#^%YAML[: ][\d.]++[^\n]*+\n#u', '', $value, -1, $count);
+         $this->offset += $count;
+ 
+         // remove leading comments
+-        $trimmedValue = preg_replace('#^(\#.*?\n)+#s', '', $value, -1, $count);
++        $trimmedValue = preg_replace('#^(?:\#[^\n]*+\n)++#', '', $value, -1, $count);
+         if (1 === $count) {
+             // items have been removed, update the offset
+             $this->offset += substr_count($value, "\n") - substr_count($trimmedValue, "\n");
+@@ -1056,14 +1056,14 @@ private function cleanup(string $value): string
+         }
+ 
+         // remove start of the document marker (---)
+-        $trimmedValue = preg_replace('#^\-\-\-.*?\n#s', '', $value, -1, $count);
++        $trimmedValue = preg_replace('#^---[^\n]*+\n#', '', $value, -1, $count);
+         if (1 === $count) {
+             // items have been removed, update the offset
+             $this->offset += substr_count($value, "\n") - substr_count($trimmedValue, "\n");
+             $value = $trimmedValue;
+ 
+             // remove end of the document marker (...)
+-            $value = preg_replace('#\.\.\.\s*$#', '', $value);
++            $value = preg_replace('#\.\.\.[ \t]*+$#', '', $value);
+         }
+ 
+         return $value;
+diff --git a/src/Symfony/Component/Yaml/Tests/ParserTest.php b/src/Symfony/Component/Yaml/Tests/ParserTest.php
+index 5fcc1562d9cf8..dfa7b31f7355e 100644
+--- a/src/Symfony/Component/Yaml/Tests/ParserTest.php
++++ b/src/Symfony/Component/Yaml/Tests/ParserTest.php
+@@ -3057,6 +3057,27 @@ public function testParseRejectsInlineAliasesWhenDisabled()
+         $this->parser->parse($yaml, Yaml::PARSE_EXCEPTION_ON_ALIAS);
+     }
+ 
++    public function testParseHandlesLargeYamlHeaders()
++    {
++        $yaml = "%YAML:".str_repeat('1', 100000)."\nfoo: bar\n";
++
++        $this->assertSame(['foo' => 'bar'], $this->parser->parse($yaml));
++    }
++
++    public function testParseHandlesLargeLeadingComments()
++    {
++        $yaml = '#'.str_repeat('comment', 20000)."\nfoo: bar\n";
++
++        $this->assertSame(['foo' => 'bar'], $this->parser->parse($yaml));
++    }
++
++    public function testParseHandlesLargeDocumentMarkers()
++    {
++        $yaml = '--- '.str_repeat('header', 20000)."\nfoo: bar\n...   ";
++
++        $this->assertSame(['foo' => 'bar'], $this->parser->parse($yaml));
++    }
++
+     private function assertSameData($expected, $actual)
+     {
+         $this->assertEquals($expected, $actual);

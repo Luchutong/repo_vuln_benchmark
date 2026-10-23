@@ -1,0 +1,246 @@
+{
+  "packet_id": "selrev_4164482_snap_516aa9971dd9509d",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "4164482",
+    "full_name": "django/django",
+    "canonical_url": "https://github.com/django/django",
+    "primary_language": "Python",
+    "project_kind": "The Web framework for perfectionists with deadlines."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_516aa9971dd9509d",
+    "tag_or_release": "4.2.13",
+    "commit_sha": "3bf46e2e023904c825728267f3131c42f02ce696"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "3bf46e2e023904c825728267f3131c42f02ce696",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "31f1034a8675d8f65af1d0f1a246894e3e4b1ce7",
+    "tree_file_count": 6733,
+    "exported_file_count": 6729,
+    "symlink_count": 4,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/django__django/snap_516aa9971dd9509d.tar.gz",
+    "archive_sha256": "56ccd3d198cbe39ff9856bbe39f849d9784e65a64c7b82c29f8174e51ad82586",
+    "archive_bytes": 9939934,
+    "manifest_path": "exports/django__django/snap_516aa9971dd9509d.manifest.jsonl",
+    "manifest_sha256": "dade0f852697eb32c2c4137ddfcfa9698d8dc584d0d349c56bb922507d165918"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "docs/internals/release-process.txt",
+      "docs/releases/security.txt"
+    ],
+    "cve_id_count": 57,
+    "cve_ids_sample": [
+      "CVE-2013-1664",
+      "CVE-2013-1665",
+      "CVE-2016-2512",
+      "CVE-2016-2513",
+      "CVE-2017-12794",
+      "CVE-2017-7233",
+      "CVE-2017-7234",
+      "CVE-2018-14574",
+      "CVE-2018-16984",
+      "CVE-2018-6188",
+      "CVE-2018-7536",
+      "CVE-2018-7537",
+      "CVE-2019-11358",
+      "CVE-2019-12308",
+      "CVE-2019-12781",
+      "CVE-2019-14232",
+      "CVE-2019-14233",
+      "CVE-2019-14234",
+      "CVE-2019-14235",
+      "CVE-2019-19118",
+      "CVE-2019-19844",
+      "CVE-2019-3498",
+      "CVE-2019-6975",
+      "CVE-2020-13254",
+      "CVE-2020-13596",
+      "CVE-2020-24583",
+      "CVE-2020-24584",
+      "CVE-2020-7471",
+      "CVE-2020-9402",
+      "CVE-2021-23336",
+      "CVE-2021-28658",
+      "CVE-2021-31542",
+      "CVE-2021-32052",
+      "CVE-2021-3281",
+      "CVE-2021-33203",
+      "CVE-2021-33571",
+      "CVE-2021-35042",
+      "CVE-2021-44420",
+      "CVE-2021-45115",
+      "CVE-2021-45116",
+      "CVE-2021-45452",
+      "CVE-2022-22818",
+      "CVE-2022-23833",
+      "CVE-2022-28346",
+      "CVE-2022-28347",
+      "CVE-2022-34265",
+      "CVE-2022-36359",
+      "CVE-2022-41323",
+      "CVE-2023-23969",
+      "CVE-2023-24580"
+    ],
+    "files_with_advisory_ids_count": 113,
+    "files_with_advisory_ids_sample": [
+      "django/utils/encoding.py",
+      "docs/releases/1.10.7.txt",
+      "docs/releases/1.10.8.txt",
+      "docs/releases/1.11.10.txt",
+      "docs/releases/1.11.11.txt",
+      "docs/releases/1.11.15.txt",
+      "docs/releases/1.11.18.txt",
+      "docs/releases/1.11.19.txt",
+      "docs/releases/1.11.21.txt",
+      "docs/releases/1.11.22.txt",
+      "docs/releases/1.11.23.txt",
+      "docs/releases/1.11.27.txt",
+      "docs/releases/1.11.28.txt",
+      "docs/releases/1.11.29.txt",
+      "docs/releases/1.11.5.txt",
+      "docs/releases/1.3.6.txt",
+      "docs/releases/1.4.4.txt",
+      "docs/releases/1.8.10.txt",
+      "docs/releases/1.8.18.txt",
+      "docs/releases/1.8.19.txt",
+      "docs/releases/1.9.13.txt",
+      "docs/releases/1.9.3.txt",
+      "docs/releases/2.0.10.txt",
+      "docs/releases/2.0.11.txt",
+      "docs/releases/2.0.2.txt",
+      "docs/releases/2.0.3.txt",
+      "docs/releases/2.0.8.txt",
+      "docs/releases/2.1.10.txt",
+      "docs/releases/2.1.11.txt",
+      "docs/releases/2.1.15.txt",
+      "docs/releases/2.1.2.txt",
+      "docs/releases/2.1.5.txt",
+      "docs/releases/2.1.6.txt",
+      "docs/releases/2.1.9.txt",
+      "docs/releases/2.2.10.txt",
+      "docs/releases/2.2.11.txt",
+      "docs/releases/2.2.13.txt",
+      "docs/releases/2.2.16.txt",
+      "docs/releases/2.2.18.txt",
+      "docs/releases/2.2.19.txt",
+      "docs/releases/2.2.2.txt",
+      "docs/releases/2.2.20.txt",
+      "docs/releases/2.2.21.txt",
+      "docs/releases/2.2.22.txt",
+      "docs/releases/2.2.24.txt",
+      "docs/releases/2.2.25.txt",
+      "docs/releases/2.2.26.txt",
+      "docs/releases/2.2.27.txt",
+      "docs/releases/2.2.28.txt",
+      "docs/releases/2.2.3.txt"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CODE_OF_CONDUCT.md",
+      ".github/FUNDING.yml",
+      ".github/SECURITY.md",
+      ".github/workflows/benchmark.yml",
+      ".github/workflows/docs.yml",
+      ".github/workflows/linters.yml",
+      ".github/workflows/new_contributor_pr.yml",
+      ".github/workflows/schedule_tests.yml",
+      ".github/workflows/schedules.yml",
+      ".github/workflows/tests.yml",
+      "django/middleware/security.py",
+      "docs/internals/release-process.txt",
+      "docs/internals/security.txt",
+      "docs/releases/security.txt",
+      "docs/topics/security.txt"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "make": [
+        "Makefile"
+      ],
+      "node": [
+        "package.json"
+      ],
+      "python": [
+        "pyproject.toml",
+        "setup.cfg",
+        "setup.py",
+        "tox.ini"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "python",
+      "node",
+      "make"
+    ],
+    "toolchain_available": {
+      "make": {
+        "make": true
+      },
+      "node": {
+        "node": true,
+        "npm": true
+      },
+      "python": {
+        "python3": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-39330",
+      "aliases": [
+        "CVE-2024-39330",
+        "GHSA-9jmf-237g-qf46",
+        "PYSEC-2024-58",
+        "BIT-django-2024-39330"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">= 4.2, < 4.2.14",
+          "ecosystem": "PyPI",
+          "package": "django",
+          "purl": "pkg:pypi/django"
+        }
+      ],
+      "published_at": "2024-07-10T06:33:52Z",
+      "advisory_url": "https://github.com/advisories/GHSA-9jmf-237g-qf46",
+      "severity": {
+        "level": "medium",
+        "score": 4.3,
+        "source": "NVD record CVSS 3.1 base metric 4.3 MEDIUM (metric source GitHub CNA 134c704f); the GitHub advisory page additionally rates the issue HIGH under CVSS 4.0 AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N, a documented disagreement",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-39330",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

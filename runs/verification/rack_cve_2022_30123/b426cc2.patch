@@ -1,0 +1,87 @@
+From b426cc224908ec6ed6eb8729325392b048215d88 Mon Sep 17 00:00:00 2001
+From: Aaron Patterson <tenderlove@ruby-lang.org>
+Date: Thu, 26 May 2022 16:18:10 -0700
+Subject: [PATCH] Escape untrusted text when logging
+
+This fixes a shell escape issue
+
+[CVE-2022-30123]
+---
+ lib/rack/common_logger.rb  |  2 ++
+ lib/rack/lint.rb           |  2 +-
+ test/spec_common_logger.rb | 12 ++++++++++++
+ test/spec_lint.rb          |  5 +++++
+ 4 files changed, 20 insertions(+), 1 deletion(-)
+
+diff --git a/lib/rack/common_logger.rb b/lib/rack/common_logger.rb
+index 53f42cc50..6235cef24 100644
+--- a/lib/rack/common_logger.rb
++++ b/lib/rack/common_logger.rb
+@@ -65,6 +65,8 @@ def log(env, status, response_headers, began_at)
+         length,
+         Utils.clock_time - began_at)
+ 
++      msg.gsub!(/[^[:print:]\n]/) { |c| "\\x#{c.ord}" }
++
+       logger = @logger || request.get_header(RACK_ERRORS)
+       # Standard library logger doesn't support write but it supports << which actually
+       # calls to write on the log device without formatting
+diff --git a/lib/rack/lint.rb b/lib/rack/lint.rb
+index f451302c1..a4b34196e 100755
+--- a/lib/rack/lint.rb
++++ b/lib/rack/lint.rb
+@@ -347,7 +347,7 @@ def check_environment(env)
+ 
+         ## * The <tt>REQUEST_METHOD</tt> must be a valid token.
+         unless env[REQUEST_METHOD] =~ /\A[0-9A-Za-z!\#$%&'*+.^_`|~-]+\z/
+-          raise LintError, "REQUEST_METHOD unknown: #{env[REQUEST_METHOD]}"
++          raise LintError, "REQUEST_METHOD unknown: #{env[REQUEST_METHOD].dump}"
+         end
+ 
+         ## * The <tt>SCRIPT_NAME</tt>, if non-empty, must start with <tt>/</tt>
+diff --git a/test/spec_common_logger.rb b/test/spec_common_logger.rb
+index 56495e6ca..f5f182aa8 100644
+--- a/test/spec_common_logger.rb
++++ b/test/spec_common_logger.rb
+@@ -25,6 +25,10 @@
+     [200,
+      { "content-type" => "text/html", "content-length" => "0" },
+      []]}
++  app_without_lint = lambda { |env|
++    [200,
++     { "content-type" => "text/html", "content-length" => length.to_s },
++     [obj]]}
+ 
+   it "log to rack.errors by default" do
+     res = Rack::MockRequest.new(Rack::CommonLogger.new(app)).get("/")
+@@ -103,6 +107,14 @@ def with_mock_time(t = 0)
+     (0..1).must_include duration.to_f
+   end
+ 
++  it "escapes non printable characters except newline" do
++    logdev = StringIO.new
++    log = Logger.new(logdev)
++    Rack::MockRequest.new(Rack::CommonLogger.new(app_without_lint, log)).request("GET\b", "/hello")
++
++    logdev.string.must_match(/GET\\x8 \/hello HTTP\/1\.1/)
++  end
++
+   it "log path with PATH_INFO" do
+     logdev = StringIO.new
+     log = Logger.new(logdev)
+diff --git a/test/spec_lint.rb b/test/spec_lint.rb
+index 4a9eac262..2242b1f98 100755
+--- a/test/spec_lint.rb
++++ b/test/spec_lint.rb
+@@ -212,6 +212,11 @@ def obj.fatal(*) end
+     }.must_raise(Rack::Lint::LintError).
+       message.must_match(/REQUEST_METHOD/)
+ 
++    lambda {
++      Rack::Lint.new(nil).call(env("REQUEST_METHOD" => "OOPS?\b!"))
++    }.must_raise(Rack::Lint::LintError).
++      message.must_match(/OOPS\?\\/)
++
+     lambda {
+       Rack::Lint.new(nil).call(env("SCRIPT_NAME" => "howdy"))
+     }.must_raise(Rack::Lint::LintError).

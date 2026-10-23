@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/pallets/flask.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:34.220294+00:00", "elapsed_seconds": 1.125, "response": {"returncode": 0, "stdout": "d086db856be187255b8ec61ef409357393020f32\tHEAD\n", "stderr": ""}}

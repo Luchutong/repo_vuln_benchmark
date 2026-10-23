@@ -1,0 +1,95 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; LTS fix acc9120f and master fix b3651b47 (both
+"[SECURITY-3513]") and their release commits a5462bf4 (2.492.3) and 5309fce4 (2.504)
+were fetched with --depth=5.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/ComputerSet.java'
+  5cb798978dea4ce6198b86f294cced5f2dd06b49     (17134 bytes; matches file_inventory.json)
+
+Vulnerable code at 2.441 (ComputerSet.java, blob 5cb79897):
+  doCreateItem at 247-287, annotated @RequirePOST at 246. It checks only
+  Agent/Create:
+    251  app.checkPermission(Computer.CREATE);
+    253  if (mode != null && mode.equals("copy")) {
+    266      String xml = Jenkins.XSTREAM.toXML(src);
+    267      Node result = (Node) Jenkins.XSTREAM.fromXML(xml);
+    271      app.addNode(result);
+    274      rsp.sendRedirect2(result.getNodeName() + "/configure");
+  The copy branch serializes the source node with the full XStream instance, which
+  writes Secret fields as their encrypted values (Secret.ConverterImpl.marshal ->
+  getEncryptedValue), then re-creates it as a new agent. There is no
+  Computer.EXTENDED_READ check and no Computer.CONFIGURE check, and no
+  ExtendedReadRedaction is applied (that class only exists from 2.479, so the
+  2.441 tree has no redaction layer at all).
+
+Related prior commits (kept separate, see advisory):
+  SECURITY-3512 / CVE-2025-31720 added `src.checkPermission(Computer.EXTENDED_READ)`
+  in the same copy branch:
+    $ git show -s --format='%H %P | %ci | %s' 81983c6a bf32018b
+    81983c6a... parent bb4a1db6 | 2025-03-20 07:27:19 +0000 | [SECURITY-3512]
+    bf32018b... parent dddb4598 | 2025-03-25 21:02:02 +0000 | [SECURITY-3512]
+  This dossier covers the follow-on secrets issue, not the EXTENDED_READ check.
+
+Fix commits:
+  $ git show -s --format='%H %P | %ci | %s' acc9120f b3651b47
+  acc9120fa6670e2f6d229f4a14dc86dd46cda86f 81983c6a64d1e533b17f92a826af02125126f539 | 2025-03-20 07:27:25 +0000 | [SECURITY-3513]
+  b3651b475302e8dba20fc63c1ff89d144ec652f0 bf32018bf075c06e5df649583557c82d42d8bb5c | 2025-03-25 21:02:08 +0000 | [SECURITY-3513]
+  Each commit adds to the copy branch:
+    296  src.checkPermission(Computer.EXTENDED_READ);        (from SECURITY-3512)
+    299  String xml = Jenkins.XSTREAM.toXML(src);
+    300  if (!src.hasPermission(Computer.CONFIGURE)) {
+    301      final String redactedConfigDotXml = ExtendedReadRedaction.applyAll(xml);
+    302      if (!xml.equals(redactedConfigDotXml)) {
+    304          throw new AccessDeniedException(Messages.ComputerSet_may_not_copy_as_it_contains_secrets_and_(...));
+  so an agent whose XML contains a redactable secret can be copied only with
+  Agent/Configure; otherwise the request is rejected with 403 and the new node is
+  not created.
+  Regression test: PasswordTest.testCopyNodeSecrets (@Issue("SECURITY-3513")) grants
+  alice Agent/Create+Configure and bob Agent/Create+Extended Read, then asserts alice
+  can copy a node containing a Secret, and bob (no Configure) receives 403 with
+  "May not copy <name> as it contains secrets" while the computer count stays
+  unchanged.
+
+Fixed releases:
+  Jenkins 2.492.3 (LTS): release commit a5462bf4, whose only parent is the LTS fix
+    acc9120f.
+  Jenkins 2.504 (weekly): release commit 5309fce4, whose only parent is the master
+    fix b3651b47.
+  $ git merge-base --is-ancestor acc9120f a5462bf4  -> exit 0
+  $ git merge-base --is-ancestor b3651b47 5309fce4 -> exit 0
+  At the fixed trees ComputerSet.java is blob 8fcfdd9a (acc9120f, 2.492.3 branch)
+  and 384b3092 (b3651b47, 2.504 branch); the two differ only in the placement of a
+  javadoc @deprecated line, and both carry the guard at 299-314.
+
+Affected range:
+  CNA record: Jenkins 2.503 and earlier, LTS 2.492.2 and earlier; unaffected from
+  2.492.3 (LTS) and 2.504 (weekly), defaultStatus affected.
+  OSV CVE GIT range: introduced 0 -> fixed a5462bf4 (2.492.3) and 5309fce4 (2.504).
+  The GHSA ECOSYSTEM ranges encode the weekly line as introduced 2.500 -> fixed
+  2.504, which conflicts with the CNA text and with the CVE GIT range; the LTS range
+  is 0 -> 2.492.3. Snapshot 2.441 is inside the CNA/GIT affected range and predates
+  the SECURITY-3495 redaction work entirely.
+
+Public records:
+  CVE List v5 CVE-2025-31721, state PUBLISHED, datePublished 2025-04-02,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE. Description:
+  a missing permission check in Jenkins 2.503 and earlier, LTS 2.492.2 and earlier
+  allows attackers with Computer/Create permission but without Computer/Configure
+  permission to copy an agent, gaining access to encrypted secrets in its
+  configuration.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N;
+  CWE-862 from the same Secondary source; no Primary metric.
+  OSV/GHSA-wr6w-jxg7-qpfh: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-862].
+  Jenkins advisory 2025-04-02: https://www.jenkins.io/security/advisory/2025-04-02/
+  #SECURITY-3513, which also states the issue is due to an incomplete fix of
+  SECURITY-3495.
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

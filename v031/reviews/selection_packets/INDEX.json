@@ -1,0 +1,261 @@
+{
+  "tool_version": "build_selection_review_packets/1.0",
+  "packets": [
+    {
+      "packet_id": "selrev_1103607_snap_d9b0ffa82cd068d0",
+      "repo_id": "1103607",
+      "full_name": "jenkinsci/jenkins",
+      "snapshot_id": "snap_d9b0ffa82cd068d0",
+      "packet_path": "v031/reviews/selection_packets/1103607_jenkinsci__jenkins.json",
+      "anchor_count": 6
+    },
+    {
+      "packet_id": "selrev_133092972_snap_24c4a191fd049fc3",
+      "repo_id": "133092972",
+      "full_name": "nodejs/undici",
+      "snapshot_id": "snap_24c4a191fd049fc3",
+      "packet_path": "v031/reviews/selection_packets/133092972_nodejs__undici.json",
+      "anchor_count": 3
+    },
+    {
+      "packet_id": "selrev_135525225_snap_23dff8507560a593",
+      "repo_id": "135525225",
+      "full_name": "ruby/rexml",
+      "snapshot_id": "snap_23dff8507560a593",
+      "packet_path": "v031/reviews/selection_packets/135525225_ruby__rexml.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_23500865_snap_735b41cb13177d03",
+      "repo_id": "23500865",
+      "full_name": "hyperium/hyper",
+      "snapshot_id": "snap_735b41cb13177d03",
+      "packet_path": "v031/reviews/selection_packets/23500865_hyperium__hyper.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_237159_snap_3166f788b2c56baa",
+      "repo_id": "237159",
+      "full_name": "expressjs/express",
+      "snapshot_id": "snap_3166f788b2c56baa",
+      "packet_path": "v031/reviews/selection_packets/237159_expressjs__express.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_257485422_snap_2e50b228f2432623",
+      "repo_id": "257485422",
+      "full_name": "vitejs/vite",
+      "snapshot_id": "snap_2e50b228f2432623",
+      "packet_path": "v031/reviews/selection_packets/257485422_vitejs__vite.json",
+      "anchor_count": 4
+    },
+    {
+      "packet_id": "selrev_3219804_snap_a47bcab3f2c97e92",
+      "repo_id": "3219804",
+      "full_name": "libarchive/libarchive",
+      "snapshot_id": "snap_a47bcab3f2c97e92",
+      "packet_path": "v031/reviews/selection_packets/3219804_libarchive__libarchive.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_3476845_snap_25561773eac9d84f",
+      "repo_id": "3476845",
+      "full_name": "JamesNK/Newtonsoft.Json",
+      "snapshot_id": "snap_25561773eac9d84f",
+      "packet_path": "v031/reviews/selection_packets/3476845_JamesNK__Newtonsoft.Json.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_4164482_snap_516aa9971dd9509d",
+      "repo_id": "4164482",
+      "full_name": "django/django",
+      "snapshot_id": "snap_516aa9971dd9509d",
+      "packet_path": "v031/reviews/selection_packets/4164482_django__django.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_458058_snap_39105a8a3ceb9fe4",
+      "repo_id": "458058",
+      "full_name": "symfony/symfony",
+      "snapshot_id": "snap_39105a8a3ceb9fe4",
+      "packet_path": "v031/reviews/selection_packets/458058_symfony__symfony.json",
+      "anchor_count": 18
+    },
+    {
+      "packet_id": "selrev_54280778_snap_d9525608880dc9e1",
+      "repo_id": "54280778",
+      "full_name": "DaveGamble/cJSON",
+      "snapshot_id": "snap_d9525608880dc9e1",
+      "packet_path": "v031/reviews/selection_packets/54280778_DaveGamble__cJSON.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_569041_snap_0ec1c11542393304",
+      "repo_id": "569041",
+      "full_name": "curl/curl",
+      "snapshot_id": "snap_0ec1c11542393304",
+      "packet_path": "v031/reviews/selection_packets/569041_curl__curl.json",
+      "anchor_count": 2
+    },
+    {
+      "packet_id": "selrev_57920736_snap_b3a6891886ef2160",
+      "repo_id": "57920736",
+      "full_name": "rustls/rustls",
+      "snapshot_id": "snap_b3a6891886ef2160",
+      "packet_path": "v031/reviews/selection_packets/57920736_rustls__rustls.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_596892_snap_8ed1cab47a0b7011",
+      "repo_id": "596892",
+      "full_name": "pallets/flask",
+      "snapshot_id": "snap_8ed1cab47a0b7011",
+      "packet_path": "v031/reviews/selection_packets/596892_pallets__flask.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_7548986_snap_6e1f42aa46ca4df5",
+      "repo_id": "7548986",
+      "full_name": "laravel/framework",
+      "snapshot_id": "snap_6e1f42aa46ca4df5",
+      "packet_path": "v031/reviews/selection_packets/7548986_laravel__framework.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_80314213_snap_67132f0363b8bc23",
+      "repo_id": "80314213",
+      "full_name": "libexpat/libexpat",
+      "snapshot_id": "snap_67132f0363b8bc23",
+      "packet_path": "v031/reviews/selection_packets/80314213_libexpat__libexpat.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_997338_snap_b57262de7996e8a2",
+      "repo_id": "997338",
+      "full_name": "pallets/werkzeug",
+      "snapshot_id": "snap_b57262de7996e8a2",
+      "packet_path": "v031/reviews/selection_packets/997338_pallets__werkzeug.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_96071_snap_245aee01ea5112b9",
+      "repo_id": "96071",
+      "full_name": "rack/rack",
+      "snapshot_id": "snap_245aee01ea5112b9",
+      "packet_path": "v031/reviews/selection_packets/96071_rack__rack.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_16072585_snap_aca73214a7703174",
+      "repo_id": "16072585",
+      "full_name": "phoenixframework/phoenix",
+      "snapshot_id": "snap_aca73214a7703174",
+      "packet_path": "v031/reviews/selection_packets/16072585_phoenixframework__phoenix.json",
+      "anchor_count": 2
+    },
+    {
+      "packet_id": "selrev_1064563_snap_5c3900a03253c043",
+      "repo_id": "1064563",
+      "full_name": "netty/netty",
+      "snapshot_id": "snap_5c3900a03253c043",
+      "packet_path": "v031/reviews/selection_packets/1064563_netty__netty.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_1420053_snap_1ce353bfdb334948",
+      "repo_id": "1420053",
+      "full_name": "guzzle/guzzle",
+      "snapshot_id": "snap_1ce353bfdb334948",
+      "packet_path": "v031/reviews/selection_packets/1420053_guzzle__guzzle.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_20904437_snap_33d2dbd3f77388df",
+      "repo_id": "20904437",
+      "full_name": "gin-gonic/gin",
+      "snapshot_id": "snap_33d2dbd3f77388df",
+      "packet_path": "v031/reviews/selection_packets/20904437_gin-gonic__gin.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_106995_snap_5ab17df9ee6e4957",
+      "repo_id": "106995",
+      "full_name": "sinatra/sinatra",
+      "snapshot_id": "snap_5ab17df9ee6e4957",
+      "packet_path": "v031/reviews/selection_packets/106995_sinatra__sinatra.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_23357588_snap_442de86eb5fd3f62",
+      "repo_id": "23357588",
+      "full_name": "protocolbuffers/protobuf",
+      "snapshot_id": "snap_442de86eb5fd3f62",
+      "packet_path": "v031/reviews/selection_packets/23357588_protocolbuffers__protobuf.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_23088740_snap_04c033042a3d52eb",
+      "repo_id": "23088740",
+      "full_name": "axios/axios",
+      "snapshot_id": "snap_04c033042a3d52eb",
+      "packet_path": "v031/reviews/selection_packets/23088740_axios__axios.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_31504491_snap_e0836fa1c53e240d",
+      "repo_id": "31504491",
+      "full_name": "labstack/echo",
+      "snapshot_id": "snap_e0836fa1c53e240d",
+      "packet_path": "v031/reviews/selection_packets/31504491_labstack__echo.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_29207621_snap_ea53ce6e88becc8f",
+      "repo_id": "29207621",
+      "full_name": "caddyserver/caddy",
+      "snapshot_id": "snap_ea53ce6e88becc8f",
+      "packet_path": "v031/reviews/selection_packets/29207621_caddyserver__caddy.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_3955647_snap_033e9a6478460d9b",
+      "repo_id": "3955647",
+      "full_name": "lodash/lodash",
+      "snapshot_id": "snap_033e9a6478460d9b",
+      "packet_path": "v031/reviews/selection_packets/3955647_lodash__lodash.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_33100064_snap_f0ec66ad5ca54002",
+      "repo_id": "33100064",
+      "full_name": "jbeder/yaml-cpp",
+      "snapshot_id": "snap_f0ec66ad5ca54002",
+      "packet_path": "v031/reviews/selection_packets/33100064_jbeder__yaml-cpp.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_80945428_snap_af37094ca730365c",
+      "repo_id": "80945428",
+      "full_name": "nestjs/nest",
+      "snapshot_id": "snap_af37094ca730365c",
+      "packet_path": "v031/reviews/selection_packets/80945428_nestjs__nest.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_3542607_snap_5b58f4c33f6103b5",
+      "repo_id": "3542607",
+      "full_name": "leethomason/tinyxml2",
+      "snapshot_id": "snap_5b58f4c33f6103b5",
+      "packet_path": "v031/reviews/selection_packets/3542607_leethomason__tinyxml2.json",
+      "anchor_count": 1
+    },
+    {
+      "packet_id": "selrev_105379569_snap_ca4042bda2431632",
+      "repo_id": "105379569",
+      "full_name": "actix/actix-web",
+      "snapshot_id": "snap_ca4042bda2431632",
+      "packet_path": "v031/reviews/selection_packets/105379569_actix__actix-web.json",
+      "anchor_count": 1
+    }
+  ]
+}

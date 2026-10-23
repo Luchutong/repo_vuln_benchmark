@@ -1,0 +1,16 @@
+{
+  "advisory_files": 50,
+  "by_status": {
+    "active": 845,
+    "advisories": 846,
+    "rejected": 1
+  },
+  "candidates": 846,
+  "created_at": "2026-10-21T13:25:15.301753+00:00",
+  "limitations": [
+    "A repository advisory list is not a complete historical vulnerability list.",
+    "Empty advisory lists are retained in the raw files as empty observations.",
+    "Advisory severity/CVSS is recorded as published; it is not re-scored here."
+  ],
+  "repos_with_at_least_one_advisory": 36
+}

@@ -1,0 +1,1230 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Rikuxx0",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/138118002?v=4",
+            "events_url": "https://api.github.com/users/Rikuxx0/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Rikuxx0/followers",
+            "following_url": "https://api.github.com/users/Rikuxx0/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Rikuxx0/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Rikuxx0",
+            "id": 138118002,
+            "login": "Rikuxx0",
+            "node_id": "U_kgDOCDuDcg",
+            "organizations_url": "https://api.github.com/users/Rikuxx0/orgs",
+            "received_events_url": "https://api.github.com/users/Rikuxx0/received_events",
+            "repos_url": "https://api.github.com/users/Rikuxx0/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Rikuxx0/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Rikuxx0/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Rikuxx0",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-102279",
+      "cvss": {
+        "score": 3.1,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 3.1,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-80"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-80",
+          "name": "Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)"
+        }
+      ],
+      "description": "### Impact\r\nWhen `APP_DEBUG=true`, attacker-controlled input is passed to a Tippy.js tooltip configured with `allowHTML: true`, enabling DOM-based XSS during mouse hover.\r\n\r\n### Patches\r\n[#61381](https://github.com/laravel/framework/pull/61381) ",
+      "ghsa_id": "GHSA-jh5r-qr3c-85q8",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-jh5r-qr3c-85q8",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-jh5r-qr3c-85q8"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-102279"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-10T09:56:39Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/272749686?v=4",
+        "events_url": "https://api.github.com/users/andrei-laravel/events{/privacy}",
+        "followers_url": "https://api.github.com/users/andrei-laravel/followers",
+        "following_url": "https://api.github.com/users/andrei-laravel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/andrei-laravel/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/andrei-laravel",
+        "id": 272749686,
+        "login": "andrei-laravel",
+        "node_id": "U_kgDOEEHUdg",
+        "organizations_url": "https://api.github.com/users/andrei-laravel/orgs",
+        "received_events_url": "https://api.github.com/users/andrei-laravel/received_events",
+        "repos_url": "https://api.github.com/users/andrei-laravel/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/andrei-laravel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/andrei-laravel/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/andrei-laravel",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "XSS in Debug Page Information",
+      "updated_at": "2026-09-28T20:58:40Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-jh5r-qr3c-85q8",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">=v12.69.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<v12.69.0"
+        },
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">=v13.30.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<v13.30.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "KIKOmanasijev",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/34198639?v=4",
+            "events_url": "https://api.github.com/users/KIKOmanasijev/events{/privacy}",
+            "followers_url": "https://api.github.com/users/KIKOmanasijev/followers",
+            "following_url": "https://api.github.com/users/KIKOmanasijev/following{/other_user}",
+            "gists_url": "https://api.github.com/users/KIKOmanasijev/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/KIKOmanasijev",
+            "id": 34198639,
+            "login": "KIKOmanasijev",
+            "node_id": "MDQ6VXNlcjM0MTk4NjM5",
+            "organizations_url": "https://api.github.com/users/KIKOmanasijev/orgs",
+            "received_events_url": "https://api.github.com/users/KIKOmanasijev/received_events",
+            "repos_url": "https://api.github.com/users/KIKOmanasijev/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/KIKOmanasijev/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/KIKOmanasijev/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/KIKOmanasijev",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 9.2,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "Laravel's built-in TokenGuard, **when configured with a standard token-based API guard**, may be bypassed to authenticate as an arbitrary existing user without knowledge of their valid API token. \r\n\r\n**Under certain database configurations (MySQL/MariaDB)** an attacker can submit a specially crafted, non-string credential value that is mishandled during the authentication lookup, causing the underlying query to match an unintended user record rather than failing authentication as expected.\r\n\r\n### Impact\r\nAn unauthenticated attacker may authenticate as another user without possessing that user's API token, leading to authentication bypass and account takeover on any route protected by the affected guard.\r\n",
+      "ghsa_id": "GHSA-f9x3-7vq9-cph6",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-f9x3-7vq9-cph6",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-f9x3-7vq9-cph6"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-10-19T13:32:50Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/272749686?v=4",
+        "events_url": "https://api.github.com/users/andrei-laravel/events{/privacy}",
+        "followers_url": "https://api.github.com/users/andrei-laravel/followers",
+        "following_url": "https://api.github.com/users/andrei-laravel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/andrei-laravel/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/andrei-laravel",
+        "id": 272749686,
+        "login": "andrei-laravel",
+        "node_id": "U_kgDOEEHUdg",
+        "organizations_url": "https://api.github.com/users/andrei-laravel/orgs",
+        "received_events_url": "https://api.github.com/users/andrei-laravel/received_events",
+        "repos_url": "https://api.github.com/users/andrei-laravel/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/andrei-laravel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/andrei-laravel/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/andrei-laravel",
+        "user_view_type": "public"
+      },
+      "severity": "critical",
+      "state": "published",
+      "submission": null,
+      "summary": "Token-based API guard Auth Bypass",
+      "updated_at": "2026-10-19T13:32:50Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-f9x3-7vq9-cph6",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">= 13.29.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 13.29.0"
+        },
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">= v12.68.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< v12.68.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "KIKOmanasijev",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/34198639?v=4",
+            "events_url": "https://api.github.com/users/KIKOmanasijev/events{/privacy}",
+            "followers_url": "https://api.github.com/users/KIKOmanasijev/followers",
+            "following_url": "https://api.github.com/users/KIKOmanasijev/following{/other_user}",
+            "gists_url": "https://api.github.com/users/KIKOmanasijev/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/KIKOmanasijev",
+            "id": 34198639,
+            "login": "KIKOmanasijev",
+            "node_id": "MDQ6VXNlcjM0MTk4NjM5",
+            "organizations_url": "https://api.github.com/users/KIKOmanasijev/orgs",
+            "received_events_url": "https://api.github.com/users/KIKOmanasijev/received_events",
+            "repos_url": "https://api.github.com/users/KIKOmanasijev/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/KIKOmanasijev/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/KIKOmanasijev/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/KIKOmanasijev",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 6.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 6.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "A vulnerability in how relationship inclusion is processed on certain read endpoints. Under specific conditions, a request to a read-only endpoint can be crafted to trigger a destructive database operation on a related table, rather than simply retrieving data.\r\n\r\n### Impact\r\nA user with only read access could cause irreversible data loss (e.g., a related table being emptied), without needing any write permissions. This could result in denial of service and loss of data integrity for affected applications.",
+      "ghsa_id": "GHSA-5wcm-3v2w-8362",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-5wcm-3v2w-8362",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-5wcm-3v2w-8362"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-10-19T13:33:01Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/272749686?v=4",
+        "events_url": "https://api.github.com/users/andrei-laravel/events{/privacy}",
+        "followers_url": "https://api.github.com/users/andrei-laravel/followers",
+        "following_url": "https://api.github.com/users/andrei-laravel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/andrei-laravel/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/andrei-laravel",
+        "id": 272749686,
+        "login": "andrei-laravel",
+        "node_id": "U_kgDOEEHUdg",
+        "organizations_url": "https://api.github.com/users/andrei-laravel/orgs",
+        "received_events_url": "https://api.github.com/users/andrei-laravel/received_events",
+        "repos_url": "https://api.github.com/users/andrei-laravel/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/andrei-laravel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/andrei-laravel/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/andrei-laravel",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Unauthorized Data Destruction",
+      "updated_at": "2026-10-19T13:33:01Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-5wcm-3v2w-8362",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">= 12.68.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 12.45.0"
+        },
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">= 13.27.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 13.27.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "teebow1e",
+          "type": "finder"
+        },
+        {
+          "login": "zxcvbbq",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/130235050?v=4",
+            "events_url": "https://api.github.com/users/teebow1e/events{/privacy}",
+            "followers_url": "https://api.github.com/users/teebow1e/followers",
+            "following_url": "https://api.github.com/users/teebow1e/following{/other_user}",
+            "gists_url": "https://api.github.com/users/teebow1e/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/teebow1e",
+            "id": 130235050,
+            "login": "teebow1e",
+            "node_id": "U_kgDOB8M6qg",
+            "organizations_url": "https://api.github.com/users/teebow1e/orgs",
+            "received_events_url": "https://api.github.com/users/teebow1e/received_events",
+            "repos_url": "https://api.github.com/users/teebow1e/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/teebow1e/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/teebow1e/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/teebow1e",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/143018247?v=4",
+            "events_url": "https://api.github.com/users/zxcvbbq/events{/privacy}",
+            "followers_url": "https://api.github.com/users/zxcvbbq/followers",
+            "following_url": "https://api.github.com/users/zxcvbbq/following{/other_user}",
+            "gists_url": "https://api.github.com/users/zxcvbbq/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/zxcvbbq",
+            "id": 143018247,
+            "login": "zxcvbbq",
+            "node_id": "U_kgDOCIZJBw",
+            "organizations_url": "https://api.github.com/users/zxcvbbq/orgs",
+            "received_events_url": "https://api.github.com/users/zxcvbbq/received_events",
+            "repos_url": "https://api.github.com/users/zxcvbbq/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/zxcvbbq/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/zxcvbbq/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/zxcvbbq",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-48041",
+      "cvss": {
+        "score": 4.2,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 4.2,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-116"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-116",
+          "name": "Improper Encoding or Escaping of Output"
+        }
+      ],
+      "description": "A vulnerability in Laravel's local filesystem driver allows temporary signed URLs to be parsed ambiguously, potentially misrouting requests and bypassing expiration enforcement.\r\n\r\nUnder certain conditions, a generated temporary signed URL can be interpreted differently by the server than intended at signing time. This may cause requests to resolve to an unintended resource, and can prevent expiration from being enforced, allowing expired URLs to remain valid indefinitely.\r\n\r\n### Impact\r\n- Expired temporary URLs may continue to be accepted\r\n- Requests may resolve to a different resource than the one that was signed\r\n- The upload variant may allow writes to reach an unintended destination\r\n\r\n### Patches\r\nhttps://github.com/laravel/framework/pull/60137\r\nhttps://github.com/laravel/framework/pull/60230\r\nhttps://github.com/laravel/framework/pull/60350",
+      "ghsa_id": "GHSA-crmm-hgp2-wgrp",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-crmm-hgp2-wgrp",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-crmm-hgp2-wgrp"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-48041"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-06-08T10:17:19Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/272749686?v=4",
+        "events_url": "https://api.github.com/users/andrei-laravel/events{/privacy}",
+        "followers_url": "https://api.github.com/users/andrei-laravel/followers",
+        "following_url": "https://api.github.com/users/andrei-laravel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/andrei-laravel/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/andrei-laravel",
+        "id": 272749686,
+        "login": "andrei-laravel",
+        "node_id": "U_kgDOEEHUdg",
+        "organizations_url": "https://api.github.com/users/andrei-laravel/orgs",
+        "received_events_url": "https://api.github.com/users/andrei-laravel/received_events",
+        "repos_url": "https://api.github.com/users/andrei-laravel/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/andrei-laravel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/andrei-laravel/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/andrei-laravel",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Temporary Signed URL Path Confusion",
+      "updated_at": "2026-06-08T10:17:19Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-crmm-hgp2-wgrp",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">=13.12.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<13.12.0"
+        },
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">=12.61.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<12.61.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "OmarXtream",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/48177756?v=4",
+            "events_url": "https://api.github.com/users/OmarXtream/events{/privacy}",
+            "followers_url": "https://api.github.com/users/OmarXtream/followers",
+            "following_url": "https://api.github.com/users/OmarXtream/following{/other_user}",
+            "gists_url": "https://api.github.com/users/OmarXtream/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/OmarXtream",
+            "id": 48177756,
+            "login": "OmarXtream",
+            "node_id": "MDQ6VXNlcjQ4MTc3NzU2",
+            "organizations_url": "https://api.github.com/users/OmarXtream/orgs",
+            "received_events_url": "https://api.github.com/users/OmarXtream/received_events",
+            "repos_url": "https://api.github.com/users/OmarXtream/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/OmarXtream/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/OmarXtream/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/OmarXtream",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-48019",
+      "cvss": {
+        "score": 8.9,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 8.9,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:C/C:H/I:H/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-93"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-93",
+          "name": "Improper Neutralization of CRLF Sequences ('CRLF Injection')"
+        }
+      ],
+      "description": "## Summary\r\nA CRLF injection vulnerability in Laravel's email validation, in combination with how Symfony Mailer and Symfony Mime handle certain character sequences, may allow an unauthenticated attacker to interfere with outbound email processing in applications that send mail to user-supplied addresses.\r\n\r\n## Description\r\nLaravel applications that send email to addresses provided by users — for example during authentication flows or contact forms — may be vulnerable to manipulation of outbound mail content if the address is not adequately sanitized before it reaches the mail transport layer.\r\nAn attacker who can supply an email address to such a flow may, under certain conditions, be able to influence the content of emails sent by the application, cause those emails to be delivered to unintended recipients, or cause the application's mail server to send unintended messages.\r\n\r\n## Impact\r\nAffected applications may be exposed to unauthorized access and mail relay abuse. The severity depends on what the application sends by email and how its mail infrastructure is configured.\r\n\r\n## Remediation\r\nUpgrade to version 12.60.0 or later, or 13.10.0 or later. ",
+      "ghsa_id": "GHSA-5vg9-5847-vvmq",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-5vg9-5847-vvmq",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-5vg9-5847-vvmq"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-48019"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-06-01T08:23:09Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/272749686?v=4",
+        "events_url": "https://api.github.com/users/andrei-laravel/events{/privacy}",
+        "followers_url": "https://api.github.com/users/andrei-laravel/followers",
+        "following_url": "https://api.github.com/users/andrei-laravel/following{/other_user}",
+        "gists_url": "https://api.github.com/users/andrei-laravel/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/andrei-laravel",
+        "id": 272749686,
+        "login": "andrei-laravel",
+        "node_id": "U_kgDOEEHUdg",
+        "organizations_url": "https://api.github.com/users/andrei-laravel/orgs",
+        "received_events_url": "https://api.github.com/users/andrei-laravel/received_events",
+        "repos_url": "https://api.github.com/users/andrei-laravel/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/andrei-laravel/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/andrei-laravel/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/andrei-laravel",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "CRLF injection in default email rule ",
+      "updated_at": "2026-06-01T08:23:09Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-5vg9-5847-vvmq",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">= 13.10.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<= 13.9.0"
+        },
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": ">= 12.60.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 12.60.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Jusb3",
+          "type": "finder"
+        },
+        {
+          "login": "TrixterTheTux",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/7428299?v=4",
+            "events_url": "https://api.github.com/users/Jusb3/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Jusb3/followers",
+            "following_url": "https://api.github.com/users/Jusb3/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Jusb3/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Jusb3",
+            "id": 7428299,
+            "login": "Jusb3",
+            "node_id": "MDQ6VXNlcjc0MjgyOTk=",
+            "organizations_url": "https://api.github.com/users/Jusb3/orgs",
+            "received_events_url": "https://api.github.com/users/Jusb3/received_events",
+            "repos_url": "https://api.github.com/users/Jusb3/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Jusb3/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Jusb3/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Jusb3",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/10120342?v=4",
+            "events_url": "https://api.github.com/users/TrixterTheTux/events{/privacy}",
+            "followers_url": "https://api.github.com/users/TrixterTheTux/followers",
+            "following_url": "https://api.github.com/users/TrixterTheTux/following{/other_user}",
+            "gists_url": "https://api.github.com/users/TrixterTheTux/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/TrixterTheTux",
+            "id": 10120342,
+            "login": "TrixterTheTux",
+            "node_id": "MDQ6VXNlcjEwMTIwMzQy",
+            "organizations_url": "https://api.github.com/users/TrixterTheTux/orgs",
+            "received_events_url": "https://api.github.com/users/TrixterTheTux/received_events",
+            "repos_url": "https://api.github.com/users/TrixterTheTux/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/TrixterTheTux/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/TrixterTheTux/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/TrixterTheTux",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2025-27515",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "When using wildcard validation to validate a given file or image field array (`files.*`), a user-crafted malicious request could potentially bypass the validation rules.",
+      "ghsa_id": "GHSA-78fx-h6xr-vch4",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-78fx-h6xr-vch4",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-78fx-h6xr-vch4"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-27515"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-03-05T15:24:06Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/463230?v=4",
+        "events_url": "https://api.github.com/users/taylorotwell/events{/privacy}",
+        "followers_url": "https://api.github.com/users/taylorotwell/followers",
+        "following_url": "https://api.github.com/users/taylorotwell/following{/other_user}",
+        "gists_url": "https://api.github.com/users/taylorotwell/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/taylorotwell",
+        "id": 463230,
+        "login": "taylorotwell",
+        "node_id": "MDQ6VXNlcjQ2MzIzMA==",
+        "organizations_url": "https://api.github.com/users/taylorotwell/orgs",
+        "received_events_url": "https://api.github.com/users/taylorotwell/received_events",
+        "repos_url": "https://api.github.com/users/taylorotwell/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/taylorotwell/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/taylorotwell/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/taylorotwell",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "File Validation Bypass",
+      "updated_at": "2025-03-05T18:19:25Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-78fx-h6xr-vch4",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": "12.1.1,11.44.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<11.44.1,>=12,<12.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-52301",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "## Description\r\n\r\nWhen the `register_argc_argv php` directive is set to `on` , and users call any URL with a special crafted query string, they are able to change the environment used by the framework when handling the request.\r\n\r\n## Resolution\r\n\r\nThe framework now ignores argv values for environment detection on non-cli SAPIs.",
+      "ghsa_id": "GHSA-gv7v-rgg6-548h",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-gv7v-rgg6-548h",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-gv7v-rgg6-548h"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-52301"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-11-12T18:19:39Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/463230?v=4",
+        "events_url": "https://api.github.com/users/taylorotwell/events{/privacy}",
+        "followers_url": "https://api.github.com/users/taylorotwell/followers",
+        "following_url": "https://api.github.com/users/taylorotwell/following{/other_user}",
+        "gists_url": "https://api.github.com/users/taylorotwell/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/taylorotwell",
+        "id": 463230,
+        "login": "taylorotwell",
+        "node_id": "MDQ6VXNlcjQ2MzIzMA==",
+        "organizations_url": "https://api.github.com/users/taylorotwell/orgs",
+        "received_events_url": "https://api.github.com/users/taylorotwell/received_events",
+        "repos_url": "https://api.github.com/users/taylorotwell/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/taylorotwell/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/taylorotwell/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/taylorotwell",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Environment manipulation via query string",
+      "updated_at": "2024-11-12T18:19:39Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-gv7v-rgg6-548h",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": "6.20.45,7.30.7,8.83.28,9.52.17,10.48.23,11.31.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<6.20.45,>=7,<7.30.7,>=8,<8.83.28,>=9,<9.52.17,>=10,<10.48.23,>=11,<11.31.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "chinpei215",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/7399393?v=4",
+            "events_url": "https://api.github.com/users/chinpei215/events{/privacy}",
+            "followers_url": "https://api.github.com/users/chinpei215/followers",
+            "following_url": "https://api.github.com/users/chinpei215/following{/other_user}",
+            "gists_url": "https://api.github.com/users/chinpei215/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/chinpei215",
+            "id": 7399393,
+            "login": "chinpei215",
+            "node_id": "MDQ6VXNlcjczOTkzOTM=",
+            "organizations_url": "https://api.github.com/users/chinpei215/orgs",
+            "received_events_url": "https://api.github.com/users/chinpei215/received_events",
+            "repos_url": "https://api.github.com/users/chinpei215/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/chinpei215/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/chinpei215/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/chinpei215",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2021-43808",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "A security researcher has disclosed a possible XSS vulnerability in the Blade templating engine.\r\n\r\nGiven the following two Blade templates:\r\n\r\nresources/views/parent.blade.php:\r\n\r\n```html\r\n@section('content')\r\n<input value=\"{{ $value }}\">\r\n@show\r\n```\r\n\r\nresources/views/child.blade.php:\r\n\r\n```html\r\n@extends('parent')\r\n\r\n@section('content')\r\n<input value=\"{{ $value }}\">\r\n@endsection\r\n```\r\n\r\nAnd a route like the following:\r\n\r\n```php\r\nRoute::get('/example', function() {\r\n    $value = '//localhost/###parent-placeholder-040f06fd774092478d450774f5ba30c5da78acc8## onclick=location.assign(this.value);//';\r\n\r\n    return view('child', ['value' => $value]);\r\n});\r\n```\r\n\r\nThe broken HTML element may be clicked and the user is taken to another location in their browser due to XSS. This is due to the user being able to guess the parent placeholder SHA-1 hash by trying common names of sections. If the parent template contains an exploitable HTML structure an XSS vulnerability can be exposed.\r\n\r\nThis vulnerability has been patched by determining the parent placeholder at runtime and using a random hash that is unique to each request.",
+      "ghsa_id": "GHSA-66hf-2p6w-jqfw",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-66hf-2p6w-jqfw",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-66hf-2p6w-jqfw"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-43808"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-12-07T19:38:45Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/463230?v=4",
+        "events_url": "https://api.github.com/users/taylorotwell/events{/privacy}",
+        "followers_url": "https://api.github.com/users/taylorotwell/followers",
+        "following_url": "https://api.github.com/users/taylorotwell/following{/other_user}",
+        "gists_url": "https://api.github.com/users/taylorotwell/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/taylorotwell",
+        "id": 463230,
+        "login": "taylorotwell",
+        "node_id": "MDQ6VXNlcjQ2MzIzMA==",
+        "organizations_url": "https://api.github.com/users/taylorotwell/orgs",
+        "received_events_url": "https://api.github.com/users/taylorotwell/received_events",
+        "repos_url": "https://api.github.com/users/taylorotwell/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/taylorotwell/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/taylorotwell/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/taylorotwell",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Blade `@parent` Exploitation Leading To Possible XSS",
+      "updated_at": "2021-12-07T20:02:50Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-66hf-2p6w-jqfw",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework"
+          },
+          "patched_versions": "6.20.42, 7.30.6, 8.75.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">=8.0.0, <8.75.0, >=7.0.0, <7.30.6, <6.20.42"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": null,
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThose using SQL Server with Laravel and allowing user input to be passed directly to the `limit` and `offset` functions are vulnerable to SQL injection. Other database drivers such as MySQL and Postgres are not affected by this vulnerability.\r\n\r\n### Patches\r\n\r\nThis problem has been patched on Laravel versions 6.20.26, 7.30.5, and 8.40.0.\r\n\r\n### Workarounds\r\n\r\nYou may workaround this vulnerability by ensuring that only integers are passed to the `limit` and `offset` functions, as well as the `skip` and `take` functions.\r\n",
+      "ghsa_id": "GHSA-4mg9-vhxq-vm7j",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-4mg9-vhxq-vm7j",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-4mg9-vhxq-vm7j"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-04-28T14:44:43Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/463230?v=4",
+        "events_url": "https://api.github.com/users/taylorotwell/events{/privacy}",
+        "followers_url": "https://api.github.com/users/taylorotwell/followers",
+        "following_url": "https://api.github.com/users/taylorotwell/following{/other_user}",
+        "gists_url": "https://api.github.com/users/taylorotwell/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/taylorotwell",
+        "id": 463230,
+        "login": "taylorotwell",
+        "node_id": "MDQ6VXNlcjQ2MzIzMA==",
+        "organizations_url": "https://api.github.com/users/taylorotwell/orgs",
+        "received_events_url": "https://api.github.com/users/taylorotwell/received_events",
+        "repos_url": "https://api.github.com/users/taylorotwell/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/taylorotwell/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/taylorotwell/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/taylorotwell",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "SQL Server LIMIT / OFFSET SQL Injection",
+      "updated_at": "2021-11-17T15:41:16Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-4mg9-vhxq-vm7j",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework, illuminate/database"
+          },
+          "patched_versions": "6.20.26, 7.30.5, 8.40.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">=8.0.0, <8.40.0, >=7.0.0, <7.30.5, <6.20.26"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "This is a follow-up to the previous security advisory which addresses a few additional edge cases.\r\n\r\nIf a request is crafted where a field that is normally a non-array value is an array, and that input is not validated or cast to its expected type before being passed to the query builder, an unexpected number of query bindings can be added to the query. In some situations, this will simply lead to no results being returned by the query builder; however, it is possible certain queries could be affected in a way that causes the query to return unexpected results.\r\n\r\n",
+      "ghsa_id": "GHSA-x7p5-p2c9-phvg",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-x7p5-p2c9-phvg",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-x7p5-p2c9-phvg"
+        },
+        {
+          "type": "CVE",
+          "value": ""
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-02-02T13:54:55Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/463230?v=4",
+        "events_url": "https://api.github.com/users/taylorotwell/events{/privacy}",
+        "followers_url": "https://api.github.com/users/taylorotwell/followers",
+        "following_url": "https://api.github.com/users/taylorotwell/following{/other_user}",
+        "gists_url": "https://api.github.com/users/taylorotwell/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/taylorotwell",
+        "id": 463230,
+        "login": "taylorotwell",
+        "node_id": "MDQ6VXNlcjQ2MzIzMA==",
+        "organizations_url": "https://api.github.com/users/taylorotwell/orgs",
+        "received_events_url": "https://api.github.com/users/taylorotwell/received_events",
+        "repos_url": "https://api.github.com/users/taylorotwell/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/taylorotwell/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/taylorotwell/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/taylorotwell",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Unexpected database bindings via requests (follow-up)",
+      "updated_at": "2021-02-02T13:54:55Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-x7p5-p2c9-phvg",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework, illuminate/database"
+          },
+          "patched_versions": "6.20.14, 7.30.4, 8.24.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">=8.0.0, <8.24.0, >=7.0.0, <7.30.4, <6.20.14"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2021-21263",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Description\r\n\r\nLaravel versions <6.20.12, <7.30.3 & <8.22.1 contain a query binding exploitation.\r\n\r\nIf a request is crafted where a field that is normally a non-array value is an array, and that input is not validated or cast to its expected type before being passed to the query builder, an unexpected number of query bindings can be added to the query. In some situations, this will simply lead to no results being returned by the query builder; however, it is possible certain queries could be affected in a way that causes the query to return unexpected results.\r\n\r\nThis vulnerability was discovered by Tim Groenevelt (tim.g@foodbyus.com).\r\n\r\n### References\r\n\r\n- https://github.com/laravel/framework/pull/35865",
+      "ghsa_id": "GHSA-3p32-j457-pg5x",
+      "html_url": "https://github.com/laravel/framework/security/advisories/GHSA-3p32-j457-pg5x",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-3p32-j457-pg5x"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-21263"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-01-15T15:41:20Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/463230?v=4",
+        "events_url": "https://api.github.com/users/taylorotwell/events{/privacy}",
+        "followers_url": "https://api.github.com/users/taylorotwell/followers",
+        "following_url": "https://api.github.com/users/taylorotwell/following{/other_user}",
+        "gists_url": "https://api.github.com/users/taylorotwell/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/taylorotwell",
+        "id": 463230,
+        "login": "taylorotwell",
+        "node_id": "MDQ6VXNlcjQ2MzIzMA==",
+        "organizations_url": "https://api.github.com/users/taylorotwell/orgs",
+        "received_events_url": "https://api.github.com/users/taylorotwell/received_events",
+        "repos_url": "https://api.github.com/users/taylorotwell/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/taylorotwell/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/taylorotwell/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/taylorotwell",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Query Binding Exploitation",
+      "updated_at": "2021-03-29T12:28:20Z",
+      "url": "https://api.github.com/repos/laravel/framework/security-advisories/GHSA-3p32-j457-pg5x",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "composer",
+            "name": "laravel/framework, illuminate/database"
+          },
+          "patched_versions": "",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">=8.0.0, <8.22.1, >=7.0.0, <7.30.3, <6.20.12"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "laravel/framework",
+    "url": "https://api.github.com/repos/laravel/framework/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:19.974556+00:00",
+  "tool": "github_rest_readonly"
+}

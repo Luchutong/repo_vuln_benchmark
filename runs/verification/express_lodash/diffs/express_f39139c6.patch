@@ -1,0 +1,15 @@
+diff --git a/lib/response.js b/lib/response.js
+index 2b654f4c..e6d5c7d7 100644
+--- a/lib/response.js
++++ b/lib/response.js
+@@ -90,9 +90,9 @@ res.status = function status(code) {
+ res.links = function(links){
+   var link = this.get('Link') || '';
+   if (link) link += ', ';
+   return this.set('Link', link + Object.keys(links).map(function(rel){
+-    return '<' + links[rel] + '>; rel="' + rel + '"';
++    return '<' + links[rel].replace(/>/g, '%3E') + '>; rel="' + rel + '"';
+   }).join(', '));
+ };
+ 
+ /**

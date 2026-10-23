@@ -1,0 +1,55 @@
+From 59ef484029601a7af06f5e06c6ed921fdcea5a0d Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Thu, 16 Apr 2026 16:45:24 +0200
+Subject: [PATCH] [Security] Anchor emailAddress regex to RDN boundary in
+ X509Authenticator
+
+---
+ .../Http/Authenticator/X509Authenticator.php  |  2 +-
+ .../Authenticator/X509AuthenticatorTest.php   | 20 +++++++++++++++++++
+ 2 files changed, 21 insertions(+), 1 deletion(-)
+
+diff --git a/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php b/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php
+index 8f30a23993a66..13e0c82b37993 100644
+--- a/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php
++++ b/src/Symfony/Component/Security/Http/Authenticator/X509Authenticator.php
+@@ -46,7 +46,7 @@ protected function extractUsername(Request $request): string
+             $username = $request->server->get($this->userKey);
+         } elseif (
+             $request->server->has($this->credentialsKey)
+-            && preg_match('#emailAddress=([^,/@]++@[^,/]++)#', $request->server->get($this->credentialsKey), $matches)
++            && preg_match('#(?:^|[,/])\s*(?:emailAddress|1\.2\.840\.113549\.1\.9\.1)=([^,/@]++@[^,/]++)#', $request->server->get($this->credentialsKey), $matches)
+         ) {
+             $username = $matches[1];
+         }
+diff --git a/src/Symfony/Component/Security/Http/Tests/Authenticator/X509AuthenticatorTest.php b/src/Symfony/Component/Security/Http/Tests/Authenticator/X509AuthenticatorTest.php
+index 7ee6aaa973894..fc6ec3f7a377d 100644
+--- a/src/Symfony/Component/Security/Http/Tests/Authenticator/X509AuthenticatorTest.php
++++ b/src/Symfony/Component/Security/Http/Tests/Authenticator/X509AuthenticatorTest.php
+@@ -81,6 +81,26 @@ public static function provideServerVarsNoUser()
+         yield ['cert+something@example.com', 'emailAddress=cert+something@example.com,CN=Sample certificate DN'];
+         yield ['cert+something@example.com', 'emailAddress=cert+something@example.com'];
+         yield ['firstname.lastname@mycompany.co.uk', 'emailAddress=firstname.lastname@mycompany.co.uk,CN=Firstname.Lastname,OU=london,OU=company design and engineering,OU=Issuer London,OU=Roaming,OU=Interactive,OU=Users,OU=Standard,OU=Business,DC=england,DC=core,DC=company,DC=co,DC=uk'];
++        yield ['cert@example.com', '1.2.840.113549.1.9.1=cert@example.com,CN=Sample certificate DN'];
++        yield ['cert@example.com', 'CN=Sample certificate DN/1.2.840.113549.1.9.1=cert@example.com'];
++    }
++
++    /**
++     * @dataProvider provideSpoofedDns
++     */
++    public function testAuthenticationRejectsSpoofedEmailInDn(string $dn)
++    {
++        $request = $this->createRequest(['SSL_CLIENT_S_DN' => $dn]);
++
++        $this->assertFalse($this->authenticator->supports($request));
++    }
++
++    public static function provideSpoofedDns()
++    {
++        yield ['CN=emailAddress=admin@target.example,O=Attacker Corp'];
++        yield ['CN=foo,OU=emailAddress=admin@target.example,O=Attacker'];
++        yield ['CN=1.2.840.113549.1.9.1=admin@target.example,O=Attacker Corp'];
++        yield ['CN=foo,OU=1.2.840.113549.1.9.1=admin@target.example,O=Attacker'];
+     }
+ 
+     public function testSupportNoData()

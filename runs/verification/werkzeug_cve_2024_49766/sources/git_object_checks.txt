@@ -1,0 +1,139 @@
+Repository: https://github.com/pallets/werkzeug
+Local upstream mirror: /tmp/werkzeug_git/repo.git (bare). Tags 3.0.2, 3.0.5 and
+3.0.6 are present; 3.0.2 is a lightweight tag (d70dcea3), while 3.0.5 and 3.0.6
+are annotated tags (objects 49af36e3 and a82e04ed) that peel to 9caf72ac and
+5eaefc39. The fix commit 2767bcb1 and its first parent 50cfeebc were fetched by
+SHA; 2767bcb1 sits on the mirror's shallow boundary (it is listed in
+.git/shallow), so cross-release ancestry queries through it are unreliable and
+are not used below. Tag trees and blob ids are used instead.
+
+Dataset snapshot: tag 3.0.2, commit d70dcea305bf842c5a3b55265b5ffac2db012e23
+(snapshot_id snap_b57262de7996e8a2, repo_id 997338).
+  $ git rev-parse '3.0.2^{commit}'
+  d70dcea305bf842c5a3b55265b5ffac2db012e23
+  $ git rev-parse '3.0.2:src/werkzeug/security.py'
+  587a3cc743e1350c47d40db44972fc1b329e1526     (157 lines)
+  $ git rev-parse '3.0.2:tests/test_security.py'
+  6fad089a7d6ff979907a84368233ee4eb4904505
+
+Vulnerable code at 3.0.2 (security.py, blob 587a3cc7):
+   127  def safe_join(directory: str, *pathnames: str) -> str | None:
+   ...
+   141      parts = [directory]
+   142
+   143      for filename in pathnames:
+   144          if filename != "":
+   145              filename = posixpath.normpath(filename)
+   146
+   147          if (
+   148              any(sep in filename for sep in _os_alt_seps)
+   149              or os.path.isabs(filename)
+   150              or filename == ".."
+   151              or filename.startswith("../")
+   152          ):
+   153              return None
+   154
+   155          parts.append(filename)
+   156
+   157      return posixpath.join(*parts)
+  `_os_alt_seps` (lines 12-14) holds os.sep / os.path.altsep except "/", i.e.
+  the backslash on Windows. On Windows with Python < 3.11, ntpath.isabs()
+  returns False for a UNC path such as //server/share (the advisory's own
+  wording), and posixpath.normpath leaves "//b/c" unchanged, so a pathname
+  beginning with "//" (or a plain "/...") passes every predicate and is joined
+  onto the base directory. os.path.join / posixpath.join then produce a path
+  rooted outside the directory, so a caller that trusts safe_join serves or
+  opens data outside its base directory. The missing predicate is exactly
+  `filename.startswith("/")`; the other three checks already exist.
+
+Fix commit (merge from fork):
+  $ git cat-file -p 2767bcb1
+  tree c8db9963
+  parent 50cfeebcb0727e18cc52ffbeb125f4a66551179b
+  parent 87cc78a25f782f8c59fbde786840a00cf0d09b3d
+  author/committer timestamps 2024-10-25 11:36:48 -0700, subject
+  "Merge commit from fork"
+  The first parent 50cfeebc (tree blob for security.py 9999509d, test
+  security.py 6fad089a) is the pre-fix base; the diff
+  50cfeebc..2767bcb1 (fix_commit_2767bcb1.patch, 60 lines) changes exactly
+  CHANGES.rst, src/werkzeug/security.py and tests/test_security.py.
+  security.py change:
+     153              or os.path.isabs(filename)
+     154 +            # ntpath.isabs doesn't catch this on Python < 3.11
+     155 +            or filename.startswith("/")
+     156              or filename == ".."
+  CHANGES.rst entry: "``safe_join`` catches certain paths on Windows that were
+  not caught by ``ntpath.isabs`` on Python < 3.11. :ghsa:`f9vj-2wh5-fj8j`"
+  tests/test_security.py: the single test_safe_join() is replaced by a
+  parametrized test with cases ("b/c", "a/b/c"), ("../b/c", None),
+  ("b\\c", None if os.name == "nt" else "a/b\\c") and ("//b/c", None) - the last
+  case is the regression test for this issue.
+
+Pre-fix and fixed release trees:
+  $ git ls-tree 3.0.3 src/werkzeug/security.py -> blob 9999509d
+  $ git ls-tree 3.0.4 src/werkzeug/security.py -> blob 9999509d
+  $ git ls-tree 3.0.5 src/werkzeug/security.py -> blob 9999509d
+  $ git ls-tree 3.0.6 src/werkzeug/security.py -> blob 997597990e4e50558ec6d54ebb82ca1e8bba7910
+  Blob 9999509d (3.0.3-3.0.5) differs from the 3.0.2 blob 587a3cc7 only in
+  _hash_internal (local variable renames and line wrapping, 3.0.5 vs 3.0.2
+  diff); the safe_join predicate block is byte-identical to 3.0.2 at lines
+  151-157, i.e. still without the leading-slash check.
+  At 3.0.6 (blob 9975979) the check is:
+   151          if (
+   152              any(sep in filename for sep in _os_alt_seps)
+   153              or os.path.isabs(filename)
+   154              # ntpath.isabs doesn't catch this on Python < 3.11
+   155              or filename.startswith("/")
+   156              or filename == ".."
+   157              or filename.startswith("../")
+   158          ):
+   159              return None
+  tests/test_security.py blob 6fad089a -> 3ce741a9 (the parametrized rewrite
+  above).
+
+Fixed release:
+  $ git rev-parse '3.0.6^{commit}'
+  5eaefc3996aa5cc8c5237d8b82f1b89eed6ea624
+  $ git show -s --format='%H %P | %ci | %s' 5eaefc39
+  5eaefc3996aa5cc8c5237d8b82f1b89eed6ea624 2767bcb10a7dd1c297d812cc5e6d11a474c1f092
+    | 2024-10-25 11:42:37 -0700 | release version 3.0.6
+  The release commit is a direct child of the fix merge, and the 3.0.6 tree
+  carries the fixed blob 9975979. 3.0.6 is therefore the first release with
+  the check, matching the CNA record ("< 3.0.6" affected) and the OSV PyPI
+  range introduced 0, fixed 3.0.6.
+
+Downstream call sites at 3.0.2 (why the helper matters):
+  src/werkzeug/middleware/shared_data.py:170 (package loader) and :206
+  (directory loader) pass a client-derived path to safe_join; :213 then tests
+  os.path.isfile(path) and opens it.
+  src/werkzeug/utils.py:563 send_from_directory() calls
+  safe_join(directory, path) on a path documented as "the part of the path
+  provided by the client"; a returned "//..." value then survives
+  os.path.join(_root_path, path) on Windows because the second component is
+  absolute/UNC.
+  Whether a given application is exploitable depends on its own platform
+  (Windows), Python version (< 3.11) and on passing attacker-controlled path
+  components to safe_join / send_from_directory / SharedDataMiddleware; the
+  library-level check is the missing leading-slash predicate above.
+
+Public records:
+  CVE List v5 CVE-2024-49766, state PUBLISHED, assigner GitHub_M, published
+  2024-10-25. Description: on Python < 3.11 on Windows, os.path.isabs() does
+  not catch UNC paths like //server/share, so safe_join() can produce a path
+  that is not safe; applications on Python >= 3.11 or not on Windows are not
+  vulnerable; 3.0.6 contains the patch. CNA CVSS 4.0 6.3 MEDIUM
+  CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N; CWE-22.
+  NVD status Analyzed: Secondary CVSS 4.0 6.3 MEDIUM from
+  security-advisories@github.com and Primary CVSS 3.1 5.3 MEDIUM from
+  nvd@nist.gov (CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N); CWE-22 from the
+  Secondary source; published 2024-10-25T20:15:04.
+  OSV CVE-2024-49766 and GHSA-f9vj-2wh5-fj8j: aliases CVE-2024-49766,
+  GHSA-f9vj-2wh5-fj8j, PYSEC-2026-2045; PyPI ECOSYSTEM range introduced 0,
+  fixed 3.0.6; GIT range introduced 0, fixed 5eaefc39 (tag 3.0.6) and
+  2767bcb1; CVSS_V4 vector as above; GHSA database_specific severity MODERATE,
+  cwe_ids [CWE-22], github_reviewed true. The GIT events are the same release
+  and fix commit verified above.
+
+No code was executed, no Windows host and no Python < 3.11 interpreter was
+used, and no HTTP request was made; every check above is a static read of git
+objects, the fix diff and public vulnerability records.

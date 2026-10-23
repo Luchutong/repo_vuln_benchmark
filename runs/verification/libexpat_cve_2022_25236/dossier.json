@@ -1,0 +1,391 @@
+{
+ "candidate_id": "disc2_61b0180abcd082cd39accc08",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/nvd_cve.json",
+   "evidence_id": "ev_expat_25236_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "95532dcd4a727a1548d217eaa1a7bfa1cb35e27942c2d780da292d17072d747e",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-25236",
+   "supports": [
+    "NVD primary CVSS 3.1 is 9.8 CRITICAL with AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "NVD primary weakness is CWE-668 (Exposure of Resource to Wrong Sphere)",
+    "NVD description: xmlparse.c before 2.4.5 allows attackers to insert namespace-separator characters into namespace URIs",
+    "CPE configuration marks libexpat before 2.4.5 as vulnerable"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/cve_v5.json",
+   "evidence_id": "ev_expat_25236_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "f604ab5e2446ad9ac43e0a6214fab495a3f7f69b51f9c41e739a21f42154ef02",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-25236",
+   "supports": [
+    "CVE state PUBLISHED, assigner mitre, published 2022-02-16T00:39:16Z",
+    "the CNA record is a placeholder: product/vendor/version are n/a and problemTypes is n/a",
+    "no metrics are supplied by the CNA",
+    "references point to PR 561, the oss-security post and distro advisories"
+   ],
+   "verification_method": "CVE List v5 MITRE record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/osv_cve.json",
+   "evidence_id": "ev_expat_25236_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "53c35f7167198c5c22ee558f72bb8a8eec5ffb7c7c75fe286b3afc29a57cb1e1",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2022-25236",
+   "supports": [
+    "OSV CVSS_V3 score is CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "the GIT range is introduced 0 and fixed 97a48405, which is the 2.4.5 release-preparation merge commit, not the code fix",
+    "CPE_RANGE and DESCRIPTION extraction both state fixed 2.4.5",
+    "the versions list includes R_2_4_4 as affected"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/oss_security.html",
+   "evidence_id": "ev_expat_25236_oss_security",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "81368ab5f0f1a4138014015a7f04b1a0c59a2153fa81eaff70184f560d9f9a45",
+   "source_url": "https://www.openwall.com/lists/oss-security/2022/02/19/1",
+   "supports": [
+    "the post announces Expat 2.4.5 and lists CVE-2022-25236 among five CVEs",
+    "it quotes the Changes entry: namespace separator characters in xmlns[:prefix] attribute values made Expat send malformed tag names to the XML processor, with possible arbitrary damage including code execution",
+    "the release credits Google Project Zero"
+   ],
+   "verification_method": "oss-security mail archive text read"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/pr_561.html",
+   "evidence_id": "ev_expat_25236_pr_561",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "ca3984ef51bc430c63e8a49085b49d46e97ff0026228dc30a09a4d6cd65a35ce",
+   "source_url": "https://github.com/libexpat/libexpat/pull/561",
+   "supports": [
+    "PR 561 is the namespace-separator protection change referenced by the CVE",
+    "the fix adds a check that rejects a URI whose last character is the namespace separator when namespace processing is enabled",
+    "the PR discussion frames the issue as ambiguity for processors that split tag names on the separator"
+   ],
+   "verification_method": "GitHub pull request page text read; no scripts executed"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/changes_2.4.5.txt",
+   "evidence_id": "ev_expat_25236_changes",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "73636b2fe0dd8bc61c032965b516891cc4cb0098f85d3441deb9a42d17bab6ea",
+   "source_url": "https://github.com/libexpat/libexpat/blob/R_2_4_5/expat/Changes",
+   "supports": [
+    "Release 2.4.5 (Fri February 18 2022) lists \"#561 CVE-2022-25236 -- Passing (one or more) namespace separator characters in xmlns[:prefix] attribute values made Expat send malformed tag names\"",
+    "the entry states the effect depends on how the XML processor on top of Expat handles the case",
+    "the entry states exploits with code execution are known to exist"
+   ],
+   "verification_method": "file read at tag R_2_4_5"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/git_object_checks.txt",
+   "evidence_id": "ev_expat_25236_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "3b24fe793ddb2cfc264df4751b00d9dbf4863d18b908f9b54a5dab18eabdd225",
+   "source_url": "https://github.com/libexpat/libexpat/commit/a2fe525e660badd64b6c557c2b1ec26ddc07f6e4",
+   "supports": [
+    "tag R_2_4_4 peels to 81b89678 and tag R_2_4_5 peels to 97a48405",
+    "fix commit a2fe525e has subject \"lib: Protect against malicious namespace declarations (CVE-2022-25236)\", dated 2022-02-16",
+    "fix is an ancestor of R_2_4_5 and absent from R_2_4_4",
+    "blob expat/lib/xmlparse.c is 4b43e613 at 2.4.4 and c479a258 at 2.4.5",
+    "the vulnerable URI scan starts at line 3752; the fixed file contains the separator rejection"
+   ],
+   "verification_method": "git merge-base --is-ancestor in both directions; git show; blob comparison"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/xmlparse_2.4.4.c",
+   "evidence_id": "ev_expat_25236_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "28d94ab58b1456053216525fb41274a4da6ad3a640d056074e3166528324e6f1",
+   "source_url": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L3752-L3771",
+   "supports": [
+    "the loop over uri only checks whether the URI equals the XML or xmlns namespace; it never rejects namespace-separator characters",
+    "after the loop, when m_namespaceSeparator is set, len is incremented and the URI is copied into the binding with room for a separator",
+    "addBinding is therefore able to store a URI that already contains the separator, making the resulting tag name ambiguous when the application splits on that separator",
+    "the code has no error path for a URI containing the separator"
+   ],
+   "verification_method": "file read at R_2_4_4"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/xmlparse_2.4.5.c",
+   "evidence_id": "ev_expat_25236_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "39b1ebfddaddf01f98cf922ae4e0263b60cb4282b8eeb5fc3ea4f3073338a118",
+   "source_url": "https://github.com/libexpat/libexpat/blob/97a4840578693a346e79302909b67d97492e1880/expat/lib/xmlparse.c#L3754-L3766",
+   "supports": [
+    "the fixed loop, when namespace processing is enabled, returns XML_ERROR_SYNTAX if uri[len] equals the namespace separator",
+    "the rejection happens before the binding is allocated or the URI copied",
+    "the fix is confined to the xmlns attribute branch of addBinding"
+   ],
+   "verification_method": "file read at R_2_4_5"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/fix_commit.txt",
+   "evidence_id": "ev_expat_25236_fix_commit",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "373df0a4c7a623c04075603183f6f5a3c9f33cfbabbda22265ba5317d1e24974",
+   "source_url": "https://github.com/libexpat/libexpat/commit/a2fe525e660badd64b6c557c2b1ec26ddc07f6e4",
+   "supports": [
+    "the diff adds an 11-line check with a comment explaining that Expat does not validate URIs against RFC 3986 but must prevent the XML processor above it from being confused by additional separators",
+    "the check applies only when parser->m_ns is true and the URI contains the configured separator",
+    "the commit changes only expat/lib/xmlparse.c"
+   ],
+   "verification_method": "git show of the fix commit"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25236/sources/fix_commit_stat.txt",
+   "evidence_id": "ev_expat_25236_fix_stat",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "648e5b7d4a5344a92d824616c061eacc8b5801e8bc44a02deac0f7347012e67b",
+   "source_url": "https://github.com/libexpat/libexpat/commit/a2fe525e660badd64b6c557c2b1ec26ddc07f6e4",
+   "supports": [
+    "the fix touches only expat/lib/xmlparse.c: 11 insertions",
+    "no test file is added in this commit"
+   ],
+   "verification_method": "git show --stat of the fix commit"
+  },
+  {
+   "artifact_path": "runs/language/snap_d33251dac37c334c/snapshot_proposal.json",
+   "evidence_id": "ev_expat_25236_snapshot",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:10:00Z",
+   "sha256_of_observation": "dbdaac85d4c92507acba12f99bab4fedc99deab969a5c64d3527e47e6f789d0c",
+   "source_url": "https://github.com/libexpat/libexpat/tree/81b89678e200820271b72cacdd45fb5868855765",
+   "supports": [
+    "snapshot_id snap_d33251dac37c334c, tag R_2_4_4, vulnerable_commit 81b89678, 153 tracked files",
+    "expat/lib/xmlparse.c is inventoried with git_oid 4b43e613, language C, programming, not vendored or generated",
+    "C is a first-party programming language with 33 files and 585,427 bytes"
+   ],
+   "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   2,
+   3,
+   5
+  ],
+  "aliases": [
+   0,
+   1,
+   2
+  ],
+  "critical_operation": [
+   6,
+   7,
+   8,
+   9
+  ],
+  "cwe": [
+   0
+  ],
+  "fix_commits": [
+   2,
+   5,
+   6,
+   9
+  ],
+  "fixed_releases": [
+   2,
+   5,
+   6,
+   8
+  ],
+  "languages": [
+   11
+  ],
+  "severity": [
+   0,
+   2,
+   3
+  ],
+  "vulnerable_commit": [
+   6,
+   7,
+   11
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No XML parser, namespace-aware application or PoC was executed; the finding is static.",
+  "The impact depends on the XML processor layered above Expat and on how it splits expanded names; no downstream processor was analyzed. The advisory itself says exploits with code execution are known to exist.",
+  "Namespace processing must be enabled (XML_ParserCreateNS) for the vulnerable separator handling to apply.",
+  "The advisory says the concern is one or more separator characters in xmlns attribute values; the fix checks only whether the final byte of the URI equals the separator, which is the position that matters for the appended separator.",
+  "The OSV fixed event names the 2.4.5 release-preparation merge commit (97a48405), not the code fix a2fe525e; release tag ancestry and source were used to confirm the fix.",
+  "The MITRE CNA record is a placeholder (n/a vendor/product/version, no metrics or problemTypes); CVSS 9.8 and CWE-668 come from NVD."
+ ],
+ "location": {
+  "critical_operation": {
+   "code_excerpt": "  for (len = 0; uri[len]; len++) {\n    if (isXML && (len > xmlLen || uri[len] != xmlNamespace[len]))\n      isXML = XML_FALSE;\n\n    if (! mustBeXML && isXMLNS\n        && (len > xmlnsLen || uri[len] != xmlnsNamespace[len]))\n      isXMLNS = XML_FALSE;\n  }\n  isXML = isXML && len == xmlLen;",
+   "description": "addBinding scans the namespace URI only to compare it with the built-in XML and xmlns namespace names. It never looks for the namespace separator inside the URI. When namespace processing is enabled, len is then incremented to leave room for a separator and the URI is copied into the binding. An attacker-authored xmlns declaration can therefore place separator characters inside the URI; a processor above Expat that splits expanded names on that separator sees extra components and malformed or attacker-chosen tag names. The 2.4.5 fix rejects the URI with XML_ERROR_SYNTAX when it contains the separator.",
+   "file": "expat/lib/xmlparse.c",
+   "function": "addBinding",
+   "language": "C",
+   "line": "3752-3760",
+   "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L3752-L3760"
+  },
+  "entry_point": {
+   "description": "addBinding is called while parsing a namespace declaration (xmlns or xmlns:prefix) from the document prolog or an element. The URI value is attacker-controlled XML content; namespace processing must be enabled (XML_ParserCreateNS) for the separator to matter.",
+   "file": "expat/lib/xmlparse.c",
+   "function": "addBinding",
+   "language": "C",
+   "line": 3707,
+   "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L3707"
+  },
+  "location_id": "loc_CVE-2022-25236_snap_d33251dac37c334c",
+  "vulnerability_id": "CVE-2022-25236",
+  "snapshot_id": "snap_d33251dac37c334c",
+  "location_kind": "logic",
+  "verification_method": "Static read of expat/lib/xmlparse.c at R_2_4_4 and R_2_4_5, PR #561 and the fix diff, git tag ancestry and release tag contents; no code executed.",
+  "trace": [
+   {
+    "description": "Element or attribute namespace declaration reaches addBinding with an attacker-authored URI",
+    "file": "expat/lib/xmlparse.c",
+    "function": "addBinding",
+    "language": "C",
+    "line": 3707,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L3707"
+   },
+   {
+    "description": "URI scan loop compares only against the XML and xmlns namespace names and never looks for the namespace separator",
+    "file": "expat/lib/xmlparse.c",
+    "function": "addBinding",
+    "language": "C",
+    "line": 3752,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L3752-L3760"
+   },
+   {
+    "description": "The binding URI is written with a separator appended, so a separator inside the URI produces extra name components",
+    "file": "expat/lib/xmlparse.c",
+    "function": "getAttributeId",
+    "language": "C",
+    "line": 3823,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L3823-L3828"
+   }
+  ]
+ },
+ "open_questions": [
+  "Which specific downstream XML processors are confused by a separator inside the URI was not surveyed.",
+  "Whether the fix covers separator characters elsewhere in the URI (not just the final byte) was not analyzed against parser behavior.",
+  "No exploitability analysis beyond the ambiguous-name mechanism was performed."
+ ],
+ "prepared_at": "2026-10-21T18:10:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "canonical_url": "https://github.com/libexpat/libexpat",
+  "full_name": "libexpat/libexpat",
+  "primary_language": "C",
+  "project_kind": "streaming XML parser library",
+  "repo_id": "80314213",
+  "snapshot_id": "snap_d33251dac37c334c"
+ },
+ "review": {
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read expat/lib/xmlparse.c at R_2_4_4 and confirm addBinding accepts a URI containing the namespace separator without rejecting it.",
+   "An independent reviewer must confirm a2fe525e is absent from R_2_4_4 and present in R_2_4_5 with the separator check.",
+   "An independent reviewer must confirm the affected range \"before 2.4.5\" and that 2.4.4 is inside it.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "status": "PENDING_INDEPENDENT_REVIEW"
+ },
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 MITRE record",
+   "OSV record",
+   "oss-security announcement quoting the 2.4.5 Changes",
+   "upstream pull request, git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on fixed 2.4.5 and on namespace separators in xmlns URIs as the defect. The CVE v5 record is a MITRE placeholder with no metrics, CWE or version data; NVD supplies CVSS 3.1 9.8 and CWE-668. OSV repeats the NVD vector and its GIT fixed event points at the release-preparation merge rather than the code commit. The Changes entry warns that exploits with code execution are known to exist in downstream processors; that broader impact is recorded but not reproduced.",
+  "severity_disagreement": false
+ },
+ "status": "awaiting_independent_review",
+ "vulnerability": {
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/libexpat/libexpat/pull/561",
+  "affected_packages": [
+   {
+    "affected_range": "<2.4.5",
+    "ecosystem": "generic",
+    "package": "expat",
+    "purl": "pkg:generic/expat"
+   }
+  ],
+  "aliases": [
+   "CVE-2022-25236"
+  ],
+  "category_l1": "injection",
+  "category_l2": "namespace-separator characters accepted inside namespace URIs, producing ambiguous or malformed tag names for the XML processor above Expat",
+  "cwe_ids": [
+   "CWE-668"
+  ],
+  "discovery_cutoff_date": "2026-10-21",
+  "fix_commits": [
+   {
+    "branch": null,
+    "message": "lib: Protect against malicious namespace declarations (CVE-2022-25236)",
+    "sha": "a2fe525e660badd64b6c557c2b1ec26ddc07f6e4",
+    "url": "https://github.com/libexpat/libexpat/commit/a2fe525e660badd64b6c557c2b1ec26ddc07f6e4"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "generic",
+    "package": "expat",
+    "release_url": "https://github.com/libexpat/libexpat/releases/tag/R_2_4_5",
+    "tag": "R_2_4_5",
+    "verified_content": "At R_2_4_5 addBinding rejects a namespace URI containing the namespace separator when namespace processing is enabled; fix a2fe525e is an ancestor of the tag and absent from R_2_4_4",
+    "version": "2.4.5"
+   }
+  ],
+  "published_at": "2022-02-16T00:39:16Z",
+  "references": [
+   "https://github.com/libexpat/libexpat/pull/561",
+   "https://github.com/libexpat/libexpat/commit/a2fe525e660badd64b6c557c2b1ec26ddc07f6e4",
+   "https://nvd.nist.gov/vuln/detail/CVE-2022-25236",
+   "https://www.openwall.com/lists/oss-security/2022/02/19/1",
+   "https://github.com/libexpat/libexpat/releases/tag/R_2_4_5"
+  ],
+  "repo_id": "80314213",
+  "severity": {
+   "level": "critical",
+   "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 9.8 falls in Critical (9.0-10.0); NVD treats the namespace-separator injection as full C/I/A impact through the embedding processor",
+   "score": 9.8,
+   "source": "NVD primary metric nvd@nist.gov; the MITRE CNA supplied no CVSS",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-25236",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+   "version": "3.1"
+  },
+  "snapshot_id": "snap_d33251dac37c334c",
+  "source_type": "upstream_advisory",
+  "title": "libexpat before 2.4.5 accepts namespace-separator characters in xmlns URIs, letting malicious declarations produce ambiguous tag names in the XML processor above Expat",
+  "vulnerability_id": "CVE-2022-25236",
+  "vulnerable_commit": "81b89678e200820271b72cacdd45fb5868855765",
+  "vulnerable_commit_basis": "annotated tag R_2_4_4 (tag object c637e3b1) peels to commit 81b89678...; R_2_4_4 is inside the advisory's \"before 2.4.5\" range and the fix a2fe525e is absent from it",
+  "vulnerable_version": "2.4.4"
+ }
+}

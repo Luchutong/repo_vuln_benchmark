@@ -1,0 +1,24 @@
+{
+  "key": "phoenixframework__phoenix_security",
+  "repository": "phoenixframework/phoenix",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:02:08.494Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\n## Supported versions\n\nPhoenix applies bug fixes only to the latest minor branch. Security patches are\navailable for the last 4 minor branches:\n\nPhoenix version | Support\n:-------------- | :-----------------------------\n1.8             | Bug fixes and security patches\n1.7             | Security patches only\n1.6             | Security patches only\n1.5             | Security patches only\n\n## Announcements\n\n[Security advisories will be published on GitHub](https://github.com/phoenixframework/phoenix/security).\n\n## Reporting a vulnerability\n\n[Please disclose security vulnerabilities privately via GitHub](https://github.com/phoenixframework/phoenix/security).\n\n### Scope\n\nA security vulnerability is a flaw in Phoenix that allows an attacker to cross an intended security boundary,\nsuch as compromising confidentiality, integrity, authentication, authorization, or availability with disproportionate effort.\n\nReports are out of scope when they rely solely on sending an unbounded number of otherwise valid requests to exhaust\nfinite server resources. Phoenix does not impose universal request or concurrency limits; these are deployment-specific and\nshould be enforced at the application or infrastructure level. The absence of such limits is not, by itself, a vulnerability.\nReports demonstrating disproportionate resource consumption from a bounded number of requests remain in scope.\n",
+      "encoding": "utf-8",
+      "sha": "233e9d582e9a0526d3133651a471af30cf421f1f",
+      "display_url": "https://github.com/phoenixframework/phoenix/blob/main/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

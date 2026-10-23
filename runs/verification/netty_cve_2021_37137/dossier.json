@@ -1,0 +1,405 @@
+{
+  "candidate_id": "disc2_e513b1ed392ea93513c4b7a9",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T14:40:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "1064563",
+    "full_name": "netty/netty",
+    "canonical_url": "https://github.com/netty/netty",
+    "primary_language": "Java",
+    "project_kind": "asynchronous event-driven network application framework",
+    "snapshot_id": "snap_bb344e672a0544ef"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2021-37137",
+    "aliases": [
+      "CVE-2021-37137",
+      "GHSA-9vjp-v76f-g363"
+    ],
+    "title": "Netty SnappyFrameDecoder neither caps compressed chunk size nor streaming-skips reserved skippable chunks, so malicious Snappy input can exhaust the decoder's heap",
+    "repo_id": "1064563",
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "vulnerable_commit": "97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "io.netty:netty-codec",
+        "purl": "pkg:maven/io.netty/netty-codec",
+        "affected_range": ">=4.0.0,<4.1.68.Final"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "io.netty:netty-codec",
+        "version": "4.1.68.Final",
+        "tag": "netty-4.1.68.Final",
+        "release_url": "https://github.com/netty/netty/releases/tag/netty-4.1.68.Final",
+        "verified_content": "At netty-4.1.68.Final the decoder declares MAX_COMPRESSED_CHUNK_SIZE (16777216-1) and MAX_DECOMPRESSED_DATA_SIZE (65536); the effective protections read the Snappy preamble via snappy.getPreamble(in), reject an uncompressed size above 65536, allocate buffer(uncompressedSize, MAX_DECOMPRESSED_DATA_SIZE), and skip skippable chunks incrementally with numBytesToSkip. The MAX_COMPRESSED_CHUNK_SIZE comparison is vacuous for a 24-bit length."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "6da4956b31023ae967451e1d94ff51a746a9194f",
+        "branch": "4.1",
+        "release": "4.1.68.Final",
+        "message": "Merge pull request from GHSA-9vjp-v76f-g363",
+        "url": "https://github.com/netty/netty/commit/6da4956b31023ae967451e1d94ff51a746a9194f"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": 7.5,
+      "level": "high",
+      "numeric_level_rationale": "NVD Primary CVSS 3.1 is 7.5 High and the OSV/GHSA record carries the identical vector and HIGH label; the CNA publishes no numeric score. The legacy NVD CVSS v2 score is 5.0 Medium, an older metric version, not a same-version disagreement.",
+      "source": "nvd@nist.gov (NVD Primary), CVSS 3.1 7.5 High",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-37137",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 7.5,
+          "level": "high",
+          "source": "nvd@nist.gov (NVD Primary)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 7.5,
+          "level": "high",
+          "source": "OSV/GHSA-9vjp-v76f-g363 (severity vector)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "2.0",
+          "score": 5.0,
+          "level": "medium",
+          "source": "nvd@nist.gov (NVD Primary, legacy CVSS v2)",
+          "vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+        }
+      ]
+    },
+    "category_l1": "denial_of_service",
+    "category_l2": "Decompression: SnappyFrameDecoder accepts compressed chunks up to the 24-bit length field without a decompressed-size limit, and returns with a huge reserved-skippable chunk still buffered in the cumulation buffer",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/netty/netty/security/advisories/GHSA-9vjp-v76f-g363",
+    "published_at": "2021-10-19T15:15:00Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/netty/netty/security/advisories/GHSA-9vjp-v76f-g363",
+      "https://github.com/netty/netty/commit/6da4956b31023ae967451e1d94ff51a746a9194f",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-37137",
+      "https://github.com/netty/netty/releases/tag/netty-4.1.68.Final"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2021-37137_snap_bb344e672a0544ef",
+    "vulnerability_id": "CVE-2021-37137",
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "location_kind": "logic",
+    "file": "codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+    "function": "SnappyFrameDecoder.decode",
+    "language": "Java",
+    "line": "121-192",
+    "critical_operation": {
+      "code_excerpt": "                case COMPRESSED_DATA:\n                    if (!started) {\n                        throw new DecompressionException(\"Received COMPRESSED_DATA tag before STREAM_IDENTIFIER\");\n                    }\n\n                    if (inSize < 4 + chunkLength) {\n                        return;\n                    }\n\n                    in.skipBytes(4);\n                    int checksum = in.readIntLE();\n                    ByteBuf uncompressed = ctx.alloc().buffer();",
+      "description": "SnappyFrameDecoder.decode() reads the 24-bit chunkLength (line 96, getUnsignedMediumLE, so up to 16777215) and handles two memory-amplifying paths. RESERVED_SKIPPABLE (121-132): when fewer than 4 + chunkLength bytes are readable, decode() returns at line 128 and leaves the already-received chunk bytes in ByteToMessageDecoder's cumulation buffer (the in-code TODO on line 127 notes the bytes are kept), so a single huge skippable chunk is accumulated in full before it can be discarded. COMPRESSED_DATA (160-192): once 4 + chunkLength bytes are available the decoder skips to the Snappy payload, calls ctx.alloc().buffer() with no maximum (the default maxCapacity is Integer.MAX_VALUE), and calls snappy.decode(...) at lines 177 and 183 with no decompressed-size limit. Snappy.decode() then executes out.ensureWritable(uncompressedLength) (Snappy.java line 287), where readPreamble() (Snappy.java lines 363-379) accepts up to four varint bytes, i.e. a declared length up to 0x0FFFFFFF (268435455 bytes, about 256 MiB) that a tiny compressed frame can force the allocator to reserve. The merge commit 6da4956b adds numBytesToSkip streaming skips, a getPreamble() <= 65536 check and a bounded buffer(uncompressedSize, MAX_DECOMPRESSED_DATA_SIZE); its MAX_COMPRESSED_CHUNK_SIZE > 16777215 check is vacuous for a 24-bit length and is defense-in-depth only. CWE-400.",
+      "file": "codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+      "function": "SnappyFrameDecoder.decode",
+      "language": "Java",
+      "line": "121-192",
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java#L121"
+    },
+    "entry_point": {
+      "description": "An application installs a SnappyFrameDecoder in a Netty channel pipeline (or otherwise feeds it attacker-controlled bytes), and a remote client sends a Snappy stream containing a huge RESERVED_SKIPPABLE chunk or a COMPRESSED_DATA chunk whose decompressed size is far larger than the chunk.",
+      "file": "codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+      "function": "SnappyFrameDecoder.decode",
+      "language": "Java",
+      "line": 79,
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java#L79"
+    },
+    "trace": [
+      {
+        "description": "decode() is invoked for each inbound ByteBuf in the channel pipeline",
+        "file": "codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+        "function": "SnappyFrameDecoder.decode",
+        "language": "Java",
+        "line": 79,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java#L79"
+      },
+      {
+        "description": "an incomplete reserved-skippable chunk is not consumed: decode() returns and ByteToMessageDecoder keeps the bytes in its cumulation buffer",
+        "file": "codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+        "function": "SnappyFrameDecoder.decode",
+        "language": "Java",
+        "line": 126,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java#L126"
+      },
+      {
+        "description": "the compressed chunk path allocates an output buffer without a maximum size",
+        "file": "codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+        "function": "SnappyFrameDecoder.decode",
+        "language": "Java",
+        "line": 171,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java#L171"
+      },
+      {
+        "description": "snappy.decode() inflates the chunk into that buffer with no decompressed-size limit",
+        "file": "codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+        "function": "SnappyFrameDecoder.decode",
+        "language": "Java",
+        "line": 177,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java#L177"
+      },
+      {
+        "description": "Snappy.decode() executes ensureWritable(uncompressedLength) using the preamble-declared length",
+        "file": "codec/src/main/java/io/netty/handler/codec/compression/Snappy.java",
+        "function": "Snappy.decode",
+        "language": "Java",
+        "line": 287,
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/Snappy.java#L287"
+      }
+    ],
+    "verification_method": "Static read of SnappyFrameDecoder.java and Snappy.java at commit 97d04481 (netty-4.1.59.Final), of the fixed decoder at netty-4.1.68.Final, of the 6da4956b patch and of local git ancestry; no Snappy stream was decompressed, no Netty pipeline was built and no JVM was run."
+  },
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/cve_v5.json",
+      "evidence_id": "ev_netty_37137_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T14:40:00Z",
+      "sha256_of_observation": "4ecafa8f8337adb5eb621596388557c9a744c8347640850335fa63da8ae14d42",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-37137",
+      "supports": [
+        "CVE state PUBLISHED, assigner JFROG, published 2021-10-19",
+        "CNA description: the Snappy frame decoder does not restrict chunk length and may buffer reserved skippable chunks until the whole chunk is received, both causing excessive memory usage",
+        "CNA problemTypes CWE-400",
+        "CNA affected product Netty before 4.1.68Final; no Maven coordinate and no lower bound",
+        "CNA record carries no CVSS metrics"
+      ],
+      "verification_method": "CVE List v5 CNA record"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/nvd_cve.json",
+      "evidence_id": "ev_netty_37137_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T14:40:00Z",
+      "sha256_of_observation": "520201c4bb1aaec1e5ff649058e378dcfafac4437fde9d08ef78e62e655ad9dc",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-37137",
+      "supports": [
+        "NVD CVSS 3.1 Primary 7.5 HIGH, CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "NVD CVSS 2.0 Primary 5.0 (legacy metric version)",
+        "NVD weaknesses CWE-400 from both JFrog Secondary and nvd@nist.gov Primary",
+        "cpe:2.3:a:netty:netty versionEndExcluding 4.1.68"
+      ],
+      "verification_method": "NVD CVE API 2.0 record"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/osv_cve.json",
+      "evidence_id": "ev_netty_37137_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T14:40:00Z",
+      "sha256_of_observation": "bd0f2e0b38e82c525b0084a067f89e40ed6d9013ab2c328243e5ba38fb4381fa",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2021-37137",
+      "supports": [
+        "OSV record id CVE-2021-37137 with alias GHSA-9vjp-v76f-g363",
+        "severity CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (HIGH band)",
+        "GIT range introduced 0, fixed at 7d34282f9d2ffdd64c91cb4780b09902d9779b92 (the 4.1.68 release commit)",
+        "affected netty versions enumerate netty-4.1.67.Final and earlier, first non-listed release 4.1.68"
+      ],
+      "verification_method": "OSV.dev API record"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/SnappyFrameDecoder_4.1.59.java",
+      "evidence_id": "ev_netty_37137_vuln_decoder",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T14:40:00Z",
+      "sha256_of_observation": "d56cf5832502a56526e4a77e162bf938e31ebdd73f2425873a9a1a0f343c26ed",
+      "source_url": "https://github.com/netty/netty/blob/netty-4.1.59.Final/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+      "supports": [
+        "decode() reads chunkLength with getUnsignedMediumLE (24 bits, max 16777215)",
+        "RESERVED_SKIPPABLE returns at line 128 when the full chunk is not yet available, keeping the bytes buffered",
+        "COMPRESSED_DATA allocates ctx.alloc().buffer() with no maximum at line 171 and calls snappy.decode() on the chunk",
+        "no MAX_COMPRESSED_CHUNK_SIZE, MAX_DECOMPRESSED_DATA_SIZE or numBytesToSkip exists in this revision"
+      ],
+      "verification_method": "file read at snapshot commit 97d04481 (netty-4.1.59.Final)"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/SnappyFrameDecoder_4.1.68.java",
+      "evidence_id": "ev_netty_37137_fixed_decoder",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T14:40:00Z",
+      "sha256_of_observation": "2bf48ae4bd737efc08cfe6c831dc8a2ef538b065478a5f3f3ab98bbc8a124d25",
+      "source_url": "https://github.com/netty/netty/blob/netty-4.1.68.Final/codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java",
+      "supports": [
+        "MAX_DECOMPRESSED_DATA_SIZE = 65536 and MAX_COMPRESSED_CHUNK_SIZE = 16777216 - 1 are declared",
+        "COMPRESSED_DATA rejects chunkLength above MAX_COMPRESSED_CHUNK_SIZE and rejects getPreamble(in) above MAX_DECOMPRESSED_DATA_SIZE",
+        "the output buffer is allocated as buffer(uncompressedSize, MAX_DECOMPRESSED_DATA_SIZE)",
+        "RESERVED_SKIPPABLE is skipped incrementally via numBytesToSkip instead of being buffered whole"
+      ],
+      "verification_method": "file read at release tag netty-4.1.68.Final (7d34282f)"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/fix_commit.patch",
+      "evidence_id": "ev_netty_37137_patch",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T14:40:00Z",
+      "sha256_of_observation": "e24c09112b66e71478ad8828ed9e2486108d2903b35ecb087369ee0196c96e24",
+      "source_url": "https://github.com/netty/netty/commit/6da4956b31023ae967451e1d94ff51a746a9194f",
+      "supports": [
+        "the code change adds getPreamble(ByteBuf), MAX_DECOMPRESSED_DATA_SIZE, MAX_COMPRESSED_CHUNK_SIZE and numBytesToSkip",
+        "it rejects compressed chunks above MAX_COMPRESSED_CHUNK_SIZE and declared uncompressed sizes above MAX_DECOMPRESSED_DATA_SIZE",
+        "it changes the output allocation to buffer(uncompressedSize, MAX_DECOMPRESSED_DATA_SIZE)",
+        "it replaces whole-chunk skippable buffering with incremental skipping"
+      ],
+      "verification_method": "unified diff read"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/git_object_checks.txt",
+      "evidence_id": "ev_netty_37137_git",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T14:40:00Z",
+      "sha256_of_observation": "c2b8e0840a498ffbca23898978a8216af2893730d346d4351915e43a4b7ff8bc",
+      "source_url": "https://github.com/netty/netty/commit/6da4956b31023ae967451e1d94ff51a746a9194f",
+      "supports": [
+        "snapshot netty-4.1.59.Final resolves to 97d044812dc84288ea2c44c0862c5b1c26cb5b2d and its inventory blob 74a12895 matches the vulnerable file (8914 bytes)",
+        "6da4956b is not an ancestor of 4.1.59.Final or 4.1.67.Final and is contained in 4.1.68.Final",
+        "git tag --contains 6da4956b first lists netty-4.1.68.Final",
+        "OSV's fixed GIT event 7d34282f is the maven-release-plugin release commit, not the code fix",
+        "no duplicate existing netty vulnerability has this file and root cause"
+      ],
+      "verification_method": "git log/merge-base/tag with local bare mirror /tmp/netty_vuln.git"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/osv_ghsa_endpoint.json",
+      "evidence_id": "ev_netty_37137_osv_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:05:00Z",
+      "sha256_of_observation": "f7f728f4babf52bfa61f3b3b4a692b1e6dbb313564ab7a1281afe68eac9fee80",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-9vjp-v76f-g363",
+      "supports": [
+        "OSV alias-linked GHSA record: io.netty:netty-codec ECOSYSTEM range introduced 4.0.0, fixed 4.1.68.Final",
+        "the GHSA record also lists io.netty:netty and org.jboss.netty:netty with no fixed version",
+        "confirms the fixed version 4.1.68.Final at package level, independent of the NVD CPE"
+      ],
+      "verification_method": "OSV.dev API record (GHSA endpoint)"
+    },
+    {
+      "artifact_path": "runs/verification/netty_cve_2021_37137/sources/Snappy_4.1.59.java",
+      "evidence_id": "ev_netty_37137_snappy",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:05:00Z",
+      "sha256_of_observation": "5a18bcf5c73798bf18fa0809856f8bd9fdd0bab4df7947af40895667a318f247",
+      "source_url": "https://github.com/netty/netty/blob/netty-4.1.59.Final/codec/src/main/java/io/netty/handler/codec/compression/Snappy.java#L287",
+      "supports": [
+        "Snappy.decode calls out.ensureWritable(uncompressedLength) at line 287 before reading any compressed body",
+        "readPreamble (lines 363-379) accepts at most four varint bytes and rejects longer preambles",
+        "a four-byte preamble can declare up to 0x0FFFFFFF (268435455) uncompressed bytes, which is allocated on demand"
+      ],
+      "verification_method": "file read at snapshot commit 97d04481 (netty-4.1.59.Final)"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      2,
+      7
+    ],
+    "aliases": [
+      2,
+      7
+    ],
+    "critical_operation": [
+      3,
+      4,
+      5,
+      8
+    ],
+    "cwe": [
+      0,
+      1
+    ],
+    "fix_commits": [
+      2,
+      5,
+      6
+    ],
+    "fixed_releases": [
+      1,
+      6,
+      7
+    ],
+    "languages": [
+      3,
+      4
+    ],
+    "severity": [
+      1,
+      2,
+      7
+    ],
+    "vulnerable_commit": [
+      6
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "NVD analysis",
+      "CVE List v5 JFrog CNA record",
+      "GitHub advisory / OSV record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD and both OSV record views agree on CWE-400 and on 4.1.68 as the first fixed release (CNA: lessThan 4.1.68Final; NVD: cpe versionEndExcluding 4.1.68; OSV GHSA endpoint: Maven ECOSYSTEM introduced 4.0.0, fixed 4.1.68.Final). NVD and the OSV/GHSA records publish the same CVSS 3.1 7.5 HIGH vector; the CNA publishes no numeric score, and NVD's additional CVSS 2.0 5.0 is a legacy metric version. OSV exposes two alias-linked records: the CVE endpoint carries a GIT range whose fixed event is the 4.1.68 release commit 7d34282f, while the GHSA endpoint carries the Maven ECOSYSTEM range; neither is a code fix. Local ancestry identifies the actual code fix as 6da4956b, first contained in netty-4.1.68.Final and absent from 4.1.66.Final, 4.1.67.Final and the 4.1.59.Final snapshot. GitHub's repository-scoped advisory metadata still reports medium with a null score, which is older than and contradicted by the global advisory/NVD/OSV records and is treated as stale metadata.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read SnappyFrameDecoder.decode at netty-4.1.59.Final and confirm there is no compressed-chunk or decompressed-size cap and that a partial reserved-skippable chunk is retained in the cumulation buffer.",
+      "An independent reviewer must confirm 6da4956b is the code fix, is not an ancestor of 4.1.59.Final or 4.1.67.Final and is contained in netty-4.1.68.Final, and that OSV's 7d34282f is the release commit.",
+      "An independent reviewer must confirm the affected range, the 4.1.68.Final fixed release and the CVSS 3.1 7.5 / CVSS 2.0 5.0 records.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "netty-CVE-2021-37137-round1-independent-reviewer-2026-10-22",
+      "verdict_path": "runs/independent/netty_CVE-2021-37137_round1/verdict.json",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "location_line": "121-192"
+    },
+    "independent_corrections_accepted": [
+      "Critical line range extended from 121-171 to 121-192 so it includes the actual decompression sink snappy.decode() at lines 177 and 183; the reviewer's range covers both the keep-buffering and allocation/decompression branches.",
+      "Affected range lower bound changed from >=0 to >=4.0.0 to match the OSV/GHSA Maven ECOSYSTEM range; the CNA and NVD omit a lower bound, and the GHSA record additionally lists io.netty:netty and org.jboss.netty:netty.",
+      "OSV was re-read per endpoint: the CVE-mapped record carries the GIT range fixed at release commit 7d34282f, while the GHSA endpoint carries the Maven ECOSYSTEM range 4.0.0 -> 4.1.68.Final. Both are now recorded as evidence, and the earlier single-record wording is superseded.",
+      "The decompression sink was documented precisely: Snappy.decode calls out.ensureWritable(uncompressedLength) at Snappy.java line 287, and readPreamble accepts up to four varint bytes (up to 0x0FFFFFFF, about 256 MiB), so a tiny frame can force a very large allocation.",
+      "The fix's MAX_COMPRESSED_CHUNK_SIZE > 16777215 check is vacuous because chunkLength is a 24-bit unsigned value; the effective protections are the 65536 decompressed-size cap and the streaming skip of skippable chunks.",
+      "GitHub's repository-scoped advisory shows medium/null while NVD, OSV and the global GitHub advisory agree on 7.5 HIGH; recorded as stale repository-level metadata rather than a severity disagreement."
+    ]
+  },
+  "limitations": [
+    "Single-reviewer dossier, now independently reviewed; grade B because no reproduction was executed.",
+    "No Netty pipeline, Snappy stream or heap-exhaustion measurement was executed; both amplification paths and the ~256 MiB declared-size figure are established statically.",
+    "Only the 4.1.59.Final vulnerable revision was diffed against 4.1.68.Final; intermediate releases and the other branches were not inspected individually.",
+    "The 4.0.0 lower bound comes from the OSV/GHSA Maven range; the CNA and NVD publish no lower bound, and trees below 4.1.59 were not individually diffed.",
+    "Impact requires an application to install SnappyFrameDecoder on a channel that receives attacker-controlled bytes; not every Netty deployment does so.",
+    "The fix's MAX_COMPRESSED_CHUNK_SIZE guard cannot trigger for a 24-bit chunkLength; the effective controls are the decompressed-size cap and streaming skips.",
+    "An incomplete COMPRESSED_DATA chunk is still retained in the cumulation buffer until complete, but that residual retention is bounded by the 24-bit chunk length (about 16 MiB).",
+    "GitHub's repository-scoped advisory metadata reports medium with a null score, older than and contradicted by NVD, OSV and the global advisory, and is treated as stale."
+  ],
+  "open_questions": [
+    "Whether older 4.1.x or 4.0.x releases differ in the size of the buffered skippable chunk or in Snappy preamble handling was not audited.",
+    "Whether any pipeline-level frame-size limit commonly prevents reaching the decoder with a 16 MB chunk was not surveyed."
+  ]
+}

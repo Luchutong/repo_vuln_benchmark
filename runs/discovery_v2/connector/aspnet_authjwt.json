@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_authjwt",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Security/Authentication/JwtBearer/src/Microsoft.AspNetCore.Authentication.JwtBearer.csproj",
+  "retrieved_at": "2026-10-21T10:56:27.552Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core middleware that enables an application to receive an OpenID Connect bearer token.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;authentication;security</PackageTags>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <PackageReference Include=\"Microsoft.IdentityModel.Protocols.OpenIdConnect\" />\n\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Authentication.Abstractions\\src\\Microsoft.AspNetCore.Authentication.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Security\\Authentication\\Core\\src\\Microsoft.AspNetCore.Authentication.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SharedSourceRoot)StringHelpers.cs\" LinkBase=\"Shared\" />\n  </ItemGroup>\n\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "a5620d9e4afae3005ae7ffeabb9c5b7f2cda25dc",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Security/Authentication/JwtBearer/src/Microsoft.AspNetCore.Authentication.JwtBearer.csproj",
+      "display_title": "Microsoft.AspNetCore.Authentication.JwtBearer.csproj"
+    },
+    "isError": false
+  }
+}

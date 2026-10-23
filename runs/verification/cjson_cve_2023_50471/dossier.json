@@ -1,0 +1,350 @@
+{
+  "candidate_id": "disc2_1c7582219f08a34e1dba3691",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/osv_debian.json",
+      "evidence_id": "ev_cjson_osv_debian",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:35:00Z",
+      "sha256_of_observation": "95569d7a6204fb53d26bfd3d0cf907af80562f22216625298e24a30941c61a9a",
+      "source_url": "https://api.osv.dev/v1/vulns/DEBIAN-CVE-2023-50471",
+      "supports": [
+        "OSV record DEBIAN-CVE-2023-50471 names upstream CVE-2023-50471",
+        "Debian 12 carries 1.7.15-1 and fixes it in 1.7.15-1+deb12u1; Debian 13/14 fix in 1.7.17-1",
+        "the Debian range starts at introduced 0",
+        "description says cJSON v1.7.16 segfaults in cJSON_InsertItemInArray"
+      ],
+      "verification_method": "OSV API query by Debian advisory id; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/cve_v5.json",
+      "evidence_id": "ev_cjson_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:33:00Z",
+      "sha256_of_observation": "1b60074014aa877170719fd55a5251b4b17e4196d2e9e350b1d832a175f123db",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2023-50471",
+      "supports": [
+        "CVE state PUBLISHED, assigner MITRE, published 2023-12-14",
+        "CNA supplies no CVSS vector and no CWE",
+        "CNA reference set includes github.com/DaveGamble/cJSON/issues/802",
+        "CNA affected versions are recorded as n/a"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/nvd_cve.json",
+      "evidence_id": "ev_cjson_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:33:00Z",
+      "sha256_of_observation": "e9a885a89cdaf09c09cad26966e7b0fd70bf3b045806d784c96dcc656413937d",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2023-50471",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "NVD primary CWE-476 (NULL pointer dereference)",
+        "NVD CPE configuration lists only cjson 1.7.16 as vulnerable",
+        "NVD description matches the Debian description"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/git_object_checks.txt",
+      "evidence_id": "ev_cjson_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:32:00Z",
+      "sha256_of_observation": "4c795eb44bc8961ce22e7d0cd8fe402e08a8a3a4149e59befbc3413ed0038692",
+      "source_url": "https://github.com/DaveGamble/cJSON/commit/60ff122ef5862d04b39b150541459e7f5e35add8",
+      "supports": [
+        "tags v1.7.16 and v1.7.17 are lightweight and point at cb8693b0 and 87d8f096",
+        "fix 60ff122 is an ancestor of v1.7.17 and absent from v1.7.16",
+        "fix 60ff122 has the v1.7.16 tag commit cb8693b0 as its single parent",
+        "follow-up f66cbab corrects the corruption check and is also in v1.7.17",
+        "the fix touches cJSON.c (+12/-2) and tests/misc_tests.c (+21)",
+        "the fix diff itself was wrong until f66cbab replaced newitem->prev with after_inserted->prev"
+      ],
+      "verification_method": "exact-SHA shallow fetch into a bare repository; git merge-base --is-ancestor in both directions; git show --stat"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/cjson_1.7.16.c",
+      "evidence_id": "ev_cjson_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:31:00Z",
+      "sha256_of_observation": "fdfd427d82fadb395076567edf470c80cebee319e38fd417198508fe11ae56e7",
+      "source_url": "https://github.com/DaveGamble/cJSON/blob/cb8693b058ba302f4829ec6d03f609ac6f848546/cJSON.c#L2263-L2290",
+      "supports": [
+        "vulnerable function cJSON_InsertItemInArray spans lines 2263-2290",
+        "only guard is which < 0; newitem is not checked for NULL",
+        "after_inserted->prev is copied into newitem->prev without checking it is non-NULL",
+        "line 2287 dereferences newitem->prev in the else branch"
+      ],
+      "verification_method": "file read at the v1.7.16 commit"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/cjson_1.7.17.c",
+      "evidence_id": "ev_cjson_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:32:00Z",
+      "sha256_of_observation": "de63e951ce3bc9b6938c7635575a6c90c3b364595b0b0f4c5ae8f9c83a43c17d",
+      "source_url": "https://github.com/DaveGamble/cJSON/blob/87d8f0961a01bf09bef98ff89bae9fdec42181ee/cJSON.c#L2268-L2295",
+      "supports": [
+        "fixed release rejects newitem == NULL at function entry",
+        "fixed release rejects an element whose prev is NULL when it is not array->child",
+        "the corrected check tests after_inserted->prev, not the not-yet-assigned newitem->prev"
+      ],
+      "verification_method": "file read at the v1.7.17 commit"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/misc_tests_fix.c",
+      "evidence_id": "ev_cjson_tests",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:32:00Z",
+      "sha256_of_observation": "d32b729ebfc21494bae14d84a7914065965dcc198dd86c474f5576a0dd602101",
+      "source_url": "https://github.com/DaveGamble/cJSON/blob/60ff122ef5862d04b39b150541459e7f5e35add8/tests/misc_tests.c",
+      "supports": [
+        "upstream regression tests were added in the same commit",
+        "the test constructs an array whose second item has prev = NULL and expects no crash",
+        "the test passes NULL as newitem and expects false",
+        "the tests were read but not executed"
+      ],
+      "verification_method": "file read at the fix commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_d9525608880dc9e1/snapshot_proposal.json",
+      "evidence_id": "ev_cjson_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:31:38Z",
+      "sha256_of_observation": "5d83f2bb48b3c62b95c9d1e4a3422c8180cf017b04d352a5aac6b3d878e250e1",
+      "source_url": "https://github.com/DaveGamble/cJSON/tree/cb8693b058ba302f4829ec6d03f609ac6f848546",
+      "supports": [
+        "snapshot_id snap_d9525608880dc9e1 and 228-file inventory",
+        "C first-party 8 files / 153,409 bytes / 13.60% of tracked nonbinary bytes",
+        "tree oid 1934dc2b",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/fix_diff.txt",
+      "evidence_id": "ev_cjson_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:32:00Z",
+      "sha256_of_observation": "4e4eec4e5e6f23c6159a12339c2d2e8ae7720c0e98038cdd4c22cf86d436214f",
+      "source_url": "https://github.com/DaveGamble/cJSON/commit/60ff122ef5862d04b39b150541459e7f5e35add8",
+      "supports": [
+        "commit message names #802 (CVE-2023-50471) and #803 (CVE-2023-50472)",
+        "cJSON_InsertItemInArray gains a newitem NULL check and a corrupted-item check",
+        "the same commit touches cJSON_SetValuestring, which is the separate CVE-2023-50472"
+      ],
+      "verification_method": "git show of the fix commit, cJSON.c only"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/issue_802.txt",
+      "evidence_id": "ev_cjson_issue",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:34:00Z",
+      "sha256_of_observation": "5f6286f0389dc657c0811c955d9162bd6953796cd7f06f55ebd6663c437d4950",
+      "source_url": "https://github.com/DaveGamble/cJSON/issues/802",
+      "supports": [
+        "reporter states a NULL prev pointer dereference causes SEGV in cJSON_InsertItemInArray",
+        "reporter cites cJSON.c:2287 and version commit cb8693b0",
+        "line 2287 in the v1.7.16 tree is newitem->prev->next = newitem"
+      ],
+      "verification_method": "GitHub issue HTML metadata (API was rate-limited); cross-checked against the source file at the cited commit"
+    },
+    {
+      "artifact_path": "runs/verification/cjson_cve_2023_50471/sources/changelog_1.7.17.txt",
+      "evidence_id": "ev_cjson_changelog",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:32:00Z",
+      "sha256_of_observation": "5588e42cf2446246f7b0ffb8a36232f5cb3bda80028f25440ba0973e4509fbf5",
+      "source_url": "https://github.com/DaveGamble/cJSON/blob/v1.7.17/CHANGELOG.md",
+      "supports": [
+        "release 1.7.17 (Dec 26, 2023) lists the cJSON_InsertItemInArray null-reference fix for CVE-2023-50471",
+        "the entry cites #809 and #810, matching the two commits in the tag"
+      ],
+      "verification_method": "changelog read at the v1.7.17 tag"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 2, 10],
+    "aliases": [0, 1],
+    "critical_operation": [4, 5, 8, 9],
+    "cwe": [2],
+    "fix_commits": [3, 8],
+    "fixed_releases": [3, 5, 10],
+    "languages": [7],
+    "severity": [2],
+    "vulnerable_commit": [3, 4, 9]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No PoC, fuzz input, or regression test was executed; the finding is static.",
+    "NVD scores the issue 7.5 with AV:N, but the reported crash requires a cJSON array whose internal prev link is NULL. The public JSON parser does not build that shape; reachability therefore depends on application code that constructs or corrupts arrays through the API. This caveat is not reflected in the NVD vector.",
+    "The independent reviewer found that the maintainer could not reproduce the reporter's stated trigger in issue #802, and that the reporter's mechanism description is imprecise: line 2279 overwrites newitem->prev before line 2287 reads it, so the L2287 dereference requires after_inserted->prev to be NULL (a corrupted array), while the newitem == NULL case fails earlier at line 2278.",
+    "NVD CPE lists only 1.7.16, while the same unguarded code exists in earlier releases and Debian records introduced 0. The canonical affected_range follows the upstream fix boundary (<1.7.17) and keeps the NVD scope narrower.",
+    "The first fix commit 60ff122 contained a wrong check (newitem->prev instead of after_inserted->prev); release 1.7.17 only becomes correct with follow-up f66cbab.",
+    "The same fix commit also carries the separate CVE-2023-50472 change in cJSON_SetValuestring; this dossier does not evaluate that CVE."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "    after_inserted = get_array_item(array, (size_t)which);\n    if (after_inserted == NULL)\n    {\n        return add_item_to_array(array, newitem);\n    }\n\n    newitem->next = after_inserted;\n    newitem->prev = after_inserted->prev;\n    after_inserted->prev = newitem;\n    if (after_inserted == array->child)\n    {\n        array->child = newitem;\n    }\n    else\n    {\n        newitem->prev->next = newitem;\n    }",
+      "description": "cJSON_InsertItemInArray() only rejects which < 0. It copies after_inserted->prev into newitem->prev and then, for a non-first element, dereferences newitem->prev at line 2287. If the array element's prev link is NULL (a corrupted or manually assembled list), that dereference is a NULL-pointer write. The v1.7.17 fix adds `newitem == NULL` at function entry and rejects `after_inserted != array->child && after_inserted->prev == NULL`; the first attempt in 60ff122 tested the not-yet-assigned newitem->prev and was corrected by f66cbab.",
+      "file": "cJSON.c",
+      "function": "cJSON_InsertItemInArray",
+      "language": "C",
+      "line": "2263-2290",
+      "permalink": "https://github.com/DaveGamble/cJSON/blob/cb8693b058ba302f4829ec6d03f609ac6f848546/cJSON.c#L2263-L2290"
+    },
+    "entry_point": {
+      "description": "The exported API cJSON_InsertItemInArray(cJSON *array, int which, cJSON *newitem) declared in cJSON.h is the entry point. Any application that mutates a cJSON array and calls this function with a NULL newitem, or with an array whose element has a NULL prev link, reaches the unguarded dereference. The parser (cJSON_Parse) does not itself create that link shape; this is an API-level reachability constraint, not a claim of remote exploitability.",
+      "file": "cJSON.c",
+      "function": "cJSON_InsertItemInArray",
+      "language": "C",
+      "line": 2263,
+      "permalink": "https://github.com/DaveGamble/cJSON/blob/cb8693b058ba302f4829ec6d03f609ac6f848546/cJSON.c#L2263"
+    },
+    "location_id": "loc_CVE-2023-50471_snap_d9525608880dc9e1",
+    "location_kind": "memory",
+    "snapshot_id": "snap_d9525608880dc9e1",
+    "trace": [
+      {
+        "description": "Public API receives caller-supplied array and newitem without NULL validation",
+        "file": "cJSON.c",
+        "function": "cJSON_InsertItemInArray",
+        "language": "C",
+        "line": 2263,
+        "permalink": "https://github.com/DaveGamble/cJSON/blob/cb8693b058ba302f4829ec6d03f609ac6f848546/cJSON.c#L2263"
+      },
+      {
+        "description": "after_inserted->prev is copied into newitem->prev; a NULL prev propagates",
+        "file": "cJSON.c",
+        "function": "cJSON_InsertItemInArray",
+        "language": "C",
+        "line": 2279,
+        "permalink": "https://github.com/DaveGamble/cJSON/blob/cb8693b058ba302f4829ec6d03f609ac6f848546/cJSON.c#L2279"
+      },
+      {
+        "description": "else branch dereferences newitem->prev, the line cited by issue #802",
+        "file": "cJSON.c",
+        "function": "cJSON_InsertItemInArray",
+        "language": "C",
+        "line": 2287,
+        "permalink": "https://github.com/DaveGamble/cJSON/blob/cb8693b058ba302f4829ec6d03f609ac6f848546/cJSON.c#L2287"
+      }
+    ],
+    "verification_method": "Static read of cJSON.c at v1.7.16 and v1.7.17, the fix diff, and the regression tests; no code executed.",
+    "vulnerability_id": "CVE-2023-50471"
+  },
+  "open_questions": [
+    "Whether any sequence of public cJSON operations (detach, replace, duplicate) can produce the NULL-prev array shape without direct struct manipulation was not established.",
+    "Whether applications commonly pass an unchecked NULL newitem to this API was not surveyed.",
+    "Debian's 12 fix (1.7.15-1+deb12u1) was not compared line by line with the upstream fix."
+  ],
+  "prepared_at": "2026-10-21T14:40:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/DaveGamble/cJSON",
+    "full_name": "DaveGamble/cJSON",
+    "primary_language": "C",
+    "project_kind": "C JSON parser and emitter library",
+    "repo_id": "54280778",
+    "snapshot_id": "snap_d9525608880dc9e1"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read cJSON.c at v1.7.16 and confirm lines 2278-2287 lack any NULL guard on newitem or after_inserted->prev.",
+      "An independent reviewer must confirm the fix commits 60ff122 and f66cbab are in v1.7.17 and absent from v1.7.16.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV (Debian advisory DEBIAN-CVE-2023-50471)",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "upstream git history and changelog"
+    ],
+    "independent_of_primary": true,
+    "notes": "MITRE (CNA) supplies no CVSS and no CWE, and records affected versions as n/a; NVD supplies the only numeric assessment (7.5 HIGH, AV:N, CWE-476) and a CPE scope of exactly 1.7.16. Debian's OSV record describes the range as introduced 0 and fixed in 1.7.17-1 (Debian 13/14) or backported in 1.7.15-1+deb12u1 (Debian 12). The canonical affected_range uses the upstream boundary <1.7.17 and the NVD severity; the narrower NVD CPE scope and the reachability caveat are retained in limitations rather than silently merged.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/DaveGamble/cJSON/issues/802",
+    "affected_packages": [
+      {
+        "affected_range": "<1.7.17",
+        "ecosystem": "generic",
+        "package": "cjson",
+        "purl": "pkg:generic/cjson"
+      }
+    ],
+    "aliases": [
+      "CVE-2023-50471",
+      "DEBIAN-CVE-2023-50471"
+    ],
+    "category_l1": "availability",
+    "category_l2": "NULL pointer dereference in array insertion",
+    "cwe_ids": [
+      "CWE-476"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "master",
+        "message": "add NULL checkings (#809)",
+        "sha": "60ff122ef5862d04b39b150541459e7f5e35add8",
+        "url": "https://github.com/DaveGamble/cJSON/commit/60ff122ef5862d04b39b150541459e7f5e35add8"
+      },
+      {
+        "branch": "master",
+        "message": "fix error in null checkings (#810)",
+        "sha": "f66cbab4bfb3926ffd4c5e13f9fb6d506ee0241d",
+        "url": "https://github.com/DaveGamble/cJSON/commit/f66cbab4bfb3926ffd4c5e13f9fb6d506ee0241d"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "generic",
+        "package": "cjson",
+        "release_url": "https://github.com/DaveGamble/cJSON/releases/tag/v1.7.17",
+        "tag": "v1.7.17",
+        "verified_content": "At the v1.7.17 commit cJSON_InsertItemInArray rejects newitem == NULL and rejects an after_inserted whose prev is NULL when it is not array->child; v1.7.16 has neither check",
+        "version": "1.7.17"
+      }
+    ],
+    "published_at": "2023-12-14T20:15:53Z",
+    "references": [
+      "https://github.com/DaveGamble/cJSON/issues/802",
+      "https://github.com/DaveGamble/cJSON/commit/60ff122ef5862d04b39b150541459e7f5e35add8",
+      "https://github.com/DaveGamble/cJSON/commit/f66cbab4bfb3926ffd4c5e13f9fb6d506ee0241d",
+      "https://github.com/DaveGamble/cJSON/releases/tag/v1.7.17",
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-50471",
+      "https://security-tracker.debian.org/tracker/CVE-2023-50471"
+    ],
+    "repo_id": "54280778",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 7.5 falls in High (7.0-8.9). The MITRE CNA supplied no CVSS.",
+      "score": 7.5,
+      "source": "NVD primary metric nvd@nist.gov; the MITRE CNA supplied no CVSS",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-50471",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_d9525608880dc9e1",
+    "source_type": "upstream_advisory",
+    "title": "cJSON before 1.7.17 dereferences a NULL prev pointer in cJSON_InsertItemInArray",
+    "vulnerability_id": "CVE-2023-50471",
+    "vulnerable_commit": "cb8693b058ba302f4829ec6d03f609ac6f848546",
+    "vulnerable_commit_basis": "lightweight tag v1.7.16 points directly at cb8693b0...; issue #802 cites the same commit and line 2287; the fix commit's single parent is exactly this commit",
+    "vulnerable_version": "1.7.16"
+  }
+}

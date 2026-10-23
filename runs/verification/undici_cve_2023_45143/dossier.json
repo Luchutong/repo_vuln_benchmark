@@ -1,0 +1,405 @@
+{
+  "candidate_id": "disc2_209b5e94df3647a5dc0f74d1",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T16:20:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "133092972",
+    "full_name": "nodejs/undici",
+    "canonical_url": "https://github.com/nodejs/undici",
+    "primary_language": "JavaScript",
+    "project_kind": "Node.js HTTP/1.1 client and fetch implementation",
+    "snapshot_id": "snap_24c4a191fd049fc3"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2023-45143",
+    "aliases": [
+      "CVE-2023-45143",
+      "GHSA-wqq4-5wpv-mx2g"
+    ],
+    "title": "Undici fetch does not delete the Cookie and Host headers on a cross-origin redirect, leaking them to the redirect target",
+    "repo_id": "133092972",
+    "snapshot_id": "snap_24c4a191fd049fc3",
+    "vulnerable_commit": "f5c89e5c87c7d702996b152c4ad86302b60c4181",
+    "affected_packages": [
+      {
+        "ecosystem": "npm",
+        "package": "undici",
+        "purl": "pkg:npm/undici",
+        "affected_range": "<5.26.2"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "undici",
+        "version": "5.26.2",
+        "tag": "v5.26.2",
+        "release_url": "https://github.com/nodejs/undici/releases/tag/v5.26.2",
+        "verified_content": "At v5.26.2 the cross-origin branch of httpRedirectFetch deletes cookie and host in addition to authorization; at the v5.19.0 snapshot only authorization is deleted. The change enters the release line exactly at the v5.26.2 tag commit 12a62187 and the tag commit's lib/fetch/index.js blob equals the fix commit's post-image."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "e041de359221ebeae04c469e8aff4145764e6d76",
+        "branch": "main",
+        "release": "5.26.2",
+        "message": "Merge pull request from GHSA-wqq4-5wpv-mx2g (fix: delete 'cookie' and 'host' headers on cross-origin redirect)",
+        "url": "https://github.com/nodejs/undici/commit/e041de359221ebeae04c469e8aff4145764e6d76"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-200"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L",
+      "score": 3.9,
+      "level": "low",
+      "numeric_level_rationale": "The GitHub_M CNA publishes CVSS 3.1 3.9 Low and NVD carries that same vector as a Secondary metric; NVD's own Primary metric re-scores the issue as 3.5 Low with a narrower vector (AC:L, PR:L, C:L, I:N, A:N). Both published base scores are Low, so the severity level is consistent even though the two vectors differ.",
+      "source": "GitHub_M CNA (also NVD Secondary with the same vector); NVD Primary 3.5 Low",
+      "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-wqq4-5wpv-mx2g",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 3.9,
+          "level": "low",
+          "source": "GitHub_M CNA",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L"
+        },
+        {
+          "version": "3.1",
+          "score": 3.9,
+          "level": "low",
+          "source": "nvd@nist.gov (NVD Secondary, from security-advisories@github.com)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L"
+        },
+        {
+          "version": "3.1",
+          "score": 3.5,
+          "level": "low",
+          "source": "nvd@nist.gov (NVD Primary)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "information_disclosure",
+    "category_l2": "Credential leakage: cross-origin redirect in fetch keeps Cookie (and Host) request headers",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/nodejs/undici/security/advisories/GHSA-wqq4-5wpv-mx2g",
+    "published_at": "2023-10-12T16:21:39Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/nodejs/undici/security/advisories/GHSA-wqq4-5wpv-mx2g",
+      "https://github.com/nodejs/undici/commit/e041de359221ebeae04c469e8aff4145764e6d76",
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-45143",
+      "https://github.com/nodejs/undici/releases/tag/v5.26.2"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2023-45143_snap_24c4a191fd049fc3",
+    "vulnerability_id": "CVE-2023-45143",
+    "snapshot_id": "snap_24c4a191fd049fc3",
+    "location_kind": "logic",
+    "file": "lib/fetch/index.js",
+    "function": "httpRedirectFetch",
+    "language": "JavaScript",
+    "line": "1204-1207",
+    "critical_operation": {
+      "code_excerpt": "  //     origin, then for each headerName of CORS non-wildcard request-header name,\n  //     delete headerName from request’s header list.\n  if (!sameOrigin(requestCurrentURL(request), locationURL)) {\n    // https://fetch.spec.whatwg.org/#cors-non-wildcard-request-header-name\n    request.headersList.delete('authorization')\n  }",
+      "description": "httpRedirectFetch() handles step 13 of the fetch redirect algorithm: when the redirect target is not same-origin with the current URL it must delete the CORS non-wildcard request headers from the request's header list. At v5.19.0 the branch deletes only 'authorization' (line 1206) and leaves 'cookie' and 'host' in request.headersList. Undici does not implement forbidden request-header names (the Headers.append comment at lib/fetch/headers.js:232 says so explicitly), so a caller-supplied Cookie header survives Request construction and is therefore still present when mainFetch() reissues the request against the redirect target (line 1239, request.urlList.push(locationURL) at 1232). A server that answers with a 3xx Location to an attacker-controlled origin receives the victim's Cookie header. The v5.26.2 fix e041de35 adds request.headersList.delete('cookie') and request.headersList.delete('host') inside the same branch. CWE-200.",
+      "file": "lib/fetch/index.js",
+      "function": "httpRedirectFetch",
+      "language": "JavaScript",
+      "line": "1204-1207",
+      "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/index.js#L1204-L1207"
+    },
+    "entry_point": {
+      "description": "Application code calls the exported fetch() (or Request/Client) with a Cookie header and follows an HTTP redirect to a different origin controlled by an attacker.",
+      "file": "lib/fetch/index.js",
+      "function": "fetch",
+      "language": "JavaScript",
+      "line": 125,
+      "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/index.js#L125"
+    },
+    "trace": [
+      {
+        "description": "Headers.append performs no forbidden-request-header filtering: the implementation note states that undici does not implement forbidden header names, so a Cookie header is stored",
+        "file": "lib/fetch/headers.js",
+        "function": "Headers.append",
+        "language": "JavaScript",
+        "line": 232,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L232"
+      },
+      {
+        "description": "httpRedirectFetch processes a redirect response and resolves the Location URL",
+        "file": "lib/fetch/index.js",
+        "function": "httpRedirectFetch",
+        "language": "JavaScript",
+        "line": 1106,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/index.js#L1106"
+      },
+      {
+        "description": "the cross-origin test compares the request's current URL origin with the redirect target origin",
+        "file": "lib/fetch/index.js",
+        "function": "httpRedirectFetch",
+        "language": "JavaScript",
+        "line": 1204,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/index.js#L1204"
+      },
+      {
+        "description": "only the authorization header is deleted from the header list; cookie and host remain",
+        "file": "lib/fetch/index.js",
+        "function": "httpRedirectFetch",
+        "language": "JavaScript",
+        "line": 1206,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/index.js#L1206"
+      },
+      {
+        "description": "the redirect target is appended to the request URL list and mainFetch reissues the request with the unchanged header list",
+        "file": "lib/fetch/index.js",
+        "function": "httpRedirectFetch",
+        "language": "JavaScript",
+        "line": 1239,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/index.js#L1239"
+      }
+    ],
+    "verification_method": "Static read of lib/fetch/index.js and lib/fetch/headers.js at v5.19.0 and of lib/fetch/index.js at v5.26.2, plus the e041de35 patch, package.json version and local git ancestry/blobs; no fetch call, HTTP server or redirect was executed."
+  },
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/cve_v5.json",
+      "evidence_id": "ev_undici_45143_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "76d0ccc1876655fe4f5024d013f6c74a48ac942d0232ddacdf8471eb9cbc3ad5",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2023-45143",
+      "supports": [
+        "CVE record from GitHub_M, title names the Cookie header not cleared on cross-origin redirect in fetch",
+        "CNA affected product nodejs/undici with version '< 5.26.2'",
+        "CNA CVSS 3.1 3.9 LOW, CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L",
+        "CNA problemType CWE-200",
+        "reference to the fix commit e041de3"
+      ],
+      "verification_method": "CVE List v5 CNA record"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/nvd_cve.json",
+      "evidence_id": "ev_undici_45143_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "3cd40ff813c9abbf4cd9e47689f4ec8946f77db31e004febd6ade41e2a74e995",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2023-45143",
+      "supports": [
+        "NVD status Modified, published 2023-10-12",
+        "CPE nodejs:undici with versionEndExcluding 5.26.2",
+        "NVD Secondary CVSS 3.1 3.9 LOW from security-advisories@github.com",
+        "NVD Primary CVSS 3.1 3.5 LOW from nvd@nist.gov with vector CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:N",
+        "weaknesses CWE-200 and NVD-CWE-noinfo",
+        "reference e041de3 tagged Patch"
+      ],
+      "verification_method": "NVD CVE API 2.0 record"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/osv_ghsa.json",
+      "evidence_id": "ev_undici_45143_osv_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "44c8a3420c316fe94313290e10cfb918b4ed3c6a8e9c58e1ba255a851dbf4a89",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-wqq4-5wpv-mx2g",
+      "supports": [
+        "OSV/GHSA summary and aliases: CVE-2023-45143",
+        "SEMVER range introduced 0, fixed 5.26.2",
+        "severity CVSS_V3 CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L",
+        "details: Authorization was already cleared, Cookie was not; fetch handles headers more liberally than the spec because forbidden request headers are not implemented",
+        "fix references include e041de3"
+      ],
+      "verification_method": "OSV.dev API record (GHSA endpoint)"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/osv_cve.json",
+      "evidence_id": "ev_undici_45143_osv_cve",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "7ac321fa402de809e42e1d3c33c42e2b38acc735b0502268a35e723728f342ca",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2023-45143",
+      "supports": [
+        "the CVE-mapped OSV record resolves to the same GHSA-wqq4-5wpv-mx2g advisory",
+        "same SEMVER range and fixed 5.26.2"
+      ],
+      "verification_method": "OSV.dev API record (CVE endpoint)"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/V8FetchIndex_5.19.0.js",
+      "evidence_id": "ev_undici_45143_vuln_index",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "6be80bfee8b025044f2766c8ac7bacb13aa7d905a2accb6fe524dfd36b4c95c6",
+      "source_url": "https://github.com/nodejs/undici/blob/v5.19.0/lib/fetch/index.js",
+      "supports": [
+        "httpRedirectFetch starts at line 1106",
+        "the cross-origin branch at lines 1204-1207 deletes only 'authorization'",
+        "request.urlList.push(locationURL) at line 1232 and return mainFetch(fetchParams, true) at line 1239 reissue the request with the same header list"
+      ],
+      "verification_method": "file read at snapshot commit f5c89e5c (v5.19.0); blob ae60a5af matches the inventory"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/V8Headers_5.19.0.js",
+      "evidence_id": "ev_undici_45143_vuln_headers",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "2863ae7424069d32e0ab463cb6208f692dfa7b1db8370437792e62c7da9535ed",
+      "source_url": "https://github.com/nodejs/undici/blob/v5.19.0/lib/fetch/headers.js",
+      "supports": [
+        "Headers.append at line 202 implements the guard logic but the request-forbidden-name step is not implemented",
+        "the in-code note 'undici does not implement forbidden header names' appears at lines 232, 275 and 374",
+        "therefore a Cookie header supplied by the caller is kept in the header list"
+      ],
+      "verification_method": "file read at snapshot commit f5c89e5c (v5.19.0)"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/V8FetchIndex_5.26.2.js",
+      "evidence_id": "ev_undici_45143_fixed_index",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "f2e5ce2cabe86e093e528a3f987973102241382583c8e4c9835c1977ba96812b",
+      "source_url": "https://github.com/nodejs/undici/blob/v5.26.2/lib/fetch/index.js",
+      "supports": [
+        "the cross-origin branch calls request.headersList.delete('cookie') at line 1205",
+        "it also calls request.headersList.delete('host') at line 1206",
+        "the authorization deletion remains at line 1202"
+      ],
+      "verification_method": "file read at release tag v5.26.2 (12a62187)"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/fix_commit.patch",
+      "evidence_id": "ev_undici_45143_patch",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "5fd2c0bed136384f59b1f19f90869443a614d9ebf36e7113945c6e0bdb9c38c8",
+      "source_url": "https://github.com/nodejs/undici/commit/e041de359221ebeae04c469e8aff4145764e6d76",
+      "supports": [
+        "the commit adds delete('cookie') and delete('host') inside the existing cross-origin branch",
+        "it adds test/fetch/redirect-cross-origin-header.js asserting the redirected-to server sees neither cookie nor authorization",
+        "the diff's pre-image blob c89c9b7f matches v5.26.1 and its post-image 5323c30a matches v5.26.2"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_45143/sources/git_object_checks.txt",
+      "evidence_id": "ev_undici_45143_git",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:20:00Z",
+      "sha256_of_observation": "10bcd41d4dec392b9e7d78b55465ab03a56381a6cd6031dd183f9b4be3824d99",
+      "source_url": "https://github.com/nodejs/undici/commit/e041de359221ebeae04c469e8aff4145764e6d76",
+      "supports": [
+        "snapshot v5.19.0 resolves to f5c89e5c and package.json says version 5.19.0",
+        "lib/fetch/index.js blob ae60a5af matches the inventory (73039 bytes)",
+        "e041de3 is not an ancestor of v5.26.0 or v5.26.1 and is contained in v5.26.2",
+        "git tag --contains e041de3 first lists v5.26.2",
+        "the v5.26.2 blob 5323c30a equals the fix commit's post-image",
+        "the already-promoted 23936/24807 entries are different defects fixed in v5.19.1"
+      ],
+      "verification_method": "git rev-parse/merge-base/tag/show with local mirror /tmp/undici_vuln.git"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6
+    ],
+    "cwe": [
+      0,
+      1
+    ],
+    "fix_commits": [
+      2,
+      7,
+      8
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      6,
+      8
+    ],
+    "languages": [
+      4,
+      5,
+      6
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      8
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "NVD analysis",
+      "CVE List v5 GitHub_M CNA record",
+      "GitHub advisory / OSV record (GHSA and CVE endpoints)",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD and both OSV views agree on CWE-200, on the '<5.26.2' affected range and on 5.26.2 as the fixed release; NVD's CPE versionEndExcluding is 5.26.2. The CNA publishes CVSS 3.1 3.9 Low and NVD carries the same vector as a Secondary metric, while NVD's Primary metric is 3.5 Low with a narrower vector; the base severity level (Low) is the same in all records, so no level disagreement exists. Local ancestry and blob mapping place the fix e041de3 exactly at v5.26.2, absent from v5.26.0/v5.26.1 and also absent from the v5.19.x line.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read httpRedirectFetch at v5.19.0 and confirm the cross-origin branch deletes only authorization, and that Headers.append does not implement forbidden request-header names.",
+      "An independent reviewer must confirm that mainFetch reissues the request with the same header list after the redirect.",
+      "An independent reviewer must confirm e041de3 is the fix, is not an ancestor of v5.26.0/v5.26.1 and is contained in v5.26.2.",
+      "An independent reviewer must confirm the affected range, the 5.26.2 fixed release and the Low severity records.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "undici-CVE-2023-45143-round1-independent-reviewer-2026-10-22",
+      "verdict_path": "runs/independent/undici_CVE-2023-45143_round1/verdict.json",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "location_line": "1204-1207"
+    },
+    "independent_corrections_accepted": [
+      "Severity: NVD's Primary metric is 3.5 Low with CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:N, while the CNA, the GitHub advisory, OSV and NVD's Secondary metric give 3.9 Low with CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L. Both published base scores are Low, so the level is consistent; the dossier records both scores and the CNA vector without re-scoring.",
+      "CWE: NVD's Primary weakness is NVD-CWE-noinfo, while the CNA, GitHub advisory and OSV assign CWE-200; the dossier records the CNA/GHSA value and this note.",
+      "Host qualification: at the v5.19.0 snapshot Host was also still forwarded, but on the 5.26.x line commit 470ee381 already deleted Host unconditionally before e041de3, so the fix's delete('host') is redundant there; the advisory text names only Cookie, and the recorded impact is the Cookie leak.",
+      "Cookie retention is explicit-header-only: the snapshot has no cookie jar (includeCredentials is TODO), so the leak requires the caller to set a Cookie header through RequestInit.headers, with redirect: 'follow' and a cross-origin Location.",
+      "Duplicate check: CVE-2022-31151/GHSA-q768-x9m6-m9qp is the same class in the legacy lib/handler/redirect.js (fixed 5.8.0); CVE-2023-23936 and CVE-2023-24807 are distinct 5.19.x advisories."
+    ]
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No fetch call, HTTP server or redirect was executed; the leak is established statically from the deletion logic and the advisory.",
+    "Only the 5.26.x line was inspected; other maintained branches and the 6.x fixes were not diffed.",
+    "The practical impact depends on the application passing a Cookie header through undici's fetch (or another dispatcher API on the same path) and following a redirect to an attacker-controlled origin; browser fetch normally forbids setting Cookie.",
+    "The Host header is also left in place, but the advisory and this dossier treat the Cookie leak as the principal issue.",
+    "NVD's Primary vector differs from the CNA vector (AC:L/PR:L/C:L/I:N/A:N vs AC:H/PR:H/C:L/I:L/A:L); the dossier records the CNA vector and both published scores, without re-scoring.",
+    "The reviewer confirmed snapshot blobs (tree 2712aff2, index.js ae60a5af, headers.js 634b81fc) against the inventory; no fetch call, HTTP server or redirect was executed.",
+    "The fix commit's delete('host') is redundant on the 5.26.x line because 470ee381 already removed Host; the Cookie deletion is the operative change for this advisory."
+  ],
+  "open_questions": [
+    "Whether applications commonly set Cookie explicitly via RequestInit.headers (the advisory asserts this is possible in Node.js) was not surveyed."
+  ]
+}

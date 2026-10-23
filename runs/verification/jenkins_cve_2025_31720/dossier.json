@@ -1,0 +1,376 @@
+{
+  "candidate_id": "disc2_8534cb66b9eee2ac0fa5b5b3",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T03:40:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-31720",
+    "aliases": [
+      "CVE-2025-31720",
+      "GHSA-565r-pf5q-45v6",
+      "BIT-jenkins-2025-31720"
+    ],
+    "title": "Jenkins lets users with Agent/Create but not Agent/Extended Read copy an agent and read its configuration",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.503; LTS <=2.492.2 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.504",
+        "tag": "jenkins-2.504",
+        "release_url": "https://www.jenkins.io/changelog/#v2.504",
+        "verified_content": "The 2.504 release commit 5309fce4 has b3651b47 as its only parent, and b3651b47 has the SECURITY-3512 commit bf32018b as its only parent; the LTS 2.492.3 release commit a5462bf4 has acc9120f as its only parent, and acc9120f has the LTS SECURITY-3512 commit 81983c6a as its only parent (git merge-base --is-ancestor exits 0 for both fix commits against their release commits). In both fixed trees ComputerSet.doCreateItem calls src.checkPermission(Computer.EXTENDED_READ) before serializing the source node. The regression test Security3512Test.copyAgentTest grants alice Agent/Create+Extended Read and bob only Agent/Create, and asserts 200 with a new computer for alice and 403 'bob is missing the Agent/ExtendedRead permission' with no new computer for bob."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "bf32018bf075c06e5df649583557c82d42d8bb5c",
+        "branch": "master",
+        "release": "2.504",
+        "message": "[SECURITY-3512]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/bf32018bf075c06e5df649583557c82d42d8bb5c"
+      },
+      {
+        "sha": "81983c6a64d1e533b17f92a826af02125126f539",
+        "branch": "2.492.x LTS",
+        "release": "2.492.3",
+        "message": "[SECURITY-3512]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/81983c6a64d1e533b17f92a826af02125126f539"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-862"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-31720",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "GHSA-565r-pf5q-45v6 / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "missing_authorization",
+    "category_l2": "The agent copy endpoint checks only Agent/Create and serializes the source node without checking Agent/Extended Read on that node, so a user who cannot read the agent's configuration can copy it and view the copy's configuration",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-04-02/#SECURITY-3512",
+    "published_at": "2025-04-02T14:59:49Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-04-02/#SECURITY-3512",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-31720",
+      "https://github.com/advisories/GHSA-565r-pf5q-45v6",
+      "https://github.com/jenkinsci/jenkins/commit/bf32018bf075c06e5df649583557c82d42d8bb5c"
+    ]
+  },
+  "description": "Jenkins creates agents from the ComputerSet page. When doCreateItem is called with mode=copy, it requires Agent/Create (Computer.CREATE at line 251) and then looks the source node up by name and serializes it with Jenkins.XSTREAM.toXML (line 266), re-creating it as a new agent (267-271). At 2.441 the endpoint never checks Agent/Extended Read on the source node, while reading that same node's configuration through its own config.xml page does require Extended Read (when the extended-read permission is enabled). A user holding Agent/Create but not Agent/Extended Read can therefore copy an agent they may not read and then open the copy's configuration page, which discloses the source agent's configuration. The 2.492.3/2.504 fix commits 81983c6a and bf32018b add a single line, src.checkPermission(Computer.EXTENDED_READ), after the node lookup and before the XStream serialization. The accompanying Security3512Test.copyAgentTest enables Computer.EXTENDED_READ, grants alice Agent/Create+Extended Read and bob only Agent/Create, and asserts that alice's copy returns 200 with a new computer while bob's returns 403 'bob is missing the Agent/ExtendedRead permission' with the computer count unchanged. This is a distinct advisory item from SECURITY-3513 (CVE-2025-31721), the follow-on Configure/secrets guard added by acc9120f and b3651b47 in the same branch, and from SECURITY-3495 (CVE-2025-27622), the earlier agent config.xml redaction work.",
+  "location": {
+    "location_id": "loc_CVE-2025-31720_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-31720",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/hudson/model/ComputerSet.java",
+    "function": "doCreateItem",
+    "language": "Java",
+    "line": "253-274",
+    "critical_operation": {
+      "file": "core/src/main/java/hudson/model/ComputerSet.java",
+      "function": "doCreateItem",
+      "language": "Java",
+      "line": "253-274",
+      "code_excerpt": "        if (mode != null && mode.equals(\"copy\")) {\n            name = checkName(name);\n            Node src = app.getNode(from);\n            ...\n            // copy through XStream\n            String xml = Jenkins.XSTREAM.toXML(src);\n            Node result = (Node) Jenkins.XSTREAM.fromXML(xml);\n            result.setNodeName(name);\n            result.holdOffLaunchUntilSave = true;\n            app.addNode(result);\n            rsp.sendRedirect2(result.getNodeName() + \"/configure\");",
+      "description": "The copy branch relies on the Agent/Create check at line 251 only. Between the source node lookup (256) and the XStream serialization (266) there is no src.checkPermission(Computer.EXTENDED_READ), so a caller who lacks Extended Read on the source node still receives a new agent that is a full copy of it and whose configuration page they can then read.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/ComputerSet.java#L253-L274"
+    },
+    "entry_point": {
+      "description": "HTTP POST /computer/createItem?mode=copy&from=<source-agent>&name=<new-agent> as a user holding Overall/Read and Agent/Create but not Agent/Extended Read; the endpoint is annotated @RequirePOST (line 246) and requires a crumb.",
+      "file": "core/src/main/java/hudson/model/ComputerSet.java",
+      "function": "doCreateItem",
+      "language": "Java",
+      "line": "246-252",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/ComputerSet.java#L246-L252"
+    },
+    "trace": [
+      {
+        "description": "doCreateItem is @RequirePOST and checks only Computer.CREATE (line 251)",
+        "file": "core/src/main/java/hudson/model/ComputerSet.java",
+        "function": "doCreateItem",
+        "language": "Java",
+        "line": "246-252",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/ComputerSet.java#L246-L252"
+      },
+      {
+        "description": "the copy branch resolves the source node by name with no permission check on that node",
+        "file": "core/src/main/java/hudson/model/ComputerSet.java",
+        "function": "doCreateItem",
+        "language": "Java",
+        "line": "253-264",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/ComputerSet.java#L253-L264"
+      },
+      {
+        "description": "the source node is serialized and re-created as a new agent without any Extended Read check",
+        "file": "core/src/main/java/hudson/model/ComputerSet.java",
+        "function": "doCreateItem",
+        "language": "Java",
+        "line": "266-271",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/ComputerSet.java#L266-L271"
+      },
+      {
+        "description": "the fixed tree inserts src.checkPermission(Computer.EXTENDED_READ) at the same point (2.504 line 296)",
+        "file": "core/src/main/java/hudson/model/ComputerSet.java",
+        "function": "doCreateItem",
+        "language": "Java",
+        "line": "296",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/5309fce4c9b5680c0db7e63e5d78326160505d7b/core/src/main/java/hudson/model/ComputerSet.java#L296"
+      }
+    ],
+    "verification_method": "Static read of ComputerSet.java at 2.441 and at the 2.492.3 and 2.504 fix commits, plus the bf32018b patch and its Security3512Test; no Jenkins instance, HTTP request or test was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_31720_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-31720",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "42f57ebbf649a456a5f66de2401752bc4efb5c6ca38c03f9f6c3921d42821dbd",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-04-02, assigner Jenkins",
+        "description: a missing permission check in Jenkins 2.503 and earlier, LTS 2.492.2 and earlier allows attackers with Computer/Create permission but without Computer/Extended Read permission to copy an agent, gaining access to its configuration",
+        "affected versions: 2.492.* unaffected from 2.492.3, weekly unaffected from 2.504; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-04-02/#SECURITY-3512"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-31720",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "3bba656c12c982681e16da6491268ec02c85f3cd9fd6de3c7d5ea424c1cbe99c",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-04-02, status Analyzed",
+        "one CVSS 3.1 4.3 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "there is no Primary metric",
+        "CWE-862 from the same Secondary source"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-31720",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "e0a129240a9c809ee961b6835102e61b887b79ec29184eccfbbc2e16a6dff960",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "aliases GHSA-565r-pf5q-45v6 and BIT-jenkins-2025-31720",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events a5462bf4 (2.492.3 release commit) and 5309fce4 (2.504 release commit)",
+        "OSV's extracted CPE ranges are weekly <2.504 and LTS <2.492.3"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-565r-pf5q-45v6",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "9b88cddd31b37328da6041ab24b3d05ab814b0ae107116afa21cff40a422f4a3",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3), database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-862]",
+        "one Maven ECOSYSTEM range is introduced 0 -> fixed 2.492.3; the other is introduced 2.500 -> fixed 2.504, which conflicts with the CNA text and the CVE GIT range for the weekly line"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_vuln_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/ComputerSet_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/ComputerSet.java#L253-L274",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "5853af0c7913f9e1ed9fcd86f3e9369765ecb05653e7c7f37629678808b84504",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 5cb79897 matches the snapshot inventory (17134 bytes)",
+      "result": "PASS",
+      "supports": [
+        "doCreateItem at 247-287 is annotated @RequirePOST (246) and checks only app.checkPermission(Computer.CREATE) at 251",
+        "the copy branch (253) resolves the source node by name at 256 and serializes it with Jenkins.XSTREAM.toXML(src) at 266 without any Computer.EXTENDED_READ check, then adds it with app.addNode(result) at 271",
+        "no extended-read check exists in the method, so a caller without Extended Read on the source node can copy it and then read the copy's configuration"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_fixed_lts",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/ComputerSet_2.492.3.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/acc9120fa6670e2f6d229f4a14dc86dd46cda86f/core/src/main/java/hudson/model/ComputerSet.java#L296",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "eed0fa4c6637b77a2dc541c60a00753218c9680c132eb969291cb1ab6c236a5a",
+      "verification_method": "file read at the LTS fix commit acc9120f (which contains the SECURITY-3512 line); blob 8fcfdd9a",
+      "result": "PASS",
+      "supports": [
+        "the copy branch now calls src.checkPermission(Computer.EXTENDED_READ) at 296, after the source node lookup and before the serialization at 299",
+        "the later SECURITY-3513 Configure/redaction guard at 300-314 is also present in this tree, which is why this dossier pins the fix commits to 81983c6a/bf32018b rather than to acc9120f/b3651b47"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_fixed_master",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/ComputerSet_2.504.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/5309fce4c9b5680c0db7e63e5d78326160505d7b/core/src/main/java/hudson/model/ComputerSet.java#L296",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "a65faff4dd3e1c115846608edfaf084f3fcced8236ccd0a10b595de55add7e9d",
+      "verification_method": "file read at the 2.504 fix commit b3651b47; blob 384b3092",
+      "result": "PASS",
+      "supports": [
+        "the 2.504 branch carries the same Extended Read check at 296 as the LTS branch",
+        "the two fixed files differ only in the placement of a javadoc @deprecated line"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/bf32018bf075c06e5df649583557c82d42d8bb5c",
+      "retrieved_at": "2026-10-22T03:31:00Z",
+      "sha256_of_observation": "e76a8f23909ec56635ae51d801fc387bff3d680734b43acd046e9d6d3d7a47fc",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit bf32018b '[SECURITY-3512]', 2025-03-25, parent dddb4598",
+        "the patch adds exactly one production line to the copy branch: src.checkPermission(Computer.EXTENDED_READ) after the node lookup and before the XStream serialization",
+        "it adds Security3512Test.copyAgentTest (@Issue(\"SECURITY-3512\")), which enables Computer.EXTENDED_READ, grants alice Agent/Create+Extended Read and bob only Agent/Create, and asserts 200 plus a new computer for alice and 403 'bob is missing the Agent/ExtendedRead permission' with the computer count unchanged for bob"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_31720_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_31720/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-22T03:40:00Z",
+      "sha256_of_observation": "76ce329ea26aa87df4020c12293ca1383cd1435839d41bd2dd101ade10fccd67",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and ComputerSet.java blob 5cb79897 matches the inventory (17134 bytes)",
+        "the master fix bf32018b turns ComputerSet.java into blob 7ee8fd5b and its only child is b3651b47 ([SECURITY-3513], blob 384b3092), whose only child is the 2.504 release commit 5309fce4; the LTS fix 81983c6a's only child is acc9120f and its only child is the 2.492.3 release commit a5462bf4",
+        "CNA affected range 2.503 and earlier weekly / 2.492.2 and earlier LTS includes the 2.441 snapshot; the CVE GIT range is introduced 0",
+        "the GHSA ECOSYSTEM weekly range introduced 2.500 conflicts with the CNA and GIT range; the conflict is documented, not resolved silently"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      7,
+      8
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      7,
+      8
+    ],
+    "languages": [
+      4,
+      5,
+      6
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      8
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 copy branch, both fixed trees and the fix patch; the git checks support the commit/release chain.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 4.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (the agent copy endpoint checks only Agent/Create, so a user without Agent/Extended Read can copy an agent and read its configuration) and on the fixed releases (2.504 weekly, 2.492.3 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 4.3 MEDIUM, which OSV/GHSA repeats as 4.3 MODERATE, and the CNA has no metric, so all published levels are medium. CWE-862 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM weekly range introduced=2.500 conflicts with the CNA text and the CVE GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. The sibling SECURITY-3513 / CVE-2025-31721 (Configure/secrets guard, commits acc9120f/b3651b47) and SECURITY-3495 / CVE-2025-27622 are separate advisory items and separate dataset rows; this dossier claims only the missing Extended Read check.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read ComputerSet.doCreateItem at 2.441 and confirm the copy branch checks only Agent/Create and never checks Agent/Extended Read on the source node.",
+      "An independent reviewer must confirm the fix commits 81983c6a/bf32018b add that check and are contained in releases 2.492.3 and 2.504.",
+      "An independent reviewer must confirm the affected range (weekly <=2.503, LTS <=2.492.2) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are medium (4.3) and record CWE-862.",
+      "An independent reviewer must confirm this entry is distinct from CVE-2025-31721, CVE-2025-27622 and CVE-2025-27623.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or test was run.",
+    "At 2.441 the extended-read permission is disabled by default (enabled through the hudson.security.ExtendedReadPermission system property); the vulnerability is reachable when the permission model actually uses Extended Read, which is the condition the fix's regression test exercises.",
+    "Only one location row is recorded (ComputerSet.doCreateItem copy branch).",
+    "The fix line lands in the same branch as the later SECURITY-3513 guard; the two fixed trees therefore contain both changes and this dossier relies on the individual commit blobs (7ee8fd5b at bf32018b) and the patch to attribute the Extended Read line to SECURITY-3512.",
+    "The GHSA ECOSYSTEM weekly range introduced=2.500 conflicts with the CNA and the CVE GIT range; the conflict is documented, not resolved silently."
+  ],
+  "open_questions": [
+    "Whether the copy endpoint also leaks non-configuration data (e.g., node properties not shown in the UI) was not enumerated; the advisory scopes the impact to the agent configuration."
+  ]
+}

@@ -1,0 +1,384 @@
+{
+ "candidate_id": "disc2_df9a59ee6b7c9cba62ec4093",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_51996_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "c98e87b8ad4b6a513ff871353ce04e90bb1b7940e02157d9eb0132c2abf6fe45",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-51996",
+   "supports": [
+    "NVD description: consuming a persisted remember-me cookie does not check that the username persisted in the database matches the username attached with the cookie, leading to authentication bypass",
+    "NVD records the GitHub advisory CVSS 3.1 7.5 HIGH vector AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "NVD lists CWE-287 and CWE-289 from the GitHub advisory",
+    "NVD has no primary CVSS metric of its own; the single 3.1 metric is type Secondary from security-advisories@github.com"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_51996_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "41717f18d87719cb47f24dbce2dbafcd6a6cfd14f97ad6780dd539c193f39ba5",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-51996",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, title \"Authentication Bypass via RememberMe\"",
+    "the CNA supplies CVSS 3.1 7.5 AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N and CWE-287 plus CWE-289",
+    "the record names fixed versions 5.4.47, 6.4.15 and 7.1.8 and credits Moritz Rauch (Pentryx AG) and Jeremy Derusse"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_51996_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "e0a37c8d5bfc9d843cc83e86521ce301e067646649bb06634dd7ebb1e5baf3d4",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-cg23-qf8f-62rr",
+   "supports": [
+    "the GHSA record aliases CVE-2024-51996 and is marked github_reviewed",
+    "affected ranges for symfony/security-http are 5.3.0..5.4.47, 6.0.0-BETA1..6.4.15 and 7.0.0-BETA1..7.1.8",
+    "database_specific severity is HIGH with cwe_ids CWE-287 and CWE-289"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_51996_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "1fd1f8169fa7a2bd3c47b70978f4311be7a3e0ade5cc42d58855eaf8a16a6a46",
+   "source_url": "https://symfony.com/cve-2024-51996",
+   "supports": [
+    "affected versions are Symfony >=5.3, <5.4.47; >=6, <6.4.15; >=7, <7.1.8 of the Security-Http component",
+    "the description matches the NVD text: no check that the username persisted in the database matches the cookie username, leading to authentication bypass",
+    "the resolution states PersistentRememberMeHandler now ensures the submitted username is the cookie owner and links the 5.4 patch"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/ghsa.html",
+   "evidence_id": "ev_symfony_51996_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "f32e0002e7f60411349b87f0eb777b9779c091f78332f3095fa3b69f76b1c60a",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-cg23-qf8f-62rr",
+   "supports": [
+    "the GitHub advisory page carries the same summary and the 5.4 patch commit 81354d39",
+    "the advisory is reviewed and lists the same affected and patched ranges"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_51996_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "e4ad9a7cbd887a0119c1c6bf3e9312adf952a9e311b756059d1d0027c4b923dc",
+   "source_url": "https://github.com/symfony/symfony/commit/81354d392c5f0b7a52bcbd729d6f82501e94135a",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.47 peels to d869cc18",
+    "fix commit 81354d39 is dated 2024-11-07, subject \"[security-http] Check owner of persisted remember-me cookie\"",
+    "the fix is an ancestor of v5.4.47 and not an ancestor of v5.4.45",
+    "PersistentRememberMeHandler.php blob is 2b8759a2 at v5.4.45 and 438db1b8 at v5.4.47"
+   ],
+   "verification_method": "git merge-base --is-ancestor in both directions; git show; blob comparison"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/handler_5.4.45.php",
+   "evidence_id": "ev_symfony_51996_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "9bc032e11230a97609e8927c4cc1aaf0ef7c75d361868deab8d2adf3f3cda3f5",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php#L63-L86",
+   "supports": [
+    "consumeRememberMeCookie splits the cookie value into series and token and loads the persistent token by series",
+    "it verifies the token value but never compares persistentToken->getUserIdentifier() or getClass() with the cookie user identifier/class",
+    "it then calls parent::consumeRememberMeCookie with a value that keeps the cookie-supplied user identifier"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 2b8759a2)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/abstract_handler_5.4.45.php",
+   "evidence_id": "ev_symfony_51996_parent_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "52908b6cf4bf24c61e2fd92868c4a1e96ca054357c41aed35b6c9573074dbbc5",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/AbstractRememberMeHandler.php#L63-L90",
+   "supports": [
+    "the parent loads the user with userProvider->loadUserByIdentifier($rememberMeDetails->getUserIdentifier())",
+    "the identifier therefore comes from the cookie, so without the owner check the token of one account authenticates the account named in the edited cookie"
+   ],
+   "verification_method": "file read at v5.4.45"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/remember_me_details_5.4.45.php",
+   "evidence_id": "ev_symfony_51996_details_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "03a350bdf2ffc9fb6f63c298114c74f63f3bcef4f035c3523e2d448b845eeb5c",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/RememberMeDetails.php#L37-L60",
+   "supports": [
+    "fromRawCookie decodes up to four delimited parts: user FQCN, base64 user identifier, expiry and value",
+    "the user identifier is attacker-editable text in the cookie, subject only to base64 decoding"
+   ],
+   "verification_method": "file read at v5.4.45"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/handler_5.4.47.php",
+   "evidence_id": "ev_symfony_51996_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "4021fb45b64f2b420ab824f3f9f0c7b5135d292d48fd476368e13fcbd129dd13",
+   "source_url": "https://github.com/symfony/symfony/blob/d869cc180cf38d3848feff1dcf38fefaecfd8177/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php#L63-L100",
+   "supports": [
+    "the fixed handler compares persistentToken->getUserIdentifier() and getClass() with the cookie values and throws AuthenticationException on mismatch",
+    "it rebuilds RememberMeDetails from the persistent token instead of trusting the cookie fields",
+    "it also splits series:token with a limit of 2"
+   ],
+   "verification_method": "file read at v5.4.47 (blob 438db1b8)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51996/sources/fix_commit.txt",
+   "evidence_id": "ev_symfony_51996_fix_commit",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "9c3afb582bf3a1b8d05a4029d5a34b2932f0806eea9feef1b7d030c3980c90ae",
+   "source_url": "https://github.com/symfony/symfony/commit/81354d392c5f0b7a52bcbd729d6f82501e94135a",
+   "supports": [
+    "the patch adds the owner comparison and unsets the untrusted details object",
+    "the patch changes PersistentRememberMeHandler.php and its test only"
+   ],
+   "verification_method": "commit patch read"
+  },
+  {
+   "artifact_path": "runs/language/snap_39105a8a3ceb9fe4/snapshot_proposal.json",
+   "evidence_id": "ev_symfony_51996_snapshot",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T00:55:00Z",
+   "sha256_of_observation": "f21911b9286584aa9c4dc0121f233575890c42b13362b11abb22777acb2d2e3e",
+   "source_url": "https://github.com/symfony/symfony/tree/2b66d7d7d8129531229708ef708860844db91944",
+   "supports": [
+    "snapshot_id snap_39105a8a3ceb9fe4, tag_or_release v5.4.45, vulnerable_commit 2b66d7d7, 11040 tracked files",
+    "PersistentRememberMeHandler.php is inventoried with git_oid 2b8759a2, language PHP, first party, not vendored or generated",
+    "PHP is a first-party programming language in the snapshot"
+   ],
+   "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   4,
+   5,
+   8,
+   9
+  ],
+  "fixed_releases": [
+   2,
+   3,
+   5,
+   9
+  ],
+  "languages": [
+   10
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "vulnerable_commit": [
+   5,
+   10
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No Symfony runtime, authentication listener, or PoC was executed; the finding is static.",
+  "The attacker model assumes the attacker can obtain a valid series/token pair for some account (for example their own) and can edit the cookie identifier field; the security advisory describes this as authentication bypass but does not publish an exploit.",
+  "The advisory gives ranges only for the 5.x/6.x/7.x branches; other maintained branches were not audited.",
+  "NVD has no primary CVSS metric; the 7.5 vector is the GitHub advisory (GitHub_M CNA) metric, recorded as secondary by NVD."
+ ],
+ "location": {
+  "critical_operation": {
+   "code_excerpt": "    public function consumeRememberMeCookie(RememberMeDetails $rememberMeDetails): UserInterface\n    {\n        if (!str_contains($rememberMeDetails->getValue(), ':')) {\n            throw new AuthenticationException('The cookie is incorrectly formatted.');\n        }\n\n        [$series, $tokenValue] = explode(':', $rememberMeDetails->getValue());\n        $persistentToken = $this->tokenProvider->loadTokenBySeries($series);",
+   "description": "consumeRememberMeCookie loads the persisted token by series and validates its token value, but never checks that the token row belongs to the user identifier and user class carried in the cookie. The parent handler then loads the user by the cookie-supplied identifier, so an attacker holding any valid series/token pair can change the identifier field to another account and be authenticated as that account. The 5.4.47 fix adds the owner comparison and rebuilds the details from the stored token.",
+   "file": "src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php",
+   "function": "PersistentRememberMeHandler::consumeRememberMeCookie",
+   "language": "PHP",
+   "line": "69-70",
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php#L69-L70"
+  },
+  "entry_point": {
+   "description": "The remember-me authentication listener calls consumeRememberMeCookie with RememberMeDetails parsed from the client cookie; the cookie user identifier is attacker-controlled (base64 text) and is trusted by the parent handler at AbstractRememberMeHandler.php:74.",
+   "file": "src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php",
+   "function": "PersistentRememberMeHandler::consumeRememberMeCookie",
+   "language": "PHP",
+   "line": 63,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php#L63"
+  },
+  "location_id": "loc_CVE-2024-51996_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2024-51996",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "trace": [
+   {
+    "description": "RememberMeDetails is parsed from the client cookie; the identifier is base64 text chosen by the client",
+    "file": "src/Symfony/Component/Security/Http/RememberMe/RememberMeDetails.php",
+    "function": "RememberMeDetails::fromRawCookie",
+    "language": "PHP",
+    "line": 37,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/RememberMeDetails.php#L37-L50"
+   },
+   {
+    "description": "consumeRememberMeCookie loads the persistent token by series and verifies only the token value, not the owner",
+    "file": "src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php",
+    "function": "PersistentRememberMeHandler::consumeRememberMeCookie",
+    "language": "PHP",
+    "line": 69,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php#L69-L70"
+   },
+   {
+    "description": "The parent loads the user by the cookie-supplied identifier and returns it as authenticated",
+    "file": "src/Symfony/Component/Security/Http/RememberMe/AbstractRememberMeHandler.php",
+    "function": "AbstractRememberMeHandler::consumeRememberMeCookie",
+    "language": "PHP",
+    "line": 74,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Security/Http/RememberMe/AbstractRememberMeHandler.php#L74"
+   }
+  ],
+  "verification_method": "Static read of PersistentRememberMeHandler.php, AbstractRememberMeHandler.php and RememberMeDetails.php at v5.4.45 and v5.4.47, the fix diff, the advisory and git tag ancestry; no code executed."
+ },
+ "open_questions": [
+  "Whether some user providers canonicalize identifiers such that the attack is harder was not surveyed.",
+  "The interaction with the legacy TokenBasedRememberMeServices (non-persistent) path was not analyzed.",
+  "No exploitability analysis beyond authentication bypass was performed."
+ ],
+ "prepared_at": "2026-10-22T00:55:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "canonical_url": "https://github.com/symfony/symfony",
+  "full_name": "symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "review": {
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read PersistentRememberMeHandler.php at v5.4.45 and confirm the owner comparison is absent.",
+   "An independent reviewer must confirm the parent handler loads the user by the cookie-supplied identifier.",
+   "An independent reviewer must confirm 81354d39 is absent from v5.4.45 and present in v5.4.47 with the owner check.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "status": "PENDING_INDEPENDENT_REVIEW"
+ },
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tag"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on affected <5.4.47 and the missing owner check. NVD has no primary metric and republishes the GitHub CVSS; the symfony.com page adds the affected-version range and credits. OSV/ GHSA ranges are the only machine-readable ranges and are consistent with the advisory page.",
+  "severity_disagreement": false
+ },
+ "status": "awaiting_independent_review",
+ "vulnerability": {
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2024-51996",
+  "affected_packages": [
+   {
+    "affected_range": ">=5.3.0,<5.4.47",
+    "ecosystem": "Packagist",
+    "package": "symfony/security-http",
+    "purl": "pkg:composer/symfony/security-http"
+   }
+  ],
+  "aliases": [
+   "CVE-2024-51996",
+   "GHSA-cg23-qf8f-62rr"
+  ],
+  "category_l1": "authentication_bypass",
+  "category_l2": "persisted remember-me cookie consumption does not verify that the stored token belongs to the user identifier carried in the cookie",
+  "cwe_ids": [
+   "CWE-287",
+   "CWE-289"
+  ],
+  "discovery_cutoff_date": "2026-10-21",
+  "fix_commits": [
+   {
+    "branch": "5.4",
+    "message": "[security-http] Check owner of persisted remember-me cookie",
+    "sha": "81354d392c5f0b7a52bcbd729d6f82501e94135a",
+    "url": "https://github.com/symfony/symfony/commit/81354d392c5f0b7a52bcbd729d6f82501e94135a"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/security-http",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.47",
+    "tag": "v5.4.47",
+    "verified_content": "At v5.4.47 PersistentRememberMeHandler compares the persisted token owner with the cookie identifier/class and rebuilds the details from the token; fix 81354d39 is an ancestor of the tag and absent from v5.4.45",
+    "version": "5.4.47"
+   }
+  ],
+  "published_at": "2024-11-13T17:15:11Z",
+  "references": [
+   "https://symfony.com/cve-2024-51996",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-cg23-qf8f-62rr",
+   "https://github.com/symfony/symfony/commit/81354d392c5f0b7a52bcbd729d6f82501e94135a",
+   "https://nvd.nist.gov/vuln/detail/CVE-2024-51996",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.47"
+  ],
+  "repo_id": "458058",
+  "severity": {
+   "level": "high",
+   "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); the metric is supplied by the GitHub advisory and republished by NVD as a secondary metric, with confidentiality-only impact",
+   "score": 7.5,
+   "source": "GitHub advisory (GitHub_M CNA) CVSS 3.1 vector; NVD carries it as the only, secondary metric",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-cg23-qf8f-62rr",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+   "version": "3.1"
+  },
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "source_type": "upstream_advisory",
+  "title": "Symfony Security-Http before 5.4.47 trusts the user identifier in a persisted remember-me cookie, allowing authentication bypass",
+  "vulnerability_id": "CVE-2024-51996",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "vulnerable_commit_basis": "tag v5.4.45 peels to commit 2b66d7d7...; the advisory affected range >=5.3,<5.4.47 includes 5.4.45 and fix 81354d39 is absent from the tag",
+  "vulnerable_version": "5.4.45"
+ }
+}

@@ -1,0 +1,60 @@
+# hyper CVE-2021-21299 git object checks (collected 2026-10-21)
+
+## refs
+refs/tags/v0.14.2 = 8861f9a7867216c81ea14ac6224c11a1303e7761 (lightweight tag)
+refs/tags/v0.14.3 = 48d4594930da4e227039cfa254411b85c98b63c5 (lightweight tag)
+fix commit (advisory) = 8f93123efef5c1361086688fe4f34c83c89cec02
+
+## fix commit
+8f93123efef5c1361086688fe4f34c83c89cec02
+2021-02-05 14:10:02 -0800
+fix(http1): fix server misinterpretting multiple Transfer-Encoding headers
+parents=4d2125c67c8087de863f74278a017c4caf37e6a9
+
+## fix commit own diff (against 4d2125c67c8087de863f74278a017c4caf37e6a9)
+ src/proto/h1/role.rs | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+diff --git a/src/proto/h1/role.rs b/src/proto/h1/role.rs
+index 0c7eb1e..a9f2f00 100644
+--- a/src/proto/h1/role.rs
++++ b/src/proto/h1/role.rs
+@@ -213,6 +213,8 @@ impl Http1Transaction for Server {
+                     if headers::is_chunked_(&value) {
+                         is_te_chunked = true;
+                         decoder = DecodedLength::CHUNKED;
++                    } else {
++                        is_te_chunked = false;
+                     }
+                 }
+                 header::CONTENT_LENGTH => {
+@@ -1444,6 +1446,16 @@ mod tests {
+             "transfer-encoding doesn't end in chunked",
+         );
+ 
++        parse_err(
++            "\
++             POST / HTTP/1.1\r\n\
++             transfer-encoding: chunked\r\n\
++             transfer-encoding: afterlol\r\n\
++             \r\n\
++             ",
++            "transfer-encoding multiple lines doesn't end in chunked",
++        );
++
+         // http/1.0
+ 
+         assert_eq!(
+
+## ancestry
+8f93123 IS ancestor of v0.14.3
+8f93123 NOT ancestor of v0.14.2 (expected)
+
+## v0.14.2 Cargo.toml version
+version = "0.14.2" # don't forget to update html_root_url
+
+## sha256 of extracted files
+8601b69688a97534cc78c149d3acf632163c669a2a4102d920dfc80de46f8219  runs/verification/hyper_cve_2021_21299/sources/role_rs_v0.14.2.rs
+143a6a4d05937c8ed32e268e8400fcb6d925c9860a5b882c145d48686821a67c  runs/verification/hyper_cve_2021_21299/sources/role_rs_v0.14.3.rs
+7e628181300b867fe244ada82a141028502d28e20248370a17ec7b7b2c71134c  runs/verification/hyper_cve_2021_21299/sources/osv_ghsa.json
+49d6b6b28ecbd2dd69d87317fafd98e81a0566b6d82a809466f747a307d16143  runs/verification/hyper_cve_2021_21299/sources/cve_v5.json
+0131a3b69c4f2a5f949ccb1e64679da656cc2749f9f7ef59fb7907d3ed5900fa  runs/verification/hyper_cve_2021_21299/sources/nvd_cve.json

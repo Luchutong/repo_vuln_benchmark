@@ -1,0 +1,176 @@
+{
+  "packet_id": "selrev_1420053_snap_1ce353bfdb334948",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "1420053",
+    "full_name": "guzzle/guzzle",
+    "canonical_url": "https://github.com/guzzle/guzzle",
+    "primary_language": "PHP",
+    "project_kind": "Guzzle, an extensible PHP HTTP client"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_1ce353bfdb334948",
+    "tag_or_release": "7.14.1",
+    "commit_sha": "6b1d2429a2c312474c523aa9017fba0c07b5f4a0"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "6b1d2429a2c312474c523aa9017fba0c07b5f4a0",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "abed8bd88b14706d9da6c94f80195976323e8d81",
+    "tree_file_count": 119,
+    "exported_file_count": 119,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/guzzle__guzzle/snap_1ce353bfdb334948.tar.gz",
+    "archive_sha256": "3a53ce38408fd741f7abb0f365567011b2ba135806f1173ebd39a6677eb98491",
+    "archive_bytes": 326366,
+    "manifest_path": "exports/guzzle__guzzle/snap_1ce353bfdb334948.manifest.jsonl",
+    "manifest_sha256": "7b5b20b02ce3f186c440ffe2a6cf1254ab3b7b01afd28d082f3a3d3f81714968"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 5,
+    "cve_ids_sample": [
+      "CVE-2016-5385",
+      "CVE-2016-5420",
+      "CVE-2022-27782",
+      "CVE-2026-3784",
+      "CVE-2026-8932"
+    ],
+    "files_with_advisory_ids_count": 4,
+    "files_with_advisory_ids_sample": [
+      "CHANGELOG.md",
+      "src/Handler/CurlFactory.php",
+      "src/Handler/CurlVersion.php",
+      "tests/Handler/CurlFactoryTest.php"
+    ],
+    "ghsa_id_count": 3,
+    "ghsa_ids_sample": [
+      "GHSA-CWXW-98QJ-8QJX",
+      "GHSA-G446-98W2-8P5W",
+      "GHSA-WPWQ-4J6V-78M3"
+    ],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/.editorconfig",
+      ".github/FUNDING.yml",
+      ".github/logo.png",
+      ".github/stale.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/static.yml",
+      "CHANGELOG.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "make": [
+        "Makefile"
+      ],
+      "php": [
+        "composer.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "php",
+      "make"
+    ],
+    "toolchain_available": {
+      "make": {
+        "make": true
+      },
+      "php": {
+        "composer": false,
+        "php": false
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-67339",
+      "aliases": [
+        "CVE-2026-67339",
+        "GHSA-94pj-82f3-465w"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<7.14.2",
+          "ecosystem": "Packagist",
+          "package": "guzzlehttp/guzzle",
+          "purl": "pkg:composer/guzzlehttp/guzzle"
+        }
+      ],
+      "published_at": "2026-08-01T12:22:17.139Z",
+      "advisory_url": "https://github.com/guzzle/guzzle/security/advisories/GHSA-94pj-82f3-465w",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 6.9,
+            "source": "VulnCheck CNA (cveawg.mitre.org)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "medium",
+            "score": 6.9,
+            "source": "NVD secondary (disclosure@vulncheck.com)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "medium",
+            "score": 5.3,
+            "source": "VulnCheck CNA (cveawg.mitre.org)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.3,
+            "source": "NVD secondary (disclosure@vulncheck.com)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.3,
+            "source": "GHSA-94pj-82f3-465w",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "The VulnCheck CNA and both NVD secondary metrics cover this record: CVSS 4.0 6.9 Medium (AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N) and CVSS 3.1 5.3 Medium. The CNA itself publishes both the 4.0 6.9 and the 3.1 5.3 scores, and the GHSA also carries the 3.1 5.3 vector, so the 5.3 number is not GHSA-only. NVD has no primary metric and the record remains Awaiting Analysis. The CNA problemType lists only CWE-200 while the GHSA lists CWE-200/201/522.",
+        "score": 6.9,
+        "source": "VulnCheck CNA (CVSS 4.0 6.9 and 3.1 5.3); NVD two secondary metrics (4.0 6.9, 3.1 5.3); GHSA (3.1 5.3)",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-67339",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

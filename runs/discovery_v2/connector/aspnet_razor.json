@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_razor",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Mvc/Mvc.Razor/src/Microsoft.AspNetCore.Mvc.Razor.csproj",
+  "retrieved_at": "2026-10-21T10:56:28.692Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core MVC Razor view engine for CSHTML files.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;aspnetcoremvc;cshtml;razor</PackageTags>\n    <IsPackable>false</IsPackable>\n    <Nullable>enable</Nullable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <PackageReference Include=\"Microsoft.Extensions.Caching.Memory\" />\n    <PackageReference Include=\"Microsoft.Extensions.FileProviders.Composite\" />\n\n    <ProjectReference Include=\"$(RepoRoot)src\\Antiforgery\\src\\Microsoft.AspNetCore.Antiforgery.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Components\\Components\\src\\Microsoft.AspNetCore.Components.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Abstractions\\src\\Microsoft.AspNetCore.Hosting.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Html.Abstractions\\src\\Microsoft.AspNetCore.Html.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Mvc\\Mvc.Abstractions\\src\\Microsoft.AspNetCore.Mvc.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Mvc\\Mvc.Core\\src\\Microsoft.AspNetCore.Mvc.Core.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Mvc\\Mvc.ViewFeatures\\src\\Microsoft.AspNetCore.Mvc.ViewFeatures.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Razor\\Razor.Runtime\\src\\Microsoft.AspNetCore.Razor.Runtime.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Razor\\Razor\\src\\Microsoft.AspNetCore.Razor.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc.RazorPages\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc.TagHelpers\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc.Test\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc.Razor.Test\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.Test\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc.RazorPages.Test\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Mvc.TagHelpers.Test\" />\n    <InternalsVisibleTo Include=\"DynamicProxyGenAssembly2\" Key=\"$(MoqPublicKey)\" />\n  </ItemGroup>\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "a3272f4e5d9fd4bd1f8a8db04f00fb00e8e3ffe1",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Mvc/Mvc.Razor/src/Microsoft.AspNetCore.Mvc.Razor.csproj",
+      "display_title": "Microsoft.AspNetCore.Mvc.Razor.csproj"
+    },
+    "isError": false
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "advisories": [],
+  "query": {
+    "repository_full_name": "nlohmann/json",
+    "url": "https://api.github.com/repos/nlohmann/json/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:28.185381+00:00",
+  "tool": "github_rest_readonly"
+}

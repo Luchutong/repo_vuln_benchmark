@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_httpconnections",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/SignalR/common/Http.Connections/src/Microsoft.AspNetCore.Http.Connections.csproj",
+  "retrieved_at": "2026-10-21T10:56:27.552Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>Components for providing real-time bi-directional communication across the Web.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>\n    <IsPackable>false</IsPackable>\n    <Nullable>enable</Nullable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SignalRSharedSourceRoot)AwaitableThreadPool.cs\" Link=\"AwaitableThreadPool.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)MemoryBufferWriter.cs\" Link=\"MemoryBufferWriter.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)PipeWriterStream.cs\" Link=\"PipeWriterStream.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)WebSocketExtensions.cs\" Link=\"WebSocketExtensions.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)StreamExtensions.cs\" Link=\"StreamExtensions.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)DuplexPipe.cs\" Link=\"DuplexPipe.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)TaskCache.cs\" Link=\"Internal\\TaskCache.cs\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SharedSourceRoot)SecurityHelper\\**\\*.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)WebEncoders\\**\\*.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)ValueTaskExtensions\\**\\*.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)NonCapturingTimer\\*.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)Metrics\\MetricsConstants.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)ThrowHelpers\\ArgumentNullThrowHelper.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ThrowHelpers\\ArgumentOutOfRangeThrowHelper.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)CallerArgument\\CallerArgumentExpressionAttribute.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ConnectionEndpointTags.cs\" LinkBase=\"Shared\" />\n  </ItemGroup>\n\n  <ItemGroup>\n\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Abstractions\\src\\Microsoft.AspNetCore.Hosting.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Authentication.Abstractions\\src\\Microsoft.AspNetCore.Authentication.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Extensions\\src\\Microsoft.AspNetCore.Http.Extensions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http\\src\\Microsoft.AspNetCore.Http.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Routing.Abstractions\\src\\Microsoft.AspNetCore.Routing.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Routing\\src\\Microsoft.AspNetCore.Routing.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Middleware\\WebSockets\\src\\Microsoft.AspNetCore.WebSockets.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Security\\Authorization\\Policy\\src\\Microsoft.AspNetCore.Authorization.Policy.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\SignalR\\common\\Http.Connections.Common\\src\\Microsoft.AspNetCore.Http.Connections.Common.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Http.Connections.Tests\" />\n  </ItemGroup>\n\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "003da4db6df3447ee392db56f2b268ea8719e0f8",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/SignalR/common/Http.Connections/src/Microsoft.AspNetCore.Http.Connections.csproj",
+      "display_title": "Microsoft.AspNetCore.Http.Connections.csproj"
+    },
+    "isError": false
+  }
+}

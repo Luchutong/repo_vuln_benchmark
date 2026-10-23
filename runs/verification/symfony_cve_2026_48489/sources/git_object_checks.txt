@@ -1,0 +1,38 @@
+CVE-2026-48489 -- static git object checks (symfony/symfony, local bare mirror /tmp/symfony_git)
+Generated 2026-10-22
+
+tag peels
+  v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+  v5.4.53 -> 6436e377f7a82a1e7b120da519c7c96a154ece2a
+  (the v5.4.53 tag and 200 commits of its history were fetched for this check; v5.4.45 is unchanged)
+
+fix commit
+  c48a4276309e11aedeeb0ce3a89dfbf0b4fe04ff
+  author date 2026-05-21 16:04:29 +0200
+  subject "[Security] Don't honor user-supplied _failure_path on failure_forward"
+
+ancestry
+  git merge-base --is-ancestor c48a4276 v5.4.53 -> YES
+  git merge-base --is-ancestor c48a4276 v5.4.45 -> NO
+
+blob ids for src/Symfony/Component/Security/Http/Authentication/DefaultAuthenticationFailureHandler.php
+  v5.4.45: 2d1fa8c8e0c0907cd6769afdbb4d72bd4c949ba1
+  v5.4.53: 3e4c03149d223667fd00a30c16235a38062e82df
+  patch pre-image 2d1fa8c8e0c09, post-image 3e4c03149d223 -- matches
+
+vulnerable behaviour at v5.4.45 (handler)
+  line 74: $failureUrl = ParameterBagUtils::getRequestParameterValue($request, $options['failure_path_parameter']);
+  line 76-77: a string starting with "/" or "http" is written into $options['failure_path']
+  line 82: defaults to login_path when still null
+  line 84: if ($options['failure_forward'])
+  line 89: $subRequest = $this->httpUtils->createRequest($request, $options['failure_path']);
+  line 92: return $this->httpKernel->handle($subRequest, HttpKernelInterface::SUB_REQUEST);
+  the request parameter is honoured before the failure_forward branch, so the subrequest target is attacker-controlled
+
+fixed behaviour at v5.4.53 (handler)
+  the failure_forward branch now comes first and defaults failure_path to login_path without reading the request parameter
+  the ParameterBagUtils lookup and the "/" / "http" assignment moved below the branch, so they only affect the redirect path
+
+patch contents (c48a4276)
+  DefaultAuthenticationFailureHandler.php: reorder the failure_forward branch above the request-parameter handling
+  DefaultAuthenticationFailureHandlerTest.php: regression tests for forwarded requests with a supplied _failure_path

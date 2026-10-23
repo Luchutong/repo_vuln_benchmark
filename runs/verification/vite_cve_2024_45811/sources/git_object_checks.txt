@@ -1,0 +1,76 @@
+Repository: https://github.com/vitejs/vite
+Local mirror: /tmp/vite_vuln.git (partial clone with tags v5.0.11, v5.1.7, v5.1.8,
+v5.2.13, v5.2.14 and others; fetch origin https://github.com/vitejs/vite)
+
+Dataset snapshot: tag v5.0.11, commit b44c49302ffbf0c82f984f6219ed6376d1e4552a.
+  runs/language/snap_2e50b228f2432623/snapshot_proposal.json records
+  tag_or_release=v5.0.11, vulnerable_commit=b44c49302ffbf0c82f984f6219ed6376d1e4552a.
+  runs/language/snap_2e50b228f2432623/file_inventory.json records:
+    packages/vite/src/node/server/middlewares/transform.ts bytes=9504
+      git_oid=bf122e0f4b377a73ee6cebab0a7f1d9caefe9870
+    packages/vite/src/node/server/middlewares/static.ts bytes=7933
+      git_oid=dde6842aa95533431dab1c00ac421d46cbf36443
+    packages/vite/src/node/plugins/asset.ts bytes=13361
+      git_oid=afc0cb8a9b8d47239119796644a73f0fa7683a45
+  $ git rev-parse v5.0.11:packages/vite/src/node/server/middlewares/transform.ts
+  bf122e0f4b377a73ee6cebab0a7f1d9caefe9870
+  $ git rev-parse v5.0.11:packages/vite/src/node/server/middlewares/static.ts
+  dde6842aa95533431dab1c00ac421d46cbf36443
+  $ git rev-parse v5.0.11:packages/vite/src/node/plugins/asset.ts
+  afc0cb8a9b8d47239119796644a73f0fa7683a45
+  All three match the snapshot inventory.
+
+Fix commit for the 5.0/5.1 line: 03f103383e17d2beb02d7d12070ae0c1f5b9400d
+  "fix: fs raw query (#18112)", 2024-09-16, in release v5.1.8
+  (tag v5.1.8 -> commit fe6323127ba74a159b1ae3cd3cf2fe1677087128).
+  It exports ensureServingAccess from static.ts and inserts, before the
+  import/JS request block of transformMiddleware:
+
+    if (
+      (rawRE.test(url) || urlRE.test(url)) &&
+      !ensureServingAccess(url, server, res, next)
+    ) {
+      return
+    }
+
+  Ancestry:
+    $ git merge-base --is-ancestor 03f103383 v5.0.11^{commit} ; echo $? -> 1
+    $ git merge-base --is-ancestor 03f103383 v5.1.7^{commit} ; echo $?  -> 1
+    $ git merge-base --is-ancestor 03f103383 v5.1.8^{commit} ; echo $?  -> 0
+    $ git tag --contains 03f103383 | sort -V | head -1                 -> v5.1.8
+
+Other release lines carry the same patch as separate commits:
+  8339d7408668686bae56eaccbfdc7b87612904bd (5.2 line, first in v5.2.14),
+  6820bb3b9a54334f3268fc5ee1e967d2e1c0db34 (5.4 line, parent is v5.4.5 37881e7),
+  a6da45082b6e73ddfdcdcc06bb5414f976a388d6 (3.2 line, parent is v3.2.10 1a8728f,
+  contained in v3.2.11),
+  4573a6fd6f1b097fb7296a3e135e0646b996b249 (5.3 line),
+  b901438f99e667f76662840826eec91c8ab3b3e7 (4.x line; not present in this partial mirror).
+  03f103383 is the 5.1-branch cherry-pick of PR #18112 (parent v5.1.7); the main-branch
+  merge commit is 9d2413c8. It is not itself listed in the GHSA/CVE reference list, but it
+  is the commit actually released in v5.1.8.
+The GitHub advisory GHSA-9cwx-2883-4wfx lists ranges 5.0.0-<5.1.8,
+5.2.0-<5.2.14, 5.3.0-<5.3.6, 5.4.0-<5.4.6, 4.0.0-<4.5.4/4.5.5 and <3.2.11;
+the CVE v5 CNA record lumps the 5.x lines as >=5.0.0,<5.2.14.
+
+Vulnerable code at the snapshot:
+  packages/vite/src/node/server/middlewares/transform.ts lines 137-142 open the
+  import/JS request branch (isJSRequest/isImportRequest/isCSSRequest/isHTMLProxy)
+  without an ensureServingAccess call. A `?import&raw` URL enters this branch,
+  removeImportQuery (line 144) and unwrapId (line 147) leave `/@fs/<path>?raw`,
+  and transformRequest (line 172) runs the asset plugin's load hook, which at
+  lines 189-196 of asset.ts matches rawRE and returns `await fsp.readFile(file,
+  'utf-8')` (line 194) for the resolved file without consulting
+  isFileServingAllowed. transformRequest's own isFileServingAllowed check
+  (transformRequest.ts line 212) only guards its fallback fs branch, which is
+  not reached because the asset plugin returns code for the raw query. The
+  serveRawFsMiddleware check in static.ts (lines 181-191) is bypassed because
+  the request is answered by the transform middleware first. Extensionless
+  targets also reach this branch with a plain `?raw` through isJSRequest.
+
+Duplicate check in the dataset: the two promoted vite entries are
+CVE-2024-31207 (server.fs.deny glob matching with picomatch matchBase, fixed in
+5.0.13) and CVE-2024-23331 (case-sensitive deny bypass, fixed 5.0.12). This
+candidate is a different root cause: the raw/url query path in
+transformMiddleware never calls the fs serving check at all, fixed by 03f103383
+in 5.1.8. CVE-2024-45812 (DOM clobbering in bundled scripts) is unrelated.

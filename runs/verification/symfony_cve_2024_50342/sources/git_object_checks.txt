@@ -1,0 +1,106 @@
+$ git rev-parse v5.4.45^{} v5.4.46^{} v5.4.47^{}
+2b66d7d7d8129531229708ef708860844db91944
+057d88bef2d18a10d3b0b8fb093332131dc58e2f
+d869cc180cf38d3848feff1dcf38fefaecfd8177
+$ git rev-parse v6.4.13^{} v6.4.14^{} v6.4.15^{}
+5128d5b8dd1f5b946a0fdc7dae6a8c13c5d21ac8
+d1797e5b5b549673b1d5aac7a081af8db9f258e6
+cfb00ec539f6a3b5a9fb43c8cba67a21725e8937
+$ git rev-parse v7.1.6^{} v7.1.7^{} v7.1.8^{}
+da35c47b031b16acac449a4459424e55cbb20892
+5001143568bc2bce9ec77f7a85076aa75d38795e
+fa8dfde81afc7854283eb4c0261213dc098d4930
+== first patch 296d4b34
+$ git show -s --format=%H %P %ad %s 296d4b34a33b1a6ca5475c6040b3203622520f5b
+296d4b34a33b1a6ca5475c6040b3203622520f5b 706d8628e52f7d912077ecd03ea3ca4ecbf841ac Fri Oct 25 10:13:01 2024 +0200 [HttpClient] Filter private IPs before connecting when Host == IP
+== second patch b4bf5afd
+$ git show -s --format=%H %P %ad %s b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa
+b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa 2c7c4bac11fbf2c75837a02a4e6f1e9c39bc7702 Fri Nov 8 09:23:38 2024 +0100 [HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient
+== security merges
+$ git show -s --format=%H %P %ad %s 3fc5471c2641ff92dd5dd84bad7c4226746e81d4
+3fc5471c2641ff92dd5dd84bad7c4226746e81d4 ad0a241e7928596cd3ceea09178510d07d8a8a4e 296d4b34a33b1a6ca5475c6040b3203622520f5b Tue Nov 5 16:55:15 2024 +0100 security #cve-2024-50342 [HttpClient] Filter private IPs before connecting when Host == IP (nicolas-grekas)
+$ git show -s --format=%H %P %ad %s b8f41169981f0f05751bc17105acfbabbda32f61
+b8f41169981f0f05751bc17105acfbabbda32f61 cb1947029b29903dc71553efab4b1333bbdb8e9f b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa Wed Nov 13 14:34:07 2024 +0100 security #cve-2024-50342 [HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient (nicolas-grekas)
+== ancestry: first patch 296d4b34 (git merge-base --is-ancestor)
+v5.4.45=not-ancestor
+v5.4.46=ancestor
+v5.4.47=ancestor
+v6.4.13=not-ancestor
+v6.4.14=ancestor
+v6.4.15=ancestor
+v7.1.6=not-ancestor
+v7.1.7=ancestor
+v7.1.8=ancestor
+== ancestry: second patch b4bf5afd (git merge-base --is-ancestor)
+v5.4.45=not-ancestor
+v5.4.46=not-ancestor
+v5.4.47=ancestor
+v6.4.13=not-ancestor
+v6.4.14=not-ancestor
+v6.4.15=ancestor
+v7.1.6=not-ancestor
+v7.1.7=not-ancestor
+v7.1.8=ancestor
+== file history 5.4
+$ git log --oneline v5.4.45..v5.4.46 -- src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+296d4b34a3 [HttpClient] Filter private IPs before connecting when Host == IP
+$ git log --oneline v5.4.46..v5.4.47 -- src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+b4bf5afdbd [HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient
+$ git log --oneline v6.4.13..v6.4.14 -- src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+236222a3a9 Merge branch '5.4' into 6.4
+296d4b34a3 [HttpClient] Filter private IPs before connecting when Host == IP
+$ git log --oneline v6.4.14..v6.4.15 -- src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+591a134769 Merge branch '5.4' into 6.4
+37407f82f7 Merge branch '5.4' into 6.4
+b4bf5afdbd [HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient
+== file blob ids
+$ git rev-parse v5.4.45:src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+757a9e8a9b38eebeb67e1812d7becee87fa61292
+$ git rev-parse v5.4.46:src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+c252fce8cd6f23f5a33c94098c645c181b96fbdf
+$ git rev-parse v5.4.47:src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+ed282e3ad94e585f09547eb28ededf5ff9a66dde
+== fixed-file spot checks (grep -n)
+$ git show v6.4.14:.../NoPrivateNetworkHttpClient.php | grep -n -E 'dns_get_record|\$resolve|primary_ip'
+73:            if ($info['primary_ip'] !== $lastPrimaryIp) {
+74:                if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? IpUtils::PRIVATE_SUBNETS)) {
+75:                    throw new TransportException(sprintf('IP "%s" is blocked for "%s".', $info['primary_ip'], $info['url']));
+78:                $lastPrimaryIp = $info['primary_ip'];
+$ git show v6.4.15:.../NoPrivateNetworkHttpClient.php | grep -n -E 'dns_get_record|\$resolve|primary_ip'
+59:        $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info, ?\Closure $resolve = null) use ($onProgress, $subnets): void {
+65:                $resolve ??= static fn () => null;
+70:                    && !$ip = $resolve($host)
+72:                    if ($ip = @(dns_get_record($host, \DNS_A)[0]['ip'] ?? null)) {
+73:                        $resolve($host, $ip);
+74:                    } elseif ($ip = @(dns_get_record($host, \DNS_AAAA)[0]['ipv6'] ?? null)) {
+75:                        $resolve($host, '['.$ip.']');
+86:            if ($info['primary_ip'] !== $lastPrimaryIp) {
+87:                if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? IpUtils::PRIVATE_SUBNETS)) {
+88:                    throw new TransportException(sprintf('IP "%s" is blocked for "%s".', $info['primary_ip'], $info['url']));
+91:                $lastPrimaryIp = $info['primary_ip'];
+$ git show v7.1.7:.../NoPrivateNetworkHttpClient.php | grep -n -E 'dns_get_record|\$resolve|primary_ip'
+73:            if ($info['primary_ip'] !== $lastPrimaryIp) {
+74:                if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? IpUtils::PRIVATE_SUBNETS)) {
+75:                    throw new TransportException(sprintf('IP "%s" is blocked for "%s".', $info['primary_ip'], $info['url']));
+78:                $lastPrimaryIp = $info['primary_ip'];
+$ git show v7.1.8:.../NoPrivateNetworkHttpClient.php | grep -n -E 'dns_get_record|\$resolve|primary_ip'
+59:        $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info, ?\Closure $resolve = null) use ($onProgress, $subnets): void {
+65:                $resolve ??= static fn () => null;
+70:                    && !$ip = $resolve($host)
+72:                    if ($ip = @(dns_get_record($host, \DNS_A)[0]['ip'] ?? null)) {
+73:                        $resolve($host, $ip);
+74:                    } elseif ($ip = @(dns_get_record($host, \DNS_AAAA)[0]['ipv6'] ?? null)) {
+75:                        $resolve($host, '['.$ip.']');
+86:            if ($info['primary_ip'] !== $lastPrimaryIp) {
+87:                if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? IpUtils::PRIVATE_SUBNETS)) {
+88:                    throw new TransportException(sprintf('IP "%s" is blocked for "%s".', $info['primary_ip'], $info['url']));
+91:                $lastPrimaryIp = $info['primary_ip'];
+== blob equality: vulnerable file vs fix parents
+$ git rev-parse 706d8628...:.../NoPrivateNetworkHttpClient.php
+757a9e8a9b38eebeb67e1812d7becee87fa61292
+$ git rev-parse 2c7c4bac...:.../NoPrivateNetworkHttpClient.php
+c252fce8cd6f23f5a33c94098c645c181b96fbdf
+$ git rev-parse v5.4.45:.../NoPrivateNetworkHttpClient.php
+757a9e8a9b38eebeb67e1812d7becee87fa61292
+$ git rev-parse v5.4.46:.../NoPrivateNetworkHttpClient.php
+c252fce8cd6f23f5a33c94098c645c181b96fbdf

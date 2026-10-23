@@ -1,0 +1,24 @@
+{
+  "key": "spring_modules",
+  "repository": "spring-projects/spring-framework",
+  "path": "settings.gradle",
+  "retrieved_at": "2026-10-21T10:54:18.262Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "plugins {\n\tid \"io.spring.develocity.conventions\" version \"0.0.25\"\n}\n\ninclude \"spring-aop\"\ninclude \"spring-aspects\"\ninclude \"spring-beans\"\ninclude \"spring-context\"\ninclude \"spring-context-indexer\"\ninclude \"spring-context-support\"\ninclude \"spring-core\"\ninclude \"spring-core-test\"\ninclude \"spring-expression\"\ninclude \"spring-instrument\"\ninclude \"spring-jdbc\"\ninclude \"spring-jms\"\ninclude \"spring-messaging\"\ninclude \"spring-orm\"\ninclude \"spring-oxm\"\ninclude \"spring-r2dbc\"\ninclude \"spring-test\"\ninclude \"spring-tx\"\ninclude \"spring-web\"\ninclude \"spring-webflux\"\ninclude \"spring-webmvc\"\ninclude \"spring-websocket\"\ninclude \"framework-api\"\ninclude \"framework-bom\"\ninclude \"framework-docs\"\ninclude \"framework-platform\"\ninclude \"integration-tests\"\n\nrootProject.name = \"spring\"\nrootProject.children.each {project ->\n\tproject.buildFileName = \"${project.name}.gradle\"\n}\n\nsettings.gradle.projectsLoaded {\n\tdevelocity {\n\t\tbuildScan {\n\t\t\tFile buildDir = settings.gradle.rootProject\n\t\t\t\t\t.getLayout().getBuildDirectory().getAsFile().get()\n\t\t\tbuildDir.mkdirs()\n\t\t\tnew File(buildDir, \"build-scan-uri.txt\").text = \"(build scan not generated)\"\n\t\t\tbuildScanPublished { scan ->\n\t\t\t\tif (buildDir.exists()) {\n\t\t\t\t\tnew File(buildDir, \"build-scan-uri.txt\").text = \"${scan.buildScanUri}\\n\"\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t}\n}\n",
+      "encoding": "utf-8",
+      "sha": "052b11485e89a4a60e233c34a99d160990cca226",
+      "display_url": "https://github.com/spring-projects/spring-framework/blob/main/settings.gradle",
+      "display_title": "settings.gradle"
+    },
+    "isError": false
+  }
+}

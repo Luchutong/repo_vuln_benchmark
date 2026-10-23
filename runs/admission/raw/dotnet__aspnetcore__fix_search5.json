@@ -1,0 +1,1 @@
+{"tool":"github_search_commits","query":{"query":"lockout committer-date:2023-01-01..2023-08-01","repository_full_name":"dotnet/aspnetcore","topn":10},"retrieved_at":"2026-10-21T11:52:45.362Z","is_error":false,"response":{"content":[{"type":"text","text":"Action completed."}],"structuredContent":{"commits":[]},"isError":false}}

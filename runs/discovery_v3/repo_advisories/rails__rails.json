@@ -1,0 +1,3068 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "0xacb",
+          "type": "reporter"
+        },
+        {
+          "login": "Ry0taK",
+          "type": "reporter"
+        },
+        {
+          "login": "flavorjones",
+          "type": "coordinator"
+        },
+        {
+          "login": "jeremy",
+          "type": "remediation_reviewer"
+        },
+        {
+          "login": "byroot",
+          "type": "remediation_reviewer"
+        },
+        {
+          "login": "ethiack-admin",
+          "type": "finder"
+        },
+        {
+          "login": "s3np41k1r1t0",
+          "type": "finder"
+        },
+        {
+          "login": "castilho101",
+          "type": "finder"
+        },
+        {
+          "login": "rafaelfranca",
+          "type": "remediation_reviewer"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/4028874?v=4",
+            "events_url": "https://api.github.com/users/0xacb/events{/privacy}",
+            "followers_url": "https://api.github.com/users/0xacb/followers",
+            "following_url": "https://api.github.com/users/0xacb/following{/other_user}",
+            "gists_url": "https://api.github.com/users/0xacb/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/0xacb",
+            "id": 4028874,
+            "login": "0xacb",
+            "node_id": "MDQ6VXNlcjQwMjg4NzQ=",
+            "organizations_url": "https://api.github.com/users/0xacb/orgs",
+            "received_events_url": "https://api.github.com/users/0xacb/received_events",
+            "repos_url": "https://api.github.com/users/0xacb/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/0xacb/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/0xacb/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/0xacb",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/49341894?v=4",
+            "events_url": "https://api.github.com/users/Ry0taK/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Ry0taK/followers",
+            "following_url": "https://api.github.com/users/Ry0taK/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Ry0taK/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Ry0taK",
+            "id": 49341894,
+            "login": "Ry0taK",
+            "node_id": "MDQ6VXNlcjQ5MzQxODk0",
+            "organizations_url": "https://api.github.com/users/Ry0taK/orgs",
+            "received_events_url": "https://api.github.com/users/Ry0taK/received_events",
+            "repos_url": "https://api.github.com/users/Ry0taK/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Ry0taK/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Ry0taK/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Ry0taK",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "coordinator",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/8207?v=4",
+            "events_url": "https://api.github.com/users/flavorjones/events{/privacy}",
+            "followers_url": "https://api.github.com/users/flavorjones/followers",
+            "following_url": "https://api.github.com/users/flavorjones/following{/other_user}",
+            "gists_url": "https://api.github.com/users/flavorjones/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/flavorjones",
+            "id": 8207,
+            "login": "flavorjones",
+            "node_id": "MDQ6VXNlcjgyMDc=",
+            "organizations_url": "https://api.github.com/users/flavorjones/orgs",
+            "received_events_url": "https://api.github.com/users/flavorjones/received_events",
+            "repos_url": "https://api.github.com/users/flavorjones/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/flavorjones/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/flavorjones/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/flavorjones",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_reviewer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/199?v=4",
+            "events_url": "https://api.github.com/users/jeremy/events{/privacy}",
+            "followers_url": "https://api.github.com/users/jeremy/followers",
+            "following_url": "https://api.github.com/users/jeremy/following{/other_user}",
+            "gists_url": "https://api.github.com/users/jeremy/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/jeremy",
+            "id": 199,
+            "login": "jeremy",
+            "node_id": "MDQ6VXNlcjE5OQ==",
+            "organizations_url": "https://api.github.com/users/jeremy/orgs",
+            "received_events_url": "https://api.github.com/users/jeremy/received_events",
+            "repos_url": "https://api.github.com/users/jeremy/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/jeremy/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/jeremy/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/jeremy",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_reviewer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/44640?v=4",
+            "events_url": "https://api.github.com/users/byroot/events{/privacy}",
+            "followers_url": "https://api.github.com/users/byroot/followers",
+            "following_url": "https://api.github.com/users/byroot/following{/other_user}",
+            "gists_url": "https://api.github.com/users/byroot/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/byroot",
+            "id": 44640,
+            "login": "byroot",
+            "node_id": "MDQ6VXNlcjQ0NjQw",
+            "organizations_url": "https://api.github.com/users/byroot/orgs",
+            "received_events_url": "https://api.github.com/users/byroot/received_events",
+            "repos_url": "https://api.github.com/users/byroot/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/byroot/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/byroot/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/byroot",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/159800143?v=4",
+            "events_url": "https://api.github.com/users/ethiack-admin/events{/privacy}",
+            "followers_url": "https://api.github.com/users/ethiack-admin/followers",
+            "following_url": "https://api.github.com/users/ethiack-admin/following{/other_user}",
+            "gists_url": "https://api.github.com/users/ethiack-admin/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/ethiack-admin",
+            "id": 159800143,
+            "login": "ethiack-admin",
+            "node_id": "U_kgDOCYZbTw",
+            "organizations_url": "https://api.github.com/users/ethiack-admin/orgs",
+            "received_events_url": "https://api.github.com/users/ethiack-admin/received_events",
+            "repos_url": "https://api.github.com/users/ethiack-admin/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/ethiack-admin/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/ethiack-admin/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/ethiack-admin",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/30960262?v=4",
+            "events_url": "https://api.github.com/users/s3np41k1r1t0/events{/privacy}",
+            "followers_url": "https://api.github.com/users/s3np41k1r1t0/followers",
+            "following_url": "https://api.github.com/users/s3np41k1r1t0/following{/other_user}",
+            "gists_url": "https://api.github.com/users/s3np41k1r1t0/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/s3np41k1r1t0",
+            "id": 30960262,
+            "login": "s3np41k1r1t0",
+            "node_id": "MDQ6VXNlcjMwOTYwMjYy",
+            "organizations_url": "https://api.github.com/users/s3np41k1r1t0/orgs",
+            "received_events_url": "https://api.github.com/users/s3np41k1r1t0/received_events",
+            "repos_url": "https://api.github.com/users/s3np41k1r1t0/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/s3np41k1r1t0/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/s3np41k1r1t0/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/s3np41k1r1t0",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/60802176?v=4",
+            "events_url": "https://api.github.com/users/castilho101/events{/privacy}",
+            "followers_url": "https://api.github.com/users/castilho101/followers",
+            "following_url": "https://api.github.com/users/castilho101/following{/other_user}",
+            "gists_url": "https://api.github.com/users/castilho101/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/castilho101",
+            "id": 60802176,
+            "login": "castilho101",
+            "node_id": "MDQ6VXNlcjYwODAyMTc2",
+            "organizations_url": "https://api.github.com/users/castilho101/orgs",
+            "received_events_url": "https://api.github.com/users/castilho101/received_events",
+            "repos_url": "https://api.github.com/users/castilho101/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/castilho101/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/castilho101/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/castilho101",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_reviewer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/47848?v=4",
+            "events_url": "https://api.github.com/users/rafaelfranca/events{/privacy}",
+            "followers_url": "https://api.github.com/users/rafaelfranca/followers",
+            "following_url": "https://api.github.com/users/rafaelfranca/following{/other_user}",
+            "gists_url": "https://api.github.com/users/rafaelfranca/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/rafaelfranca",
+            "id": 47848,
+            "login": "rafaelfranca",
+            "node_id": "MDQ6VXNlcjQ3ODQ4",
+            "organizations_url": "https://api.github.com/users/rafaelfranca/orgs",
+            "received_events_url": "https://api.github.com/users/rafaelfranca/received_events",
+            "repos_url": "https://api.github.com/users/rafaelfranca/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/rafaelfranca/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/rafaelfranca/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/rafaelfranca",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-66066",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 9.5,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:H/SI:H/SA:H"
+        }
+      },
+      "cwe_ids": [
+        "CWE-1188"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-1188",
+          "name": "Initialization of a Resource with an Insecure Default"
+        }
+      ],
+      "description": "### Impact\r\nIn its default configuration, a Rails application that displays image variants may allow an\r\nunauthenticated attacker to read arbitrary files from the server, including the process environment.\r\nThat environment typically holds `secret_key_base` and often credentials for external systems, which\r\nmay in turn allow escalation to remote code execution or lateral movement to those systems.\r\n\r\n### Details\r\nlibvips reads and writes file formats through \"loaders\" and \"savers\" (or more generally\r\n\"operations\"), many of which are backed by third-party libraries. It marks some of these operations\r\nas \"unfuzzed\", meaning they are unsafe for untrusted content, and several handle formats unrelated\r\nto web images. Active Storage did not disable the unfuzzed operations, so an attacker who can upload\r\na crafted file and cause a variant to be generated from it may be able to invoke one.\r\n\r\nWe are aware of a mechanism by which an attacker, by uploading a crafted file, is able to cause\r\ndisclosure of the contents of arbitrary files accessible on the filesystem of the targeted\r\napplication. One specific attack chain has been reported to us (see \"Disclosure\" below), but we do\r\nnot assume it is the only one that exists.\r\n\r\n### Affected applications\r\nAn application is affected if it meets all of these requirements:\r\n- Uses libvips for Active Storage image processing. This is `config.active_storage.variant_processor = :vips`,\r\n  which `load_defaults 7.0` set and no later default has changed.\r\n- Allows image uploads from untrusted users.\r\n\r\nGenerating variants is not a separate requirement.\r\n\r\n### Mitigation\r\n- Upgrade to a fixed version of `activestorage`.\r\n- The minimum version of libvips must be upgraded to `>= 8.13`.\r\n- Change `secret_key_base` and change any secrets accessible in the application environment (see \"Expire and change secrets\" below)\r\n\r\nEarlier versions of libvips (`< 8.13`) cannot disable unfuzzed operations at all, and Active Storage\r\nwill raise an exception during boot in such an unsecurable environment.\r\n\r\n### Expire and change secrets\r\n\r\nUpgrading closes the vulnerability but does not undo an exfiltrated secret if that already\r\noccurred. An affected application should treat every secret readable by the application process as\r\npotentially exposed and change it, including:\r\n\r\n- `secret_key_base`\r\n- The master key, whether stored in `config/master.key` or supplied as `RAILS_MASTER_KEY`, along\r\n  with everything in `config/credentials.yml.enc` that it decrypts\r\n- Credentials for the Active Storage service, such as S3, GCS, or Azure keys\r\n- Database credentials\r\n- Tokens and keys for any third-party service the application calls\r\n\r\nChanging `secret_key_base` expires active sessions and requires users to log in again. Encrypted\r\ncookies, signed cookies, signed global IDs, and Active Storage URLs are also affected.\r\n\r\nRotation should only be used as an intermediate step if necessary. Do not retain an exposed secret\r\nas a fallback.\r\n\r\n### Workarounds\r\nIf libvips `< 8.13` is being used, there are no workarounds available other than removing the\r\ndependency on libvips from the application. Some applications may have `ruby-vips` declared as a\r\ndependency only for image analysis, and those applications may be able to simply remove `ruby-vips`\r\nfrom the Gemfile to remove libvips from the application. Applications that do not use Active Storage\r\ncan remove `ruby-vips` from the Gemfile to avoid the boot-time checks.\r\n\r\nIf libvips `>= 8.13` is present on the system, applications can disable the unfuzzed operations\r\nwithout upgrading Rails by setting the `VIPS_BLOCK_UNTRUSTED` environment variable, which libvips\r\nreads while initializing.\r\n\r\nApplications also running ruby-vips `>= 2.2.1` or later can instead call\r\n`Vips.block_untrusted(true)` from an initializer.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Versions affected\r\n\r\n- activestorage < 7.2.3.2\r\n- activestorage >= 8.0, < 8.0.5.1\r\n- activestorage >= 8.1, < 8.1.3.1\r\n\r\n### Disclosure\r\nTechnical details of the attack chain are intentionally omitted from this advisory. They would add\r\nnothing to an administrator's decision to upgrade, while making it substantially easier to attack\r\napplications that have not yet done so.\r\n\r\nDetails will be disclosed no later than 2026-08-28, via the [Rails Security\r\nAnnouncements](https://discuss.rubyonrails.org/c/security-announcements/9) forum.\r\n\r\n### Credit\r\nThis issue was responsibly reported by [0xacb](https://x.com/0xacb), [s3np41k1r1t0](https://x.com/s3np41k1r1t0) and [castilho](https://x.com/castilho101) from [Ethiack](https://ethiack.com), and [RyotaK](https://ryotak.net) from [GMO Flatt Security Inc.](https://flatt.tech/en/).\r\n\r\n### References\r\n- libvips 8.13 release notes, [blocking of unfuzzed loaders](https://www.libvips.org/2022/05/28/What's-new-in-8.13.html#blocking-of-unfuzzed-loaders)\r\n- W.A. Arbaugh, W.L. Fithen, and J. McHugh, [\"Windows of Vulnerability: A Case Study\r\n  Analysis\"](https://doi.org/10.1109/2.889093), IEEE Computer 33(12), December 2000\r\n- https://ethiack.com/info-hub/research/kindarails2shell-rails-rce-cve\r\n- https://blog.flatt.tech/entry/kindarails2shell_rails\r\n",
+      "ghsa_id": "GHSA-xr9x-r78c-5hrm",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-xr9x-r78c-5hrm",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-xr9x-r78c-5hrm"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-66066"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-07-29T15:09:37Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/44640?v=4",
+        "events_url": "https://api.github.com/users/byroot/events{/privacy}",
+        "followers_url": "https://api.github.com/users/byroot/followers",
+        "following_url": "https://api.github.com/users/byroot/following{/other_user}",
+        "gists_url": "https://api.github.com/users/byroot/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/byroot",
+        "id": 44640,
+        "login": "byroot",
+        "node_id": "MDQ6VXNlcjQ0NjQw",
+        "organizations_url": "https://api.github.com/users/byroot/orgs",
+        "received_events_url": "https://api.github.com/users/byroot/received_events",
+        "repos_url": "https://api.github.com/users/byroot/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/byroot/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/byroot/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/byroot",
+        "user_view_type": "public"
+      },
+      "severity": "critical",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible arbitrary file read and remote code execution in Active Storage variant processing",
+      "updated_at": "2026-07-29T15:09:37Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-xr9x-r78c-5hrm",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.2.3.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.2"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.0.5.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.5.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.1.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2026-33202",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nActive Storage's `DiskService#delete_prefixed` passes blob keys directly to `Dir.glob` without escaping glob metacharacters. If a blob key contains attacker-controlled input or custom-generated keys with glob metacharacters, it may be possible to delete unintended files from the storage directory.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n",
+      "ghsa_id": "GHSA-73f9-jhhh-hr5m",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-73f9-jhhh-hr5m",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-73f9-jhhh-hr5m"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33202"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T19:57:24Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible glob injection in Active Storage DiskService",
+      "updated_at": "2026-03-23T21:23:58Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-73f9-jhhh-hr5m",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2026-33195",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nActive Storage's `DiskService#path_for` does not validate that the resolved filesystem path remains within the storage root directory. If a blob key containing path traversal sequences (e.g. `../`) is used, it could allow reading, writing, or deleting arbitrary files on the server. Blob keys are expected to be trusted strings, but some applications could be passing user input as keys and would be affected.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by Hackerone researcher [ksw9722](https://hackerone.com/ksw9722).",
+      "ghsa_id": "GHSA-9xrj-h377-fr87",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-9xrj-h377-fr87",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-9xrj-h377-fr87"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33195"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T19:57:31Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible path traversal in Active Storage DiskService",
+      "updated_at": "2026-04-21T19:15:26Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-9xrj-h377-fr87",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2026-33658",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nActive Storage's proxy controller does not limit the number of byte ranges in an HTTP Range header. A request with thousands of small ranges causes disproportionate CPU usage compared to a normal request for the same file, possibly resulting in a DoS vulnerability.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by Hackerone researcher [thwin_htet](https://hackerone.com/thwin_htet).",
+      "ghsa_id": "GHSA-p9fm-f462-ggrg",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-p9fm-f462-ggrg",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-p9fm-f462-ggrg"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33658"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T19:57:35Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible DoS vulnerability in Active Storage proxy mode via multi-range requests",
+      "updated_at": "2026-04-21T19:18:19Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-p9fm-f462-ggrg",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2026-33176",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nActive Support number helpers accept strings containing scientific notation (e.g. `1e10000`), which when converted to a string could be expanded into extremely large decimal representations. This can cause excessive memory allocation and CPU consumption when the expanded number is formatted, possibly resulting in a DoS vulnerability.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by Hackerone researcher [manun](https://hackerone.com/manun).",
+      "ghsa_id": "GHSA-2j26-frm8-cmj9",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-2j26-frm8-cmj9",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-2j26-frm8-cmj9"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33176"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T20:04:09Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible DoS vulnerability in Active Support number helpers",
+      "updated_at": "2026-04-21T19:25:01Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-2j26-frm8-cmj9",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Pirikara",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/65005408?v=4",
+            "events_url": "https://api.github.com/users/Pirikara/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Pirikara/followers",
+            "following_url": "https://api.github.com/users/Pirikara/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Pirikara/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Pirikara",
+            "id": 65005408,
+            "login": "Pirikara",
+            "node_id": "MDQ6VXNlcjY1MDA1NDA4",
+            "organizations_url": "https://api.github.com/users/Pirikara/orgs",
+            "received_events_url": "https://api.github.com/users/Pirikara/received_events",
+            "repos_url": "https://api.github.com/users/Pirikara/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Pirikara/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Pirikara/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Pirikara",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-33174",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nWhen serving files through Active Storage's `Blobs::ProxyController`, the controller loads the entire requested byte range into memory before sending it. A request with a large or unbounded Range header (e.g. `bytes=0-`) could cause the server to allocate memory proportional to the file size, possibly resulting in a DoS vulnerability through memory exhaustion.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by Hackerone user [pirikara](https://hackerone.com/pirikara)",
+      "ghsa_id": "GHSA-r46p-8f7g-vvvg",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-r46p-8f7g-vvvg",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-r46p-8f7g-vvvg"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33174"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T19:57:43Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible DoS vulnerability in Active Storage proxy mode via Range requests",
+      "updated_at": "2026-04-21T17:55:46Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-r46p-8f7g-vvvg",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2026-33173",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nActive Storage's `DirectUploadsController` accepts arbitrary metadata from the client and persists it on the blob. Because internal flags like `identified` and `analyzed` are stored in the same metadata hash, a malicious direct-upload client could set these flags.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis was responsible reported by Hackerone researcher [pwnie](https://hackerone.com/pwnie)",
+      "ghsa_id": "GHSA-qcfx-2mfw-w4cg",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-qcfx-2mfw-w4cg",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-qcfx-2mfw-w4cg"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33173"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T19:57:47Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Insufficient filtering of metadata in Active Storage direct uploads",
+      "updated_at": "2026-04-21T18:42:38Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-qcfx-2mfw-w4cg",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "ch4n3-yoon",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/13852925?v=4",
+            "events_url": "https://api.github.com/users/ch4n3-yoon/events{/privacy}",
+            "followers_url": "https://api.github.com/users/ch4n3-yoon/followers",
+            "following_url": "https://api.github.com/users/ch4n3-yoon/following{/other_user}",
+            "gists_url": "https://api.github.com/users/ch4n3-yoon/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/ch4n3-yoon",
+            "id": 13852925,
+            "login": "ch4n3-yoon",
+            "node_id": "MDQ6VXNlcjEzODUyOTI1",
+            "organizations_url": "https://api.github.com/users/ch4n3-yoon/orgs",
+            "received_events_url": "https://api.github.com/users/ch4n3-yoon/received_events",
+            "repos_url": "https://api.github.com/users/ch4n3-yoon/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/ch4n3-yoon/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/ch4n3-yoon/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/ch4n3-yoon",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-33170",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n`SafeBuffer#%` does not propagate the `@html_unsafe` flag to the newly created buffer. If a `SafeBuffer` is mutated in place (e.g. via `gsub!`) and then formatted with `%` using untrusted arguments, the result incorrectly reports `html_safe? == true`, bypassing ERB auto-escaping and possibly leading to XSS.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by @ch4n3-yoon",
+      "ghsa_id": "GHSA-89vf-4333-qx8v",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-89vf-4333-qx8v",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-89vf-4333-qx8v"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33170"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T20:04:20Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible XSS vulnerability in SafeBuffer#% in Active Support",
+      "updated_at": "2026-04-09T18:39:26Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-89vf-4333-qx8v",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "ch4n3-yoon",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/13852925?v=4",
+            "events_url": "https://api.github.com/users/ch4n3-yoon/events{/privacy}",
+            "followers_url": "https://api.github.com/users/ch4n3-yoon/followers",
+            "following_url": "https://api.github.com/users/ch4n3-yoon/following{/other_user}",
+            "gists_url": "https://api.github.com/users/ch4n3-yoon/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/ch4n3-yoon",
+            "id": 13852925,
+            "login": "ch4n3-yoon",
+            "node_id": "MDQ6VXNlcjEzODUyOTI1",
+            "organizations_url": "https://api.github.com/users/ch4n3-yoon/orgs",
+            "received_events_url": "https://api.github.com/users/ch4n3-yoon/received_events",
+            "repos_url": "https://api.github.com/users/ch4n3-yoon/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/ch4n3-yoon/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/ch4n3-yoon/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/ch4n3-yoon",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-33169",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n`NumberToDelimitedConverter` used a regular expression with `gsub!` to insert thousands delimiters. This could produce quadratic time complexity on long digit strings.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by Hackerone researcher [scyoon](https://hackerone.com/scyoon).\r\n",
+      "ghsa_id": "GHSA-cg4j-q9v8-6v38",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-cg4j-q9v8-6v38",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-cg4j-q9v8-6v38"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33169"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T20:04:15Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible ReDoS vulnerability in number_to_delimited in Active Support",
+      "updated_at": "2026-04-21T19:11:36Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-cg4j-q9v8-6v38",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activesupport"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2026-33168",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nWhen a blank string is used as an HTML attribute name in Action View tag helpers, the attribute escaping is bypassed, producing malformed HTML. A carefully crafted attribute value could then be misinterpreted by the browser as a separate attribute name, possibly leading to XSS. Applications that allow users to specify custom HTML attributes are affected.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by Hackerone researcher [taise](https://hackerone.com/taise).",
+      "ghsa_id": "GHSA-v55j-83pf-r9cq",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-v55j-83pf-r9cq",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-v55j-83pf-r9cq"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33168"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T20:04:25Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible XSS vulnerability in Action View tag helpers",
+      "updated_at": "2026-04-21T19:26:16Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-v55j-83pf-r9cq",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionview"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionview"
+          },
+          "patched_versions": "8.0.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionview"
+          },
+          "patched_versions": "7.2.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 7.2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2026-33167",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nThe debug exceptions page does not properly escape exception messages. A carefully crafted exception message could inject arbitrary HTML and JavaScript into the page, leading to XSS. This affects applications with detailed exception pages enabled (`config.consider_all_requests_local = true`), which is the default in development.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credit\r\nThis issue was responsibly reported by Hackerone researcher [fbettag](https://hackerone.com/fbettag).",
+      "ghsa_id": "GHSA-pgm4-439c-5jp6",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-pgm4-439c-5jp6",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-pgm4-439c-5jp6"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-33167"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T20:04:36Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible XSS vulnerability in Action Pack debug exceptions",
+      "updated_at": "2026-04-21T19:23:29Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-pgm4-439c-5jp6",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "8.1.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.1, < 8.1.2.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2025-24293",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "Active Storage attempts to prevent the use of potentially unsafe image\r\ntransformation methods and parameters by default.\r\n\r\nThe default allowed list contains three methods allowing for the circumvention\r\nof the safe defaults which enables potential command injection\r\nvulnerabilities in cases where arbitrary user supplied input is accepted as\r\nvalid transformation methods or parameters.\r\n\r\nThis has been assigned the CVE identifier CVE-2025-24293.\r\n\r\n\r\nVersions Affected:  >= 5.2.0\r\nNot affected:       < 5.2.0\r\nFixed Versions:     7.1.5.2, 7.2.2.2, 8.0.2.1\r\n\r\nImpact\r\n------\r\nThis vulnerability impacts applications that use Active Storage with the image_processing processing gem in addition to mini_magick as the image processor.\r\n\r\nVulnerable code will look something similar to this:\r\n\r\n```\r\n<%= image_tag blob.variant(params[:t] => params[:v]) %>\r\n```\r\n\r\nWhere the transformation method or its arguments are untrusted arbitrary input.\r\n\r\nAll users running an affected release should either upgrade or use one of the workarounds immediately.\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nConsuming user supplied input for image transformation methods or their parameters is unsupported behavior and should be considered dangerous.\r\n\r\nStrict validation of user supplied methods and parameters should be performed as well as having a strong [ImageMagick security policy](https://imagemagick.org/script/security-policy.php) deployed.\r\n\r\nCredits\r\n-------\r\n\r\nThank you [lio346](https://hackerone.com/lio346) for reporting this!",
+      "ghsa_id": "GHSA-r4mg-4433-c7g3",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-r4mg-4433-c7g3",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-r4mg-4433-c7g3"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-24293"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-08-13T20:43:20Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Active Storage allowed transformation methods potentially unsafe",
+      "updated_at": "2025-08-13T20:43:20Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-r4mg-4433-c7g3",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "",
+            "name": "activestorage"
+          },
+          "patched_versions": "8.0.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.2.2.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.2, < 7.2.2.2"
+        },
+        {
+          "package": {
+            "ecosystem": "",
+            "name": "activestorage"
+          },
+          "patched_versions": "7.1.5.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 0, < 7.1.5.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2025-55193",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-150"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-150",
+          "name": "Improper Neutralization of Escape, Meta, or Control Sequences"
+        }
+      ],
+      "description": "This vulnerability has been assigned the CVE identifier CVE-2025-55193\r\n\r\n### Impact\r\nThe ID passed to `find` or similar methods may be logged without escaping. If this is directly to the terminal it may include unescaped ANSI sequences.\r\n\r\n### Releases\r\nThe fixed releases are available at the normal locations.\r\n\r\n### Credits\r\n\r\nThanks to [lio346](https://hackerone.com/lio346) for reporting this vulnerability",
+      "ghsa_id": "GHSA-76r7-hhxj-r776",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-76r7-hhxj-r776",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-76r7-hhxj-r776"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-55193"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-08-13T20:43:15Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "ANSI escape injection in Active Record logging",
+      "updated_at": "2025-08-13T20:43:15Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-76r7-hhxj-r776",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activerecord"
+          },
+          "patched_versions": "8.0.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0, < 8.0.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activerecord"
+          },
+          "patched_versions": "7.2.2.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.2, < 7.2.2.2"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "activerecord"
+          },
+          "patched_versions": "7.1.5.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 0, < 7.1.5.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-54133",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "There is a possible Cross Site Scripting (XSS) vulnerability  in the `content_security_policy` helper in Action Pack.\r\n\r\nImpact\r\n------\r\nApplications which set Content-Security-Policy (CSP) headers dynamically from untrusted user input may be vulnerable to carefully crafted inputs being able to inject new directives into the CSP. This could lead to a bypass of the CSP and its protection against XSS and other attacks.\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nApplications can avoid setting CSP headers dynamically from untrusted input, or can validate/sanitize that input.\r\n\r\nCredits\r\n-------\r\nThanks to [ryotak](https://hackerone.com/ryotak) for the report!\r\n",
+      "ghsa_id": "GHSA-vfm5-rmrh-j26v",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-vfm5-rmrh-j26v",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-vfm5-rmrh-j26v"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-54133"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-12-10T21:52:47Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible Content Security Policy bypass in Action Dispatch",
+      "updated_at": "2024-12-10T21:52:47Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-vfm5-rmrh-j26v",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.0.8.7",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 5.2.0, < 7.0.8.7"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.1.5.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.1.0, <  7.1.5.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.2.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.2.0, < 7.2.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "8.0.0.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 8.0.0, < 8.0.0.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-47889",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "There is a possible ReDoS vulnerability in the block_format helper in Action Mailer. This vulnerability has been assigned the CVE identifier CVE-2024-47889.\r\n\r\nImpact\r\n------\r\n\r\nCarefully crafted text can cause the block_format helper to take an unexpected amount of time, possibly resulting in a DoS vulnerability. All users running an affected release should either upgrade or apply the relevant patch immediately.\r\n\r\nRuby 3.2 has mitigations for this problem, so Rails applications using Ruby 3.2 or newer are unaffected. Rails 8.0.0.beta1 requires Ruby 3.2 or greater so is unaffected.\r\n\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nUsers can avoid calling the `block_format` helper or upgrade to Ruby 3.2\r\n\r\nCredits\r\n-------\r\n\r\nThanks to yuki_osaki for the report!",
+      "ghsa_id": "GHSA-h47h-mwp9-c6q6",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-h47h-mwp9-c6q6",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-h47h-mwp9-c6q6"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-47889"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-10-15T21:15:41Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible ReDoS vulnerability in block_format in Action Mailer",
+      "updated_at": "2025-01-07T21:23:59Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-h47h-mwp9-c6q6",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionmailer"
+          },
+          "patched_versions": "6.1.7.9",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 3.0.0, < 6.1.7.9"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionmailer"
+          },
+          "patched_versions": "7.0.8.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.0.0, < 7.0.8.5"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionmailer"
+          },
+          "patched_versions": "7.1.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.1.0, < 7.1.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionmailer"
+          },
+          "patched_versions": "7.2.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.2.0, < 7.2.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-47888",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "There is a possible ReDoS vulnerability in the plain_text_for_blockquote_node helper in Action Text. This vulnerability has been assigned the CVE identifier CVE-2024-47888.\r\n\r\nImpact\r\n------\r\n\r\nCarefully crafted text can cause the plain_text_for_blockquote_node helper to take an unexpected amount of time, possibly resulting in a DoS vulnerability. All users running an affected release should either upgrade or apply the relevant patch immediately.\r\n\r\nRuby 3.2 has mitigations for this problem, so Rails applications using Ruby 3.2 or newer are unaffected. Rails 8.0.0.beta1 depends on Ruby 3.2 or greater so is unaffected.\r\n\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nUsers can avoid calling `plain_text_for_blockquote_node` or upgrade to Ruby 3.2\r\n\r\nCredits\r\n-------\r\n\r\nThanks to [ooooooo_q](https://hackerone.com/ooooooo_q) for the report!",
+      "ghsa_id": "GHSA-wwhv-wxv9-rpgw",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-wwhv-wxv9-rpgw",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-wwhv-wxv9-rpgw"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-47888"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-10-15T21:15:59Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible ReDoS vulnerability in plain_text_for_blockquote_node in Action Text",
+      "updated_at": "2024-10-15T21:15:59Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-wwhv-wxv9-rpgw",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actiontext"
+          },
+          "patched_versions": "6.1.7.9",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 6.0.0, < 6.1.7.9"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actiontext"
+          },
+          "patched_versions": "7.0.8.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.0.0, < 7.0.8.5"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actiontext"
+          },
+          "patched_versions": "7.1.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.1.0, < 7.1.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actiontext"
+          },
+          "patched_versions": "7.2.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.2.0, < 7.2.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-47887",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "There is a possible ReDoS vulnerability in Action Controller's HTTP Token authentication. This vulnerability has been assigned the CVE identifier CVE-2024-47887.\r\n\r\nImpact\r\n------\r\n\r\nFor applications using HTTP Token authentication via `authenticate_or_request_with_http_token` or similar, a carefully crafted header may cause header parsing to take an unexpected amount of time, possibly resulting in a DoS vulnerability. All users running an affected release should either upgrade or apply the relevant patch immediately.\r\n\r\nRuby 3.2 has mitigations for this problem, so Rails applications using Ruby 3.2 or newer are unaffected. Rails 8.0.0.beta1 depends on Ruby 3.2 or greater so is unaffected.\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nUsers on Ruby 3.2 are unaffected by this issue.\r\n\r\n\r\nCredits\r\n-------\r\nThanks to [scyoon](https://hackerone.com/scyoon) for reporting",
+      "ghsa_id": "GHSA-vfg9-r3fq-jvx4",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-vfg9-r3fq-jvx4",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-vfg9-r3fq-jvx4"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-47887"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-10-15T21:16:04Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible ReDoS vulnerability in HTTP Token authentication in Action Controller",
+      "updated_at": "2024-10-15T21:16:04Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-vfg9-r3fq-jvx4",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "6.1.7.9",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 6.1.7.9"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.0.8.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.0.0, < 7.0.8.5"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.1.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.1.0, < 7.1.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.2.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.2.0, < 7.2.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-41128",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "There is a possible ReDoS vulnerability in the query parameter filtering routines of Action Dispatch. This vulnerability has been assigned the CVE identifier CVE-2024-41128.\r\n\r\nImpact\r\n------\r\n\r\nCarefully crafted query parameters can cause query parameter filtering to take an unexpected amount of time, possibly resulting in a DoS vulnerability. All users running an affected release should either upgrade or apply the relevant patch immediately.\r\n\r\nRuby 3.2 has mitigations for this problem, so Rails applications using Ruby 3.2 or newer are unaffected. Rails 8.0.0.beta1 depends on Ruby 3.2 or greater so is unaffected.\r\n\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nUsers on Ruby 3.2 are unaffected by this issue.\r\n\r\n\r\nCredits\r\n-------\r\n\r\nThanks to [scyoon](https://hackerone.com/scyoon) for the report and patches!",
+      "ghsa_id": "GHSA-x76w-6vjr-8xgj",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-x76w-6vjr-8xgj",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-x76w-6vjr-8xgj"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-41128"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-10-15T21:16:08Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible ReDoS vulnerability in query parameter filtering in Action Dispatch",
+      "updated_at": "2024-10-15T21:16:08Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-x76w-6vjr-8xgj",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "6.1.7.9",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 3.1.0, < 6.1.7.9"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.0.8.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.0.0, < 7.0.8.5"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.1.4.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.1.0, < 7.1.4.1"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.2.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.2.0, < 7.2.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "ooooooo-q",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/395584?v=4",
+            "events_url": "https://api.github.com/users/ooooooo-q/events{/privacy}",
+            "followers_url": "https://api.github.com/users/ooooooo-q/followers",
+            "following_url": "https://api.github.com/users/ooooooo-q/following{/other_user}",
+            "gists_url": "https://api.github.com/users/ooooooo-q/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/ooooooo-q",
+            "id": 395584,
+            "login": "ooooooo-q",
+            "node_id": "MDQ6VXNlcjM5NTU4NA==",
+            "organizations_url": "https://api.github.com/users/ooooooo-q/orgs",
+            "received_events_url": "https://api.github.com/users/ooooooo-q/received_events",
+            "repos_url": "https://api.github.com/users/ooooooo-q/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/ooooooo-q/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/ooooooo-q/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/ooooooo-q",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-32464",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-80"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-80",
+          "name": "Improper Neutralization of Script-Related HTML Tags in a Web Page (Basic XSS)"
+        }
+      ],
+      "description": "Instances of ActionText::Attachable::ContentAttachment included within a rich_text_area tag could potentially contain unsanitized HTML.\r\n\r\nThis has been assigned the CVE identifier CVE-2024-32464.\r\n\r\n\r\nVersions Affected:  >= 7.1.0\r\nNot affected:       < 7.1.0\r\nFixed Versions:     7.1.3.4\r\n\r\nImpact\r\n------\r\nThis could lead to a potential cross site scripting issue within the Trix editor.\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nN/A\r\n\r\nPatches\r\n-------\r\nTo aid users who aren't able to upgrade immediately we have provided patches for the supported release series in accordance with our [maintenance policy](https://guides.rubyonrails.org/maintenance_policy.html#security-issues) regarding security issues. They are in git-am format and consist of a single changeset.\r\n\r\n* action_text_content_attachment_xss_7_1_stable.patch - Patch for 7.1 series\r\n\r\n\r\n\r\nCredits\r\n-------\r\n\r\nThank you [ooooooo_q](https://hackerone.com/ooooooo_q) for reporting this!",
+      "ghsa_id": "GHSA-prjp-h48f-jgf6",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-prjp-h48f-jgf6",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-prjp-h48f-jgf6"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-32464"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-06-04T18:29:52Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "ActionText ContentAttachment can contain unsanitized HTML",
+      "updated_at": "2024-06-04T18:29:52Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-prjp-h48f-jgf6",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actiontext"
+          },
+          "patched_versions": "7.1.3.4, 7.2.0.beta2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.1.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "shinkbr",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/1741788?v=4",
+            "events_url": "https://api.github.com/users/shinkbr/events{/privacy}",
+            "followers_url": "https://api.github.com/users/shinkbr/followers",
+            "following_url": "https://api.github.com/users/shinkbr/following{/other_user}",
+            "gists_url": "https://api.github.com/users/shinkbr/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/shinkbr",
+            "id": 1741788,
+            "login": "shinkbr",
+            "node_id": "MDQ6VXNlcjE3NDE3ODg=",
+            "organizations_url": "https://api.github.com/users/shinkbr/orgs",
+            "received_events_url": "https://api.github.com/users/shinkbr/received_events",
+            "repos_url": "https://api.github.com/users/shinkbr/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/shinkbr/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/shinkbr/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/shinkbr",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-28103",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "# Permissions-Policy is Only Served on HTML Content-Type\r\n\r\nThe application configurable Permissions-Policy is only served on responses\r\nwith an HTML related Content-Type.\r\n\r\nThis has been assigned the CVE identifier CVE-2024-28103.\r\n\r\n\r\nVersions Affected:  >= 6.1.0\r\nNot affected:       < 6.1.0\r\nFixed Versions:     6.1.7.8, 7.0.8.4, and 7.1.3.4\r\n\r\nImpact\r\n------\r\nResponses with a non-HTML Content-Type are not serving the configured Permissions-Policy. There are certain non-HTML Content-Types that would benefit from having the Permissions-Policy enforced.\r\n\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nN/A\r\n\r\nPatches\r\n-------\r\nTo aid users who aren't able to upgrade immediately we have provided patches for\r\nthe supported release series in accordance with our \r\n[maintenance policy](https://guides.rubyonrails.org/maintenance_policy.html#security-issues)\r\nregarding security issues. They are in git-am format and consist of a\r\nsingle changeset.\r\n\r\n* 6-1-include-permissions-policy-header-on-non-html.patch - Patch for 6.1 series\r\n* 7-0-include-permissions-policy-header-on-non-html.patch - Patch for 7.0 series\r\n* 7-1-include-permissions-policy-header-on-non-html.patch - Patch for 7.1 series\r\n\r\n\r\n\r\nCredits\r\n-------\r\n\r\nThank you [shinkbr](https://hackerone.com/shinkbr) for reporting this!",
+      "ghsa_id": "GHSA-fwhr-88qx-h9g7",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-fwhr-88qx-h9g7",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-fwhr-88qx-h9g7"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-28103"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-06-04T18:30:09Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Missing security headers in Action Pack on non-HTML responses",
+      "updated_at": "2024-06-04T18:30:09Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-fwhr-88qx-h9g7",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "6.1.7.8, 7.0.8.4, 7.1.3.4, 7.2.0.beta2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 6.1.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-26144",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "# Possible Sensitive Session Information Leak in Active Storage\r\n\r\nThere is a possible sensitive session information leak in Active Storage.  By\r\ndefault, Active Storage sends a `Set-Cookie` header along with the user's\r\nsession cookie when serving blobs.  It also sets `Cache-Control` to public.\r\nCertain proxies may cache the Set-Cookie, leading to an information leak.\r\n\r\nThis vulnerability has been assigned the CVE identifier CVE-2024-26144.\r\n\r\nVersions Affected:  >= 5.2.0, < 7.1.0\r\nNot affected:       < 5.2.0, > 7.1.0\r\nFixed Versions:     7.0.8.1, 6.1.7.7\r\n\r\nImpact\r\n------\r\nA proxy which chooses to caches this request can cause users to share\r\nsessions. This may include a user receiving an attacker's session or vice\r\nversa.\r\n\r\nThis was patched in 7.1.0 but not previously identified as a security\r\nvulnerability.\r\n\r\nAll users running an affected release should either upgrade or use one of the\r\nworkarounds immediately.\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nUpgrade to Rails 7.1.X, or configure caching proxies not to cache the\r\nSet-Cookie headers.\r\n\r\nCredits\r\n-------\r\n\r\nThanks to [tyage](https://hackerone.com/tyage) for reporting this!\r\n",
+      "ghsa_id": "GHSA-8h22-8cf7-hq6g",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-8h22-8cf7-hq6g",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-8h22-8cf7-hq6g"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-26144"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-02-26T23:58:46Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible Sensitive Session Information Leak in Active Storage",
+      "updated_at": "2024-02-26T23:58:46Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-8h22-8cf7-hq6g",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rails"
+          },
+          "patched_versions": "7.0.8.1, 6.1.7.7",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 5.2.0, < 7.1.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "SValkanov",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/8790422?v=4",
+            "events_url": "https://api.github.com/users/SValkanov/events{/privacy}",
+            "followers_url": "https://api.github.com/users/SValkanov/followers",
+            "following_url": "https://api.github.com/users/SValkanov/following{/other_user}",
+            "gists_url": "https://api.github.com/users/SValkanov/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/SValkanov",
+            "id": 8790422,
+            "login": "SValkanov",
+            "node_id": "MDQ6VXNlcjg3OTA0MjI=",
+            "organizations_url": "https://api.github.com/users/SValkanov/orgs",
+            "received_events_url": "https://api.github.com/users/SValkanov/received_events",
+            "repos_url": "https://api.github.com/users/SValkanov/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/SValkanov/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/SValkanov/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/SValkanov",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-26142",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "# Possible ReDoS vulnerability in Accept header parsing in Action Dispatch\r\n\r\nThere is a possible ReDoS vulnerability in the Accept header parsing routines\r\nof Action Dispatch. This vulnerability has been assigned the CVE identifier\r\nCVE-2024-26142.\r\n\r\nVersions Affected:  >= 7.1.0, < 7.1.3.1\r\nNot affected:       < 7.1.0\r\nFixed Versions:     7.1.3.1\r\n\r\nImpact\r\n------\r\nCarefully crafted Accept headers can cause Accept header parsing in Action\r\nDispatch to take an unexpected amount of time, possibly resulting in a DoS\r\nvulnerability.  All users running an affected release should either upgrade or\r\nuse one of the workarounds immediately.\r\n\r\nRuby 3.2 has mitigations for this problem, so Rails applications using Ruby\r\n3.2 or newer are unaffected.\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nThere are no feasible workarounds for this issue.\r\n\r\nPatches\r\n-------\r\nTo aid users who aren't able to upgrade immediately we have provided patches for\r\nthe two supported release series. They are in git-am format and consist of a\r\nsingle changeset.\r\n\r\n* 7-1-accept-redox.patch - Patch for 7.1 series\r\n\r\nCredits\r\n-------\r\nThanks [svalkanov](https://hackerone.com/svalkanov) for the report and patch!",
+      "ghsa_id": "GHSA-jjhx-jhvp-74wq",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-jjhx-jhvp-74wq",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-jjhx-jhvp-74wq"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-26142"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-02-26T23:59:14Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible ReDoS vulnerability in Accept header parsing in Action Dispatch",
+      "updated_at": "2024-02-26T23:59:14Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-jjhx-jhvp-74wq",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rails"
+          },
+          "patched_versions": "7.1.3.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.1.0, < 7.1.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "ooooooo-q",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/395584?v=4",
+            "events_url": "https://api.github.com/users/ooooooo-q/events{/privacy}",
+            "followers_url": "https://api.github.com/users/ooooooo-q/followers",
+            "following_url": "https://api.github.com/users/ooooooo-q/following{/other_user}",
+            "gists_url": "https://api.github.com/users/ooooooo-q/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/ooooooo-q",
+            "id": 395584,
+            "login": "ooooooo-q",
+            "node_id": "MDQ6VXNlcjM5NTU4NA==",
+            "organizations_url": "https://api.github.com/users/ooooooo-q/orgs",
+            "received_events_url": "https://api.github.com/users/ooooooo-q/received_events",
+            "repos_url": "https://api.github.com/users/ooooooo-q/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/ooooooo-q/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/ooooooo-q/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/ooooooo-q",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-26143",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "# Possible XSS Vulnerability in Action Controller\r\n\r\nThere is a possible XSS vulnerability when using the translation helpers\r\n(`translate`, `t`, etc) in Action Controller. This vulnerability has been\r\nassigned the CVE identifier CVE-2024-26143.\r\n\r\nVersions Affected:  >= 7.0.0.\r\nNot affected:       < 7.0.0\r\nFixed Versions:     7.1.3.1, 7.0.8.1\r\n\r\nImpact\r\n------\r\nApplications using translation methods like `translate`, or `t` on a\r\ncontroller, with a key ending in \"_html\", a `:default` key which contains\r\nuntrusted user input, and the resulting string is used in a view, may be\r\nsusceptible to an XSS vulnerability.\r\n\r\nFor example, impacted code will look something like this:\r\n\r\n```ruby\r\nclass ArticlesController < ApplicationController\r\n  def show  \r\n    @message = t(\"message_html\", default: untrusted_input)\r\n    # The `show` template displays the contents of `@message`\r\n  end\r\nend\r\n```\r\n\r\nTo reiterate the pre-conditions, applications must:\r\n\r\n* Use a translation function from a controller (i.e. _not_ I18n.t, or `t` from\r\n  a view)\r\n* Use a key that ends in `_html`\r\n* Use a default value where the default value is untrusted and unescaped input\r\n* Send the text to the victim (whether that's part of a template, or a\r\n  `render` call)\r\n\r\nAll users running an affected release should either upgrade or use one of the\r\nworkarounds immediately.\r\n\r\nReleases\r\n--------\r\nThe fixed releases are available at the normal locations.\r\n\r\nWorkarounds\r\n-----------\r\nThere are no feasible workarounds for this issue.\r\n\r\nPatches\r\n-------\r\nTo aid users who aren't able to upgrade immediately we have provided patches for\r\nthe two supported release series. They are in git-am format and consist of a\r\nsingle changeset.\r\n\r\n* 7-0-VULN.patch - Patch for 7.0 series\r\n* 7-1-VULN.patch - Patch for 7.1 series\r\n\r\nCredits\r\n-------\r\n\r\nThanks to [ooooooo_q](https://hackerone.com/ooooooo_q) for the patch and fix!",
+      "ghsa_id": "GHSA-9822-6m93-xqf4",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-9822-6m93-xqf4",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-9822-6m93-xqf4"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-26143"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-02-26T23:58:04Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/131752?v=4",
+        "events_url": "https://api.github.com/users/jhawthorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jhawthorn/followers",
+        "following_url": "https://api.github.com/users/jhawthorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jhawthorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jhawthorn",
+        "id": 131752,
+        "login": "jhawthorn",
+        "node_id": "MDQ6VXNlcjEzMTc1Mg==",
+        "organizations_url": "https://api.github.com/users/jhawthorn/orgs",
+        "received_events_url": "https://api.github.com/users/jhawthorn/received_events",
+        "repos_url": "https://api.github.com/users/jhawthorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jhawthorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jhawthorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jhawthorn",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible XSS Vulnerability in Action Controller translation",
+      "updated_at": "2024-02-26T23:58:04Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-9822-6m93-xqf4",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rails"
+          },
+          "patched_versions": "7.1.3.1, 7.0.8.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 7.0.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "byroot",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/44640?v=4",
+            "events_url": "https://api.github.com/users/byroot/events{/privacy}",
+            "followers_url": "https://api.github.com/users/byroot/followers",
+            "following_url": "https://api.github.com/users/byroot/following{/other_user}",
+            "gists_url": "https://api.github.com/users/byroot/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/byroot",
+            "id": 44640,
+            "login": "byroot",
+            "node_id": "MDQ6VXNlcjQ0NjQw",
+            "organizations_url": "https://api.github.com/users/byroot/orgs",
+            "received_events_url": "https://api.github.com/users/byroot/received_events",
+            "repos_url": "https://api.github.com/users/byroot/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/byroot/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/byroot/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/byroot",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2022-23633",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-200"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-200",
+          "name": "Exposure of Sensitive Information to an Unauthorized Actor"
+        }
+      ],
+      "description": "### Impact\r\n\r\nUnder certain circumstances response bodies will not be closed, for example a [bug in a webserver](https://github.com/puma/puma/pull/2812) or a bug in a Rack middleware.  In the event a response is *not* notified of a `close`, `ActionDispatch::Executor` will not know to reset thread local state for the next request.  This can lead to data being leaked to subsequent requests, especially when interacting with `ActiveSupport::CurrentAttributes`.\r\n\r\nUpgrading to the FIXED versions of Rails will ensure mitigation if this issue even in the context of a buggy webserver or middleware implementation.\r\n\r\n### Patches\r\n\r\nThis has been fixed in Rails 7.0.2.2, 6.1.4.6, 6.0.4.6, and 5.2.6.2.\r\n\r\n### Workarounds\r\n\r\nUpgrading is highly recommended, but to work around this problem the following middleware can be used:\r\n\r\n```ruby\r\nclass GuardedExecutor < ActionDispatch::Executor\r\n  def call(env)\r\n    ensure_completed!\r\n    super\r\n  end\r\n\r\n  private\r\n\r\n    def ensure_completed!\r\n      @executor.new.complete! if @executor.active?\r\n    end\r\nend\r\n\r\n# Ensure the guard is inserted before ActionDispatch::Executor\r\nRails.application.configure do\r\n  config.middleware.swap ActionDispatch::Executor, GuardedExecutor, executor\r\nend\r\n```",
+      "ghsa_id": "GHSA-wh98-p28r-vrc9",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-wh98-p28r-vrc9",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-wh98-p28r-vrc9"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2022-23633"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2022-02-11T20:13:42Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/3124?v=4",
+        "events_url": "https://api.github.com/users/tenderlove/events{/privacy}",
+        "followers_url": "https://api.github.com/users/tenderlove/followers",
+        "following_url": "https://api.github.com/users/tenderlove/following{/other_user}",
+        "gists_url": "https://api.github.com/users/tenderlove/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/tenderlove",
+        "id": 3124,
+        "login": "tenderlove",
+        "node_id": "MDQ6VXNlcjMxMjQ=",
+        "organizations_url": "https://api.github.com/users/tenderlove/orgs",
+        "received_events_url": "https://api.github.com/users/tenderlove/received_events",
+        "repos_url": "https://api.github.com/users/tenderlove/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/tenderlove/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/tenderlove/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/tenderlove",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible exposure of information vulnerability in Action Pack",
+      "updated_at": "2022-02-11T20:13:42Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-wh98-p28r-vrc9",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionpack"
+          },
+          "patched_versions": "7.0.2.2, 6.1.4.6, 6.0.4.6, 5.2.6.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 5.0.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "jonathanhefner",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/771968?v=4",
+            "events_url": "https://api.github.com/users/jonathanhefner/events{/privacy}",
+            "followers_url": "https://api.github.com/users/jonathanhefner/followers",
+            "following_url": "https://api.github.com/users/jonathanhefner/following{/other_user}",
+            "gists_url": "https://api.github.com/users/jonathanhefner/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/jonathanhefner",
+            "id": 771968,
+            "login": "jonathanhefner",
+            "node_id": "MDQ6VXNlcjc3MTk2OA==",
+            "organizations_url": "https://api.github.com/users/jonathanhefner/orgs",
+            "received_events_url": "https://api.github.com/users/jonathanhefner/received_events",
+            "repos_url": "https://api.github.com/users/jonathanhefner/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/jonathanhefner/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/jonathanhefner/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/jonathanhefner",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2020-15169",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "There is a potential Cross-Site Scripting (XSS) vulnerability in Action View's translation helpers. Views that allow the user to control the default (not found) value of the `t` and `translate` helpers could be susceptible to XSS attacks.\r\n\r\n### Impact\r\n\r\nWhen an HTML-unsafe string is passed as the default for a missing translation key [named `html` or ending in `_html`](https://guides.rubyonrails.org/i18n.html#using-safe-html-translations), the default string is incorrectly marked as HTML-safe and not escaped. Vulnerable code may look like the following examples:\r\n\r\n```erb\r\n<%# The welcome_html translation is not defined for the current locale: %>\r\n<%= t(\"welcome_html\", default: untrusted_user_controlled_string) %>\r\n\r\n<%# Neither the title.html translation nor the missing.html translation is defined for the current locale: %>\r\n<%= t(\"title.html\", default: [:\"missing.html\", untrusted_user_controlled_string]) %>\r\n```\r\n\r\n### Patches\r\n\r\nPatched Rails versions, 6.0.3.3 and 5.2.4.4, are available from the normal locations.\r\n\r\nThe patches have also been applied to the `master`, `6-0-stable`, and `5-2-stable` branches on GitHub. If you track any of these branches, you should update to the latest.\r\n\r\nTo aid users who aren’t able to upgrade immediately, we’ve provided patches for the two supported release series. They are in git-am format and consist of a single changeset.\r\n\r\n* [5-2-translate-helper-xss.patch](https://gist.github.com/georgeclaghorn/a466e103922ee81f24c32c9034089442#file-5-2-translate-helper-xss-patch) — patch for the 5.2 release series\r\n* [6-0-translate-helper-xss.patch](https://gist.github.com/georgeclaghorn/a466e103922ee81f24c32c9034089442#file-6-0-translate-helper-xss-patch) — patch for the 6.0 release series\r\n\r\nPlease note that only the 5.2 and 6.0 release series are currently supported. Users of earlier, unsupported releases are advised to update as soon as possible, as we cannot provide security fixes for unsupported releases.\r\n\r\n### Workarounds\r\n\r\nImpacted users who can’t upgrade to a patched Rails version can avoid this issue by manually escaping default translations with the `html_escape` helper (aliased as `h`):\r\n\r\n```erb\r\n<%= t(\"welcome_html\", default: h(untrusted_user_controlled_string)) %>\r\n```",
+      "ghsa_id": "GHSA-cfjv-5498-mph5",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-cfjv-5498-mph5",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-cfjv-5498-mph5"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2020-15169"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-09-11T00:05:17Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/94129?v=4",
+        "events_url": "https://api.github.com/users/georgeclaghorn/events{/privacy}",
+        "followers_url": "https://api.github.com/users/georgeclaghorn/followers",
+        "following_url": "https://api.github.com/users/georgeclaghorn/following{/other_user}",
+        "gists_url": "https://api.github.com/users/georgeclaghorn/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/georgeclaghorn",
+        "id": 94129,
+        "login": "georgeclaghorn",
+        "node_id": "MDQ6VXNlcjk0MTI5",
+        "organizations_url": "https://api.github.com/users/georgeclaghorn/orgs",
+        "received_events_url": "https://api.github.com/users/georgeclaghorn/received_events",
+        "repos_url": "https://api.github.com/users/georgeclaghorn/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/georgeclaghorn/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/georgeclaghorn/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/georgeclaghorn",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Potential XSS vulnerability in Action View",
+      "updated_at": "2020-09-11T00:05:17Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-cfjv-5498-mph5",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "actionview"
+          },
+          "patched_versions": "6.0.3.3, 5.2.4.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "All"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "jessecampos",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/10983109?v=4",
+            "events_url": "https://api.github.com/users/jessecampos/events{/privacy}",
+            "followers_url": "https://api.github.com/users/jessecampos/followers",
+            "following_url": "https://api.github.com/users/jessecampos/following{/other_user}",
+            "gists_url": "https://api.github.com/users/jessecampos/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/jessecampos",
+            "id": 10983109,
+            "login": "jessecampos",
+            "node_id": "MDQ6VXNlcjEwOTgzMTA5",
+            "organizations_url": "https://api.github.com/users/jessecampos/orgs",
+            "received_events_url": "https://api.github.com/users/jessecampos/received_events",
+            "repos_url": "https://api.github.com/users/jessecampos/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/jessecampos/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/jessecampos/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/jessecampos",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2020-5267",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "There is a possible XSS vulnerability in ActionView's JavaScript literal escape helpers.  Views that use the `j` or `escape_javascript` methods may be susceptible to XSS attacks.\r\n\r\n### Impact\r\n\r\nThere is a possible XSS vulnerability in the `j` and `escape_javascript` methods in ActionView.  These methods are used for escaping JavaScript string literals.  Impacted code will look something like this:\r\n\r\n```erb\r\n<script>let a = `<%= j unknown_input %>`</script>\r\n```\r\n\r\nor\r\n\r\n```erb\r\n<script>let a = `<%= escape_javascript unknown_input %>`</script>\r\n```\r\n\r\n### Releases\r\n\r\nThe 6.0.2.2 and 5.2.4.2 releases are available at the normal locations.\r\n\r\n### Workarounds\r\n\r\nFor those that can't upgrade, the following monkey patch may be used:\r\n\r\n```ruby\r\nActionView::Helpers::JavaScriptHelper::JS_ESCAPE_MAP.merge!(\r\n  {\r\n    \"`\" => \"\\\\`\",\r\n    \"$\" => \"\\\\$\"\r\n  }\r\n)\r\n\r\nmodule ActionView::Helpers::JavaScriptHelper\r\n  alias :old_ej :escape_javascript\r\n  alias :old_j :j\r\n\r\n  def escape_javascript(javascript)\r\n    javascript = javascript.to_s\r\n    if javascript.empty?\r\n      result = \"\"\r\n    else\r\n      result = javascript.gsub(/(\\\\|<\\/|\\r\\n|\\342\\200\\250|\\342\\200\\251|[\\n\\r\"']|[`]|[$])/u, JS_ESCAPE_MAP)\r\n    end\r\n    javascript.html_safe? ? result.html_safe : result\r\n  end\r\n\r\n  alias :j :escape_javascript\r\nend\r\n```\r\n\r\n### Patches\r\n\r\nTo aid users who aren't able to upgrade immediately we have provided patches for\r\nthe two supported release series. They are in git-am format and consist of a\r\nsingle changeset.\r\n\r\n* [5-2-js-helper-xss.patch](https://gist.github.com/tenderlove/c042ff49f0347c37e99183a6502accc6#file-5-2-js-helper-xss-patch) - Patch for 5.2 series\r\n* [6-0-js-helper-xss.patch](https://gist.github.com/tenderlove/c042ff49f0347c37e99183a6502accc6#file-6-0-js-helper-xss-patch) - Patch for 6.0 series\r\n\r\nPlease note that only the 5.2 and 6.0 series are supported at present. Users\r\nof earlier unsupported releases are advised to upgrade as soon as possible as we\r\ncannot guarantee the continued availability of security fixes for unsupported\r\nreleases.\r\n\r\n### Credits\r\n\r\nThanks to Jesse Campos from Chef Secure\r\n",
+      "ghsa_id": "GHSA-65cv-r6x7-79hv",
+      "html_url": "https://github.com/rails/rails/security/advisories/GHSA-65cv-r6x7-79hv",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-65cv-r6x7-79hv"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2020-5267"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2020-03-19T16:55:15Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/3124?v=4",
+        "events_url": "https://api.github.com/users/tenderlove/events{/privacy}",
+        "followers_url": "https://api.github.com/users/tenderlove/followers",
+        "following_url": "https://api.github.com/users/tenderlove/following{/other_user}",
+        "gists_url": "https://api.github.com/users/tenderlove/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/tenderlove",
+        "id": 3124,
+        "login": "tenderlove",
+        "node_id": "MDQ6VXNlcjMxMjQ=",
+        "organizations_url": "https://api.github.com/users/tenderlove/orgs",
+        "received_events_url": "https://api.github.com/users/tenderlove/received_events",
+        "repos_url": "https://api.github.com/users/tenderlove/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/tenderlove/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/tenderlove/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/tenderlove",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible XSS vulnerability in ActionView",
+      "updated_at": "2020-03-19T16:55:15Z",
+      "url": "https://api.github.com/repos/rails/rails/security-advisories/GHSA-65cv-r6x7-79hv",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "gem",
+            "name": "actionview"
+          },
+          "patched_versions": "6.0.2.2, 5.2.4.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "ALL"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "rails/rails",
+    "url": "https://api.github.com/repos/rails/rails/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:40.125339+00:00",
+  "tool": "github_rest_readonly"
+}

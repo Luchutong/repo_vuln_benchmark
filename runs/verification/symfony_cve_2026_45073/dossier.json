@@ -1,0 +1,424 @@
+{
+ "candidate_id": "disc2_b90ef115c93f6b90b3276bfa",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:35:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45073",
+  "aliases": [
+   "CVE-2026-45073",
+   "GHSA-6qh9-h6wf-jgqc"
+  ],
+  "title": "Symfony PdoAdapter::doClear interpolates the caller-supplied clear() prefix into a LIKE clause without quoting, allowing SQL injection",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/cache",
+    "purl": "pkg:composer/symfony/cache",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/cache",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 AbstractAdapterTrait::clear() rejects prefixes outside [-+.A-Za-z0-9]; fix ec50b799 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: tag v5.4.52 peels to eabc5f9e; PdoAdapter.php itself is unchanged and the trait blob matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "ec50b799d79ebe24561f29351c1efcb6da95c9b1",
+    "branch": "5.4",
+    "message": "[Cache] Validate the prefix given to AbstractAdapter::clear()",
+    "url": "https://github.com/symfony/symfony/commit/ec50b799d79ebe24561f29351c1efcb6da95c9b1"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-89"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+   "score": 6.3,
+   "level": "medium",
+   "numeric_level_rationale": "CVSS 4.0 base 6.3 falls in Medium (4.0-6.9); the GHSA label MODERATE matches it. NVD additionally has a Primary CVSS 3.1 7.3 HIGH from nvd@nist.gov, which is a material severity split; the canonical severity keeps the CNA 4.0 vector and records both scores.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.3 HIGH metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-6qh9-h6wf-jgqc",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 6.3,
+     "level": "medium",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.3,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L"
+    }
+   ],
+   "ghsa_label_note": "The GHSA page and OSV label GHSA-6qh9-h6wf-jgqc Moderate (database_specific.severity MODERATE) with a different vector, CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:N/VI:H/VA:L/SC:N/SI:N/SA:N/E:U (AT:N/PR:L/VC:N/VI:H/VA:L), and publish no numeric score for it; this diverges from the CNA 6.3 MEDIUM vector (AT:P/PR:N/VC:L/VI:L/VA:L) and from the NVD Primary 3.1 7.3 High."
+  },
+  "category_l1": "injection",
+  "category_l2": "SQL injection through the clear() prefix: the value is concatenated into a LIKE literal in PdoAdapter::doClear() and executed without binding or escaping",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45073",
+  "published_at": "2026-07-14T18:23:41Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45073",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-6qh9-h6wf-jgqc",
+   "https://github.com/symfony/symfony/commit/ec50b799d79ebe24561f29351c1efcb6da95c9b1",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45073",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45073_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45073",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Cache/Adapter/PdoAdapter.php",
+  "function": "PdoAdapter::doClear",
+  "language": "PHP",
+  "line": 435,
+  "critical_operation": {
+   "code_excerpt": "        } else {\n            $sql = \"DELETE FROM $this->table WHERE $this->idCol LIKE '$namespace%'\";\n        }\n\n        try {\n            $conn->exec($sql);\n        } catch (\\PDOException $e) {\n        }",
+   "description": "AbstractAdapterTrait::clear($prefix) computes $namespaceToClear = $this->namespace.$prefix when versioning is disabled and passes it to PdoAdapter::doClear(). For a non-empty namespace, doClear() builds \"DELETE FROM <table> WHERE <id_col> LIKE '<namespace>%'\" by string interpolation and runs it with PDO::exec(); the value is never bound or quoted. A prefix containing a single quote can close the LIKE literal and reshape or widen the DELETE, and % wildcards or other SQL syntax reach the statement as well. The 5.4.52 fix validates the prefix in AbstractAdapterTrait::clear() against [-+.A-Za-z0-9] and returns false before doClear() is reached; PdoAdapter.php itself is unchanged.",
+   "file": "src/Symfony/Component/Cache/Adapter/PdoAdapter.php",
+   "function": "PdoAdapter::doClear",
+   "language": "PHP",
+   "line": 435,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Adapter/PdoAdapter.php#L435-L439"
+  },
+  "entry_point": {
+   "description": "Application code calls clear($prefix) on a PdoAdapter-backed pool with a prefix that comes from a request or another untrusted source. The method is public and documented to accept an arbitrary prefix, although most applications do not expose it directly.",
+   "file": "src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php",
+   "function": "AbstractAdapterTrait::clear",
+   "language": "PHP",
+   "line": 123,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php#L123-L147"
+  },
+  "trace": [
+   {
+    "description": "clear($prefix) concatenates the prefix onto the adapter namespace in the non-versioning branch",
+    "file": "src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php",
+    "function": "AbstractAdapterTrait::clear",
+    "language": "PHP",
+    "line": 147,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php#L147-L151"
+   },
+   {
+    "description": "doClear() interpolates the namespace into a DELETE ... LIKE literal",
+    "file": "src/Symfony/Component/Cache/Adapter/PdoAdapter.php",
+    "function": "PdoAdapter::doClear",
+    "language": "PHP",
+    "line": 435,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Adapter/PdoAdapter.php#L435"
+   },
+   {
+    "description": "the SQL string is executed with PDO::exec() without binding the namespace",
+    "file": "src/Symfony/Component/Cache/Adapter/PdoAdapter.php",
+    "function": "PdoAdapter::doClear",
+    "language": "PHP",
+    "line": 439,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Adapter/PdoAdapter.php#L439"
+   }
+  ],
+  "verification_method": "Static read of PdoAdapter.php and AbstractAdapterTrait.php at v5.4.45 and v5.4.52, the 5.4 fix diff and test data provider, tag peels, blob comparison and ancestry; no database, PDO connection or SQL payload was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45073_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "1e623f1ec1d2f90d721d24dcc0fcd20fdfde23b1b59bcc839e6892b542980ce9",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45073",
+   "supports": [
+    "NVD status Analyzed; description states PdoAdapter::doClear() builds a DELETE statement using a namespace derived from the caller-supplied $prefix without binding or escaping it",
+    "NVD carries a Primary CVSS 3.1 7.3 HIGH metric from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L)",
+    "NVD also carries a Secondary CVSS 4.0 6.3 MEDIUM metric from security-advisories@github.com"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45073_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "c48313680d32c7ccb47331758689743ae66e6309a7c74f26ed2f7d193a26c846",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45073",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T18:23:41Z",
+    "affected ranges <5.4.52 and 6.4.40/7.4.12/8.0.12 for product symfony",
+    "CNA CVSS 4.0 6.3 MEDIUM AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N and CWE-89",
+    "the CNA reference list names fix commit ec50b799d79ebe24561f29351c1efcb6da95c9b1"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45073_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "cbd960c281ede169e8f807f14d4775287fc5e159f65739d6577265f4f3103ec5",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-6qh9-h6wf-jgqc",
+   "supports": [
+    "GHSA-6qh9-h6wf-jgqc aliases CVE-2026-45073, github_reviewed, cwe_ids CWE-89, database severity MODERATE",
+    "affected symfony/cache and symfony/symfony: 0..5.4.52, 6.0.0..6.4.40, 7.0.0..7.4.12, 8.0.0..8.0.12",
+    "the GHSA reference list names the same fix commit ec50b799 as the CVE record",
+    "the database severity MODERATE matches the CNA 4.0 6.3 Medium but not the NVD Primary 3.1 7.3 High"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45073_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "c209d8779f40e62a025f656740b67c06be4a0e7d45bd269ef1463fc8756d32b8",
+   "source_url": "https://symfony.com/cve-2026-45073",
+   "supports": [
+    "the advisory describes clear($prefix) concatenating the caller-supplied prefix into the namespace and PdoAdapter::doClear() building DELETE FROM <table> WHERE <id_col> LIKE '<namespace>%' executed via PDO::exec() without binding",
+    "it notes a caller able to influence $prefix can break out of the LIKE literal; most applications do not expose clear($prefix) directly, but the method contract is to accept any prefix safely",
+    "resolution: AbstractAdapterTrait::clear() rejects prefixes containing characters outside [-+.A-Za-z0-9], logs a warning and returns false; affected <5.4.52, 6.4.40, 7.4.12, 8.0.12"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45073_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "664505950fe186b7f8dfc4b94dc728df029d3b01cf0d01c286ec38f600fad475",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-6qh9-h6wf-jgqc",
+   "supports": [
+    "the GitHub advisory page carries the same description, resolution and ranges as symfony.com",
+    "the page links fix commit ec50b799, consistent with the CNA reference",
+    "the advisory label is Moderate, matching the CNA 4.0 6.3 but not the NVD Primary 3.1 7.3 High"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45073_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "4d9183bff84b690257c807c37a68f9149344d4505c1aeafc7189d7c0a545865d",
+   "source_url": "https://github.com/symfony/symfony/commit/ec50b799d79ebe24561f29351c1efcb6da95c9b1",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit ec50b799 is dated 2026-05-15 with subject \"[Cache] Validate the prefix given to AbstractAdapter::clear()\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "the fix changes AbstractAdapterTrait.php (blob 32d78b18 to 8c75557b) plus adapter tests; PdoAdapter.php blob a2a275b8 is identical at both tags and is not touched by the patch",
+    "the fixed clear() rejects a prefix matching #[^-+.A-Za-z0-9]# before computing the namespace"
+   ],
+   "verification_method": "git rev-parse/merge-base/show; blob comparison; patch read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/pdoadapter_5.4.45.php",
+   "evidence_id": "ev_symfony_45073_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "a475f8425307f2c02441601f3ab0760ed71e992cfec87efd7ab99baf4918d732",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Adapter/PdoAdapter.php#L424-L442",
+   "supports": [
+    "doClear(string $namespace) builds \"DELETE FROM $this->table WHERE $this->idCol LIKE '$namespace%'\" for a non-empty namespace at line 435",
+    "the string is interpolated directly and passed to $conn->exec($sql) at line 439; there is no prepared statement or quote() call",
+    "the constructor validates its own $namespace at line 74 but the prefix appended by clear() is not validated here"
+   ],
+   "verification_method": "file read at v5.4.45 (blob a2a275b8)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/abstractadaptertrait_5.4.45.php",
+   "evidence_id": "ev_symfony_45073_caller_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "7b0271651bf9b7ad1d513fe3dbd685b2654e852cce8a9f3d1af403dc519cd7fe",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php#L123-L152",
+   "supports": [
+    "clear(string $prefix = \"\") computes $namespaceToClear = $this->namespace.$prefix in the non-versioning branch (line 147)",
+    "it passes that value to $this->doClear() without validating the prefix",
+    "the versioning branch uses the stored namespace version instead, so the vulnerable path requires versioning to be disabled"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 32d78b18)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/pdoadapter_5.4.52.php",
+   "evidence_id": "ev_symfony_45073_fixed_sink",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "a475f8425307f2c02441601f3ab0760ed71e992cfec87efd7ab99baf4918d732",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Cache/Adapter/PdoAdapter.php#L424-L442",
+   "supports": [
+    "PdoAdapter.php is byte-identical at v5.4.52; the SQL construction is unchanged",
+    "the fix is applied upstream in AbstractAdapterTrait::clear(), so the sink receives only validated prefixes"
+   ],
+   "verification_method": "file read at v5.4.52 (blob a2a275b8, unchanged)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/abstractadaptertrait_5.4.52.php",
+   "evidence_id": "ev_symfony_45073_fixed_caller",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "3f88232ba5b11629fc57970239765b2d08b8d4599887b2eafb2a5fa033de22bd",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php#L123-L153",
+   "supports": [
+    "at v5.4.52 a non-versioning clear() first tests preg_match(\"#[^-+.A-Za-z0-9]#\", $prefix)",
+    "on a match it logs \"Failed to clear the cache: Namespace-prefix contains invalid characters.\" and returns false without calling doClear()"
+   ],
+   "verification_method": "file read at v5.4.52 (blob 8c75557b)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45073_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "16525c9bb703ee5c40c0424ed7447c5219a55f2fe56a26d43b719427af66fee7",
+   "source_url": "https://github.com/symfony/symfony/commit/ec50b799d79ebe24561f29351c1efcb6da95c9b1.patch",
+   "supports": [
+    "the patch adds the prefix whitelist check to AbstractAdapterTrait::clear()",
+    "the test data provider includes the invalid prefix \"foo' OR 1=1; --\" and asserts clear() returns false while the existing item survives",
+    "the patch also touches several adapter test classes; it does not modify PdoAdapter.php",
+    "the pre-image blob 32d78b18 and post-image blob 8c75557b match the trait at v5.4.45 and v5.4.52"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45073/sources/pdoadapter_5.4.45.php",
+   "evidence_id": "ev_symfony_45073_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:35:00Z",
+   "sha256_of_observation": "a475f8425307f2c02441601f3ab0760ed71e992cfec87efd7ab99baf4918d732",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Cache/Adapter/PdoAdapter.php#L1-L14",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Component\\Cache\\Adapter",
+    "the snapshot inventory records the Cache component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   8,
+   10
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   10
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   11
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-89, the unbound prefix in doClear(), the <5.4.52 range, the v5.4.52 release and fix commit ec50b799. NVD publishes a Primary CVSS 3.1 7.3 HIGH and a Secondary CVSS 4.0 6.3 MEDIUM; the GHSA MODERATE label matches the 4.0 score but not the 3.1 score. The fix is in AbstractAdapterTrait::clear() rather than in PdoAdapter.php, so the sink file is byte-identical at both tags.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read PdoAdapter::doClear at v5.4.45 and confirm the LIKE literal is built by interpolation and run with exec().",
+   "An independent reviewer must read AbstractAdapterTrait::clear at v5.4.45 and confirm the prefix is not validated on the non-versioning path.",
+   "An independent reviewer must confirm ec50b799 is absent from v5.4.45 and present in v5.4.52, and that the fix validates the prefix in the trait while leaving PdoAdapter.php unchanged.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No database, PDO connection or SQL payload was executed; the finding is static.",
+  "Reachability requires application code to pass an untrusted prefix to clear(); the advisory itself notes most applications do not expose it.",
+  "The versioning path does not use the prefix, so the issue applies only when versioning is disabled.",
+  "Only the 5.4 branch was fetched and compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "NVD Primary CVSS 3.1 7.3 High and CNA CVSS 4.0 6.3 Medium disagree materially."
+ ],
+ "open_questions": [
+  "Whether other adapters (DoctrineDbalAdapter and friends) share the same unvalidated prefix path was not audited.",
+  "Which Symfony applications expose clear($prefix) to request data was not surveyed."
+ ]
+}

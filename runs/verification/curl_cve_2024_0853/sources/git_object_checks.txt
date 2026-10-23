@@ -1,0 +1,64 @@
+Repository: https://github.com/curl/curl
+Local mirror: /tmp/curl_git/curl.git (bare). Snapshot tag curl-8_3_0 is present.
+Fetches were not needed: tag curl-8_3_0, the introducing commit and the
+snapshot tree were all readable locally.
+
+Dataset snapshot: tag curl-8_3_0, commit
+6fa1d817e5b1a00d7d0c8168091877476b499317 (snapshot_id snap_0ec1c11542393304,
+repo_id 569041).
+  $ git rev-parse 'curl-8_3_0^{commit}'
+  6fa1d817e5b1a00d7d0c8168091877476b499317
+  $ sha256sum sources/curl_CVE-2024-0853.json
+  6564347c3bdf0f508d47f2812a824e9e38ef2718c5e4013a8ceb2d0d0938fdca
+
+Upstream advisory (CURL-CVE-2024-0853, saved as sources/curl_CVE-2024-0853.json):
+  summary "OCSP verification bypass with TLS session reuse";
+  database_specific.severity "Low";
+  database_specific.last_affected "8.5.0";
+  SEMVER range: introduced 8.5.0, fixed 8.6.0;
+  GIT range on https://github.com/curl/curl.git:
+    introduced 395365ad2d9a6c3f1a35d5e268a6af2824129832
+    fixed      c28e9478cb2548848eca9b765d0d409bfb18668c
+  versions: ["8.5.0"]  (i.e. the advisory says only 8.5.0 is affected)
+
+Introducing commit (present in the local mirror):
+  $ git show --stat --format='%H %s' 395365ad2d9a6c3f1a35d5e268a6af2824129832
+  395365ad2d9a6c3f1a35d5e268a6af2824129832
+  openssl: when a session-ID is reused, skip OCSP stapling
+  lib/vtls/openssl.c | 5 ++++-
+  lib/vtls/vtls_int.h | 1 +
+  The diff sets connssl->reused_session = TRUE when a cached session ID is
+  reused and changes servercert() from
+      if(conn_config->verifystatus) {
+  to
+      if(conn_config->verifystatus && !connssl->reused_session) {
+  so a reused session skips the OCSP stapling check. That skip is the flaw.
+
+Ancestry check (the decisive fact):
+  $ git merge-base --is-ancestor 395365ad2d9a6c3f1a35d 6fa1d817e5b1a00d7d0c8168091877476b499317
+  exit status 1  -> the introducing commit is NOT an ancestor of the 8.3.0
+  snapshot commit; it landed after 8.3.0 was tagged.
+
+Code at the snapshot (blob reads at 6fa1d817):
+  $ git cat-file -p 6fa1d817:lib/vtls/openssl.c | grep -n reused_session
+  (no match; exit 1)
+  $ git cat-file -p 6fa1d817:lib/vtls/vtls_int.h | grep -n reused_session
+  (no match; exit 1)
+  $ git cat-file -p 6fa1d817:lib/vtls/openssl.c | grep -n 'conn_config->verifystatus'
+  3747:  if(conn_config->verifystatus)
+  4233:  if(conn_config->verifystatus) {
+  At 8.3.0 the OCSP stapling check runs unconditionally in servercert(); the
+  session-reuse skip that creates the bypass does not exist.
+
+NVD (sources/nvd_CVE-2024-0853.json): CVSS 3.1 5.3 MEDIUM
+CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N (nvd@nist.gov and CISA-ADP), no
+CWE, no configuration CPE entries recorded.
+
+Conclusion: CVE-2024-0853 affects curl 8.5.0 only (introduced 8.5.0, fixed
+8.6.0). The snapshot is 8.3.0, and the introducing commit is not an ancestor of
+the snapshot commit, so the vulnerable code path is absent. The candidate is a
+triage exclusion, not a verified vulnerability.
+
+No curl build was run, no TLS connection was made, and no OCSP/network test was
+performed; every check above is a static read of git objects and the saved
+advisory/NVD records.

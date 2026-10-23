@@ -1,0 +1,89 @@
+Repository: https://github.com/rack/rack
+Local mirror: /tmp/rack_git (bare). Tags were fetched one by one with
+`git fetch --depth=1 https://github.com/rack/rack.git refs/tags/<tag>`;
+because each tag is a separate shallow fetch, ancestry queries between tags are
+NOT meaningful. The decisive evidence here is file blob identity, the
+v2.2.21 -> v2.2.22 diff, and the fix commit's own diff.
+
+Dataset snapshot (existing evaluation snapshot; no new snapshot was built):
+  tag 2.2.3 (note: the 2.2.3 tag is unannotated and has no "v" prefix,
+  while 2.2.21/2.2.22 are annotated and do carry it)
+  $ git rev-parse '2.2.3^{commit}'
+  1741c580d71cfca8e541e96cc372305c8892ee74
+  snapshot_id snap_f97687a4e0807cb2, repo_id 96071
+  $ git ls-tree 2.2.3 lib/rack/directory.rb
+  100644 blob be72be0144405996c18993a750f9de822a8a28ba  (6040 bytes)
+  file_inventory.json for the snapshot lists lib/rack/directory.rb with
+  git_oid be72be0144405996c18993a750f9de822a8a28ba, so the file under review
+  is byte-identical to the snapshot blob.
+
+Tags examined:
+  2.2.3   = 1741c580 (tag object 4d456648), directory.rb blob be72be0
+  v2.2.21 = 851dc026 (tag object e90c9fdf), directory.rb blob be72be0 (same)
+  v2.2.22 = 0cc2e00b (tag object d8eb400a), directory.rb blob e9e9bb5
+  v3.1.20 and v3.2.5 were also fetched only to read their regression tests.
+
+Vulnerable code at the snapshot (2.2.3, blob be72be0):
+  lib/rack/directory.rb:113-121
+    113  def check_forbidden(path_info)
+    114    return unless path_info.include? ".."
+    115    return if ::File.expand_path(::File.join(@root, path_info)).start_with?(@root)
+    117    body = "Forbidden\n"
+    118    [403, ...]
+  get() at lines 90-100:
+    92   path_info = Utils.unescape_path(env[PATH_INFO])
+    94   if client_error_response = check_bad_request(path_info) || check_forbidden(path_info)
+    97     path = ::File.join(@root, path_info)
+    98     list_path(env, path, path_info, script_name)
+  Utils.valid_path? (lib/rack/utils.rb:608-610) only rejects invalid encodings
+  and NUL bytes, so ".." passes check_bad_request. File.join(@root, "/../root_test/")
+  keeps the ".." segment; File.expand_path then resolves it to a sibling
+  directory (e.g. "/tmp/x/root_test"), which still starts_with?("/tmp/x/root"),
+  so check_forbidden returns nil and list_path stats the unnormalised path and
+  serves a directory listing of the sibling.
+
+Fix in 2.2.22 (blob e9e9bb5), `git diff v2.2.21 v2.2.22 -- lib/rack/directory.rb`:
+  diff index be72be0..e9e9bb5
+  +      @root_with_separator = @root.end_with?(::File::SEPARATOR) ? @root : "#{@root}#{::File::SEPARATOR}"
+  -      return if ::File.expand_path(::File.join(@root, path_info)).start_with?(@root)
+  +      expanded_path = ::File.expand_path(::File.join(@root, path_info))
+  +      return if expanded_path == @root || expanded_path.start_with?(@root_with_separator)
+  (the same tag pair also changes DIR_FILE to href='./%s', an unrelated
+  directory-index fix; the path check is at lines 117-118 in v2.2.22.)
+  Note the vulnerable blob is identical in 2.2.3 and 2.2.21, i.e. the check
+  did not change between the snapshot and the release before the fix.
+
+Upstream fix commit (main branch):
+  75c5745c286637a8f049a33790c71237762069e7, 2026-02-16,
+  "Prevent directory traversal via root prefix bypass."
+  parent f2f225f297b99fbee3d9f51255d41f601fc40aff
+  diff header for lib/rack/directory.rb reads index a0c9c93..ca3c015, i.e. the
+  main-branch blobs; the 2.2.x backport is a separate blob (be72be0..e9e9bb5).
+
+Regression test:
+  $ git grep -n "prefix bypass" v2.2.22 -- test/spec_directory.rb
+  v2.2.22:test/spec_directory.rb:131:  it "not allow directory traversal via root prefix bypass" do
+    (the same test is at line 152 in v3.1.20 and v3.2.5)
+  It creates root=dir/root and outside=dir/root_test, touches
+  root_test/test.txt, then asserts GET "/../root_test/" is forbidden.
+  At 2.2.3 the string "prefix bypass" is absent from test/spec_directory.rb.
+
+Public records:
+  CVE List v5 (sources/cve_v5_CVE-2026-22860.json), assigner GitHub_M,
+  published 2026-02-18: CVSS 3.1 7.5 HIGH
+  CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N, CWE-22 and CWE-548,
+  affected < 2.2.22, >= 3.0.0.beta1 < 3.1.20, >= 3.2.0 < 3.2.5;
+  references the fix commit 75c5745c.
+  NVD (sources/nvd_CVE-2026-22860.json): two Secondary 7.5 HIGH metrics with
+  the identical vector (security-advisories@github.com and a CNA-hosted
+  metric), weaknesses CWE-22 and CWE-548, CPE ranges matching the advisory.
+  OSV GHSA-mxw3-3hh2-x2mh (sources/osv_GHSA-mxw3-3hh2-x2mh.json): same CVSS 3.1
+  vector, database_specific severity HIGH, cwe_ids [CWE-22, CWE-548],
+  github_reviewed true, ranges 0 -> 2.2.22, 3.0.0.beta1 -> 3.1.20,
+  3.2.0 -> 3.2.5.
+  All published sources agree on the level HIGH and on the same 7.5 vector;
+  no competing severity level was found.
+
+No Ruby program was run, no request was made and no directory was listed; every
+check is a static read of git objects, the tag diff, the fix commit and the
+saved advisory records.

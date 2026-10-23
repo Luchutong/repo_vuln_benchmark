@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/nlohmann/json.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:33.958330+00:00", "elapsed_seconds": 1.123, "response": {"returncode": 0, "stdout": "5e13f834c16ddcfa12b10495cf48d6087d665343\tHEAD\n", "stderr": ""}}

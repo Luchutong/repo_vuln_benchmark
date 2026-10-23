@@ -1,0 +1,198 @@
+commit b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa
+Author: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date:   Fri Nov 8 09:23:38 2024 +0100
+
+    [HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient
+
+diff --git a/src/Symfony/Component/HttpClient/HttpOptions.php b/src/Symfony/Component/HttpClient/HttpOptions.php
+index da55f9965f..5a178dd1f7 100644
+--- a/src/Symfony/Component/HttpClient/HttpOptions.php
++++ b/src/Symfony/Component/HttpClient/HttpOptions.php
+@@ -148,6 +148,8 @@ class HttpOptions
+     }
+ 
+     /**
++     * @param callable(int, int, array, \Closure|null=):void $callback
++     *
+      * @return $this
+      */
+     public function setOnProgress(callable $callback)
+diff --git a/src/Symfony/Component/HttpClient/NativeHttpClient.php b/src/Symfony/Component/HttpClient/NativeHttpClient.php
+index e5bc61ce70..8819848c49 100644
+--- a/src/Symfony/Component/HttpClient/NativeHttpClient.php
++++ b/src/Symfony/Component/HttpClient/NativeHttpClient.php
+@@ -138,7 +138,15 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
+             // Memoize the last progress to ease calling the callback periodically when no network transfer happens
+             $lastProgress = [0, 0];
+             $maxDuration = 0 < $options['max_duration'] ? $options['max_duration'] : \INF;
+-            $onProgress = static function (...$progress) use ($onProgress, &$lastProgress, &$info, $maxDuration) {
++            $multi = $this->multi;
++            $resolve = static function (string $host, ?string $ip = null) use ($multi): ?string {
++                if (null !== $ip) {
++                    $multi->dnsCache[$host] = $ip;
++                }
++
++                return $multi->dnsCache[$host] ?? null;
++            };
++            $onProgress = static function (...$progress) use ($onProgress, &$lastProgress, &$info, $maxDuration, $resolve) {
+                 if ($info['total_time'] >= $maxDuration) {
+                     throw new TransportException(sprintf('Max duration was reached for "%s".', implode('', $info['url'])));
+                 }
+@@ -154,7 +162,7 @@ final class NativeHttpClient implements HttpClientInterface, LoggerAwareInterfac
+                     $lastProgress = $progress ?: $lastProgress;
+                 }
+ 
+-                $onProgress($lastProgress[0], $lastProgress[1], $progressInfo);
++                $onProgress($lastProgress[0], $lastProgress[1], $progressInfo, $resolve);
+             };
+         } elseif (0 < $options['max_duration']) {
+             $maxDuration = $options['max_duration'];
+diff --git a/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php b/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+index c252fce8cd..ed282e3ad9 100644
+--- a/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
++++ b/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+@@ -80,11 +80,24 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
+         $lastUrl = '';
+         $lastPrimaryIp = '';
+ 
+-        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use ($onProgress, $subnets, &$lastUrl, &$lastPrimaryIp): void {
++        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info, ?\Closure $resolve = null) use ($onProgress, $subnets, &$lastUrl, &$lastPrimaryIp): void {
+             if ($info['url'] !== $lastUrl) {
+                 $host = trim(parse_url($info['url'], PHP_URL_HOST) ?: '', '[]');
++                $resolve ??= static fn () => null;
++
++                if (($ip = $host)
++                    && !filter_var($ip, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV6)
++                    && !filter_var($ip, \FILTER_VALIDATE_IP, \FILTER_FLAG_IPV4)
++                    && !$ip = $resolve($host)
++                ) {
++                    if ($ip = @(dns_get_record($host, \DNS_A)[0]['ip'] ?? null)) {
++                        $resolve($host, $ip);
++                    } elseif ($ip = @(dns_get_record($host, \DNS_AAAA)[0]['ipv6'] ?? null)) {
++                        $resolve($host, '['.$ip.']');
++                    }
++                }
+ 
+-                if ($host && IpUtils::checkIp($host, $subnets ?? self::PRIVATE_SUBNETS)) {
++                if ($ip && IpUtils::checkIp($ip, $subnets ?? self::PRIVATE_SUBNETS)) {
+                     throw new TransportException(sprintf('Host "%s" is blocked for "%s".', $host, $info['url']));
+                 }
+ 
+diff --git a/src/Symfony/Component/HttpClient/Response/AmpResponse.php b/src/Symfony/Component/HttpClient/Response/AmpResponse.php
+index e4999b7368..a9cc4d6a11 100644
+--- a/src/Symfony/Component/HttpClient/Response/AmpResponse.php
++++ b/src/Symfony/Component/HttpClient/Response/AmpResponse.php
+@@ -89,10 +89,17 @@ final class AmpResponse implements ResponseInterface, StreamableInterface
+         $info['max_duration'] = $options['max_duration'];
+         $info['debug'] = '';
+ 
++        $resolve = static function (string $host, ?string $ip = null) use ($multi): ?string {
++            if (null !== $ip) {
++                $multi->dnsCache[$host] = $ip;
++            }
++
++            return $multi->dnsCache[$host] ?? null;
++        };
+         $onProgress = $options['on_progress'] ?? static function () {};
+-        $onProgress = $this->onProgress = static function () use (&$info, $onProgress) {
++        $onProgress = $this->onProgress = static function () use (&$info, $onProgress, $resolve) {
+             $info['total_time'] = microtime(true) - $info['start_time'];
+-            $onProgress((int) $info['size_download'], ((int) (1 + $info['download_content_length']) ?: 1) - 1, (array) $info);
++            $onProgress((int) $info['size_download'], ((int) (1 + $info['download_content_length']) ?: 1) - 1, (array) $info, $resolve);
+         };
+ 
+         $pauseDeferred = new Deferred();
+diff --git a/src/Symfony/Component/HttpClient/Response/AsyncContext.php b/src/Symfony/Component/HttpClient/Response/AsyncContext.php
+index 3c5397c873..de1562df64 100644
+--- a/src/Symfony/Component/HttpClient/Response/AsyncContext.php
++++ b/src/Symfony/Component/HttpClient/Response/AsyncContext.php
+@@ -156,8 +156,8 @@ final class AsyncContext
+         $this->info['previous_info'][] = $info = $this->response->getInfo();
+         if (null !== $onProgress = $options['on_progress'] ?? null) {
+             $thisInfo = &$this->info;
+-            $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info) use (&$thisInfo, $onProgress) {
+-                $onProgress($dlNow, $dlSize, $thisInfo + $info);
++            $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info, ?\Closure $resolve = null) use (&$thisInfo, $onProgress) {
++                $onProgress($dlNow, $dlSize, $thisInfo + $info, $resolve);
+             };
+         }
+         if (0 < ($info['max_duration'] ?? 0) && 0 < ($info['total_time'] ?? 0)) {
+diff --git a/src/Symfony/Component/HttpClient/Response/AsyncResponse.php b/src/Symfony/Component/HttpClient/Response/AsyncResponse.php
+index 890e2e9674..de52ce0759 100644
+--- a/src/Symfony/Component/HttpClient/Response/AsyncResponse.php
++++ b/src/Symfony/Component/HttpClient/Response/AsyncResponse.php
+@@ -51,8 +51,8 @@ final class AsyncResponse implements ResponseInterface, StreamableInterface
+ 
+         if (null !== $onProgress = $options['on_progress'] ?? null) {
+             $thisInfo = &$this->info;
+-            $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info) use (&$thisInfo, $onProgress) {
+-                $onProgress($dlNow, $dlSize, $thisInfo + $info);
++            $options['on_progress'] = static function (int $dlNow, int $dlSize, array $info, ?\Closure $resolve = null) use (&$thisInfo, $onProgress) {
++                $onProgress($dlNow, $dlSize, $thisInfo + $info, $resolve);
+             };
+         }
+         $this->response = $client->request($method, $url, ['buffer' => false] + $options);
+diff --git a/src/Symfony/Component/HttpClient/Response/CurlResponse.php b/src/Symfony/Component/HttpClient/Response/CurlResponse.php
+index 633b74a125..1db51da739 100644
+--- a/src/Symfony/Component/HttpClient/Response/CurlResponse.php
++++ b/src/Symfony/Component/HttpClient/Response/CurlResponse.php
+@@ -115,13 +115,20 @@ final class CurlResponse implements ResponseInterface, StreamableInterface
+         curl_pause($ch, \CURLPAUSE_CONT);
+ 
+         if ($onProgress = $options['on_progress']) {
++            $resolve = static function (string $host, ?string $ip = null) use ($multi): ?string {
++                if (null !== $ip) {
++                    $multi->dnsCache->hostnames[$host] = $ip;
++                }
++
++                return $multi->dnsCache->hostnames[$host] ?? null;
++            };
+             $url = isset($info['url']) ? ['url' => $info['url']] : [];
+             curl_setopt($ch, \CURLOPT_NOPROGRESS, false);
+-            curl_setopt($ch, \CURLOPT_PROGRESSFUNCTION, static function ($ch, $dlSize, $dlNow) use ($onProgress, &$info, $url, $multi, $debugBuffer) {
++            curl_setopt($ch, \CURLOPT_PROGRESSFUNCTION, static function ($ch, $dlSize, $dlNow) use ($onProgress, &$info, $url, $multi, $debugBuffer, $resolve) {
+                 try {
+                     rewind($debugBuffer);
+                     $debug = ['debug' => stream_get_contents($debugBuffer)];
+-                    $onProgress($dlNow, $dlSize, $url + curl_getinfo($ch) + $info + $debug);
++                    $onProgress($dlNow, $dlSize, $url + curl_getinfo($ch) + $info + $debug, $resolve);
+                 } catch (\Throwable $e) {
+                     $multi->handlesActivity[(int) $ch][] = null;
+                     $multi->handlesActivity[(int) $ch][] = $e;
+diff --git a/src/Symfony/Component/HttpClient/TraceableHttpClient.php b/src/Symfony/Component/HttpClient/TraceableHttpClient.php
+index 0c1f05adf7..f83a5cadb1 100644
+--- a/src/Symfony/Component/HttpClient/TraceableHttpClient.php
++++ b/src/Symfony/Component/HttpClient/TraceableHttpClient.php
+@@ -58,11 +58,11 @@ final class TraceableHttpClient implements HttpClientInterface, ResetInterface,
+             $content = false;
+         }
+ 
+-        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use (&$traceInfo, $onProgress) {
++        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info, ?\Closure $resolve = null) use (&$traceInfo, $onProgress) {
+             $traceInfo = $info;
+ 
+             if (null !== $onProgress) {
+-                $onProgress($dlNow, $dlSize, $info);
++                $onProgress($dlNow, $dlSize, $info, $resolve);
+             }
+         };
+ 
+diff --git a/src/Symfony/Contracts/HttpClient/HttpClientInterface.php b/src/Symfony/Contracts/HttpClient/HttpClientInterface.php
+index 73a7cb517e..c0d839f30e 100644
+--- a/src/Symfony/Contracts/HttpClient/HttpClientInterface.php
++++ b/src/Symfony/Contracts/HttpClient/HttpClientInterface.php
+@@ -48,9 +48,11 @@ interface HttpClientInterface
+         'buffer' => true,       // bool|resource|\Closure - whether the content of the response should be buffered or not,
+                                 //   or a stream resource where the response body should be written,
+                                 //   or a closure telling if/where the response should be buffered based on its headers
+-        'on_progress' => null,  // callable(int $dlNow, int $dlSize, array $info) - throwing any exceptions MUST abort
+-                                //   the request; it MUST be called on DNS resolution, on arrival of headers and on
+-                                //   completion; it SHOULD be called on upload/download of data and at least 1/s
++        'on_progress' => null,  // callable(int $dlNow, int $dlSize, array $info, ?Closure $resolve = null) - throwing any
++                                //   exceptions MUST abort the request; it MUST be called on connection, on headers and on
++                                //   completion; it SHOULD be called on upload/download of data and at least 1/s;
++                                //   if passed, $resolve($host) / $resolve($host, $ip) can be called to read / populate
++                                //   the DNS cache respectively
+         'resolve' => [],        // string[] - a map of host to IP address that SHOULD replace DNS resolution
+         'proxy' => null,        // string - by default, the proxy-related env vars handled by curl SHOULD be honored
+         'no_proxy' => null,     // string - a comma separated list of hosts that do not require a proxy to be reached

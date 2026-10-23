@@ -1,0 +1,395 @@
+{
+ "candidate_id": "disc2_a0cc121910e9705ad8ee341b",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/nvd_cve.json",
+   "evidence_id": "ev_expat_25313_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "348af716094dd810522ba179dcdd925ea674f62e224ecfd2bba203326b0cc673",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-25313",
+   "supports": [
+    "NVD primary CVSS 3.1 is 6.5 MEDIUM with AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+    "NVD primary weakness is CWE-674 (Uncontrolled Recursion)",
+    "NVD description: before 2.4.5 an attacker can trigger stack exhaustion in build_model via a large nesting depth in the DTD element",
+    "CPE configuration marks libexpat before 2.4.5 as vulnerable",
+    "published and last modified 2022-02-18 (metadata refresh 2026-10-14)"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/cve_v5.json",
+   "evidence_id": "ev_expat_25313_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "cf5c813a8740fb3d6ac8360f48cc89eb11df55a3684f730080ee3080ac1d396b",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-25313",
+   "supports": [
+    "CVE state PUBLISHED, assigner mitre, published 2022-02-18T04:23:04Z",
+    "the CNA record is a placeholder: product/vendor/version are n/a and problemTypes is n/a",
+    "no metrics are supplied by the CNA",
+    "references point to PR 558, the oss-security post and distro advisories"
+   ],
+   "verification_method": "CVE List v5 MITRE record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/osv_cve.json",
+   "evidence_id": "ev_expat_25313_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "761cffe4fafbedc626c27641114e06f8731849828f797f971e9158fada10309f",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2022-25313",
+   "supports": [
+    "OSV CVSS_V3 score is CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+    "the GIT range is introduced 0 and fixed 97a48405, which is the 2.4.5 release-preparation merge commit, not the code fix",
+    "CPE_RANGE and DESCRIPTION extraction both state fixed 2.4.5",
+    "the versions list includes R_2_4_4 as affected"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/oss_security_2022_02_19_1.html",
+   "evidence_id": "ev_expat_25313_oss_security",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "81368ab5f0f1a4138014015a7f04b1a0c59a2153fa81eaff70184f560d9f9a45",
+   "source_url": "https://www.openwall.com/lists/oss-security/2022/02/19/1",
+   "supports": [
+    "the post announces Expat 2.4.5 and lists CVE-2022-25313 among five CVEs",
+    "it quotes the 2.4.5 Changes entry: fix stack exhaustion in doctype parsing triggered by e.g. a 2 MB file with a large number of opening braces; expected impact denial of service or potentially arbitrary code execution",
+    "the credited reporter context is PR 558 and Google Project Zero is thanked"
+   ],
+   "verification_method": "oss-security mail archive text read"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/pr_558.html",
+   "evidence_id": "ev_expat_25313_pr_558",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "7d6eb9a1834856aecc16029814df8f85809e2ed3e46d0a9c17544d1af108232d",
+   "source_url": "https://github.com/libexpat/libexpat/pull/558",
+   "supports": [
+    "PR 558 is titled \"Prevent stack exhaustion in build_model\" and is the change referenced by the CVE",
+    "the PR body states build_node is called recursively from build_model and that the code was changed to run iteratively",
+    "the fix keeps API and ABI compatibility and uses already-allocated heap space as a temporary stack"
+   ],
+   "verification_method": "GitHub pull request page text read; no scripts executed"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/changes_2.4.5.txt",
+   "evidence_id": "ev_expat_25313_changes",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "b43e03f4a73aa2e7c839dc2dfdda5c8070cb4fa18082debcfa55d5e563d05908",
+   "source_url": "https://github.com/libexpat/libexpat/blob/R_2_4_5/expat/Changes",
+   "supports": [
+    "Release 2.4.5 (Fri February 18 2022) lists \"#558 CVE-2022-25313 -- Fix stack exhaustion in doctype parsing\"",
+    "the entry describes a trigger such as a 2 MB file with a large number of opening braces",
+    "the entry states expected impact is denial of service or potentially arbitrary code execution"
+   ],
+   "verification_method": "file read at tag R_2_4_5"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/git_object_checks.txt",
+   "evidence_id": "ev_expat_25313_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "f7aaed8046ed8d9b7e57bfce41925393a18f800b871fd77330d83e4c840b1a29",
+   "source_url": "https://github.com/libexpat/libexpat/commit/9b4ce651b26557f16103c3a366c91934ecd439ab",
+   "supports": [
+    "tag R_2_4_4 peels to 81b89678 and tag R_2_4_5 peels to 97a48405",
+    "fix commit 9b4ce651 has subject \"Prevent stack exhaustion in build_model\", dated 2022-02-15",
+    "fix is an ancestor of R_2_4_5 and absent from R_2_4_4",
+    "blob expat/lib/xmlparse.c is 4b43e613 at 2.4.4 and c479a258 at 2.4.5",
+    "build_node exists at 2.4.4 and is gone at 2.4.5; the recursive call is at line 7346",
+    "OSV fixed commit 97a48405 is the 2.4.5 release-prep merge, not the code fix"
+   ],
+   "verification_method": "git merge-base --is-ancestor in both directions; git show; blob comparison"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/xmlparse_2.4.4.c",
+   "evidence_id": "ev_expat_25313_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "28d94ab58b1456053216525fb41274a4da6ad3a640d056074e3166528324e6f1",
+   "source_url": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7344-L7347",
+   "supports": [
+    "build_node converts one scaffold node and, for a group node, loops over its children calling itself recursively at line 7346",
+    "there is no depth counter, depth limit or iterative fallback in the vulnerable function",
+    "build_model calls build_node once with the root node at line 7386",
+    "the DTD scaffold depth comes from parsing the element content model, so nesting in the DTD determines recursion depth"
+   ],
+   "verification_method": "file read at R_2_4_4"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/xmlparse_2.4.5.c",
+   "evidence_id": "ev_expat_25313_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "39b1ebfddaddf01f98cf922ae4e0263b60cb4282b8eeb5fc3ea4f3073338a118",
+   "source_url": "https://github.com/libexpat/libexpat/blob/97a4840578693a346e79302909b67d97492e1880/expat/lib/xmlparse.c#L7368-L7445",
+   "supports": [
+    "the 2.4.5 build_model is iterative: it uses the target XML_Content array as a temporary stack growing down from the end",
+    "the recursion over children is replaced by pushing child indices and popping them in a loop",
+    "the comment states the old recursive build_node could be forced into stack exhaustion from input as small as a few megabytes",
+    "build_node is removed entirely"
+   ],
+   "verification_method": "file read at R_2_4_5"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/fix_commit.txt",
+   "evidence_id": "ev_expat_25313_fix_commit",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "9b31d57e4410ffc80a005edd2252052a3b89f8696be7d399acea90f67bebdb82",
+   "source_url": "https://github.com/libexpat/libexpat/commit/9b4ce651b26557f16103c3a366c91934ecd439ab",
+   "supports": [
+    "the commit message explains that depth of nested children in a DTD element triggers stack exhaustion in recursively called build_node",
+    "the commit body includes a C PoC harness and a compressed nested-group XML input, which were read but never built or run",
+    "the diff deletes build_node and rewrites build_model iteratively"
+   ],
+   "verification_method": "git show of the fix commit"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25313/sources/fix_commit_stat.txt",
+   "evidence_id": "ev_expat_25313_fix_stat",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "7019883dac91a2f56197d3417ec8a5c2dfbaa7e1ceb5689224ab6027bd58581a",
+   "source_url": "https://github.com/libexpat/libexpat/commit/9b4ce651b26557f16103c3a366c91934ecd439ab",
+   "supports": [
+    "the fix touches only expat/lib/xmlparse.c: 79 insertions and 37 deletions",
+    "no test file is added in this commit",
+    "the release commit 97a48405 is separate from the code fix"
+   ],
+   "verification_method": "git show --stat of the fix commit"
+  },
+  {
+   "artifact_path": "runs/language/snap_d33251dac37c334c/snapshot_proposal.json",
+   "evidence_id": "ev_expat_25313_snapshot",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:35:00Z",
+   "sha256_of_observation": "dbdaac85d4c92507acba12f99bab4fedc99deab969a5c64d3527e47e6f789d0c",
+   "source_url": "https://github.com/libexpat/libexpat/tree/81b89678e200820271b72cacdd45fb5868855765",
+   "supports": [
+    "snapshot_id snap_d33251dac37c334c, tag R_2_4_4, vulnerable_commit 81b89678, 153 tracked files",
+    "expat/lib/xmlparse.c is inventoried with git_oid 4b43e613, language C, programming, not vendored or generated",
+    "C is a first-party programming language with 33 files and 585,427 bytes"
+   ],
+   "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   2,
+   3,
+   5
+  ],
+  "aliases": [
+   0,
+   1,
+   2
+  ],
+  "critical_operation": [
+   6,
+   7,
+   8,
+   9
+  ],
+  "cwe": [
+   0
+  ],
+  "fix_commits": [
+   2,
+   5,
+   6,
+   9
+  ],
+  "fixed_releases": [
+   2,
+   5,
+   6,
+   8
+  ],
+  "languages": [
+   11
+  ],
+  "severity": [
+   0,
+   2,
+   3
+  ],
+  "vulnerable_commit": [
+   6,
+   7,
+   11
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No XML parser, C harness or PoC was built or executed; the finding is static. The fix commit ships a PoC harness and a compressed input, which were read as text only.",
+  "The minimum nesting depth needed to exhaust a stack depends on the platform stack limit and on compiler optimization; no measurement was made.",
+  "The call is reached only when the embedding application registers XML_SetElementDeclHandler; parsers that do not register it take the handleDefault path and skip build_model.",
+  "The advisory notes the expected impact may include arbitrary code execution in the embedding application; the cataloged category is denial of service because stack exhaustion is what the code defect directly causes.",
+  "The OSV fixed event names the 2.4.5 release-preparation merge commit (97a48405), not the code fix 9b4ce651; the advisory, Changes file and tag ancestry were used to confirm the fix.",
+  "The MITRE CNA record is a placeholder (vendor/product/version and problemTypes all n/a) and supplies no CVSS or CWE; CWE-674 and the CVSS score come from NVD."
+ ],
+ "location": {
+  "critical_operation": {
+   "code_excerpt": "    for (i = 0, cn = dtd->scaffold[src_node].firstchild; i < dest->numchildren;\n         i++, cn = dtd->scaffold[cn].nextsib) {\n      build_node(parser, cn, &(dest->children[i]), contpos, strpos);\n    }",
+   "description": "build_node converts one scaffold node; when the node is a group it iterates its children and calls build_node recursively for each. The scaffold depth equals the nesting depth in the DTD element content model, which the attacker controls, and no depth limit exists. A deeply nested group therefore consumes one C stack frame per level and can exhaust the stack. The 2.4.5 fix removes build_node and performs the same traversal iteratively using the target XML_Content array as a temporary stack.",
+   "file": "expat/lib/xmlparse.c",
+   "function": "build_node",
+   "language": "C",
+   "line": "7344-7347",
+   "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7344-L7347"
+  },
+  "entry_point": {
+   "description": "doProlog parses a DTD element declaration. On GROUP_CLOSE, when the application has registered an element declaration handler, it calls build_model at line 5423, which calls build_node with the root scaffold node. The attacker-supplied XML document supplies the nesting that determines recursion depth; applications without XML_SetElementDeclHandler skip the call.",
+   "file": "expat/lib/xmlparse.c",
+   "function": "doProlog",
+   "language": "C",
+   "line": 5423,
+   "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L5423"
+  },
+  "location_id": "loc_CVE-2022-25313_snap_d33251dac37c334c",
+  "vulnerability_id": "CVE-2022-25313",
+  "snapshot_id": "snap_d33251dac37c334c",
+  "location_kind": "memory",
+  "verification_method": "Static read of expat/lib/xmlparse.c at R_2_4_4 and R_2_4_5, PR #558 and the fix diff, git tag ancestry and release tag contents; no code executed.",
+  "trace": [
+   {
+    "description": "Element declaration is parsed by doProlog",
+    "file": "expat/lib/xmlparse.c",
+    "function": "doProlog",
+    "language": "C",
+    "line": 5423,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L5423"
+   },
+   {
+    "description": "build_model calls build_node recursively for each child of the model group",
+    "file": "expat/lib/xmlparse.c",
+    "function": "build_model",
+    "language": "C",
+    "line": 7338,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7338-L7347"
+   },
+   {
+    "description": "Deeply nested element content models recurse without a depth limit and exhaust the stack",
+    "file": "expat/lib/xmlparse.c",
+    "function": "build_node",
+    "language": "C",
+    "line": 7344,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7344-L7347"
+   }
+  ]
+ },
+ "open_questions": [
+  "How the nesting depth interacts with Expat's own scaffold allocation growth (scaffCount limits) was not measured.",
+  "Whether any supported platform's default stack is exhausted by a document smaller than a few megabytes was not tested.",
+  "The advisory mentions potential code execution on top of Expat; no exploitability analysis was performed beyond the DoS mechanism."
+ ],
+ "prepared_at": "2026-10-21T17:35:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "canonical_url": "https://github.com/libexpat/libexpat",
+  "full_name": "libexpat/libexpat",
+  "primary_language": "C",
+  "project_kind": "streaming XML parser library",
+  "repo_id": "80314213",
+  "snapshot_id": "snap_d33251dac37c334c"
+ },
+ "review": {
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read expat/lib/xmlparse.c at R_2_4_4 and confirm build_node calls itself recursively with no depth limit.",
+   "An independent reviewer must confirm 9b4ce651 is absent from R_2_4_4 and present in R_2_4_5, and that build_node is removed in the fixed file.",
+   "An independent reviewer must confirm the affected range \"before 2.4.5\" and that 2.4.4 is inside it.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "status": "PENDING_INDEPENDENT_REVIEW"
+ },
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 MITRE record",
+   "OSV record",
+   "oss-security announcement quoting the 2.4.5 Changes",
+   "upstream pull request, git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on fixed 2.4.5 and on the build_model recursion mechanism. The CVE v5 record is a MITRE placeholder with no metrics, CWE or version data; NVD supplies CVSS 3.1 6.5 and CWE-674. OSV repeats the NVD vector and its GIT fixed event points at the release-preparation merge rather than the code commit. The Changes entry warns of possible arbitrary code execution in applications on top of Expat, broader than the NVD DoS description; both are recorded.",
+  "severity_disagreement": false
+ },
+ "status": "awaiting_independent_review",
+ "vulnerability": {
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/libexpat/libexpat/pull/558",
+  "affected_packages": [
+   {
+    "affected_range": "<2.4.5",
+    "ecosystem": "generic",
+    "package": "expat",
+    "purl": "pkg:generic/expat"
+   }
+  ],
+  "aliases": [
+   "CVE-2022-25313"
+  ],
+  "category_l1": "denial_of_service",
+  "category_l2": "stack exhaustion through unbounded recursion over nested DTD content models in build_model/build_node",
+  "cwe_ids": [
+   "CWE-674"
+  ],
+  "discovery_cutoff_date": "2026-10-21",
+  "fix_commits": [
+   {
+    "branch": null,
+    "message": "Prevent stack exhaustion in build_model",
+    "sha": "9b4ce651b26557f16103c3a366c91934ecd439ab",
+    "url": "https://github.com/libexpat/libexpat/commit/9b4ce651b26557f16103c3a366c91934ecd439ab"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "generic",
+    "package": "expat",
+    "release_url": "https://github.com/libexpat/libexpat/releases/tag/R_2_4_5",
+    "tag": "R_2_4_5",
+    "verified_content": "At R_2_4_5 build_node no longer exists and build_model resolves children iteratively using the target array as a stack; fix 9b4ce651 is an ancestor of the tag and absent from R_2_4_4",
+    "version": "2.4.5"
+   }
+  ],
+  "published_at": "2022-02-18T04:23:04Z",
+  "references": [
+   "https://github.com/libexpat/libexpat/pull/558",
+   "https://github.com/libexpat/libexpat/commit/9b4ce651b26557f16103c3a366c91934ecd439ab",
+   "https://nvd.nist.gov/vuln/detail/CVE-2022-25313",
+   "https://www.openwall.com/lists/oss-security/2022/02/19/1",
+   "https://github.com/libexpat/libexpat/releases/tag/R_2_4_5"
+  ],
+  "repo_id": "80314213",
+  "severity": {
+   "level": "medium",
+   "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 6.5 falls in Medium (4.0-6.9); the impact is availability-only and requires user interaction in the CVSS sense (the application must parse attacker XML)",
+   "score": 6.5,
+   "source": "NVD primary metric nvd@nist.gov; the MITRE CNA supplied no CVSS",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-25313",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+   "version": "3.1"
+  },
+  "snapshot_id": "snap_d33251dac37c334c",
+  "source_type": "upstream_advisory",
+  "title": "libexpat before 2.4.5 recurses in build_node for DTD content-model children, allowing stack exhaustion from deeply nested element declarations",
+  "vulnerability_id": "CVE-2022-25313",
+  "vulnerable_commit": "81b89678e200820271b72cacdd45fb5868855765",
+  "vulnerable_commit_basis": "annotated tag R_2_4_4 (tag object c637e3b1) peels to commit 81b89678...; R_2_4_4 is inside the advisory's \"before 2.4.5\" range and the fix 9b4ce651 is absent from it",
+  "vulnerable_version": "2.4.4"
+ }
+}

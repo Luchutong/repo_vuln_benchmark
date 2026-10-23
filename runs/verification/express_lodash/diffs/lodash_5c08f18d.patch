@@ -1,0 +1,44 @@
+diff --git a/lodash.js b/lodash.js
+index c7081ddef..0bda583bb 100644
+--- a/lodash.js
++++ b/lodash.js
+@@ -275,9 +275,9 @@
+   /** Used to detect strings with [zero-width joiners or code points from the astral planes](http://eev.ee/blog/2015/09/12/dark-corners-of-unicode/). */
+   var reHasUnicode = RegExp('[' + rsZWJ + rsAstralRange  + rsComboRange + rsVarRange + ']');
+ 
+   /** Used to detect strings that need a more robust regexp to match words. */
+-  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2,}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
++  var reHasUnicodeWord = /[a-z][A-Z]|[A-Z]{2}[a-z]|[0-9][a-zA-Z]|[a-zA-Z][0-9]|[^a-zA-Z0-9 ]/;
+ 
+   /** Used to assign default `context` object properties. */
+   var contextProps = [
+     'Array', 'Buffer', 'DataView', 'Date', 'Error', 'Float32Array', 'Float64Array',
+diff --git a/test/test.js b/test/test.js
+index 822d229e0..149653f51 100644
+--- a/test/test.js
++++ b/test/test.js
+@@ -25357,8 +25357,24 @@
+           actual = lodashStable.map(strings, _.words);
+ 
+       assert.deepEqual(actual, [['a'], ['b'], ['c']]);
+     });
++
++    var maxMs = 5;
++    QUnit.test(`should take less than ${maxMs} ms to prevent ReDoS`, function(assert) {
++      assert.expect(3);
++
++      var hugeWordLen = 50000;
++      var hugeWord = 'A'.repeat(hugeWordLen);
++      var startTime = Date.now();
++      assert.deepEqual(_.words(hugeWord+'AeiouAreVowels'), [hugeWord, 'Aeiou', 'Are', 'Vowels']);
++      assert.deepEqual(_.words(hugeWord+'ÆiouAreVowels'), [hugeWord, 'Æiou', 'Are', 'Vowels']);
++      var endTime = Date.now();
++      var timeSpent = endTime - startTime;
++
++      assert.ok(timeSpent < maxMs, `operation took ${timeSpent} ms`);
++    });
++
+   }());
+ 
+   /*--------------------------------------------------------------------------*/
+ 

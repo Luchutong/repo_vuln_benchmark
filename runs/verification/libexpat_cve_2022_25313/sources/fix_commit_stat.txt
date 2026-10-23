@@ -1,0 +1,20 @@
+9b4ce651b26557f16103c3a366c91934ecd439ab 2022-02-15 12:16:23 +0000
+Prevent stack exhaustion in build_model
+It is possible to trigger stack exhaustion in build_model function if
+depth of nested children in DTD element is large enough. This happens
+because build_node is a recursively called function within build_model.
+
+The code has been adjusted to run iteratively. It uses the already
+allocated heap space as temporary stack (growing from top to bottom).
+
+Output is identical to recursive version. No new fields in data
+structures were added, i.e. it keeps full API and ABI compatibility.
+Instead the numchildren variable is used to temporarily keep the
+index of items (uint vs int).
+
+Documentation and readability improvements kindly added by Sebastian.
+
+Proof of Concept:
+
+1. Compile poc binary which parses XML file line by line
+

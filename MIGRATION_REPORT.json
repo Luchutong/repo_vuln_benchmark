@@ -1,0 +1,363 @@
+{
+  "source_repositories": 50,
+  "source_snapshots": 75,
+  "source_evaluation_snapshots": 22,
+  "selected_targets": 22,
+  "source_status_rows": 73,
+  "active_status_rows": 73,
+  "historical_status_rows": 0,
+  "issues": [
+    "UNSELECTED 6181245: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 105379569: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 24195339: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 2493904: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 23088740: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 29207621: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 17620347: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 10649374: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 14421569: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 153667429: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 72495579: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 27729880: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 33100064: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 31504491: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 3542607: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 3955647: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 80945428: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 11171548: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 7634677: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 2253830: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 11939484: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 8514: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 135525225: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 106995: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 72174164: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 1148753: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 67836789: no previous target; assess candidates, do NOT auto-pick",
+    "UNSELECTED 70107786: no previous target; assess candidates, do NOT auto-pick"
+  ],
+  "source_file_sha256": {
+    "data/candidates.jsonl": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be",
+    "data/discovery_coverage.jsonl": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+    "data/evidence.jsonl": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3",
+    "data/excluded_candidates.jsonl": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a",
+    "data/locations.jsonl": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a",
+    "data/repositories.jsonl": "0ab22dc4be2c77f74e91492179b4f020754560052c8315841c2b505fd78e0cd6",
+    "data/reviews.jsonl": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c",
+    "data/snapshot_vulnerability_status.jsonl": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868",
+    "data/snapshots.jsonl": "7e7537b33cbc25be84ddc0d3b79d11d810ac88f5fb9eed69f862dbe95556a6d0",
+    "data/vulnerabilities.jsonl": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9"
+  },
+  "selected": {
+    "569041": "snap_0ec1c11542393304",
+    "54280778": "snap_d9525608880dc9e1",
+    "4164482": "snap_ab695ba3db678939",
+    "237159": "snap_3166f788b2c56baa",
+    "20904437": "snap_d4899c7054105aea",
+    "1420053": "snap_efe695448113758a",
+    "23500865": "snap_735b41cb13177d03",
+    "3476845": "snap_25561773eac9d84f",
+    "1103607": "snap_d9b0ffa82cd068d0",
+    "7548986": "snap_6e1f42aa46ca4df5",
+    "3219804": "snap_a47bcab3f2c97e92",
+    "80314213": "snap_d33251dac37c334c",
+    "1064563": "snap_bb344e672a0544ef",
+    "133092972": "snap_24c4a191fd049fc3",
+    "596892": "snap_8ed1cab47a0b7011",
+    "997338": "snap_b57262de7996e8a2",
+    "16072585": "snap_ee79f4175242bbee",
+    "23357588": "snap_6bc3f36eb61ef280",
+    "96071": "snap_f97687a4e0807cb2",
+    "57920736": "snap_b3a6891886ef2160",
+    "458058": "snap_39105a8a3ceb9fe4",
+    "257485422": "snap_2e50b228f2432623"
+  },
+  "migration_tool": {
+    "name": "v03/scripts/migrate_v02_to_v03.py",
+    "version_source": "repo_vuln_50_agent_starter_v03.zip",
+    "zip_sha256": "d15dfdb18546a859c957592f0d5623e8f3ee4bf62b0290a40c3603feabd2b9e6",
+    "applied_at": "2026-10-22T01:42:54+00:00",
+    "mode": "apply",
+    "source": "/home/luchitong/work/repo-vuln-50-v02"
+  },
+  "baseline_comparison": {
+    "note": "用户提供的迁移基线是历史快照，不是落盘数据的验证结果；以下数字由 2026-10-22 实际读取 v0.2 数据得到。",
+    "user_reported": {
+      "repositories": 50,
+      "primary_languages": 12,
+      "evaluation_snapshots": 22,
+      "vulnerabilities": 72,
+      "locations": 72,
+      "reviews": 72,
+      "evidence": 1816,
+      "status_rows": 72,
+      "candidates": 2626,
+      "candidate_status": {
+        "in_validation": 505,
+        "pending_location": 749,
+        "pending_version": 861,
+        "verified": 82,
+        "rejected": 429
+      },
+      "unresolved": 2115,
+      "pending_verdicts": 20,
+      "pass_known_sweep": 0,
+      "grade_a": 0
+    },
+    "actual_at_migration": {
+      "repositories": 50,
+      "primary_languages": 12,
+      "evaluation_snapshots": 22,
+      "vulnerabilities": 73,
+      "locations": 73,
+      "reviews": 73,
+      "evidence": 1839,
+      "status_rows": 73,
+      "candidates": 2626,
+      "candidate_status": {
+        "pending_location": 750,
+        "in_validation": 503,
+        "pending_version": 861,
+        "verified": 83,
+        "rejected": 429
+      },
+      "unresolved": 2114,
+      "pass_known_sweep": 0,
+      "grade_a": 0
+    },
+    "differences": [
+      "vulnerabilities 73 vs 报告 72：多出的一条是 protobuf CVE-2022-3509（本轮之前已提升，见 WORK_LOG.md）。",
+      "locations/reviews/status_rows 同为 73，与 73 条漏洞一致；报告中的 72 是同一旧基线。",
+      "evidence 1839 vs 1816：多出的 23 条对应 CVE-2022-3509 及其复核材料。",
+      "candidates 2626 一致；状态分布 503/750/861/83/429 vs 报告 505/749/861/82/429，净变化为 2 条 triage 状态更新（in_validation -2、pending_location +1、verified +1），未删除任何候选。",
+      "unresolved 2114 vs 报告 2115：与上述 triage 更新及 1 条 verified 一致，未清空未决项。",
+      "PASS_KNOWN_SWEEP=0 与 grade A=0 与报告一致。"
+    ]
+  },
+  "reconciliation": {
+    "source_root": "/home/luchitong/work/repo-vuln-50-v02",
+    "v03_root": "/home/luchitong/work/repo-vuln-50-v03",
+    "tables": {
+      "repositories": {
+        "source_rows": 50,
+        "v03_rows": 50,
+        "row_count_equal": true,
+        "source_sha256": "0ab22dc4be2c77f74e91492179b4f020754560052c8315841c2b505fd78e0cd6",
+        "v03_sha256": "6d67534488228d8a2c9a4837944d3c446190342248b421523588e9b7e6e9e6cb",
+        "byte_identical": false
+      },
+      "snapshots": {
+        "source_rows": 75,
+        "v03_rows": 75,
+        "row_count_equal": true,
+        "source_sha256": "7e7537b33cbc25be84ddc0d3b79d11d810ac88f5fb9eed69f862dbe95556a6d0",
+        "v03_sha256": "cd9159cc6c11fdb1567813682842f901e987ee90bafe9971a8ade0b384b17638",
+        "byte_identical": false
+      },
+      "vulnerabilities": {
+        "source_rows": 73,
+        "v03_rows": 73,
+        "row_count_equal": true,
+        "source_sha256": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9",
+        "v03_sha256": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9",
+        "byte_identical": true
+      },
+      "locations": {
+        "source_rows": 73,
+        "v03_rows": 73,
+        "row_count_equal": true,
+        "source_sha256": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a",
+        "v03_sha256": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a",
+        "byte_identical": true
+      },
+      "evidence": {
+        "source_rows": 1839,
+        "v03_rows": 1839,
+        "row_count_equal": true,
+        "source_sha256": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3",
+        "v03_sha256": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3",
+        "byte_identical": true
+      },
+      "reviews": {
+        "source_rows": 73,
+        "v03_rows": 73,
+        "row_count_equal": true,
+        "source_sha256": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c",
+        "v03_sha256": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c",
+        "byte_identical": true
+      },
+      "candidates": {
+        "source_rows": 2626,
+        "v03_rows": 2626,
+        "row_count_equal": true,
+        "source_sha256": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be",
+        "v03_sha256": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be",
+        "byte_identical": true
+      },
+      "discovery_coverage": {
+        "source_rows": 50,
+        "v03_rows": 50,
+        "row_count_equal": true,
+        "source_sha256": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+        "v03_sha256": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+        "byte_identical": true
+      },
+      "snapshot_vulnerability_status": {
+        "source_rows": 73,
+        "v03_rows": 73,
+        "row_count_equal": true,
+        "source_sha256": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868",
+        "v03_sha256": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868",
+        "byte_identical": true
+      }
+    },
+    "backup_check": {
+      "repositories": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "0ab22dc4be2c77f74e91492179b4f020754560052c8315841c2b505fd78e0cd6"
+      },
+      "snapshots": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "7e7537b33cbc25be84ddc0d3b79d11d810ac88f5fb9eed69f862dbe95556a6d0"
+      },
+      "vulnerabilities": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9"
+      },
+      "locations": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a"
+      },
+      "evidence": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3"
+      },
+      "reviews": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c"
+      },
+      "candidates": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be"
+      },
+      "discovery_coverage": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b"
+      },
+      "snapshot_vulnerability_status": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868"
+      },
+      "excluded_candidates": {
+        "exists": true,
+        "sha256_equal_source": true,
+        "sha256": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a"
+      }
+    },
+    "unchanged_files": [
+      "vulnerabilities",
+      "locations",
+      "evidence",
+      "reviews",
+      "candidates",
+      "discovery_coverage",
+      "snapshot_vulnerability_status"
+    ],
+    "row_level": {
+      "repositories": {
+        "added_fields": {
+          "evaluation_snapshot_id": 50
+        },
+        "missing_original_fields": {},
+        "rows_with_changed_values": [],
+        "null_evaluation_snapshot_id": 28,
+        "nonnull_evaluation_snapshot_id": 22
+      },
+      "snapshots": {
+        "added_fields": {
+          "purpose": 75
+        },
+        "rows_with_changed_values_excluding_target_purpose": [],
+        "evaluation_target_flips": [],
+        "evaluation_targets_source": 22,
+        "evaluation_targets_v03": 22,
+        "purposes": {
+          "historical_evidence": 53,
+          "evaluation": 22
+        }
+      },
+      "snapshot_vulnerability_status": {
+        "rows_equal_multiset": true,
+        "statuses_source": {
+          "confirmed_affected": 73
+        },
+        "statuses_v03": {
+          "confirmed_affected": 73
+        }
+      }
+    }
+  },
+  "moves_and_relocations": {
+    "historical_snapshot_status_rows": 0,
+    "relocated_status_rows": 0,
+    "reason": "22 个 v0.2 评测快照全部保留为 v0.3 proposed 评测目标；没有旧目标被取消，因此没有状态行需要移入 historical_snapshot_status.jsonl。",
+    "repositories_with_new_evaluation_snapshot_id": 22,
+    "repositories_without_target": 28,
+    "note": "28 个仓库保持 evaluation_snapshot_id=null；未按经验或漏洞数量自动选版。"
+  },
+  "schema_compatibility_patch": {
+    "file": "v03/schemas/vulnerabilities.schema.json",
+    "reason": "starter v0.3 的 vulnerability_id 正则 GHSA-[0-9A-Z-]+ 拒绝真实 GHSA 编号中的小写字符（GHSA 使用 base32 小写），导致 9 条既有 canonical ID 校验失败；v0.2 原 schema 已允许小写。",
+    "shipped_sha256": "bffa74693e0d393de65f44a1530830b44fff7ceb02ecf5af86d58e84794ac52c",
+    "patched_sha256": "efa419ad698472bb4d97cad17966215fd0daf79644b681be5016271c12ac4265",
+    "change": "^(GHSA-[0-9A-Z-]+|CVE-...) → ^(GHSA-[0-9A-Za-z-]+|CVE-...)",
+    "data_changed": false
+  },
+  "workflow_overlay": {
+    "kit_path": "v03/",
+    "kit_files": [
+      "WORKFLOW.md",
+      "AGENT_PROMPT.md",
+      "README.md",
+      "docs/",
+      "schemas/",
+      "scripts/",
+      "tests/",
+      "examples/",
+      "requirements.txt"
+    ],
+    "v02_scripts_backup": "migration_backup_v02/scripts_v02",
+    "v02_schemas_backup": "migration_backup_v02/schemas_v02",
+    "root_schemas_unchanged": "根目录 schemas/ 仍是 v0.2 原样，用于 validate_v02_reference.py 对照"
+  },
+  "post_migration_validation": {
+    "command": "v03/scripts/validate_dataset.py . --draft",
+    "errors": 0,
+    "warnings": 50,
+    "evaluation_snapshot_count": 22,
+    "known_positives": 73,
+    "counts": {
+      "repositories": 50,
+      "snapshots": 75,
+      "vulnerabilities": 73,
+      "locations": 73,
+      "evidence": 1839,
+      "reviews": 73,
+      "candidates": 2626,
+      "discovery_coverage": 50,
+      "snapshot_vulnerability_status": 73,
+      "evaluation_selection": 22
+    },
+    "generated_at": "2026-10-22T01:50:00Z"
+  },
+  "lossless_statement": "九张主表行数全部不变；其中 vulnerabilities/locations/evidence/reviews/candidates/discovery_coverage/snapshot_vulnerability_status 七个文件字节级一致。repositories 仅新增 evaluation_snapshot_id（22 非空/28 空），snapshots 仅新增 purpose 并改写 evaluation_target（22 个，无翻转），所有原有字段值未改变。原始 data/*.jsonl 全部字节级备份在 migration_backup_v02/data/ 且 SHA256 与源相同；源目录从未写入。"
+}

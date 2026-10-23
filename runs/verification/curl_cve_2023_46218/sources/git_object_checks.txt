@@ -1,0 +1,22 @@
+# CVE-2023-46218 git object checks (bare clone /tmp/curl_git/curl.git)
+tag curl-8_3_0 object: 8c537ee308eca91d0a240315b24025048ae54e61
+tag curl-8_3_0 peeled: 6fa1d817e5b1a00d7d0c8168091877476b499317
+tag curl-8_4_0 peeled: d755a5f7c009dd63a61b2c745180d8ba937cbfeb
+tag curl-8_5_0 peeled: 7161cb17c01dcff1dc5bf89a18437d9d729f1ecd
+fix 2b0994c2: 2023-11-23 10:08:56 +0100 cookie: lowercase the domain names before PSL checks
+introduced e77b5b74: 2015-10-17 16:37:49 +0200 cookies: Add support for Mozilla's Publix Suffix List
+fix ancestor of curl-8_5_0: YES
+fix ancestor of curl-8_4_0: NO
+fix ancestor of curl-8_3_0: NO
+blob curl-8_3_0:lib/cookie.c = 4345a84c6fd9d2f9f20bbcc3b661fffab1cfb519
+blob curl-8_5_0:lib/cookie.c = 9095cea3e97f229f2466bed8c75c48f3c7a646d8
+byte-identical cookie.c 8.3.0 vs 8.5.0: NO
+8.3.0 Curl_cookie_add psl call line: 1048
+8.5.0 lowercasing lines: 1039
+1040
+
+# OSV GIT endpoints from the CVE record
+OSV introduced e2ae32ff: 2015-12-01 23:10:16 +0100 RELEASE-NOTES: updated contributor count for 7.46.0
+OSV last_affected 172e54cd: 2023-10-30 09:32:12 +0100 tiny-curl: patch set applied on 8.4.0
+OSV introduced is a 7.46.0 release-notes commit, not the code-introducing commit (introduced-in per advisory: e77b5b74, 2015-10-17)
+OSV last_affected is a tiny-curl patch commit dated 2023-10-30, after 8.4.0; the real fixed-in commit is 2b0994c2

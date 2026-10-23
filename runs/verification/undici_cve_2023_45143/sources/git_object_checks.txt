@@ -1,0 +1,56 @@
+Repository: https://github.com/nodejs/undici
+Local mirror: /tmp/undici_vuln.git (bare clone; tags include the 5.19/5.26 release lines)
+
+Dataset snapshot: tag v5.19.0, commit f5c89e5c87c7d702996b152c4ad86302b60c4181.
+  runs/language/snap_24c4a191fd049fc3/snapshot_proposal.json records
+  tag_or_release=v5.19.0, vulnerable_commit=f5c89e5c87c7d702996b152c4ad86302b60c4181.
+  package.json at that commit says "version": "5.19.0", so the tree is the release tag itself.
+  runs/language/snap_24c4a191fd049fc3/file_inventory.json records
+  lib/fetch/index.js bytes=73039, git_oid=ae60a5af57c05a3a3e6aa1ae43888c83ae715b2c,
+  language=JavaScript, which matches the blob at the snapshot commit:
+  $ git rev-parse f5c89e5c:lib/fetch/index.js
+  ae60a5af57c05a3a3e6aa1ae43888c83ae715b2c
+
+Fix commit: e041de359221ebeae04c469e8aff4145764e6d76
+  "Merge pull request from GHSA-wqq4-5wpv-mx2g", 2023-10-11
+  body: "fix: delete 'cookie' and 'host' headers on cross-origin redirect"
+  The commit is the GHSA merge, not a release bump.
+  $ git merge-base --is-ancestor e041de3 v5.26.0^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor e041de3 v5.26.1^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor e041de3 v5.26.2^{commit} ; echo $?  -> 0
+  $ git tag --contains e041de3 | sort -V | head -1                 -> v5.26.2
+
+Release tags resolve to:
+  v5.19.0 -> f5c89e5c87c7d702996b152c4ad86302b60c4181 (snapshot)
+  v5.19.1 -> 984d53bad97c98529424a7f3bef6be1d0e76d039
+  v5.26.0 -> 4006aaf43ac8b30e16d6d3b89fa2e0df4b7eef33
+  v5.26.1 -> c8c80b1115d668664d8cf3acec7535b0258c3079
+  v5.26.2 -> 12a62187d45f332cf39dd405f7c52b759cf40cdd
+
+The target file's blob by release:
+  v5.19.0 lib/fetch/index.js -> ae60a5af57c05a3a3e6aa1ae43888c83ae715b2c (vulnerable snapshot)
+  v5.19.1 lib/fetch/index.js -> ae60a5af57c05a3a3e6aa1ae43888c83ae715b2c (unchanged)
+  v5.26.1 lib/fetch/index.js -> c89c9b7ffcbe35d2da606e9512c89d426e9230bd (still vulnerable)
+  v5.26.2 lib/fetch/index.js -> 5323c30abc87919e3c0a71de478a9f82b6cd571e (= patch post-image
+                                 5323c30a, the fix itself)
+  $ git show e041de3:lib/fetch/index.js | git hash-object --stdin
+  5323c30abc87919e3c0a71de478a9f82b6cd571e
+
+The patch adds two deletions inside the existing cross-origin branch:
+  request.headersList.delete('cookie')
+  request.headersList.delete('host')
+next to the pre-existing request.headersList.delete('authorization'), plus a new
+test/fetch/redirect-cross-origin-header.js that asserts server1 receives neither
+cookie nor authorization after a cross-origin redirect.
+
+Forbidden-header handling at the snapshot: lib/fetch/headers.js contains the comment
+"Note: undici does not implement forbidden header names" (lines 232, 275 and 374),
+so a Cookie header set through RequestInit.headers is kept in the header list rather
+than being dropped as a forbidden request header. That is why the missing delete()
+in httpRedirectFetch is reachable in Node.js.
+
+Duplicate check in the dataset at this snapshot: the already-promoted
+CVE-2023-23936 (lib/fetch/index.js header injection via CRLF in the path) and
+CVE-2023-24807 (lib/fetch/multipart.js filename handling) are different defects
+fixed in v5.19.1. This candidate is CVE-2023-45143, the Cookie/Host leak on
+cross-origin redirect, fixed in v5.26.2 by e041de3.

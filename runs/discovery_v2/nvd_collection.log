@@ -1,0 +1,3 @@
+NVD DaveGamble/cJSON cJSON PASS_QUERY_ONLY 32
+NVD libexpat/libexpat expat PASS_QUERY_ONLY 46
+NVD curl/curl curl PASS_QUERY_ONLY 360

@@ -1,0 +1,367 @@
+{
+  "candidate_id": "adv3_cbefb3c10f62d8e1",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/osv_ghsa.json",
+      "evidence_id": "ev_protobuf_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:32:00Z",
+      "sha256_of_observation": "6ad65ca3b7f85365ebf68231307f5f5d6ba78cb1c901ad55816f8d7bebb375ad",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-8gq9-2x98-w8hf",
+      "supports": [
+        "GHSA aliases CVE-2022-1941 and PYSEC-2026-899",
+        "PyPI protobuf ranges introduced 0/3.19.0/3.20.0/4.0.0 and fixed at 3.18.3/3.19.5/3.20.2/4.21.6",
+        "CVSS 3.1 7.5 and CWE-1286/CWE-119 in database_specific",
+        "GitHub-reviewed advisory published 2022-09-23"
+      ],
+      "verification_method": "OSV API query by GHSA id; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/cve_v5.json",
+      "evidence_id": "ev_protobuf_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:31:00Z",
+      "sha256_of_observation": "756e5288b43ba28c0a53e84fb560f3ea10f7fbf80f5e78cc9a0d5a374ea952a3",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-1941",
+      "supports": [
+        "description of the MessageSet parsing flaw and memory exhaustion",
+        "protobuf-cpp affected through 3.20.1 and fixed in 3.20.2",
+        "CNA CWE-1286",
+        "CNA CVSS 5.7 AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H under metrics.other"
+      ],
+      "verification_method": "CVE List v5 MITRE record, state PUBLISHED, assigner Google"
+    },
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/nvd_cve.json",
+      "evidence_id": "ev_protobuf_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:31:00Z",
+      "sha256_of_observation": "7e713dec49f03614f5e75860296b71c06e94ae79e8776abd76502391538a9611",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-1941",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "CWE-1286 plus NVD-CWE-Other",
+        "CPE range >=3.20.0,<3.20.2 for google:protobuf-cpp"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/git_object_checks.txt",
+      "evidence_id": "ev_protobuf_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:36:00Z",
+      "sha256_of_observation": "fed8338c509f38ad1ea95d0041d6085532e4f18a410e0598747464361632fca8",
+      "source_url": "https://github.com/protocolbuffers/protobuf/commit/b4c395aaedfacb32e2414d361fa85968c0991b34",
+      "supports": [
+        "v3.20.1 is the lightweight tag commit 21027a2",
+        "fix commit b4c395a ('Apply patch') has parent 7639a71",
+        "fix is an ancestor of v3.20.2 commit a20c65f and not of v3.20.1",
+        "both tag trees and the 2451-file enumeration"
+      ],
+      "verification_method": "exact-SHA fetch into a bare repository; git merge-base --is-ancestor in both directions; ls-tree count"
+    },
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/wire_format_lite_3.20.1.h",
+      "evidence_id": "ev_protobuf_vuln_lite",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:34:00Z",
+      "sha256_of_observation": "eb1ff774113e8e807e7f34b10418a0bebdd7c9c07684b8cafa41126eab190728",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format_lite.h#L1822-L1878",
+      "supports": [
+        "vulnerable root-cause region",
+        "last_type_id == 0 is used as an unset sentinel",
+        "message_data.empty() is used as the only 'payload already buffered' state",
+        "duplicate type-id and message tags are not tracked or rejected",
+        "no explicit parser state enum exists in 3.20.1"
+      ],
+      "verification_method": "file read at the exact v3.20.1 commit"
+    },
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/wire_format_3.20.1.cc",
+      "evidence_id": "ev_protobuf_entry",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:34:00Z",
+      "sha256_of_observation": "e3daca906d40cef31eef7e510cf954823630b4043a565c031e3db67ea7ae9c2d",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format.cc#L635-L740",
+      "supports": [
+        "reflective entry point ParseAndMergeMessageSetItem at line 635",
+        "call from WireFormat::ParseAndMerge at line 369",
+        "same payload_read/last_type_id sentinel design in MessageSetParser"
+      ],
+      "verification_method": "file read at the exact v3.20.1 commit"
+    },
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/extension_set_inl_3.20.1.h",
+      "evidence_id": "ev_protobuf_vuln_extension",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:34:00Z",
+      "sha256_of_observation": "830aacf478bbace0acb7c83f1e092d848c0b125e7b5b2f61843c098b58fe3661",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/extension_set_inl.h#L205-L262",
+      "supports": [
+        "second affected implementation (extensions)",
+        "type_id = 0 sentinel and payload_read boolean; no state machine"
+      ],
+      "verification_method": "file read at the exact v3.20.1 commit"
+    },
+    {
+      "artifact_path": "runs/verification/protobuf_cve_2022_1941/sources/wire_format_lite_3.20.2.h",
+      "evidence_id": "ev_protobuf_fixed_lite",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:34:00Z",
+      "sha256_of_observation": "9e9cf9db4f318268597740751be712a78d42d09cd1ede4560e17eae52d6304ba",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/a20c65f2cd549445fda907f7b83894c8eb7427d6/src/google/protobuf/wire_format_lite.h#L1822-L1892",
+      "supports": [
+        "fixed release content",
+        "explicit enum class State { kNoTag, kHasType, kHasPayload, kDone }",
+        "duplicate payload is skipped with ms.SkipField instead of re-parsed",
+        "type_id from the pending payload path is now used instead of last_type_id"
+      ],
+      "verification_method": "file read at the v3.20.2 tag commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_6bc3f36eb61ef280/snapshot_proposal.json",
+      "evidence_id": "ev_protobuf_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:38:00Z",
+      "sha256_of_observation": "6612f8de221ffe14c1356cf6380a8da4985c4ccee1ebf4fc9de69447e9165f5a",
+      "source_url": "https://github.com/protocolbuffers/protobuf/tree/21027a27c4c2ec1000859ccbcfff46d83b16e1ed",
+      "supports": [
+        "snapshot_id and 2451-file inventory",
+        "C++ first-party 472 files / 9,278,204 bytes / 36.84% of first-party text",
+        "tree oid 2c73cc5a",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      0,
+      1,
+      2
+    ],
+    "fix_commits": [
+      3
+    ],
+    "fixed_releases": [
+      3,
+      7
+    ],
+    "languages": [
+      8
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      3,
+      4
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No MessageSet byte sequence was crafted, parsed or executed; the finding is static.",
+    "The advisory, CVE and NVD records do not name a fix commit; b4c395a was located in upstream history between v3.20.1 and v3.20.2 and proven by ancestry, not by an advisory reference.",
+    "Only the 3.20.x line is verified. The CNA also lists 3.18.x, 3.19.x, 3.21.x and 4.21.x fixes and OSV lists four PyPI ranges; neither their commits nor their release contents were reviewed here.",
+    "The exact byte pattern that maximizes memory growth is not demonstrated. The static claim is limited to the absent state machine and the duplicate-tag handling shown by the fix.",
+    "OSV covers the PyPI package only; the C++ library has no OSV ecosystem record. The dossier therefore declares a generic protobuf-cpp range from CNA/NVD, not an OSV range.",
+    "CWE-119 appears only in OSV database_specific; the CNA and NVD primary mapping is CWE-1286. CWE-119 is recorded as an additional mapping, not as the canonical CWE."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "uint32_t last_type_id = 0;\nstd::string message_data;\nwhile (true) {\n  switch (input->ReadTagNoLastTag()) {\n    case kMessageSetTypeIdTag:\n      last_type_id = type_id;\n      if (!message_data.empty()) { ... ms.ParseField(last_type_id, &sub_input); message_data.clear(); }\n    case kMessageSetMessageTag:\n      if (last_type_id == 0) { ... message_data.resize(size); ... input->ReadRaw(ptr, length); }\n      else { if (!ms.ParseField(last_type_id, input)) return false; }",
+      "description": "The free template function google::protobuf::internal::ParseMessageSetItemImpl (not a WireFormatLite member) tracks MessageSet progress with two sentinel values rather than a state machine. last_type_id == 0 means 'no type id seen', and message_data.empty() means 'no buffered payload'; a real type id of 0 is indistinguishable from 'unset'. Message tags are either buffered when last_type_id is 0 or parsed immediately into the extension when it is non-zero. The parser never records that a type id/payload pair was already completed, so duplicate type-id and duplicate message tags in one MessageSetItem are accepted and the same logical field is parsed or merged repeatedly instead of being rejected or skipped. The fix replaces the sentinels with enum class State { kNoTag, kHasType, kHasPayload, kDone } and, in the terminal state, skips duplicate payload bytes instead of re-parsing them. The same design appears in WireFormat::MessageSetParser (wire_format.cc) and ExtensionSet::ParseMessageSetItemTmpl (extension_set_inl.h); the fix patches all three.",
+      "file": "src/google/protobuf/wire_format_lite.h",
+      "function": "google::protobuf::internal::ParseMessageSetItemImpl",
+      "language": "C++",
+      "line": "1821-1890",
+      "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format_lite.h#L1821-L1890"
+    },
+    "entry_point": {
+      "description": "WireFormat::ParseAndMergeMessageSetItem is the reflective entry point reached from WireFormat::ParseAndMerge when a field is a MessageSet item; it forwards directly to the lite parser above. No application-level validation sits between the wire bytes and this switch.",
+      "file": "src/google/protobuf/wire_format.cc",
+      "function": "WireFormat::ParseAndMergeMessageSetItem",
+      "language": "C++",
+      "line": 635,
+      "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format.cc#L635"
+    },
+    "location_id": "loc_CVE_2022_1941_snap_6bc3f36eb61ef280",
+    "location_kind": "logic",
+    "snapshot_id": "snap_6bc3f36eb61ef280",
+    "trace": [
+      {
+        "description": "Reflective parsing dispatches MessageSet fields to the message-set parser",
+        "file": "src/google/protobuf/wire_format.cc",
+        "function": "WireFormat::ParseAndMerge",
+        "language": "C++",
+        "line": 369,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format.cc#L369"
+      },
+      {
+        "description": "Entry point forwards to the lite parser",
+        "file": "src/google/protobuf/wire_format.cc",
+        "function": "WireFormat::ParseAndMergeMessageSetItem",
+        "language": "C++",
+        "line": 652,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format.cc#L652"
+      },
+      {
+        "description": "Sentinel branch decides whether a message payload is buffered or parsed immediately",
+        "file": "src/google/protobuf/wire_format_lite.h",
+        "function": "google::protobuf::internal::ParseMessageSetItemImpl",
+        "language": "C++",
+        "line": 1860,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format_lite.h#L1860"
+      },
+      {
+        "description": "Each message tag is parsed into the extension without a completed-pair guard",
+        "file": "src/google/protobuf/wire_format_lite.h",
+        "function": "google::protobuf::internal::ParseMessageSetItemImpl",
+        "language": "C++",
+        "line": 1873,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/wire_format_lite.h#L1873"
+      },
+      {
+        "description": "Extension path repeats the same sentinel design",
+        "file": "src/google/protobuf/extension_set_inl.h",
+        "function": "ExtensionSet::ParseMessageSetItemTmpl",
+        "language": "C++",
+        "line": 209,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/src/google/protobuf/extension_set_inl.h#L209"
+      }
+    ],
+    "verification_method": "Static read of wire_format_lite.h, wire_format.cc and extension_set_inl.h at v3.20.1, diffed against fix commit b4c395a and the v3.20.2 file. No code executed.",
+    "vulnerability_id": "CVE-2022-1941"
+  },
+  "open_questions": [
+    "Which MessageSetItem byte sequence produces the memory growth reported by the CNA (for example repeated payloads merged into one extension field) was not demonstrated.",
+    "Whether all generated-code paths reach ParseMessageSetItemImpl or some bypass it through extension_set_inl.h was not exhaustively traced.",
+    "Whether 3.21.x/4.21.x carry the identical fix export was not checked; only the 3.20.x commit and tag were verified."
+  ],
+  "prepared_at": "2026-10-21T14:39:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/protocolbuffers/protobuf",
+    "full_name": "protocolbuffers/protobuf",
+    "primary_language": "C++",
+    "project_kind": "library",
+    "repo_id": "23357588",
+    "snapshot_id": "snap_6bc3f36eb61ef280"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read wire_format_lite.h at v3.20.1 and confirm the sentinel/duplicate-tag handling.",
+      "An independent reviewer must confirm b4c395a adds the State enum and is an ancestor of v3.20.2 but not of v3.20.1.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-8gq9-2x98-w8hf, PyPI ranges)",
+      "CVE List v5 MITRE record (CNA Google)",
+      "NVD analysis",
+      "upstream git history"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA and NVD agree on the 3.20.x range. The CNA records CWE-1286; NVD lists NVD-CWE-Other as its own primary weakness and CWE-1286 in a secondary (Google-sourced) entry; OSV metadata lists CWE-119 and CWE-1286. The canonical cwe_ids keep CWE-1286 as primary and CWE-119 as an additional mapping, while the NVD-CWE-Other entry is recorded here rather than mapped to a concrete CWE. CNA metrics.other records 5.7 MEDIUM with AV:A/PR:L, while NVD primary and OSV record 7.5 HIGH with AV:N/PR:N; the canonical severity uses NVD primary 7.5 and keeps the CNA 5.7 as an alternate score. No source names a fix commit; the fix was found in upstream history and is recorded with ancestry proof. OSV only models the PyPI package and lists four ranges; this dossier verifies only the C++ 3.20.x range and does not import PyPI ranges into the C++ declaration.",
+    "severity_disagreement": true,
+    "alternate_scores": [
+      {
+        "version": "3.1",
+        "score": 5.7,
+        "vector": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+        "level": "medium",
+        "source": "CVE List v5 CNA metric under metrics.other",
+        "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-1941"
+      }
+    ]
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-8gq9-2x98-w8hf",
+    "affected_packages": [
+      {
+        "affected_range": ">=3.20.0,<3.20.2",
+        "ecosystem": "generic",
+        "package": "protobuf-cpp",
+        "purl": "pkg:generic/protobuf-cpp"
+      }
+    ],
+    "aliases": [
+      "CVE-2022-1941",
+      "GHSA-8gq9-2x98-w8hf",
+      "PYSEC-2026-899"
+    ],
+    "category_l1": "denial_of_service",
+    "category_l2": "MessageSet duplicate-tag parsing and memory exhaustion",
+    "cwe_ids": [
+      "CWE-1286",
+      "CWE-119"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "3.20.x",
+        "message": "Apply patch",
+        "sha": "b4c395aaedfacb32e2414d361fa85968c0991b34",
+        "url": "https://github.com/protocolbuffers/protobuf/commit/b4c395aaedfacb32e2414d361fa85968c0991b34"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "generic",
+        "package": "protobuf-cpp",
+        "release_url": "https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.2",
+        "tag": "v3.20.2",
+        "verified_content": "At the v3.20.2 commit a20c65f, ParseMessageSetItemImpl declares enum class State { kNoTag, kHasType, kHasPayload, kDone }, rejects out-of-order payloads, and skips duplicate payload bytes with ms.SkipField; v3.20.1 has no State enum and uses last_type_id/message_data sentinels",
+        "version": "3.20.2"
+      }
+    ],
+    "published_at": "2022-09-22T00:00:00Z",
+    "references": [
+      "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-8gq9-2x98-w8hf",
+      "https://github.com/protocolbuffers/protobuf/commit/b4c395aaedfacb32e2414d361fa85968c0991b34",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-1941",
+      "https://cloud.google.com/support/bulletins#GCP-2022-019",
+      "https://www.openwall.com/lists/oss-security/2022/09/27/1"
+    ],
+    "repo_id": "23357588",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 7.5 falls in High (7.0-8.9).",
+      "score": 7.5,
+      "source": "NVD primary metric nvd@nist.gov; the CNA metric records 5.7 MEDIUM",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-1941",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_6bc3f36eb61ef280",
+    "source_type": "upstream_advisory",
+    "title": "protobuf-cpp MessageSet parser lacks explicit state and accepts duplicate tags, leading to memory exhaustion",
+    "vulnerability_id": "CVE-2022-1941",
+    "vulnerable_commit": "21027a27c4c2ec1000859ccbcfff46d83b16e1ed",
+    "vulnerable_commit_basis": "lightweight tag v3.20.1 points directly at commit 21027a2...; the CNA lists protobuf-cpp through 3.20.1 as affected",
+    "vulnerable_version": "3.20.1"
+  }
+}

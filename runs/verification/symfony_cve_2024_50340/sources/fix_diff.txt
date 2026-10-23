@@ -1,0 +1,30 @@
+commit a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa
+Author: Wouter de Jong <wouter@wouterj.nl>
+Date:   Tue Oct 15 10:18:46 2024 +0200
+
+    Do not read from argv on non-CLI SAPIs
+
+diff --git a/src/Symfony/Component/Runtime/SymfonyRuntime.php b/src/Symfony/Component/Runtime/SymfonyRuntime.php
+index 0ca9713049..5612b3e570 100644
+--- a/src/Symfony/Component/Runtime/SymfonyRuntime.php
++++ b/src/Symfony/Component/Runtime/SymfonyRuntime.php
+@@ -95,7 +95,7 @@ class SymfonyRuntime extends GenericRuntime
+ 
+         if (isset($options['env'])) {
+             $_SERVER[$envKey] = $options['env'];
+-        } elseif (isset($_SERVER['argv']) && class_exists(ArgvInput::class)) {
++        } elseif (empty($_GET) && isset($_SERVER['argv']) && class_exists(ArgvInput::class)) {
+             $this->options = $options;
+             $this->getInput();
+         }
+@@ -216,6 +216,10 @@ class SymfonyRuntime extends GenericRuntime
+ 
+     private function getInput(): ArgvInput
+     {
++        if (!empty($_GET) && filter_var(ini_get('register_argc_argv'), \FILTER_VALIDATE_BOOL)) {
++            throw new \Exception('CLI applications cannot be run safely on non-CLI SAPIs with register_argc_argv=On.');
++        }
++
+         if (null !== $this->input) {
+             return $this->input;
+         }

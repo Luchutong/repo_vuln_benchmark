@@ -1,0 +1,330 @@
+{
+  "candidate_id": "disc2_053b0dc2da8506889076841a",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/raw/osv/b4067644761187468039c2d9db2aa03208e0b6a3c27ad25143c206d649c8e697.json",
+      "evidence_id": "ev_ghsa_wq4h_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:45:37.072204Z",
+      "sha256_of_observation": "b4067644761187468039c2d9db2aa03208e0b6a3c27ad25143c206d649c8e697",
+      "source_url": "https://osv.dev/vulnerability/GHSA-wq4h-7r42-5hrr",
+      "supports": [
+        "aliases",
+        "affected ranges",
+        "fixed versions",
+        "CWE-150",
+        "CVSS 10.0",
+        "fix commit"
+      ],
+      "verification_method": "OSV API query for RubyGems:rack, cached response body"
+    },
+    {
+      "artifact_path": "runs/verification/rack_cve_2022_30123/nvd_cve_2022_30123.json",
+      "evidence_id": "ev_cve_2022_30123_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:30:00Z",
+      "sha256_of_observation": "a6d975d981b8b3135672d6928b4d0331878f1f132ffd093a326e32db7ec08793",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-30123",
+      "supports": [
+        "NVD primary score 10.0 same vector",
+        "CWE-150",
+        "third-party advisories"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/rack_cve_2022_30123/b426cc2.patch",
+      "evidence_id": "ev_fix_b426cc2",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:29:00Z",
+      "sha256_of_observation": "a1440ced0cdd81bc888cee1132193f5a4d59f10b78477079419f863d7a9f7ecc",
+      "source_url": "https://github.com/rack/rack/commit/b426cc224908ec6ed6eb8729325392b048215d88",
+      "supports": [
+        "fix commit",
+        "files lib/rack/common_logger.rb and lib/rack/lint.rb",
+        "escape added before logging"
+      ],
+      "verification_method": "commit patch fetched; diff read"
+    },
+    {
+      "artifact_path": "runs/verification/rack_cve_2022_30123/common_logger_2.2.3.rb",
+      "evidence_id": "ev_rack_vulnerable_files",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:30:00Z",
+      "sha256_of_observation": "d236257dd2d8aab635f848d1f6efc04ffd1e5111a50dce6e9ba7c2450d15ef9f",
+      "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/common_logger.rb",
+      "supports": [
+        "root-cause location",
+        "untrusted env fields interpolated",
+        "raw write to logger"
+      ],
+      "verification_method": "raw files at exact vulnerable SHA 1741c58; log method lines 47-71 inspected"
+    },
+    {
+      "artifact_path": "runs/verification/rack_cve_2022_30123/lint_2.2.3.rb",
+      "evidence_id": "ev_rack_vulnerable_lint",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:30:00Z",
+      "sha256_of_observation": "4d29b40c0e987a5ea6cf1befc3fa1f6dbc8c088188d443976e2c0b8dc33afab8",
+      "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/lint.rb",
+      "supports": [
+        "secondary sink in Lint error message"
+      ],
+      "verification_method": "raw file at exact vulnerable SHA; REQUEST_METHOD assertion line 340 inspected"
+    },
+    {
+      "artifact_path": "runs/verification/rack_cve_2022_30123/common_logger_2.2.3.1.rb",
+      "evidence_id": "ev_rack_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:31:00Z",
+      "sha256_of_observation": "08542fd0475409832c5652da076a092bd73a13987a9c04a331387ef7a26efc7b",
+      "source_url": "https://raw.githubusercontent.com/rack/rack/925a4a6599ab26b4f3455b525393fe155d443655/lib/rack/common_logger.rb",
+      "supports": [
+        "fixed release content",
+        "escape applied before write"
+      ],
+      "verification_method": "raw file at tag 2.2.3.1 commit 925a4a6; gsub at line 63"
+    },
+    {
+      "artifact_path": "runs/language/snap_f97687a4e0807cb2/snapshot_proposal.json",
+      "evidence_id": "ev_rack_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:20:37.570231Z",
+      "sha256_of_observation": "44e10aed5afafeeffd5a33dc394bb9fe3f5f099922b2cebdcb769d08286ad0e0",
+      "source_url": "https://github.com/rack/rack/tree/1741c580d71cfca8e541e96cc372305c8892ee74",
+      "supports": [
+        "snapshot_id",
+        "Ruby first-party composition",
+        "tag 2.2.3 mapping"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 202 tracked files, full_scan true"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1
+    ],
+    "aliases": [
+      0
+    ],
+    "critical_operation": [
+      3,
+      4
+    ],
+    "cwe": [
+      0,
+      1
+    ],
+    "fix_commits": [
+      0,
+      2
+    ],
+    "fixed_releases": [
+      0,
+      5
+    ],
+    "severity": [
+      0,
+      1
+    ],
+    "vulnerable_commit": [
+      6
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No terminal emulator or log consumer was exercised; impact depends on the log viewer.",
+    "Rack 2.0/2.1 branches were not snapshotted; only the 2.2.3 tree is inventory-complete here."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "msg = FORMAT % [\n  env['HTTP_X_FORWARDED_FOR'] || env[\"REMOTE_ADDR\"] || \"-\",\n  env[\"REMOTE_USER\"] || \"-\",\n  ...\n  env[REQUEST_METHOD],\n  env[SCRIPT_NAME],\n  env[PATH_INFO],\n  env[QUERY_STRING].empty? ? \"\" : \"?#{env[QUERY_STRING]}\",\n  ...\n]\n...\nlogger.write(msg)",
+      "description": "Request-controlled env values (X-Forwarded-For, Remote-User, REQUEST_METHOD, SCRIPT_NAME, PATH_INFO, QUERY_STRING) are interpolated into the log line and written to the logger without neutralizing terminal escape sequences. A client-supplied path containing ESC sequences is emitted verbatim into logs; viewing the log in a terminal can execute the sequence.",
+      "file": "lib/rack/common_logger.rb",
+      "function": "Rack::CommonLogger#log",
+      "language": "Ruby",
+      "line": "50-69",
+      "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/common_logger.rb#L50-L69"
+    },
+    "entry_point": {
+      "description": "Middleware wraps every request; the BodyProxy callback invokes log with the raw Rack env.",
+      "file": "lib/rack/common_logger.rb",
+      "function": "Rack::CommonLogger#call",
+      "language": "Ruby",
+      "line": 36,
+      "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/common_logger.rb#L36"
+    },
+    "location_id": "loc_GHSA_wq4h_7r42_5hrr_snap_f97687a4e0807cb2",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_f97687a4e0807cb2",
+    "trace": [
+      {
+        "description": "Application is called with the attacker-influenced env.",
+        "file": "lib/rack/common_logger.rb",
+        "function": "Rack::CommonLogger#call",
+        "language": "Ruby",
+        "line": 38,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/common_logger.rb#L38"
+      },
+      {
+        "description": "PATH_INFO and QUERY_STRING are inserted into FORMAT without escaping.",
+        "file": "lib/rack/common_logger.rb",
+        "function": "Rack::CommonLogger#log",
+        "language": "Ruby",
+        "line": 57,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/common_logger.rb#L50-L61"
+      },
+      {
+        "description": "The raw message is written to the log device; escape sequences reach the terminal reading the log.",
+        "file": "lib/rack/common_logger.rb",
+        "function": "Rack::CommonLogger#log",
+        "language": "Ruby",
+        "line": 67,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/common_logger.rb#L66-L69"
+      },
+      {
+        "description": "Secondary sink: an invalid REQUEST_METHOD is interpolated into a LintError message without dump/escape; the fix applies String#dump.",
+        "file": "lib/rack/lint.rb",
+        "function": "Rack::Lint#check_environment",
+        "language": "Ruby",
+        "line": 340,
+        "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/lint.rb#L340"
+      }
+    ],
+    "verification_method": "Static read of lib/rack/common_logger.rb and lib/rack/lint.rb at tag 2.2.3 commit 1741c58, compared with fix commit b426cc2 patch and with lib/rack/common_logger.rb at tag 2.2.3.1 (925a4a6). No logger/terminal execution was performed.",
+    "vulnerability_id": "GHSA-wq4h-7r42-5hrr"
+  },
+  "open_questions": [
+    "NVD lists both CWE-150 and NVD-CWE-Other; only CWE-150 is used.",
+    "The fix also changes Rack::Lint messages; the primary location is CommonLogger, the Lint sink is recorded as a secondary trace entry."
+  ],
+  "prepared_at": "2026-10-21T13:35:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required",
+    "evaluation_target_snapshot_not_yet_designated"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/rack/rack",
+    "full_name": "rack/rack",
+    "license": "MIT",
+    "primary_language": "Ruby",
+    "project_kind": "library",
+    "repo_id": "96071",
+    "snapshot_id": "snap_f97687a4e0807cb2"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "A second reviewer must confirm the log sink at 1741c58 and the secondary Lint sink.",
+      "A second reviewer must confirm 2.2.3.1 contains the gsub escape and that 2.0.9.1/2.1.4.1 are tagged fixed releases.",
+      "Terminal-emulator behavior is environment-specific; the dataset records the injection sink, not a specific terminal exploit."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory via OSV",
+      "NVD analysis",
+      "Ruby on Rails security announcement",
+      "distribution advisories (Debian/Gentoo)"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD primary score is 10.0 with the same CNA-inherited vector; the Rails announcement is the upstream disclosure and the distribution advisories confirm the fixed versions. All agree on CWE-150 and the fix commit."
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/rack/rack/security/advisories/GHSA-wq4h-7r42-5hrr",
+    "affected_packages": [
+      {
+        "affected_range": "<2.0.9.1",
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "purl": "pkg:gem/rack"
+      },
+      {
+        "affected_range": ">=2.1, <2.1.4.1",
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "purl": "pkg:gem/rack"
+      },
+      {
+        "affected_range": ">=2.2, <2.2.3.1",
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "purl": "pkg:gem/rack"
+      }
+    ],
+    "aliases": [
+      "GHSA-wq4h-7r42-5hrr",
+      "CVE-2022-30123"
+    ],
+    "category_l1": "injection",
+    "category_l2": "escape_sequence_log_injection",
+    "cwe_ids": [
+      "CWE-150"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "Escape untrusted text when logging",
+        "sha": "b426cc224908ec6ed6eb8729325392b048215d88",
+        "url": "https://github.com/rack/rack/commit/b426cc224908ec6ed6eb8729325392b048215d88"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "release_url": "https://github.com/rack/rack/releases/tag/2.0.9.1",
+        "tag": "2.0.9.1",
+        "version": "2.0.9.1"
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "release_url": "https://github.com/rack/rack/releases/tag/2.1.4.1",
+        "tag": "2.1.4.1",
+        "version": "2.1.4.1"
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "rack",
+        "release_url": "https://github.com/rack/rack/releases/tag/2.2.3.1",
+        "tag": "2.2.3.1",
+        "verified_content": "lib/rack/common_logger.rb line 63 escapes non-printable characters before logger.write/write <<",
+        "version": "2.2.3.1"
+      }
+    ],
+    "published_at": "2022-05-27T16:36:51Z",
+    "references": [
+      "https://github.com/rack/rack/security/advisories/GHSA-wq4h-7r42-5hrr",
+      "https://github.com/rack/rack/commit/b426cc224908ec6ed6eb8729325392b048215d88",
+      "https://discuss.rubyonrails.org/t/cve-2022-30123-possible-shell-escape-sequence-injection-vulnerability-in-rack/80728",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-30123",
+      "https://github.com/rack/rack/releases/tag/2.2.3.1"
+    ],
+    "repo_id": "96071",
+    "severity": {
+      "alternate_scores": [],
+      "level": "critical",
+      "score": 10.0,
+      "source": "NVD primary (nvd@nist.gov); same vector carried by OSV/GHSA",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-30123",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_f97687a4e0807cb2",
+    "source_type": "upstream_advisory",
+    "title": "Possible shell escape sequence injection vulnerability in Rack",
+    "vulnerability_id": "GHSA-wq4h-7r42-5hrr",
+    "vulnerable_commit": "1741c580d71cfca8e541e96cc372305c8892ee74",
+    "vulnerable_commit_basis": "annotated tag 2.2.3 (4d456648...) peels to commit 1741c580d71cfca8e541e96cc372305c8892ee74",
+    "vulnerable_version": "2.2.3"
+  }
+}

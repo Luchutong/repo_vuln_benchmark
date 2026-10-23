@@ -1,0 +1,411 @@
+{
+ "candidate_id": "disc2_db670cf92d9e06c701f3531f",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T02:55:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-48736",
+  "aliases": [
+   "CVE-2026-48736",
+   "GHSA-38cx-cq6f-5755"
+  ],
+  "title": "Symfony NoPrivateNetworkHttpClient private-subnet list omits IPv6 transition prefixes, allowing SSRF to private IPv4 targets through embedded addresses",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-client",
+    "purl": "pkg:composer/symfony/http-client",
+    "affected_range": ">=5.4.0,<5.4.53"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=5.4.0,<5.4.53"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-client",
+    "version": "5.4.53",
+    "tag": "v5.4.53",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.53",
+    "verified_content": "At v5.4.53 PRIVATE_SUBNETS includes ::/96, 2002::/16, 2001::/32, 64:ff9b::/96 and 64:ff9b:1::/48; fix 82765368 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.53",
+    "tag": "v5.4.53",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.53",
+    "verified_content": "Same tree: NoPrivateNetworkHttpClient.php blob 7c6eb1fb matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "82765368cf74177c36613575182f168a2eb765b2",
+    "branch": "5.4",
+    "message": "[HttpClient] Block IPv6 transition forms in NoPrivateNetworkHttpClient",
+    "url": "https://github.com/symfony/symfony/commit/82765368cf74177c36613575182f168a2eb765b2"
+   },
+   {
+    "sha": "85b831555be8ea1f43bf01078afe87bc4c92f65e",
+    "branch": "6.4",
+    "message": "[HttpFoundation] Block IPv6 transition forms in IpUtils::PRIVATE_SUBNETS",
+    "url": "https://github.com/symfony/symfony/commit/85b831555be8ea1f43bf01078afe87bc4c92f65e"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-184",
+   "CWE-918"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:L/SA:N",
+   "score": 6.9,
+   "level": "medium",
+   "numeric_level_rationale": "The CNA CVSS 4.0 base is 6.9 Medium and the GHSA/OSV label is Moderate, but NVD carries a Primary CVSS 3.1 8.6 High (scope changed, confidentiality high). The canonical severity keeps the CNA 4.0 vector and records both scores; the split is material.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 8.6 HIGH metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-38cx-cq6f-5755",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 6.9,
+     "level": "medium",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:L/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 8.6,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N"
+    }
+   ],
+   "ghsa_label_note": "The OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N (SC:L/SI:L) and the database label is MODERATE; the CNA vector uses SC:H/SI:L, and both scores fall in Medium."
+  },
+  "category_l1": "ssrf",
+  "category_l2": "SSRF allowlist bypass: incomplete private-subnet list omits IPv6 transition prefixes that embed private IPv4 addresses",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-48736",
+  "published_at": "2026-07-14T19:09:30Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-48736",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-38cx-cq6f-5755",
+   "https://github.com/symfony/symfony/commit/82765368cf74177c36613575182f168a2eb765b2",
+   "https://github.com/symfony/symfony/commit/85b831555be8ea1f43bf01078afe87bc4c92f65e",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-48736",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.53"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-48736_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-48736",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+  "function": "NoPrivateNetworkHttpClient::request",
+  "language": "PHP",
+  "line": 84,
+  "critical_operation": {
+   "code_excerpt": "                if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? self::PRIVATE_SUBNETS)) {",
+   "description": "NoPrivateNetworkHttpClient::request() installs an on_progress callback that blocks the request when the resolved primary_ip matches $subnets ?? PRIVATE_SUBNETS via IpUtils::checkIp(). At v5.4.45 PRIVATE_SUBNETS lists only RFC1918, loopback, link-local, 0/8, 240/4, fc00::/7, fe80::/10, ::ffff:0:0/96 and ::/128; it omits the IPv6 transition forms that embed an IPv4 destination: IPv4-compatible ::/96, 6to4 2002::/16, Teredo 2001::/32, and NAT64 64:ff9b::/96 and 64:ff9b:1::/48. checkIp() compares bits against the list and never extracts the embedded IPv4, so an attacker-supplied URL such as http://[2002:7f00:1::]/ that encodes 127.0.0.1 passes the guard and reaches the private target. The 5.4.53 fix adds the five prefixes.",
+   "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+   "function": "NoPrivateNetworkHttpClient::request",
+   "language": "PHP",
+   "line": 84,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L84"
+  },
+  "entry_point": {
+   "description": "An application passes an attacker-controlled URL to a NoPrivateNetworkHttpClient instance, e.g. a webhook, image fetch or link-preview feature.",
+   "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+   "function": "NoPrivateNetworkHttpClient::request",
+   "language": "PHP",
+   "line": 70,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L70"
+  },
+  "trace": [
+   {
+    "description": "PRIVATE_SUBNETS lists 12 CIDR blocks and omits all IPv6 transition prefixes",
+    "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+    "function": "NoPrivateNetworkHttpClient::PRIVATE_SUBNETS",
+    "language": "PHP",
+    "line": 33,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L33-L46"
+   },
+   {
+    "description": "the on_progress callback checks primary_ip against the incomplete list",
+    "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+    "function": "NoPrivateNetworkHttpClient::request",
+    "language": "PHP",
+    "line": 84,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L82-L88"
+   },
+   {
+    "description": "the request is delegated to the wrapped client once the guard passes",
+    "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+    "function": "NoPrivateNetworkHttpClient::request",
+    "language": "PHP",
+    "line": 93,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L93"
+   }
+  ],
+  "verification_method": "Static read of NoPrivateNetworkHttpClient.php at v5.4.45 and v5.4.53, both fix patches, tag peels and ancestry; no HTTP request, DNS resolution or SSRF payload was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_48736_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "aeee11c8a10d35714baff88cafb86b3c8464578dc6a5c3680c99833e26340da8",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48736",
+   "supports": [
+    "NVD status Analyzed; description states NoPrivateNetworkHttpClient and IpUtils::PRIVATE_SUBNETS omit IPv6 transition prefixes, letting attacker-supplied URLs represent private IPv4 targets",
+    "NVD Primary CVSS 3.1 8.6 HIGH from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N)",
+    "NVD Secondary CVSS 4.0 6.9 MEDIUM from security-advisories@github.com",
+    "weaknesses CWE-184 and CWE-918 sourced to security-advisories@github.com"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_48736_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "7650968d085b1084e2ab28bca11a497d5b29e8662eb5d4276a2d816d3ea4f062",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-48736",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T19:09:30Z",
+    "affected symfony >=5.4.0 <5.4.53, http-client >=5.4.0 <5.4.53, plus the 6.4.41/7.4.13/8.0.13 bounds",
+    "CNA CVSS 4.0 6.9 MEDIUM AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:L/SA:N",
+    "problemTypes CWE-184 and CWE-918",
+    "the CNA reference list names commits 82765368cf74177c36613575182f168a2eb765b2 and 85b831555be8ea1f43bf01078afe87bc4c92f65e plus the v5.4.53/v6.4.41/v7.4.13 release tags"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_48736_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "568f415bfafa78af9b83491bb26205ae8450d616d79c649711c80401e71e2b1d",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-38cx-cq6f-5755",
+   "supports": [
+    "GHSA-38cx-cq6f-5755 aliases CVE-2026-48736, github_reviewed, cwe_ids CWE-184 and CWE-918, database severity MODERATE",
+    "affected symfony/http-client from 5.4.0 to 5.4.53 and http-foundation on 6.4+",
+    "the OSV details enumerate the omitted forms: 6to4 2002::/16, Teredo 2001::/32, NAT64 64:ff9b::/96 and 64:ff9b:1::/48, IPv4-compatible ::/96",
+    "it explains that IpUtils::checkIp6() is a pure bitwise CIDR comparison and never extracts the embedded IPv4",
+    "the OSV CVSS_V4 vector uses SC:L/SI:L and is labelled MODERATE, unlike the NVD Primary 3.1 8.6 High"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_48736_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "6acf0f3acc870d9dadb74a8f3bbd0b5d7283ad7823750a751d5f0eda7dbed4c7",
+   "source_url": "https://symfony.com/cve-2026-48736",
+   "supports": [
+    "the advisory describes NoPrivateNetworkHttpClient as a documented private-network blocker whose list omits the transition forms",
+    "it gives the concrete bypass shape, an attacker-supplied URL such as http://[2002:7f00:1::]/ that embeds 127.0.0.1",
+    "resolution: the private-subnet list gains ::/96, 2002::/16, 2001::/32, 64:ff9b::/96 and 64:ff9b:1::/48",
+    "affected versions start at 5.4.0 and the fixed releases are 5.4.53, 6.4.41, 7.4.13 and 8.0.13"
+   ],
+   "verification_method": "symfony.com advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/ghsa.html",
+   "evidence_id": "ev_symfony_48736_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "5bfcb3fb398237160cdf58c52f90b82de74c0d955c791d84b512c4435f851b74",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-38cx-cq6f-5755",
+   "supports": [
+    "the GitHub advisory page carries the same description and resolution as the symfony.com page",
+    "the page links both fix commits and the same fixed releases",
+    "the advisory label is Moderate"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_48736_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "8c47dcbde337caafe8bd4c93ea82223eaffde0b5eebd7da22a1b032344f115e5",
+   "source_url": "https://github.com/symfony/symfony/commit/82765368cf74177c36613575182f168a2eb765b2",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.53 peels to 6436e377",
+    "fix 82765368 is dated 2026-05-22 and is an ancestor of v5.4.53 and not of v5.4.45",
+    "the second referenced commit 85b83155 is the 6.4+ IpUtils side and is not in the fetched 5.4 history",
+    "the constant at v5.4.45 has 12 entries and at v5.4.53 has the 5 additional transition prefixes",
+    "the 5.4 file was also refactored between the tags, so unrelated diffs exist alongside the security change"
+   ],
+   "verification_method": "git rev-parse/merge-base/log; blob comparison; patch read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/noprivatenetwork_5.4.45.php",
+   "evidence_id": "ev_symfony_48736_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "4decc06fb7381b29ca7d10fdeabd36464596dc166fc736251ba015d42403be22",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L84",
+   "supports": [
+    "PRIVATE_SUBNETS at line 33 lists 127/8, 10/8, 192.168/16, 172.16/12, 169.254/16, 0/8, 240/4, ::1/128, fc00::/7, fe80::/10, ::ffff:0:0/96 and ::/128 only",
+    "line 84 checks $info['primary_ip'] with IpUtils::checkIp() against $subnets ?? PRIVATE_SUBNETS",
+    "the check runs in the on_progress callback around the delegated $this->client->request()",
+    "no transition prefix is present, so an address such as 2002:7f00:1:: passes the check"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 757a9e8a)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/noprivatenetwork_5.4.53.php",
+   "evidence_id": "ev_symfony_48736_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "dc0b1a62e8da3103c3680d5ea1d7b62579d2d0c314f5128bd4344ffc09b278a4",
+   "source_url": "https://github.com/symfony/symfony/blob/6436e377f7a82a1e7b120da519c7c96a154ece2a/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L36-L55",
+   "supports": [
+    "the constant now also lists ::/96, 2002::/16, 2001::/32, 64:ff9b::/96 and 64:ff9b:1::/48",
+    "the check is still based on the same list (the surrounding request code was refactored in the same release window)"
+   ],
+   "verification_method": "file read at v5.4.53 (blob 7c6eb1fb)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_48736_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "5fb0fdb1ac5a713891d680d0ce9e7dcf0b2d46445d6bcdb3a8ee1db4031dd5a7",
+   "source_url": "https://github.com/symfony/symfony/commit/82765368cf74177c36613575182f168a2eb765b2.patch",
+   "supports": [
+    "the patch adds exactly five CIDR entries to PRIVATE_SUBNETS",
+    "the tests assert that ::7f00:1, 2002:7f00:1::, 2001::1, 64:ff9b::7f00:1 and 64:ff9b:1::7f00:1 are blocked",
+    "the post-image blob 7c6eb1fb matches v5.4.53"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48736/sources/commit_85b83155.patch",
+   "evidence_id": "ev_symfony_48736_second_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:55:00Z",
+   "sha256_of_observation": "d1e2663477fa2d6a5e5252633fabd43143bceda8c5146c3a1d1824110c82d8ba",
+   "source_url": "https://github.com/symfony/symfony/commit/85b831555be8ea1f43bf01078afe87bc4c92f65e.patch",
+   "supports": [
+    "the second fix extends IpUtils::PRIVATE_SUBNETS on the 6.4+ branches",
+    "it adds the same five transition prefixes and states it closes an SSRF bypass in NoPrivateNetworkHttpClient",
+    "this commit is not part of the 5.4 tree; on 5.4 the private constant lives in the client class itself"
+   ],
+   "verification_method": "unified diff read from GitHub"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   3,
+   6,
+   7
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-184/CWE-918, the omitted transition prefixes, the >=5.4.0 <5.4.53 range and fix 82765368. Severity splits: CNA 4.0 6.9 Medium and the GHSA/OSV Moderate label, versus NVD Primary CVSS 3.1 8.6 High with scope changed.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read NoPrivateNetworkHttpClient::request and PRIVATE_SUBNETS at v5.4.45 and confirm the 12-entry list and the missing transition prefixes.",
+   "An independent reviewer must confirm the guard is applied to primary_ip through IpUtils::checkIp().",
+   "An independent reviewer must confirm 82765368 is absent from v5.4.45 and present in v5.4.53, and that it only adds the five prefixes.",
+   "An independent reviewer must confirm the affected range starts at 5.4.0 and includes 5.4.45, and that the fixed release is 5.4.53.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No HTTP request, DNS resolution or SSRF payload was executed; the bypass is verified statically and was not reproduced.",
+  "The 5.4 file was refactored between v5.4.45 and v5.4.53, so the full-file diff includes unrelated changes; the security-relevant change is the constant.",
+  "The second fix commit 85b83155 targets IpUtils on 6.4+ and is not part of the 5.4 tree; only 82765368 was checked against v5.4.53 ancestry.",
+  "CNA 4.0 6.9 Medium and NVD Primary 3.1 8.6 High disagree materially (the latter has scope changed and C:H)."
+ ],
+ "open_questions": [
+  "Whether other consumers of IpUtils::checkIp on 5.4 (outside this client) also missed the transition forms was not audited.",
+  "Whether the on_progress timing allows any connection side effect before the exception is thrown was not analysed."
+ ]
+}

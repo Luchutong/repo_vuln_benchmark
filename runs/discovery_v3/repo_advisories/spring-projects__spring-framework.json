@@ -1,0 +1,9 @@
+{
+  "advisories": [],
+  "query": {
+    "repository_full_name": "spring-projects/spring-framework",
+    "url": "https://api.github.com/repos/spring-projects/spring-framework/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:45.504047+00:00",
+  "tool": "github_rest_readonly"
+}

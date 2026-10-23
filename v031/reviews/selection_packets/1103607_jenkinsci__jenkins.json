@@ -1,0 +1,466 @@
+{
+  "packet_id": "selrev_1103607_snap_d9b0ffa82cd068d0",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "Jenkins automation server"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "tag_or_release": "jenkins-2.441",
+    "commit_sha": "3b0de10df3bedba515e13032104d4d84f83045be"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "73b07d977563a62ea2d5c0ff4dea5452e4dbb025",
+    "tree_file_count": 12049,
+    "exported_file_count": 12049,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/jenkinsci__jenkins/snap_d9b0ffa82cd068d0.tar.gz",
+    "archive_sha256": "8c4d28173bd225e56886cac1afe2d70b6b72fa3ce168faa2c74a1e8e5865ae1b",
+    "archive_bytes": 6764624,
+    "manifest_path": "exports/jenkinsci__jenkins/snap_d9b0ffa82cd068d0.manifest.jsonl",
+    "manifest_sha256": "afea1af9ebcfa0236737c21d31d9d4d680148fc1974642312860e9891025d7bb"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/release-drafter.yml",
+      ".github/workflows/changelog.yml",
+      ".github/workflows/publish-release-artifact.yml",
+      "core/src/main/java/hudson/scm/ChangeLogAnnotator.java",
+      "core/src/main/java/hudson/scm/ChangeLogParser.java",
+      "core/src/main/java/hudson/scm/ChangeLogSet.java",
+      "core/src/main/java/hudson/widgets/HistoryWidget.java",
+      "core/src/main/java/jenkins/widgets/HistoryPageEntry.java",
+      "core/src/main/java/jenkins/widgets/HistoryPageFilter.java",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes.jelly",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_bg.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ca.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_cs.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_da.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_de.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_el.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_es.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_fi.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_fr.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_he.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_hu.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_it.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ja.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ko.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_lv.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_nb_NO.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_nl.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_pl.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_pt_BR.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_pt_PT.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ro.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ru.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_sk.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_sl.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_sr.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_sv_SE.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_tr.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_uk.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_zh_TW.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes.jelly",
+      "core/src/main/resources/hudson/model/AbstractProject/changes.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_bg.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_cs.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_da.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_de.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_el.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_es.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_es_AR.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_et.properties",
+      "core/src/main/resources/hudson/model/AbstractProject/changes_fi.properties"
+    ],
+    "cve_id_count": 1,
+    "cve_ids_sample": [
+      "CVE-2021-43859"
+    ],
+    "files_with_advisory_ids_count": 3,
+    "files_with_advisory_ids_sample": [
+      "core/src/main/java/hudson/util/XStream2.java",
+      "core/src/test/java/hudson/util/RobustCollectionConverterTest.java",
+      "core/src/test/java/hudson/util/RobustMapConverterTest.java"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/FUNDING.yml",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/comment-ops.yml",
+      ".github/config.yml",
+      ".github/dependabot.yml",
+      ".github/images/jenkins-welcome.svg",
+      ".github/release-drafter.yml",
+      ".github/renovate.json",
+      ".github/workflows/announce-lts-rc.yml",
+      ".github/workflows/changelog.yml",
+      ".github/workflows/label-conflicting-pr.yml",
+      ".github/workflows/label-lts-prs.yaml",
+      ".github/workflows/publish-release-artifact.yml",
+      "core/src/main/java/hudson/scm/ChangeLogAnnotator.java",
+      "core/src/main/java/hudson/scm/ChangeLogParser.java",
+      "core/src/main/java/hudson/scm/ChangeLogSet.java",
+      "core/src/main/java/hudson/security/SecurityMode.java",
+      "core/src/main/java/hudson/security/SecurityRealm.java",
+      "core/src/main/java/hudson/widgets/HistoryWidget.java",
+      "core/src/main/java/jenkins/diagnostics/SecurityIsOffMonitor.java",
+      "core/src/main/java/jenkins/security/SecurityContextExecutorService.java",
+      "core/src/main/java/jenkins/security/SecurityListener.java",
+      "core/src/main/java/jenkins/telemetry/impl/SecurityConfiguration.java",
+      "core/src/main/java/jenkins/telemetry/impl/SecuritySystemProperties.java",
+      "core/src/main/java/jenkins/widgets/HistoryPageEntry.java",
+      "core/src/main/java/jenkins/widgets/HistoryPageFilter.java",
+      "core/src/main/java/org/acegisecurity/context/SecurityContext.java",
+      "core/src/main/java/org/acegisecurity/context/SecurityContextHolder.java",
+      "core/src/main/java/org/acegisecurity/context/SecurityContextImpl.java",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes.jelly",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_bg.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ca.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_cs.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_da.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_de.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_el.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_es.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_fi.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_fr.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_he.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_hu.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_it.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ja.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_ko.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_lv.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_nb_NO.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_nl.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_pl.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_pt_BR.properties",
+      "core/src/main/resources/hudson/model/AbstractBuild/changes_pt_PT.properties"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "java_maven": [
+        "pom.xml"
+      ],
+      "js_bundler": [
+        "webpack.config.js"
+      ],
+      "node": [
+        "package.json",
+        "yarn.lock"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node",
+      "java_maven",
+      "js_bundler"
+    ],
+    "toolchain_available": {
+      "java_maven": {
+        "java": false,
+        "mvn": false
+      },
+      "js_bundler": {
+        "node": true,
+        "npm": true
+      },
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-23897",
+      "aliases": [
+        "CVE-2024-23897",
+        "GHSA-6f9g-cxwr-q5jr",
+        "BIT-jenkins-2024-23897"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=1.606,<2.442",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        },
+        {
+          "affected_range": "<2.426.3",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        }
+      ],
+      "published_at": "2024-01-24T18:15:09Z",
+      "advisory_url": "https://www.jenkins.io/security/advisory/2024-01-24/",
+      "severity": {
+        "level": "critical",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 9.8 falls in Critical (9.0-10.0); OSV carries the same vector",
+        "score": 9.8,
+        "source": "NVD primary metric nvd@nist.gov; the Jenkins CNA supplied no CVSS",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-23897",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2024-23898",
+      "aliases": [
+        "CVE-2024-23898",
+        "GHSA-53ph-2r2x-vqw8"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=2.217,<2.442",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        },
+        {
+          "affected_range": ">=2.222.1,<2.426.3",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        },
+        {
+          "affected_range": ">=2.440,<2.440.1",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        }
+      ],
+      "published_at": "2024-01-24T18:15:09Z",
+      "advisory_url": "https://www.jenkins.io/security/advisory/2024-01-24/#SECURITY-3315",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.8,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": 8.8,
+            "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP, NVD Secondary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "GHSA/OSV labels the issue HIGH and publishes the same CVSS 3.1 vector; it carries no separate numeric base score.",
+        "level": "high",
+        "numeric_level_rationale": "NVD Primary and NVD Secondary both publish CVSS 3.1 8.8 High with this vector; the GHSA/OSV label is HIGH. The CNA record carries no metrics, so NVD is the only numeric source.",
+        "score": 8.8,
+        "source": "nvd@nist.gov (NVD Primary) and CISA-ADP (NVD Secondary), both CVSS 3.1 8.8 High",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-23898",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2025-27622",
+      "aliases": [
+        "CVE-2025-27622",
+        "GHSA-p34j-r3ch-c985",
+        "BIT-jenkins-2025-27622"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        }
+      ],
+      "published_at": "2025-03-05T22:33:34Z",
+      "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3495",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "GHSA-p34j-r3ch-c985 / OSV (database_specific MODERATE)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE. The CNA container has no CVSS metric. Every published severity level is MEDIUM, so the level is consistent and the score is not averaged across sources.",
+        "score": 4.3,
+        "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MEDIUM",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27622",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2025-27623",
+      "aliases": [
+        "CVE-2025-27623",
+        "GHSA-rfh6-9r2q-98vf",
+        "BIT-jenkins-2025-27623"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        }
+      ],
+      "published_at": "2025-03-05T22:33:35Z",
+      "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3496",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "GHSA-rfh6-9r2q-98vf / OSV (database_specific MODERATE)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+        "score": 4.3,
+        "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MODERATE",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27623",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2025-27624",
+      "aliases": [
+        "CVE-2025-27624",
+        "GHSA-7g95-jmg9-h524",
+        "BIT-jenkins-2025-27624"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        }
+      ],
+      "published_at": "2025-03-05T22:33:36Z",
+      "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3498",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 5.4,
+            "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.4,
+            "source": "GHSA-7g95-jmg9-h524 / OSV (database_specific MODERATE)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 5.4 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 5.4 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+        "score": 5.4,
+        "source": "NVD Secondary 5.4 MEDIUM; GHSA/OSV 5.4 MODERATE",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27624",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2025-27625",
+      "aliases": [
+        "CVE-2025-27625",
+        "GHSA-8hmv-92wm-39ch",
+        "BIT-jenkins-2025-27625"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)",
+          "ecosystem": "Maven",
+          "package": "org.jenkins-ci.main:jenkins-core",
+          "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+        }
+      ],
+      "published_at": "2025-03-05T22:33:36Z",
+      "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3501",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "GHSA-8hmv-92wm-39ch / OSV (database_specific MODERATE)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE. The CNA container has no CVSS metric. Every published severity level is MEDIUM, so the level is consistent and the score is not averaged.",
+        "score": 4.3,
+        "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MEDIUM",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27625",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

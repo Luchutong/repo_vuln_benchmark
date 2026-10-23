@@ -1,0 +1,476 @@
+{
+  "ambiguous_files": [
+    "LICENSE-APACHE",
+    "LICENSE-MIT",
+    "actix-files/tests/test space.binary",
+    "actix-files/tests/test.binary",
+    "actix-http/tests/test.binary",
+    "actix-multipart-derive/tests/trybuild/deny-parse-fail.stderr",
+    "actix-multipart-derive/tests/trybuild/size-limit-parse-fail.stderr",
+    "actix-web-codegen/tests/trybuild/route-custom-lowercase.stderr",
+    "actix-web-codegen/tests/trybuild/route-duplicate-method-fail.stderr",
+    "actix-web-codegen/tests/trybuild/route-malformed-path-fail.stderr",
+    "actix-web-codegen/tests/trybuild/route-missing-method-fail.stderr",
+    "actix-web-codegen/tests/trybuild/routes-missing-args-fail.stderr",
+    "actix-web-codegen/tests/trybuild/routes-missing-method-fail.stderr",
+    "actix-web-codegen/tests/trybuild/scope-invalid-args.stderr",
+    "actix-web-codegen/tests/trybuild/scope-missing-args.stderr",
+    "actix-web-codegen/tests/trybuild/scope-on-handler.stderr",
+    "actix-web-codegen/tests/trybuild/scope-trailing-slash.stderr",
+    "actix-web-codegen/tests/trybuild/simple-fail.stderr"
+  ],
+  "collected_at": "2026-10-23T00:19:56.316630Z",
+  "components_in_scope": [
+    "all tracked upstream files; submodules recorded as unresolved gitlinks"
+  ],
+  "evaluation_target": false,
+  "full_scan": true,
+  "language_tool": "github-linguist + explicit container extraction + versioned scope rules",
+  "language_tool_version": "github-linguist 9.7.0; inventory_snapshot.py sha256=acb56dc9c10c3a97b0263330e85a16eb1effdeb9eefa96f7aba7f7aeb5c4d5a3",
+  "languages": [
+    {
+      "code_bytes": 5909,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "Diff",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-web/MIGRATION-4.0.md"
+      ],
+      "role": "programming",
+      "scope": "first_party",
+      "share_pct": 0.194688358598
+    },
+    {
+      "code_bytes": 2892,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 3,
+      "name": "Graphviz (DOT)",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "docs/graphs/net-only.dot",
+        "docs/graphs/web-focus.dot",
+        "docs/graphs/web-only.dot"
+      ],
+      "role": "other",
+      "scope": "docs",
+      "share_pct": 0.095284943826
+    },
+    {
+      "code_bytes": 37,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "docs/graphs/.gitignore"
+      ],
+      "role": "config",
+      "scope": "docs",
+      "share_pct": 0.0012190674
+    },
+    {
+      "code_bytes": 282,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".gitignore"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.009291270456
+    },
+    {
+      "code_bytes": 23,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "JavaScript",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-files/tests/test.js"
+      ],
+      "role": "scripting",
+      "scope": "test",
+      "share_pct": 0.000757798654
+    },
+    {
+      "code_bytes": 5398,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Just",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "justfile"
+      ],
+      "role": "programming",
+      "scope": "first_party",
+      "share_pct": 0.177852049368
+    },
+    {
+      "code_bytes": 180938,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 25,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "CHANGES.md",
+        "actix-files/CHANGES.md",
+        "actix-files/README.md",
+        "actix-http-test/CHANGES.md",
+        "actix-http-test/README.md"
+      ],
+      "role": "markup",
+      "scope": "docs",
+      "share_pct": 5.961503169411
+    },
+    {
+      "code_bytes": 45756,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 7,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "CODE_OF_CONDUCT.md",
+        "actix-web/MIGRATION-0.x.md",
+        "actix-web/MIGRATION-1.0.md",
+        "actix-web/MIGRATION-2.0.md",
+        "actix-web/MIGRATION-3.0.md"
+      ],
+      "role": "markup",
+      "scope": "first_party",
+      "share_pct": 1.507558053143
+    },
+    {
+      "code_bytes": 2142,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".github/ISSUE_TEMPLATE/bug_report.md",
+        ".github/PULL_REQUEST_TEMPLATE.md"
+      ],
+      "role": "markup",
+      "scope": "tooling",
+      "share_pct": 0.070574118145
+    },
+    {
+      "code_bytes": 44941,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 22,
+      "name": "Rust",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-files/examples/guarded-listing.rs",
+        "actix-http/examples/actix-web.rs",
+        "actix-http/examples/bench.rs",
+        "actix-http/examples/echo.rs",
+        "actix-http/examples/echo2.rs"
+      ],
+      "role": "programming",
+      "scope": "docs",
+      "share_pct": 1.480705622569
+    },
+    {
+      "code_bytes": 3510,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 6,
+      "name": "Rust",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-files/README.md",
+        "actix-http/README.md",
+        "actix-multipart/README.md",
+        "actix-test/README.md",
+        "actix-web/README.md"
+      ],
+      "role": "programming",
+      "scope": "docs",
+      "share_pct": 0.115646664187
+    },
+    {
+      "code_bytes": 2305238,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 229,
+      "name": "Rust",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-files/src/chunked.rs",
+        "actix-files/src/directory.rs",
+        "actix-files/src/encoding.rs",
+        "actix-files/src/error.rs",
+        "actix-files/src/files.rs"
+      ],
+      "role": "programming",
+      "scope": "first_party",
+      "share_pct": 75.952445828104
+    },
+    {
+      "code_bytes": 6342,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 5,
+      "name": "Rust",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-web/MIGRATION-0.x.md",
+        "actix-web/MIGRATION-1.0.md",
+        "actix-web/MIGRATION-2.0.md",
+        "actix-web/MIGRATION-3.0.md",
+        "actix-web/MIGRATION-4.0.md"
+      ],
+      "role": "programming",
+      "scope": "first_party",
+      "share_pct": 0.208954741958
+    },
+    {
+      "code_bytes": 269009,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 61,
+      "name": "Rust",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-files/tests/encoding.rs",
+        "actix-files/tests/guard.rs",
+        "actix-files/tests/pre_epoch_mtime.rs",
+        "actix-files/tests/traversal.rs",
+        "actix-http/tests/test_client.rs"
+      ],
+      "role": "programming",
+      "scope": "test",
+      "share_pct": 8.863246007472
+    },
+    {
+      "code_bytes": 224,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 2,
+      "name": "Shell",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-multipart/README.md",
+        "docs/graphs/README.md"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 0.007380299937
+    },
+    {
+      "code_bytes": 321,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "Shell",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-web/MIGRATION-4.0.md"
+      ],
+      "role": "scripting",
+      "scope": "first_party",
+      "share_pct": 0.010576233391
+    },
+    {
+      "code_bytes": 9389,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 4,
+      "name": "Shell",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "scripts/bump",
+        "scripts/free-disk-space.sh",
+        "scripts/publish",
+        "scripts/unreleased"
+      ],
+      "role": "scripting",
+      "scope": "tooling",
+      "share_pct": 0.309346589758
+    },
+    {
+      "code_bytes": 31,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "TOML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-web/README.md"
+      ],
+      "role": "config",
+      "scope": "docs",
+      "share_pct": 0.001021380795
+    },
+    {
+      "code_bytes": 31313,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 16,
+      "name": "TOML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".clippy.toml",
+        ".rustfmt.toml",
+        ".taplo.toml",
+        "Cargo.toml",
+        "actix-files/Cargo.toml"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 1.031693446063
+    },
+    {
+      "code_bytes": 96055,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "TOML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "Cargo.lock"
+      ],
+      "role": "config",
+      "scope": "generated",
+      "share_pct": 3.164797814377
+    },
+    {
+      "code_bytes": 2112,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 4,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-files/tests/fixtures/guards/first/index.txt",
+        "actix-files/tests/fixtures/guards/second/index.txt",
+        "actix-files/tests/utf8.txt",
+        "actix-web/tests/fixtures/lorem.txt"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.069585685118
+    },
+    {
+      "code_bytes": 12402,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "LICENSE-APACHE",
+        "LICENSE-MIT"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 0.40861821346
+    },
+    {
+      "code_bytes": 12859,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 16,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "actix-files/tests/test space.binary",
+        "actix-files/tests/test.binary",
+        "actix-http/tests/test.binary",
+        "actix-multipart-derive/tests/trybuild/deny-parse-fail.stderr",
+        "actix-multipart-derive/tests/trybuild/size-limit-parse-fail.stderr"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.423675343242
+    },
+    {
+      "code_bytes": 520,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 3,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".codecov.yml",
+        ".cspell.yml",
+        ".prettierrc.yml"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 0.017132839139
+    },
+    {
+      "code_bytes": 13801,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 11,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".github/FUNDING.yml",
+        ".github/ISSUE_TEMPLATE/config.yml",
+        ".github/dependabot.yml",
+        ".github/labeler.yml",
+        ".github/workflows/bench.yml"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.454712140297
+    }
+  ],
+  "repo_id": "105379569",
+  "scan_details": {
+    "binary_files": 8,
+    "bounded_detection_files": [],
+    "bounded_detection_note": "Pinned Linguist bounds detector input at 128KiB; full file byte sizes and all tracked files are counted.",
+    "enumeration_matches_git_ls_tree": true,
+    "git_tree_oid": "329cd0a915a1b4bdb06db1ca981f85205b65fe20",
+    "source_code_retained_in_publishable_artifacts": false,
+    "submodules": 0,
+    "symlinks": 24
+  },
+  "snapshot_id": "snap_ca4042bda2431632",
+  "tag_or_release": "http-v3.12.0",
+  "tag_resolution_note": "tag http-v3.12.0 resolved to a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b before inventory",
+  "tracked_files_scanned": 442,
+  "vulnerable_commit": "a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b"
+}

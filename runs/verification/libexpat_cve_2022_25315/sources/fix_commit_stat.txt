@@ -1,0 +1,12 @@
+eb0362808b4f9f1e2345a0cf203b8cc196d776d9 2022-02-15 12:17:18 +0000
+Prevent integer overflow in storeRawNames
+It is possible to use an integer overflow in storeRawNames for out of
+boundary heap writes. Default configuration is affected. If compiled
+with XML_UNICODE then the attack does not work. Compiling with
+-fsanitize=address confirms the following proof of concept.
+
+The problem can be exploited by abusing the m_buffer expansion logic.
+Even though the initial size of m_buffer is a power of two, eventually
+it can end up a little bit lower, thus allowing allocations very close
+to INT_MAX (since INT_MAX/2 can be surpassed). This means that tag
+names can be parsed which are almost INT_MAX in size.

@@ -1,0 +1,24 @@
+{
+  "key": "angular_zone.js",
+  "repository": "angular/angular",
+  "path": "packages/zone.js/package.json",
+  "retrieved_at": "2026-10-21T10:56:20.887Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"zone.js\",\n  \"version\": \"0.16.3\",\n  \"description\": \"Zones for JavaScript\",\n  \"main\": \"./bundles/zone.umd.js\",\n  \"module\": \"./fesm2015/zone.js\",\n  \"es2015\": \"./fesm2015/zone.js\",\n  \"fesm2015\": \"./fesm2015/zone.js\",\n  \"typings\": \"./zone.d.ts\",\n  \"devDependencies\": {\n    \"@csstools/css-calc\": \"3.4.3\",\n    \"@csstools/css-color-parser\": \"4.2.6\",\n    \"@externs/nodejs\": \"1.5.0\",\n    \"@types/jasmine\": \"6.0.0\",\n    \"@types/node\": \"^24.3.0\",\n    \"@types/systemjs\": \"6.15.4\",\n    \"bluebird\": \"3.7.2\",\n    \"domino\": \"https://github.com/angular/domino.git#1929b1ef5aee03234de322c5bbd955ba653d8727\",\n    \"esbuild-plugin-umd-wrapper\": \"3.0.0\",\n    \"jest-environment-jsdom\": \"30.5.2\",\n    \"jest-environment-node\": \"30.5.2\",\n    \"jest\": \"30.5.2\",\n    \"mocha\": \"12.0.3\",\n    \"mock-require\": \"3.0.3\",\n    \"jasmine\": \"6.3.0\",\n    \"source-map-support\": \"0.5.21\",\n    \"jasmine-core\": \"6.3.0\",\n    \"jasmine-reporters\": \"2.5.2\",\n    \"rxjs\": \"7.8.2\",\n    \"systemjs\": \"6.15.1\",\n    \"tslib\": \"^2.3.0\",\n    \"vitest\": \"^5.0.0\"\n  },\n  \"scripts\": {\n    \"electrontest\": \"cd test/extra && node electron.js\",\n    \"jest:test\": \"jest --config ./test/jest/jest.config.js\",\n    \"jest:nodetest\": \"jest --config ./test/jest/jest.node.config.js\",\n    \"vitest:test\": \"vitest ./test/vitest/*.spec.js --exclude ./test/vitest/*-globals.spec.js\",\n    \"vitest-globals:test\": \"vitest ./test/vitest/*-globals.spec.js --globals\",\n    \"promisefinallytest\": \"mocha ./test/promise/promise.finally.spec.mjs\",\n    \"release\": \"node tools/release.mts\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git://github.com/angular/angular.git\",\n    \"directory\": \"packages/zone.js\"\n  },\n  \"publishConfig\": {\n    \"registry\": \"https://wombat-dressing-room.appspot.com\"\n  },\n  \"author\": \"Brian Ford\",\n  \"license\": \"MIT\",\n  \"bugs\": {\n    \"url\": \"https://github.com/angular/angular/issues\"\n  },\n  \"exports\": {\n    \"./package.json\": {\n      \"default\": \"./package.json\"\n    },\n    \".\": {\n      \"types\": \"./zone.d.ts\",\n      \"require\": \"./bundles/zone.umd.js\",\n      \"default\": \"./fesm2015/zone.js\"\n    },\n    \"./testing\": {\n      \"require\": \"./bundles/zone-testing.umd.js\",\n      \"default\": \"./fesm2015/zone-testing.js\"\n    },\n    \"./node\": {\n      \"require\": \"./bundles/zone-node.umd.js\",\n      \"default\": \"./fesm2015/zone-node.js\"\n    },\n    \"./mix\": {\n      \"require\": \"./bundles/zone-mix.umd.js\",\n      \"default\": \"./fesm2015/zone-mix.js\"\n    },\n    \"./plugins/*.min\": {\n      \"require\": \"./bundles/*.umd.min.js\",\n      \"default\": \"./fesm2015/*.min.js\"\n    },\n    \"./plugins/*\": {\n      \"require\": \"./bundles/*.umd.js\",\n      \"default\": \"./fesm2015/*.js\"\n    }\n  }\n}\n",
+      "encoding": "utf-8",
+      "sha": "09c66940d1cceaa64a80a23472a4417a57e410e3",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/zone.js/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

@@ -1,0 +1,51 @@
+From 85b831555be8ea1f43bf01078afe87bc4c92f65e Mon Sep 17 00:00:00 2001
+From: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date: Fri, 22 May 2026 12:15:19 +0200
+Subject: [PATCH] [HttpFoundation] Block IPv6 transition forms in
+ IpUtils::PRIVATE_SUBNETS
+
+Extends the private-subnet list with IPv4-compatible (::/96), 6to4
+(2002::/16), Teredo (2001::/32) and NAT64 (64:ff9b::/96, 64:ff9b:1::/48)
+prefixes, so IpUtils::isPrivateIp() returns true for transition-form
+addresses that embed a private IPv4 destination. This closes an SSRF
+bypass in NoPrivateNetworkHttpClient, which delegates to the same list.
+---
+ src/Symfony/Component/HttpFoundation/IpUtils.php           | 7 ++++++-
+ src/Symfony/Component/HttpFoundation/Tests/IpUtilsTest.php | 5 +++++
+ 2 files changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/src/Symfony/Component/HttpFoundation/IpUtils.php b/src/Symfony/Component/HttpFoundation/IpUtils.php
+index 8b52d2a9da873..2c097443d7985 100644
+--- a/src/Symfony/Component/HttpFoundation/IpUtils.php
++++ b/src/Symfony/Component/HttpFoundation/IpUtils.php
+@@ -29,8 +29,13 @@ class IpUtils
+         '::1/128',        // Loopback
+         'fc00::/7',       // Unique Local Address
+         'fe80::/10',      // Link Local Address
+-        '::ffff:0:0/96',  // IPv4 translations
++        '::ffff:0:0/96',  // IPv4-mapped IPv6 addresses (RFC 4291 section 2.5.5.2)
+         '::/128',         // Unspecified address
++        '::/96',          // IPv4-compatible IPv6 addresses (RFC 4291 section 2.5.5.1)
++        '2002::/16',      // 6to4 (RFC 3056)
++        '2001::/32',      // Teredo tunneling (RFC 4380)
++        '64:ff9b::/96',   // NAT64 well-known prefix (RFC 6052)
++        '64:ff9b:1::/48', // NAT64 local-use prefix (RFC 8215)
+     ];
+ 
+     private static array $checkedIps = [];
+diff --git a/src/Symfony/Component/HttpFoundation/Tests/IpUtilsTest.php b/src/Symfony/Component/HttpFoundation/Tests/IpUtilsTest.php
+index 2a86fbc2dfed9..f1dcf707e26cb 100644
+--- a/src/Symfony/Component/HttpFoundation/Tests/IpUtilsTest.php
++++ b/src/Symfony/Component/HttpFoundation/Tests/IpUtilsTest.php
+@@ -192,6 +192,11 @@ public static function getIsPrivateIpData(): array
+             ['fe80::1',         true],
+             ['::ffff:0:1',      true],
+             ['fd00::1',         true],
++            ['::7f00:1',           true],
++            ['2002:7f00:1::',      true],
++            ['2001::1',            true],
++            ['64:ff9b::7f00:1',    true],
++            ['64:ff9b:1::7f00:1',  true],
+ 
+             // public
+             ['104.26.14.6',             false],

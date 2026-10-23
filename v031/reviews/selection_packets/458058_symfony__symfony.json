@@ -1,0 +1,989 @@
+{
+  "packet_id": "selrev_458058_snap_39105a8a3ceb9fe4",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "458058",
+    "full_name": "symfony/symfony",
+    "canonical_url": "https://github.com/symfony/symfony",
+    "primary_language": "PHP",
+    "project_kind": "The Symfony PHP framework"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_39105a8a3ceb9fe4",
+    "tag_or_release": "v5.4.45",
+    "commit_sha": "2b66d7d7d8129531229708ef708860844db91944"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "2b66d7d7d8129531229708ef708860844db91944",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "bf0c479d90d25d0b4ec9694855aff60900c45c68",
+    "tree_file_count": 11040,
+    "exported_file_count": 11040,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/symfony__symfony/snap_39105a8a3ceb9fe4.tar.gz",
+    "archive_sha256": "a400df66e0e06e09aa559d22677bc145ebf038acce6c2fe9f85a55d09ed99333",
+    "archive_bytes": 7646607,
+    "manifest_path": "exports/symfony__symfony/snap_39105a8a3ceb9fe4.manifest.jsonl",
+    "manifest_sha256": "c49ca54a74f679980fe8e65462a0845b39732c057ebd169ade5c5d0418109b03"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "CHANGELOG-5.0.md",
+      "CHANGELOG-5.1.md",
+      "CHANGELOG-5.2.md",
+      "CHANGELOG-5.3.md",
+      "CHANGELOG-5.4.md",
+      "src/Symfony/Bridge/Doctrine/CHANGELOG.md",
+      "src/Symfony/Bridge/Monolog/CHANGELOG.md",
+      "src/Symfony/Bridge/PhpUnit/CHANGELOG.md",
+      "src/Symfony/Bridge/ProxyManager/CHANGELOG.md",
+      "src/Symfony/Bridge/Twig/CHANGELOG.md",
+      "src/Symfony/Bundle/DebugBundle/CHANGELOG.md",
+      "src/Symfony/Bundle/FrameworkBundle/CHANGELOG.md",
+      "src/Symfony/Bundle/SecurityBundle/CHANGELOG.md",
+      "src/Symfony/Bundle/TwigBundle/CHANGELOG.md",
+      "src/Symfony/Bundle/WebProfilerBundle/CHANGELOG.md",
+      "src/Symfony/Component/Asset/CHANGELOG.md",
+      "src/Symfony/Component/BrowserKit/CHANGELOG.md",
+      "src/Symfony/Component/BrowserKit/History.php",
+      "src/Symfony/Component/BrowserKit/Tests/HistoryTest.php",
+      "src/Symfony/Component/Cache/CHANGELOG.md",
+      "src/Symfony/Component/Config/CHANGELOG.md",
+      "src/Symfony/Component/Console/CHANGELOG.md",
+      "src/Symfony/Component/CssSelector/CHANGELOG.md",
+      "src/Symfony/Component/DependencyInjection/CHANGELOG.md",
+      "src/Symfony/Component/DomCrawler/CHANGELOG.md",
+      "src/Symfony/Component/Dotenv/CHANGELOG.md",
+      "src/Symfony/Component/ErrorHandler/CHANGELOG.md",
+      "src/Symfony/Component/EventDispatcher/CHANGELOG.md",
+      "src/Symfony/Component/ExpressionLanguage/CHANGELOG.md",
+      "src/Symfony/Component/Filesystem/CHANGELOG.md",
+      "src/Symfony/Component/Finder/CHANGELOG.md",
+      "src/Symfony/Component/Form/CHANGELOG.md",
+      "src/Symfony/Component/HttpClient/CHANGELOG.md",
+      "src/Symfony/Component/HttpFoundation/CHANGELOG.md",
+      "src/Symfony/Component/HttpKernel/CHANGELOG.md",
+      "src/Symfony/Component/Inflector/CHANGELOG.md",
+      "src/Symfony/Component/Intl/CHANGELOG.md",
+      "src/Symfony/Component/Ldap/CHANGELOG.md",
+      "src/Symfony/Component/Lock/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Amazon/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Google/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Mailchimp/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Mailgun/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Mailjet/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/OhMySmtp/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Postmark/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Sendgrid/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/Bridge/Sendinblue/CHANGELOG.md",
+      "src/Symfony/Component/Mailer/CHANGELOG.md",
+      "src/Symfony/Component/Messenger/Bridge/AmazonSqs/CHANGELOG.md"
+    ],
+    "cve_id_count": 18,
+    "cve_ids_sample": [
+      "CVE-2018-1000007",
+      "CVE-2019-11325",
+      "CVE-2019-18886",
+      "CVE-2019-18887",
+      "CVE-2019-18888",
+      "CVE-2019-18889",
+      "CVE-2020-15094",
+      "CVE-2020-5255",
+      "CVE-2020-5275",
+      "CVE-2021-21424",
+      "CVE-2021-32693",
+      "CVE-2021-41267",
+      "CVE-2021-41268",
+      "CVE-2021-41270",
+      "CVE-2022-24894",
+      "CVE-2022-24895",
+      "CVE-2023-46733",
+      "CVE-2023-46734"
+    ],
+    "files_with_advisory_ids_count": 6,
+    "files_with_advisory_ids_sample": [
+      "CHANGELOG-5.0.md",
+      "CHANGELOG-5.1.md",
+      "CHANGELOG-5.2.md",
+      "CHANGELOG-5.3.md",
+      "CHANGELOG-5.4.md",
+      "src/Symfony/Component/HttpClient/CurlHttpClient.php"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CODEOWNERS",
+      ".github/ISSUE_TEMPLATE/1_Bug_report.yaml",
+      ".github/ISSUE_TEMPLATE/2_Feature_request.yaml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/build-packages.php",
+      ".github/composer-config.json",
+      ".github/deprecations-baseline.json",
+      ".github/get-modified-packages.php",
+      ".github/patch-types.php",
+      ".github/psalm/.gitignore",
+      ".github/psalm/psalm.baseline.xml",
+      ".github/psalm/stubs/SetUpTearDownTrait.php",
+      ".github/sync-packages.php",
+      ".github/sync-translations.php",
+      ".github/workflows/integration-tests.yml",
+      ".github/workflows/intl-data-tests.yml",
+      ".github/workflows/package-tests.yml",
+      ".github/workflows/phpunit-bridge.yml",
+      ".github/workflows/psalm.yml",
+      ".github/workflows/unit-tests.yml",
+      "CHANGELOG-5.0.md",
+      "CHANGELOG-5.1.md",
+      "CHANGELOG-5.2.md",
+      "CHANGELOG-5.3.md",
+      "CHANGELOG-5.4.md",
+      "src/Symfony/Bridge/Doctrine/CHANGELOG.md",
+      "src/Symfony/Bridge/Monolog/CHANGELOG.md",
+      "src/Symfony/Bridge/PhpUnit/CHANGELOG.md",
+      "src/Symfony/Bridge/ProxyManager/CHANGELOG.md",
+      "src/Symfony/Bridge/Twig/CHANGELOG.md",
+      "src/Symfony/Bridge/Twig/Extension/SecurityExtension.php",
+      "src/Symfony/Bundle/DebugBundle/CHANGELOG.md",
+      "src/Symfony/Bundle/FrameworkBundle/CHANGELOG.md",
+      "src/Symfony/Bundle/FrameworkBundle/Resources/config/security_csrf.php",
+      "src/Symfony/Bundle/FrameworkBundle/Tests/DependencyInjection/translations/security.en.yaml",
+      "src/Symfony/Bundle/FrameworkBundle/Tests/Functional/Bundle/TestBundle/Controller/SecurityController.php",
+      "src/Symfony/Bundle/FrameworkBundle/Tests/Functional/SecurityTest.php",
+      "src/Symfony/Bundle/SecurityBundle/CHANGELOG.md",
+      "src/Symfony/Bundle/SecurityBundle/DataCollector/SecurityDataCollector.php",
+      "src/Symfony/Bundle/SecurityBundle/DependencyInjection/Security/Factory/SecurityFactoryInterface.php",
+      "src/Symfony/Bundle/SecurityBundle/DependencyInjection/SecurityExtension.php",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/schema/security-1.0.xsd",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/security.php",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/security_authenticator.php",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/security_authenticator_login_link.php",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/security_authenticator_remember_me.php",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/security_debug.php",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/security_legacy.php",
+      "src/Symfony/Bundle/SecurityBundle/Resources/config/security_listeners.php"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "php": [
+        "composer.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_missing_in_probe_environment",
+    "systems": [
+      "php"
+    ],
+    "toolchain_available": {
+      "php": {
+        "composer": false,
+        "php": false
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-50340",
+      "aliases": [
+        "CVE-2024-50340",
+        "GHSA-x8vp-gf4q-mw5j"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=5.3,<5.4.46",
+          "ecosystem": "Packagist",
+          "package": "symfony/runtime",
+          "purl": "pkg:composer/symfony/runtime"
+        },
+        {
+          "affected_range": ">=6.0,<6.4.14",
+          "ecosystem": "Packagist",
+          "package": "symfony/runtime",
+          "purl": "pkg:composer/symfony/runtime"
+        },
+        {
+          "affected_range": ">=7.0,<7.1.7",
+          "ecosystem": "Packagist",
+          "package": "symfony/runtime",
+          "purl": "pkg:composer/symfony/runtime"
+        }
+      ],
+      "published_at": "2024-11-06T21:09:46Z",
+      "advisory_url": "https://symfony.com/blog/cve-2024-50340-ability-to-change-environment-from-query",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "CNA CVSS 3.1 numeric 7.3 falls in High (7.0-8.9); the GHSA page displays a CVSS v4.0 6.9 Moderate score alongside the same 3.1 vector",
+        "score": 7.3,
+        "source": "GitHub_M CNA record (CVE List v5) and GHSA-x8vp-gf4q-mw5j; NVD carries the same vector only as a Secondary metric and marks the record Deferred",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50340",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2024-50342",
+      "aliases": [
+        "CVE-2024-50342",
+        "GHSA-9c3x-r3wp-mgxm"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<5.4.47",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-client",
+          "purl": "pkg:composer/symfony/http-client"
+        },
+        {
+          "affected_range": ">=6.0,<6.4.15",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-client",
+          "purl": "pkg:composer/symfony/http-client"
+        },
+        {
+          "affected_range": ">=7.0,<7.1.8",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-client",
+          "purl": "pkg:composer/symfony/http-client"
+        }
+      ],
+      "published_at": "2024-11-06T21:03:12Z",
+      "advisory_url": "https://symfony.com/blog/cve-2024-50342-internal-address-and-port-enumeration-allowed-by-noprivatenetworkhttpclient",
+      "severity": {
+        "level": "medium",
+        "numeric_level_rationale": "NVD Primary CVSS 3.1 numeric 4.3 falls in Medium (4.0-6.9); the CNA/GHSA vector is identical except Attack Complexity High, which yields 3.1 Low",
+        "score": 4.3,
+        "source": "NVD Primary metric nvd@nist.gov; the GitHub_M CNA record and GHSA-9c3x-r3wp-mgxm use AC:H and score 3.1 LOW",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50342",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2024-50345",
+      "aliases": [
+        "CVE-2024-50345",
+        "GHSA-mrqx-rp3w-jpjp"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<5.4.46",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-foundation",
+          "purl": "pkg:composer/symfony/http-foundation"
+        },
+        {
+          "affected_range": ">=6.0,<6.4.14",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-foundation",
+          "purl": "pkg:composer/symfony/http-foundation"
+        },
+        {
+          "affected_range": ">=7.0,<7.1.7",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-foundation",
+          "purl": "pkg:composer/symfony/http-foundation"
+        }
+      ],
+      "published_at": "2024-11-06T20:56:21Z",
+      "advisory_url": "https://symfony.com/blog/cve-2024-50345-open-redirect-via-browser-sanitized-urls",
+      "severity": {
+        "level": "medium",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 6.1 falls in Medium (4.0-6.9); the CNA/GHSA vector scores 3.1 LOW and is recorded as a source disagreement",
+        "score": 6.1,
+        "source": "NVD primary metric nvd@nist.gov; the GitHub_M CNA and GHSA use a different 3.1 LOW vector",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50345",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2024-51996",
+      "aliases": [
+        "CVE-2024-51996",
+        "GHSA-cg23-qf8f-62rr"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=5.3.0,<5.4.47",
+          "ecosystem": "Packagist",
+          "package": "symfony/security-http",
+          "purl": "pkg:composer/symfony/security-http"
+        }
+      ],
+      "published_at": "2024-11-13T17:15:11Z",
+      "advisory_url": "https://symfony.com/cve-2024-51996",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); the metric is supplied by the GitHub advisory and republished by NVD as a secondary metric, with confidentiality-only impact",
+        "score": 7.5,
+        "source": "GitHub advisory (GitHub_M CNA) CVSS 3.1 vector; NVD carries it as the only, secondary metric",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-cg23-qf8f-62rr",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2025-64500",
+      "aliases": [
+        "CVE-2025-64500",
+        "GHSA-3rg7-wf37-54rm"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.50",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-foundation",
+          "purl": "pkg:composer/symfony/http-foundation"
+        },
+        {
+          "affected_range": ">=2.0.0,<5.4.50",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2025-11-12T21:50:37Z",
+      "advisory_url": "https://symfony.com/blog/cve-2025-64500-incorrect-parsing-of-path-info-can-lead-to-limited-authorization-bypass",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "CVSS 3.1 numeric 7.3 falls in High (7.0-8.9); the metric is supplied by the GitHub_M CNA and republished by NVD as its only, secondary metric, with low impact on all three properties",
+        "score": 7.3,
+        "source": "GitHub advisory (GitHub_M CNA) CVSS 3.1 vector; NVD carries the same vector as a secondary metric only",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-3rg7-wf37-54rm",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45063",
+      "aliases": [
+        "CVE-2026-45063",
+        "GHSA-ph86-p8f6-f9r2"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/security-http",
+          "purl": "pkg:composer/symfony/security-http"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-05-27T16:50:42Z",
+      "advisory_url": "https://symfony.com/cve-2026-45063",
+      "severity": {
+        "level": "critical",
+        "numeric_level_rationale": "CVSS 4.0 base 9.1 falls in Critical (9.0-10.0); the CNA and NVD (Secondary) both publish this vector with attack requirements present",
+        "score": 9.1,
+        "source": "GitHub_M CNA CVSS 4.0 metric, also republished by NVD as its only, Secondary metric",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-ph86-p8f6-f9r2",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45065",
+      "aliases": [
+        "CVE-2026-45065",
+        "GHSA-72xp-p242-47p9"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/routing",
+          "purl": "pkg:composer/symfony/routing"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T17:43:45Z",
+      "advisory_url": "https://symfony.com/cve-2026-45065",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "low",
+            "score": 2.3,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "medium",
+            "score": 6.1,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "low",
+        "numeric_level_rationale": "CVSS 4.0 base 2.3 falls in Low (0.1-3.9); the CNA publishes this vector and NVD republishes it as a Secondary metric. NVD additionally carries a Primary CVSS 3.1 metric from nvd@nist.gov (6.1 MEDIUM, AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N). The GHSA label MODERATE tracks the 3.1 score and disagrees with the 4.0 2.3 Low; the canonical severity keeps the CNA 4.0 vector and records both NVD metrics.",
+        "score": 2.3,
+        "source": "GitHub_M CNA CVSS 4.0 metric (Secondary in NVD); NVD also has a Primary CVSS 3.1 6.1 MEDIUM metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-72xp-p242-47p9",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45067",
+      "aliases": [
+        "CVE-2026-45067",
+        "GHSA-qpmx-3rfj-7rhv"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/mime",
+          "purl": "pkg:composer/symfony/mime"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T17:41:53Z",
+      "advisory_url": "https://symfony.com/cve-2026-45067",
+      "severity": {
+        "ghsa_label_note": "The GitHub advisory is labelled HIGH using a different vector, CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N (PR:L, VI:H, AT:N), which the independent reviewer computed as 7.1 High; the global advisory page shows High while the repo-scoped page shows Moderate, so GitHub's own surfaces disagree. This diverges from the CNA 6.3 MEDIUM vector recorded above.",
+        "level": "medium",
+        "numeric_level_rationale": "CVSS 4.0 base 6.3 falls in Medium (4.0-6.9); the CNA publishes this vector and NVD carries it as its only, Secondary metric. The GHSA label HIGH disagrees with the 6.3 score; the canonical severity keeps the published vector and score.",
+        "score": 6.3,
+        "source": "GitHub_M CNA CVSS 4.0 metric, republished by NVD as a Secondary metric",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-qpmx-3rfj-7rhv",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45068",
+      "aliases": [
+        "CVE-2026-45068",
+        "GHSA-xx3c-qf5g-hc39"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/mailer",
+          "purl": "pkg:composer/symfony/mailer"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T19:02:10Z",
+      "advisory_url": "https://symfony.com/cve-2026-45068",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "moderate",
+            "score": 6.2,
+            "source": "github.com advisory page and OSV database_specific.severity (MODERATE)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N/E:U",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "high",
+        "numeric_level_rationale": "CVSS 4.0 base 8.7 (CNA) and the NVD Primary CVSS 3.1 7.5 both fall in High (7.0-8.9). The GitHub advisory page and OSV publish a different CVSS 4.0 score of 6.2 MODERATE with PR:L/VC:H, while the CVE List v5 record from the same GitHub_M assigner publishes PR:N/VC:N 8.7; the canonical severity keeps the CVE record vector and records all three published scores.",
+        "score": 8.7,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-xx3c-qf5g-hc39",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45071",
+      "aliases": [
+        "CVE-2026-45071",
+        "GHSA-x6g4-fwcc-jj8w"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/dom-crawler",
+          "purl": "pkg:composer/symfony/dom-crawler"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T18:58:15Z",
+      "advisory_url": "https://symfony.com/cve-2026-45071",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The GitHub advisory page and OSV label GHSA-x6g4-fwcc-jj8w 'Low' with vector CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N/E:U (PR:L, VC:N, VI:L) and no separately stated numeric score; this vector and label diverge materially from the CNA metric recorded above (PR:N, VC:H, VI:N, 8.7) and from the NVD Primary 3.1 7.5.",
+        "level": "high",
+        "numeric_level_rationale": "CVSS 4.0 base 8.7 and the NVD Primary CVSS 3.1 7.5 both fall in High. The GHSA label LOW disagrees with both scores; the canonical severity keeps the CNA 4.0 vector and records both published scores.",
+        "score": 8.7,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-x6g4-fwcc-jj8w",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45073",
+      "aliases": [
+        "CVE-2026-45073",
+        "GHSA-6qh9-h6wf-jgqc"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/cache",
+          "purl": "pkg:composer/symfony/cache"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T18:23:41Z",
+      "advisory_url": "https://symfony.com/cve-2026-45073",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 6.3,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.3,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The GHSA page and OSV label GHSA-6qh9-h6wf-jgqc Moderate (database_specific.severity MODERATE) with a different vector, CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:N/VI:H/VA:L/SC:N/SI:N/SA:N/E:U (AT:N/PR:L/VC:N/VI:H/VA:L), and publish no numeric score for it; this diverges from the CNA 6.3 MEDIUM vector (AT:P/PR:N/VC:L/VI:L/VA:L) and from the NVD Primary 3.1 7.3 High.",
+        "level": "medium",
+        "numeric_level_rationale": "CVSS 4.0 base 6.3 falls in Medium (4.0-6.9); the GHSA label MODERATE matches it. NVD additionally has a Primary CVSS 3.1 7.3 HIGH from nvd@nist.gov, which is a material severity split; the canonical severity keeps the CNA 4.0 vector and records both scores.",
+        "score": 6.3,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.3 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-6qh9-h6wf-jgqc",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45077",
+      "aliases": [
+        "CVE-2026-45077",
+        "GHSA-m7v2-7gxm-vc2v"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/monolog-bridge",
+          "purl": "pkg:composer/symfony/monolog-bridge"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T17:46:33Z",
+      "advisory_url": "https://symfony.com/blog/cve-2026-45077-unauthenticated-php-object-deserialization-in-monologbridge-server-log-listener",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.3,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:H/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 8.6,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:H",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The GHSA page/OSV publish a different CVSS_V4 vector, CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:U, whose GitHub overall score is 8.1 High; the CNA vector is AT:P/VC:L/VI:L at 8.3 High and the NVD Primary 3.1 is 8.6 High. Labels agree but the components and scores differ.",
+        "level": "high",
+        "numeric_level_rationale": "CVSS 4.0 base 8.3 (CNA) and the NVD Primary CVSS 3.1 8.6 both fall in High (7.0-8.9); the OSV/GHSA label is also High. The OSV top-level CVSS_V4 vector differs from the CNA vector (AT:N and VC:H/VI:H instead of AT:P and VC:L/VI:L) and has no separately published numeric score in the record.",
+        "score": 8.3,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 8.6 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-m7v2-7gxm-vc2v",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:L/VA:H/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45133",
+      "aliases": [
+        "CVE-2026-45133",
+        "GHSA-c2p3-7m5p-cv8x"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/yaml",
+          "purl": "pkg:composer/symfony/yaml"
+        },
+        {
+          "affected_range": "<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T18:45:03Z",
+      "advisory_url": "https://symfony.com/blog/cve-2026-45133-yaml-parser-stack-exhaustion-via-unbounded-recursion-in-nested-blocks-sequences-and-mappings",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.2,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The GHSA page labels the issue Low and OSV database_specific.severity is LOW with CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U, while the CNA metric is 8.2 High with AT:P/VA:H. The split is material and recorded as published.",
+        "level": "high",
+        "numeric_level_rationale": "The CNA CVSS 4.0 base is 8.2 High (availability only) and NVD Primary CVSS 3.1 is 7.5 High, but the GHSA page and OSV database label are Low and the OSV vector uses VA:L with E:U. The canonical severity keeps the CNA 4.0 vector and records every published score.",
+        "score": 8.2,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also carries a Primary CVSS 3.1 7.5 High from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-c2p3-7m5p-cv8x",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45304",
+      "aliases": [
+        "CVE-2026-45304",
+        "GHSA-4qpc-3hr4-r2p4"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/yaml",
+          "purl": "pkg:composer/symfony/yaml"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T18:48:49Z",
+      "advisory_url": "https://symfony.com/cve-2026-45304",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The GHSA page and OSV database_specific.severity say LOW and the OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U (VA:L) with no separately stated numeric score.",
+        "level": "high",
+        "numeric_level_rationale": "CVSS 4.0 base 8.7 (CNA) and the NVD Primary CVSS 3.1 7.5 both fall in High (7.0-8.9). The GHSA page and OSV label LOW with a VA:L vector, inconsistent with both published scores.",
+        "score": 8.7,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-4qpc-3hr4-r2p4",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-45305",
+      "aliases": [
+        "CVE-2026-45305",
+        "GHSA-9frc-8383-795m"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/yaml",
+          "purl": "pkg:composer/symfony/yaml"
+        },
+        {
+          "affected_range": ">=0,<5.4.52",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T18:50:14Z",
+      "advisory_url": "https://symfony.com/cve-2026-45305",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The GHSA page and OSV database_specific.severity say LOW and the OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U (VA:L) with no separately stated numeric score.",
+        "level": "high",
+        "numeric_level_rationale": "CVSS 4.0 base 8.7 (CNA) and the NVD Primary CVSS 3.1 7.5 both fall in High (7.0-8.9). The GHSA page and OSV label LOW with a VA:L vector, inconsistent with both published scores.",
+        "score": 8.7,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-9frc-8383-795m",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-48489",
+      "aliases": [
+        "CVE-2026-48489",
+        "GHSA-6h46-9jf5-q59x"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.4.53",
+          "ecosystem": "Packagist",
+          "package": "symfony/security-http",
+          "purl": "pkg:composer/symfony/security-http"
+        },
+        {
+          "affected_range": ">=0,<5.4.53",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T19:14:12Z",
+      "advisory_url": "https://symfony.com/cve-2026-48489",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "high",
+        "numeric_level_rationale": "CVSS 4.0 base 8.7 and the NVD Primary CVSS 3.1 7.5 both fall in High (7.0-8.9); the GHSA/OSV label is also High, so all sources agree on the level even though the vectors are different.",
+        "score": 8.7,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-6h46-9jf5-q59x",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-48736",
+      "aliases": [
+        "CVE-2026-48736",
+        "GHSA-38cx-cq6f-5755"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=5.4.0,<5.4.53",
+          "ecosystem": "Packagist",
+          "package": "symfony/http-client",
+          "purl": "pkg:composer/symfony/http-client"
+        },
+        {
+          "affected_range": ">=5.4.0,<5.4.53",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T19:09:30Z",
+      "advisory_url": "https://symfony.com/cve-2026-48736",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 6.9,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:L/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 8.6,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N (SC:L/SI:L) and the database label is MODERATE; the CNA vector uses SC:H/SI:L, and both scores fall in Medium.",
+        "level": "medium",
+        "numeric_level_rationale": "The CNA CVSS 4.0 base is 6.9 Medium and the GHSA/OSV label is Moderate, but NVD carries a Primary CVSS 3.1 8.6 High (scope changed, confidentiality high). The canonical severity keeps the CNA 4.0 vector and records both scores; the split is material.",
+        "score": 6.9,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 8.6 HIGH metric from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-38cx-cq6f-5755",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:L/SA:N",
+        "version": "4.0"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2026-48784",
+      "aliases": [
+        "CVE-2026-48784",
+        "GHSA-h5x3-xfc9-m39h"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<5.4.53",
+          "ecosystem": "Packagist",
+          "package": "symfony/routing",
+          "purl": "pkg:composer/symfony/routing"
+        },
+        {
+          "affected_range": "<5.4.53",
+          "ecosystem": "Packagist",
+          "package": "symfony/symfony",
+          "purl": "pkg:composer/symfony/symfony"
+        }
+      ],
+      "published_at": "2026-07-14T19:04:20Z",
+      "advisory_url": "https://symfony.com/blog/cve-2026-48784-urlgenerator-encoding-skips-every-other-chained-or-generated-url-collapses-off-route",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 5.1,
+            "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "medium",
+            "score": 6.1,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "The OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:L/SI:L/SA:N (UI:N and VI:L), unlike the CNA vector (UI:A, VI:N); the OSV label is MODERATE. The difference does not change the Medium band.",
+        "level": "medium",
+        "numeric_level_rationale": "The CNA and NVD Secondary both use CVSS 4.0 5.1 Medium; NVD Primary CVSS 3.1 is 6.1 Medium. GHSA/OSV label Moderate and the OSV vector differs (UI:N, VI:L), but both land in the same Medium band.",
+        "score": 5.1,
+        "source": "GitHub_M CNA CVSS 4.0 metric; NVD Primary CVSS 3.1 6.1 Medium from nvd@nist.gov",
+        "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-h5x3-xfc9-m39h",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+        "version": "4.0"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

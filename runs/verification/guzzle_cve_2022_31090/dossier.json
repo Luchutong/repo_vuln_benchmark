@@ -1,0 +1,339 @@
+{
+  "candidate_id": "disc2_9b747e1d1c3264cf826b2cf4",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/guzzle_cve_2022_31090/sources/osv_ghsa.json",
+      "evidence_id": "ev_guzzle_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:05:00Z",
+      "sha256_of_observation": "cb8bcd81577e1c758b73b688129c94f1c24e3fb9a8d5e30cd9e57367b135672f",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-25mq-v84q-4j7r",
+      "supports": [
+        "aliases",
+        "affected ranges (<6.5.8 and 7.0.0-7.4.5)",
+        "fixed versions",
+        "CVSS vector",
+        "fix commit reference"
+      ],
+      "verification_method": "OSV API query for Packagist guzzlehttp/guzzle, response cached"
+    },
+    {
+      "artifact_path": "runs/verification/guzzle_cve_2022_31090/sources/cve_v5.json",
+      "evidence_id": "ev_guzzle_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:05:00Z",
+      "sha256_of_observation": "32d3ae97cc61001f03defbc487343c459d4560055f6bbe25be613811f6997398",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-31090",
+      "supports": [
+        "title",
+        "affected ranges",
+        "CVSS 3.1 7.7 HIGH",
+        "CWE-200",
+        "published date",
+        "fix commit reference"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner GitHub_M)"
+    },
+    {
+      "artifact_path": "runs/verification/guzzle_cve_2022_31090/sources/nvd_cve.json",
+      "evidence_id": "ev_guzzle_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:05:00Z",
+      "sha256_of_observation": "8ea52943c53c40bad46a9834d109ca2b4cc87ec1ef0d4c0ee85c13d8fed0107f",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-31090",
+      "supports": [
+        "NVD primary CVSS 3.1 7.7 HIGH (same vector as CNA)",
+        "CWE-212 (NVD primary)",
+        "published date",
+        "references"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/guzzle_cve_2022_31090/sources/git_object_checks.txt",
+      "evidence_id": "ev_guzzle_fix_commit",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:06:00Z",
+      "sha256_of_observation": "8de1ed9502ab378305e2f05c4b8d9f0bccd782a5aa7bb76db26f8977687705ab",
+      "source_url": "https://github.com/guzzle/guzzle/commit/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+      "supports": [
+        "fix commit",
+        "fix commit is the v7.4.5 tag commit",
+        "RedirectMiddleware.php differs between 7.4.4 and 7.4.5"
+      ],
+      "verification_method": "exact-SHA shallow fetch into a bare repo; commit object and tree diff against e3ff079b22820c2029d4c2a87796b6a0b8716ad8 inspected"
+    },
+    {
+      "artifact_path": "runs/verification/guzzle_cve_2022_31090/sources/RedirectMiddleware_7.4.4.php",
+      "evidence_id": "ev_guzzle_vulnerable_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:06:00Z",
+      "sha256_of_observation": "2120cecae06107a1121e7f1197f0f3ca25c4d3450ee7297a864516eb67695d93",
+      "source_url": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L91-L99",
+      "supports": [
+        "root-cause location",
+        "checkRedirect",
+        "host-only comparison before unsetting CURLOPT_HTTPAUTH/CURLOPT_USERPWD"
+      ],
+      "verification_method": "file read from the exact tag commit tree; lines 91-99 inspected"
+    },
+    {
+      "artifact_path": "runs/verification/guzzle_cve_2022_31090/sources/RedirectMiddleware_7.4.5.php",
+      "evidence_id": "ev_guzzle_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:06:00Z",
+      "sha256_of_observation": "7477e88573346851ae36ce1d1f518eeb19630d91a9351b60ca5354a885e0b878",
+      "source_url": "https://github.com/guzzle/guzzle/blob/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82/src/RedirectMiddleware.php#L91-L97",
+      "supports": [
+        "fixed release content",
+        "Psr7\\UriComparator::isCrossOrigin replaces the host-only check",
+        "sensitive header strip also uses isCrossOrigin"
+      ],
+      "verification_method": "file read at the v7.4.5 tag commit"
+    },
+    {
+      "artifact_path": "runs/verification/guzzle_cve_2022_31090/sources/CurlFactory_7.4.4.php",
+      "evidence_id": "ev_guzzle_vuln_file_full",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:06:00Z",
+      "sha256_of_observation": "3d8f73ee6b1566b0c5de5ab089d547c604bf5c8c9d39f71f8266803149cdf08c",
+      "source_url": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php",
+      "supports": [
+        "CURLOPT_HTTPAUTH is passed through to curl in applyHandlerOptions",
+        "same file identical at 7.4.5 (fix is in RedirectMiddleware only)"
+      ],
+      "verification_method": "file read at the vulnerable tag; confirms CURLOPT_HTTPAUTH is applied to the easy handle from $conf"
+    },
+    {
+      "artifact_path": "runs/language/snap_efe695448113758a/snapshot_proposal.json",
+      "evidence_id": "ev_guzzle_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:07:00Z",
+      "sha256_of_observation": "afc78de65c0bf32d4e4c030c556c4fc9f04027596dfce5d3a55477a6ced8f518",
+      "source_url": "https://github.com/guzzle/guzzle/tree/e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+      "supports": [
+        "snapshot_id",
+        "PHP first-party share",
+        "tree oid 21fe7ae1",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 117 tracked files, enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      1,
+      2
+    ],
+    "fix_commits": [
+      3,
+      0
+    ],
+    "fixed_releases": [
+      5,
+      3
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      3
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "Location was established by static reading; no proof-of-concept was executed against guzzle 7.4.4.",
+    "Only the default curl handler path is covered; stream handler users are not affected by this specific option leak.",
+    "The fix commit referenced by the advisory is the release commit; the code change itself is confirmed by the 7.4.4 vs 7.4.5 tree diff, not by a standalone PR commit message."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "// If authorization is handled by curl, unset it if host is different.\nif ($request->getUri()->getHost() !== $nextRequest->getUri()->getHost()\n    && defined('\\CURLOPT_HTTPAUTH')\n) {\n    unset($options['curl'][\\CURLOPT_HTTPAUTH], $options['curl'][\\CURLOPT_USERPWD]);\n}",
+      "description": "After computing the redirect target, the code only unsets CURLOPT_HTTPAUTH/CURLOPT_USERPWD when the host string differs. A redirect that keeps the host but changes scheme (https to http) or port therefore keeps the curl-level Authorization credentials, and curl re-sends them to the new origin. The 7.4.5 fix replaces this with isCrossOrigin (host, scheme and port).",
+      "file": "src/RedirectMiddleware.php",
+      "function": "checkRedirect",
+      "language": "PHP",
+      "line": "91-99",
+      "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L91-L99"
+    },
+    "entry_point": {
+      "description": "The redirect middleware follows Location headers when allow_redirects is enabled.",
+      "file": "src/RedirectMiddleware.php",
+      "function": "__invoke",
+      "language": "PHP",
+      "line": 50,
+      "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L50-L74"
+    },
+    "location_id": "loc_GHSA_25mq_v84q_4j7r_snap_efe695448113758a",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_efe695448113758a",
+    "trace": [
+      {
+        "description": "checkRedirect is called when the response arrives",
+        "file": "src/RedirectMiddleware.php",
+        "function": "__invoke",
+        "language": "PHP",
+        "line": 73,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L71-L74"
+      },
+      {
+        "description": "$nextRequest = $this->modifyRequest($request, $options, $response) resolves the Location target",
+        "file": "src/RedirectMiddleware.php",
+        "function": "checkRedirect",
+        "language": "PHP",
+        "line": 89,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L89"
+      },
+      {
+        "description": "host-only comparison decides whether curl credentials are cleared",
+        "file": "src/RedirectMiddleware.php",
+        "function": "checkRedirect",
+        "language": "PHP",
+        "line": 92,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L92-L98"
+      },
+      {
+        "description": "the next request is dispatched with the retained $options",
+        "file": "src/RedirectMiddleware.php",
+        "function": "checkRedirect",
+        "language": "PHP",
+        "line": 109,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/RedirectMiddleware.php#L109"
+      },
+      {
+        "description": "CURLOPT_HTTPAUTH from $options[curl] is applied to the easy handle",
+        "file": "src/Handler/CurlFactory.php",
+        "function": "applyHandlerOptions",
+        "language": "PHP",
+        "line": 349,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php#L349"
+      }
+    ],
+    "verification_method": "Static read of src/RedirectMiddleware.php at the exact 7.4.4 commit e3ff079b22820c2029d4c2a87796b6a0b8716ad8, compared with the 7.4.5 tag commit 1dd98b0564cb3f6bd16ce683cb755f94c10fbd82. No code executed.",
+    "vulnerability_id": "GHSA-25mq-v84q-4j7r"
+  },
+  "open_questions": [
+    "The <6.5.8 range is recorded from the advisory but the 6.5.x branch was not independently read.",
+    "Whether curl itself preserves the Authorization header across a port-only change in every libcurl version was not dynamically tested."
+  ],
+  "prepared_at": "2026-10-21T14:08:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/guzzle/guzzle",
+    "full_name": "guzzle/guzzle",
+    "license": "MIT",
+    "primary_language": "PHP",
+    "project_kind": "library",
+    "repo_id": "1420053",
+    "snapshot_id": "snap_efe695448113758a"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must re-read RedirectMiddleware.php at the vulnerable SHA.",
+      "An independent reviewer must confirm 7.4.5 contains isCrossOrigin and that 7.4.4 does not.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA + OSV)",
+      "CVE List v5 CNA record (assigner GitHub_M)",
+      "NVD analysis"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA and NVD agree on both affected ranges and on CVSS 7.7. They disagree on CWE: the CNA assigns CWE-200, NVD primary assigns CWE-212. Both are recorded rather than picking one silently. The advisory notes a partial 7.4.2 fix that only handled host changes; 7.4.4 is after that partial fix, which is exactly the residual bug verified here."
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/guzzle/guzzle/security/advisories/GHSA-25mq-v84q-4j7r",
+    "affected_packages": [
+      {
+        "affected_range": "<6.5.8",
+        "ecosystem": "Packagist",
+        "package": "guzzlehttp/guzzle",
+        "purl": "pkg:composer/guzzlehttp/guzzle"
+      },
+      {
+        "affected_range": ">=7.0.0, <7.4.5",
+        "ecosystem": "Packagist",
+        "package": "guzzlehttp/guzzle",
+        "purl": "pkg:composer/guzzlehttp/guzzle"
+      }
+    ],
+    "aliases": [
+      "GHSA-25mq-v84q-4j7r",
+      "CVE-2022-31090"
+    ],
+    "category_l1": "information_disclosure",
+    "category_l2": "credential leak on cross-origin redirect",
+    "cwe_ids": [
+      "CWE-200",
+      "CWE-212"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "Release 7.4.5 (#3043)",
+        "sha": "1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+        "url": "https://github.com/guzzle/guzzle/commit/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Packagist",
+        "package": "guzzlehttp/guzzle",
+        "release_url": "https://github.com/guzzle/guzzle/releases/tag/7.4.5",
+        "tag": "7.4.5",
+        "verified_content": "RedirectMiddleware::checkRedirect uses Psr7\\UriComparator::isCrossOrigin to decide whether to unset CURLOPT_HTTPAUTH/CURLOPT_USERPWD; the fix commit is the 7.4.5 tag commit",
+        "version": "7.4.5"
+      }
+    ],
+    "published_at": "2022-06-27T00:00:00Z",
+    "references": [
+      "https://github.com/guzzle/guzzle/security/advisories/GHSA-25mq-v84q-4j7r",
+      "https://github.com/guzzle/guzzle/commit/1dd98b0564cb3f6bd16ce683cb755f94c10fbd82",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-31090",
+      "https://www.debian.org/security/2022/dsa-5246",
+      "https://security.gentoo.org/glsa/202305-24"
+    ],
+    "repo_id": "1420053",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "CVSS 3.1 numeric 7.7 falls in High (7.0-8.9).",
+      "score": 7.7,
+      "source": "GitHub_M CNA metric; NVD primary carries the identical vector and score",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-31090",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_efe695448113758a",
+    "source_type": "upstream_advisory",
+    "title": "CURLOPT_HTTPAUTH option not cleared on change of origin in Guzzle",
+    "vulnerability_id": "GHSA-25mq-v84q-4j7r",
+    "vulnerable_commit": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+    "vulnerable_commit_basis": "lightweight tag 7.4.4 maps directly to e3ff079b...; 7.4.4 is inside >=7.0.0,<7.4.5",
+    "vulnerable_version": "7.4.4"
+  }
+}

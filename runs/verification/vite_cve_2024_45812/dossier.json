@@ -1,0 +1,422 @@
+{
+  "candidate_id": "disc2_6c2f000b9fb003a53fb86aba",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T19:05:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "257485422",
+    "full_name": "vitejs/vite",
+    "canonical_url": "https://github.com/vitejs/vite",
+    "primary_language": "TypeScript",
+    "project_kind": "frontend build tool and dev server",
+    "snapshot_id": "snap_2e50b228f2432623"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-45812",
+    "aliases": [
+      "CVE-2024-45812",
+      "GHSA-64vr-g452-qvp3"
+    ],
+    "title": "Vite build emits a DOM Clobbering gadget: cjs/iife/umd bundles resolve relative asset URLs from unvalidated document.currentScript.src",
+    "repo_id": "257485422",
+    "snapshot_id": "snap_2e50b228f2432623",
+    "vulnerable_commit": "b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+    "affected_packages": [
+      {
+        "ecosystem": "npm",
+        "package": "vite",
+        "purl": "pkg:npm/vite",
+        "affected_range": ">=5.0.0,<5.1.8"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "vite",
+        "version": "5.1.8",
+        "tag": "v5.1.8",
+        "release_url": "https://github.com/vitejs/vite/releases/tag/v5.1.8",
+        "verified_content": "At v5.1.8 build.ts line 1097 requires document.currentScript.tagName.toUpperCase() === 'SCRIPT' before using document.currentScript.src; at v5.0.11 (build.ts 1076-1081) and v5.1.7 (line 1097) that check is absent. The change 5caa08f06 is first contained in v5.1.8 and absent from v5.0.11 and v5.1.7."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "5caa08f069883b39230b8071eb268ee226c5911c",
+        "branch": "5.1",
+        "release": "5.1.8",
+        "message": "fix: avoid DOM Clobbering gadget in `getRelativeUrlFromDocument` (#18115)",
+        "url": "https://github.com/vitejs/vite/commit/5caa08f069883b39230b8071eb268ee226c5911c"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H",
+      "score": 6.4,
+      "level": "medium",
+      "numeric_level_rationale": "The CNA (GitHub_M) publishes 6.4 Medium, NVD carries that same vector as its only (Secondary) metric, and the GitHub advisory publishes the same CVSS 3.1 vector (6.4) with database severity MODERATE; the advisory additionally lists a CVSS 4.0 vector. All published CVSS 3.1 scores are the same 6.4 Medium, so the level is consistent.",
+      "source": "CNA / NVD Secondary 6.4 Medium; GitHub advisory (OSV) 6.4 with database severity MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45812",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 6.4,
+          "level": "medium",
+          "source": "CVE List v5 CNA (GitHub_M)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 6.4,
+          "level": "medium",
+          "source": "NVD Secondary (security-advisories@github.com)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 6.4,
+          "level": "medium",
+          "source": "GitHub advisory / OSV (same vector; database severity MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H"
+        }
+      ]
+    },
+    "category_l1": "injection",
+    "category_l2": "DOM Clobbering to XSS: the generated cjs/iife/umd runtime trusts document.currentScript.src, so a scriptless named element such as <img name=\"currentScript\" src=\"...\"> redirects relative asset URLs to an attacker origin",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-64vr-g452-qvp3",
+    "published_at": "2024-09-17T19:28:01Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/vitejs/vite/security/advisories/GHSA-64vr-g452-qvp3",
+      "https://github.com/vitejs/vite/commit/5caa08f069883b39230b8071eb268ee226c5911c",
+      "https://github.com/vitejs/vite/pull/18115",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-45812",
+      "https://github.com/vitejs/vite/releases/tag/v5.1.8",
+      "https://github.com/webpack/webpack/security/advisories/GHSA-4vvj-4cpr-p986"
+    ]
+  },
+  "description": "Vite emits JavaScript asset-URL resolution code into cjs, iife and umd bundles when build.base is '' or './'. At v5.0.11 packages/vite/src/node/build.ts lines 1076-1081 define getRelativeUrlFromDocument, which generates new URL('<relative path>', document.currentScript && document.currentScript.src || document.baseURI).href; the cjs (1097-1100), iife (1102) and umd (1105-1108) entries of relativeUrlMechanisms all use it. The generated code trusts document.currentScript.src without checking that the object is a SCRIPT element. When document.currentScript is null, which is the normal case for code that runs asynchronously after the parser, an attacker-controlled scriptless element with name=\"currentScript\" and a src attribute (for example <img name=\"currentScript\" src=\"https://attacker.controlled.server/\">) is returned by the document's named property lookup, so the relative asset URL resolves against the attacker's origin. A bundle that then loads a chunk or an asset URL through that runtime (for example document.createElement('script').src = assetUrl) fetches and executes attacker-hosted code, turning an HTML-injection foothold into XSS. The 5.1.8 fix 5caa08f06 adds a document.currentScript.tagName.toUpperCase() === 'SCRIPT' check before reading .src.",
+  "location": {
+    "location_id": "loc_CVE-2024-45812_snap_2e50b228f2432623",
+    "vulnerability_id": "CVE-2024-45812",
+    "snapshot_id": "snap_2e50b228f2432623",
+    "location_kind": "logic",
+    "file": "packages/vite/src/node/build.ts",
+    "function": "getRelativeUrlFromDocument",
+    "language": "TypeScript",
+    "line": "1076-1081",
+    "critical_operation": {
+      "file": "packages/vite/src/node/build.ts",
+      "function": "getRelativeUrlFromDocument",
+      "language": "TypeScript",
+      "line": "1076-1081",
+      "code_excerpt": "const getRelativeUrlFromDocument = (relativePath: string, umd = false) =>\n  getResolveUrl(\n    `'${escapeId(relativePath)}', ${\n      umd ? `typeof document === 'undefined' ? location.href : ` : ''\n    }document.currentScript && document.currentScript.src || document.baseURI`,\n  )",
+      "description": "The helper that emits the relative asset-URL runtime. The generated expression falls back to document.currentScript.src whenever document.currentScript is truthy, with no tagName check. Because document.currentScript is null during asynchronous execution, a named element such as <img name=\"currentScript\" src=\"...\"> shadows it through the document's named property access, and the emitted new URL(relativePath, ...) resolves relative asset paths against the attacker-controlled src. cjs (1097-1100), iife (1102) and umd (1105-1108) all call this helper, and toOutputFilePathInJS (1159-1162) selects the relative mechanism for base '' or './'. The 5.1.8 fix adds document.currentScript.tagName.toUpperCase() === 'SCRIPT' before reading .src.",
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/build.ts#L1076-L1081"
+    },
+    "entry_point": {
+      "description": "Build-time code generation: the emitted cjs/iife/umd runtime string that is inlined into every relative asset URL expression in the bundle; the attacker-reachable execution happens in the page that hosts the built bundle.",
+      "file": "packages/vite/src/node/build.ts",
+      "function": "getRelativeUrlFromDocument",
+      "language": "TypeScript",
+      "line": 1076,
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/build.ts#L1076"
+    },
+    "trace": [
+      {
+        "description": "the cjs mechanism inlines getRelativeUrlFromDocument(relativePath) for the document branch of the bundle",
+        "file": "packages/vite/src/node/build.ts",
+        "function": "relativeUrlMechanisms.cjs",
+        "language": "TypeScript",
+        "line": "1097-1100",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/build.ts#L1097-L1100"
+      },
+      {
+        "description": "the iife and umd mechanisms call getRelativeUrlFromDocument directly (umd passes umd=true)",
+        "file": "packages/vite/src/node/build.ts",
+        "function": "relativeUrlMechanisms.iife/umd",
+        "language": "TypeScript",
+        "line": "1102-1108",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/build.ts#L1102-L1108"
+      },
+      {
+        "description": "toOutputFilePathInJS chooses the relative runtime when base is '' or './' and the build is not SSR",
+        "file": "packages/vite/src/node/build.ts",
+        "function": "toOutputFilePathInJS",
+        "language": "TypeScript",
+        "line": "1159-1162",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/build.ts#L1159-L1162"
+      },
+      {
+        "description": "the emitted expression reads document.currentScript.src without checking tagName, so a named non-SCRIPT element shadows currentScript when it is null",
+        "file": "packages/vite/src/node/build.ts",
+        "function": "getRelativeUrlFromDocument",
+        "language": "TypeScript",
+        "line": "1076-1081",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/build.ts#L1076-L1081"
+      },
+      {
+        "description": "the 5.1.8 fixed runtime requires document.currentScript.tagName.toUpperCase() === 'SCRIPT' before using .src",
+        "file": "packages/vite/src/node/build.ts",
+        "function": "getRelativeUrlFromDocument",
+        "language": "TypeScript",
+        "line": 1097,
+        "permalink": "https://github.com/vitejs/vite/blob/fe6323127ba74a159b1ae3cd3cf2fe1677087128/packages/vite/src/node/build.ts#L1097"
+      }
+    ],
+    "verification_method": "Static read of build.ts at v5.0.11, v5.1.7 and v5.1.8, of the 5caa08f06 and 2ddd8541 patches, and of local git ancestry; no build, browser or DOM was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_vite_45812_cve_v5",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-45812",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "c9f60b8efee18edabd1266ef51de88517df2eddb6e0b11f4e2b9d67593447114",
+      "verification_method": "CVE List v5 CNA (GitHub_M) record",
+      "result": "PASS",
+      "supports": [
+        "CVE state PUBLISHED, CNA GitHub_M, published 2024-09-17",
+        "CNA description: DOM Clobbering vulnerability when building to cjs/iife/umd output; the gadget can lead to XSS where scriptless attacker-controlled HTML (e.g. an img tag with an unsanitized name attribute) is present",
+        "CNA CVSS 3.1 6.4 MEDIUM, vector CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H",
+        "CWE-79; affected '< 3.2.11', '>=4.0.0,<4.5.5' and 5.x lumped as '>=5.0.0,<5.2.14'",
+        "references list only ade1d89660e17eedfd35652165b0c26905259fad among the fix commits"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_nvd",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-45812",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "79a687ca0ba9db53a293a9b6659eaefe4f01e7f02f734d0779f707fa4b470a50",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "NVD status Deferred, published 2024-09-17",
+        "the only CVSS metric is a Secondary 6.4 MEDIUM from security-advisories@github.com; there is no NVD Primary metric",
+        "CWE-79 from the same Secondary source",
+        "SSVC exploitation=poc, automatable=no, technicalImpact=partial"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_osv_cve",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-45812",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "f34aae4fd0c420c444d3285c5a1911c51d227cb541d4655e30ab5142305c56a0",
+      "verification_method": "OSV.dev API record generated from cvelistV5",
+      "result": "PASS",
+      "supports": [
+        "OSV CVE-2024-45812 with the GHSA-64vr-g452-qvp3 alias",
+        "CVSS_V3 score CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H",
+        "references carry the per-line fix commits"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_osv_ghsa",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-64vr-g452-qvp3",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "76bc1161ee684a1807f501021ba05e7a843f98815f93fd7a708dd64a651a1a31",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "summary: Vite DOM Clobbering gadget found in vite bundled scripts that leads to XSS",
+        "details state that for cjs/iife/umd builds Vite resolves relative __VITE_ASSET__ paths with document.currentScript.src, which can be shadowed by an attacker through named DOM tree element access, e.g. <img name=\"currentScript\" src=\"https://attacker.controlled.server/\">",
+        "SEMVER ranges: 5.0.0-<5.1.8, 5.2.0-<5.2.14, 5.3.0-<5.3.6, 5.4.0-<5.4.6, 4.0.0-<4.5.4, <3.2.11",
+        "CVSS 3.1 AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H (6.4 Medium), a CVSS 4.0 vector, database severity MODERATE, CWE-79",
+        "references list 179b1777, 2691bb3f, 2ddd8541, ade1d896, e8127166 and ebb94c5b as fix commits"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_build_vuln",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/build_v5.0.11.ts",
+      "source_url": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/build.ts#L1076-L1081",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "49dc93b08ae11d9918f306f2db3a7dc562a7872923d6c558069f057767261a98",
+      "verification_method": "file read at snapshot commit b44c4930 (v5.0.11); blob 9525809419 matches the inventory",
+      "result": "PASS",
+      "supports": [
+        "packages/vite/src/node/build.ts lines 1076-1081 define getRelativeUrlFromDocument",
+        "the emitted runtime string is new URL('rel', document.currentScript && document.currentScript.src || document.baseURI).href at line 1080; there is no tagName check",
+        "relativeUrlMechanisms routes cjs (1097-1100), iife (1102) and umd (1105-1108) through this helper",
+        "toOutputFilePathInJS (1159-1162) selects the relative mechanism whenever base is '' or './' and the build is not SSR"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_build_517",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/build_v5.1.7.ts",
+      "source_url": "https://github.com/vitejs/vite/blob/e710c2fc6d45405b5f3431bbe812abbb27946aa0/packages/vite/src/node/build.ts#L1097",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "5fff4a6e7a7c6d5d2c068da2573826e899c0a0d6699e20dbc72ec16d3288f219",
+      "verification_method": "file read at release tag v5.1.7 (e710c2fc6)",
+      "result": "PASS",
+      "supports": [
+        "build.ts line 1097 still contains the unfixed expression",
+        "document.currentScript && document.currentScript.src || document.baseURI"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_build_fixed",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/build_v5.1.8.ts",
+      "source_url": "https://github.com/vitejs/vite/blob/fe6323127ba74a159b1ae3cd3cf2fe1677087128/packages/vite/src/node/build.ts#L1097",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "c47b07cbda405953132ea5c9f089f5fc2ec7577b6b7d506d3489104796decb87",
+      "verification_method": "file read at release tag v5.1.8 (fe6323127)",
+      "result": "PASS",
+      "supports": [
+        "build.ts line 1097 now checks document.currentScript.tagName.toUpperCase() === 'SCRIPT' before using .src",
+        "this is the only change to build.ts between v5.1.7 and v5.1.8"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_patch",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/fix_commit_5.1.patch",
+      "source_url": "https://github.com/vitejs/vite/commit/5caa08f069883b39230b8071eb268ee226c5911c",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "28360720fc63e90c905a1a76ad577a841ed0afa2dd084dab00396de6707f26af",
+      "verification_method": "git show of the 5.1-line fix commit in the local mirror",
+      "result": "PASS",
+      "supports": [
+        "commit 5caa08f06 'fix: avoid DOM Clobbering gadget in getRelativeUrlFromDocument (#18115)' changes one line of packages/vite/src/node/build.ts",
+        "its parent is 03f103383 (the v5.1.7-era fs raw query fix), so it is the immediate post-v5.1.7 change"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_patch_32",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/fix_commit_3.2.patch",
+      "source_url": "https://github.com/vitejs/vite/commit/2ddd8541ec3b2d2e5b698749e0f2362ef28056bd",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "1ce06df8b51a13cc8f1040b72627df79e731ddc51e139aef95ac2328a68de0b4",
+      "verification_method": "git show of the 3.2-line backport in the local mirror",
+      "result": "PASS",
+      "supports": [
+        "commit 2ddd8541 'fix: backport #18115, DOM Clobbering in' carries the same one-line change on the 3.2 line",
+        "it is first contained in v3.2.11 and is not an ancestor of v5.0.11 or v5.1.7"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45812_git",
+      "artifact_path": "runs/verification/vite_cve_2024_45812/sources/git_object_checks.txt",
+      "source_url": "https://github.com/vitejs/vite",
+      "retrieved_at": "2026-10-22T19:05:00Z",
+      "sha256_of_observation": "2416d0964aedaeb9eff554458f92c66ac5ffd307ad45d51083487362143fc5b7",
+      "verification_method": "local git ancestry, tag resolution and blob comparison in /tmp/vite_vuln.git",
+      "result": "PASS",
+      "supports": [
+        "snapshot v5.0.11 commit b44c4930 has build.ts blob 9525809419 matching the inventory",
+        "fix 5caa08f06 is absent from v5.0.11 and v5.1.7 and first contained in v5.1.8 (tag --contains -> v5.1.8)",
+        "v5.1.7 build.ts line 1097 is unfixed and v5.1.8 line 1097 is fixed",
+        "the 5.0/5.1 advisory range is 5.0.0-<5.1.8"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      3
+    ],
+    "aliases": [
+      0,
+      3
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      3,
+      7,
+      8,
+      9
+    ],
+    "fixed_releases": [
+      0,
+      3,
+      6,
+      7,
+      9
+    ],
+    "languages": [
+      4,
+      5,
+      6
+    ],
+    "severity": [
+      0,
+      1,
+      3
+    ],
+    "vulnerable_commit": [
+      9
+    ]
+  },
+  "field_evidence_note": "Indexes into the evidence array, as in the other vite dossiers.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 CNA (GitHub_M) record",
+      "NVD analysis (Deferred; Secondary metric only)",
+      "GitHub advisory / OSV records",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD and the GitHub advisory agree on the mechanism (DOM Clobbering of document.currentScript in cjs/iife/umd bundles leading to XSS), on CWE-79 and on the 6.4 Medium CVSS 3.1 vector. The affected-range bounds differ in presentation: the CNA lumps 5.x as >=5.0.0,<5.2.14 and writes the 4.x boundary as <4.5.5, while the GHSA splits the 5.x lines (5.0.0-<5.1.8, 5.2.0-<5.2.14, 5.3.0-<5.3.6, 5.4.0-<5.4.6) and uses <4.5.4; for the v5.0.11 snapshot this entry records the GHSA 5.0.0-<5.1.8 range and the v5.1.8 fix. Only the CNA reference list (ade1d896) names a fix commit directly; the GHSA lists six per-line commits, of which 5caa08f06 is the 5.1-line commit actually released in v5.1.8. This root cause is distinct from the other vite entries: CVE-2024-31207 (dev-server server.fs.deny pattern bypass), CVE-2024-23331 (case-insensitive fs.deny) and CVE-2024-45811 (?import&raw bypassing ensureServingAccess). The sibling webpack advisory GHSA-4vvj-4cpr-p986 describes the same class of gadget in webpack, not in this repository.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read build.ts at v5.0.11 and confirm getRelativeUrlFromDocument emits document.currentScript.src without a tagName check and that cjs/iife/umd use it.",
+      "An independent reviewer must confirm 5caa08f06 is the 5.0/5.1-line fix and is first contained in v5.1.8.",
+      "An independent reviewer must confirm the 5.0.0-<5.1.8 affected range for this snapshot.",
+      "An independent reviewer must confirm that all published CVSS 3.1 scores are the same 6.4 Medium and record the level as Medium.",
+      "An independent reviewer must confirm the mechanism is distinct from CVE-2024-31207, CVE-2024-23331 and CVE-2024-45811.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "vite-CVE-2024-45812-round1-independent-reviewer-2026-10-22",
+      "verdict_path": "runs/independent/vite_CVE-2024-45812_round1/verdict.json",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "location_line": "1076-1081"
+    },
+    "independent_corrections_accepted": [
+      "The CVE List v5 CNA range '>=5.0.0,<5.2.14' semver-wise overlaps the fixed release 5.1.8; the GHSA split (5.0.0-<5.1.8) is the correct 5.0/5.1 branch range, and the entry keeps the GHSA range.",
+      "The CNA patched-version list omits 5.1.8 (it lists 5.4.6, 5.3.6, 5.2.14, 4.5.5, 3.2.11); git ancestry and npm publication both confirm 5.1.8 is first patched for the 5.0/5.1 line.",
+      "The 4.x first-patched version differs between records (GHSA/OSV 4.5.4, CVE text 4.5.5); irrelevant to the 5.0.11 snapshot and not recorded as a claim.",
+      "The earlier description of CVE-2024-31207 as 'picomatch matchBase in server.fs.allow' does not match the public advisory, which describes a server.fs.deny pattern bypass for requests with directories; the distinct-root-cause conclusion is unaffected and the crosscheck wording was corrected.",
+      "The relative branch of toOutputFilePathInJS spans lines 1159-1162 (the joinUrlSegments fallback is at 1162), not 1159-1161; the trace now uses 1159-1162.",
+      "The GHSA reference list does not name 5caa08f06; it lists the sibling per-line commits. Git ancestry shows 5caa08f06 is the 5.1-branch fix between v5.1.7 and v5.1.8.",
+      "Reviewer additionally traced the sink: asset.ts renderAssetUrlInJS (lines 68-137) inlines the runtime for __VITE_ASSET__ URLs in JS output, and importAnalysisBuild.ts routes chunk/asset dependencies through the same path, so a dynamic script load of an asset URL is a plausible sink."
+    ],
+    "duplicate_check": "Reviewer confirmed CVE-2024-31207, CVE-2024-23331 and CVE-2024-45811 are all dev-server file-serving/access-control issues, distinct from this build-output DOM-clobbering gadget, and none shares the 5caa08f06 fix."
+  },
+  "limitations": [
+    "Static verification only; no build was run, no bundle was generated and no browser or DOM was exercised.",
+    "The vulnerability is a gadget: it requires the hosting page to already contain an attacker-controlled scriptless HTML element (for example through an HTML-injection flaw or an unsanitized name attribute); it is not directly exploitable through a plain HTTP request to the Vite dev server.",
+    "The bundle must use build.base '' or './' (relative base) and the cjs, iife or umd output format for the relative runtime to be emitted; the es format uses import.meta.url and is not affected by this path.",
+    "The CNA range >=5.0.0,<5.2.14 overlaps the GHSA's per-line ranges; this entry records the 5.0/5.1 branch range (5.0.0-<5.1.8) that contains the v5.0.11 snapshot. No 5.0.x backport exists, so 5.0.0 through 5.0.13 remain affected and 5.1.8 is the first fixed release for this branch.",
+    "The CNA reference list names only ade1d896, which is a main-line commit; the commit released on the 5.1 line is 5caa08f06, identified from git ancestry and the v5.1.8 tag.",
+    "Public records disagree on the 4.x boundary (CNA <4.5.5, GHSA <4.5.4); this entry does not record a 4.x claim.",
+    "NVD is Deferred with no Primary metric and no CPE configuration; its 6.4 Medium metric is the CNA's, imported as Secondary.",
+    "The reviewer identified the concrete sink path in the toolchain: renderAssetUrlInJS (asset.ts 68-137) inlines the runtime for __VITE_ASSET__ URLs in JS output and importAnalysisBuild.ts routes chunk/asset dependencies through the same relative runtime; the claim did not originally name these call sites.",
+    "The CVE List v5 CNA range '>=5.0.0,<5.2.14' overlaps the fixed 5.1.8 release in semver terms and its patched-version list omits 5.1.8; the entry follows the GHSA 5.0.0-<5.1.8 range and the git-verified 5.1.8 fix."
+  ],
+  "open_questions": [
+    "Whether a real page reachable by an attacker also loads a relative asset through the emitted runtime after the clobbered URL is resolved depends on the application's bundle; the advisory's PoC shows one such pattern (asset URL assigned to a dynamically created script element)."
+  ]
+}

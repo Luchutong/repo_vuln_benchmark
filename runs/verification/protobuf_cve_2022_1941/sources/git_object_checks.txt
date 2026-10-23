@@ -1,0 +1,30 @@
+Repository: https://github.com/protocolbuffers/protobuf
+Bare fetch: git init --bare /tmp/protobuf.git; git fetch --depth=200 --no-tags <url> <sha> (done per ref)
+Proxy: http://172.21.96.1:7890
+
+vulnerable commit (tag v3.20.1, lightweight tag points directly at commit)
+  21027a27c4c2ec1000859ccbcfff46d83b16e1ed 2022-04-22T01:00:40Z "Merge pull request #9832 from haberman/php-dist"
+  tree 2c73cc5a7d86b101e12637ba806cf6639f283410
+  git ls-tree -r --name-only | wc -l = 2451 (matches snapshot enumeration)
+
+fix commit
+  b4c395aaedfacb32e2414d361fa85968c0991b34 2022-09-13T16:35:58Z "Apply patch" (Deanna Garcia)
+  parent 7639a710e10beb47bfc62f363680f7b04e8b3d26
+  touches:
+    src/google/protobuf/extension_set_inl.h
+    src/google/protobuf/wire_format.cc
+    src/google/protobuf/wire_format_lite.h
+    src/google/protobuf/wire_format_unittest.inc
+
+fixed release (tag v3.20.2, annotated tag 8645aaa4... peeled to commit)
+  a20c65f2cd549445fda907f7b83894c8eb7427d6 2022-09-13T18:33:57Z (UTC-7) "Updating changelog"
+  tree 3c1abbfc04c5ce2686d8e5a95386cd73482ae90e
+
+reachability
+  git merge-base --is-ancestor b4c395a a20c65f (v3.20.2) -> exit 0 (YES)
+  git merge-base --is-ancestor b4c395a 21027a2 (v3.20.1) -> exit 1 (NO)
+
+interpretation
+  The fix commit is not referenced by GHSA-8gq9-2x98-w8hf, CVE List v5 or NVD.
+  It was located in upstream history between v3.20.1 and v3.20.2 and is proven by
+  ancestry to be included in v3.20.2 but absent from v3.20.1.

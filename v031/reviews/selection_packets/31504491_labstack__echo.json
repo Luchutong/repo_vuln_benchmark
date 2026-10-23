@@ -1,0 +1,336 @@
+{
+  "packet_id": "selrev_31504491_snap_e0836fa1c53e240d",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "31504491",
+    "full_name": "labstack/echo",
+    "canonical_url": "https://github.com/labstack/echo",
+    "primary_language": "Go",
+    "project_kind": "High performance, minimalist Go web framework"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_e0836fa1c53e240d",
+    "tag_or_release": "v4.15.2",
+    "commit_sha": "25685e6f5f7b0683105d1386db46ae48eb3de028"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "25685e6f5f7b0683105d1386db46ae48eb3de028",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "d4529971662ff21db287d808d3250058518fff5d",
+    "tree_file_count": 110,
+    "exported_file_count": 110,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/labstack__echo/snap_e0836fa1c53e240d.tar.gz",
+    "archive_sha256": "2e30bb475273dcf3c6f561d64bd5198e0b49dd6e7c71ba78b5d53ec21a53482f",
+    "archive_bytes": 427496,
+    "manifest_path": "exports/labstack__echo/snap_e0836fa1c53e240d.manifest.jsonl",
+    "manifest_sha256": "22f7892221b9372af122db5d3aeef11375cf742b06c485395bfb8e03fca560f3"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 3,
+    "cve_ids_sample": [
+      "CVE-2023-39325",
+      "CVE-2023-44487",
+      "CVE-2024-51744"
+    ],
+    "files_with_advisory_ids_count": 1,
+    "files_with_advisory_ids_sample": [
+      "CHANGELOG.md"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/FUNDING.yml",
+      ".github/ISSUE_TEMPLATE.md",
+      ".github/stale.yml",
+      ".github/workflows/checks.yml",
+      ".github/workflows/echo.yml",
+      "CHANGELOG.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "go": [
+        "go.mod"
+      ],
+      "make": [
+        "Makefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "go",
+      "make"
+    ],
+    "toolchain_available": {
+      "go": {
+        "go": false
+      },
+      "make": {
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-55677",
+      "aliases": [
+        "CVE-2026-55677",
+        "GHSA-vfp3-v2gw-7wfq",
+        "GO-2026-6293"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "< 4.15.4",
+          "ecosystem": "Go",
+          "note": "v4.15.2 is vulnerable. v4.15.3 rejected %2F/%5C but was a partial fix: per the vendor update, /%61dmin/secret.txt and /public/%2E%2E/admin/secret.txt still bypassed guarded routes; the first complete fix is v4.15.4.",
+          "package": "github.com/labstack/echo/v4",
+          "purl": "pkg:golang/github.com/labstack/echo/v4",
+          "range_expressions": [
+            {
+              "first_patched_version": "4.15.4",
+              "note": "current vendor record; supersedes the 4.15.3 range",
+              "range": "< 4.15.4",
+              "source": "GitHub repository advisory (updated 2026-09-27)"
+            },
+            {
+              "first_patched_version": "4.15.3",
+              "note": "mirror lag: not yet corrected to 4.15.4",
+              "range": "< 4.15.3",
+              "source": "GitHub global advisory API / advisory-database (updated 2026-08-25)"
+            },
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "4.15.3"
+                }
+              ],
+              "note": "mirror lag",
+              "source": "OSV GHSA-vfp3-v2gw-7wfq (modified 2026-09-10)",
+              "type": "SEMVER"
+            },
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "4.15.3"
+                }
+              ],
+              "note": "mirror lag",
+              "source": "OSV GO-2026-6293 (modified 2026-08-26)",
+              "type": "SEMVER"
+            },
+            {
+              "note": "mirror lag",
+              "range": "< 4.15.3",
+              "source": "CVE CNA / NVD (2026-06-26)"
+            },
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "8800212ad4392d3f5af052f3042aca62cc5911a7"
+                }
+              ],
+              "note": "fixed event is the v4.15.3 release commit, which contains only the partial fix c3fa2a27",
+              "source": "OSV CVE-2026-55677",
+              "type": "GIT"
+            }
+          ],
+          "versions_includes": "v4.15.2"
+        },
+        {
+          "affected_range": ">= 5.0.0, < 5.2.1",
+          "ecosystem": "Go",
+          "note": "v5.2.0 was the partial fix; v5.2.1 is the first complete fix.",
+          "package": "github.com/labstack/echo/v5",
+          "purl": "pkg:golang/github.com/labstack/echo/v5",
+          "range_expressions": [
+            {
+              "first_patched_version": "5.2.1",
+              "note": "current vendor record; supersedes the 5.2.0 range",
+              "range": "< 5.2.1",
+              "source": "GitHub repository advisory (updated 2026-09-27)"
+            },
+            {
+              "first_patched_version": "5.2.0",
+              "note": "mirror lag",
+              "range": "< 5.2.0",
+              "source": "GitHub global advisory API / advisory-database (updated 2026-08-25)"
+            },
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "5.2.0"
+                }
+              ],
+              "note": "mirror lag",
+              "source": "OSV GHSA-vfp3-v2gw-7wfq (modified 2026-09-10)",
+              "type": "SEMVER"
+            },
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "fixed": "5.2.0"
+                }
+              ],
+              "note": "mirror lag",
+              "source": "OSV GO-2026-6293 (modified 2026-08-26)",
+              "type": "SEMVER"
+            },
+            {
+              "note": "mirror lag",
+              "range": ">= 5.0.0, < 5.2.0",
+              "source": "CVE CNA / NVD (2026-06-26)"
+            },
+            {
+              "events": [
+                {
+                  "introduced": "9500f2745481e2dff1313e2e6734c488e80c13fb"
+                },
+                {
+                  "fixed": "5786024ea4d85c01784796e8aa7aac53e007b39b"
+                }
+              ],
+              "note": "fixed event is the v5.2.0 release commit, which contains only the partial fix 8d1ae9d",
+              "source": "OSV CVE-2026-55677",
+              "type": "GIT"
+            }
+          ],
+          "versions_includes": "v5.1.1"
+        },
+        {
+          "affected_range": "<= 3.3.10",
+          "ecosystem": "Go",
+          "note": "Only the pre-correction global mirrors list this module. No v3 tree was inspected; the range is reported verbatim and not independently confirmed.",
+          "package": "github.com/labstack/echo",
+          "purl": "pkg:golang/github.com/labstack/echo",
+          "range_expressions": [
+            {
+              "events": [
+                {
+                  "introduced": "0"
+                },
+                {
+                  "last_affected": "3.3.10"
+                }
+              ],
+              "source": "OSV GHSA-vfp3-v2gw-7wfq",
+              "type": "SEMVER"
+            },
+            {
+              "first_patched_version": null,
+              "range": "<= 3.3.10",
+              "source": "GitHub global advisory API"
+            },
+            {
+              "note": "the corrected vendor record lists only the v4 and v5 modules",
+              "range": null,
+              "source": "GitHub repository advisory (updated 2026-09-27)"
+            },
+            {
+              "note": "the legacy unversioned module is omitted from both records",
+              "range": null,
+              "source": "CVE CNA / NVD"
+            },
+            {
+              "note": "GO-2026-6293 lists only the v4 and v5 modules",
+              "range": null,
+              "source": "OSV GO-2026-6293"
+            }
+          ],
+          "versions_includes": "v3.3.10"
+        }
+      ],
+      "published_at": "2026-06-26T16:15:55.633Z",
+      "advisory_url": "https://github.com/advisories/GHSA-vfp3-v2gw-7wfq",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "CVE CNA (GitHub_M)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "NVD Secondary (security-advisories@github.com)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "GitHub advisory API GHSA-vfp3-v2gw-7wfq",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "HIGH",
+            "note": "vector only; the record publishes no numeric score",
+            "score": null,
+            "source": "OSV GHSA-vfp3-v2gw-7wfq",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "not_published",
+            "note": "cvss_severities.cvss_v4 has vector_string null and score 0.0; treat as absent",
+            "score": null,
+            "source": "GitHub advisory API GHSA-vfp3-v2gw-7wfq cvss_v4",
+            "vector": null,
+            "version": "4.0"
+          }
+        ],
+        "level": "high",
+        "numeric_level_rationale": "CVSS 3.1 base 7.5 falls in High (7.0-8.9). The GitHub_M CVE CNA metric, the NVD Secondary metric (same source, security-advisories@github.com), the GitHub advisory API score and the OSV/GHSA label (HIGH) all agree on 7.5 High. No CVSS v4 metric is published: the GHSA API cvss_v4 object has a null vector and 0.0 score, which is an absent metric rather than a real zero. NVD has no Primary metric (vulnStatus Deferred).",
+        "score": 7.5,
+        "source": "CVE CNA GitHub_M CVSS 3.1 7.5 HIGH, republished verbatim as the NVD Secondary metric; GitHub advisory API severity high and score 7.5; OSV/GHSA database_specific.severity HIGH",
+        "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-55677",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

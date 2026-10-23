@@ -1,0 +1,73 @@
+{
+  "key": "cjson_cve_commits",
+  "repository": "DaveGamble/cJSON",
+  "path": null,
+  "query": "CVE",
+  "topn": 100,
+  "pagination_complete": false,
+  "limitation": "Connector exposes topn result window; search index and 100-result window cannot establish full history coverage.",
+  "retrieved_at": "2026-10-21T11:00:19.010Z",
+  "source_family": "official_source_history",
+  "tool": "github_search_commits",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "commits": [
+        {
+          "sha": "74e1ff4994aa4139126967f6d289b675b4b36fef",
+          "message": "fix the incorrect check in decode_array_index_from_pointer (#957)\n\nthis fixes CVE-2025-57052",
+          "url": "https://api.github.com/repos/DaveGamble/cJSON/commits/74e1ff4994aa4139126967f6d289b675b4b36fef",
+          "html_url": "https://github.com/DaveGamble/cJSON/commit/74e1ff4994aa4139126967f6d289b675b4b36fef",
+          "diff": null,
+          "files": null,
+          "repository_full_name": "DaveGamble/cJSON",
+          "comments": null,
+          "author": null,
+          "committer": null,
+          "created_at": "2025-09-05T14:53:20.000+08:00",
+          "git_author_email": null,
+          "display_url": "https://github.com/DaveGamble/cJSON/commit/74e1ff4994aa4139126967f6d289b675b4b36fef",
+          "display_title": "fix the incorrect check in decode_array_index_from_pointer (#957)"
+        },
+        {
+          "sha": "a328d65ad490b64da8c87523cbbfe16050ba5bf6",
+          "message": "allocate memory for the temporary buffer\n\nAllocate memory for the temporary buffer when paring numbers.\nThis fixes CVE-2023-26819",
+          "url": "https://api.github.com/repos/DaveGamble/cJSON/commits/a328d65ad490b64da8c87523cbbfe16050ba5bf6",
+          "html_url": "https://github.com/DaveGamble/cJSON/commit/a328d65ad490b64da8c87523cbbfe16050ba5bf6",
+          "diff": null,
+          "files": null,
+          "repository_full_name": "DaveGamble/cJSON",
+          "comments": null,
+          "author": null,
+          "committer": null,
+          "created_at": "2025-05-07T11:31:28.000+08:00",
+          "git_author_email": null,
+          "display_url": "https://github.com/DaveGamble/cJSON/commit/a328d65ad490b64da8c87523cbbfe16050ba5bf6",
+          "display_title": "allocate memory for the temporary buffer"
+        },
+        {
+          "sha": "60ff122ef5862d04b39b150541459e7f5e35add8",
+          "message": "add NULL checkings (#809)\n\n* add NULL checks in cJSON_SetValuestring\r\n\r\nFixes #803(CVE-2023-50472)\r\n\r\n* add NULL check in cJSON_InsertItemInArray\r\n\r\nFixes #802(CVE-2023-50471)\r\n\r\n* add tests for NULL checks\r\n\r\nadd tests for NULL checks in cJSON_InsertItemInArray and cJSON_SetValuestring",
+          "url": "https://api.github.com/repos/DaveGamble/cJSON/commits/60ff122ef5862d04b39b150541459e7f5e35add8",
+          "html_url": "https://github.com/DaveGamble/cJSON/commit/60ff122ef5862d04b39b150541459e7f5e35add8",
+          "diff": null,
+          "files": null,
+          "repository_full_name": "DaveGamble/cJSON",
+          "comments": null,
+          "author": null,
+          "committer": null,
+          "created_at": "2023-12-18T11:47:52.000+08:00",
+          "git_author_email": null,
+          "display_url": "https://github.com/DaveGamble/cJSON/commit/60ff122ef5862d04b39b150541459e7f5e35add8",
+          "display_title": "add NULL checkings (#809)"
+        }
+      ]
+    },
+    "isError": false
+  }
+}

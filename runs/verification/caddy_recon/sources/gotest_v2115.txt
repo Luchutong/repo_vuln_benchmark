@@ -1,0 +1,12 @@
+=== RUN   TestFinalizeResponse_101_StripsHopByHopHeaders
+{"level":"error","ts":1792696180.9665504,"msg":"can't switch protocols using non-Hijacker ResponseWriter","type":"*httptest.ResponseRecorder"}
+--- PASS: TestFinalizeResponse_101_StripsHopByHopHeaders (0.00s)
+=== RUN   TestFinalizeResponse_101_StripsConnectionNamedHeaders
+{"level":"error","ts":1792696180.9666798,"msg":"can't switch protocols using non-Hijacker ResponseWriter","type":"*httptest.ResponseRecorder"}
+--- PASS: TestFinalizeResponse_101_StripsConnectionNamedHeaders (0.00s)
+=== RUN   TestFinalizeResponse_200_StillStripsHopByHop
+--- PASS: TestFinalizeResponse_200_StillStripsHopByHop (0.00s)
+=== RUN   TestFinalizeResponse_101_NoUpgradeRequest
+--- PASS: TestFinalizeResponse_101_NoUpgradeRequest (0.00s)
+PASS
+ok  	github.com/caddyserver/caddy/v2/modules/caddyhttp/reverseproxy	0.018s

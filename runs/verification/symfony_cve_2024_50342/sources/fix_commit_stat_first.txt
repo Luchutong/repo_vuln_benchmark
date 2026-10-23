@@ -1,0 +1,9 @@
+commit 296d4b34a33b1a6ca5475c6040b3203622520f5b
+Author: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date:   Fri Oct 25 10:13:01 2024 +0200
+
+    [HttpClient] Filter private IPs before connecting when Host == IP
+
+ .../HttpClient/NoPrivateNetworkHttpClient.php      | 13 ++++++++++-
+ .../Tests/NoPrivateNetworkHttpClientTest.php       | 27 ++++++++++++++++++++--
+ 2 files changed, 37 insertions(+), 3 deletions(-)

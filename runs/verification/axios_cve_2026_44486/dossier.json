@@ -1,0 +1,426 @@
+{
+  "candidate_id": "disc2_448cfb7eafe6d261746029dc",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T00:39:12Z",
+  "prepared_by": "Claude collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/axios/axios",
+    "full_name": "axios/axios",
+    "primary_language": "JavaScript",
+    "project_kind": "Promise based HTTP client for the browser and node.js",
+    "repo_id": "23088740",
+    "snapshot_id": "snap_a64c7ddbbb7030b7"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2026-44486",
+    "aliases": [
+      "GHSA-j5f8-grm9-p9fc"
+    ],
+    "title": "Axios: Proxy-Authorization header leaks to redirect target when proxy is re-evaluated to direct connection",
+    "category_l1": "credential_exposure",
+    "category_l2": "stale Proxy-Authorization header retained when a redirect is re-evaluated to a direct connection and sent to the redirect target",
+    "cwe_ids": [
+      "CWE-200",
+      "CWE-201"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "score": 7.5,
+      "level": "high",
+      "source": "GitHub (CNA GitHub_M) CVSS 3.1 7.5 HIGH; NVD carries the same 7.5 HIGH as Secondary metrics from security-advisories@github.com and Red Hat; OSV GHSA database_specific severity HIGH; CISA-ADP SSVC records Exploitation poc, Automatable yes, Technical Impact partial",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-44486"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "npm",
+        "package": "axios",
+        "purl": "pkg:npm/axios",
+        "affected_range": ">=1.0.0,<1.16.0"
+      },
+      {
+        "ecosystem": "npm",
+        "package": "axios",
+        "purl": "pkg:npm/axios",
+        "affected_range": "<0.32.0"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "v1.x",
+        "sha": "afca61a070728e717203c2bc21e7b589b59b858b",
+        "message": "fix: clear stale header on redirect when target is no-proxy (#10794)",
+        "url": "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b"
+      },
+      {
+        "branch": "v0.x (backport for 0.32.0)",
+        "sha": "2af6116a957b1dd1b32056181326da8a5540d3bc",
+        "message": "chore: backport fixes from the v1x branch (#10838)",
+        "url": "https://github.com/axios/axios/commit/2af6116a957b1dd1b32056181326da8a5540d3bc"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "axios",
+        "tag": "v1.16.0",
+        "version": "1.16.0",
+        "release_url": "https://github.com/axios/axios/releases/tag/v1.16.0",
+        "verified_content": "Tag v1.16.0 peels to df53d7dd99b202fb194217abd127ae6a630e70dc; its lib/adapters/http.js blob 252c7d87 carries the isRedirect parameter and the case-insensitive Proxy-Authorization deletion block at lines 237-245 introduced by fix commit afca61a, so the released artifact contains the fix."
+      },
+      {
+        "ecosystem": "npm",
+        "package": "axios",
+        "tag": "v0.32.0",
+        "version": "0.32.0",
+        "release_url": "https://github.com/axios/axios/releases/tag/v0.32.0",
+        "verified_content": "Tag v0.32.0 peels to 8db2d44896849a21ed9721185b1034df24e1ba7b; its lib/adapters/http.js blob 2e9f2b75 equals the post-backport blob of commit 2af6116 and contains removeProxyAuthorization(headers) at lines 40-44, called before proxy authorization is applied at lines 147 and 170."
+      }
+    ],
+    "published_at": "2026-06-11T15:39:07.714Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/axios/axios/security/advisories/GHSA-j5f8-grm9-p9fc",
+    "references": [
+      "https://github.com/axios/axios/security/advisories/GHSA-j5f8-grm9-p9fc",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-44486",
+      "https://github.com/axios/axios/pull/10794",
+      "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b",
+      "https://github.com/axios/axios/releases/tag/v0.32.0",
+      "https://github.com/axios/axios/releases/tag/v1.16.0"
+    ],
+    "vulnerable_commit": "772a4e54ecc4cc2421e2b746daff0aca10f359d7",
+    "vulnerable_commit_basis": "tag v1.15.0 peels to 772a4e54, inside the advisory range >=1.0.0,<1.16.0; its lib/adapters/http.js blob b9981159 sets Proxy-Authorization in setProxy (line 219) and installs a beforeRedirects.proxy hook (lines 234-237) that re-invokes setProxy on redirect without deleting the stale header.",
+    "vulnerable_version": "1.15.0",
+    "snapshot_id": "snap_a64c7ddbbb7030b7",
+    "repo_id": "23088740",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2026_44486_snap_a64c7ddbbb7030b7",
+    "location_kind": "logic",
+    "snapshot_id": "snap_a64c7ddbbb7030b7",
+    "vulnerability_id": "CVE-2026-44486",
+    "verification_method": "Static read of lib/adapters/http.js at tag v1.15.0, the v1.16.0 release file, the fix commit afca61a and 0.x backport 2af6116 diffs against their parents, git object identity checks, and the saved OSV/CVE/NVD records. No JavaScript was executed and no request was made.",
+    "critical_operation": {
+      "file": "lib/adapters/http.js",
+      "function": "setProxy",
+      "language": "JavaScript",
+      "line": "191-238",
+      "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L191-L238",
+      "code_excerpt": "function setProxy(options, configProxy, location) {\n  let proxy = configProxy;\n  if (!proxy && proxy !== false) {\n    const proxyUrl = getProxyForUrl(location);\n    if (proxyUrl) {\n      if (!shouldBypassProxy(location)) {\n        proxy = new URL(proxyUrl);\n      }\n    }\n  }\n  if (proxy) {\n    ...\n      options.headers['Proxy-Authorization'] = 'Basic ' + base64;\n    ...\n  }\n\n  options.beforeRedirects.proxy = function beforeRedirect(redirectOptions) {\n    // Configure proxy for redirected request, passing the original config proxy to apply\n    // the exact same logic as if the redirected request was performed by axios directly.\n    setProxy(redirectOptions, configProxy, redirectOptions.href);\n  };\n}",
+      "description": "setProxy writes a Basic Proxy-Authorization header onto the request options whenever a credentialed proxy is selected (line 219), then installs a beforeRedirects.proxy hook that re-runs setProxy for the redirect target (lines 234-237). On the redirect re-invocation setProxy takes the !proxy branch when the target resolves to no proxy, does not add a new proxy, and never removes the header already copied onto redirectOptions; the stale credential is therefore sent to the redirect target. The v1 fix adds an isRedirect argument and deletes every case variant of Proxy-Authorization before re-applying proxy settings."
+    },
+    "entry_point": {
+      "file": "lib/adapters/http.js",
+      "function": "httpAdapter",
+      "language": "JavaScript",
+      "line": 668,
+      "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L668-L672",
+      "description": "The initial Node.js request calls setProxy(options, config.proxy, ...) at lines 668-672, which may attach Proxy-Authorization from an authenticated proxy; the request is later dispatched through follow-redirects at line 692 when maxRedirects is non-zero, so the beforeRedirects.proxy hook is reachable on every redirect."
+    },
+    "trace": [
+      {
+        "file": "lib/adapters/http.js",
+        "function": "httpAdapter",
+        "language": "JavaScript",
+        "line": 668,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L668-L672",
+        "description": "initial request enters setProxy with config.proxy and the request URL"
+      },
+      {
+        "file": "lib/adapters/http.js",
+        "function": "setProxy",
+        "language": "JavaScript",
+        "line": 219,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L219",
+        "description": "authenticated proxy credentials are base64-encoded into options.headers['Proxy-Authorization']"
+      },
+      {
+        "file": "lib/adapters/http.js",
+        "function": "setProxy (beforeRedirects.proxy hook)",
+        "language": "JavaScript",
+        "line": 234,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L234-L237",
+        "description": "the hook installed for follow-redirects re-invokes setProxy(redirectOptions, configProxy, redirectOptions.href) without first clearing the header"
+      },
+      {
+        "file": "lib/adapters/http.js",
+        "function": "setProxy",
+        "language": "JavaScript",
+        "line": 193,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L193-L200",
+        "description": "on redirect, when no proxy is configured or getProxyForUrl bypasses the target, proxy stays unset, the header-writing block is skipped and the stale Proxy-Authorization survives"
+      },
+      {
+        "file": "lib/adapters/http.js",
+        "function": "httpAdapter (transport selection)",
+        "language": "JavaScript",
+        "line": 692,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L692",
+        "description": "follow-redirects is the transport whenever redirects are enabled, so the hook runs on each redirect"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_axios_osv_ghsa",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/osv_GHSA-j5f8-grm9-p9fc.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-j5f8-grm9-p9fc",
+      "retrieved_at": "2026-10-21T20:14:33Z",
+      "sha256_of_observation": "3cfaa491b385b454b651d5ce28c126878c50456f68e3b43bb78d0b1a547a378b",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases CVE-2026-44486; github_reviewed true; published 2026-06-04T14:15:01Z",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N and database_specific severity HIGH",
+        "database_specific cwe_ids [CWE-200]",
+        "npm ranges introduced 1.0.0 fixed 1.16.0 and introduced 0 fixed 0.32.0 (last_known_affected_version_range <= 0.31.1)",
+        "details state that setProxy adds Proxy-Authorization when a credentialed proxy is selected, redirect handling calls setProxy again without clearing it, and a redirect target resolved to no proxy therefore receives the stale header; PoC sets HTTP_PROXY with credentials and redirects to https with HTTPS_PROXY unset",
+        "details name fix afca61a (v1) and backport 2af6116 (0.32.0)"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_cve_v5",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/cve_v5_CVE-2026-44486.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-44486",
+      "retrieved_at": "2026-10-21T20:14:34Z",
+      "sha256_of_observation": "9f0c3a45328a120b4da6e97021c9546012140163a39a9cd749155152d8c60797",
+      "verification_method": "CVE List v5 record (assigner GitHub_M)",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, assigner GitHub_M, datePublished 2026-06-11T15:39:07.714Z, dateUpdated 2026-09-11T12:09:11.032Z",
+        "CNA CVSS 3.1 7.5 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "CNA problemType CWE-200",
+        "CNA affected npm axios versions '>= 1.0.0, < 1.16.0' and '< 0.32.0', both status affected",
+        "CNA description states prior to 0.32.0 and 1.16.0 the Node.js HTTP adapter can leave a stale Proxy-Authorization on a redirected request that is no longer sent through that proxy; browser adapters unaffected",
+        "CISA-ADP SSVC Exploitation poc, Automatable yes, Technical Impact partial; Red Hat ADP adds product mappings and CWE-201"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_nvd",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/nvd_CVE-2026-44486.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-44486",
+      "retrieved_at": "2026-10-21T20:14:37Z",
+      "sha256_of_observation": "c8ca13bc30b9ea0ecfb4649f17ea509fe37d72166ad4a6102bfc102cf508a56f",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "published 2026-06-11T17:16:32.450, lastModified 2026-09-11, vulnStatus Modified",
+        "Secondary CVSS 3.1 7.5 HIGH from security-advisories@github.com and from Red Hat; no NVD-authored primary metric",
+        "weaknesses recorded as Secondary CWE-200 (GitHub) and CWE-201 (Red Hat)",
+        "affected data reproduces GitHub's npm ranges and adds Red Hat product configurations; no NVD CPE mapping of npm axios itself",
+        "SSVC records Exploitation poc, Automatable yes"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_git_checks",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/git_object_checks.txt",
+      "source_url": "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b",
+      "retrieved_at": "2026-10-22T00:37:43Z",
+      "sha256_of_observation": "47aafd4216579e6fe580d04c8ce00ae3947b9f57a46b8c249c8f24c22f8ecebd",
+      "verification_method": "per-ref shallow fetches in a bare mirror; git ls-remote / cat-file / rev-parse / show",
+      "result": "PASS",
+      "supports": [
+        "tag v1.15.0 peels to 772a4e54 and its lib/adapters/http.js blob is b9981159, equal to the downloaded npm 1.15.0 file",
+        "v1.15.0 http.js has no isRedirect parameter, no header deletion and no removeProxyAuthorization",
+        "fix commit afca61a has parent d8165e9f; parent http.js blob cf3d164f and result blob 7d67997a match the patch diff header index cf3d164f14..7d67997a00",
+        "tag v1.16.0 peels to df53d7dd and its http.js blob 252c7d87 equals the downloaded npm 1.16.0 file and contains the isRedirect deletion block",
+        "0.x backport 2af6116 has parent a589dc52; parent blob 161e9c90 and result blob 2e9f2b75; tag v0.32.0 peels to 8db2d448 whose http.js blob is 2e9f2b75",
+        "fetches are shallow, so ancestry is inferred from exact tag/commit identity and dates rather than merge-base"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_vuln_file",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/http_js_v1.15.0.js",
+      "source_url": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js",
+      "retrieved_at": "2026-10-21T20:15:00Z",
+      "sha256_of_observation": "4b773a44804aa8222038acbb3627722f7232a9ec87a9fba53c9e57d3f6c22992",
+      "verification_method": "git show v1.15.0:lib/adapters/http.js (npm 1.15.0 file byte-identical; git blob b9981159)",
+      "result": "PASS",
+      "supports": [
+        "setProxy is defined at line 191 with no isRedirect argument",
+        "line 219 writes options.headers['Proxy-Authorization'] = 'Basic ' + base64",
+        "lines 234-237 install options.beforeRedirects.proxy, whose body calls setProxy(redirectOptions, configProxy, redirectOptions.href)",
+        "lines 193-200 leave proxy unset when no proxy applies or shouldBypassProxy is true, so the header-writing block is skipped and nothing deletes an existing header",
+        "the initial call is at lines 668-672 and follow-redirects is selected at line 692",
+        "the file contains no removal of Proxy-Authorization anywhere"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_fixed_file",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/http_js_v1.16.0.js",
+      "source_url": "https://github.com/axios/axios/blob/df53d7dd99b202fb194217abd127ae6a630e70dc/lib/adapters/http.js",
+      "retrieved_at": "2026-10-21T20:15:01Z",
+      "sha256_of_observation": "b6622b047d6b95c0dda81729e4452927a097f5e8ffb69bf5a4d4e5723b0815b2",
+      "verification_method": "git show v1.16.0:lib/adapters/http.js (npm 1.16.0 file byte-identical; git blob 252c7d87)",
+      "result": "PASS",
+      "supports": [
+        "setProxy signature at line 227 includes isRedirect",
+        "lines 237-245 delete every header whose lower-cased name is proxy-authorization when isRedirect is true",
+        "the beforeRedirects.proxy hook passes true as the fourth argument",
+        "the initial request does not pass isRedirect, preserving user-supplied headers"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_fix_patch",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/fix_commit_afca61a0.patch",
+      "source_url": "https://github.com/axios/axios/commit/afca61a070728e717203c2bc21e7b589b59b858b",
+      "retrieved_at": "2026-10-21T20:15:04Z",
+      "sha256_of_observation": "2d2633378349c459ec8f8b96a47667474223aa346a708e353c350c5194abe3c3",
+      "verification_method": "git format-patch output for commit afca61a (subject 'fix: clear stale header on redirect when target is no-proxy (#10794)')",
+      "result": "PASS",
+      "supports": [
+        "changes only lib/adapters/http.js and tests/unit/adapters/http.test.js",
+        "adds the isRedirect parameter and the case-insensitive deletion loop, and passes true from the redirect hook",
+        "adds tests named for GHSA-j5f8-grm9-p9fc covering configProxy=false, NO_PROXY bypass and a different proxy on redirect",
+        "the patch diff header confirms parent blob cf3d164f and result blob 7d67997a"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_backport_patch",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/backport_commit_2af6116.patch",
+      "source_url": "https://github.com/axios/axios/commit/2af6116a957b1dd1b32056181326da8a5540d3bc",
+      "retrieved_at": "2026-10-21T20:15:05Z",
+      "sha256_of_observation": "c12a6a6d804bd70a5810b9b449ef9a11020f8884470ed729e6b981e14171b9d2",
+      "verification_method": "git format-patch output for commit 2af6116 (subject 'chore: backport fixes from the v1x branch (#10838)')",
+      "result": "PASS",
+      "supports": [
+        "adds removeProxyAuthorization(headers), which deletes every case variant of proxy-authorization",
+        "calls removeProxyAuthorization before proxy authorization is applied for the initial and redirected request (patch-added lines 147 and 170 in the resulting file)",
+        "adds 0.x tests where an initial proxy credential is followed by a redirect and the stale header is absent",
+        "the commit also carries unrelated 0.32.0 release changes (templates, socket-path handling), so only the Proxy-Authorization hunks are treated as fix evidence"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_snapshot",
+      "artifact_path": "runs/language/snap_a64c7ddbbb7030b7/snapshot_proposal.json",
+      "source_url": "https://github.com/axios/axios/tree/772a4e54ecc4cc2421e2b746daff0aca10f359d7",
+      "retrieved_at": "2026-10-22T00:36:25Z",
+      "sha256_of_observation": "b5c294cf5486fc3e7d9ebd416c7ea1f123c4ae99f8169293d9a88e748033dd5a",
+      "verification_method": "snapshot inventory built with pinned github-linguist 9.7.0",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_a64c7ddbbb7030b7, repo_id 23088740, tag_or_release v1.15.0, vulnerable_commit 772a4e54",
+        "329 tracked files scanned; JavaScript first-party 69 files / 174,819 bytes / 7.85% share; TypeScript first-party 1 file",
+        "full_scan true; enumeration_matches_git_ls_tree true; git_tree_oid 0feb97e3101d77ac1244216d37454f0d6af5da84 equals the tag tree in git_object_checks.txt",
+        "the snapshot was built for this vulnerability cycle because no earlier axios snapshot existed at v1.15.0"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_npm_v115",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/package_v1.15.0.json",
+      "source_url": "https://registry.npmjs.org/axios/1.15.0",
+      "retrieved_at": "2026-10-21T20:15:03Z",
+      "sha256_of_observation": "c697baca1c479e062096482306d9988414a06b760e4c3c6d8a9dda573a1256c4",
+      "verification_method": "npm registry metadata for version 1.15.0; its http.js is byte-identical to the v1.15.0 git blob",
+      "result": "PASS",
+      "supports": [
+        "name axios, version 1.15.0, repository git+https://github.com/axios/axios.git",
+        "exports ./lib/adapters/http.js, the file that contains the flaw",
+        "the published artifact for the vulnerable version resolves to the analysed source file"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_npm_v116",
+      "artifact_path": "runs/verification/axios_cve_2026_44486/sources/package_v1.16.0.json",
+      "source_url": "https://registry.npmjs.org/axios/1.16.0",
+      "retrieved_at": "2026-10-21T20:15:04Z",
+      "sha256_of_observation": "ee55b586acc0b267a95faa5ae9b66727bfd48f9940e4b69ccd2f70c4ef34259a",
+      "verification_method": "npm registry metadata for version 1.16.0; its http.js is byte-identical to the v1.16.0 git blob",
+      "result": "PASS",
+      "supports": [
+        "name axios, version 1.16.0, repository git+https://github.com/axios/axios.git",
+        "exports ./lib/adapters/http.js, the fixed file",
+        "the published artifact for the fixed release contains the deletion block, so 1.16.0 is confirmed fixed at the package level"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6
+    ],
+    "cwe": [
+      0,
+      1,
+      2
+    ],
+    "fix_commits": [
+      3,
+      6,
+      7
+    ],
+    "fixed_releases": [
+      3,
+      5,
+      6,
+      7,
+      10
+    ],
+    "languages": [
+      8
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      3,
+      4,
+      8,
+      9
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-j5f8-grm9-p9fc, npm ranges, project-authored advisory text)",
+      "CVE List v5 record from GitHub_M (CNA), including CISA-ADP and Red Hat ADP containers",
+      "NVD record (Modified; Secondary CVSS/CWE from GitHub and Red Hat, no NVD-authored metric, no npm CPE mapping)",
+      "upstream git history (tags v1.15.0 / v1.16.0 / v0.32.0, fix commit afca61a, backport 2af6116)"
+    ],
+    "independent_of_primary": false,
+    "notes": "Every published severity is HIGH 7.5 and every record gives the same CVSS 3.1 vector, so severity is consistent. CWE sets differ only by refinement: the CNA and OSV list CWE-200, while Red Hat's NVD contribution adds CWE-201; there is no contradictory CWE. The affected ranges agree across the CNA, OSV and NVD affected data (>=1.0.0,<1.16.0 and <0.32.0), and v1.15.0 is inside the v1 range. Source independence is weak: the GHSA is the upstream project's advisory, the CNA is GitHub (the same organization that publishes the GHSA database entry), NVD has no independently authored metric and carries GitHub's and Red Hat's secondary metrics, and no third-party reproduction or exploit analysis was found; CISA-ADP and Red Hat add SSVC/product data rather than independent root-cause analysis. The fix and release facts rest on git object identity and package-file equality, not on advisory prose.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read lib/adapters/http.js at v1.15.0 and confirm that setProxy sets Proxy-Authorization only when a credentialed proxy is selected and that the beforeRedirects.proxy hook re-invokes it without clearing the header, so a redirect resolved to no proxy keeps the stale value.",
+      "An independent reviewer must confirm that v1.15.0 is inside the advisory range and is the exact tag commit 772a4e54, and that the file judged is the snapshot file (blob b9981159).",
+      "An independent reviewer must verify the v1 fix afca61a and the 0.x backport 2af6116 from the git objects, including that v1.16.0 and v0.32.0 are the fixed releases and their package artifacts contain the respective fixes.",
+      "An independent reviewer must decide whether the evidence is independent of the primary advisory source; the dossier records independent_of_primary=false because the GHSA, CNA and NVD metrics all trace to GitHub, so evidence_independent may fail and keep the entry below promotion.",
+      "An independent reviewer must check the affected range at both the v1 and 0.x lines and confirm that no earlier fixed release exists in the range.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No JavaScript was executed and no HTTP request was made: the stale-header path is read from setProxy and the fix tests, not reproduced against a live proxy.",
+    "Exploitation requires the application to use an authenticated proxy for the initial request and to follow redirects automatically to a target that resolves to no proxy (for example an https URL with HTTPS_PROXY unset); requests with maxRedirects 0 and browser adapters are unaffected.",
+    "The 0.x line was verified only at the backport commit and v0.32.0 release; no 0.31.x snapshot was analysed, so the lower end of that range rests on the advisory, while the v1 range is verified from source.",
+    "The shallow git fetches prevent merge-base ancestry checks; v1.15.0 predates the fix commit by date and both objects were read by exact SHA.",
+    "The NVD record has no NVD-authored CVSS or npm CPE mapping, so severity and product mapping rest on GitHub/Red Hat secondary data.",
+    "The backport commit mixes the fix with unrelated 0.32.0 changes; only the Proxy-Authorization hunks were treated as evidence."
+  ],
+  "open_questions": [
+    "Whether follow-redirects copies the prior request headers into redirectOptions in all supported versions, which is what carries the stale header; the fix tests assume it and the advisory describes that path.",
+    "Whether the 0.x branch had an earlier partial fix between 0 and 0.32.0 that would narrow the affected range, which was not checked because no 0.x snapshot is in scope.",
+    "Whether any independent third party reproduced or analysed the flaw; none was found, so evidence independence is expected to fail unless the reviewer finds one."
+  ]
+}

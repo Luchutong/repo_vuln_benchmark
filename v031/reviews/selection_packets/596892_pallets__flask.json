@@ -1,0 +1,145 @@
+{
+  "packet_id": "selrev_596892_snap_8ed1cab47a0b7011",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "596892",
+    "full_name": "pallets/flask",
+    "canonical_url": "https://github.com/pallets/flask",
+    "primary_language": "Python",
+    "project_kind": "The Python micro framework for building web applications."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_8ed1cab47a0b7011",
+    "tag_or_release": "2.3.1",
+    "commit_sha": "721abdc3810057269503a72d2db80fb826f3c85c"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "721abdc3810057269503a72d2db80fb826f3c85c",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "d68a09bb41a7efb4ef9499ea350124cea0161b68",
+    "tree_file_count": 249,
+    "exported_file_count": 249,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/pallets__flask/snap_8ed1cab47a0b7011.tar.gz",
+    "archive_sha256": "4403608d5feb3515fc1258e9d91be5ca175320acddcbeeb91dec744c1fde562c",
+    "archive_bytes": 679414,
+    "manifest_path": "exports/pallets__flask/snap_8ed1cab47a0b7011.manifest.jsonl",
+    "manifest_sha256": "0973a93eb012b0313aa04db9bf3e712741cb5f61fd83a557e24e539f3ce300d6"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "CHANGES.rst",
+      "docs/changes.rst"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/ISSUE_TEMPLATE/bug-report.md",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/ISSUE_TEMPLATE/feature-request.md",
+      ".github/SECURITY.md",
+      ".github/dependabot.yml",
+      ".github/pull_request_template.md",
+      ".github/workflows/lock.yaml",
+      ".github/workflows/publish.yaml",
+      ".github/workflows/tests.yaml",
+      "CHANGES.rst",
+      "docs/changes.rst",
+      "docs/security.rst"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "make": [
+        "Makefile"
+      ],
+      "python": [
+        "pyproject.toml",
+        "tox.ini"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "python",
+      "make"
+    ],
+    "toolchain_available": {
+      "make": {
+        "make": true
+      },
+      "python": {
+        "python3": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "GHSA-m2qf-hxjv-5gpq",
+      "aliases": [
+        "GHSA-m2qf-hxjv-5gpq",
+        "CVE-2023-30861",
+        "PYSEC-2023-62"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=2.3.0, <2.3.2",
+          "ecosystem": "PyPI",
+          "package": "flask",
+          "purl": "pkg:pypi/flask"
+        },
+        {
+          "affected_range": "<2.2.5",
+          "ecosystem": "PyPI",
+          "package": "flask",
+          "purl": "pkg:pypi/flask"
+        }
+      ],
+      "published_at": "2023-05-02T17:04:22.197Z",
+      "advisory_url": "https://github.com/pallets/flask/security/advisories/GHSA-m2qf-hxjv-5gpq",
+      "severity": {
+        "alternate_scores": [
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "high",
+        "score": 7.5,
+        "source": "CNA security-advisories@github.com; NVD independently scored the same vector",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-30861",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

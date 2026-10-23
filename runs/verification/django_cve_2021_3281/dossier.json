@@ -1,0 +1,567 @@
+{
+  "dossier_version": "1.0",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T00:45:00Z",
+  "prepared_by": "dataset-collector-repovuln50",
+  "candidate_id": "disc2_56b1d2373f5d15563eefb8ee",
+  "repository": {
+    "repo_id": "4164482",
+    "full_name": "django/django",
+    "canonical_url": "https://github.com/django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2021-3281",
+    "aliases": [
+      "CVE-2021-3281",
+      "GHSA-fvgf-6h6h-3322",
+      "BIT-django-2021-3281",
+      "PYSEC-2021-9"
+    ],
+    "title": "Django archive.extract allows directory traversal when extracting tar/zip project templates supplied to startproject/startapp --template",
+    "category_l1": "path_traversal",
+    "category_l2": "directory traversal via absolute member paths and dot segments in tar/zip template archives",
+    "cwe_ids": [
+      "CWE-22"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "score": 5.3,
+      "level": "medium",
+      "source": "NVD primary metric nvd@nist.gov",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-3281"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=2.2,<2.2.18"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.0,<3.0.12"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.1,<3.1.6"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "master",
+        "sha": "05413afa8c18cdb978fcdf470e09f7a12b234a23",
+        "message": "Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract().",
+        "url": "https://github.com/django/django/commit/05413afa8c18cdb978fcdf470e09f7a12b234a23"
+      },
+      {
+        "branch": "3.2.x",
+        "sha": "f944f79e555c91571192022a6bb9ddf2178db7ed",
+        "message": "[3.2.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract().",
+        "url": "https://github.com/django/django/commit/f944f79e555c91571192022a6bb9ddf2178db7ed"
+      },
+      {
+        "branch": "3.1.x",
+        "sha": "02e6592835b4559909aa3aaaf67988fef435f624",
+        "message": "[3.1.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract().",
+        "url": "https://github.com/django/django/commit/02e6592835b4559909aa3aaaf67988fef435f624"
+      },
+      {
+        "branch": "3.0.x",
+        "sha": "52e409ed17287e9aabda847b6afe58be2fa9f86a",
+        "message": "[3.0.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract().",
+        "url": "https://github.com/django/django/commit/52e409ed17287e9aabda847b6afe58be2fa9f86a"
+      },
+      {
+        "branch": "2.2.x",
+        "sha": "21e7622dec1f8612c85c2fc37fe8efbfd3311e37",
+        "message": "[2.2.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract().",
+        "url": "https://github.com/django/django/commit/21e7622dec1f8612c85c2fc37fe8efbfd3311e37"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "3.1.6",
+        "tag": "3.1.6",
+        "release_url": "https://docs.djangoproject.com/en/3.1/releases/3.1.6/",
+        "verified_content": "At tag 3.1.6 (3235a7b8) archive.py blob d5a0cf04 contains BaseArchive.target_filename and both extract methods call it; fix 02e65928 is an ancestor of the tag."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "3.0.12",
+        "tag": "3.0.12",
+        "release_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.12/",
+        "verified_content": "At tag 3.0.12 (81c99e4e) archive.py blob d5a0cf04 contains the target_filename check and no remaining os.path.join(to_path, name); fix 52e409ed is an ancestor of the tag and absent from 3.0.11."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "2.2.18",
+        "tag": "2.2.18",
+        "release_url": "https://docs.djangoproject.com/en/2.2/releases/2.2.18/",
+        "verified_content": "At tag 2.2.18 (fc0c8cfa) archive.py blob f2f153a1 contains the target_filename check; fix 21e7622d is an ancestor of the tag and the 2.2.17 blob 5b9998f8 differs."
+      }
+    ],
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_version": "3.0.2",
+    "vulnerable_commit_basis": "tag 3.0.2 peels to a3697439; its django/utils/archive.py blob 235809f2 is byte-identical at 3.0.11 and 3.1, and differs at 3.0.12 (d5a0cf04), while the 3.0.x fix 52e409ed is absent from 3.0.11 and an ancestor of 3.0.12",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "repo_id": "4164482",
+    "published_at": "2021-02-02T07:15:14Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2021/feb/01/security-releases/",
+    "discovery_cutoff_date": "2026-10-21",
+    "references": [
+      "https://www.djangoproject.com/weblog/2021/feb/01/security-releases/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-3281",
+      "https://github.com/advisories/GHSA-fvgf-6h6h-3322",
+      "https://docs.djangoproject.com/en/3.0/releases/3.0.12/",
+      "https://github.com/django/django/commit/05413afa8c18cdb978fcdf470e09f7a12b234a23",
+      "https://github.com/django/django/commit/f944f79e555c91571192022a6bb9ddf2178db7ed",
+      "https://github.com/django/django/commit/02e6592835b4559909aa3aaaf67988fef435f624",
+      "https://github.com/django/django/commit/52e409ed17287e9aabda847b6afe58be2fa9f86a",
+      "https://github.com/django/django/commit/21e7622dec1f8612c85c2fc37fe8efbfd3311e37"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2021-3281_snap_ab695ba3db678939",
+    "vulnerability_id": "CVE-2021-3281",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "location_kind": "logic",
+    "critical_operation": {
+      "file": "django/utils/archive.py",
+      "function": "TarArchive.extract",
+      "language": "Python",
+      "line": "154-158",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/utils/archive.py#L154-L158",
+      "code_excerpt": "        for member in members:\n            name = member.name\n            if leading:\n                name = self.split_leading_dir(name)[1]\n            filename = os.path.join(to_path, name)",
+      "description": "TarArchive.extract iterates the archive members and builds the destination path as os.path.join(to_path, name) with no containment check. os.path.join discards to_path when name is absolute ('/tmp/evil.py'), and dot segments ('../../evil') survive the optional leading-directory stripping, so the joined path resolves outside the extraction directory. The method then creates directories and writes the member contents with open(filename, 'wb'), giving an attacker-controlled archive arbitrary file writes with the privileges of the developer running startproject/startapp --template (the caller extracts into a fresh tempfile.mkdtemp directory). ZipArchive.extract (line 201 at 3.0.2) contains the identical join and is the same defect for zip templates. The fix adds BaseArchive.target_filename(), which applies os.path.abspath to both paths and raises SuspiciousOperation when the result does not start with the extraction root, and routes both extract methods through it; the zip path additionally skips empty names and tests name (not filename) for a trailing separator."
+    },
+    "entry_point": {
+      "file": "django/utils/archive.py",
+      "function": "extract",
+      "language": "Python",
+      "line": 43,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/utils/archive.py#L43",
+      "description": "The public django.utils.archive.extract(path, to_path) opens the archive through Archive(path) and delegates to the format-specific extract; startproject/startapp --template reach it through TemplateCommand.handle_template/extract."
+    },
+    "trace": [
+      {
+        "description": "TemplateCommand.handle_template accepts a file path or URL and calls self.extract(absolute_path) for a template archive",
+        "file": "django/core/management/templates.py",
+        "function": "TemplateCommand.handle_template",
+        "language": "Python",
+        "line": 205,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/management/templates.py#L205"
+      },
+      {
+        "description": "TemplateCommand.extract creates a tempfile.mkdtemp directory and calls archive.extract(filename, tempdir)",
+        "file": "django/core/management/templates.py",
+        "function": "TemplateCommand.extract",
+        "language": "Python",
+        "line": 318,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/management/templates.py#L318"
+      },
+      {
+        "description": "TarArchive.extract joins the unchecked member name to the extraction root and writes the file",
+        "file": "django/utils/archive.py",
+        "function": "TarArchive.extract",
+        "language": "Python",
+        "line": 158,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/utils/archive.py#L158"
+      },
+      {
+        "description": "ZipArchive.extract performs the identical unchecked join for zip templates",
+        "file": "django/utils/archive.py",
+        "function": "ZipArchive.extract",
+        "language": "Python",
+        "line": 201,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/utils/archive.py#L201"
+      }
+    ],
+    "verification_method": "Static read of archive.py at 3.0.2, 3.0.11, 3.0.12, 2.2.17 and 2.2.18, of the 3.0.x/2.2.x fix and test diffs and of the 3.0.12 release notes; git blob identity and tag ancestry were checked against a local clone. No archive was extracted and no test suite run."
+  },
+  "field_evidence": {
+    "identity": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      5
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "affected_ranges": [
+      0,
+      2,
+      5
+    ],
+    "vulnerable_commit": [
+      6,
+      7
+    ],
+    "fix_commits": [
+      3,
+      6,
+      12,
+      13,
+      16,
+      17
+    ],
+    "fixed_releases": [
+      3,
+      6,
+      9,
+      10,
+      18
+    ],
+    "critical_operation": [
+      6,
+      7,
+      9,
+      12,
+      14
+    ],
+    "languages": [
+      19
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "Django security release announcement",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "OSV/GHSA record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "The Django announcement, NVD, OSV/GHSA and the fixed tags agree on the three ranges (2.2 <2.2.18, 3.0 <3.0.12, 3.1 <3.1.6) and on the root cause in django.utils.archive.extract. NVD assigns CWE-22 and CVSS 3.1 5.3 MEDIUM; the Django advisory labels the issue severity \"low\" and GHSA labels it MODERATE. The MITRE CNA record is a placeholder (vendor/product/version n/a, problemType n/a, no CVSS). OSV's GIT range events again name unrelated security-archive documentation commits as introduced and the release tag commits as fixed, so fix verification used the five vendor-listed changesets and git ancestry instead.",
+    "severity_disagreement": true
+  },
+  "review": {
+    "independent_reviews": 0,
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "required_before_promotion": [
+      "An independent reviewer must read TarArchive.extract and ZipArchive.extract at 3.0.2 and confirm that os.path.join(to_path, name) is unchecked for absolute names and dot segments.",
+      "An independent reviewer must confirm 52e409ed is absent from 3.0.2 and 3.0.11 and an ancestor of 3.0.12, and that 3.0.12 archive.py routes both extract methods through target_filename.",
+      "An independent reviewer must confirm the 3.1.6 and 2.2.18 fixes and the three release boundaries against a second source family.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No malicious archive was built or extracted and no Django test suite was executed; the finding is static.",
+    "Exploitation requires the developer to pass an attacker-controlled archive (or URL) to startproject/startapp --template; this is a supply-chain/developer-workstation vector, not a remotely reachable web endpoint.",
+    "The MITRE CVE v5 CNA record is a placeholder (vendor/product/version n/a, problemType n/a, no CVSS).",
+    "NVD also carries a CVSS 2.0 metric of 5.0 (AV:N/AC:L/Au:N/C:N/I:P/A:N); the canonical score follows the NVD primary CVSS 3.1 metric.",
+    "The Django advisory's qualitative severity is \"low\" while NVD rates 5.3 MEDIUM and GHSA labels the issue MODERATE; the qualitative labels are recorded as source disagreement, not reconciled.",
+    "OSV's GIT range events are conversion artifacts: introduced events are later documentation commits (2a62cdcf, 2a04e24d, 0b8a0296) and fixed events are the 2.2.18/3.0.12/3.1.6 release commits; they were not used as fix evidence.",
+    "Static observation, confirmed by a later vendor fix: the 2021 check compares filename.startswith(target_path) without a path-separator boundary, so a member resolving to a sibling directory whose name shares the prefix (for example /tmp/extract vs /tmp/extract_evil) passes. Django re-fixed this as CVE-2025-59682 in commit 924a0c092e65fa2d0953fd1855d2dc8786d94de2 (2025-10-01, follow-up to 05413afa), replacing startswith with os.path.commonpath and shipping in 4.2.25/5.1.13/5.2.7. This affects the fixed code, not the 3.0.2 vulnerable code.",
+    "No downstream distribution backport (Ubuntu, Debian, Fedora, Oracle, NetApp) was verified; only upstream tags and commits are used.",
+    "The snapshot inventory status is NEEDS_REVIEW with 67 ambiguous files, not a clean PASS."
+  ],
+  "open_questions": [
+    "Whether startproject/startapp template archives are commonly fetched from untrusted sources was not surveyed.",
+    "Whether Python's tarfile/zipfile path sanitisation or CPython's os.path.join behaviour changed across supported interpreter versions was not traced; only the documented os.path.join absolute-path override and dot-segment semantics are relied on.",
+    "The sibling-prefix weakness in target_filename() is recorded as an observation; whether it is exploitable in a given deployment was not tested."
+  ],
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "evidence": [
+    {
+      "evidence_id": "ev_django20213281_osv_cve",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/osv_cve.json",
+      "sha256_of_observation": "d1e95143a4f333d66b8e1a914a6b3d5780dd15594dc28304e2c2830c827e8192",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2021-3281",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "OSV CVE-2021-3281 aliases BIT-django-2021-3281, GHSA-fvgf-6h6h-3322 and PYSEC-2021-9",
+        "the details text names django.utils.archive.extract with absolute paths or relative paths with dot segments",
+        "the CPE-derived events give >=2.2 <2.2.18, >=3.0 <3.0.12 and >=3.1 <3.1.6",
+        "the severity array carries CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django20213281_cve_v5",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/cve_v5.json",
+      "sha256_of_observation": "9c022a6b859ea9353c29fd43b127c5fd72d22a61282c5bc6ba07ca3921314e6b",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-3281",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "MITRE CVE-2021-3281 is PUBLISHED and uses the same description",
+        "the CNA affected block is vendor/product/version n/a and problemTypes is n/a",
+        "the CNA references include the Django advisory and the 3.1 security archive"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django20213281_nvd",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/nvd_cve.json",
+      "sha256_of_observation": "5f4b1c131f81ee89c8834edad58b5db8c1c56549cd9ce2987e537e1bd6b6ec58",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-3281",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "NVD primary CVSS 3.1 is 5.3 MEDIUM with vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "NVD carries a legacy CVSS 2.0 metric of 5.0",
+        "NVD assigns CWE-22 (path traversal)",
+        "NVD CPE ranges are >=2.2 <2.2.18, >=3.0 <3.0.12 and >=3.1 <3.1.6, plus downstream Fedora and NetApp entries"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django20213281_advisory",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/djangoproject_security.html",
+      "sha256_of_observation": "8e6f78d56aee2a0e18ca30a547e0211c622cb96f5c3b29a1873ca530e689b8cc",
+      "source_url": "https://www.djangoproject.com/weblog/2021/feb/01/security-releases/",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the announcement dated 2021-02-01 issues Django 3.1.6, 3.0.12 and 2.2.18 for CVE-2021-3281",
+        "affected supported versions are master, 3.2 alpha, 3.1, 3.0 and 2.2",
+        "the advisory text names django.utils.archive.extract with startapp --template and startproject --template and labels severity low",
+        "the five changeset hrefs point to 05413afa, f944f79e, 02e65928, 52e409ed and 21e7622d"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django20213281_ghsa_page",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/ghsa_page.html",
+      "sha256_of_observation": "fa05f5cfcfcdb177a2d34d841d4084b17f764fc608b92b8a367aaad67be6af64",
+      "source_url": "https://github.com/advisories/GHSA-fvgf-6h6h-3322",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "GHSA-fvgf-6h6h-3322 is the GitHub-reviewed advisory for CVE-2021-3281",
+        "the page lists the same five fix commits and the three release versions",
+        "the qualitative GitHub severity is Moderate"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django20213281_osv_ghsa",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/osv_ghsa.json",
+      "sha256_of_observation": "1c776b4e77f057c6a255f98175b039ba8e7faabd932252a1d1e6bbd56e8d2182",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-fvgf-6h6h-3322",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "GHSA-fvgf-6h6h-3322 aliases CVE-2021-3281, BIT-django-2021-3281 and PYSEC-2021-9",
+        "three PyPI ranges: >=2.2 <2.2.18, >=3.0 <3.0.12 and >=3.1 <3.1.6, with 3.0.2 in the 3.0 list",
+        "the severity array carries CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N and a CVSS 4.0 vector with VC:N/VI:L/VA:N",
+        "cwe_ids is CWE-22 and severity is MODERATE"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django20213281_git_checks",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/git_object_checks.txt",
+      "sha256_of_observation": "26801053e2c84191f7119dfb9083037dffd40d387cf77b8cc1dbce9c5277addb",
+      "source_url": "https://github.com/django/django",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "tags 3.0.2, 3.0.11, 3.0.12, 2.2.17, 2.2.18, 3.1, 3.1.6 and 3.2 peel to the recorded commits",
+        "archive.py blob 235809f2 at 3.0.2, 3.0.11 and 3.1 changes to d5a0cf04 at 3.0.12, 3.1.6 and 3.2; 2.2.17 is 5b9998f8 and 2.2.18 is f2f153a1",
+        "52e409ed is absent from 3.0.11 and an ancestor of 3.0.12; 21e7622d is an ancestor of 2.2.18; 02e65928 is an ancestor of 3.1.6; f944f79e is an ancestor of 3.2; master 05413afa is not an ancestor of 3.2",
+        "3.0.2 archive.py has zero target_filename occurrences and two os.path.join(to_path, name) joins at lines 158 and 201; 3.0.12 has target_filename at 138 and no raw join"
+      ],
+      "verification_method": "git show / git rev-parse / git merge-base in a local clone"
+    },
+    {
+      "evidence_id": "ev_django20213281_archive_302",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/archive_3.0.2.py",
+      "sha256_of_observation": "ae4c1f5b5c779990b981b5ba87c3b461ee5c0cb4cd2ddfddbd587bd11565cb1e",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/utils/archive.py",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "TarArchive.extract joins member names with os.path.join(to_path, name) at line 158 and writes the result",
+        "ZipArchive.extract performs the same join at line 201",
+        "no containment or traversal check exists anywhere in the file at 3.0.2"
+      ],
+      "verification_method": "git show 3.0.2:django/utils/archive.py"
+    },
+    {
+      "evidence_id": "ev_django20213281_archive_3011",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/archive_3.0.11.py",
+      "sha256_of_observation": "ae4c1f5b5c779990b981b5ba87c3b461ee5c0cb4cd2ddfddbd587bd11565cb1e",
+      "source_url": "https://github.com/django/django/blob/81c99e4eb00b58e3eb33f3d5c1747b6c57e9d649^/django/utils/archive.py",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the file at 3.0.11 is byte-identical to 3.0.2 and still contains both unchecked joins",
+        "this fixes the vulnerable boundary immediately before the 3.0.12 release"
+      ],
+      "verification_method": "git show 3.0.11:django/utils/archive.py"
+    },
+    {
+      "evidence_id": "ev_django20213281_archive_3012",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/archive_3.0.12.py",
+      "sha256_of_observation": "3e72b3c90b6e1bf9bb0d77b2684fe6df8bc7e61ccedae3d69ba00fa2cda03f90",
+      "source_url": "https://github.com/django/django/blob/81c99e4eb00b58e3eb33f3d5c1747b6c57e9d649/django/utils/archive.py",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "BaseArchive.target_filename abspaths both paths and raises SuspiciousOperation when the target does not start with the extraction root",
+        "TarArchive.extract and ZipArchive.extract both call self.target_filename(to_path, name) and no raw join remains",
+        "the zip path skips empty names and tests name for a trailing separator"
+      ],
+      "verification_method": "git show 3.0.12:django/utils/archive.py"
+    },
+    {
+      "evidence_id": "ev_django20213281_archive_2217",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/archive_2.2.17.py",
+      "sha256_of_observation": "bdf9e6d7903abe0acbbe0ce129113da09bc785dd49bcab4329cd5189b11f0ae8",
+      "source_url": "https://github.com/django/django/blob/fc0c8cfa492b2d7b82263e71e486f3829ad7c43a^/django/utils/archive.py",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2.17 file is the unfixed pre-image with both unchecked joins",
+        "its content differs from 3.0.2 in default arguments and directory-creation handling, but the two unchecked os.path.join(to_path, name) joins are unchanged"
+      ],
+      "verification_method": "git show 2.2.17:django/utils/archive.py"
+    },
+    {
+      "evidence_id": "ev_django20213281_archive_2218",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/archive_2.2.18.py",
+      "sha256_of_observation": "41aafaf443013e3499906ae2d5be81f9e092b31212b013bd5a86b23f670eaa62",
+      "source_url": "https://github.com/django/django/blob/fc0c8cfa492b2d7b82263e71e486f3829ad7c43a/django/utils/archive.py",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2.18 file contains target_filename and both extract methods call it",
+        "this establishes the 2.2 fixed boundary"
+      ],
+      "verification_method": "git show 2.2.18:django/utils/archive.py"
+    },
+    {
+      "evidence_id": "ev_django20213281_fix_diff_30",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/fix_diff_3.0.x.txt",
+      "sha256_of_observation": "649d99fb901d1c418404b10b73519d21b84b240a01c6119c8fcddc3ea33ab03a",
+      "source_url": "https://github.com/django/django/compare/3.0.11...3.0.12",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the diff adds target_filename to BaseArchive and replaces both os.path.join(to_path, name) lines",
+        "the zip hunk also adds if not name: continue and changes filename.endswith to name.endswith"
+      ],
+      "verification_method": "git diff 3.0.11 3.0.12"
+    },
+    {
+      "evidence_id": "ev_django20213281_fix_diff_22",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/fix_diff_2.2.x.txt",
+      "sha256_of_observation": "a25f656debacf2308e0928c4392b28a857fdfb057b95c982249f90bad0dcc8df",
+      "source_url": "https://github.com/django/django/compare/2.2.17...2.2.18",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2 diff applies the same target_filename check and the same two call-site replacements"
+      ],
+      "verification_method": "git diff 2.2.17 2.2.18"
+    },
+    {
+      "evidence_id": "ev_django20213281_test_diff_30",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/test_diff_3.0.x.txt",
+      "sha256_of_observation": "63507e094dc00550b70c8f92742f8f548d367f148ae1b8d8cc7d01db0026b808",
+      "source_url": "https://github.com/django/django/compare/3.0.11...3.0.12",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "TestArchiveInvalid asserts SuspiciousOperation for traversal.tar (..) and traversal_absolute.tar (/tmp/evil.py)",
+        "windows-only disk-name archives are tested conditionally on sys.platform == win32"
+      ],
+      "verification_method": "git diff 3.0.11 3.0.12 -- tests/utils_tests/test_archive.py"
+    },
+    {
+      "evidence_id": "ev_django20213281_test_diff_22",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/test_diff_2.2.x.txt",
+      "sha256_of_observation": "134f8baa9bcbbcf1628378a5e609747445852e6ee21b9fc3df653e7eb9e1f060",
+      "source_url": "https://github.com/django/django/compare/2.2.17...2.2.18",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2 test diff adds the same TestArchiveInvalid class and asserts SuspiciousOperation"
+      ],
+      "verification_method": "git diff 2.2.17 2.2.18 -- tests/utils_tests/test_archive.py"
+    },
+    {
+      "evidence_id": "ev_django20213281_stat_30",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/fix_commit_stat_3.0.x.txt",
+      "sha256_of_observation": "0a2a0f5ded718eccb71fd46d1ac196d8c2166fde1e14e14f626744525237ac2a",
+      "source_url": "https://github.com/django/django/commit/52e409ed17287e9aabda847b6afe58be2fa9f86a",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "52e409ed changes django/utils/archive.py, the 2.2.18 and 3.0.12 release notes and tests/utils_tests/test_archive.py",
+        "the commit message identifies Wang Baohua as reporter and Florian Apolloner, Shai Berger and Simon Charette as reviewers",
+        "the message states it is a backport of 05413afa from master"
+      ],
+      "verification_method": "git show --stat 52e409ed"
+    },
+    {
+      "evidence_id": "ev_django20213281_stat_22",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/fix_commit_stat_2.2.x.txt",
+      "sha256_of_observation": "0d2cb50e119f32850b42a2a696fc683a670ffebe3d0e0d9307c482f28d6440ff",
+      "source_url": "https://github.com/django/django/commit/21e7622dec1f8612c85c2fc37fe8efbfd3311e37",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "21e7622d changes the same archive module, 2.2.18 release notes and tests",
+        "the message states it is a backport of 05413afa from master"
+      ],
+      "verification_method": "git show --stat 21e7622d"
+    },
+    {
+      "evidence_id": "ev_django20213281_relnotes_3012",
+      "artifact_path": "runs/verification/django_cve_2021_3281/sources/release_notes_3.0.12.html",
+      "sha256_of_observation": "43f56631a8ef93e3468cdd594bfef524cb1f412ad2414c6063ae2d2f7e0abd71",
+      "source_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.12/",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 3.0.12 release notes contain the CVE-2021-3281 section for django.utils.archive.extract",
+        "they repeat the severity low label and the startapp/startproject --template vector"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django20213281_snapshot",
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "retrieved_at": "2026-10-22T00:40:00Z",
+      "result": "PASS",
+      "supports": [
+        "snapshot snap_ab695ba3db678939 is the django 3.0.2 tree a3697439",
+        "the language inventory is github-linguist 9.7.0 over the full tree with full_scan=true",
+        "the inventory status is NEEDS_REVIEW with 67 ambiguous files, and Python is the largest language by code bytes"
+      ],
+      "verification_method": "read of the permitted language inventory artifact"
+    }
+  ]
+}

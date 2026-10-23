@@ -1,0 +1,24 @@
+{
+  "key": "libexpat__libexpat_security",
+  "repository": "libexpat/libexpat",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:02.632Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\nIf you have discovered a security vulnerability in this project, please report it privately. **Do not disclose it as a public issue.** This gives us time to work with you to fix the issue before public exposure, reducing the chance that the exploit will be used before a patch is released.\n\nTo submit your report, please email [sebastian@pipping.org](mailto:sebastian@pipping.org) .\n\nPlease provide at least the following information in your report:\n\n- A description of the vulnerability and its impact\n- How to reproduce the issue\n\n\nThis project is maintained by a team of volunteers on a reasonable-effort basis. As such, please give us at least 90 days to work on a fix before public exposure.\n",
+      "encoding": "utf-8",
+      "sha": "05937984ffb63cc984d5cdc4a3881b355d83f528",
+      "display_url": "https://github.com/libexpat/libexpat/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

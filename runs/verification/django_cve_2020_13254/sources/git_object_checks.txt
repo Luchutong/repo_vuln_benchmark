@@ -1,0 +1,78 @@
+# Django CVE-2020-13254 git object checks
+# repo: https://github.com/django/django (shallow bare clone, fetched by tag/commit)
+# local: /tmp/django_git
+
+## tag -> commit
+tag 3.0.2 -> a36974395ebc03a41928db1743074575b143330d
+tag 3.0.6 -> 24dd73a524c14f066489b64e220ca0ace701cf36
+tag 3.0.7 -> 44da7abda848f05caaed74f6a749038c87dedfda
+tag 2.2.12 -> fb4d8bf799df71014ddb7dc1735941eebf3828b0
+tag 2.2.13 -> 8093aaa8ff9dd7386a069c6eb49fcc1c5980c033
+
+## fix commits
+commit 2c82414914ae6476be5a166be9ff49c24d0d9069
+  author: Dan Palmer <dan@danpalmer.me>
+  author date: Wed May 20 11:45:31 2020 +0200
+  committer date: Wed Jun 3 09:24:26 2020 +0200
+  subject: Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.
+  parents: 2dd4d110c159d0c81dff42eaead2c378a0998735
+
+commit 580bd64c0482ae9b7c05715390e25f4405a12719
+  author: Dan Palmer <dan@danpalmer.me>
+  author date: Wed May 20 11:45:31 2020 +0200
+  committer date: Wed Jun 3 09:31:28 2020 +0200
+  subject: [3.1.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.
+  parents: 49d7cc19e33a104bb23f7ae1dbb1240b4f6c40f9
+
+commit 84b2da5552e100ae3294f564f6c862fef8d0e693
+  author: Dan Palmer <dan@danpalmer.me>
+  author date: Wed May 20 11:45:31 2020 +0200
+  committer date: Wed Jun 3 09:33:20 2020 +0200
+  subject: [3.0.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.
+  parents: 1f2dd37f6fcefdd10ed44cb233b2e62b520afb38
+
+commit 07e59caa02831c4569bbebb9eb773bdd9cb4b206
+  author: Dan Palmer <dan@danpalmer.me>
+  author date: Wed May 20 11:45:31 2020 +0200
+  committer date: Wed Jun 3 09:34:29 2020 +0200
+  subject: [2.2.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.
+  parents: 6d61860b22875f358fac83d903dc629897934815
+
+## ancestry (merge-base --is-ancestor; 0=yes 1=no)
+  84b2da5552e100ae3294f564f6c862fef8d0e693 ancestor-of refs/tags/3.0.2 -> 1
+  84b2da5552e100ae3294f564f6c862fef8d0e693 ancestor-of refs/tags/3.0.6 -> 1
+  84b2da5552e100ae3294f564f6c862fef8d0e693 ancestor-of refs/tags/3.0.7 -> 0
+  07e59caa02831c4569bbebb9eb773bdd9cb4b206 ancestor-of refs/tags/2.2.12 -> 1
+  07e59caa02831c4569bbebb9eb773bdd9cb4b206 ancestor-of refs/tags/2.2.13 -> 0
+
+## blob identity
+file django/core/cache/backends/memcached.py
+  refs/tags/3.0.2                            48cfb8310bd9dcc4a3943a1306c2d3be802fbf1d
+  refs/tags/3.0.6                            48cfb8310bd9dcc4a3943a1306c2d3be802fbf1d
+  refs/tags/3.0.7                            b763d1d62426447ea5b0afb04a47a4afe61c4037
+  1f2dd37f6fcefdd10ed44cb233b2e62b520afb38   48cfb8310bd9dcc4a3943a1306c2d3be802fbf1d
+  84b2da5552e100ae3294f564f6c862fef8d0e693   b763d1d62426447ea5b0afb04a47a4afe61c4037
+  refs/tags/2.2.12                           bb27cb53bba4c4ef698dde2edb8bc57d1021ca8a
+  refs/tags/2.2.13                           4a6d510de1abc2af4e92163bbb47160fefc4bc64
+  6d61860b22875f358fac83d903dc629897934815   bb27cb53bba4c4ef698dde2edb8bc57d1021ca8a
+  07e59caa02831c4569bbebb9eb773bdd9cb4b206   4a6d510de1abc2af4e92163bbb47160fefc4bc64
+file django/core/cache/backends/base.py
+  refs/tags/3.0.2                            b3a65ab40fdf08bf07a19bce63aea6bb321b8523
+  refs/tags/3.0.6                            b3a65ab40fdf08bf07a19bce63aea6bb321b8523
+  refs/tags/3.0.7                            86a7aca5757a23dc18f10df62157068602bd697a
+  1f2dd37f6fcefdd10ed44cb233b2e62b520afb38   b3a65ab40fdf08bf07a19bce63aea6bb321b8523
+  84b2da5552e100ae3294f564f6c862fef8d0e693   86a7aca5757a23dc18f10df62157068602bd697a
+  refs/tags/2.2.12                           0d0b1ddc82028603f7de3f9c8dfd42ab955ef184
+  refs/tags/2.2.13                           70de0a8b709ddfa422835e8c98b928fcc6250a83
+  6d61860b22875f358fac83d903dc629897934815   0d0b1ddc82028603f7de3f9c8dfd42ab955ef184
+  07e59caa02831c4569bbebb9eb773bdd9cb4b206   70de0a8b709ddfa422835e8c98b928fcc6250a83
+
+## fix commit diffstat
+  84b2da555 [3.0.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.
+   django/core/cache/__init__.py           |  4 ++--
+   django/core/cache/backends/base.py      | 33 ++++++++++++++++----------
+   django/core/cache/backends/memcached.py | 17 +++++++++++++-
+   docs/releases/2.2.13.txt                |  8 +++++++
+   docs/releases/3.0.7.txt                 |  8 +++++++
+   tests/cache/tests.py                    | 41 +++++++++------------------------
+   6 files changed, 66 insertions(+), 45 deletions(-)

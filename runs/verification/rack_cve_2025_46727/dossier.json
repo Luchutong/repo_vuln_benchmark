@@ -1,0 +1,436 @@
+{
+ "candidate_id": "disc2_7f2500f73d3836ead0e09463",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T09:40:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [],
+ "repository": {
+  "canonical_url": "https://github.com/rack/rack",
+  "full_name": "rack/rack",
+  "primary_language": "Ruby",
+  "project_kind": "modular Ruby web server interface (Rack::Request, Rack::Utils, Rack::QueryParser)",
+  "repo_id": "96071",
+  "snapshot_id": "snap_f97687a4e0807cb2"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2025-46727",
+  "aliases": [
+   "CVE-2025-46727",
+   "GHSA-gjh7-p2fx-99vx"
+  ],
+  "title": "Rack::QueryParser parses an unbounded number of query parameters into a Hash, allowing memory and CPU exhaustion from a single request",
+  "category_l1": "denial_of_service",
+  "category_l2": "unbounded parameter parsing in Rack::QueryParser#parse_query (no total parameter-count or query-bytesize limit)",
+  "cwe_ids": [
+   "CWE-400",
+   "CWE-770"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+   "score": 7.5,
+   "level": "high",
+   "source": "CNA (CVE List v5, GitHub_M) and NVD Primary (nvd@nist.gov) publish the identical CVSS 3.1 7.5 HIGH vector; the NVD Secondary entry from GitHub repeats it and the OSV GHSA record carries database severity HIGH",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-46727"
+  },
+  "affected_packages": [
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "purl": "pkg:gem/rack",
+    "affected_range": "< 2.2.14 (also >= 3.0 < 3.0.16, >= 3.1 < 3.1.14)"
+   }
+  ],
+  "fix_commits": [
+   {
+    "branch": "main (3.x)",
+    "sha": "2bb5263b464b65ba4b648996a579dbd180d2b712",
+    "message": "Merge commit from fork: Apply bytesize and number of param limits in QueryParser; CHANGELOG for 3.0.16 names CVE-2025-46727",
+    "url": "https://github.com/rack/rack/commit/2bb5263b464b65ba4b648996a579dbd180d2b712"
+   },
+   {
+    "branch": "2.2 branch (backport; ancestor of the v2.2.14 tag commit)",
+    "sha": "3f5a4249118d09d199fe480466c8c6717e43b6e3",
+    "message": "Merge commit from fork: same limits; pre-image blob equals the v2.2.13 file, post-image differs from the shipped v2.2.14 file only by the later fd44bd7 unescape cleanup",
+    "url": "https://github.com/rack/rack/commit/3f5a4249118d09d199fe480466c8c6717e43b6e3"
+   },
+   {
+    "branch": "3.x (referenced by the advisory; not on the v2.2.14 line)",
+    "sha": "cd6b70a1f2a1016b73dc906f924869f4902c2d74",
+    "message": "Merge commit from fork on the 3.x line; NOT-ANCESTOR of the v2.2.14 tag commit",
+    "url": "https://github.com/rack/rack/commit/cd6b70a1f2a1016b73dc906f924869f4902c2d74"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "tag": "v2.2.14",
+    "version": "2.2.14",
+    "release_url": "https://github.com/rack/rack/releases/tag/v2.2.14",
+    "verified_content": "Annotated tag ab067a33 peels to commit d0dcf75. lib/rack/query_parser.rb at that commit is blob d9b1e876, byte-identical to the saved query_parser_v2.2.14.rb, and contains BYTESIZE_LIMIT 4194304, PARAMS_LIMIT 4096 and check_query_string with both parse_query and parse_nested_query calls. 3f5a424 is an ancestor of d0dcf75; the only delta introduced afterwards is fd44bd7's removal of the second unescape argument."
+   }
+  ],
+  "published_at": "2025-05-07T23:07:40.563Z",
+  "source_type": "upstream_advisory",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/rack/rack/security/advisories/GHSA-gjh7-p2fx-99vx",
+  "references": [
+   "https://github.com/rack/rack/security/advisories/GHSA-gjh7-p2fx-99vx",
+   "https://nvd.nist.gov/vuln/detail/CVE-2025-46727",
+   "https://github.com/rack/rack/commit/2bb5263b464b65ba4b648996a579dbd180d2b712",
+   "https://github.com/rack/rack/commit/3f5a4249118d09d199fe480466c8c6717e43b6e3"
+  ],
+  "vulnerable_commit": "1741c580d71cfca8e541e96cc372305c8892ee74",
+  "vulnerable_commit_basis": "Annotated tag 2.2.3 (tag object 4d456648c521ad1392afcd8ae35e332c83a09849) peels directly to 1741c580, the snapshot commit; the advisory range '< 2.2.14' contains 2.2.3 and the fix commit 3f5a424 is not an ancestor of it",
+  "vulnerable_version": "2.2.3",
+  "snapshot_id": "snap_f97687a4e0807cb2",
+  "repo_id": "96071",
+  "discovery_cutoff_date": "2026-10-22"
+ },
+ "location": {
+  "location_id": "loc_CVE-2025-46727_snap_f97687a4e0807cb2",
+  "location_kind": "logic",
+  "snapshot_id": "snap_f97687a4e0807cb2",
+  "vulnerability_id": "CVE-2025-46727",
+  "verification_method": "Static read of query_parser.rb at the exact 2.2.3 commit and at tags v2.2.13 and v2.2.14, request.rb and utils.rb at the snapshot commit, the advisory-named fix patches (2bb5263, 3f5a424), and git object checks (blob identity, tag peel, merge-base ancestry). No Ruby code was compiled or executed and no query string was parsed.",
+  "critical_operation": {
+   "file": "lib/rack/query_parser.rb",
+   "function": "Rack::QueryParser#parse_query",
+   "language": "Ruby",
+   "line": "36-57",
+   "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/query_parser.rb#L36-L57",
+   "code_excerpt": "def parse_query(qs, d = nil, &unescaper)\n  unescaper ||= method(:unescape)\n\n  params = make_params\n\n  (qs || '').split(d ? (COMMON_SEP[d] || /[#{d}] */n) : DEFAULT_SEP).each do |p|\n    next if p.empty?\n    k, v = p.split('=', 2).map!(&unescaper)\n\n    if cur = params[k]\n      if cur.class == Array\n        params[k] << v\n      else\n        params[k] = [cur, v]\n      end\n    else\n      params[k] = v\n    end\n  end\n\n  return params.to_h\nend",
+   "description": "parse_query 把整条 query string 按 &/; 切分，为每个键值对无条件写入一个 Hash（重复键退化为数组），循环次数只取决于输入长度，没有任何参数总数或字节数上限。唯一存在的约束是 key_space_limit：Params#[]= 只累加新键的字节数（169-172），值长度和参数个数完全不受限。因此单个请求可以携带几十万个参数，解析过程在内存里构建同规模的 Hash/Array 并消耗 CPU，直到 worker 被 OOM 或拖垮。修复 2bb5263 / 3f5a424 在 parse_query 与 parse_nested_query 入口调用 check_query_string，超过 BYTESIZE_LIMIT（4MB）或 PARAMS_LIMIT（4096）即抛 QueryLimitError。"
+  },
+  "entry_point": {
+   "file": "lib/rack/request.rb",
+   "function": "Rack::Request#GET / Rack::Request#POST",
+   "language": "Ruby",
+   "line": "426-435 (GET), 440-457 (POST)",
+   "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/request.rb#L426-L457",
+   "description": "Rack 应用读取 params 时走 Rack::Request#GET：它把 env['QUERY_STRING'] 交给 parse_query(query_string, '&;')（430 行）。表单提交走 POST，对 application/x-www-form-urlencoded 请求体调用 parse_query(form_vars, '&')（454 行）。两条路径共用同一个无上限解析器；攻击者控制的就是 URL query string 或请求体，默认配置（make_default(65536, 100)，utils.rb:30）只限制键空间和嵌套深度，不限制参数个数。"
+  },
+  "trace": [
+   {
+    "file": "lib/rack/request.rb",
+    "function": "Rack::Request#GET",
+    "language": "Ruby",
+    "line": 430,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/request.rb#L430",
+    "description": "query_hash = parse_query(query_string, '&;') —— 未经任何长度/计数检查就进入解析器；结果随后缓存在 RACK_REQUEST_QUERY_HASH。"
+   },
+   {
+    "file": "lib/rack/query_parser.rb",
+    "function": "Rack::QueryParser#parse_query",
+    "language": "Ruby",
+    "line": 36,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/query_parser.rb#L36",
+    "description": "解析器入口：make_params 只创建一个受 key_space_limit 约束的 Params 容器，没有对 qs 的 bytesize 或分隔符数量做检查。"
+   },
+   {
+    "file": "lib/rack/query_parser.rb",
+    "function": "Rack::QueryParser#parse_query",
+    "language": "Ruby",
+    "line": 41,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/query_parser.rb#L41",
+    "description": "(qs || '').split(...).each —— split 会先按分隔符构造出与参数个数同规模的数组，再逐个插入 Hash；输入参数越多，瞬时内存和循环次数线性增长，没有中途退出条件。"
+   },
+   {
+    "file": "lib/rack/query_parser.rb",
+    "function": "Rack::QueryParser::Params#[]=",
+    "language": "Ruby",
+    "line": "169-172",
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/query_parser.rb#L169-L172",
+    "description": "@size += key.size if key && !@params.key?(key) —— 只累计新键的字节数，且只与 key_space_limit 比较；值的字节数和新参数个数的增加对 @size 没有影响，因此大量短键或长值都能绕过。"
+   },
+   {
+    "file": "lib/rack/query_parser.rb",
+    "function": "Rack::QueryParser#parse_query",
+    "language": "Ruby",
+    "line": 56,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/query_parser.rb#L56",
+    "description": "params.to_h 把完整结果转换成 Hash 返回，规模由攻击者输入决定，随后被 Request#GET 缓存。"
+   }
+  ]
+ },
+ "evidence": [
+  {
+   "evidence_id": "ev_rack_osv",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/osv_GHSA-gjh7-p2fx-99vx.json",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-gjh7-p2fx-99vx",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "4b90666e621c1da81d875317d01dd50f0570f7f0f6a917c0bf1afe9e7a180753",
+   "verification_method": "OSV API query by GHSA id; response cached",
+   "result": "PASS",
+   "supports": [
+    "GHSA-gjh7-p2fx-99vx aliases CVE-2025-46727; github_reviewed true; published 2025-05-08T14:45:48Z",
+    "details: Rack::QueryParser parses query strings and application/x-www-form-urlencoded bodies without a limit on the number of parameters; a single request with hundreds of thousands of parameters exhausts memory and CPU",
+    "RubyGems rack ECOSYSTEM ranges 0 -> 2.2.14, 3.0 -> 3.0.16, 3.1 -> 3.1.14",
+    "database_specific severity HIGH and cwe_ids [CWE-400]; references name commits 2bb5263b, 3f5a4249, cd6b70a1"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_cve_v5",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/cve_v5_CVE-2025-46727.json",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-46727",
+   "retrieved_at": "2026-10-22T01:10:00Z",
+   "sha256_of_observation": "4a747054c38d564d4531b50ff8d40e957a0877c35977662ef7fab3f399b010a8",
+   "verification_method": "CVE List v5 record (CNA GitHub_M)",
+   "result": "PASS",
+   "supports": [
+    "state PUBLISHED, datePublished 2025-05-07T23:07:40.563Z",
+    "CNA description: prior to 2.2.14, 3.0.16 and 3.1.14 the parser iterates each &-separated key-value pair and adds it to a Hash without an upper bound on the total parameter count",
+    "CNA affected versions: < 2.2.14, >= 3.0 < 3.0.16, >= 3.1 < 3.1.14",
+    "CNA CVSS 3.1 7.5 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "problemTypes CWE-400 and CWE-770"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_nvd",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/nvd_CVE-2025-46727.json",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-46727",
+   "retrieved_at": "2026-10-22T01:17:00Z",
+   "sha256_of_observation": "72b1d3113a3d02d0e3812879c425b9141ae4ab15eaf4c368c92a68dae603f490",
+   "verification_method": "NVD 2.0 API",
+   "result": "PASS",
+   "supports": [
+    "published 2025-05-07T23:15:54.267, status Analyzed",
+    "Primary metric nvd@nist.gov CVSS 3.1 7.5 HIGH, same vector as the CNA; Secondary metric from security-advisories@github.com identical",
+    "weaknesses from security-advisories@github.com: CWE-400 and CWE-770",
+    "affected versions repeat the CNA list, including < 2.2.14"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_snapshot_tags",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/tag_refs_46727.txt",
+   "source_url": "https://github.com/rack/rack",
+   "retrieved_at": "2026-10-22T01:20:00Z",
+   "sha256_of_observation": "a4e7d6d27f4aef19aaf343e8f8ddf1d8787c3d5fc6ef76d0e1fbdf976b4b93e2",
+   "verification_method": "git ls-remote --tags against https://github.com/rack/rack.git (annotated tag peel lines included)",
+   "result": "PASS",
+   "supports": [
+    "tag 2.2.3 is the annotated tag object 4d456648c521ad1392afcd8ae35e332c83a09849, peeling to commit 1741c580d71cfca8e541e96cc372305c8892ee74 (the snapshot commit)",
+    "tag v2.2.13 is 0c9d2331, peeling to df6c47357f6c6bec2d585f45f417285d813d9b3a",
+    "tag v2.2.14 is ab067a33, peeling to d0dcf75706d72d7e874ee31934a97881c1a439ce"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_vuln_parser",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/query_parser_2.2.3.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/query_parser.rb",
+   "retrieved_at": "2026-10-22T01:18:00Z",
+   "sha256_of_observation": "38974825b7b551c42123e89461bb784ebde58edaad43a7eec82a7942a74e10f7",
+   "verification_method": "raw file at the exact snapshot commit; git hash-object compared with git rev-parse 1741c580:lib/rack/query_parser.rb",
+   "result": "PASS",
+   "supports": [
+    "217 lines, git blob dbbb18e5a250d6977a50d4a53e5f108d354fbdf0 (identical to the blob at the snapshot commit)",
+    "parse_query (36-57) splits the query string and inserts every k/v pair into Params with no bound on iteration count (loop 41-54)",
+    "Params#[]= (169-172) only accounts for key bytes against key_space_limit; values and the number of parameters are unbounded",
+    "no check of query bytesize or parameter count anywhere in the file"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_prev_release",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/query_parser_v2.2.13.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/v2.2.13/lib/rack/query_parser.rb",
+   "retrieved_at": "2026-10-22T01:19:00Z",
+   "sha256_of_observation": "40de3c11f0ece20da1e79852d43c8634c88ee4010be1c7aefe4d574cee8fa51c",
+   "verification_method": "raw file at tag v2.2.13; git hash-object compared with the tag's blob",
+   "result": "PASS",
+   "supports": [
+    "git blob 1c3923c32ff794175c165b3cf2cfc578638ca567, matching the v2.2.13 tag peel",
+    "one release before the fix the file still has no bytesize or parameter-count check: parse_query begins by calling make_params and splitting directly"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_fixed_release",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/query_parser_v2.2.14.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/v2.2.14/lib/rack/query_parser.rb",
+   "retrieved_at": "2026-10-22T01:19:00Z",
+   "sha256_of_observation": "042e57728f6e6594deb8a8cd8aec0337705a0ec21b1417babf92667b7f89c12d",
+   "verification_method": "raw file at tag v2.2.14; git hash-object compared with git rev-parse d0dcf75:lib/rack/query_parser.rb",
+   "result": "PASS",
+   "supports": [
+    "git blob d9b1e876fe8fd2ddce7aa463478bed142d5c2b91 (identical to the file at the v2.2.14 tag commit)",
+    "BYTESIZE_LIMIT 4194304 (48) and PARAMS_LIMIT 4096 (51), overridable via RACK_QUERY_PARSER_BYTESIZE_LIMIT / RACK_QUERY_PARSER_PARAMS_LIMIT",
+    "check_query_string (185-200) is called by both parse_query (72) and parse_nested_query (99) and raises QueryLimitError above either limit",
+    "QueryLimitError aliases ParamsTooDeepError so existing rescues cover the new limits"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_fix_main",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/fix_2bb5263.patch",
+   "source_url": "https://github.com/rack/rack/commit/2bb5263b464b65ba4b648996a579dbd180d2b712",
+   "retrieved_at": "2026-10-22T01:22:00Z",
+   "sha256_of_observation": "e51f42160d8b79b5fcac1ae23be877c5dbc9acc9d2d9716f7bec4ce995b15bc6",
+   "verification_method": "commit patch downloaded from github.com/<repo>/commit/<sha>.patch",
+   "result": "PASS",
+   "supports": [
+    "2bb5263b464b65ba4b648996a579dbd180d2b712, 2025-05-06, 'Merge commit from fork' / 'Apply bytesize and number of param limits in QueryParser'",
+    "adds QueryLimitError, BYTESIZE_LIMIT 4194304, PARAMS_LIMIT 4096, check_query_string and calls it from parse_query and parse_nested_query",
+    "CHANGELOG entry for 3.0.16 cites CVE-2025-46727 and GHSA-gjh7-p2fx-99vx"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_fix_2_2",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/fix_3f5a424_2.2.patch",
+   "source_url": "https://github.com/rack/rack/commit/3f5a4249118d09d199fe480466c8c6717e43b6e3",
+   "retrieved_at": "2026-10-22T01:22:00Z",
+   "sha256_of_observation": "56b4b6c8f23a4337a1f8cf176995c89e7363ef238588936ecc652d4645eb30e8",
+   "verification_method": "commit patch downloaded from github.com/<repo>/commit/<sha>.patch",
+   "result": "PASS",
+   "supports": [
+    "3f5a4249118d09d199fe480466c8c6717e43b6e3 is the 2.2-line fix; its parent-state blob for lib/rack/query_parser.rb is 1c3923c32, exactly the v2.2.13 file",
+    "applying the patch to the v2.2.13 file yields a6f6d68c2, which differs from the shipped v2.2.14 blob d9b1e876 only in the unescape signature",
+    "adds the same limits and check_query_string as the 3.x fix"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_ancestry",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/ancestry_2.2.14.txt",
+   "source_url": "https://github.com/rack/rack",
+   "retrieved_at": "2026-10-22T01:24:00Z",
+   "sha256_of_observation": "df1d2bc8ee9a2e9c6cfeda5e1fb2a483067b2d4287191fbd7ad12893b82913a0",
+   "verification_method": "exact-SHA fetch into a bare repository (filter blob:none); git merge-base --is-ancestor; git log; git rev-parse <commit>:<path>",
+   "result": "PASS",
+   "supports": [
+    "3f5a4249 IS an ancestor of the v2.2.14 commit d0dcf75; 2bb5263b (main) and cd6b70a1 (3.x) are NOT, so the 2.2 fix is a backport and commit ancestry alone cannot tie the release to the main-branch fix",
+    "log of d0dcf75: 'Bump patch version.' <- fd44bd7 'Remove 2nd argument to `unescape`.' <- 3f5a4249 'Merge commit from fork' <- c48e52f7",
+    "the fd44bd7 follow-up explains the only difference between the 3f5a424 post-image and the shipped v2.2.14 file",
+    "blob at 2.2.3 is dbbb18e5, at v2.2.13 is 1c3923c32, at v2.2.14 is d9b1e876"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_entry",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/request_2.2.3.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/request.rb",
+   "retrieved_at": "2026-10-22T01:18:00Z",
+   "sha256_of_observation": "a18487c4dae8ac56df53895215391104ce8c2eb55662b57dd9dd8b73cfe8227d",
+   "verification_method": "raw file at the exact snapshot commit",
+   "result": "PASS",
+   "supports": [
+    "Rack::Request#GET (426-435) calls parse_query(query_string, '&;') at line 430 on the request's QUERY_STRING",
+    "Rack::Request#POST (440-457) calls parse_query(form_vars, '&') at line 454 for application/x-www-form-urlencoded bodies",
+    "both paths go through the same unbounded parser; Rack::Request is the object rack applications read params from"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_defaults",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/utils_2.2.3.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/utils.rb",
+   "retrieved_at": "2026-10-22T01:18:00Z",
+   "sha256_of_observation": "47e11477180a2616e6bd0bd0331a7f3c1eb91711c32eaccc604f7ee7515dbf2f",
+   "verification_method": "raw file at the exact snapshot commit",
+   "result": "PASS",
+   "supports": [
+    "Rack::Utils.default_query_parser = QueryParser.make_default(65536, 100) (line 30): 65536 is the key-space limit and 100 the nesting depth limit",
+    "neither argument bounds the number of parameters or the total query bytes, which is the gap the fix closes"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack_blobs",
+   "artifact_path": "runs/verification/rack_cve_2025_46727/sources/git_object_checks.txt",
+   "source_url": "https://github.com/rack/rack",
+   "retrieved_at": "2026-10-22T01:23:00Z",
+   "sha256_of_observation": "fe68a8176a9a80e7ad4b7efad6c9b629aa02fc4c0797a1e8732fdf4fe17dedda",
+   "verification_method": "exact-SHA bare fetch; git rev-parse <commit>:lib/rack/query_parser.rb; git hash-object on the saved copies",
+   "result": "PASS",
+   "supports": [
+    "blob at 2.2.3 = dbbb18e5, at v2.2.14 = d9b1e876, at 2bb5263 = 3d44db99",
+    "the local copies hash to the same values (query_parser_2.2.3.rb dbbb18e5, query_parser_v2.2.14.rb d9b1e876, query_parser_v2.2.13.rb 1c3923c32)",
+    "2bb5263 is not an ancestor of either 1741c580 (2.2.3) or d0dcf75 (v2.2.14)"
+   ]
+  }
+ ],
+ "field_evidence": {
+  "aliases": [
+   0,
+   1
+  ],
+  "severity": [
+   0,
+   1,
+   2
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   0,
+   1,
+   7,
+   8,
+   9
+  ],
+  "fixed_releases": [
+   6,
+   8,
+   9
+  ],
+  "vulnerable_commit": [
+   4,
+   8,
+   9,
+   11
+  ],
+  "critical_operation": [
+   4,
+   5,
+   7,
+   8
+  ],
+  "location": [
+   4,
+   5,
+   6
+  ],
+  "languages": [
+   4,
+   10
+  ]
+ },
+ "field_evidence_note": "field_evidence 映射 schema 字段 → evidence 下标（0 起）。每个下标对应本档案 evidence 数组中的一条观测，逐条可由 artifact_path 与 sha256_of_observation 复核；不把公告文本本身当作代码层证据，代码层结论均指向 2.2.3、v2.2.13、v2.2.14 的 raw 文件与 git blob 校验。",
+ "source_crosscheck": {
+  "families": [
+   "OSV GHSA-gjh7-p2fx-99vx (RubyGems rack intervals 2.2.14 / 3.0.16 / 3.1.14)",
+   "CVE List v5 (CNA GitHub_M, CVSS 3.1 7.5, CWE-400 + CWE-770)",
+   "NVD 2.0 (Primary nvd@nist.gov 7.5, Secondary GitHub 7.5, weaknesses CWE-400 + CWE-770)",
+   "upstream git: tags 2.2.3 / v2.2.13 / v2.2.14 and fix commits 2bb5263, 3f5a424, cd6b70a"
+  ],
+  "independent_of_primary": true,
+  "notes": "CNA、NVD 与 OSV 在三个修复版本、CVSS 向量与 CWE 上完全一致；技术描述同源于 GitHub advisory。唯一的独立材料是上游 git 本身：2.2.3 的 parser 无任何计数限制，v2.2.14 的 parser 引入 4MB/4096 限制，且 3f5a424 是 v2.2.14 tag 提交的祖先。分级冲突仅存在于 SSVC（CISA ADP: Automatable yes / Technical Impact partial），与 CVSS 等级无关。",
+  "severity_disagreement": false
+ },
+ "review": {
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read lib/rack/query_parser.rb at 2.2.3 (commit 1741c580) and confirm the parse_query loop writes every parameter into Params with no count/bytesize bound, and that Params#[]= constrains key bytes only.",
+   "An independent reviewer must confirm that lib/rack/request.rb GET (430) and POST (454) both reach this parser from attacker-controlled input.",
+   "An independent reviewer must confirm the v2.2.14 file (blob d9b1e876) contains check_query_string with the 4194304/4096 defaults and that 3f5a424 is an ancestor of the v2.2.14 tag commit.",
+   "No formal reviews row may be written until a named independent reviewer returns a verdict."
+  ],
+  "status": "PENDING_INDEPENDENT_REVIEW"
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No Ruby code was executed and no query string was parsed: the resource-exhaustion impact is read from the code path and the advisory, not measured.",
+  "Only the 2.2 line was mapped. 3.0.x and 3.1.x carry the same unchecked parser and are fixed by 3.0.16 / 3.1.14, but those files were not read here.",
+  "The 2.2 fix commit 3f5a424 is a backport; the main-branch commit 2bb5263 is NOT an ancestor of the v2.2.14 tag. Fixed-release content was verified by git blob identity plus ancestry of 3f5a424, not by ancestry of 2bb5263.",
+  "Whether an individual application limits query length upstream (reverse proxy, server, middleware) decides the practical impact; the advisory itself lists those as mitigations and this dossier makes no claim about any specific deployment.",
+  "CWE-400 and CWE-770 both come from the CNA; NVD publishes the same pair from the GitHub source rather than an independent root-cause analysis."
+ ],
+ "open_questions": [
+  "Whether the multipart path in Rack::Request#POST has a separate parameter-count limit in 2.2.3 (it is not the query parser and was not mapped here).",
+  "Whether Rack::QueryParser.max_keys or any Rack::Utils configuration in applications can bound the count in practice.",
+  "Whether a public non-vendor analysis of this CVE exists; none is saved in sources."
+ ]
+}

@@ -1,0 +1,24 @@
+{
+  "key": "rails_actioncable",
+  "repository": "rails/rails",
+  "path": "actioncable/actioncable.gemspec",
+  "retrieved_at": "2026-10-21T10:56:17.674Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"../RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"actioncable\"\n  s.version     = version\n  s.summary     = \"WebSocket framework for Rails.\"\n  s.description = \"Structure many real-time application concerns into channels over a single WebSocket connection.\"\n\n  s.required_ruby_version = \">= 3.3.5\"\n\n  s.license = \"MIT\"\n\n  s.author   = [\"Pratik Naik\", \"David Heinemeier Hansson\"]\n  s.email    = [\"pratiknaik@gmail.com\", \"david@loudthinking.com\"]\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files        = Dir[\"CHANGELOG.md\", \"MIT-LICENSE\", \"README.md\", \"lib/**/*\", \"app/assets/javascripts/*.js\"]\n  s.require_path = \"lib\"\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/blob/v#{version}/actioncable/CHANGELOG.md\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}/actioncable\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  # NOTE: Please read our dependency guidelines before updating versions:\n  # https://edgeguides.rubyonrails.org/security.html#dependency-management-and-cves\n\n  s.add_dependency \"activesupport\", version\n  s.add_dependency \"actionpack\", version\n\n  s.add_dependency \"nio4r\",            \"~> 2.0\"\n  s.add_dependency \"websocket-driver\", \">= 0.6.1\"\n  s.add_dependency \"zeitwerk\",         \"~> 2.6\"\nend\n",
+      "encoding": "utf-8",
+      "sha": "253473da013f73a74d89dc21b325eb06493bc00b",
+      "display_url": "https://github.com/rails/rails/blob/main/actioncable/actioncable.gemspec",
+      "display_title": "actioncable.gemspec"
+    },
+    "isError": false
+  }
+}

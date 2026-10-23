@@ -1,0 +1,27 @@
+commit 08892bffd275c79ee1f8f67639eb170aaaf1181e
+Author: Mariusz Felisiak <felisiak.mariusz@gmail.com>
+Date:   Fri Aug 21 11:44:46 2020 +0200
+
+    [3.0.x] Fixed CVE-2020-24583, #31921 -- Fixed permissions on intermediate-level static and storage directories on Python 3.7+.
+    
+    Thanks WhiteSage for the report.
+    
+    Backport of ea0febbba531a3ecc8c77b570efbfb68ca7155db from master.
+
+diff --git a/django/core/files/storage.py b/django/core/files/storage.py
+index 4c27fce605..af70b3fa15 100644
+--- a/django/core/files/storage.py
++++ b/django/core/files/storage.py
+@@ -237,9 +237,9 @@ class FileSystemStorage(Storage):
+         directory = os.path.dirname(full_path)
+         try:
+             if self.directory_permissions_mode is not None:
+-                # os.makedirs applies the global umask, so we reset it,
+-                # for consistency with file_permissions_mode behavior.
+-                old_umask = os.umask(0)
++                # Set the umask because os.makedirs() doesn't apply the "mode"
++                # argument to intermediate-level directories.
++                old_umask = os.umask(0o777 & ~self.directory_permissions_mode)
+                 try:
+                     os.makedirs(directory, self.directory_permissions_mode, exist_ok=True)
+                 finally:

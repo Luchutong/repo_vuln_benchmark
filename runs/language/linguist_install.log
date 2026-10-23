@@ -1,0 +1,115 @@
+Building native extensions. This could take a while...
+ERROR:  Error installing github-linguist:
+	ERROR: Failed to build gem native extension.
+
+    current directory: /home/luchitong/work/repo-vuln-50-v02/tools/gems/gems/rugged-1.9.6/ext/rugged
+/usr/bin/ruby3.2 -I/usr/lib/ruby/vendor_ruby extconf.rb
+checking for gmake... yes
+checking for cmake... yes
+checking for pkg-config... yes
+-- The C compiler identification is GNU 13.3.0
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Found PkgConfig: /usr/bin/pkg-config (found version "1.8.1") 
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIM
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIM - Success
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIMESPEC
+-- Performing Test HAVE_STRUCT_STAT_ST_MTIMESPEC - Failed
+-- Performing Test HAVE_STRUCT_STAT_MTIME_NSEC
+-- Performing Test HAVE_STRUCT_STAT_MTIME_NSEC - Failed
+-- Performing Test HAVE_STRUCT_STAT_NSEC
+-- Performing Test HAVE_STRUCT_STAT_NSEC - Success
+-- Looking for futimens
+-- Looking for futimens - found
+-- Performing Test IS_WALL_SUPPORTED
+-- Performing Test IS_WALL_SUPPORTED - Success
+-- Performing Test IS_WEXTRA_SUPPORTED
+-- Performing Test IS_WEXTRA_SUPPORTED - Success
+-- Performing Test IS_FVISIBILITY_HIDDEN_SUPPORTED
+-- Performing Test IS_FVISIBILITY_HIDDEN_SUPPORTED - Success
+-- Performing Test IS_WDOCUMENTATION_SUPPORTED
+-- Performing Test IS_WDOCUMENTATION_SUPPORTED - Failed
+-- Performing Test IS_WNO_DOCUMENTATION_DEPRECATED_SYNC_SUPPORTED
+-- Performing Test IS_WNO_DOCUMENTATION_DEPRECATED_SYNC_SUPPORTED - Success
+-- Performing Test IS_WNO_MISSING_FIELD_INITIALIZERS_SUPPORTED
+-- Performing Test IS_WNO_MISSING_FIELD_INITIALIZERS_SUPPORTED - Success
+-- Performing Test IS_WMISSING_DECLARATIONS_SUPPORTED
+-- Performing Test IS_WMISSING_DECLARATIONS_SUPPORTED - Success
+-- Performing Test IS_WSTRICT_ALIASING_SUPPORTED
+-- Performing Test IS_WSTRICT_ALIASING_SUPPORTED - Success
+-- Performing Test IS_WSTRICT_PROTOTYPES_SUPPORTED
+-- Performing Test IS_WSTRICT_PROTOTYPES_SUPPORTED - Success
+-- Performing Test IS_WDECLARATION_AFTER_STATEMENT_SUPPORTED
+-- Performing Test IS_WDECLARATION_AFTER_STATEMENT_SUPPORTED - Success
+-- Performing Test IS_WSHIFT_COUNT_OVERFLOW_SUPPORTED
+-- Performing Test IS_WSHIFT_COUNT_OVERFLOW_SUPPORTED - Success
+-- Performing Test IS_WUNUSED_CONST_VARIABLE_SUPPORTED
+-- Performing Test IS_WUNUSED_CONST_VARIABLE_SUPPORTED - Success
+-- Performing Test IS_WUNUSED_FUNCTION_SUPPORTED
+-- Performing Test IS_WUNUSED_FUNCTION_SUPPORTED - Success
+-- Performing Test IS_WINT_CONVERSION_SUPPORTED
+-- Performing Test IS_WINT_CONVERSION_SUPPORTED - Success
+-- Performing Test IS_WC11_EXTENSIONS_SUPPORTED
+-- Performing Test IS_WC11_EXTENSIONS_SUPPORTED - Failed
+-- Performing Test IS_WC99_C11_COMPAT_SUPPORTED
+-- Performing Test IS_WC99_C11_COMPAT_SUPPORTED - Success
+-- Performing Test IS_WFORMAT_SUPPORTED
+-- Performing Test IS_WFORMAT_SUPPORTED - Success
+-- Performing Test IS_WFORMAT_SECURITY_SUPPORTED
+-- Performing Test IS_WFORMAT_SECURITY_SUPPORTED - Success
+-- Checking for module 'heimdal-gssapi'
+--   Package 'heimdal-gssapi', required by 'virtual:world', not found
+-- Could NOT find GSSAPI (missing: GSSAPI_LIBRARIES GSSAPI_INCLUDE_DIR) 
+-- Could NOT find OpenSSL, try to set the path to OpenSSL root folder in the system variable OPENSSL_ROOT_DIR (missing: OPENSSL_CRYPTO_LIBRARY OPENSSL_INCLUDE_DIR) 
+CMake Error at cmake/SelectHTTPSBackend.cmake:34 (message):
+  Unable to autodetect a usable HTTPS backend.Please pass the backend name
+  explicitly (-DUSE_HTTPS=backend)
+Call Stack (most recent call first):
+  src/CMakeLists.txt:40 (include)
+
+
+-- Configuring incomplete, errors occurred!
+ -- /usr/bin/gmake
+*** extconf.rb failed ***
+Could not create Makefile due to some reason, probably lack of necessary
+libraries and/or headers.  Check the mkmf.log file for more details.  You may
+need configuration options.
+
+Provided configuration options:
+	--with-opt-dir
+	--without-opt-dir
+	--with-opt-include
+	--without-opt-include=${opt-dir}/include
+	--with-opt-lib
+	--without-opt-lib=${opt-dir}/lib
+	--with-make-prog
+	--without-make-prog
+	--srcdir=.
+	--curdir
+	--ruby=/usr/bin/$(RUBY_BASE_NAME)3.2
+	--with-sha1dc
+	--without-sha1dc
+	--with-ssh
+	--without-ssh
+	--use-system-libraries
+extconf.rb:26:in `sys': ERROR: '/usr/bin/gmake' failed (RuntimeError)
+	from extconf.rb:110:in `block (2 levels) in <main>'
+	from extconf.rb:106:in `chdir'
+	from extconf.rb:106:in `block in <main>'
+	from extconf.rb:103:in `chdir'
+	from extconf.rb:103:in `<main>'
+
+To see why this extension failed to compile, please check the mkmf.log which can be found here:
+
+  /home/luchitong/work/repo-vuln-50-v02/tools/gems/extensions/x86_64-linux-gnu/3.2.0/rugged-1.9.6/mkmf.log
+
+extconf failed, exit code 1
+
+Gem files will remain installed in /home/luchitong/work/repo-vuln-50-v02/tools/gems/gems/rugged-1.9.6 for inspection.
+Results logged to /home/luchitong/work/repo-vuln-50-v02/tools/gems/extensions/x86_64-linux-gnu/3.2.0/rugged-1.9.6/gem_make.out

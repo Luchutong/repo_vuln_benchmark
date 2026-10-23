@@ -1,0 +1,457 @@
+{
+  "candidate_id": "disc2_d12201f77a9259e4fb0967f5",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/osv_ghsa.json",
+      "evidence_id": "ev_django9402_osv_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:53:00Z",
+      "sha256_of_observation": "83db412dcb5fc29f9872f29232cbee6360df32a78a53c1a0ea16d8d38c764077",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-3gh2-xw74-jmcw",
+      "supports": [
+        "GHSA-3gh2-xw74-jmcw aliases CVE-2020-9402, BIT-django-2020-9402 and PYSEC-2020-36",
+        "three PyPI ranges: >=1.11 <1.11.29, >=2.2 <2.2.11, >=3.0 <3.0.4",
+        "severity is CVSS 3.1 AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H (8.8) and CVSS 4.0 AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N",
+        "database_specific records severity HIGH and cwe_ids CWE-89",
+        "the details text limits exploitation to GIS functions and aggregates on Oracle",
+        "the references list only the master fix commit 6695d29b1c1ce979725816295a26ecc64ae0e927"
+      ],
+      "verification_method": "OSV API query"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/cve_v5.json",
+      "evidence_id": "ev_django9402_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:53:00Z",
+      "sha256_of_observation": "ce4ea0ad44f46e20bf5c7ed45fad113e8cc5081f0d6e9d292093c63eeb6620cf",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2020-9402",
+      "supports": [
+        "CVE-2020-9402 is PUBLISHED, assigned by mitre, datePublished 2020-03-05T14:49:57Z",
+        "the description names Django 1.11 before 1.11.29, 2.2 before 2.2.11 and 3.0 before 3.0.4, and restricts the issue to a tolerance parameter in GIS functions and aggregates on Oracle",
+        "the CNA affected entry is a placeholder (vendor/product/version all n/a) with no usable range, no CVSS and no problemType",
+        "the references include the djangoproject.com security-release announcement"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/nvd_cve.json",
+      "evidence_id": "ev_django9402_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:53:00Z",
+      "sha256_of_observation": "07704ce65be0a9d7a83564bab39de2162747f9618e6279149d4f1d16e314dbdd",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2020-9402",
+      "supports": [
+        "NVD primary CVSS 3.1 8.8 HIGH AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+        "NVD assigns CWE-89",
+        "CPE ranges 1.11 <= v < 1.11.29, 2.2 <= v < 2.2.11 and 3.0 <= v < 3.0.4",
+        "NVD status Modified, published 2020-03-05T15:15:12.410 and last modified 2026-06-17"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/djangoproject_security.html",
+      "evidence_id": "ev_django9402_advisory",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:53:00Z",
+      "sha256_of_observation": "9bed33322a6f5952d1cdb20fc83c4a8314257189305d717858ca3c307559b9d0",
+      "source_url": "https://www.djangoproject.com/weblog/2020/mar/04/security-releases/",
+      "supports": [
+        "the announcement is dated March 4, 2020 and is titled 'Django security releases issued: 3.0.4, 2.2.11, and 1.11.29'",
+        "CVE-2020-9402 is described as potential SQL injection via the tolerance parameter in GIS functions and aggregates on Oracle",
+        "the affected lines are master, 3.0, 2.2 and 1.11; the fixed releases are 3.0.4, 2.2.11 and 1.11.29",
+        "the announcement links four branch-specific changesets: 6695d29b (master), 26a5cf83 (3.0), fe886a3b (2.2) and 02d97f3c (1.11)",
+        "the reporter is credited as Norbert Szetei of Doyensec"
+      ],
+      "verification_method": "upstream announcement HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/git_object_checks.txt",
+      "evidence_id": "ev_django9402_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:56:00Z",
+      "sha256_of_observation": "60793bd23a666bdb99f7df649d1e175125143386bd55298286227641ab71dd62",
+      "source_url": "https://github.com/django/django/commit/26a5cf834526e291db00385dd33d319b8271fc4c",
+      "supports": [
+        "Django refs/tags/3.0.2 peels to a36974395ebc03a41928db1743074575b143330d",
+        "refs/tags/3.0.3 peels to c459a4661b2e96b53d3784c76e1fd5651b8cdc4a",
+        "refs/tags/3.0.4 peels to c2250cfb80e27cdf8d098428824da2800a18cadf",
+        "refs/tags/2.2.11 peels to 167699278806b21757104acf0ff0570f673d44c7",
+        "refs/tags/1.11.29 peels to f1e3017aeaeddc590dcf2cf88511f3a726da73ca",
+        "26a5cf83 is the 3.0.x fix, parent c5cfaad2, dated 2020-02-24, subject '[3.0.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.'",
+        "26a5cf83 is an ancestor of 3.0.4 and absent from 3.0.2 and 3.0.3",
+        "the master fix 6695d29b is not an ancestor of the 3.0.2 or 3.0.4 tags; the separate 2.2.x and 1.11.x fixes are ancestors of 2.2.11 and 1.11.29 respectively",
+        "the pre-fix blob of django/contrib/gis/db/models/functions.py at 3.0.2, 3.0.3 and fix parent c5cfaad2 is a79067a45ad8bb6c4dce3ce19e0a9be80454f525; the post-fix blob at 3.0.4 is 1b0a2a427ba5c6e62e11c14286d59c64fc7e1a25",
+        "the pre-fix blob of django/contrib/gis/db/models/aggregates.py at 3.0.2, 3.0.3 and fix parent c5cfaad2 is 993d9f91fcb37be42e86c9d60d85da2df4f9ec7e; the post-fix blob at 3.0.4 is 9d169275c59b2db71f1dad81591fab418f61aa33",
+        "the 3.0.2 tree lists 6163 tracked files and the 3.0.4 tree lists 6173",
+        "the 3.0.4 fixed source wraps the tolerance in Value(self._handle_param(..., NUMERIC_TYPES)) and appends it as a source expression; the aggregate appends Value(tolerance)",
+        "the 1.11.29 branch uses a different but equivalent fix shape: _handle_param rejects non-numeric values before the template is formatted"
+      ],
+      "verification_method": "exact-tag shallow fetches into a bare repository; git rev-parse of peeled tags; merge-base --is-ancestor in both directions; blob identity checks; git grep of fixed tags"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/functions_3.0.2.py",
+      "evidence_id": "ev_django9402_vuln_functions",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "fcf24b6a697cc8a6bfb69d55d8f9c65ed4f973a50648aa218f3c2ce68cf3802a",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/gis/db/models/functions.py#L113-L119",
+      "supports": [
+        "OracleToleranceMixin.as_oracle at lines 113-119 reads self.extra['tolerance'] or the class default at line 114",
+        "line 117 builds the SQL template with the Python % operator, interpolating the tolerance value into a %s placeholder",
+        "the tolerance is not wrapped in Value or added to the source expressions, so it is template text rather than a bound parameter"
+      ],
+      "verification_method": "file read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/functions_3.0.4.py",
+      "evidence_id": "ev_django9402_fixed_functions",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "e0c19ce36443c1c1f902dacdf392b561023b6ef04d1a8e47ff41d2a6eed45584",
+      "source_url": "https://github.com/django/django/blob/c2250cfb80e27cdf8d098428824da2800a18cadf/django/contrib/gis/db/models/functions.py#L113-L121",
+      "supports": [
+        "the fixed as_oracle no longer formats a template with the tolerance value",
+        "it wraps _handle_param(..., 'tolerance', NUMERIC_TYPES) in Value, so a string tolerance raises TypeError before SQL is built",
+        "a numeric tolerance becomes a source expression compiled with its own bound parameter"
+      ],
+      "verification_method": "file read at the 3.0.4 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/aggregates_3.0.2.py",
+      "evidence_id": "ev_django9402_vuln_aggregates",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "3bc00d8f288c1b6780f76fde7cb7de72bd3a51f2c7582c5fe2277b8e80a61470",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/gis/db/models/aggregates.py#L29-L32",
+      "supports": [
+        "GeoAggregate.as_oracle at lines 29-32 reads self.extra['tolerance'] at line 30",
+        "line 31 places %(tolerance)s directly inside the SDOAGGRTYPE SQL template",
+        "line 32 passes tolerance as extra template data to as_sql, not as a source expression or bound parameter"
+      ],
+      "verification_method": "file read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/aggregates_3.0.4.py",
+      "evidence_id": "ev_django9402_fixed_aggregates",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "f4bea8a8f6ddcdfe8f3798472aaef8cde91965119a88b407f96b4415b55df075",
+      "source_url": "https://github.com/django/django/blob/c2250cfb80e27cdf8d098428824da2800a18cadf/django/contrib/gis/db/models/aggregates.py#L30-L39",
+      "supports": [
+        "the fixed aggregate clones itself and appends Value(tolerance) to the source expressions",
+        "the SDOAGGRTYPE template now contains only %(function)s and %(expressions)s, with no raw tolerance placeholder"
+      ],
+      "verification_method": "file read at the 3.0.4 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/fix_diff_3.0.x.txt",
+      "evidence_id": "ev_django9402_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "e09d8de52b0daa526b806de1092326e537081267341f0fb1996c1a417eb81835",
+      "source_url": "https://github.com/django/django/commit/26a5cf834526e291db00385dd33d319b8271fc4c",
+      "supports": [
+        "the 3.0.x fix removes the template string formatting of tolerance from functions.py",
+        "the fix removes the %(tolerance)s placeholder from the aggregate template and appends Value(tolerance)",
+        "the diff touches only django/contrib/gis/db/models/aggregates.py and django/contrib/gis/db/models/functions.py in the code paths"
+      ],
+      "verification_method": "git show of the fix commit, code paths only"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/test_diff_3.0.x.txt",
+      "evidence_id": "ev_django9402_regression_test",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "16143cf228a46ced02e166710c7b2e5260fb3b1cd1c9f91e095b5bc7f274a012",
+      "source_url": "https://github.com/django/django/commit/26a5cf834526e291db00385dd33d319b8271fc4c",
+      "supports": [
+        "the fix adds test_distance_function_tolerance_escaping, which passes tolerance='0.05) = 1 OR 1=1 OR (1+1' and expects TypeError 'The tolerance parameter has the wrong type'",
+        "the fix adds test_unionagg_tolerance_escaping, which passes tolerance='0.05))), (((1' and expects DatabaseError",
+        "both tests are guarded by skipUnless(connection.vendor == 'oracle', ...), so they only run against Oracle"
+      ],
+      "verification_method": "git show of the fix commit, test paths only"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/fix_commit_stat_3.0.x.txt",
+      "evidence_id": "ev_django9402_fix_stat",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "d133410e0bbc6c69cedcee43af7213a3e9ae6e1e8fa76bb4824ae0289b924580",
+      "source_url": "https://github.com/django/django/commit/26a5cf834526e291db00385dd33d319b8271fc4c",
+      "supports": [
+        "commit 26a5cf83 has parent c5cfaad2 and is dated 2020-02-24T14:46:28+01:00",
+        "the commit touches two code files, five documentation files and two test files",
+        "117 insertions and 14 deletions"
+      ],
+      "verification_method": "git show --stat of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_9402/sources/ghsa_page.html",
+      "evidence_id": "ev_django9402_ghsa_page",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:53:00Z",
+      "sha256_of_observation": "95ecae7e2aac1aeb95a7bff23b0a0aac174b25fc235ff8836756a79c9a172819",
+      "source_url": "https://github.com/advisories/GHSA-3gh2-xw74-jmcw",
+      "supports": [
+        "the rendered GitHub advisory page names CWE-89",
+        "the page repeats the Oracle-only GIS tolerance description"
+      ],
+      "verification_method": "advisory HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "evidence_id": "ev_django9402_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:54:00Z",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "supports": [
+        "snapshot snap_ab695ba3db678939 is the django 3.0.2 tree a3697439",
+        "the language inventory is github-linguist 9.7.0 over the full tree",
+        "the inventory lists 6163 tracked files and 67 ambiguous files, so the language job stays NEEDS_REVIEW"
+      ],
+      "verification_method": "snapshot language proposal read"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 2, 3],
+    "aliases": [0, 1],
+    "critical_operation": [4, 5, 7, 9],
+    "cwe": [0, 2, 12],
+    "fix_commits": [0, 3, 4, 9, 11],
+    "fixed_releases": [3, 4, 6, 8],
+    "languages": [13],
+    "severity": [0, 2],
+    "vulnerable_commit": [4, 5]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No Oracle server was started and no crafted tolerance was executed; the finding is static. The upstream regression tests were read, not run.",
+    "The issue is Oracle-only: both vulnerable paths are as_oracle methods, and the added tests are skipped unless connection.vendor == 'oracle'.",
+    "Reachability requires an application to pass an untrusted value as the tolerance argument of a GIS function or aggregate. Django's public GIS API accepts tolerance, but not every application exposes it to user input.",
+    "The CVE v5 CNA record is a placeholder (vendor/product/version n/a) with no CVSS and no CWE. NVD and GHSA/OSV supply CWE-89 and CVSS 3.1 8.8; the canonical values come from those sources.",
+    "The upstream announcement is dated 2020-03-04, the CVE record is dated 2020-03-05T14:49:57Z and NVD is dated 2020-03-05T15:15:12Z. GitHub's advisory record was published later, on 2020-06-05. The canonical published_at uses the CVE record.",
+    "The fix exists as four branch-specific commits. OSV and NVD cite only the master commit 6695d29b, which never shipped in a fixed release tag; the announcement lists the 3.0.x, 2.2.x and 1.11.x backports. Only 26a5cf83 is an ancestor of 3.0.4, and it is absent from 3.0.2 and 3.0.3. This dossier verifies the 3.0.x backport against the 3.0.2 snapshot.",
+    "The 1.11.29 branch fix is not identical to the 2.2/3.0 fix: it still formats a numeric tolerance into the template, but first passes it through _handle_param(..., NUMERIC_TYPES), so a string tolerance raises TypeError. The 2.2.11 and 3.0.4 branches use Value and bound parameters. Both shapes are recorded; the canonical location describes the 3.0.2 code and its 3.0.4 fix.",
+    "The regression tests assert rejection of hostile strings and correct numeric behavior, but they only run on Oracle and were not executed.",
+    "The snapshot inventory has 6163 tracked files and 67 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+    "No downstream distribution backport (Debian, Ubuntu, Fedora, NetApp) was verified; only upstream tags and commits are used."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "    def as_oracle(self, compiler, connection, **extra_context):\n        tol = self.extra.get('tolerance', self.tolerance)\n        return self.as_sql(\n            compiler, connection,\n            template=\"%%(function)s(%%(expressions)s, %s)\" % tol,\n            **extra_context\n        )",
+      "description": "OracleToleranceMixin.as_oracle builds the Oracle SQL template with Python string formatting. The tolerance value is read from the caller-supplied extra kwargs and interpolated into a %s slot with the % operator before Func.as_sql runs. Func.as_sql then applies `template % data` with params collected only from the source expressions, so the tolerance becomes SQL text rather than a bound parameter. A string containing SQL syntax therefore breaks out of the function argument. GeoAggregate.as_oracle repeats the same mistake in aggregates.py by placing %(tolerance)s inside the SDOAGGRTYPE template. The 3.0.4 fix wraps the numeric tolerance in Value and appends it as a source expression, giving it a bound parameter.",
+      "file": "django/contrib/gis/db/models/functions.py",
+      "function": "OracleToleranceMixin.as_oracle",
+      "language": "Python",
+      "line": "113-119",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/gis/db/models/functions.py#L113-L119"
+    },
+    "entry_point": {
+      "description": "An application calls a GIS function such as Distance with a tolerance argument, and the queryset compiles to Oracle SQL. The tolerance is the injection point when it is derived from request data; the value reaches OracleToleranceMixin.as_oracle and is formatted into the SQL template.",
+      "file": "django/contrib/gis/db/models/functions.py",
+      "function": "OracleToleranceMixin.as_oracle",
+      "language": "Python",
+      "line": 114,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/gis/db/models/functions.py#L114"
+    },
+    "location_id": "loc_CVE-2020-9402_snap_ab695ba3db678939",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "trace": [
+      {
+        "description": "the GIS function reads the caller-supplied tolerance from extra kwargs",
+        "file": "django/contrib/gis/db/models/functions.py",
+        "function": "OracleToleranceMixin.as_oracle",
+        "language": "Python",
+        "line": 114,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/gis/db/models/functions.py#L114"
+      },
+      {
+        "description": "the tolerance is formatted into the SQL template with the % operator",
+        "file": "django/contrib/gis/db/models/functions.py",
+        "function": "OracleToleranceMixin.as_oracle",
+        "language": "Python",
+        "line": 117,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/gis/db/models/functions.py#L117"
+      },
+      {
+        "description": "Func.as_sql applies template % data while params contain only compiled source expressions",
+        "file": "django/db/models/expressions.py",
+        "function": "Func.as_sql",
+        "language": "Python",
+        "line": 638,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/db/models/expressions.py#L638"
+      },
+      {
+        "description": "the aggregate path places %(tolerance)s directly in the SDOAGGRTYPE template",
+        "file": "django/contrib/gis/db/models/aggregates.py",
+        "function": "GeoAggregate.as_oracle",
+        "language": "Python",
+        "line": 31,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/gis/db/models/aggregates.py#L31"
+      }
+    ],
+    "verification_method": "Static read of functions.py, aggregates.py, expressions.py, the 3.0.x fix diff and the added Oracle-only tests at 3.0.2, 3.0.3 and 3.0.4; no code executed.",
+    "vulnerability_id": "CVE-2020-9402"
+  },
+  "open_questions": [
+    "No running Oracle instance was used to confirm which tolerance payloads produce syntactically valid injected SQL.",
+    "Whether a particular downstream application exposes a GIS tolerance argument to user input was not surveyed.",
+    "The exact Oracle parser behavior for multi-statement payloads inside SDOAGGRTYPE/SDO_* function calls was not tested."
+  ],
+  "prepared_at": "2026-10-21T15:57:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/django/django",
+    "full_name": "django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "repo_id": "4164482",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read OracleToleranceMixin.as_oracle and GeoAggregate.as_oracle at 3.0.2 and confirm the tolerance reaches `template % data` outside params.",
+      "An independent reviewer must confirm 26a5cf83 is absent from 3.0.2 and 3.0.3 and an ancestor of 3.0.4, and that the fixed source uses Value.",
+      "An independent reviewer must confirm the three affected branches and fixed releases against a second source family.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "Django security release announcement",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "OSV/GHSA record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD, OSV/GHSA and the Django announcement agree on the three supported branches, the fixed releases 1.11.29/2.2.11/3.0.4, CWE-89 and the Oracle-only GIS tolerance description. The MITRE CNA record is a placeholder with no range, CVSS or CWE. The announcement lists four branch commits; OSV and NVD cite only the master commit 6695d29b, which did not ship in a fixed release tag. The 3.0.x backport 26a5cf83 is the commit verified against the 3.0.2 snapshot. The 1.11.29 fix shape differs from 2.2.11/3.0.4: it keeps template formatting but rejects non-numeric values via _handle_param. Blob identity ties the fix parent to the 3.0.2 snapshot exactly.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2020/mar/04/security-releases/",
+    "affected_packages": [
+      {
+        "affected_range": ">=1.11,<1.11.29",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      },
+      {
+        "affected_range": ">=2.2,<2.2.11",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      },
+      {
+        "affected_range": ">=3.0,<3.0.4",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      }
+    ],
+    "aliases": [
+      "CVE-2020-9402",
+      "GHSA-3gh2-xw74-jmcw",
+      "BIT-django-2020-9402",
+      "PYSEC-2020-36"
+    ],
+    "category_l1": "injection",
+    "category_l2": "SQL injection through Oracle GIS tolerance template interpolation",
+    "cwe_ids": [
+      "CWE-89"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "master",
+        "message": "Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.",
+        "sha": "6695d29b1c1ce979725816295a26ecc64ae0e927",
+        "url": "https://github.com/django/django/commit/6695d29b1c1ce979725816295a26ecc64ae0e927"
+      },
+      {
+        "branch": "3.0.x",
+        "message": "[3.0.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.",
+        "sha": "26a5cf834526e291db00385dd33d319b8271fc4c",
+        "url": "https://github.com/django/django/commit/26a5cf834526e291db00385dd33d319b8271fc4c"
+      },
+      {
+        "branch": "2.2.x",
+        "message": "[2.2.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.",
+        "sha": "fe886a3b58a93cfbe8864b485f93cb6d426cd1f2",
+        "url": "https://github.com/django/django/commit/fe886a3b58a93cfbe8864b485f93cb6d426cd1f2"
+      },
+      {
+        "branch": "1.11.x",
+        "message": "[1.11.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.",
+        "sha": "02d97f3c9a88adc890047996e5606180bd1c6166",
+        "url": "https://github.com/django/django/commit/02d97f3c9a88adc890047996e5606180bd1c6166"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.4/",
+        "tag": "3.0.4",
+        "verified_content": "At tag 3.0.4 (c2250cfb), functions.py wraps the tolerance in Value(self._handle_param(..., NUMERIC_TYPES)) and aggregates.py appends Value(tolerance); fix 26a5cf83 is an ancestor of the tag; both post-fix blobs match the fix diff post-images (1b0a2a42, 9d169275).",
+        "version": "3.0.4"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/2.2/releases/2.2.11/",
+        "tag": "2.2.11",
+        "verified_content": "At tag 2.2.11 (16769927), functions.py and aggregates.py contain the same Value-based fix; fix fe886a3b is an ancestor of the tag.",
+        "version": "2.2.11"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/1.11/releases/1.11.29/",
+        "tag": "1.11.29",
+        "verified_content": "At tag 1.11.29 (f1e3017a), functions.py rejects non-numeric values via _handle_param before template formatting and aggregates.py appends Value(tolerance); fix 02d97f3c is an ancestor of the tag.",
+        "version": "1.11.29"
+      }
+    ],
+    "published_at": "2020-03-05T14:49:57Z",
+    "references": [
+      "https://www.djangoproject.com/weblog/2020/mar/04/security-releases/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-9402",
+      "https://github.com/advisories/GHSA-3gh2-xw74-jmcw",
+      "https://docs.djangoproject.com/en/3.0/releases/security/",
+      "https://github.com/django/django/commit/6695d29b1c1ce979725816295a26ecc64ae0e927",
+      "https://github.com/django/django/commit/26a5cf834526e291db00385dd33d319b8271fc4c",
+      "https://github.com/django/django/commit/fe886a3b58a93cfbe8864b485f93cb6d426cd1f2",
+      "https://github.com/django/django/commit/02d97f3c9a88adc890047996e5606180bd1c6166"
+    ],
+    "repo_id": "4164482",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 8.8 falls in High (7.0-8.9); the GHSA/OSV CVSS 3.1 vector evaluates to the same 8.8",
+      "score": 8.8,
+      "source": "NVD primary metric nvd@nist.gov; GHSA/OSV carry the same CVSS 3.1 vector",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2020-9402",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_ab695ba3db678939",
+    "source_type": "upstream_advisory",
+    "title": "Django GIS functions and aggregates interpolate the Oracle tolerance parameter into SQL, allowing SQL injection",
+    "vulnerability_id": "CVE-2020-9402",
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_commit_basis": "tag 3.0.2 points directly at a3697439..., released 2020-02-03; 3.0.4 is the first 3.0.x release containing fix 26a5cf83, the fix is absent from 3.0.2 and 3.0.3, and the fix parent c5cfaad2 has identical blob hashes for both affected files",
+    "vulnerable_version": "3.0.2"
+  }
+}

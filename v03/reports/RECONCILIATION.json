@@ -1,0 +1,172 @@
+{
+ "source_root": "/home/luchitong/work/repo-vuln-50-v02",
+ "v03_root": "/home/luchitong/work/repo-vuln-50-v03",
+ "tables": {
+  "repositories": {
+   "source_rows": 50,
+   "v03_rows": 50,
+   "row_count_equal": true,
+   "source_sha256": "0ab22dc4be2c77f74e91492179b4f020754560052c8315841c2b505fd78e0cd6",
+   "v03_sha256": "6d67534488228d8a2c9a4837944d3c446190342248b421523588e9b7e6e9e6cb",
+   "byte_identical": false
+  },
+  "snapshots": {
+   "source_rows": 75,
+   "v03_rows": 75,
+   "row_count_equal": true,
+   "source_sha256": "7e7537b33cbc25be84ddc0d3b79d11d810ac88f5fb9eed69f862dbe95556a6d0",
+   "v03_sha256": "cd9159cc6c11fdb1567813682842f901e987ee90bafe9971a8ade0b384b17638",
+   "byte_identical": false
+  },
+  "vulnerabilities": {
+   "source_rows": 73,
+   "v03_rows": 73,
+   "row_count_equal": true,
+   "source_sha256": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9",
+   "v03_sha256": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9",
+   "byte_identical": true
+  },
+  "locations": {
+   "source_rows": 73,
+   "v03_rows": 73,
+   "row_count_equal": true,
+   "source_sha256": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a",
+   "v03_sha256": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a",
+   "byte_identical": true
+  },
+  "evidence": {
+   "source_rows": 1839,
+   "v03_rows": 1839,
+   "row_count_equal": true,
+   "source_sha256": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3",
+   "v03_sha256": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3",
+   "byte_identical": true
+  },
+  "reviews": {
+   "source_rows": 73,
+   "v03_rows": 73,
+   "row_count_equal": true,
+   "source_sha256": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c",
+   "v03_sha256": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c",
+   "byte_identical": true
+  },
+  "candidates": {
+   "source_rows": 2626,
+   "v03_rows": 2626,
+   "row_count_equal": true,
+   "source_sha256": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be",
+   "v03_sha256": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be",
+   "byte_identical": true
+  },
+  "discovery_coverage": {
+   "source_rows": 50,
+   "v03_rows": 50,
+   "row_count_equal": true,
+   "source_sha256": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+   "v03_sha256": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+   "byte_identical": true
+  },
+  "snapshot_vulnerability_status": {
+   "source_rows": 73,
+   "v03_rows": 73,
+   "row_count_equal": true,
+   "source_sha256": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868",
+   "v03_sha256": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868",
+   "byte_identical": true
+  }
+ },
+ "backup_check": {
+  "repositories": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "0ab22dc4be2c77f74e91492179b4f020754560052c8315841c2b505fd78e0cd6"
+  },
+  "snapshots": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "7e7537b33cbc25be84ddc0d3b79d11d810ac88f5fb9eed69f862dbe95556a6d0"
+  },
+  "vulnerabilities": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9"
+  },
+  "locations": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a"
+  },
+  "evidence": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3"
+  },
+  "reviews": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c"
+  },
+  "candidates": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be"
+  },
+  "discovery_coverage": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b"
+  },
+  "snapshot_vulnerability_status": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868"
+  },
+  "excluded_candidates": {
+   "exists": true,
+   "sha256_equal_source": true,
+   "sha256": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a"
+  }
+ },
+ "unchanged_files": [
+  "vulnerabilities",
+  "locations",
+  "evidence",
+  "reviews",
+  "candidates",
+  "discovery_coverage",
+  "snapshot_vulnerability_status"
+ ],
+ "row_level": {
+  "repositories": {
+   "added_fields": {
+    "evaluation_snapshot_id": 50
+   },
+   "missing_original_fields": {},
+   "rows_with_changed_values": [],
+   "null_evaluation_snapshot_id": 28,
+   "nonnull_evaluation_snapshot_id": 22
+  },
+  "snapshots": {
+   "added_fields": {
+    "purpose": 75
+   },
+   "rows_with_changed_values_excluding_target_purpose": [],
+   "evaluation_target_flips": [],
+   "evaluation_targets_source": 22,
+   "evaluation_targets_v03": 22,
+   "purposes": {
+    "historical_evidence": 53,
+    "evaluation": 22
+   }
+  },
+  "snapshot_vulnerability_status": {
+   "rows_equal_multiset": true,
+   "statuses_source": {
+    "confirmed_affected": 73
+   },
+   "statuses_v03": {
+    "confirmed_affected": 73
+   }
+  }
+ }
+}

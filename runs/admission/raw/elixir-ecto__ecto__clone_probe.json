@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/elixir-ecto/ecto.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:30.742411+00:00", "elapsed_seconds": 1.153, "response": {"returncode": 0, "stdout": "c0c99f51ef1dc71c265162c92623858027122a77\tHEAD\n", "stderr": ""}}

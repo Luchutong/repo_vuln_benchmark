@@ -1,0 +1,120 @@
+########## v2.11.4 modules/caddyhttp/reverseproxy/reverseproxy.go 1209-1232 ##########
+  1209	// finalizeResponse prepares and copies the response.
+  1210	func (h *Handler) finalizeResponse(
+  1211		rw http.ResponseWriter,
+  1212		req *http.Request,
+  1213		res *http.Response,
+  1214		repl *caddy.Replacer,
+  1215		start time.Time,
+  1216		logger *zap.Logger,
+  1217	) error {
+  1218		// deal with 101 Switching Protocols responses: (WebSocket, h2c, etc)
+  1219		if res.StatusCode == http.StatusSwitchingProtocols {
+  1220			var wg sync.WaitGroup
+  1221			h.handleUpgradeResponse(logger, &wg, rw, req, res)
+  1222			wg.Wait()
+  1223			return nil
+  1224		}
+  1225	
+  1226		removeConnectionHeaders(res.Header)
+  1227	
+  1228		for _, h := range hopHeaders {
+  1229			res.Header.Del(h)
+  1230		}
+  1231	
+  1232		// delete our Server header and use Via instead (see #6275)
+
+########## v2.11.4 modules/caddyhttp/reverseproxy/streaming.go 60-105 ##########
+    60	func (h *Handler) handleUpgradeResponse(logger *zap.Logger, wg *sync.WaitGroup, rw http.ResponseWriter, req *http.Request, res *http.Response) {
+    61		reqUpType := upgradeType(req.Header)
+    62		resUpType := upgradeType(res.Header)
+    63	
+    64		// Taken from https://github.com/golang/go/commit/5c489514bc5e61ad9b5b07bd7d8ec65d66a0512a
+    65		// We know reqUpType is ASCII, it's checked by the caller.
+    66		if !asciiIsPrint(resUpType) {
+    67			if c := logger.Check(zapcore.DebugLevel, "backend tried to switch to invalid protocol"); c != nil {
+    68				c.Write(zap.String("backend_upgrade", resUpType))
+    69			}
+    70			return
+    71		}
+    72		if !asciiEqualFold(reqUpType, resUpType) {
+    73			if c := logger.Check(zapcore.DebugLevel, "backend tried to switch to unexpected protocol via Upgrade header"); c != nil {
+    74				c.Write(
+    75					zap.String("backend_upgrade", resUpType),
+    76					zap.String("requested_upgrade", reqUpType),
+    77				)
+    78			}
+    79			return
+    80		}
+    81	
+    82		backConn, ok := res.Body.(io.ReadWriteCloser)
+    83		if !ok {
+    84			logger.Error("internal error: 101 switching protocols response with non-writable body")
+    85			return
+    86		}
+    87	
+    88		// write header first, response headers should not be counted in size
+    89		// like the rest of handler chain.
+    90		copyHeader(rw.Header(), res.Header)
+    91		normalizeWebsocketHeaders(rw.Header())
+    92	
+    93		var (
+    94			conn io.ReadWriteCloser
+    95			brw  *bufio.ReadWriter
+    96		)
+    97		// websocket over http2 or http3 if extended connect is enabled, assuming backend doesn't support this, the request will be modified to http1.1 upgrade
+    98		// TODO: once we can reliably detect backend support this, it can be removed for those backends
+    99		if body, ok := caddyhttp.GetVar(req.Context(), "extended_connect_websocket_body").(io.ReadCloser); ok {
+   100			req.Body = body
+   101			rw.Header().Del("Upgrade")
+   102			rw.Header().Del("Connection")
+   103			delete(rw.Header(), "Sec-WebSocket-Accept")
+   104			rw.WriteHeader(http.StatusOK)
+   105	
+
+########## v2.11.4 hopHeaders 1713-1724 ##########
+  1713	var hopHeaders = []string{
+  1714		"Alt-Svc",
+  1715		"Connection",
+  1716		"Proxy-Connection", // non-standard but still sent by libcurl and rejected by e.g. google
+  1717		"Keep-Alive",
+  1718		"Proxy-Authenticate",
+  1719		"Proxy-Authorization",
+  1720		"Te",      // canonicalized version of "TE"
+  1721		"Trailer", // not Trailers per URL above; https://www.rfc-editor.org/errata_search.php?eid=4522
+  1722		"Transfer-Encoding",
+  1723		"Upgrade",
+  1724	}
+
+########## v2.11.5 modules/caddyhttp/reverseproxy/reverseproxy.go 1222-1252 ##########
+  1222	func (h *Handler) finalizeResponse(
+  1223		rw http.ResponseWriter,
+  1224		req *http.Request,
+  1225		res *http.Response,
+  1226		repl *caddy.Replacer,
+  1227		start time.Time,
+  1228		logger *zap.Logger,
+  1229	) error {
+  1230		// Strip hop-by-hop headers from the upstream response.
+  1231		// For 101 Switching Protocols, save the Upgrade value
+  1232		// first (handleUpgradeResponse needs it for validation)
+  1233		// and restore it with a canonical Connection header.
+  1234		upgradeVal := res.Header.Get("Upgrade")
+  1235	
+  1236		removeConnectionHeaders(res.Header)
+  1237		for _, h := range hopHeaders {
+  1238			res.Header.Del(h)
+  1239		}
+  1240	
+  1241		if res.StatusCode == http.StatusSwitchingProtocols && upgradeVal != "" {
+  1242			res.Header.Set("Upgrade", upgradeVal)
+  1243			res.Header.Set("Connection", "Upgrade")
+  1244		}
+  1245	
+  1246		// deal with 101 Switching Protocols responses: (WebSocket, h2c, etc)
+  1247		if res.StatusCode == http.StatusSwitchingProtocols {
+  1248			var wg sync.WaitGroup
+  1249			h.handleUpgradeResponse(logger, &wg, rw, req, res)
+  1250			wg.Wait()
+  1251			return nil
+  1252		}

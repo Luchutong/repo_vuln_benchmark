@@ -1,0 +1,63 @@
+# libexpat CVE-2022-25235 git object checks (collected 2026-10-21)
+
+## refs
+refs/tags/R_2_4_4 (annotated tag object) = c637e3b1560e8b66632ddf8f510788ab7e3cd12e
+refs/tags/R_2_4_4^{} (commit)            = 81b89678e200820271b72cacdd45fb5868855765
+refs/tags/R_2_4_5 (annotated tag object) = 0cd6665f894f6d8f9bc613a9d63b4e1b6e04dddd
+refs/tags/R_2_4_5^{} (commit)            = 97a4840578693a346e79302909b67d97492e1880
+fix commit                              = 3f0a0cb644438d4d8e3294cd0b1245d0edb0c6c6
+
+## fix commit
+3f0a0cb644438d4d8e3294cd0b1245d0edb0c6c6
+2022-02-18 18:02:19 +0100
+lib: Add missing validation of encoding (CVE-2022-25235)
+parents=ee2a5b50e7d1940ba8745715b62ceb9efd3a96da
+ expat/lib/xmltok_impl.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+diff --git a/expat/lib/xmltok_impl.c b/expat/lib/xmltok_impl.c
+index 0430591..64a3b2c 100644
+--- a/expat/lib/xmltok_impl.c
++++ b/expat/lib/xmltok_impl.c
+@@ -69,7 +69,7 @@
+   case BT_LEAD##n:                                                             \
+     if (end - ptr < n)                                                         \
+       return XML_TOK_PARTIAL_CHAR;                                             \
+-    if (! IS_NAME_CHAR(enc, ptr, n)) {                                         \
++    if (IS_INVALID_CHAR(enc, ptr, n) || ! IS_NAME_CHAR(enc, ptr, n)) {         \
+       *nextTokPtr = ptr;                                                       \
+       return XML_TOK_INVALID;                                                  \
+     }                                                                          \
+@@ -98,7 +98,7 @@
+   case BT_LEAD##n:                                                             \
+     if (end - ptr < n)                                                         \
+       return XML_TOK_PARTIAL_CHAR;                                             \
+-    if (! IS_NMSTRT_CHAR(enc, ptr, n)) {                                       \
++    if (IS_INVALID_CHAR(enc, ptr, n) || ! IS_NMSTRT_CHAR(enc, ptr, n)) {       \
+       *nextTokPtr = ptr;                                                       \
+       return XML_TOK_INVALID;                                                  \
+     }                                                                          \
+@@ -1142,6 +1142,10 @@ PREFIX(prologTok)(const ENCODING *enc, const char *ptr, const char *end,
+   case BT_LEAD##n:                                                             \
+     if (end - ptr < n)                                                         \
+       return XML_TOK_PARTIAL_CHAR;                                             \
++    if (IS_INVALID_CHAR(enc, ptr, n)) {                                        \
++      *nextTokPtr = ptr;                                                       \
++      return XML_TOK_INVALID;                                                  \
++    }                                                                          \
+     if (IS_NMSTRT_CHAR(enc, ptr, n)) {                                         \
+       ptr += n;                                                                \
+       tok = XML_TOK_NAME;                                                      \
+
+## ancestry
+3f0a0cb IS ancestor of R_2_4_5
+3f0a0cb NOT ancestor of R_2_4_4 (expected)
+
+## v2.4.4 configure.ac version
+dnl symbol holding the correct version number. AC_INIT requires the
+
+## sha256 of extracted files
+fdffe2b80eddeebed392d5642021dc73840b1f0c2c13a676c385d41066e374e9  runs/verification/libexpat_cve_2022_25235/sources/xmltok_impl_2.4.4.c
+3e13e257f612fbcec7eebee2a5b8a5b44d80ed8be57bc0103c62a2f6a0faae35  runs/verification/libexpat_cve_2022_25235/sources/xmltok_impl_2.4.5.c
+a6498b898283fadf25097b394ad1f4a385f611f22307674001424dadc15a7abb  runs/verification/libexpat_cve_2022_25235/sources/cve_v5.json
+4c21b0a18e65ff39d87e738a256b0cb6db5b8949728d768bcdfd8a367ec905f5  runs/verification/libexpat_cve_2022_25235/sources/nvd_cve.json
+b6e13ed19dabf2741b40bad2a0bd63202ff95ff453a146eefc8ff30cd1feeaa0  runs/verification/libexpat_cve_2022_25235/sources/osv_cve.json

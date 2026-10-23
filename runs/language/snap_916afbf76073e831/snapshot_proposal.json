@@ -1,0 +1,553 @@
+{
+  "ambiguous_files": [
+    "VERSION",
+    "examples/rainbows.conf",
+    "rack-protection/License",
+    "sinatra-contrib/spec/config_file/config.txt",
+    "sinatra-contrib/spec/content_for/different_key.erubis",
+    "sinatra-contrib/spec/content_for/different_key.hamlit",
+    "sinatra-contrib/spec/content_for/footer.erubis",
+    "sinatra-contrib/spec/content_for/footer.hamlit",
+    "sinatra-contrib/spec/content_for/layout.erubis",
+    "sinatra-contrib/spec/content_for/layout.hamlit",
+    "sinatra-contrib/spec/content_for/multiple_blocks.erubis",
+    "sinatra-contrib/spec/content_for/multiple_blocks.hamlit",
+    "sinatra-contrib/spec/content_for/multiple_yields.erubis",
+    "sinatra-contrib/spec/content_for/multiple_yields.hamlit",
+    "sinatra-contrib/spec/content_for/parameter_value.erubis",
+    "sinatra-contrib/spec/content_for/parameter_value.hamlit",
+    "sinatra-contrib/spec/content_for/passes_values.erubis",
+    "sinatra-contrib/spec/content_for/passes_values.hamlit",
+    "sinatra-contrib/spec/content_for/same_key.erubis",
+    "sinatra-contrib/spec/content_for/same_key.hamlit",
+    "sinatra-contrib/spec/content_for/takes_values.erubis",
+    "sinatra-contrib/spec/content_for/takes_values.hamlit",
+    "sinatra-contrib/spec/content_for/yield_block.erubis",
+    "sinatra-contrib/spec/content_for/yield_block.hamlit",
+    "sinatra-contrib/spec/respond_with/baz.yajl",
+    "test/integration/rainbows.conf",
+    "test/public/favicon.ico",
+    "test/views/a/in_a.str",
+    "test/views/b/in_b.str",
+    "test/views/explicitly_nested.str",
+    "test/views/foo/hello.test",
+    "test/views/hello.mab",
+    "test/views/hello.nokogiri",
+    "test/views/hello.str",
+    "test/views/hello.test",
+    "test/views/hello.yajl",
+    "test/views/layout2.mab",
+    "test/views/layout2.nokogiri",
+    "test/views/layout2.str",
+    "test/views/layout2.test",
+    "test/views/nested.str"
+  ],
+  "collected_at": "2026-10-21T20:02:19.521624Z",
+  "components_in_scope": [
+    "all tracked upstream files; submodules recorded as unresolved gitlinks"
+  ],
+  "evaluation_target": false,
+  "full_scan": true,
+  "language_tool": "github-linguist + explicit container extraction + versioned scope rules",
+  "language_tool_version": "github-linguist 9.7.0; inventory_snapshot.py sha256=acb56dc9c10c3a97b0263330e85a16eb1effdeb9eefa96f7aba7f7aeb5c4d5a3",
+  "languages": [
+    {
+      "code_bytes": 23,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "AsciiDoc",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/views/hello.asciidoc"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.002675706677
+    },
+    {
+      "code_bytes": 1685,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 23,
+      "name": "HTML+ERB",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "sinatra-contrib/spec/config_file/key_value.yml.erb",
+        "sinatra-contrib/spec/content_for/different_key.erb",
+        "sinatra-contrib/spec/content_for/footer.erb",
+        "sinatra-contrib/spec/content_for/layout.erb",
+        "sinatra-contrib/spec/content_for/multiple_blocks.erb"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.196024597888
+    },
+    {
+      "code_bytes": 605,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 13,
+      "name": "Haml",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "sinatra-contrib/spec/content_for/different_key.haml",
+        "sinatra-contrib/spec/content_for/footer.haml",
+        "sinatra-contrib/spec/content_for/layout.haml",
+        "sinatra-contrib/spec/content_for/multiple_blocks.haml",
+        "sinatra-contrib/spec/content_for/multiple_yields.haml"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.070382719123
+    },
+    {
+      "code_bytes": 151,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "rack-protection/.gitignore",
+        "sinatra-contrib/.gitignore"
+      ],
+      "role": "config",
+      "scope": "other",
+      "share_pct": 0.017566596012
+    },
+    {
+      "code_bytes": 170,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".gitignore"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.019776962398
+    },
+    {
+      "code_bytes": 61,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "JavaScript",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.md"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 0.007096439449
+    },
+    {
+      "code_bytes": 70,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Liquid",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/views/hello.liquid",
+        "test/views/layout2.liquid"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.008143455105
+    },
+    {
+      "code_bytes": 162151,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 5,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "CHANGELOG.md",
+        "CONTRIBUTING.md",
+        "README.md",
+        "rack-protection/README.md",
+        "sinatra-contrib/README.md"
+      ],
+      "role": "markup",
+      "scope": "docs",
+      "share_pct": 18.863848410747
+    },
+    {
+      "code_bytes": 10689,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 5,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "AUTHORS.md",
+        "MAINTENANCE.md",
+        "RELEASING.md",
+        "SECURITY.md",
+        "sinatra-contrib/ideas.md"
+      ],
+      "role": "markup",
+      "scope": "first_party",
+      "share_pct": 1.243505594554
+    },
+    {
+      "code_bytes": 21,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/views/hello.md"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.002443036532
+    },
+    {
+      "code_bytes": 194,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 3,
+      "name": "Option List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".yardopts",
+        "rack-protection/.rspec",
+        "sinatra-contrib/.rspec"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 0.022569004149
+    },
+    {
+      "code_bytes": 18,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "RDoc",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/views/hello.rdoc"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.002094031313
+    },
+    {
+      "code_bytes": 2629,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 4,
+      "name": "Ruby",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "examples/chat.rb",
+        "examples/rainbows.rb",
+        "examples/simple.rb",
+        "examples/stream.ru"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 0.305844906734
+    },
+    {
+      "code_bytes": 16819,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 3,
+      "name": "Ruby",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.md",
+        "rack-protection/README.md",
+        "sinatra-contrib/README.md"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 1.956639591617
+    },
+    {
+      "code_bytes": 235904,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 60,
+      "name": "Ruby",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "Gemfile",
+        "Rakefile",
+        "lib/sinatra.rb",
+        "lib/sinatra/base.rb",
+        "lib/sinatra/indifferent_hash.rb"
+      ],
+      "role": "scripting",
+      "scope": "first_party",
+      "share_pct": 27.443909044587
+    },
+    {
+      "code_bytes": 433805,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 91,
+      "name": "Ruby",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "rack-protection/spec/lib/rack/protection/authenticity_token_spec.rb",
+        "rack-protection/spec/lib/rack/protection/base_spec.rb",
+        "rack-protection/spec/lib/rack/protection/content_security_policy_spec.rb",
+        "rack-protection/spec/lib/rack/protection/cookie_tossing_spec.rb",
+        "rack-protection/spec/lib/rack/protection/encrypted_cookie_spec.rb"
+      ],
+      "role": "scripting",
+      "scope": "test",
+      "share_pct": 50.466736312597
+    },
+    {
+      "code_bytes": 411,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "Shell",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.md"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 0.047813714974
+    },
+    {
+      "code_bytes": 592,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "Shell",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "RELEASING.md"
+      ],
+      "role": "scripting",
+      "scope": "first_party",
+      "share_pct": 0.068870363175
+    },
+    {
+      "code_bytes": 498,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 12,
+      "name": "Slim",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "sinatra-contrib/spec/content_for/different_key.slim",
+        "sinatra-contrib/spec/content_for/footer.slim",
+        "sinatra-contrib/spec/content_for/layout.slim",
+        "sinatra-contrib/spec/content_for/multiple_blocks.slim",
+        "sinatra-contrib/spec/content_for/multiple_yields.slim"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.057934866319
+    },
+    {
+      "code_bytes": 16,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Stylus",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/views/hello.styl"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.001861361167
+    },
+    {
+      "code_bytes": 2329,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "LICENSE",
+        "sinatra-contrib/LICENSE"
+      ],
+      "role": "other",
+      "scope": "docs",
+      "share_pct": 0.270944384855
+    },
+    {
+      "code_bytes": 65,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/public/hello+world.txt"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.00756177974
+    },
+    {
+      "code_bytes": 322,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.md"
+      ],
+      "role": "programming",
+      "scope": "docs",
+      "share_pct": 0.037459893484
+    },
+    {
+      "code_bytes": 1163,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "examples/rainbows.conf",
+        "rack-protection/License"
+      ],
+      "role": "other",
+      "scope": "docs",
+      "share_pct": 0.135297689818
+    },
+    {
+      "code_bytes": 6,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "VERSION"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 0.000698010438
+    },
+    {
+      "code_bytes": 1457,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 38,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "sinatra-contrib/spec/config_file/config.txt",
+        "sinatra-contrib/spec/content_for/different_key.erubis",
+        "sinatra-contrib/spec/content_for/different_key.hamlit",
+        "sinatra-contrib/spec/content_for/footer.erubis",
+        "sinatra-contrib/spec/content_for/footer.hamlit"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.16950020126
+    },
+    {
+      "code_bytes": 2658,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".rubocop.yml"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 0.309218623849
+    },
+    {
+      "code_bytes": 650,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 7,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "sinatra-contrib/spec/config_file/key_value.yaml",
+        "sinatra-contrib/spec/config_file/key_value.yml",
+        "sinatra-contrib/spec/config_file/key_value_override.yml",
+        "sinatra-contrib/spec/config_file/missing_env.yml",
+        "sinatra-contrib/spec/config_file/with_env_defaults.yml"
+      ],
+      "role": "config",
+      "scope": "test",
+      "share_pct": 0.075617797405
+    },
+    {
+      "code_bytes": 2629,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".github/workflows/test.yml"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.305844906734
+    }
+  ],
+  "repo_id": "106995",
+  "scan_details": {
+    "binary_files": 2,
+    "bounded_detection_files": [],
+    "bounded_detection_note": "Pinned Linguist bounds detector input at 128KiB; full file byte sizes and all tracked files are counted.",
+    "enumeration_matches_git_ls_tree": true,
+    "git_tree_oid": "64ad507ca996ebf3cdd1858ab12e65ae3c85c10d",
+    "source_code_retained_in_publishable_artifacts": false,
+    "submodules": 0,
+    "symlinks": 0
+  },
+  "snapshot_id": "snap_916afbf76073e831",
+  "tag_or_release": "v3.0.3",
+  "tag_resolution_note": "tag v3.0.3 resolved to cafaab99db5b644e5fbe2a19bdba168e671ff1f2 before inventory",
+  "tracked_files_scanned": 280,
+  "vulnerable_commit": "cafaab99db5b644e5fbe2a19bdba168e671ff1f2"
+}

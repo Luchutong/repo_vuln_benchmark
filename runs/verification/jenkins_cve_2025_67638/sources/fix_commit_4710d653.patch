@@ -1,0 +1,16 @@
+4710d65339251aaf1d1599f19545db99be24d981 1366fa95dfff89ee0261b1db0fb4f28dcdbeee33 | 2025-12-02 13:46:01 +0000 | [SECURITY-783]
+
+diff --git a/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly b/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly
+index 5603d9d8f..97b16ee0f 100644
+--- a/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly
++++ b/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly
+@@ -35,7 +35,8 @@ THE SOFTWARE.
+         title="${%Trigger builds remotely} (${%e.g., from scripts})"
+         checked="${it.authToken!=null}">
+       <f:entry title="${%Authentication Token}">
+-        <f:textbox name="authToken" value="${it.authToken.token}" />
++        <f:password name="authToken" value="${it.authToken.encryptedToken}" />
++        <div class="clearfix"/><!-- f:password in readOnlyMode only has a span, not a div, so the following text would be on the same line as "****" -->
+         ${%Use the following URL to trigger build remotely:}
+         <code>JENKINS_URL</code>/${it.url}build?token=<code>TOKEN_NAME</code>
+         ${%or}

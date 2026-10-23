@@ -1,0 +1,5 @@
+a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f
+[2.2.x] Fixed CVE-2020-24584 -- Fixed permission escalation in intermediate-level directories of the file system cache on Python 3.7+.
+Mariusz Felisiak 2020-08-21 12:43:45 +0200
+Mariusz Felisiak 2020-08-25 11:09:40 +0200
+375657a71c889c588f723469bd868bd1d40c369f

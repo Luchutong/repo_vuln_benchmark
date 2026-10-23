@@ -1,0 +1,77 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; fix commit 84ef1a4d and release commit cb753134 (2.500) fetched
+with --depth=20.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/jenkins/model/Jenkins.java'
+  6e56858395b150e86ad112867ca88e680651e811     (219734 bytes; matches file_inventory.json)
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/PaneStatusProperties.java'
+  29a460349440e2bf5b7acce60a1f7c4a3b8c513d     (2642 bytes; matches file_inventory.json)
+  $ git rev-parse 'jenkins-2.441:core/src/main/resources/lib/layout/pane.jelly'
+  e7c4a04a82458ff75f36a71e6c69b58370091384     (3507 bytes; matches file_inventory.json)
+
+Vulnerable code at 2.441 (Jenkins.java, blob 6e568583):
+  doToggleCollapse at 4214-4221:
+    public HttpResponse doToggleCollapse() throws ServletException, IOException {
+        final StaplerRequest request = Stapler.getCurrentRequest();
+        final String paneId = request.getParameter("paneId");
+        PaneStatusProperties.forCurrentUser().toggleCollapsed(paneId);
+        return HttpResponses.forwardToPreviousPage();
+    }
+  There is no @POST (or @RequirePOST) annotation on the method; the class uses
+  @POST elsewhere (for example 4051, 4104, 4295), so the absence here is a real
+  omission rather than a version where the annotation is unavailable.
+  Request is a GET with a query parameter, so a cross-site <img>/link can trigger it.
+  PaneStatusProperties (blob 29a46034) holds a Set<String> collapsed; its
+  toggleCollapsed at 26-34 adds or removes the supplied paneId, and save() at 37-39
+  calls user.save(), so an arbitrary paneId string is persisted in the victim's user
+  profile (or the session fallback at 61-83 when no user is logged in).
+  pane.jelly at 2.441 (blob e7c4a04a) line 62 renders the trigger as a plain link:
+    <a class="collapse" href="${rootURL}/toggleCollapse?paneId=${attrs.id}"
+
+Fix commit: 84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c
+  Subject "[SECURITY-3498]", 2025-02-25 16:17:26 +0000,
+  parent 68425e2cd4c6f85b09e69d0207d90ac682e4514c.
+  $ git show -s --format='%H %P | %ci | %s' 84ef1a4d
+  84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c 68425e2cd4c6f85b09e69d0207d90ac682e4514c | 2025-02-25 16:17:26 +0000 | [SECURITY-3498]
+  The patch adds @POST to doToggleCollapse and changes the two jelly triggers to
+  class="collapse post" (pane.jelly and executors.jelly) with the lib.form.link.link
+  adjunct, so the UI sends the request as POST.
+  $ git show -s --format='%H %P | %ci | %s' 4a9a3ecd 923cdbc1 cb753134
+  4a9a3ecd... parent 84ef1a4d  (SECURITY-3501)
+  923cdbc1... parent 4a9a3ecd  (SECURITY-3495/3496)
+  cb753134... parent 923cdbc1  ("prepare release jenkins-2.500")
+  $ git merge-base --is-ancestor 84ef1a4d cb753134 -> exit 0.
+
+Fixed release:
+  Jenkins 2.500 (weekly): release commit
+  cb753134b40dde5feeb228f5f2c90d03184fe063, whose ancestor chain includes the
+  SECURITY-3498 fix. At cb753134 Jenkins.java is blob d246e60e and doToggleCollapse
+  is at 4168-4176 with @POST on 4168; pane.jelly line 64 is class="collapse post".
+  The CNA record also lists LTS 2.492.2 as unaffected; the LTS branch was not
+  fetched into the local mirror, so only the weekly ancestry is asserted here.
+
+Affected range:
+  CNA record: Jenkins 2.499 and earlier, LTS 2.492.1 and earlier; unaffected from
+  2.492.2 (LTS) and 2.500 (weekly), defaultStatus affected.
+  NVD/OSV CPE ranges: * up to 2.500 (weekly) and LTS <2.492.2. The GHSA ECOSYSTEM
+  ranges again encode one range as introduced 2.493 -> fixed 2.500, which conflicts
+  with the CNA text; the OSV CVE GIT range is introduced 0. Snapshot 2.441 is inside
+  the CNA affected range.
+
+Public records:
+  CVE List v5 CVE-2025-27624, state PUBLISHED, datePublished 2025-03-05,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE.
+  NVD: status Analyzed, one CVSS 3.1 5.4 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), vector CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:L;
+  CWE-352 from the same Secondary source; no Primary metric.
+  OSV/GHSA-7g95-jmg9-h524: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-352].
+  Jenkins advisory: https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3498
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

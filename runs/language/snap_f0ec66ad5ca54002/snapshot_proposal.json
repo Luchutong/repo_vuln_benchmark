@@ -1,0 +1,506 @@
+{
+  "ambiguous_files": [
+    ".codedocs",
+    "test/gtest-1.8.0/googlemock/CHANGES",
+    "test/gtest-1.8.0/googlemock/CONTRIBUTORS",
+    "test/gtest-1.8.0/googlemock/build-aux/.keep",
+    "test/gtest-1.8.0/googlemock/scripts/generator/README",
+    "test/gtest-1.8.0/googlemock/scripts/generator/README.cppclean",
+    "test/gtest-1.8.0/googletest/CHANGES",
+    "test/gtest-1.8.0/googletest/CONTRIBUTORS",
+    "test/gtest-1.8.0/googletest/build-aux/.keep",
+    "test/gtest-1.8.0/googletest/codegear/gtest.groupproj",
+    "test/gtest-1.8.0/googletest/xcode/Config/DebugProject.xcconfig",
+    "test/gtest-1.8.0/googletest/xcode/Config/FrameworkTarget.xcconfig",
+    "test/gtest-1.8.0/googletest/xcode/Config/General.xcconfig",
+    "test/gtest-1.8.0/googletest/xcode/Config/ReleaseProject.xcconfig",
+    "test/gtest-1.8.0/googletest/xcode/Config/StaticLibraryTarget.xcconfig",
+    "test/gtest-1.8.0/googletest/xcode/Config/TestTarget.xcconfig",
+    "test/gtest-1.8.0/googletest/xcode/Samples/FrameworkSample/WidgetFramework.xcodeproj/project.pbxproj",
+    "test/gtest-1.8.0/googletest/xcode/gtest.xcodeproj/project.pbxproj"
+  ],
+  "collected_at": "2026-10-22T19:53:45.668252Z",
+  "components_in_scope": [
+    "all tracked upstream files; submodules recorded as unresolved gitlinks"
+  ],
+  "evaluation_target": false,
+  "full_scan": true,
+  "language_tool": "github-linguist + explicit container extraction + versioned scope rules",
+  "language_tool_version": "github-linguist 9.7.0; inventory_snapshot.py sha256=acb56dc9c10c3a97b0263330e85a16eb1effdeb9eefa96f7aba7f7aeb5c4d5a3",
+  "languages": [
+    {
+      "code_bytes": 2276,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "C",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "include/yaml-cpp/dll.h",
+        "include/yaml-cpp/yaml.h"
+      ],
+      "role": "programming",
+      "scope": "first_party",
+      "share_pct": 0.034762049495
+    },
+    {
+      "code_bytes": 35842,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 10,
+      "name": "C",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/include/gmock/internal/custom/gmock-generated-actions.h",
+        "test/gtest-1.8.0/googlemock/include/gmock/internal/custom/gmock-matchers.h",
+        "test/gtest-1.8.0/googlemock/include/gmock/internal/custom/gmock-port.h",
+        "test/gtest-1.8.0/googletest/include/gtest/gtest_prod.h",
+        "test/gtest-1.8.0/googletest/include/gtest/internal/custom/gtest-port.h"
+      ],
+      "role": "programming",
+      "scope": "test",
+      "share_pct": 0.547425913
+    },
+    {
+      "code_bytes": 296134,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 91,
+      "name": "C++",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "include/yaml-cpp/anchor.h",
+        "include/yaml-cpp/binary.h",
+        "include/yaml-cpp/contrib/anchordict.h",
+        "include/yaml-cpp/contrib/graphbuilder.h",
+        "include/yaml-cpp/emitfromevents.h"
+      ],
+      "role": "programming",
+      "scope": "first_party",
+      "share_pct": 4.522945854595
+    },
+    {
+      "code_bytes": 3815331,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 162,
+      "name": "C++",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/include/gmock/gmock-actions.h",
+        "test/gtest-1.8.0/googlemock/include/gmock/gmock-cardinalities.h",
+        "test/gtest-1.8.0/googlemock/include/gmock/gmock-generated-actions.h",
+        "test/gtest-1.8.0/googlemock/include/gmock/gmock-generated-actions.h.pump",
+        "test/gtest-1.8.0/googlemock/include/gmock/gmock-generated-function-mockers.h"
+      ],
+      "role": "programming",
+      "scope": "test",
+      "share_pct": 58.272726300789
+    },
+    {
+      "code_bytes": 5695,
+      "confidence": "medium",
+      "detection_method": "explicit_Markdown_fenced_code",
+      "embedded_nonadditive": true,
+      "file_count": 1,
+      "name": "C++",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googletest/docs/FAQ.md"
+      ],
+      "role": "programming",
+      "scope": "test",
+      "share_pct": 0.086981490278
+    },
+    {
+      "code_bytes": 1709,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 4,
+      "name": "CMake",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "util/CMakeLists.txt",
+        "yaml-cpp-config-version.cmake.in",
+        "yaml-cpp-config.cmake.in",
+        "yaml-cpp.pc.cmake"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 0.026102083737
+    },
+    {
+      "code_bytes": 31190,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 5,
+      "name": "CMake",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/CMakeLists.txt",
+        "test/gtest-1.8.0/CMakeLists.txt",
+        "test/gtest-1.8.0/googlemock/CMakeLists.txt",
+        "test/gtest-1.8.0/googletest/CMakeLists.txt",
+        "test/gtest-1.8.0/googletest/cmake/internal_utils.cmake"
+      ],
+      "role": "config",
+      "scope": "test",
+      "share_pct": 0.476374483189
+    },
+    {
+      "code_bytes": 11047,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "CMake",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "CMakeLists.txt"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.168724235838
+    },
+    {
+      "code_bytes": 50,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/.gitignore",
+        "test/gtest-1.8.0/googletest/.gitignore"
+      ],
+      "role": "config",
+      "scope": "test",
+      "share_pct": 0.000763665411
+    },
+    {
+      "code_bytes": 7,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".gitignore"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.000106913157
+    },
+    {
+      "code_bytes": 25387,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 4,
+      "name": "M4Sugar",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/configure.ac",
+        "test/gtest-1.8.0/googletest/configure.ac",
+        "test/gtest-1.8.0/googletest/m4/acx_pthread.m4",
+        "test/gtest-1.8.0/googletest/m4/gtest.m4"
+      ],
+      "role": "programming",
+      "scope": "test",
+      "share_pct": 0.387743475625
+    },
+    {
+      "code_bytes": 25787,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 5,
+      "name": "Makefile",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/Makefile.am",
+        "test/gtest-1.8.0/googlemock/make/Makefile",
+        "test/gtest-1.8.0/googletest/Makefile.am",
+        "test/gtest-1.8.0/googletest/make/Makefile",
+        "test/gtest-1.8.0/googletest/scripts/test/Makefile"
+      ],
+      "role": "config",
+      "scope": "test",
+      "share_pct": 0.39385279891
+    },
+    {
+      "code_bytes": 4110,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "CONTRIBUTING.md",
+        "README.md"
+      ],
+      "role": "markup",
+      "scope": "docs",
+      "share_pct": 0.062773296759
+    },
+    {
+      "code_bytes": 1538791,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 54,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/README.md",
+        "test/gtest-1.8.0/googlemock/README.md",
+        "test/gtest-1.8.0/googlemock/docs/CheatSheet.md",
+        "test/gtest-1.8.0/googlemock/docs/CookBook.md",
+        "test/gtest-1.8.0/googlemock/docs/DesignDoc.md"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 23.502429219671
+    },
+    {
+      "code_bytes": 10231,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 5,
+      "name": "Microsoft Visual Studio Solution",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/msvc/2005/gmock.sln",
+        "test/gtest-1.8.0/googlemock/msvc/2010/gmock.sln",
+        "test/gtest-1.8.0/googlemock/msvc/2015/gmock.sln",
+        "test/gtest-1.8.0/googletest/msvc/gtest-md.sln",
+        "test/gtest-1.8.0/googletest/msvc/gtest.sln"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.156261216336
+    },
+    {
+      "code_bytes": 458660,
+      "confidence": "high",
+      "detection_method": "extension_disambiguation_empty_python_module; github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 39,
+      "name": "Python",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/create-emitter-tests.py",
+        "test/gtest-1.8.0/googlemock/scripts/fuse_gmock_files.py",
+        "test/gtest-1.8.0/googlemock/scripts/generator/cpp/__init__.py",
+        "test/gtest-1.8.0/googlemock/scripts/generator/cpp/ast.py",
+        "test/gtest-1.8.0/googlemock/scripts/generator/cpp/gmock_class.py"
+      ],
+      "role": "scripting",
+      "scope": "test",
+      "share_pct": 7.005255545356
+    },
+    {
+      "code_bytes": 26543,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 5,
+      "name": "Shell",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/scripts/gmock-config.in",
+        "test/gtest-1.8.0/googletest/scripts/gtest-config.in",
+        "test/gtest-1.8.0/googletest/xcode/Samples/FrameworkSample/runtests.sh",
+        "test/gtest-1.8.0/googletest/xcode/Scripts/runtests.sh",
+        "test/gtest-1.8.0/travis.sh"
+      ],
+      "role": "scripting",
+      "scope": "test",
+      "share_pct": 0.40539941992
+    },
+    {
+      "code_bytes": 1061,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "LICENSE"
+      ],
+      "role": "other",
+      "scope": "docs",
+      "share_pct": 0.016204980015
+    },
+    {
+      "code_bytes": 653,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "install.txt"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 0.009973470264
+    },
+    {
+      "code_bytes": 56700,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 5,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/LICENSE",
+        "test/gtest-1.8.0/googlemock/scripts/generator/LICENSE",
+        "test/gtest-1.8.0/googlemock/test/gmock_output_test_golden.txt",
+        "test/gtest-1.8.0/googletest/LICENSE",
+        "test/gtest-1.8.0/googletest/test/gtest_output_test_golden_lin.txt"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.865996575724
+    },
+    {
+      "code_bytes": 1910,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".codedocs"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 0.029172018688
+    },
+    {
+      "code_bytes": 94165,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 17,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/CHANGES",
+        "test/gtest-1.8.0/googlemock/CONTRIBUTORS",
+        "test/gtest-1.8.0/googlemock/build-aux/.keep",
+        "test/gtest-1.8.0/googlemock/scripts/generator/README",
+        "test/gtest-1.8.0/googlemock/scripts/generator/README.cppclean"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 1.438211067956
+    },
+    {
+      "code_bytes": 102808,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 23,
+      "name": "XML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googlemock/msvc/2005/gmock.vcproj",
+        "test/gtest-1.8.0/googlemock/msvc/2005/gmock_config.vsprops",
+        "test/gtest-1.8.0/googlemock/msvc/2005/gmock_main.vcproj",
+        "test/gtest-1.8.0/googlemock/msvc/2005/gmock_test.vcproj",
+        "test/gtest-1.8.0/googlemock/msvc/2010/gmock.vcxproj"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 1.570218270848
+    },
+    {
+      "code_bytes": 1856,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "XML Property List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/googletest/xcode/Resources/Info.plist",
+        "test/gtest-1.8.0/googletest/xcode/Samples/FrameworkSample/Info.plist"
+      ],
+      "role": "config",
+      "scope": "test",
+      "share_pct": 0.028347260045
+    },
+    {
+      "code_bytes": 1901,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".clang-format",
+        ".travis.yml"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 0.029034558914
+    },
+    {
+      "code_bytes": 3221,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/gtest-1.8.0/.travis.yml",
+        "test/gtest-1.8.0/appveyor.yml"
+      ],
+      "role": "config",
+      "scope": "test",
+      "share_pct": 0.049195325757
+    }
+  ],
+  "repo_id": "33100064",
+  "scan_details": {
+    "binary_files": 0,
+    "bounded_detection_files": [
+      "test/gtest-1.8.0/googlemock/include/gmock/gmock-matchers.h",
+      "test/gtest-1.8.0/googlemock/test/gmock-matchers_test.cc",
+      "test/gtest-1.8.0/googletest/include/gtest/internal/gtest-param-util-generated.h",
+      "test/gtest-1.8.0/googletest/include/gtest/internal/gtest-type-util.h",
+      "test/gtest-1.8.0/googletest/src/gtest.cc",
+      "test/gtest-1.8.0/googletest/test/gtest_unittest.cc",
+      "test/integration/gen_emitter_test.cpp"
+    ],
+    "bounded_detection_note": "Pinned Linguist bounds detector input at 128KiB; full file byte sizes and all tracked files are counted.",
+    "enumeration_matches_git_ls_tree": true,
+    "git_tree_oid": "296d72b846796a97e4e5f08e8ef64553d1e51756",
+    "source_code_retained_in_publishable_artifacts": false,
+    "submodules": 0,
+    "symlinks": 0
+  },
+  "snapshot_id": "snap_f0ec66ad5ca54002",
+  "tag_or_release": "yaml-cpp-0.6.2",
+  "tag_resolution_note": "tag yaml-cpp-0.6.2 resolved to 562aefc114938e388457e6a531ed7b54d9dc1b62 before inventory",
+  "tracked_files_scanned": 446,
+  "vulnerable_commit": "562aefc114938e388457e6a531ed7b54d9dc1b62"
+}

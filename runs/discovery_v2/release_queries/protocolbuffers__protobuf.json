@@ -1,0 +1,31 @@
+{
+  "repo": "protocolbuffers/protobuf",
+  "query": "official GitHub Releases collection",
+  "observations": [
+    {
+      "path": "runs/discovery_v2/connector/protocolbuffers__protobuf_releases_1.json",
+      "page": 1,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:00.916Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/protocolbuffers__protobuf_releases_2.json",
+      "page": 2,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:06.488Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/protocolbuffers__protobuf_releases_3.json",
+      "page": 3,
+      "records": 22,
+      "retrieved_at": "2026-10-21T11:03:14.803Z",
+      "status": "PASS"
+    }
+  ],
+  "pagination_complete": true,
+  "total_records": 222,
+  "status": "PASS_QUERY_ONLY",
+  "limitation": "GitHub Releases excludes tag-only releases, historical external security advisories, deleted releases and security reports without release text."
+}

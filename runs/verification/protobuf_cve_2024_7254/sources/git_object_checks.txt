@@ -1,0 +1,82 @@
+Repository: https://github.com/protocolbuffers/protobuf
+Local mirror: /tmp/protobuf_vuln.git (bare; tags v3.20.1 and v3.25.5 fetched with
+--depth=1, fix commit 4728531c fetched with --depth=2; no origin, remote named gh)
+
+Dataset snapshot: tag v3.20.1, commit 21027a27c4c2ec1000859ccbcfff46d83b16e1ed.
+  runs/language/snap_6bc3f36eb61ef280/snapshot_proposal.json records
+  snapshot_id=snap_6bc3f36eb61ef280, repo_id=23357588,
+  tag_or_release=v3.20.1, vulnerable_commit=21027a27c4c2ec1000859ccbcfff46d83b16e1ed.
+  runs/language/snap_6bc3f36eb61ef280/file_inventory.json records (commit 21027a27):
+    java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java
+      bytes=5387 git_oid=681b824d8dd941012537afa72c7a92687a4febbd language=Java
+    java/core/src/main/java/com/google/protobuf/MessageSchema.java
+      bytes=228755 git_oid=53548c8fc8e20c9a493a2ba1728145530308ae6c language=Java
+    java/core/src/main/java/com/google/protobuf/ArrayDecoders.java
+      bytes=40521 git_oid=0fc88ae450fa0c2e60cdb1968a07d68d9afd0362 language=Java
+    java/core/src/main/java/com/google/protobuf/CodedInputStream.java
+      bytes=132453 git_oid=b3074b5b55f4fd68756c85659f3f859a4401f6dd language=Java
+  $ git rev-parse v3.20.1^{commit}
+  21027a27c4c2ec1000859ccbcfff46d83b16e1ed
+  $ git rev-parse v3.20.1:java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java
+  681b824d8dd941012537afa72c7a92687a4febbd
+  $ git rev-parse v3.20.1:java/core/src/main/java/com/google/protobuf/MessageSchema.java
+  53548c8fc8e20c9a493a2ba1728145530308ae6c
+  $ git rev-parse v3.20.1:java/core/src/main/java/com/google/protobuf/ArrayDecoders.java
+  0fc88ae450fa0c2e60cdb1968a07d68d9afd0362
+  $ git rev-parse v3.20.1:java/core/src/main/java/com/google/protobuf/CodedInputStream.java
+  b3074b5b55f4fd68756c85659f3f859a4401f6dd
+  All four match the snapshot inventory.
+
+Fix commit: 4728531c162f2f9e8c2ca1add713cfee2db6be3b
+  "Add recursion check when parsing unknown fields in Java."
+  2024-09-18 (committed 14:39 -0400), parent 850fcce9176e2c9070614dab53537760498c926b.
+  $ git show -s --format='%H %P | %ci | %s' 4728531c162f2f9e8c2ca1add713cfee2db6be3b
+  4728531c162f2f9e8c2ca1add713cfee2db6be3b 850fcce9176e2c9070614dab53537760498c926b | 2024-09-18 14:39:41 -0400 | Add recursion check when parsing unknown fields in Java.
+  The commit is contained in the 3.25 line: GitHub compare API
+  (https://api.github.com/repos/protocolbuffers/protobuf/compare/
+  4728531c162f2f9e8c2ca1add713cfee2db6be3b...v3.25.5) returns status "ahead",
+  ahead_by 4, behind_by 0.
+  The same patch is also on main as the merge commit d6c82fc55a76481c676f541a255571e8950bb8c3
+  (PR #18388, parent 6fa3f2d7); that commit is NOT an ancestor of v3.25.5
+  (compare returns "diverged", 75/1608), so the 3.25-branch commit 4728531c is recorded
+  as the fix. 850fcce9 ("Internal change", 2024-07-18) is the earlier branch revision
+  that 4728531c supersedes; it is also an ancestor of v3.25.5 (ahead 5, behind 0).
+
+Fixed release:
+  tag v3.25.5 -> 9d0ec0f92b5b5fdeeda11f9dcecc1872ff378014
+  $ git rev-parse v3.25.5:java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java
+  80602b16359aa378d120704a271a98b856039b71
+  (3.20.1 blob of the same file is 681b824d8dd9...)
+
+Vulnerable code at the snapshot (v3.20.1):
+  UnknownFieldSchema.mergeOneFieldFrom (line 82) handles WireFormat.WIRETYPE_START_GROUP
+  at lines 98-105 and calls mergeFrom(subFields, reader) at line 101 with no recursion
+  depth parameter or limit. mergeFrom (lines 114-121) loops mergeOneFieldFrom. The class
+  declares no recursion limit and no DEFAULT_RECURSION_LIMIT.
+  MessageSchema.mergeFromHelper calls unknownFieldSchema.mergeOneFieldFrom at line 3909
+  (the other call sites are lines 4311 and 4327), which is how an unknown group in a
+  parsed message reaches the recursive path. MessageSchema.mergeFrom (line 3851) is the
+  public entry point used by the generated message parsers.
+  skipField is abstract on CodedInputStream; the group branch cited at 662-666 belongs
+  to the nested CodedInputStream.ArrayDecoder implementation (it repeats at 1378 and
+  2146), and ArrayDecoders has its own recursive group paths. In 3.20.1 none of them
+  checks recursion depth; the same fix adds checkRecursionLimit()/++recursionDepth
+  around the ArrayDecoder skipField/skipMessage implementations (CodedInputStream
+  lines 226-240 and 246-260 in the fixed tree) and depth checks in ArrayDecoders.
+
+Fixed code at v3.25.5:
+  UnknownFieldSchema declares DEFAULT_RECURSION_LIMIT = 100 (line 16) and a static
+  recursionLimit (line 19). mergeOneFieldFrom takes currentDepth; the START_GROUP case
+  increments it, throws InvalidProtocolBufferException.recursionLimitExceeded() when
+  currentDepth >= recursionLimit (lines 84-89) and only then calls
+  mergeFrom(subFields, reader, currentDepth). MessageSchema passes currentDepth 0 at
+  the three call sites.
+
+Affected range:
+  GHSA-735f-pc8j-v9w8 / OSV: com.google.protobuf:protobuf-java introduced 0,
+  fixed 3.25.5; the 4.x line has introduced 4.0.0-RC1 fixed 4.27.5 and
+  introduced 4.28.0-RC1 fixed 4.28.2. CVE List v5 CNA lists the same fixed versions
+  (3.25.5, 4.27.5, 4.28.2).
+
+No protobuf parser or test was run; all checks are static reads of git objects,
+the fix patch and public records.

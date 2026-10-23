@@ -1,0 +1,392 @@
+{
+ "candidate_id": "disc2_01782099e9b2648cc21dc496",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/nvd_cve.json",
+   "evidence_id": "ev_expat_25314_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "b585206205858e06dc11c6546bf35dc7c652778f999bafdfcd3eb79600860b5a",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-25314",
+   "supports": [
+    "NVD primary CVSS 3.1 is 7.5 HIGH with AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "NVD primary weakness is CWE-190 (Integer Overflow or Wraparound)",
+    "NVD description: before 2.4.5 there is an integer overflow in copyString",
+    "CPE configuration marks libexpat before 2.4.5 as vulnerable"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/cve_v5.json",
+   "evidence_id": "ev_expat_25314_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "7b2161cc4ede4798d9c8c998d66944fc9eb90e5f4ecc742d363d593dc2bc441b",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-25314",
+   "supports": [
+    "CVE state PUBLISHED and assigner mitre",
+    "the CNA record is a placeholder: product/vendor/version are n/a and problemTypes is n/a",
+    "no metrics are supplied by the CNA",
+    "references point to PR 560, the oss-security post and distro advisories"
+   ],
+   "verification_method": "CVE List v5 MITRE record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/osv_cve.json",
+   "evidence_id": "ev_expat_25314_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "f6006cae490c467f54062de6537caaf551294f44166d9e6ab287c7c858f28269",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2022-25314",
+   "supports": [
+    "OSV CVSS_V3 score is CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "the GIT range is introduced 0 and fixed 97a48405, the 2.4.5 release-preparation merge commit, not the code fix",
+    "CPE_RANGE and DESCRIPTION extraction both state fixed 2.4.5",
+    "the versions list includes R_2_4_4 as affected"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/oss_security.html",
+   "evidence_id": "ev_expat_25314_oss_security",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "81368ab5f0f1a4138014015a7f04b1a0c59a2153fa81eaff70184f560d9f9a45",
+   "source_url": "https://www.openwall.com/lists/oss-security/2022/02/19/1",
+   "supports": [
+    "the post announces Expat 2.4.5 and lists CVE-2022-25314 among five CVEs",
+    "it quotes the Changes entry: integer overflow in copyString, only affects the encoding name parameter at parser creation time, often hardcoded, needs gigabytes and a 64-bit machine, expected impact denial of service",
+    "the release credits Samanta Navarro and JetBrains"
+   ],
+   "verification_method": "oss-security mail archive text read"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/pr_560.html",
+   "evidence_id": "ev_expat_25314_pr_560",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "daf708af458d9c2f94058ad8bae3ac18196c2cb10faabe7f53c7c1c59368a608",
+   "source_url": "https://github.com/libexpat/libexpat/pull/560",
+   "supports": [
+    "PR 560 is titled \"Prevent integer overflow in copyString\" and is referenced by the CVE",
+    "the change widens the character counter from int to size_t",
+    "the PR body notes the function is only used for the encoding string supplied by the library user"
+   ],
+   "verification_method": "GitHub pull request page text read; no scripts executed"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/changes_2.4.5.txt",
+   "evidence_id": "ev_expat_25314_changes",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "73636b2fe0dd8bc61c032965b516891cc4cb0098f85d3441deb9a42d17bab6ea",
+   "source_url": "https://github.com/libexpat/libexpat/blob/R_2_4_5/expat/Changes",
+   "supports": [
+    "Release 2.4.5 (Fri February 18 2022) lists \"#560 CVE-2022-25314 -- Fix integer overflow in function copyString\"",
+    "the entry says only the encoding name parameter at parser creation time is affected, that it is often hardcoded, and that the trigger needs gigabytes and a 64-bit machine",
+    "the entry states expected impact is denial of service"
+   ],
+   "verification_method": "file read at tag R_2_4_5"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/git_object_checks.txt",
+   "evidence_id": "ev_expat_25314_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "d2107838edc51d7d6405f0601ab2af4f779549ce4f40faa6162398e2d2c706b5",
+   "source_url": "https://github.com/libexpat/libexpat/commit/efcb347440ade24b9f1054671e6bd05e60b4cafd",
+   "supports": [
+    "tag R_2_4_4 peels to 81b89678 and tag R_2_4_5 peels to 97a48405",
+    "fix commit efcb3474 has subject \"Prevent integer overflow in copyString\", dated 2022-02-15",
+    "fix is an ancestor of R_2_4_5 and absent from R_2_4_4",
+    "the declaration is int at line 7415 in 2.4.4 and size_t at line 7471 in 2.4.5",
+    "blob expat/lib/xmlparse.c is 4b43e613 at 2.4.4 and c479a258 at 2.4.5",
+    "OSV fixed commit 97a48405 is the release-prep merge, not the code fix"
+   ],
+   "verification_method": "git merge-base --is-ancestor in both directions; git show; blob comparison"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/xmlparse_2.4.4.c",
+   "evidence_id": "ev_expat_25314_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "28d94ab58b1456053216525fb41274a4da6ad3a640d056074e3166528324e6f1",
+   "source_url": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7415-L7426",
+   "supports": [
+    "charsRequired is an int and is incremented once per character of the input string with no upper bound check",
+    "after the loop it is incremented once more for the terminator",
+    "malloc_fcn is called with charsRequired * sizeof(XML_Char); on 64-bit, sizeof(XML_Char) is 1 in the default build, so the product wraps when charsRequired wraps",
+    "memcpy then copies charsRequired * sizeof(XML_Char) bytes using the same wrapped value, producing an over-read or heap overflow depending on the wrap",
+    "copyString is called from parserInit (line 1090) and XML_SetEncoding (line 1241) with the user-supplied encoding name"
+   ],
+   "verification_method": "file read at R_2_4_4"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/xmlparse_2.4.5.c",
+   "evidence_id": "ev_expat_25314_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "39b1ebfddaddf01f98cf922ae4e0263b60cb4282b8eeb5fc3ea4f3073338a118",
+   "source_url": "https://github.com/libexpat/libexpat/blob/97a4840578693a346e79302909b67d97492e1880/expat/lib/xmlparse.c#L7471-L7482",
+   "supports": [
+    "the fixed function declares charsRequired as size_t",
+    "the same loop and the same multiplication are used, but size_t cannot wrap for any buffer that the process can actually address",
+    "the only change in the commit is the type of charsRequired"
+   ],
+   "verification_method": "file read at R_2_4_5"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/fix_commit.txt",
+   "evidence_id": "ev_expat_25314_fix_commit",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "4e510d94522c17008ede159995127dd960c4f24661b6f5a82d92cb52edc9ef6e",
+   "source_url": "https://github.com/libexpat/libexpat/commit/efcb347440ade24b9f1054671e6bd05e60b4cafd",
+   "supports": [
+    "the diff changes int charsRequired = 0 to size_t charsRequired = 0",
+    "the commit message states copyString is only used for the encoding string supplied by the library user",
+    "the commit changes only expat/lib/xmlparse.c"
+   ],
+   "verification_method": "git show of the fix commit"
+  },
+  {
+   "artifact_path": "runs/verification/libexpat_cve_2022_25314/sources/fix_commit_stat.txt",
+   "evidence_id": "ev_expat_25314_fix_stat",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "401e8792a71ddc664cb45290f714277c919afd661b2798efb6dec92d993c75d1",
+   "source_url": "https://github.com/libexpat/libexpat/commit/efcb347440ade24b9f1054671e6bd05e60b4cafd",
+   "supports": [
+    "the fix touches only expat/lib/xmlparse.c: 1 insertion and 1 deletion",
+    "no test file is added in this commit"
+   ],
+   "verification_method": "git show --stat of the fix commit"
+  },
+  {
+   "artifact_path": "runs/language/snap_d33251dac37c334c/snapshot_proposal.json",
+   "evidence_id": "ev_expat_25314_snapshot",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T18:25:00Z",
+   "sha256_of_observation": "dbdaac85d4c92507acba12f99bab4fedc99deab969a5c64d3527e47e6f789d0c",
+   "source_url": "https://github.com/libexpat/libexpat/tree/81b89678e200820271b72cacdd45fb5868855765",
+   "supports": [
+    "snapshot_id snap_d33251dac37c334c, tag R_2_4_4, vulnerable_commit 81b89678, 153 tracked files",
+    "expat/lib/xmlparse.c is inventoried with git_oid 4b43e613, language C, programming, not vendored or generated",
+    "C is a first-party programming language with 33 files and 585,427 bytes"
+   ],
+   "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   2,
+   3,
+   5
+  ],
+  "aliases": [
+   0,
+   1,
+   2
+  ],
+  "critical_operation": [
+   6,
+   7,
+   8,
+   9
+  ],
+  "cwe": [
+   0
+  ],
+  "fix_commits": [
+   2,
+   5,
+   6,
+   9
+  ],
+  "fixed_releases": [
+   2,
+   5,
+   6,
+   8
+  ],
+  "languages": [
+   11
+  ],
+  "severity": [
+   0,
+   2,
+   3
+  ],
+  "vulnerable_commit": [
+   6,
+   7,
+   11
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No library build or PoC was executed; the finding is static.",
+  "The trigger requires an encoding name of gigabyte scale supplied by the embedding application, which the advisory notes is often a hardcoded constant; the practical attack surface depends on the application, not on document content.",
+  "The advisory says a 64-bit machine is needed; the arithmetic analysis was done for the default XML_Char=char build and not for every configuration.",
+  "The OSV fixed event names the 2.4.5 release-preparation merge commit (97a48405), not the code fix efcb3474; release tag ancestry and source were used to confirm the fix.",
+  "The MITRE CNA record is a placeholder (n/a vendor/product/version, no metrics or problemTypes); CVSS 7.5 and CWE-190 come from NVD."
+ ],
+ "location": {
+  "critical_operation": {
+   "code_excerpt": "  int charsRequired = 0;\n  XML_Char *result;\n\n  /* First determine how long the string is */\n  while (s[charsRequired] != 0) {\n    charsRequired++;\n  }\n  /* Include the terminator */\n  charsRequired++;\n\n  /* Now allocate space for the copy */\n  result = memsuite->malloc_fcn(charsRequired * sizeof(XML_Char));",
+   "description": "copyString counts the input with an int and multiplies that count by sizeof(XML_Char) for both malloc and memcpy. If the caller-supplied encoding name is longer than INT_MAX characters, the counter wraps; the allocation then uses a wrapped (small or negative-derived) size while memcpy still copies the same wrapped byte count, yielding denial of service. The 2.4.5 fix widens the counter to size_t.",
+   "file": "expat/lib/xmlparse.c",
+   "function": "copyString",
+   "language": "C",
+   "line": "7415-7426",
+   "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7415-L7426"
+  },
+  "entry_point": {
+   "description": "parserInit calls copyString for the encodingName passed to XML_ParserCreate (line 1090), and XML_SetEncoding calls it again at line 1241. The vulnerable input is the encoding name supplied by the library user at parser creation or via XML_SetEncoding, not document content.",
+   "file": "expat/lib/xmlparse.c",
+   "function": "parserInit",
+   "language": "C",
+   "line": 1090,
+   "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1090"
+  },
+  "location_id": "loc_CVE-2022-25314_snap_d33251dac37c334c",
+  "vulnerability_id": "CVE-2022-25314",
+  "snapshot_id": "snap_d33251dac37c334c",
+  "location_kind": "memory",
+  "verification_method": "Static read of expat/lib/xmlparse.c at R_2_4_4 and R_2_4_5, PR #560 and the fix diff, git tag ancestry and release tag contents; no code executed.",
+  "trace": [
+   {
+    "description": "Application supplies a very long encoding name at parser creation",
+    "file": "expat/lib/xmlparse.c",
+    "function": "parserInit",
+    "language": "C",
+    "line": 1090,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1090"
+   },
+   {
+    "description": "copyString counts the string into an int with no upper bound",
+    "file": "expat/lib/xmlparse.c",
+    "function": "copyString",
+    "language": "C",
+    "line": 7415,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7415-L7422"
+   },
+   {
+    "description": "The wrapped int is multiplied by sizeof(XML_Char) for both malloc and memcpy",
+    "file": "expat/lib/xmlparse.c",
+    "function": "copyString",
+    "language": "C",
+    "line": 7423,
+    "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L7423-L7426"
+   }
+  ]
+ },
+ "open_questions": [
+  "Whether any real application passes an attacker-controlled encoding name at parser creation was not surveyed.",
+  "The behavior of the wrapped negative size in the allocator and in memcpy was not tested beyond reading the code.",
+  "No exploitability analysis beyond denial of service was performed."
+ ],
+ "prepared_at": "2026-10-21T18:25:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "canonical_url": "https://github.com/libexpat/libexpat",
+  "full_name": "libexpat/libexpat",
+  "primary_language": "C",
+  "project_kind": "streaming XML parser library",
+  "repo_id": "80314213",
+  "snapshot_id": "snap_d33251dac37c334c"
+ },
+ "review": {
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read expat/lib/xmlparse.c at R_2_4_4 and confirm charsRequired is int and the product is used for both allocation and copy.",
+   "An independent reviewer must confirm efcb3474 is absent from R_2_4_4 and present in R_2_4_5 with the size_t declaration.",
+   "An independent reviewer must confirm the affected range \"before 2.4.5\" and that 2.4.4 is inside it, and note that the vulnerable input is the caller-supplied encoding name.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "status": "PENDING_INDEPENDENT_REVIEW"
+ },
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 MITRE record",
+   "OSV record",
+   "oss-security announcement quoting the 2.4.5 Changes",
+   "upstream pull request, git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on fixed 2.4.5 and on an integer overflow in copyString. The CVE v5 record is a MITRE placeholder with no metrics, CWE or version data; NVD supplies CVSS 3.1 7.5 and CWE-190. OSV repeats the NVD vector and its GIT fixed event points at the release-preparation merge rather than the code commit. The advisory narrows the attack surface to the encoding name at parser creation, which the NVD description does not mention.",
+  "severity_disagreement": false
+ },
+ "status": "awaiting_independent_review",
+ "vulnerability": {
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/libexpat/libexpat/pull/560",
+  "affected_packages": [
+   {
+    "affected_range": "<2.4.5",
+    "ecosystem": "generic",
+    "package": "expat",
+    "purl": "pkg:generic/expat"
+   }
+  ],
+  "aliases": [
+   "CVE-2022-25314"
+  ],
+  "category_l1": "denial_of_service",
+  "category_l2": "integer overflow in copyString character counting when the caller supplies an encoding name longer than INT_MAX bytes",
+  "cwe_ids": [
+   "CWE-190"
+  ],
+  "discovery_cutoff_date": "2026-10-21",
+  "fix_commits": [
+   {
+    "branch": null,
+    "message": "Prevent integer overflow in copyString",
+    "sha": "efcb347440ade24b9f1054671e6bd05e60b4cafd",
+    "url": "https://github.com/libexpat/libexpat/commit/efcb347440ade24b9f1054671e6bd05e60b4cafd"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "generic",
+    "package": "expat",
+    "release_url": "https://github.com/libexpat/libexpat/releases/tag/R_2_4_5",
+    "tag": "R_2_4_5",
+    "verified_content": "At R_2_4_5 copyString declares charsRequired as size_t, removing the int wrap; fix efcb3474 is an ancestor of the tag and absent from R_2_4_4",
+    "version": "2.4.5"
+   }
+  ],
+  "published_at": "2022-02-18T04:23:04Z",
+  "references": [
+   "https://github.com/libexpat/libexpat/pull/560",
+   "https://github.com/libexpat/libexpat/commit/efcb347440ade24b9f1054671e6bd05e60b4cafd",
+   "https://nvd.nist.gov/vuln/detail/CVE-2022-25314",
+   "https://www.openwall.com/lists/oss-security/2022/02/19/1",
+   "https://github.com/libexpat/libexpat/releases/tag/R_2_4_5"
+  ],
+  "repo_id": "80314213",
+  "severity": {
+   "level": "high",
+   "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); impact is availability-only",
+   "score": 7.5,
+   "source": "NVD primary metric nvd@nist.gov; the MITRE CNA supplied no CVSS",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-25314",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+   "version": "3.1"
+  },
+  "snapshot_id": "snap_d33251dac37c334c",
+  "source_type": "upstream_advisory",
+  "title": "libexpat before 2.4.5 overflows the int character count in copyString when a caller supplies an extremely long encoding name",
+  "vulnerability_id": "CVE-2022-25314",
+  "vulnerable_commit": "81b89678e200820271b72cacdd45fb5868855765",
+  "vulnerable_commit_basis": "annotated tag R_2_4_4 (tag object c637e3b1) peels to commit 81b89678...; R_2_4_4 is inside the advisory's \"before 2.4.5\" range and the fix efcb3474 is absent from it",
+  "vulnerable_version": "2.4.4"
+ }
+}

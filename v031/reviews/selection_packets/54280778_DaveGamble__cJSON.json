@@ -1,0 +1,129 @@
+{
+  "packet_id": "selrev_54280778_snap_d9525608880dc9e1",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "54280778",
+    "full_name": "DaveGamble/cJSON",
+    "canonical_url": "https://github.com/DaveGamble/cJSON",
+    "primary_language": "C",
+    "project_kind": "Ultralightweight JSON parser in ANSI C"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_d9525608880dc9e1",
+    "tag_or_release": "v1.7.16",
+    "commit_sha": "cb8693b058ba302f4829ec6d03f609ac6f848546"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "cb8693b058ba302f4829ec6d03f609ac6f848546",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "1934dc2bbe2cdb7b7fd553ff6a81d03f03b3fd58",
+    "tree_file_count": 228,
+    "exported_file_count": 228,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/DaveGamble__cJSON/snap_d9525608880dc9e1.tar.gz",
+    "archive_sha256": "2a8a9581541a370dd4bbed1a9016aca7a8b53ee2fa08ee6a2f01ba8a9e485f2b",
+    "archive_bytes": 352678,
+    "manifest_path": "exports/DaveGamble__cJSON/snap_d9525608880dc9e1.manifest.jsonl",
+    "manifest_sha256": "4d67c06acf053481406025c75a7262df760e86f1cc1f1cd90339daf82ef1367c"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CONTRIBUTING.md",
+      ".github/workflows/CI.yml",
+      ".github/workflows/ci-fuzz.yml",
+      "CHANGELOG.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "cmake": [
+        "CMakeLists.txt"
+      ],
+      "make": [
+        "Makefile"
+      ],
+      "node": [
+        "package.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node",
+      "cmake",
+      "make"
+    ],
+    "toolchain_available": {
+      "cmake": {
+        "cmake": true,
+        "make": true
+      },
+      "make": {
+        "make": true
+      },
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2023-50471",
+      "aliases": [
+        "CVE-2023-50471",
+        "DEBIAN-CVE-2023-50471"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<1.7.17",
+          "ecosystem": "generic",
+          "package": "cjson",
+          "purl": "pkg:generic/cjson"
+        }
+      ],
+      "published_at": "2023-12-14T20:15:53Z",
+      "advisory_url": "https://github.com/DaveGamble/cJSON/issues/802",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 7.5 falls in High (7.0-8.9). The MITRE CNA supplied no CVSS.",
+        "score": 7.5,
+        "source": "NVD primary metric nvd@nist.gov; the MITRE CNA supplied no CVSS",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-50471",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

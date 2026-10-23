@@ -1,0 +1,124 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; master fix efa18163 and LTS fix 92b61576 (both
+"[SECURITY-3630]"), and the release tags jenkins-2.541 / jenkins-2.528.3 were fetched
+with --depth=5.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:cli/src/main/java/hudson/cli/PlainCLIProtocol.java'
+  e49daa246f889e04bcffc96c4389e3f070f04e1e     (375 lines)
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/cli/CLIAction.java'
+  633ecca3437cde77fd006f534425029fadd37ae1     (337 lines)
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/jenkins/util/FullDuplexHttpService.java'
+  01f79b029125f288bddeed0b60469c6c944439d9     (205 lines)
+
+Vulnerable code at 2.441 (PlainCLIProtocol.java, blob e49daa24):
+   154            } catch (ClosedChannelException x) {
+   155                LOGGER.log(Level.FINE, null, x);
+   156                side.handleClose();
+   157            } catch (IOException x) {
+   158                LOGGER.log(Level.WARNING, null, flightRecorder.analyzeCrash(x, "broken stream"));
+   159            } catch (ReadPendingException x) {
+   160                // in case trick in CLIAction does not work
+   161                LOGGER.log(Level.FINE, null, x);
+   162                side.handleClose();
+   163            } catch (RuntimeException x) {
+   164                LOGGER.log(Level.WARNING, null, x);
+   165                side.handleClose();
+   166            }
+  Three of the four exit paths call side.handleClose(); the IOException path
+  (157-158), which is the one taken for a corrupted stream (e.g. the
+  "corrupt stream: negative frame length" IOException thrown at line 136, or any
+  IOException from the socket), returns without notifying the side. On the server
+  the side is the CLI session: CLIAction's run() blocks in
+   274        void run() throws IOException, InterruptedException {
+   275            synchronized (this) {
+   276                while (!ready) {
+   277                    wait();
+   278                }
+  and `ready` is set by ready() (269-272), called by onStart() (247-249) when the
+  START frame has been parsed and by handleClose() (261-267). With handleClose()
+  skipped, a stream corrupted before the START frame never wakes the command
+  thread, and the
+  paired upload request in FullDuplexHttpService.upload() also waits forever:
+   144        // wait until we are done
+   145        while (!completed) {
+   146            wait();
+   147        }
+  because `completed` is set in the finally of the download handler's run(...)
+  (FullDuplexHttpService.java 118-124), which is stuck in CLIAction.run. The
+  connection is established without authentication (FullDuplexHttpService.Response
+  168-170: "do not require any permission to establish a CLI connection"), so an
+  unauthenticated client can open cli?remoting=false connections and corrupt the
+  stream, holding request-handling threads and their connections indefinitely;
+  repeating this exhausts the HTTP thread pool (denial of service). The class
+  comment at CONNECTION_TIMEOUT (line 71, 15 s) shows timeouts were already used
+  elsewhere in this class (the download-side wait at 104-116), but not on these
+  two waits.
+  The admission race is a second defect fixed by the same commit: CLIAction kept
+  its pending connections in `new HashMap<>()` (field duplexServices), which is
+  mutated concurrently from request threads; the fix switches it to
+  ConcurrentHashMap and the regression test drives 50 concurrent CLI clients to
+  provoke the uncaught exception. This dossier's location and claim are the
+  indefinite wait / missing close above, which is what the CVE description names.
+
+Fix commits:
+  $ git show -s --format='%H %P | %ci | %s' efa18163 92b61576
+  efa1816322026f2b9235a27eee814bcc7ba0a764 31598feb0aa514d8978d2c27a4c9a5a9b8d80a57 | 2025-12-02 13:46:19 +0000 | [SECURITY-3630]  (master)
+  92b6157622e57549889e50b082d824cbd6146bdb 20bc304dae480700da60dc962a73b8e8c022d7e6 | 2025-11-26 08:56:36 +0000 | [SECURITY-3630]  (2.528.x LTS)
+  Master diffstat: PlainCLIProtocol.java 3+-, CLIAction.java 13+-,
+  FullDuplexHttpService.java 11+-, Security3630Test.java +135.
+  PlainCLIProtocol: removes the two per-branch handleClose() calls and moves
+  side.handleClose() into a finally, so every exit path notifies the side.
+  CLIAction.run: bounds the wait loop with
+  System.currentTimeMillis() + FullDuplexHttpService.CONNECTION_TIMEOUT, waits in
+  1 s slices and returns early after logging "CLI timeout waiting for client";
+  duplexServices becomes ConcurrentHashMap.
+  FullDuplexHttpService.upload: bounds the wait the same way and throws
+  new IOException("CLI timeout") when the timeout is reached.
+  File blobs at both fix commits and both release tags:
+  PlainCLIProtocol 4bd45b7b, CLIAction 4538d857,
+  FullDuplexHttpService 4b83d49d.
+  Regression test: Security3630Test (new file) — control() shows the download side
+  alone times out; testHashMap() runs 50 concurrent CLI clients and asserts no
+  uncaught exceptions; testIndefiniteWait() opens a full-duplex CLI stream, writes
+  10 bytes, closes it, and asserts that the "Handling POST /jenkins/cli" thread
+  disappears within 2x CONNECTION_TIMEOUT (5 s in the test).
+
+Fixed releases:
+  Jenkins 2.541 (weekly): tag jenkins-2.541, release commit
+    ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3 (parent efa18163).
+  Jenkins 2.528.3 (LTS): tag jenkins-2.528.3, release commit
+    40e29179c3edf88b685d7043ab7c37cc8591138f (parent 92b61576).
+  $ git merge-base --is-ancestor efa18163 ea9c7278 -> exit 0
+  $ git merge-base --is-ancestor 92b61576 40e29179 -> exit 0
+
+Affected range:
+  CNA record: Jenkins 2.540 and earlier, LTS 2.528.2 and earlier; unaffected from
+  2.541 (weekly) and 2.528.3 (LTS), defaultStatus affected.
+  OSV CVE GIT range: introduced 0 -> fixed 40e29179 (2.528.3) and ea9c7278 (2.541).
+  The GHSA ECOSYSTEM weekly range is introduced 2.529 -> fixed 2.541, which conflicts
+  with the CNA text and with the CVE GIT range; the LTS range is 0 -> 2.528.3.
+  Snapshot 2.441 is inside the CNA/GIT affected range.
+
+Public records:
+  CVE List v5 CVE-2025-67635, state PUBLISHED, datePublished 2025-12-10,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE. Description:
+  Jenkins 2.540 and earlier, LTS 2.528.2 and earlier does not properly close
+  HTTP-based CLI connections when the connection stream becomes corrupted,
+  allowing unauthenticated attackers to cause a denial of service.
+  CISA-ADP (Secondary) metrics: CVSS 3.1 7.5 HIGH
+  CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H and CWE-404.
+  NVD: status Analyzed, one CVSS 3.1 7.5 HIGH metric from the Secondary source
+  (CISA-ADP, 134c704f-...), CWE-404 from the same source; no Primary metric.
+  OSV/GHSA-9p56-p6mw-w8qc: same CVSS 3.1 vector, database_specific severity HIGH
+  and cwe_ids [CWE-404].
+  Jenkins advisory 2025-12-10: https://www.jenkins.io/security/advisory/2025-12-10/
+  #SECURITY-3630. The OSV record also links Fluid Attacks' write-up
+  https://fluidattacks.com/blog/unauth-dos-in-jenkins-cli.
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

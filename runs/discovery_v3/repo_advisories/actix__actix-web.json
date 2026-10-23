@@ -1,0 +1,399 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 6,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "mufeedvh",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/26198477?v=4",
+            "events_url": "https://api.github.com/users/mufeedvh/events{/privacy}",
+            "followers_url": "https://api.github.com/users/mufeedvh/followers",
+            "following_url": "https://api.github.com/users/mufeedvh/following{/other_user}",
+            "gists_url": "https://api.github.com/users/mufeedvh/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/mufeedvh",
+            "id": 26198477,
+            "login": "mufeedvh",
+            "node_id": "MDQ6VXNlcjI2MTk4NDc3",
+            "organizations_url": "https://api.github.com/users/mufeedvh/orgs",
+            "received_events_url": "https://api.github.com/users/mufeedvh/received_events",
+            "repos_url": "https://api.github.com/users/mufeedvh/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/mufeedvh/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/mufeedvh/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/mufeedvh",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 6.3,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-444"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-444",
+          "name": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')"
+        }
+      ],
+      "description": "A vulnerability in `actix-http`'s HTTP/1.1 request parser allows an unauthenticated remote client to smuggle requests in deployments where a front-end HTTP intermediary and the Actix backend disagree about whether `Content-Length` or `Transfer-Encoding: chunked` defines the request body length.\r\n\r\n## Severity\r\n\r\n**Medium**.\r\nThis is an HTTP request smuggling vulnerability that can be triggered over the network without application-level credentials. Exploitation requires a specific proxy topology: an upstream proxy, WAF, load balancer, or similar intermediary must use `Content-Length` framing while forwarding the conflicting `Transfer-Encoding: chunked` request to an Actix backend over a reused HTTP/1.1 connection.\r\n\r\n## Affected Versions\r\n\r\n- `actix-http`: versions up to and including **3.12.0**\r\n\r\n## Description\r\n\r\nHTTP/1.1 requests that contain both `Content-Length` and `Transfer-Encoding: chunked` are ambiguous and must be rejected by recipients to avoid request smuggling.\r\n\r\nAffected versions of `actix-http` accepted a request with a syntactically valid `Content-Length` header and `Transfer-Encoding: chunked` on the same HTTP/1.1 message. The parser then selected chunked decoding instead of rejecting the conflicting framing signals.\r\n\r\nIn a CL.TE proxy topology, an intermediary may treat bytes after the declared `Content-Length` body as part of the first request, while the Actix backend stops at the terminating chunk marker and parses the remaining bytes on the backend connection as a second HTTP request. This creates a backend-side request desynchronization primitive.\r\n\r\nThe issue is limited to HTTP/1.1 request parsing.\r\n\r\n## Impact\r\n\r\n**HTTP request smuggling**\r\n\r\n* **Attack Vector:** Network, unauthenticated.\r\n* **Effect:** Backend request desynchronization with low integrity impact to requests processed by the vulnerable Actix service.\r\n* **Scope:** Actix services using affected `actix-http` versions behind an HTTP/1.1 intermediary that forwards ambiguous `Content-Length` plus `Transfer-Encoding: chunked` requests and reuses backend connections.\r\n\r\nNo direct confidentiality, availability, or subsequent-system impact is scored for this advisory.\r\n\r\n## Fixed Versions\r\n\r\nThis issue is fixed in **actix-http 3.12.1**.\r\n\r\nThe fix rejects HTTP/1.1 requests that contain both `Content-Length` and `Transfer-Encoding: chunked` instead of choosing one framing interpretation.\r\n\r\n## Mitigation\r\n\r\nUsers should upgrade to **actix-http 3.12.1** or later.\r\n\r\nApplications that depend on `actix-http` through `actix-web`, `awc`, or another Actix crate should ensure dependency resolution selects `actix-http` 3.12.1 or later. For example:\r\n\r\n```bash\r\ncargo update -p actix-http\r\n```\r\n\r\nIf an immediate upgrade is not possible, configure all upstream HTTP intermediaries to reject HTTP/1.1 requests that contain both `Content-Length` and `Transfer-Encoding`, and avoid forwarding ambiguous request framing to Actix backends.\r\n\r\n## References\r\n\r\n* [actix-http 3.12.1 release](https://github.com/actix/actix-web/releases/tag/http-v3.12.1)\r\n* [RFC 9112: HTTP/1.1 Message Body Length](https://www.rfc-editor.org/rfc/rfc9112.html#name-message-body-length)\r\n* [CWE-444: Inconsistent Interpretation of HTTP Requests](https://cwe.mitre.org/data/definitions/444.html)\r\n\r\n## Credits\r\n\r\nThanks to [mufeedvh](https://github.com/mufeedvh) who disclosed this issue through coordinated disclosure.\r\n",
+      "ghsa_id": "GHSA-xhj4-vrgc-hr34",
+      "html_url": "https://github.com/actix/actix-web/security/advisories/GHSA-xhj4-vrgc-hr34",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-xhj4-vrgc-hr34"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-04-18T02:44:30Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/25030997?v=4",
+        "events_url": "https://api.github.com/users/JohnTitor/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JohnTitor/followers",
+        "following_url": "https://api.github.com/users/JohnTitor/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JohnTitor/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JohnTitor",
+        "id": 25030997,
+        "login": "JohnTitor",
+        "node_id": "MDQ6VXNlcjI1MDMwOTk3",
+        "organizations_url": "https://api.github.com/users/JohnTitor/orgs",
+        "received_events_url": "https://api.github.com/users/JohnTitor/received_events",
+        "repos_url": "https://api.github.com/users/JohnTitor/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JohnTitor/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JohnTitor/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JohnTitor",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "HTTP/1.1 CL.TE Request Smuggling In `actix-http`",
+      "updated_at": "2026-04-18T02:44:30Z",
+      "url": "https://api.github.com/repos/actix/actix-web/security-advisories/GHSA-xhj4-vrgc-hr34",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rust",
+            "name": "actix-http"
+          },
+          "patched_versions": "3.12.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.12.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Diomendius",
+          "type": "reporter"
+        },
+        {
+          "login": "JohnTitor",
+          "type": "remediation_developer"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/42310725?v=4",
+            "events_url": "https://api.github.com/users/Diomendius/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Diomendius/followers",
+            "following_url": "https://api.github.com/users/Diomendius/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Diomendius/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Diomendius",
+            "id": 42310725,
+            "login": "Diomendius",
+            "node_id": "MDQ6VXNlcjQyMzEwNzI1",
+            "organizations_url": "https://api.github.com/users/Diomendius/orgs",
+            "received_events_url": "https://api.github.com/users/Diomendius/received_events",
+            "repos_url": "https://api.github.com/users/Diomendius/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Diomendius/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Diomendius/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Diomendius",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/25030997?v=4",
+            "events_url": "https://api.github.com/users/JohnTitor/events{/privacy}",
+            "followers_url": "https://api.github.com/users/JohnTitor/followers",
+            "following_url": "https://api.github.com/users/JohnTitor/following{/other_user}",
+            "gists_url": "https://api.github.com/users/JohnTitor/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/JohnTitor",
+            "id": 25030997,
+            "login": "JohnTitor",
+            "node_id": "MDQ6VXNlcjI1MDMwOTk3",
+            "organizations_url": "https://api.github.com/users/JohnTitor/orgs",
+            "received_events_url": "https://api.github.com/users/JohnTitor/received_events",
+            "repos_url": "https://api.github.com/users/JohnTitor/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/JohnTitor/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/JohnTitor/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/JohnTitor",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 6.9,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Summary\r\nA GET request for a static file served by `actix-files` with an empty `Range` header triggers a panic. With `panic = \"abort\"`, a remote user may crash the process on-demand.\r\n\r\n### Details\r\n`actix-files` assumes that `HttpRange::parse()`, when `Ok`, always returns a vector with at least one element. When `parse()` is called on an empty string, it returns `Ok(vec![])`. This can cause a panic at named.rs:534 when handling an HTTP request with an empty `Range:` header. This shouldn't significantly impact programs built with the default `panic = \"unwind\"`, as the only effect is that the connection is closed when the worker thread panics and new threads are spooled up on demand. Programs built with `panic = \"abort\"` are vulnerable to being crashed on-demand by any user with permissions to perform a `GET` request for a static file served by `actix-files`.\r\nhttps://github.com/actix/actix-web/blob/0383f4bdd1210e726143ca1ebcf01169b67a4b6c/actix-files/src/named.rs#L530-L535\r\n\r\n### PoC\r\n<details>\r\n<summary>Minimal reproduction</summary>\r\n\r\n`Cargo.toml`:\r\n```toml\r\n[package]\r\nname = \"example\"\r\nversion = \"0.1.0\"\r\nedition = \"2021\"\r\n\r\n[dependencies]\r\nactix-web = \"=4.5.1\"\r\nactix-files = \"=0.6.5\"\r\n\r\n[profile.dev]\r\npanic = \"abort\"\r\n```\r\n`src/main.rs`:\r\n```rust\r\nuse actix_files::NamedFile;\r\nuse actix_web::{get, Responder};\r\n\r\n#[get(\"/\")]\r\nasync fn index() -> impl Responder {\r\n    NamedFile::open(\"test_file\")\r\n}\r\n\r\n#[actix_web::main]\r\nasync fn main() -> std::io::Result<()> {\r\n    use actix_web::{App, HttpServer};\r\n\r\n    HttpServer::new(|| App::new().service(index))\r\n        .bind((\"127.0.0.1\", 8080))?\r\n        .run()\r\n        .await\r\n}\r\n```\r\n`test.sh`:\r\n```sh\r\n#!/bin/bash\r\n\r\necho foo > test_file\r\ncargo b\r\ncargo r&\r\nsleep 1\r\nnc 127.0.0.1 8080 << EOF\r\nGET / HTTP/1.1\r\nRange:\r\n\r\nEOF\r\nkill %1\r\n```\r\n\r\nCreate these files, then run `chmod +x test.sh && ./test.sh`. The server should start, then crash upon receiving the `GET` request from `netcat`.\r\n\r\nThis assumes a reasonably UNIX-like system with Rust, `bash` and `netcat` installed.\r\n</details>\r\n\r\n### Impact\r\nI believe only programs compiled with `panic = \"abort\"` are affected significantly. The only potential impact I can see is denial-of-service, though an attacker able to repeatedly send `GET` requests without those requests getting blocked by rate limiting, DDoS protection, etc. would be able to keep a server down indefinitely. As only a single unblocked request is needed to trigger the panic, merely having a rate limiter may not be enough to prevent this.\r\n\r\nThough the impact in the worst case is significant, I expect the real-world risk of this vulnerability to be limited, as I would hope anyone for whom uptime is a significant concern would not compile their program with `panic = \"abort\"`.\r\n",
+      "ghsa_id": "GHSA-gcqf-3g44-vc9p",
+      "html_url": "https://github.com/actix/actix-web/security/advisories/GHSA-gcqf-3g44-vc9p",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-gcqf-3g44-vc9p"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-02-06T12:18:05Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/25030997?v=4",
+        "events_url": "https://api.github.com/users/JohnTitor/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JohnTitor/followers",
+        "following_url": "https://api.github.com/users/JohnTitor/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JohnTitor/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JohnTitor",
+        "id": 25030997,
+        "login": "JohnTitor",
+        "node_id": "MDQ6VXNlcjI1MDMwOTk3",
+        "organizations_url": "https://api.github.com/users/JohnTitor/orgs",
+        "received_events_url": "https://api.github.com/users/JohnTitor/received_events",
+        "repos_url": "https://api.github.com/users/JohnTitor/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JohnTitor/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JohnTitor/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JohnTitor",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "[actix-files] Panic triggered by empty Range header in GET request for static file",
+      "updated_at": "2026-02-06T12:18:05Z",
+      "url": "https://api.github.com/repos/actix/actix-web/security-advisories/GHSA-gcqf-3g44-vc9p",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rust",
+            "name": "actix-files"
+          },
+          "patched_versions": "0.6.10",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<= 0.6.9"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Angelmmiguel",
+          "type": "reporter"
+        },
+        {
+          "login": "JohnTitor",
+          "type": "remediation_developer"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/4056725?v=4",
+            "events_url": "https://api.github.com/users/Angelmmiguel/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Angelmmiguel/followers",
+            "following_url": "https://api.github.com/users/Angelmmiguel/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Angelmmiguel/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Angelmmiguel",
+            "id": 4056725,
+            "login": "Angelmmiguel",
+            "node_id": "MDQ6VXNlcjQwNTY3MjU=",
+            "organizations_url": "https://api.github.com/users/Angelmmiguel/orgs",
+            "received_events_url": "https://api.github.com/users/Angelmmiguel/received_events",
+            "repos_url": "https://api.github.com/users/Angelmmiguel/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Angelmmiguel/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Angelmmiguel/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Angelmmiguel",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/25030997?v=4",
+            "events_url": "https://api.github.com/users/JohnTitor/events{/privacy}",
+            "followers_url": "https://api.github.com/users/JohnTitor/followers",
+            "following_url": "https://api.github.com/users/JohnTitor/following{/other_user}",
+            "gists_url": "https://api.github.com/users/JohnTitor/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/JohnTitor",
+            "id": 25030997,
+            "login": "JohnTitor",
+            "node_id": "MDQ6VXNlcjI1MDMwOTk3",
+            "organizations_url": "https://api.github.com/users/JohnTitor/orgs",
+            "received_events_url": "https://api.github.com/users/JohnTitor/received_events",
+            "repos_url": "https://api.github.com/users/JohnTitor/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/JohnTitor/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/JohnTitor/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/JohnTitor",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 6.3,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Summary\r\n\r\nWhen passing a non-existing folder to the `actix_files::Files::new()` method causes the actix server to expose unexpected files.\r\n\r\n### Details\r\n_Give all details on the vulnerability. Pointing to the incriminated source code is very helpful for the maintainer._\r\n\r\nThe `actix-files` library exposes a [`Files` struct](https://github.com/actix/actix-web/blob/fba766b4beb92278665d58815c94d336015225c5/actix-files/src/files.rs#L38) that configures an actix `service` to serve the files in a folder as static assets. Below you can find the [signature of the `Files::new` method](https://github.com/actix/actix-web/blob/fba766b4beb92278665d58815c94d336015225c5/actix-files/src/files.rs#L98):\r\n\r\n```rust\r\npub fn new<T: Into<PathBuf>>(mount_path: &str, serve_from: T) -> Files\r\n```\r\n\r\nWhen the `mount_path` you pass to `Files` doesn't exist, [it defaults to an empty path](https://github.com/actix/actix-web/blob/fba766b4beb92278665d58815c94d336015225c5/actix-files/src/files.rs#L104) (`Path::new()`). When the service receives a HTTP request, it [joins the request information with the empty path](https://github.com/actix/actix-web/blob/fba766b4beb92278665d58815c94d336015225c5/actix-files/src/service.rs#L136) and calls `canonicalize`. Rust resolves this path as relative and returns any file that matches it.\r\n\r\nThis behavior causes the library to expose unexpected files when the folder is not present.\r\n\r\n### PoC\r\n\r\n_I have a working PoC on https://github.com/Angelmmiguel/actix-files-vuln, although you can follow the next steps to reproduce the issue too_\r\n\r\n1. Clone the https://github.com/actix/examples repository.\r\n2. Change your directory to the `basics/static-files` folder.\r\n3. Edit the `src/main.rs` file and change the line 13 to mount a non-existing folder:\r\n\r\n    ```diff\r\n    -        .service(Files::new(\"/images\", \"static/images/\").show_files_listing())\r\n    +        .service(Files::new(\"/images\", \"static/missing/\").show_files_listing())\r\n    ```\r\n    \r\n4. Run the project with `cargo run`.\r\n5. Access the <http://localhost:8080/images/Cargo.toml> URL.\r\n\r\n### Impact\r\n\r\nThis is an exposure of information vulnerability. It affects anyone using the `actix-files::Files` library that mounts a non-existing folder for any reason.\r\n",
+      "ghsa_id": "GHSA-8v2v-wjwg-vx6r",
+      "html_url": "https://github.com/actix/actix-web/security/advisories/GHSA-8v2v-wjwg-vx6r",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-8v2v-wjwg-vx6r"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-02-06T12:16:56Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/25030997?v=4",
+        "events_url": "https://api.github.com/users/JohnTitor/events{/privacy}",
+        "followers_url": "https://api.github.com/users/JohnTitor/followers",
+        "following_url": "https://api.github.com/users/JohnTitor/following{/other_user}",
+        "gists_url": "https://api.github.com/users/JohnTitor/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/JohnTitor",
+        "id": 25030997,
+        "login": "JohnTitor",
+        "node_id": "MDQ6VXNlcjI1MDMwOTk3",
+        "organizations_url": "https://api.github.com/users/JohnTitor/orgs",
+        "received_events_url": "https://api.github.com/users/JohnTitor/received_events",
+        "repos_url": "https://api.github.com/users/JohnTitor/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/JohnTitor/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/JohnTitor/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/JohnTitor",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible exposure of information vulnerability in actix-files",
+      "updated_at": "2026-02-06T12:16:57Z",
+      "url": "https://api.github.com/repos/actix/actix-web/security-advisories/GHSA-8v2v-wjwg-vx6r",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rust",
+            "name": "actix-files"
+          },
+          "patched_versions": "0.6.10",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<= 0.6.9"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "actix/actix-web",
+    "url": "https://api.github.com/repos/actix/actix-web/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:23:53.620605+00:00",
+  "tool": "github_rest_readonly"
+}

@@ -1,0 +1,389 @@
+{
+ "candidate_id": "disc2_d1cb30eb67e85c8b1b86bacc",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T02:25:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45305",
+  "aliases": [
+   "CVE-2026-45305",
+   "GHSA-9frc-8383-795m"
+  ],
+  "title": "Symfony YAML Parser::cleanup() regexes use overlapping quantifiers, allowing catastrophic backtracking (ReDoS) on crafted input",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/yaml",
+    "purl": "pkg:composer/symfony/yaml",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/yaml",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 all four cleanup() regexes use possessive quantifiers; fix 9749cd43 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: Parser.php blob cda68ac1 matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "9749cd43c5e09b3735093623670b21b9d8a056cb",
+    "branch": "5.4",
+    "message": "[Yaml] Harden the Parser::cleanup() regexes against catastrophic backtracking",
+    "url": "https://github.com/symfony/symfony/commit/9749cd43c5e09b3735093623670b21b9d8a056cb"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-1333"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+   "score": 8.7,
+   "level": "high",
+   "numeric_level_rationale": "CVSS 4.0 base 8.7 (CNA) and the NVD Primary CVSS 3.1 7.5 both fall in High (7.0-8.9). The GHSA page and OSV label LOW with a VA:L vector, inconsistent with both published scores.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-9frc-8383-795m",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 8.7,
+     "level": "high",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+   ],
+   "ghsa_label_note": "The GHSA page and OSV database_specific.severity say LOW and the OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U (VA:L) with no separately stated numeric score."
+  },
+  "category_l1": "denial_of_service",
+  "category_l2": "Regular-expression denial of service (catastrophic backtracking) in Parser::cleanup()",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45305",
+  "published_at": "2026-07-14T18:50:14Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45305",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-9frc-8383-795m",
+   "https://github.com/symfony/symfony/commit/9749cd43c5e09b3735093623670b21b9d8a056cb",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45305",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45305_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45305",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Yaml/Parser.php",
+  "function": "Parser::cleanup",
+  "language": "PHP",
+  "line": 1010,
+  "critical_operation": {
+   "code_excerpt": "        $value = preg_replace('#^\\%YAML[: ][\\d\\.]+.*\\n#u', '', $value, -1, $count);",
+   "description": "Parser::cleanup() strips the optional %YAML directive header with #^\\%YAML[: ][\\d\\.]+.*\\n#u. The class [\\d\\.]+ and the following .* can both consume the same dots, so a crafted header made of many digits and dots drives catastrophic backtracking; the leading-comment regex at line 1014 has a nested quantifier; the document-start regex at line 1022 and the document-end regex at line 1029 are single-quantifier patterns that the advisory also hardens, but on their own they are not classically catastrophic. cleanup() runs at the start of parse(), before tokenization, so any untrusted YAML document reaches it and parsing can be made to hang for an arbitrarily long time. The 5.4.52 fix rewrites all four regexes with possessive quantifiers and unambiguous character classes.",
+   "file": "src/Symfony/Component/Yaml/Parser.php",
+   "function": "Parser::cleanup",
+   "language": "PHP",
+   "line": 1010,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L1010"
+  },
+  "entry_point": {
+   "description": "Yaml::parse() or Parser::parse() on untrusted YAML whose first line is an oversized %YAML directive (or an oversized leading comment or document marker).",
+   "file": "src/Symfony/Component/Yaml/Parser.php",
+   "function": "Parser::parse",
+   "language": "PHP",
+   "line": 85,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L85"
+  },
+  "trace": [
+   {
+    "description": "parse() calls cleanup() before tokenizing the document",
+    "file": "src/Symfony/Component/Yaml/Parser.php",
+    "function": "Parser::parse",
+    "language": "PHP",
+    "line": 1004,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L1004"
+   },
+   {
+    "description": "the %YAML header regex with overlapping quantifiers runs on the crafted first line",
+    "file": "src/Symfony/Component/Yaml/Parser.php",
+    "function": "Parser::cleanup",
+    "language": "PHP",
+    "line": 1010,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L1010"
+   },
+   {
+    "description": "the leading-comment regex uses a nested quantifier over lines",
+    "file": "src/Symfony/Component/Yaml/Parser.php",
+    "function": "Parser::cleanup",
+    "language": "PHP",
+    "line": 1014,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L1014"
+   }
+  ],
+  "verification_method": "Static read of Parser.php at v5.4.45 and v5.4.52, the 5.4 fix diff and regression tests, tag peels and ancestry; no PHP, regex benchmark or YAML document was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45305_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "e8c3294f015b25b99af352e015b2032a144fa612d85638e971254c3f61e50c1f",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45305",
+   "supports": [
+    "NVD status Analyzed; description states Parser::cleanup() uses regexes with overlapping quantifiers for YAML directive, comment and document marker cleanup, allowing crafted input to hang parsing",
+    "NVD Primary CVSS 3.1 7.5 HIGH from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)",
+    "NVD Secondary CVSS 4.0 8.7 HIGH from security-advisories@github.com",
+    "NVD weakness CWE-1333 sourced to security-advisories@github.com"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45305_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "92f8ebc9e753a2c68e4000f3488b29d542df1e8c2fab47168d893de3b01dcd8b",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45305",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T18:50:14Z",
+    "affected products symfony and yaml, ranges <5.4.52, >=6.0.0-BETA1 <6.4.40, >=7.0.0-BETA1 <7.4.12, >=8.0.0-BETA1 <8.0.12",
+    "CNA CVSS 4.0 8.7 HIGH AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+    "problemType CWE-1333",
+    "the CNA reference list names fix commit 9749cd43c5e09b3735093623670b21b9d8a056cb and the v5.4.52/v6.4.40/v7.4.12/v8.0.12 release tags"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45305_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "f399e3005f4b6aa1c3729c1e373604ceec6fc861b8820a0a9ecc05edf0ec98eb",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-9frc-8383-795m",
+   "supports": [
+    "GHSA-9frc-8383-795m aliases CVE-2026-45305, github_reviewed, cwe_ids CWE-1333, database severity LOW",
+    "affected symfony/yaml and symfony/symfony with fixed events 5.4.52, 6.4.40, 7.4.12 and 8.0.12",
+    "the OSV details name \"#^%YAML[: ][\\d.]+.*\\n#u\" and explain the overlap between [\\d.]+ and .* on the dot",
+    "the OSV CVSS_V4 vector uses VA:L and is labelled LOW, unlike the CNA VA:H 8.7 HIGH metric"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45305_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "903046318a53103090cce2457021bd0db956799cefc83715c6633e61d7b730f2",
+   "source_url": "https://symfony.com/cve-2026-45305",
+   "supports": [
+    "the advisory states the four cleanup() regexes had overlapping quantifiers and cause catastrophic backtracking on crafted input",
+    "it names the %YAML directive header, leading comments and document start/end markers as the affected paths",
+    "resolution: the four regexes are rewritten with possessive quantifiers and unambiguous character classes",
+    "affected versions are <5.4.52, >=6 <6.4.40, >=7 <7.4.12, >=8 <8.0.12"
+   ],
+   "verification_method": "symfony.com advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45305_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "b64f3a06db96e90758c28b28ba02103329516f68b44442bfdbec418ed10968ae",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-9frc-8383-795m",
+   "supports": [
+    "the GitHub advisory page carries the same description and resolution as the symfony.com page",
+    "the page links fix commit 9749cd43 and the same four fixed releases",
+    "the advisory label is Low"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45305_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "d95a310e3c294311fd9fb02abba7c5369ca30562f4b8f398f1e2ce3dadd3b86b",
+   "source_url": "https://github.com/symfony/symfony/commit/9749cd43c5e09b3735093623670b21b9d8a056cb",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit 9749cd43 is dated 2026-05-08 with subject \"[Yaml] Harden the Parser::cleanup() regexes against catastrophic backtracking\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "Parser.php blob 6b5b273a at v5.4.45 and cda68ac1 at v5.4.52; the patch pre-image 08b97b2a is the post-image of the CVE-2026-45304 fix, so the two diffs are stacked in 5.4",
+    "the patch rewrites the four cleanup() regexes with possessive quantifiers and adds three large-input regression tests"
+   ],
+   "verification_method": "git rev-parse/merge-base/log; patch read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/parser_5.4.45.php",
+   "evidence_id": "ev_symfony_45305_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "66318c33b7eba8e21dfaf392bd42ef56b5cd6933e1fb51133cc5f895cd32d292",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L1010",
+   "supports": [
+    "cleanup() starts at line 1004 and line 1010 applies #^\\%YAML[: ][\\d\\.]+.*\\n#u",
+    "the character class [\\d\\.]+ and the following .* can both consume the same dots, which is the overlapping-quantifier shape described in the advisory",
+    "lines 1014, 1024 and 1029 contain the comment and marker regexes with nested or overlapping quantifiers",
+    "cleanup() is called from parse() before the document is tokenized, so every parse of attacker-supplied YAML reaches it"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 6b5b273a)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/parser_5.4.52.php",
+   "evidence_id": "ev_symfony_45305_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "59aa506137b13597725acf87036023df8d72bc94d23a26f87b79082d3972ffb8",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Yaml/Parser.php#L1049-L1068",
+   "supports": [
+    "line 1049 uses #^%YAML[: ][\\d.]++[^\\n]*+\\n#u with possessive quantifiers",
+    "line 1053 rewrites the leading-comment regex as #^(?:\\#[^\\n]*+\\n)++#",
+    "lines 1063 and 1068 rewrite the document start and end markers with unambiguous classes",
+    "no other cleanup behaviour changed"
+   ],
+   "verification_method": "file read at v5.4.52 (blob cda68ac1)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45305/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45305_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T02:25:00Z",
+   "sha256_of_observation": "3ed472ae57c709b74b3aacc8bb8347f109570ca3e22346b7e6aceb0c4580961f",
+   "source_url": "https://github.com/symfony/symfony/commit/9749cd43c5e09b3735093623670b21b9d8a056cb.patch",
+   "supports": [
+    "the patch touches only Parser.php and ParserTest.php",
+    "the tests parse a 100000-character %YAML header, a 100000-character leading comment and a long document marker",
+    "the post-image Parser.php blob cda68ac1 matches v5.4.52"
+   ],
+   "verification_method": "unified diff read"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   6,
+   7
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-1333, the four cleanup() regexes, the <5.4.52 range, the v5.4.52 release and fix commit 9749cd43. Numeric severity splits: NVD Primary CVSS 3.1 7.5, CNA CVSS 4.0 8.7, and a GHSA/OSV LOW label with VA:L.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Parser::cleanup at v5.4.45 and confirm the four regexes and the overlapping-quantifier shape named by the advisory.",
+   "An independent reviewer must confirm cleanup() is reached from parse() before tokenization.",
+   "An independent reviewer must confirm 9749cd43 is absent from v5.4.45 and present in v5.4.52, and that the fix rewrites the regexes with possessive quantifiers.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No PHP, regex engine or YAML document was executed; the backtracking blow-up was not timed.",
+  "Only the 5.4 branch was compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "The 5.4 Parser.php at this tag predates the recursion-depth and alias-bounding commits (914f427e, e77391b2), so the fix diff is stacked on top of them.",
+  "The GHSA label LOW and OSV VA:L vector disagree materially with the CNA 8.7 and NVD 7.5 scores.",
+  "Independent review corrected a detail: the document-start regex is at line 1022, not 1024 (1024 is the offset comment); the %YAML, leading-comment and document-end line numbers (1010, 1014, 1029) were confirmed."
+ ],
+ "open_questions": [
+  "Which of the four regexes is reachable first in a normal parse was not traced beyond reading the code.",
+  "Whether the document-end marker regex alone can be triggered without a preceding document-start marker was not analysed."
+ ]
+}

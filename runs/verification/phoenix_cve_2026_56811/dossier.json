@@ -1,0 +1,425 @@
+{
+ "candidate_id": "disc2_46723370667ed0c5775db602",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T09:10:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "16072585",
+  "full_name": "phoenixframework/phoenix",
+  "canonical_url": "https://github.com/phoenixframework/phoenix",
+  "primary_language": "Elixir",
+  "project_kind": "Elixir web framework with channel/transport abstractions",
+  "snapshot_id": "snap_ee79f4175242bbee"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-56811",
+  "aliases": [
+   "CVE-2026-56811",
+   "GHSA-6983-jfq8-485w",
+   "EEF-CVE-2026-56811"
+  ],
+  "title": "Phoenix transport processes accept an unbounded number of channel joins, letting one client exhaust the node with persistent processes",
+  "repo_id": "16072585",
+  "snapshot_id": "snap_ee79f4175242bbee",
+  "vulnerable_commit": "6234b576b94476f285a3397c0a9c5a610d1cdb67",
+  "affected_packages": [
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=0.11.0,<1.5.15"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=1.6.0-rc.0,<1.6.17"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=1.7.0-rc.0,<1.7.24"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=1.8.0-rc.0,<1.8.9"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.6.17",
+    "tag": "v1.6.17",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.6.17",
+    "verified_content": "At v1.6.17 the transport state carries max_channels_per_transport (default 100) and the phx_join clause rejects joins once map_size(state.channels) reaches it"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.5.15",
+    "tag": "v1.5.15",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.5.15",
+    "verified_content": "Published as a fixed release by the CNA/OSV; not diffed in this dossier"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.7.24",
+    "tag": "v1.7.24",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.7.24",
+    "verified_content": "Published as a fixed release by the CNA/OSV; not diffed in this dossier"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.8.9",
+    "tag": "v1.8.9",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.8.9",
+    "verified_content": "Published as a fixed release by the CNA/OSV; not diffed in this dossier"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "c498ba8cf49f6accbbd0c643a5340b58db891218",
+    "branch": "1.5",
+    "release": "1.5.15",
+    "message": "Per-branch fix for the 1.5 series",
+    "url": "https://github.com/phoenixframework/phoenix/commit/c498ba8cf49f6accbbd0c643a5340b58db891218"
+   },
+   {
+    "sha": "d19ca0a8d9f82c130b7ed339b9f033433e2dea5e",
+    "branch": "1.6",
+    "release": "1.6.17",
+    "message": "Limit the number of channels a single transport process can join",
+    "url": "https://github.com/phoenixframework/phoenix/commit/d19ca0a8d9f82c130b7ed339b9f033433e2dea5e"
+   },
+   {
+    "sha": "a612100cd8a4279091abc1a2ef8fb98a6d01c0a1",
+    "branch": "1.7",
+    "release": "1.7.24",
+    "message": "Per-branch fix for the 1.7 series",
+    "url": "https://github.com/phoenixframework/phoenix/commit/a612100cd8a4279091abc1a2ef8fb98a6d01c0a1"
+   },
+   {
+    "sha": "16e295d2fccab185d1292322e2bee5d46c725c8a",
+    "branch": "1.8",
+    "release": "1.8.9",
+    "message": "Per-branch fix for the 1.8 series",
+    "url": "https://github.com/phoenixframework/phoenix/commit/16e295d2fccab185d1292322e2bee5d46c725c8a"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-770"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+   "score": 8.7,
+   "level": "high",
+   "numeric_level_rationale": "The EEF CNA, NVD and OSV all publish CVSS 4.0 8.7 High with the same vector. NVD additionally publishes a CVSS 3.1 7.5 High vector from nvd@nist.gov; the two differ only in metric version, not in the HIGH band.",
+   "source": "EEF CNA and NVD (CVSS 4.0 8.7); NVD also carries a CVSS 3.1 7.5 record",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56811",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 8.7,
+     "level": "high",
+     "source": "EEF CNA",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "4.0",
+     "score": 8.7,
+     "level": "high",
+     "source": "NVD and OSV",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD, CVSS 3.1)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+   ]
+  },
+  "category_l1": "denial_of_service",
+  "category_l2": "Resource exhaustion: one transport process can join an unbounded number of channels because no per-transport channel cap is enforced",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/phoenixframework/phoenix/security/advisories/GHSA-6983-jfq8-485w",
+  "published_at": "2026-07-07T15:09:57Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://github.com/phoenixframework/phoenix/security/advisories/GHSA-6983-jfq8-485w",
+   "https://github.com/phoenixframework/phoenix/commit/d19ca0a8d9f82c130b7ed339b9f033433e2dea5e",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-56811",
+   "https://github.com/phoenixframework/phoenix/releases/tag/v1.6.17"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-56811_snap_ee79f4175242bbee",
+  "vulnerability_id": "CVE-2026-56811",
+  "snapshot_id": "snap_ee79f4175242bbee",
+  "location_kind": "logic",
+  "file": "lib/phoenix/socket.ex",
+  "function": "Phoenix.Socket.handle_in/4",
+  "language": "Elixir",
+  "line": "595-598",
+  "critical_operation": {
+   "code_excerpt": "  defp handle_in(nil, %{event: \"phx_join\", topic: topic, ref: ref, join_ref: join_ref} = message, state, socket) do\n    case socket.handler.__channel__(topic) do\n      {channel, opts} ->\n        case Phoenix.Channel.Server.join(socket, channel, message, opts) do\n          {:ok, reply, pid} ->\n            reply = %Reply{join_ref: join_ref, ref: ref, topic: topic, status: :ok, payload: reply}\n            state = put_channel(state, pid, topic, join_ref)",
+   "description": "Each transport process (WebSocket or LongPoll) runs Phoenix.Socket.handle_in/4. The phx_join clause (595-613) resolves socket.handler.__channel__(topic) and, when a channel module is returned, calls Phoenix.Channel.Server.join/4 (line 598) and records the returned pid in state.channels via put_channel/4; the state created in user_connect/6 (line 544) contains only channels and channels_inverse, with no count, no per-transport ceiling and no rate limit. A client can therefore send phx_join messages for many acceptable topics over one connection and each accepted join leaves a persistent channel process, so a single unauthenticated transport can allocate processes without bound and exhaust the node. Persistence requires the resolved channel's join/3 to accept the topic (a wildcard channel such as room:* qualifies); joins the channel rejects do not leave a persistent process. The 1.6.17 fix adds max_channels_per_transport (default 100) to the transport state and rejects further joins with status :error once map_size(state.channels) reaches the limit (CWE-770).",
+   "file": "lib/phoenix/socket.ex",
+   "function": "Phoenix.Socket.handle_in/4",
+   "language": "Elixir",
+   "line": "595-598",
+   "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket.ex#L595"
+  },
+  "entry_point": {
+   "description": "A remote client connects to a mounted Phoenix socket transport and sends repeated phx_join messages on the same WebSocket or LongPoll connection.",
+   "file": "lib/phoenix/socket.ex",
+   "function": "Phoenix.Socket.handle_in/4",
+   "language": "Elixir",
+   "line": 595,
+   "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket.ex#L595"
+  },
+  "trace": [
+   {
+    "description": "the transport state is initialized without any channel-count limit",
+    "file": "lib/phoenix/socket.ex",
+    "function": "Phoenix.Socket.user_connect/6",
+    "language": "Elixir",
+    "line": 544,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket.ex#L544"
+   },
+   {
+    "description": "handle_in/4 receives each phx_join from the transport",
+    "file": "lib/phoenix/socket.ex",
+    "function": "Phoenix.Socket.handle_in/4",
+    "language": "Elixir",
+    "line": 595,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket.ex#L595"
+   },
+   {
+    "description": "every join starts a channel process and its pid is stored",
+    "file": "lib/phoenix/socket.ex",
+    "function": "Phoenix.Socket.handle_in/4",
+    "language": "Elixir",
+    "line": 598,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket.ex#L598"
+   },
+   {
+    "description": "the pid is added to state.channels with no cap",
+    "file": "lib/phoenix/socket.ex",
+    "function": "Phoenix.Socket.put_channel/4",
+    "language": "Elixir",
+    "line": 657,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket.ex#L657"
+   }
+  ],
+  "verification_method": "Static read of lib/phoenix/socket.ex at v1.6.13 and v1.6.17, the 1.6 fix commit and its tests, plus git ancestry; no Phoenix node or WebSocket client was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/phoenix_cve_2026_56811/sources/cve_v5.json",
+   "evidence_id": "ev_phoenix_56811_cve",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T09:10:00Z",
+   "sha256_of_observation": "0042d9963001570cc3a0853defdd82e69ba2008fb179020acaa94586367ebd83",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-56811",
+   "supports": [
+    "CVE state PUBLISHED, assigner EEF",
+    "description: Phoenix transports do not limit the number of channels one transport process may join; every phx_join starts a persistent channel process",
+    "CNA CVSS 4.0 8.7 HIGH AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H (attack requirements none)",
+    "CNA problemTypes CWE-770",
+    "affected hex package phoenix, program file lib/phoenix/socket.ex, routine Elixir.Phoenix.Socket:handle_in/4, ranges below 1.5.15, 1.6.17, 1.7.24 and 1.8.9"
+   ],
+   "verification_method": "CVE List v5 CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_cve_2026_56811/sources/nvd_cve.json",
+   "evidence_id": "ev_phoenix_56811_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T09:10:00Z",
+   "sha256_of_observation": "02e0b3660e9dc5dc8d0520126ec4bb28aeb161ff8a4cbe0f7f3e2cdf75f0fa83",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56811",
+   "supports": [
+    "NVD publishes a CVSS 4.0 8.7 HIGH record and a CVSS 3.1 7.5 HIGH record from nvd@nist.gov",
+    "NVD weakness CWE-770",
+    "published 2026-07-07"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_cve_2026_56811/sources/osv_ghsa.json",
+   "evidence_id": "ev_phoenix_56811_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T09:10:00Z",
+   "sha256_of_observation": "9ee2758ad5cd7c780663d720731b5018c71b9715d8420824dc75cdc7caffc8f9",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2026-56811",
+   "supports": [
+    "CVE-2026-56811 aliases EEF-CVE-2026-56811 and GHSA-6983-jfq8-485w",
+    "CVSS 4.0 8.7 HIGH with the same vector as the CNA",
+    "affected ranges 1.2.0-1.5.15, 1.6.0-1.6.17, 1.7.0-1.7.24 and 1.8.0-1.8.9, so 1.6.13 is inside the 1.6 range; the CPE-derived 1.2.0 lower bound conflicts with the CNA's 0.11.0",
+    "the fixed-commit list contains the four branch fixes plus 14a297e8, which ancestry shows is the introducing commit (present in v0.11.0), not a fix"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_cve_2026_56811/sources/socket_1.6.13.ex",
+   "evidence_id": "ev_phoenix_56811_vuln_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T09:10:00Z",
+   "sha256_of_observation": "99cb2cdc13468f06b153f695b6f76b0f6c475cc2c856fecb952a7cd62c0c9734",
+   "source_url": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket.ex#L595",
+   "supports": [
+    "line 544 initializes transport state with channels: %{} and channels_inverse: %{} only; no channel-count limit exists",
+    "line 595 is the handle_in/4 clause for a transport that has not joined: defp handle_in(nil, %{event: \"phx_join\", ...})",
+    "line 598 calls Phoenix.Channel.Server.join/4 and stores the returned pid in state.channels without any cap",
+    "every join returns a new persistent channel process, so one transport can create an unbounded number of processes"
+   ],
+   "verification_method": "file read at snapshot commit 6234b576 (v1.6.13), bytes and git_oid cross-checked against the snapshot inventory"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_cve_2026_56811/sources/socket_1.6.17.ex",
+   "evidence_id": "ev_phoenix_56811_fixed_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T09:10:00Z",
+   "sha256_of_observation": "e55f8a397cb733961b56ddf02492f389ad6151a29c5f63252587359a692189bd",
+   "source_url": "https://github.com/phoenixframework/phoenix/blob/v1.6.17/lib/phoenix/socket.ex#L611",
+   "supports": [
+    "the fixed file adds max_channels_per_transport to the state at line 558, defaulting to 100",
+    "the phx_join clause now checks map_size(state.channels) >= state.max_channels_per_transport at line 611",
+    "at the limit it logs and replies with status :error and payload reason \"too many channels joined\" instead of spawning a channel process",
+    "the option is documented at lines 83-84"
+   ],
+   "verification_method": "file read at release tag v1.6.17 (d26a1292)"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_cve_2026_56811/sources/fix_commit.patch",
+   "evidence_id": "ev_phoenix_56811_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T09:10:00Z",
+   "sha256_of_observation": "9d516f3fe5a153fb056d511e0822b743e9ae167284ea0f24dca2578d5f9f3e04",
+   "source_url": "https://github.com/phoenixframework/phoenix/commit/d19ca0a8d9f82c130b7ed339b9f033433e2dea5e",
+   "supports": [
+    "the 1.6 fix d19ca0a8 adds the max_channels_per_transport option and the join-time cap check",
+    "it adds WebSocket and LongPoll channel integration tests for the limit",
+    "pre-image index 7b9f15f4 matches the snapshot git_oid of lib/phoenix/socket.ex"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_cve_2026_56811/sources/git_object_checks.txt",
+   "evidence_id": "ev_phoenix_56811_git",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T09:10:00Z",
+   "sha256_of_observation": "e3c18476ee41386a097ff5c9dc5ffaa081d489cfd8a36a211b7b31e4ce7b9894",
+   "source_url": "https://github.com/phoenixframework/phoenix/commit/d19ca0a8d9f82c130b7ed339b9f033433e2dea5e",
+   "supports": [
+    "v1.6.13 resolves to the dataset snapshot commit 6234b576 and its socket.ex blob is 7b9f15f4",
+    "fix d19ca0a8 is NOT an ancestor of v1.6.13 or v1.6.16 (merge-base exit 1)",
+    "fix d19ca0a8 IS an ancestor of v1.6.17 (exit 0) and tag v1.6.17 is the only 1.6 tag containing it",
+    "the other branch fixes map c498ba8c->v1.5.15, a612100c->v1.7.24, 16e295d2->v1.8.9, each excluded from the immediately preceding release tag",
+    "14a297e8 is the introducing commit 'Initial channel processes conversion'; v0.11.0 already has an uncapped per-transport sockets map and starts a Channel.Server per phx_join"
+   ],
+   "verification_method": "git rev-parse/merge-base/tag with a blobless bare mirror"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   2
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   3,
+   5
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   2,
+   5,
+   6
+  ],
+  "fixed_releases": [
+   2,
+   4,
+   5,
+   6
+  ],
+  "languages": [
+   3,
+   4
+  ],
+  "severity": [
+   0,
+   1,
+   2
+  ],
+  "vulnerable_commit": [
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 EEF CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "CVE record, NVD and OSV agree on CWE-770, the 1.6.13-affected range and the 1.6.17 fix, and publish severity in two metric versions (CVSS 4.0 8.7 High and CVSS 3.1 7.5 High), both HIGH. The published lower bound disagrees: the CNA range starts at 0.11.0, while the NVD/OSV CPE-derived range starts at 1.2.0. Local inspection supports 0.11.0: v0.11.0 already keeps an uncapped per-transport sockets/sockets_inverse map and starts a Phoenix.Channel.Server for every phx_join. The OSV commit list mislabels the introducing commit 14a297e8 as fixed; ancestry maps the real fixes c498ba8c->1.5.15, d19ca0a8->1.6.17, a612100c->1.7.24, 16e295d2->1.8.9.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read handle_in/4 at v1.6.13 and confirm that phx_join has no per-transport cap and that each join creates a persistent channel process.",
+   "An independent reviewer must confirm d19ca0a8 is the 1.6-branch fix, not an ancestor of 1.6.13/1.6.16 and contained in 1.6.17.",
+   "An independent reviewer must confirm the affected ranges and the CVSS 4.0 / 3.1 records.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "independent_verdict": {
+   "reviewer_identity": "independent-reviewer-phoenix-CVE-2026-56811-round1-deepseek-flash",
+   "verdict_path": "runs/independent/phoenix_CVE-2026-56811_round1/verdict.json",
+   "grade_recommendation": "B",
+   "fields_verified_all_true": true,
+   "location_line": "595-598"
+  },
+  "independent_corrections_accepted": [
+   "1.6 range upper bound is open at <1.6.17; the CNA's lower bound is 1.6.0-rc.0, so the 1.7/1.8 ranges were also corrected to their -rc.0 starts.",
+   "Lower bound: the CNA says 0.11.0 while NVD/OSV CPE ranges say 1.2.0; local inspection of v0.11.0 (uncapped sockets map, Channel.Server per phx_join) supports 0.11.0, so the 1.5-and-earlier range now starts at 0.11.0 with both claims recorded.",
+   "Impact narrowed: an accepted phx_join only leaves a persistent process when the resolved channel's join/3 accepts the topic (for example a wildcard room:* channel); rejected joins do not.",
+   "The vulnerable clause spans lines 595-613, while the verified location line remains 595-598 as returned by the independent reviewer.",
+   "Fix-commit mapping corrected after ancestry re-run: c498ba8c->1.5.15, a612100c->1.7.24, 16e295d2->1.8.9, and 14a297e8 is the introducing commit mislabeled as fixed by OSV."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No Phoenix node, WebSocket client or process-exhaustion measurement was executed; the unbounded allocation is established statically.",
+  "Impact depends on the application mounting a socket transport reachable by the attacker and on a channel whose join/3 accepts attacker-chosen topics; the default Phoenix endpoint mounts a transport, but this dossier does not audit every deployment or channel.",
+  "Only the 1.6 branch was diffed; the 1.5.15, 1.7.24 and 1.8.9 fixed trees were not inspected.",
+  "The published lower bound is inconsistent (CNA 0.11.0, NVD/OSV CPE 1.2.0); 0.11.0 is used because v0.11.0 already contains the uncapped per-transport process bookkeeping, but the 0.11.x-1.1.x trees were not individually diffed.",
+  "OSV lists the introducing commit 14a297e8 as fixed; that is an upstream metadata defect, and the branch fixes are mapped by local ancestry instead."
+ ],
+ "open_questions": [
+  "Whether transports apply any other per-connection message or process limit outside Socket.handle_in/4 was not exhaustively audited."
+ ]
+}

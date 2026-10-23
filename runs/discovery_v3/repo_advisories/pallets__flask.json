@@ -1,0 +1,389 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 3,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "shouryaj98",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/26935465?v=4",
+            "events_url": "https://api.github.com/users/shouryaj98/events{/privacy}",
+            "followers_url": "https://api.github.com/users/shouryaj98/followers",
+            "following_url": "https://api.github.com/users/shouryaj98/following{/other_user}",
+            "gists_url": "https://api.github.com/users/shouryaj98/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/shouryaj98",
+            "id": 26935465,
+            "login": "shouryaj98",
+            "node_id": "MDQ6VXNlcjI2OTM1NDY1",
+            "organizations_url": "https://api.github.com/users/shouryaj98/orgs",
+            "received_events_url": "https://api.github.com/users/shouryaj98/received_events",
+            "repos_url": "https://api.github.com/users/shouryaj98/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/shouryaj98/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/shouryaj98/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/shouryaj98",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-27205",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 2.3,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-524"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-524",
+          "name": "Use of Cache Containing Sensitive Information"
+        }
+      ],
+      "description": "When the `session` object is accessed, Flask should set the `Vary: Cookie` header. This instructs caches not to cache the response, as it may contain information specific to a logged in user. This is handled in most cases, but some forms of access such as the Python `in` operator were overlooked.\r\n\r\nThe severity depends on the application's use of the session, and the cache's behavior regarding cookies. The risk depends on all these conditions being met.\r\n\r\n1. The application must be hosted behind a caching proxy that does not ignore responses with cookies.\r\n2. The application does not set a `Cache-Control` header to indicate that a page is private or should not be cached.\r\n3. The application accesses the session in a way that does not access the values, only the keys, and does not mutate the session.",
+      "ghsa_id": "GHSA-68rp-wp8r-4726",
+      "html_url": "https://github.com/pallets/flask/security/advisories/GHSA-68rp-wp8r-4726",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-68rp-wp8r-4726"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-27205"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-02-19T05:01:23Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1242887?v=4",
+        "events_url": "https://api.github.com/users/davidism/events{/privacy}",
+        "followers_url": "https://api.github.com/users/davidism/followers",
+        "following_url": "https://api.github.com/users/davidism/following{/other_user}",
+        "gists_url": "https://api.github.com/users/davidism/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/davidism",
+        "id": 1242887,
+        "login": "davidism",
+        "node_id": "MDQ6VXNlcjEyNDI4ODc=",
+        "organizations_url": "https://api.github.com/users/davidism/orgs",
+        "received_events_url": "https://api.github.com/users/davidism/received_events",
+        "repos_url": "https://api.github.com/users/davidism/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/davidism/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/davidism/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/davidism",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Flask session does not add `Vary: Cookie` header when accessed in some ways",
+      "updated_at": "2026-02-19T17:44:53Z",
+      "url": "https://api.github.com/repos/pallets/flask/security-advisories/GHSA-68rp-wp8r-4726",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "flask"
+          },
+          "patched_versions": "3.1.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<3.1.3"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 7,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "jayaddison",
+          "type": "reporter"
+        },
+        {
+          "login": "Brax94",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/55152140?v=4",
+            "events_url": "https://api.github.com/users/jayaddison/events{/privacy}",
+            "followers_url": "https://api.github.com/users/jayaddison/followers",
+            "following_url": "https://api.github.com/users/jayaddison/following{/other_user}",
+            "gists_url": "https://api.github.com/users/jayaddison/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/jayaddison",
+            "id": 55152140,
+            "login": "jayaddison",
+            "node_id": "MDQ6VXNlcjU1MTUyMTQw",
+            "organizations_url": "https://api.github.com/users/jayaddison/orgs",
+            "received_events_url": "https://api.github.com/users/jayaddison/received_events",
+            "repos_url": "https://api.github.com/users/jayaddison/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/jayaddison/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/jayaddison/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/jayaddison",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/7072029?v=4",
+            "events_url": "https://api.github.com/users/Brax94/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Brax94/followers",
+            "following_url": "https://api.github.com/users/Brax94/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Brax94/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Brax94",
+            "id": 7072029,
+            "login": "Brax94",
+            "node_id": "MDQ6VXNlcjcwNzIwMjk=",
+            "organizations_url": "https://api.github.com/users/Brax94/orgs",
+            "received_events_url": "https://api.github.com/users/Brax94/received_events",
+            "repos_url": "https://api.github.com/users/Brax94/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Brax94/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Brax94/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Brax94",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2025-47278",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 1.8,
+          "vector_string": "CVSS:4.0/AV:L/AC:L/AT:P/PR:H/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-683"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-683",
+          "name": "Function Call With Incorrect Order of Arguments"
+        }
+      ],
+      "description": "In Flask 3.1.0, the way fallback key configuration was handled resulted in the last fallback key being used for signing, rather than the current signing key.\r\n\r\nSigning is provided by the `itsdangerous` library. A list of keys can be passed, and it expects the last (top) key in the list to be the most recent key, and uses that for signing. Flask was incorrectly constructing that list in reverse, passing the signing key first.\r\n\r\nSites that have opted-in to use key rotation by setting `SECRET_KEY_FALLBACKS` are likely to unexpectedly be signing their sessions with stale keys, and their transition to fresher keys will be impeded. Sessions are still signed, so this would not cause any sort of data integrity loss.",
+      "ghsa_id": "GHSA-4grg-w6v8-c28g",
+      "html_url": "https://github.com/pallets/flask/security/advisories/GHSA-4grg-w6v8-c28g",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-4grg-w6v8-c28g"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-47278"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-05-13T15:01:27Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1242887?v=4",
+        "events_url": "https://api.github.com/users/davidism/events{/privacy}",
+        "followers_url": "https://api.github.com/users/davidism/followers",
+        "following_url": "https://api.github.com/users/davidism/following{/other_user}",
+        "gists_url": "https://api.github.com/users/davidism/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/davidism",
+        "id": 1242887,
+        "login": "davidism",
+        "node_id": "MDQ6VXNlcjEyNDI4ODc=",
+        "organizations_url": "https://api.github.com/users/davidism/orgs",
+        "received_events_url": "https://api.github.com/users/davidism/received_events",
+        "repos_url": "https://api.github.com/users/davidism/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/davidism/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/davidism/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/davidism",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "fallback key is used instead of current signing key",
+      "updated_at": "2025-05-13T17:29:00Z",
+      "url": "https://api.github.com/repos/pallets/flask/security-advisories/GHSA-4grg-w6v8-c28g",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "flask"
+          },
+          "patched_versions": "3.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "3.1.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 5,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "twm",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/43662?v=4",
+            "events_url": "https://api.github.com/users/twm/events{/privacy}",
+            "followers_url": "https://api.github.com/users/twm/followers",
+            "following_url": "https://api.github.com/users/twm/following{/other_user}",
+            "gists_url": "https://api.github.com/users/twm/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/twm",
+            "id": 43662,
+            "login": "twm",
+            "node_id": "MDQ6VXNlcjQzNjYy",
+            "organizations_url": "https://api.github.com/users/twm/orgs",
+            "received_events_url": "https://api.github.com/users/twm/received_events",
+            "repos_url": "https://api.github.com/users/twm/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/twm/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/twm/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/twm",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2023-30861",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "When all of the following conditions are met, a response containing data intended for one client may be cached and subsequently sent by a proxy to other clients. If the proxy also caches `Set-Cookie` headers, it may send one client's `session` cookie to other clients. The severity depends on the application's use of the session, and the proxy's behavior regarding cookies. The risk depends on _all_ these conditions being met.\r\n\r\n1. The application must be hosted behind a caching proxy that does not strip cookies or ignore responses with cookies.\r\n2. The application sets [`session.permanent = True`](https://flask.palletsprojects.com/en/2.3.x/api/#flask.session.permanent).\r\n2. The application does not access or modify the session at any point during a request.\r\n4. [`SESSION_REFRESH_EACH_REQUEST`](https://flask.palletsprojects.com/en/2.3.x/config/#SESSION_REFRESH_EACH_REQUEST) is enabled (the default).\r\n5. The application does not set a `Cache-Control` header to indicate that a page is private or should not be cached.\r\n\r\nThis happens because vulnerable versions of Flask only set the `Vary: Cookie` header when the session is accessed or modified, not when it is refreshed (re-sent to update the expiration) without being accessed or modified.",
+      "ghsa_id": "GHSA-m2qf-hxjv-5gpq",
+      "html_url": "https://github.com/pallets/flask/security/advisories/GHSA-m2qf-hxjv-5gpq",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-m2qf-hxjv-5gpq"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2023-30861"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2023-05-01T15:42:50Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1242887?v=4",
+        "events_url": "https://api.github.com/users/davidism/events{/privacy}",
+        "followers_url": "https://api.github.com/users/davidism/followers",
+        "following_url": "https://api.github.com/users/davidism/following{/other_user}",
+        "gists_url": "https://api.github.com/users/davidism/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/davidism",
+        "id": 1242887,
+        "login": "davidism",
+        "node_id": "MDQ6VXNlcjEyNDI4ODc=",
+        "organizations_url": "https://api.github.com/users/davidism/orgs",
+        "received_events_url": "https://api.github.com/users/davidism/received_events",
+        "repos_url": "https://api.github.com/users/davidism/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/davidism/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/davidism/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/davidism",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Possible disclosure of permanent session cookie due to missing Vary: Cookie header",
+      "updated_at": "2023-05-01T16:47:36Z",
+      "url": "https://api.github.com/repos/pallets/flask/security-advisories/GHSA-m2qf-hxjv-5gpq",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "flask"
+          },
+          "patched_versions": "2.2.5, 2.3.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<2.3.1"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "pallets/flask",
+    "url": "https://api.github.com/repos/pallets/flask/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:31.898474+00:00",
+  "tool": "github_rest_readonly"
+}

@@ -1,0 +1,60 @@
+From 4b63c3a3f7af04ecd79c89a594b0b02a01990b1d Mon Sep 17 00:00:00 2001
+From: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date: Fri, 22 May 2026 20:57:22 +0200
+Subject: [PATCH] [Routing] Fix dot-segment encoding for chained "../" and "./"
+ in generated URLs
+
+---
+ .../Component/Routing/Generator/UrlGenerator.php  | 15 ++++++++++-----
+ .../Routing/Tests/Generator/UrlGeneratorTest.php  | 12 ++++++++++++
+ 2 files changed, 22 insertions(+), 5 deletions(-)
+
+diff --git a/src/Symfony/Component/Routing/Generator/UrlGenerator.php b/src/Symfony/Component/Routing/Generator/UrlGenerator.php
+index 97fc8116a0303..8179e2bfafe33 100644
+--- a/src/Symfony/Component/Routing/Generator/UrlGenerator.php
++++ b/src/Symfony/Component/Routing/Generator/UrlGenerator.php
+@@ -221,11 +221,16 @@ protected function doGenerate(array $variables, array $defaults, array $requirem
+         // the path segments "." and ".." are interpreted as relative reference when resolving a URI; see http://tools.ietf.org/html/rfc3986#section-3.3
+         // so we need to encode them as they are not used for this purpose here
+         // otherwise we would generate a URI that, when followed by a user agent (e.g. browser), does not match this route
+-        $url = strtr($url, ['/../' => '/%2E%2E/', '/./' => '/%2E/']);
+-        if (str_ends_with($url, '/..')) {
+-            $url = substr($url, 0, -2).'%2E%2E';
+-        } elseif (str_ends_with($url, '/.')) {
+-            $url = substr($url, 0, -1).'%2E';
++        if (str_contains($url, '/.')) {
++            $segments = explode('/', $url);
++            foreach ($segments as $i => $segment) {
++                if ('.' === $segment) {
++                    $segments[$i] = '%2E';
++                } elseif ('..' === $segment) {
++                    $segments[$i] = '%2E%2E';
++                }
++            }
++            $url = implode('/', $segments);
+         }
+ 
+         $schemeAuthority = '';
+diff --git a/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php b/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
+index 0ad2909d913e9..94c9e6faf477f 100644
+--- a/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
++++ b/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
+@@ -505,6 +505,18 @@ public function testEncodingOfRelativePathSegments()
+         $this->assertSame('/app.php/a./.a/a../..a/...', $this->getGenerator($routes)->generate('test'));
+     }
+ 
++    public function testEncodingOfChainedRelativePathSegments()
++    {
++        $routes = $this->getRoutes('test', new Route('/foo/{path}/bar', [], ['path' => '.+']));
++        $this->assertSame('/app.php/foo/%2E%2E/%2E%2E/%2E%2E/bar', $this->getGenerator($routes)->generate('test', ['path' => '../../..']));
++        $this->assertSame('/app.php/foo/%2E/%2E/%2E/bar', $this->getGenerator($routes)->generate('test', ['path' => '././.']));
++        $this->assertSame('/app.php/foo/%2E%2E/%2E/%2E/%2E%2E/bar', $this->getGenerator($routes)->generate('test', ['path' => '../././..']));
++
++        $routes = $this->getRoutes('test', new Route('/foo/{path}', [], ['path' => '.+']));
++        $this->assertSame('/app.php/foo/%2E%2E/%2E%2E/%2E%2E', $this->getGenerator($routes)->generate('test', ['path' => '../../..']));
++        $this->assertSame('/app.php/foo/%2E/%2E/%2E', $this->getGenerator($routes)->generate('test', ['path' => '././.']));
++    }
++
+     public function testEncodingOfSlashInPath()
+     {
+         $routes = $this->getRoutes('test', new Route('/dir/{path}/dir2', [], ['path' => '.+']));

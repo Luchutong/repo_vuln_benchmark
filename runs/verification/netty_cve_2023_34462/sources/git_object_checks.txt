@@ -1,0 +1,97 @@
+Repository: https://github.com/netty/netty
+Local mirror: /tmp/netty_vuln.git (bare; remote named gh). The snapshot tag
+netty-4.1.59.Final was already present; netty-4.1.93.Final and netty-4.1.94.Final
+were fetched with --depth=200, and the release commit da1a448d was fetched
+explicitly because OSV lists it as a fixed commit.
+
+Dataset snapshot: tag netty-4.1.59.Final, commit 97d044812dc84288ea2c44c0862c5b1c26cb5b2d.
+  runs/language/snap_bb344e672a0544ef/snapshot_proposal.json records
+  snapshot_id=snap_bb344e672a0544ef, repo_id=1064563, tag_or_release=netty-4.1.59.Final,
+  vulnerable_commit=97d044812dc84288ea2c44c0862c5b1c26cb5b2d.
+  runs/language/snap_bb344e672a0544ef/file_inventory.json records (commit 97d04481):
+    handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java
+      bytes=13659 git_oid=ee1cd388bdc070d5cd079f9be5b3e9ea13b484df
+    handler/src/main/java/io/netty/handler/ssl/SniHandler.java
+      bytes=6934  git_oid=5ca51b919f433488de8057281a1cfe62861f3c6c
+    handler/src/main/java/io/netty/handler/ssl/AbstractSniHandler.java
+      bytes=6115  git_oid=59ee6953fa24f449cc365d94df208d2a45323077
+  $ git rev-parse 'netty-4.1.59.Final^{commit}'
+  97d044812dc84288ea2c44c0862c5b1c26cb5b2d
+  $ git rev-parse 'netty-4.1.59.Final:handler/src/main/java/io/netty/handler/ssl/SslClientHelloHandler.java'
+  ee1cd388bdc070d5cd079f9be5b3e9ea13b484df
+  $ git rev-parse 'netty-4.1.59.Final:handler/src/main/java/io/netty/handler/ssl/SniHandler.java'
+  5ca51b919f433488de8057281a1cfe62861f3c6c
+  $ git rev-parse 'netty-4.1.59.Final:handler/src/main/java/io/netty/handler/ssl/AbstractSniHandler.java'
+  59ee6953fa24f449cc365d94df208d2a45323077
+  All three match the snapshot inventory byte counts (13659 / 6934 / 6115).
+
+Vulnerable code at the snapshot (4.1.59):
+  SniHandler (line 37: "public class SniHandler extends AbstractSniHandler<SslContext>")
+  inherits from AbstractSniHandler (line 32: "public abstract class AbstractSniHandler<T>
+  extends SslClientHelloHandler<T>"), which inherits the ClientHello decoding from
+  SslClientHelloHandler. Neither subclass overrides decode or the allocation.
+  In SslClientHelloHandler.decode:
+    - line 117-118 reads handshakeLength = in.getUnsignedMedium(...), a 24-bit value
+      (maximum 0xFFFFFF = 16777215 bytes);
+    - lines 130-132, when the declared handshake does not fit in the current record,
+      execute handshakeBuffer = ctx.alloc().buffer(handshakeLength) with no upper bound
+      check and before any bytes of that length have arrived;
+    - line 141 then copies the record payload into handshakeBuffer.
+  No maxClientHelloLength field, constructor or TooLongFrameException exists anywhere in
+  the 4.1.59 class.
+  $ grep -n 'maxClientHelloLength\|TooLongFrameException' SslClientHelloHandler_4.1.59.java
+  (no output)
+
+Unchanged between the snapshot and the last vulnerable release:
+  $ git rev-parse 'netty-4.1.59.Final:.../SslClientHelloHandler.java'  -> ee1cd388...
+  $ git rev-parse 'netty-4.1.93.Final:.../SslClientHelloHandler.java'  -> ee1cd388...
+  Same blob at 4.1.59 and 4.1.93, so the vulnerable allocation survives unchanged up to
+  the release immediately before the fix.
+
+Fix commit: 535da17e45201ae4278c0479e6162bb4127d4c32
+  "Merge pull request from GHSA-6mjq-h674-j845", 2023-06-20 14:53:08 +0200,
+  parent 1bb825b7 (4.1.93 line).
+  Diff: SslClientHelloHandler.java + AbstractSniHandler.java + SniHandler.java + SniHandlerTest.java.
+  It adds:
+    - SslClientHelloHandler.MAX_CLIENT_HELLO_LENGTH = 0xFFFFFF and a private final
+      maxClientHelloLength (default MAX_CLIENT_HELLO_LENGTH via the no-arg constructor,
+      validated by checkInRange(0, MAX_CLIENT_HELLO_LENGTH));
+    - a protected SslClientHelloHandler(int maxClientHelloLength) constructor;
+    - before consuming the header, "if (handshakeLength > maxClientHelloLength &&
+      maxClientHelloLength != 0)" throws TooLongFrameException, skips the input, fires
+      SniCompletionEvent and calls SslUtils.handleHandshakeFailure;
+    - AbstractSniHandler(int maxClientHelloLength, long handshakeTimeoutMillis) and a
+      SniHandler constructor overload exposing maxClientHelloLength.
+  $ git show -s --format='%H %P | %ci | %s' 535da17e
+  535da17e45201ae4278c0479e6162bb4127d4c32 1bb825b7cec563acbb5e1d257f9d48551bbc707d | 2023-06-20 14:53:08 +0200 | Merge pull request from GHSA-6mjq-h674-j845
+
+Fixed release:
+  Netty 4.1.94.Final: release commit da1a448d5bc4f36cc1744db93fcaf64e198db2bd,
+  "[maven-release-plugin] prepare release netty-4.1.94.Final", parent 535da17e.
+  $ git rev-parse 'netty-4.1.94.Final^{commit}'
+  da1a448d5bc4f36cc1744db93fcaf64e198db2bd
+  $ git merge-base --is-ancestor 535da17e da1a448d; echo $?
+  0
+  Fixed file blobs: SslClientHelloHandler.java 2cb3076afc16157720f4761f6587fbdad6b63513,
+  SniHandler.java 0f1d069c62a41d81de35ea83f10e20cac01083b0, AbstractSniHandler.java
+  5abf8a1b1072247ad801a917c242b416d4b1af43 (vulnerable blobs ee1cd388 / 5ca51b91 / 59ee6953).
+  OSV also lists da1a448d as a fixed GIT event; it is the 4.1.94 release commit, so it is the
+  same fix reached through the release tag, not a second independent patch.
+
+Affected range:
+  CVE List v5 CNA (GitHub_M): "netty" versions "< 4.1.94.Final" affected.
+  OSV/GHSA-6mjq-h674-j845: package io.netty:netty-handler (Maven), introduced 0,
+  fixed 4.1.94.Final; the GIT range in OSV/CVE-2023-34462 also has fixed events
+  535da17e and da1a448d.
+  NVD CPE: cpe:2.3:a:netty:netty:*:*:*:*:*:*:*:*.
+  Snapshot 4.1.59.Final is inside the affected range and its file blob is identical to 4.1.93.
+
+Scope nuance for the reviewer to check:
+  The 4.1.94 fix keeps MAX_CLIENT_HELLO_LENGTH (0xFFFFFF, ~16MB) as the DEFAULT maximum,
+  so an application using the no-argument SniHandler constructor still permits a 16MB
+  allocation; the patch adds an opt-in lower bound (maxClientHelloLength). The advisory
+  classifies the issue as fixed in 4.1.94 because the limit can now be configured. The
+  dossier must not claim that the default allocation was reduced.
+
+No Netty server, socket, TLS handshake or test was run; all checks are static reads of
+git objects, the fix patch and public records.

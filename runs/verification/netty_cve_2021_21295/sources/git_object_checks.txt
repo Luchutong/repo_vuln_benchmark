@@ -1,0 +1,6 @@
+annotated tag netty-4.1.59.Final -> tag object da69023f027829dda35cbf69445dab700aadb2f2 -> commit 97d044812dc84288ea2c44c0862c5b1c26cb5b2d
+annotated tag netty-4.1.60.Final -> tag object f026e60f7227668587a4a6a3970988c3ccbd7f81 -> commit eef26e8bb571612b76235841a84f605b9ae5d777
+advisory fix commit 89c241e3b1795ff257af4ad6eadc616cb2fb3dc4 'Merge pull request from GHSA-wm47-8v5p-wjpj'
+GitHub compare 89c241e3...eef26e8b -> status ahead, ahead_by 5, behind_by 0 (fix is an ancestor of 4.1.60.Final)
+fix diff vs parent: HttpObjectDecoder.java, HttpUtil.java, DefaultHttp2ConnectionDecoder.java + test
+vulnerable file at 97d04481 has no content-length validation in the HTTP/2 decoder; fixed file at eef26e8b adds verifyContentLength

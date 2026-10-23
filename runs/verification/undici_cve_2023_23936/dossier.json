@@ -1,0 +1,324 @@
+{
+  "candidate_id": "adv3_0a525ae00aaeccc5",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_23936/sources/osv_ghsa.json",
+      "evidence_id": "ev_undici_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T16:00:00Z",
+      "sha256_of_observation": "a5abbd0bb0a42c32d1b7ad893cfca043d8b93756392223040da5cdce22dbeb46",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-5r9g-qh6m-jxff",
+      "supports": [
+        "GHSA aliases CVE-2023-23936 and two BIT-node ids",
+        "npm undici range >=2.0.0,<5.19.1",
+        "CVSS 3.1 AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:N",
+        "CWE-74 and CWE-93 in database_specific",
+        "advisory references commit a2eff05 and release v5.19.1"
+      ],
+      "verification_method": "OSV API query by GHSA id; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_23936/sources/cve_v5.json",
+      "evidence_id": "ev_undici_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T16:00:00Z",
+      "sha256_of_observation": "3db2f1509d3a16267cea3f26aeb8af44846d120a7462e7e8c0948176981ef69d",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2023-23936",
+      "supports": [
+        "CVE published 2023-02-16, state PUBLISHED, assigner GitHub_M",
+        "CNA CVSS 3.1 6.5 AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+        "CNA CWE-93",
+        "CNA references advisory, commit a2eff05 and release v5.19.1"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_23936/sources/nvd_cve.json",
+      "evidence_id": "ev_undici_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T16:00:00Z",
+      "sha256_of_observation": "1c3f7a34187fd05192a8e9f7763aef2741ff7b282831738ef0277d4cf666e3f5",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2023-23936",
+      "supports": [
+        "NVD primary CVSS 3.1 5.4 MEDIUM AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+        "NVD primary CWE-74",
+        "NVD also carries the GitHub secondary metric (6.5, UI:N) and CWE-93"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_23936/sources/git_object_checks.txt",
+      "evidence_id": "ev_undici_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T16:02:00Z",
+      "sha256_of_observation": "f46e11b77dbc898fc215f1c74e9d2b6239b0d2062599fbe256271612bbe02381",
+      "source_url": "https://github.com/nodejs/undici/commit/a2eff05401358f6595138df963837c24348f2034",
+      "supports": [
+        "tag v5.19.0 is lightweight and points at f5c89e5c",
+        "tag v5.19.1 is lightweight and points at 984d53ba",
+        "fix a2eff05 is an ancestor of v5.19.1 and absent from v5.19.0",
+        "fix a2eff05 has the v5.19.0 tag commit as its single parent",
+        "fix touches lib/core/request.js (+3) and test/headers-crlf.js (+37)"
+      ],
+      "verification_method": "exact-SHA and tag fetch into a bare repository; git merge-base --is-ancestor in both directions; git show --stat"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_23936/sources/request_5.19.0.js",
+      "evidence_id": "ev_undici_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:58:00Z",
+      "sha256_of_observation": "493323d1aab9222f3a9b58d0963b7ba48bb110bba1638a25ebbc3a1371c135b7",
+      "source_url": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/core/request.js#L295-L309",
+      "supports": [
+        "vulnerable root-cause region",
+        "processHeaderValue rejects CRLF characters at line 288",
+        "the Host special case stores val in request.host at line 308 with no such check",
+        "Request constructor calls processHeader for every header (lines 162, 168, 276)"
+      ],
+      "verification_method": "file read at the v5.19.0 commit"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_23936/sources/request_5.19.1.js",
+      "evidence_id": "ev_undici_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:58:00Z",
+      "sha256_of_observation": "87e047fae3919ea3541f1a45d9d3566688b72060d48e2c7c6c104a82da2bc325",
+      "source_url": "https://github.com/nodejs/undici/blob/984d53bad97c98529424a7f3bef6be1d0e76d039/lib/core/request.js#L305-L311",
+      "supports": [
+        "fixed release content",
+        "host values are rejected with InvalidArgumentError when headerCharRegex matches",
+        "the check is applied before request.host = val"
+      ],
+      "verification_method": "file read at the v5.19.1 commit"
+    },
+    {
+      "artifact_path": "runs/verification/undici_cve_2023_23936/sources/headers_crlf_test.js",
+      "evidence_id": "ev_undici_tests",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T16:02:00Z",
+      "sha256_of_observation": "3824c4b57401c8c9a51794aa7090dd0029748046ec6d8aaa0bc0aa22304336f3",
+      "source_url": "https://github.com/nodejs/undici/blob/a2eff05401358f6595138df963837c24348f2034/test/headers-crlf.js",
+      "supports": [
+        "upstream regression test added with the fix",
+        "sends host: '12 \\r\\n\\r\\naaa:aaa' through client.request",
+        "expects UND_ERR_INVALID_ARG"
+      ],
+      "verification_method": "file read at the fix commit; the test was not executed"
+    },
+    {
+      "artifact_path": "runs/language/snap_24c4a191fd049fc3/snapshot_proposal.json",
+      "evidence_id": "ev_undici_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:57:00Z",
+      "sha256_of_observation": "4340e1ef84f4918a727069bd9208c7f415cdd0863727979083d4d3a866a2c6f4",
+      "source_url": "https://github.com/nodejs/undici/tree/f5c89e5c87c7d702996b152c4ad86302b60c4181",
+      "supports": [
+        "snapshot_id and 591-file inventory",
+        "JavaScript first-party 74 files / 548,993 bytes / 15.70% of first-party text",
+        "tree oid 2712aff2",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "fix_commits": [
+      3
+    ],
+    "fixed_releases": [
+      3,
+      5
+    ],
+    "languages": [
+      7
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      3,
+      4
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No HTTP request was sent and the regression test was not executed; the finding is static.",
+    "The advisory-cited fix a2eff05 is a commit titled as a merge but has a single parent, the v5.19.0 tag commit; no separate component commit exists for this branch.",
+    "The NVD primary metric (5.4, UI:R) and the CNA/GitHub metric (6.5, UI:N) disagree on user interaction; the dossier records the NVD primary as canonical and keeps both vectors.",
+    "Only the npm undici package is covered; bundled copies inside Node.js release lines were not checked.",
+    "The Host value is later interpolated into the request line at lib/client.js:1397-1398; that sink was read but not traced through a live client."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "function processHeader (request, key, val) {\n  if (val && (typeof val === 'object' && !Array.isArray(val))) {\n    throw new InvalidArgumentError(`invalid ${key} header`)\n  } else if (val === undefined) {\n    return\n  }\n\n  if (\n    request.host === null &&\n    key.length === 4 &&\n    key.toLowerCase() === 'host'\n  ) {\n    // Consumed by Client\n    request.host = val",
+      "description": "processHeaderValue() rejects values containing characters outside the legal header range at line 288, but the special-case Host path in processHeader() copies the raw value into request.host at line 308 without running that regex. lib/client.js then interpolates the stored value directly into the request line: `if (typeof host === 'string') { header += \\`host: ${host}\\r\\n\\` }` (lines 1397-1398). A caller that passes a Host value such as `12 \\r\\n\\r\\naaa:aaa` therefore injects arbitrary header lines or splits the request, even though the same value would be rejected as a normal header. The 5.19.1 fix adds `if (headerCharRegex.exec(val) !== null) { throw new InvalidArgumentError(...) }` before the assignment.",
+      "file": "lib/core/request.js",
+      "function": "processHeader",
+      "language": "JavaScript",
+      "line": "295-309",
+      "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/core/request.js#L295-L309"
+    },
+    "entry_point": {
+      "description": "The Request constructor in lib/core/request.js walks the caller-supplied headers object and calls processHeader(this, key, value) for each entry (lines 162, 168 and 276). Callers reach it through client.request()/dispatch, so any application that forwards an untrusted Host value into undici headers reaches the unvalidated branch.",
+      "file": "lib/core/request.js",
+      "function": "Request.constructor",
+      "language": "JavaScript",
+      "line": 57,
+      "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/core/request.js#L57"
+    },
+    "location_id": "loc_CVE_2023_23936_snap_24c4a191fd049fc3",
+    "location_kind": "logic",
+    "snapshot_id": "snap_24c4a191fd049fc3",
+    "trace": [
+      {
+        "description": "Header object iteration reaches processHeader",
+        "file": "lib/core/request.js",
+        "function": "Request.constructor",
+        "language": "JavaScript",
+        "line": 168,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/core/request.js#L168"
+      },
+      {
+        "description": "Host key is recognized and the raw value is stored",
+        "file": "lib/core/request.js",
+        "function": "processHeader",
+        "language": "JavaScript",
+        "line": 308,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/core/request.js#L308"
+      },
+      {
+        "description": "Stored host is interpolated verbatim into the HTTP request line",
+        "file": "lib/client.js",
+        "function": "write",
+        "language": "JavaScript",
+        "line": 1397,
+        "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/client.js#L1397-L1398"
+      }
+    ],
+    "verification_method": "Static read of lib/core/request.js and lib/client.js at v5.19.0 and v5.19.1, plus the fix diff. No code executed.",
+    "vulnerability_id": "CVE-2023-23936"
+  },
+  "open_questions": [
+    "Whether every public API path (fetch, request, stream, pipeline) funnels the Host value through this same processHeader branch was not exhaustively traced.",
+    "Whether Node.js bundled undici versions were patched by the corresponding Node security releases was not checked."
+  ],
+  "prepared_at": "2026-10-21T16:05:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/nodejs/undici",
+    "full_name": "nodejs/undici",
+    "primary_language": "JavaScript",
+    "project_kind": "HTTP client library for Node.js",
+    "repo_id": "133092972",
+    "snapshot_id": "snap_24c4a191fd049fc3"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read lib/core/request.js at v5.19.0 and confirm the Host branch bypasses headerCharRegex.",
+      "An independent reviewer must confirm a2eff05 is in v5.19.1 and not in v5.19.0.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-5r9g-qh6m-jxff, npm range)",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "upstream git history"
+    ],
+    "independent_of_primary": true,
+    "notes": "CVE v5 (assigner GitHub_M) supplies CVSS 3.1 6.5 (UI:N) and CWE-93. NVD has a genuine primary assessment of its own: CVSS 3.1 5.4 MEDIUM with UI:R and CWE-74, alongside the GitHub secondary metric 6.5 and CWE-93. This is a real source disagreement, not a mirror: the canonical severity uses the NVD primary 5.4/UI:R and the CNA vector is kept in the severity fields only as an alternate; cwe_ids keep both CWE-93 (CNA) and CWE-74 (NVD primary). OSV metadata lists both CWEs and the same 2.0.0<5.19.1 range, and carries a third vector variant (PR:L/UI:R) without a numeric score; it is recorded here and not used for the canonical severity.",
+    "severity_disagreement": true
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/nodejs/undici/security/advisories/GHSA-5r9g-qh6m-jxff",
+    "affected_packages": [
+      {
+        "affected_range": ">=2.0.0,<5.19.1",
+        "ecosystem": "npm",
+        "package": "undici",
+        "purl": "pkg:npm/undici"
+      }
+    ],
+    "aliases": [
+      "CVE-2023-23936",
+      "GHSA-5r9g-qh6m-jxff"
+    ],
+    "category_l1": "injection",
+    "category_l2": "Host header CRLF injection",
+    "cwe_ids": [
+      "CWE-93",
+      "CWE-74"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "main",
+        "message": "Merge pull request from GHSA-5r9g-qh6m-jxff",
+        "sha": "a2eff05401358f6595138df963837c24348f2034",
+        "url": "https://github.com/nodejs/undici/commit/a2eff05401358f6595138df963837c24348f2034"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "undici",
+        "release_url": "https://github.com/nodejs/undici/releases/tag/v5.19.1",
+        "tag": "v5.19.1",
+        "verified_content": "At the v5.19.1 commit, processHeader rejects a Host value when headerCharRegex matches, throwing InvalidArgumentError before request.host is assigned; v5.19.0 has no such check in that branch.",
+        "version": "5.19.1"
+      }
+    ],
+    "published_at": "2023-02-16T17:30:23Z",
+    "references": [
+      "https://github.com/nodejs/undici/security/advisories/GHSA-5r9g-qh6m-jxff",
+      "https://github.com/nodejs/undici/commit/a2eff05401358f6595138df963837c24348f2034",
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-23936",
+      "https://hackerone.com/reports/1820955",
+      "https://github.com/nodejs/undici/releases/tag/v5.19.1"
+    ],
+    "repo_id": "133092972",
+    "severity": {
+      "level": "medium",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 5.4 falls in Medium (4.0-6.9). The CNA/GitHub secondary metric is 6.5 (UI:N) and is recorded as an alternate, not merged.",
+      "score": 5.4,
+      "source": "NVD primary metric",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-23936",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_24c4a191fd049fc3",
+    "source_type": "upstream_advisory",
+    "title": "undici does not validate the Host header for CRLF injection before 5.19.1",
+    "vulnerability_id": "CVE-2023-23936",
+    "vulnerable_commit": "f5c89e5c87c7d702996b152c4ad86302b60c4181",
+    "vulnerable_commit_basis": "lightweight tag v5.19.0 points directly at f5c89e5c...; the advisory says the issue is patched in 5.19.1 and the fix commit's parent is exactly this commit",
+    "vulnerable_version": "5.19.0"
+  }
+}

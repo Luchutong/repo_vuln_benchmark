@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_cors",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Middleware/CORS/src/Microsoft.AspNetCore.Cors.csproj",
+  "retrieved_at": "2026-10-21T10:56:28.692Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>CORS middleware and policy for ASP.NET Core to enable cross-origin resource sharing.\nCommonly used types:\nMicrosoft.AspNetCore.Cors.DisableCorsAttribute\nMicrosoft.AspNetCore.Cors.EnableCorsAttribute</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;cors</PackageTags>\n    <IsPackable>false</IsPackable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Extensions\\src\\Microsoft.AspNetCore.Http.Extensions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Routing.Abstractions\\src\\Microsoft.AspNetCore.Routing.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Routing\\src\\Microsoft.AspNetCore.Routing.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Cors.Test\" />\n\n    <Compile Include=\"$(SharedSourceRoot)Debugger\\DebuggerHelpers.cs\" LinkBase=\"Shared\" />\n  </ItemGroup>\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "93e66180811fe85d5fa44c7ccf54bae2427a0e79",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/CORS/src/Microsoft.AspNetCore.Cors.csproj",
+      "display_title": "Microsoft.AspNetCore.Cors.csproj"
+    },
+    "isError": false
+  }
+}

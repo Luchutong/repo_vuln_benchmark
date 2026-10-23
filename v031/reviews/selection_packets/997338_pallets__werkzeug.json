@@ -1,0 +1,130 @@
+{
+  "packet_id": "selrev_997338_snap_b57262de7996e8a2",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "997338",
+    "full_name": "pallets/werkzeug",
+    "canonical_url": "https://github.com/pallets/werkzeug",
+    "primary_language": "Python",
+    "project_kind": "The comprehensive WSGI web application library."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_b57262de7996e8a2",
+    "tag_or_release": "3.0.2",
+    "commit_sha": "d70dcea305bf842c5a3b55265b5ffac2db012e23"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "d70dcea305bf842c5a3b55265b5ffac2db012e23",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "72c1e24392a1fc2e33de61c8ff02b41a4880ccc7",
+    "tree_file_count": 311,
+    "exported_file_count": 311,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/pallets__werkzeug/snap_b57262de7996e8a2.tar.gz",
+    "archive_sha256": "c435ddb12487fbffaab3eb48c9c13cf4066faedb4c56cd219a6df17cd7dcadf3",
+    "archive_bytes": 808206,
+    "manifest_path": "exports/pallets__werkzeug/snap_b57262de7996e8a2.manifest.jsonl",
+    "manifest_sha256": "dc9d48db8e13e2e6e9676b2932ad6f507b9bcc4148c470052a28e652af4bbef6"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "CHANGES.rst",
+      "docs/changes.rst"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/ISSUE_TEMPLATE/bug-report.md",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/ISSUE_TEMPLATE/feature-request.md",
+      ".github/dependabot.yml",
+      ".github/pull_request_template.md",
+      ".github/workflows/lock.yaml",
+      ".github/workflows/publish.yaml",
+      ".github/workflows/tests.yaml",
+      "CHANGES.rst",
+      "docs/changes.rst",
+      "src/werkzeug/security.py"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "make": [
+        "Makefile"
+      ],
+      "python": [
+        "pyproject.toml",
+        "tox.ini"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "python",
+      "make"
+    ],
+    "toolchain_available": {
+      "make": {
+        "make": true
+      },
+      "python": {
+        "python3": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-34069",
+      "aliases": [
+        "CVE-2024-34069",
+        "GHSA-2g68-c3qc-8985",
+        "PYSEC-2026-2043"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<3.0.3",
+          "ecosystem": "PyPI",
+          "package": "werkzeug",
+          "purl": "pkg:pypi/werkzeug"
+        }
+      ],
+      "published_at": "2024-05-06T14:21:27Z",
+      "advisory_url": "https://github.com/pallets/werkzeug/security/advisories/GHSA-2g68-c3qc-8985",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); CNA and the NVD secondary metric agree.",
+        "score": 7.5,
+        "source": "CVE v5 CNA metric, mirrored by NVD secondary metric from security-advisories@github.com",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-34069",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

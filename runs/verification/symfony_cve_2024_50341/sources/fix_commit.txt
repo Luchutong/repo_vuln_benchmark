@@ -1,0 +1,93 @@
+From 22a0789a0085c3ee96f4ef715ecad8255cf0e105 Mon Sep 17 00:00:00 2001
+From: Christian Flothmann <christian.flothmann@qossmic.com>
+Date: Wed, 17 Jul 2024 12:28:07 +0200
+Subject: [PATCH] use firewall-specific user checkers when manually logging in
+ users
+
+---
+ .../SecurityBundle/DependencyInjection/SecurityExtension.php | 3 +++
+ .../Bundle/SecurityBundle/Resources/config/security.php      | 5 ++++-
+ src/Symfony/Bundle/SecurityBundle/Security.php               | 3 ++-
+ src/Symfony/Bundle/SecurityBundle/Tests/SecurityTest.php     | 4 ++--
+ 4 files changed, 11 insertions(+), 4 deletions(-)
+
+diff --git a/src/Symfony/Bundle/SecurityBundle/DependencyInjection/SecurityExtension.php b/src/Symfony/Bundle/SecurityBundle/DependencyInjection/SecurityExtension.php
+index 3d00b30a06fc4..383f68d203aca 100644
+--- a/src/Symfony/Bundle/SecurityBundle/DependencyInjection/SecurityExtension.php
++++ b/src/Symfony/Bundle/SecurityBundle/DependencyInjection/SecurityExtension.php
+@@ -579,6 +579,9 @@ private function createFirewall(ContainerBuilder $container, string $id, array $
+ 
+         $container->setAlias('security.user_checker.'.$id, new Alias($firewall['user_checker'], false));
+ 
++        $userCheckerLocator = $container->getDefinition('security.user_checker_locator');
++        $userCheckerLocator->replaceArgument(0, array_merge($userCheckerLocator->getArgument(0), [$id => new ServiceClosureArgument(new Reference('security.user_checker.'.$id))]));
++
+         foreach ($this->getSortedFactories() as $factory) {
+             $key = str_replace('-', '_', $factory->getKey());
+             if ('custom_authenticators' !== $key && \array_key_exists($key, $firewall)) {
+diff --git a/src/Symfony/Bundle/SecurityBundle/Resources/config/security.php b/src/Symfony/Bundle/SecurityBundle/Resources/config/security.php
+index d17254892215c..ccd77ad0e914d 100644
+--- a/src/Symfony/Bundle/SecurityBundle/Resources/config/security.php
++++ b/src/Symfony/Bundle/SecurityBundle/Resources/config/security.php
+@@ -19,6 +19,7 @@
+ use Symfony\Bundle\SecurityBundle\Security\FirewallContext;
+ use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
+ use Symfony\Bundle\SecurityBundle\Security\LazyFirewallContext;
++use Symfony\Component\DependencyInjection\ServiceLocator;
+ use Symfony\Component\ExpressionLanguage\ExpressionLanguage as BaseExpressionLanguage;
+ use Symfony\Component\Ldap\Security\LdapUserProvider;
+ use Symfony\Component\Security\Core\Authentication\AuthenticationTrustResolver;
+@@ -88,7 +89,7 @@
+                     'security.authenticator.managers_locator' => service('security.authenticator.managers_locator')->ignoreOnInvalid(),
+                     'request_stack' => service('request_stack'),
+                     'security.firewall.map' => service('security.firewall.map'),
+-                    'security.user_checker' => service('security.user_checker'),
++                    'security.user_checker_locator' => service('security.user_checker_locator'),
+                     'security.firewall.event_dispatcher_locator' => service('security.firewall.event_dispatcher_locator'),
+                     'security.csrf.token_manager' => service('security.csrf.token_manager')->ignoreOnInvalid(),
+                 ]),
+@@ -124,6 +125,8 @@
+             ->args(['none'])
+ 
+         ->set('security.user_checker', InMemoryUserChecker::class)
++        ->set('security.user_checker_locator', ServiceLocator::class)
++            ->args([[]])
+ 
+         ->set('security.expression_language', ExpressionLanguage::class)
+             ->args([service('cache.security_expression_language')->nullOnInvalid()])
+diff --git a/src/Symfony/Bundle/SecurityBundle/Security.php b/src/Symfony/Bundle/SecurityBundle/Security.php
+index 0c6260356e615..acb30adba8adf 100644
+--- a/src/Symfony/Bundle/SecurityBundle/Security.php
++++ b/src/Symfony/Bundle/SecurityBundle/Security.php
+@@ -127,7 +127,8 @@ public function login(UserInterface $user, ?string $authenticatorName = null, ?s
+ 
+         $authenticator = $this->getAuthenticator($authenticatorName, $firewallName);
+ 
+-        $this->container->get('security.user_checker')->checkPreAuth($user);
++        $userCheckerLocator = $this->container->get('security.user_checker_locator');
++        $userCheckerLocator->get($firewallName)->checkPreAuth($user);
+ 
+         return $this->container->get('security.authenticator.managers_locator')->get($firewallName)->authenticateUser($user, $authenticator, $request, $badges);
+     }
+diff --git a/src/Symfony/Bundle/SecurityBundle/Tests/SecurityTest.php b/src/Symfony/Bundle/SecurityBundle/Tests/SecurityTest.php
+index 045dfc70a7c5e..35bd329b2297e 100644
+--- a/src/Symfony/Bundle/SecurityBundle/Tests/SecurityTest.php
++++ b/src/Symfony/Bundle/SecurityBundle/Tests/SecurityTest.php
+@@ -142,7 +142,7 @@ public function testLogin()
+                 ['request_stack', $requestStack],
+                 ['security.firewall.map', $firewallMap],
+                 ['security.authenticator.managers_locator', $this->createContainer('main', $userAuthenticator)],
+-                ['security.user_checker', $userChecker],
++                ['security.user_checker_locator', $this->createContainer('main', $userChecker)],
+             ])
+         ;
+ 
+@@ -188,7 +188,7 @@ public function testLoginReturnsAuthenticatorResponse()
+                 ['request_stack', $requestStack],
+                 ['security.firewall.map', $firewallMap],
+                 ['security.authenticator.managers_locator', $this->createContainer('main', $userAuthenticator)],
+-                ['security.user_checker', $userChecker],
++                ['security.user_checker_locator', $this->createContainer('main', $userChecker)],
+             ])
+         ;
+ 

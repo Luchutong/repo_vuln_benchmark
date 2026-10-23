@@ -1,0 +1,49 @@
+Repository: https://github.com/phoenixframework/phoenix
+Local blobless bare mirror: /tmp/phoenix_vuln.git (git clone --bare --filter=blob:none)
+
+Dataset snapshot: tag v1.6.13, commit 6234b576b94476f285a3397c0a9c5a610d1cdb67.
+  $ git rev-parse v1.6.13^{commit}
+  6234b576b94476f285a3397c0a9c5a610d1cdb67
+  runs/language/snap_ee79f4175242bbee/file_inventory.json records lib/phoenix/socket.ex
+  bytes=24227, git_oid=7b9f15f41018752dac8ec3e028b776592ee10c9c, which matches the
+  pre-image index of the fix commit (7b9f15f4).
+
+1.6-branch fix commit: d19ca0a8d9f82c130b7ed339b9f033433e2dea5e
+  "Limit the number of channels a single transport process can join"
+  $ git merge-base --is-ancestor d19ca0a8 v1.6.13^{commit} ; echo $?
+  1   (NOT an ancestor of the vulnerable snapshot)
+  $ git merge-base --is-ancestor d19ca0a8 v1.6.16^{commit} ; echo $?
+  1   (not in v1.6.16 either)
+  $ git merge-base --is-ancestor d19ca0a8 v1.6.17^{commit} ; echo $?
+  0   (contained in v1.6.17)
+  $ git tag --contains d19ca0a8 | grep '^v1.6.'
+  v1.6.17
+
+Release tag v1.6.17 resolves to d26a1292a80d8c66b5528a3cbd1adca1d99b855a
+("Release v1.6.17"), whose history contains d19ca0a8.
+The fixed file at v1.6.17 has blob 0b8775ac... (post-image of d19ca0a8).
+
+OSV lists per-branch fixed commits 16e295d2, a612100c, c498ba8c and 14a297e8, plus
+release commits a131bbb (v1.5.15), d26a1292 (v1.6.17), 5447f02f (v1.7.24) and
+734c8d1c (v1.8.9). Local ancestry checks map the four branch commits as follows:
+
+  $ git merge-base --is-ancestor c498ba8c v1.5.14^{commit} ; echo $?   -> 1
+  $ git merge-base --is-ancestor c498ba8c v1.5.15^{commit} ; echo $?   -> 0
+  $ git tag --contains c498ba8c | grep '^v1\.5\.'                       -> v1.5.15
+  $ git merge-base --is-ancestor a612100c v1.7.23^{commit} ; echo $?   -> 1
+  $ git merge-base --is-ancestor a612100c v1.7.24^{commit} ; echo $?   -> 0
+  $ git tag --contains a612100c | grep '^v1\.7\.'                       -> v1.7.24
+  $ git merge-base --is-ancestor 16e295d2 v1.8.8^{commit} ; echo $?    -> 1
+  $ git merge-base --is-ancestor 16e295d2 v1.8.9^{commit} ; echo $?    -> 0
+  $ git tag --contains 16e295d2 | grep '^v1\.8\.'                       -> v1.8.9 v1.8.10 ...
+  $ git rev-parse a131bbbc / d26a1292 / 5447f02f / 734c8d1c            -> the four release commits
+
+14a297e8 is not a fix: it is "Initial channel processes conversion", the commit that
+introduced per-transport channel-process bookkeeping, and v0.11.0 already contains a
+transport with an uncapped sockets/sockets_inverse map:
+  $ git show v0.11.0:lib/phoenix/transports/websocket.ex | grep -c 'sockets:'  -> 3
+  $ git show v0.11.0:lib/phoenix/channel/transport.ex
+      dispatch(nil, %{event: "phx_join"} ...) -> Phoenix.Channel.Server.start_link/2
+OSV lists it in the fixed-commit list, which is an upstream defect; the lower bound is
+therefore 0.11.0 (CNA) rather than 1.2.0 (NVD/OSV CPE-derived range). The 1.6-branch
+fix d19ca0a8 is the one diffed for this dossier.

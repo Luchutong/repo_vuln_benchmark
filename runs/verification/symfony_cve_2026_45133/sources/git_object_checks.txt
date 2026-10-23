@@ -1,0 +1,22 @@
+tags:
+2b66d7d7d8129531229708ef708860844db91944
+eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+6436e377f7a82a1e7b120da519c7c96a154ece2a
+blobs:
+6b5b273a77ead2a84da5f2532b1aebfcb2de1aff
+cda68ac1393cc06712ed2802e61e794a6155a23e
+5e4e5f7a877bc89208b1defd4b8111d56289b3da
+c3fcf2232c4b3d637d6e9bc80a77d16a2d518082
+fix 914f427e ancestry:
+v5.4.52 YES
+v5.4.45 NO
+v5.4.45 has ParserState.php:
+NO
+v5.4.52 has ParserState.php:
+YES
+v5.4.45 recursion sites:
+529:        $parser = new self();
+v5.4.52 recursion guard:
+557:        $parser = new self();
+565:        $this->getState()->enterNestingLevel($offset + 1, $this->currentLine, $this->filename);
+570:            $this->getState()->leaveNestingLevel();

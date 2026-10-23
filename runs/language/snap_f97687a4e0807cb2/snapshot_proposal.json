@@ -1,0 +1,373 @@
+{
+  "ambiguous_files": [
+    "MIT-LICENSE",
+    "test/.bacon",
+    "test/cgi/assets/fonts/font.eot",
+    "test/cgi/assets/images/image.png",
+    "test/cgi/test+directory/test+file",
+    "test/load/rack-test-a.rb",
+    "test/load/rack-test-b.rb",
+    "test/multipart/bad_robots",
+    "test/multipart/content_type_and_no_disposition",
+    "test/multipart/content_type_and_no_filename",
+    "test/multipart/empty",
+    "test/multipart/fail_16384_nofile",
+    "test/multipart/filename_and_modification_param",
+    "test/multipart/filename_and_no_name",
+    "test/multipart/filename_with_encoded_words",
+    "test/multipart/filename_with_escaped_quotes",
+    "test/multipart/filename_with_escaped_quotes_and_modification_param",
+    "test/multipart/filename_with_null_byte",
+    "test/multipart/filename_with_percent_escaped_quotes",
+    "test/multipart/filename_with_plus",
+    "test/multipart/filename_with_single_quote",
+    "test/multipart/filename_with_unescaped_percentages",
+    "test/multipart/filename_with_unescaped_percentages2",
+    "test/multipart/filename_with_unescaped_percentages3",
+    "test/multipart/filename_with_unescaped_quotes",
+    "test/multipart/ie",
+    "test/multipart/invalid_character",
+    "test/multipart/mixed_files",
+    "test/multipart/nested",
+    "test/multipart/none",
+    "test/multipart/quoted",
+    "test/multipart/robust_field_separation",
+    "test/multipart/semicolon",
+    "test/multipart/text",
+    "test/multipart/three_files_three_fields",
+    "test/multipart/unity3d_wwwform",
+    "test/multipart/webkit"
+  ],
+  "collected_at": "2026-10-21T13:20:37.570231Z",
+  "components_in_scope": [
+    "all tracked upstream files; submodules recorded as unresolved gitlinks"
+  ],
+  "evaluation_target": false,
+  "full_scan": true,
+  "language_tool": "github-linguist + explicit container extraction + versioned scope rules",
+  "language_tool_version": "github-linguist 9.7.0; inventory_snapshot.py sha256=acb56dc9c10c3a97b0263330e85a16eb1effdeb9eefa96f7aba7f7aeb5c4d5a3",
+  "languages": [
+    {
+      "code_bytes": 7325,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "CSS",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "contrib/rdoc.css"
+      ],
+      "role": "markup",
+      "scope": "first_party",
+      "share_pct": 0.854963221992
+    },
+    {
+      "code_bytes": 17,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "CSS",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/cgi/assets/stylesheets/app.css"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.001984214986
+    },
+    {
+      "code_bytes": 49,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 4,
+      "name": "HTML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/cgi/assets/index.html",
+        "test/static/another/index.html",
+        "test/static/foo.html",
+        "test/static/index.html"
+      ],
+      "role": "markup",
+      "scope": "test",
+      "share_pct": 0.005719207901
+    },
+    {
+      "code_bytes": 11,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/rackup/.gitignore"
+      ],
+      "role": "config",
+      "scope": "test",
+      "share_pct": 0.001283903815
+    },
+    {
+      "code_bytes": 108,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Ignore List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".gitignore"
+      ],
+      "role": "config",
+      "scope": "tooling",
+      "share_pct": 0.012605601089
+    },
+    {
+      "code_bytes": 34,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "JavaScript",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/cgi/assets/folder/test.js",
+        "test/cgi/assets/javascripts/app.js"
+      ],
+      "role": "scripting",
+      "scope": "test",
+      "share_pct": 0.003968429972
+    },
+    {
+      "code_bytes": 43273,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "CHANGELOG.md",
+        "CONTRIBUTING.md"
+      ],
+      "role": "markup",
+      "scope": "docs",
+      "share_pct": 5.050760888088
+    },
+    {
+      "code_bytes": 4548,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Markdown",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "SECURITY_POLICY.md"
+      ],
+      "role": "markup",
+      "scope": "first_party",
+      "share_pct": 0.530835868071
+    },
+    {
+      "code_bytes": 7,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Option List",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".yardopts"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 0.0008170297
+    },
+    {
+      "code_bytes": 11891,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "RDoc",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "README.rdoc"
+      ],
+      "role": "other",
+      "scope": "docs",
+      "share_pct": 1.387900023577
+    },
+    {
+      "code_bytes": 14523,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "RDoc",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "SPEC.rdoc"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 1.695103190851
+    },
+    {
+      "code_bytes": 743,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 3,
+      "name": "Ruby",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "example/lobster.ru",
+        "example/protectedlobster.rb",
+        "example/protectedlobster.ru"
+      ],
+      "role": "scripting",
+      "scope": "docs",
+      "share_pct": 0.086721866749
+    },
+    {
+      "code_bytes": 315182,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 69,
+      "name": "Ruby",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "Gemfile",
+        "Rakefile",
+        "bin/rackup",
+        "lib/rack.rb",
+        "lib/rack/auth/abstract/handler.rb"
+      ],
+      "role": "scripting",
+      "scope": "first_party",
+      "share_pct": 36.787579281061
+    },
+    {
+      "code_bytes": 373865,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 68,
+      "name": "Ruby",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/builder/an_underscore_app.rb",
+        "test/builder/bom.ru",
+        "test/builder/comment.ru",
+        "test/builder/end.ru",
+        "test/builder/frozen.ru"
+      ],
+      "role": "scripting",
+      "scope": "test",
+      "share_pct": 43.636972694867
+    },
+    {
+      "code_bytes": 28753,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "SVG",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "contrib/rack.svg",
+        "contrib/rack_logo.svg"
+      ],
+      "role": "markup",
+      "scope": "first_party",
+      "share_pct": 3.356007852823
+    },
+    {
+      "code_bytes": 8,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/multipart/file1.txt"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 0.000933748229
+    },
+    {
+      "code_bytes": 1108,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 1,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "MIT-LICENSE"
+      ],
+      "role": "other",
+      "scope": "first_party",
+      "share_pct": 0.129324129688
+    },
+    {
+      "code_bytes": 51808,
+      "confidence": "ambiguous",
+      "detection_method": "unclassified_text",
+      "embedded_nonadditive": false,
+      "file_count": 36,
+      "name": "Unclassified text",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        "test/.bacon",
+        "test/cgi/assets/fonts/font.eot",
+        "test/cgi/assets/images/image.png",
+        "test/cgi/test+directory/test+file",
+        "test/load/rack-test-a.rb"
+      ],
+      "role": "other",
+      "scope": "test",
+      "share_pct": 6.046953529685
+    },
+    {
+      "code_bytes": 3509,
+      "confidence": "high",
+      "detection_method": "github-linguist-9.7.0",
+      "embedded_nonadditive": false,
+      "file_count": 2,
+      "name": "YAML",
+      "notes": "Bytes include comments/whitespace. Share denominator is all nonbinary, non-symlink tracked bytes across all scopes; embedded shares must not be added.",
+      "representative_files": [
+        ".circleci/config.yml",
+        ".rubocop.yml"
+      ],
+      "role": "config",
+      "scope": "first_party",
+      "share_pct": 0.409565316856
+    }
+  ],
+  "repo_id": "96071",
+  "scan_details": {
+    "binary_files": 4,
+    "bounded_detection_files": [],
+    "bounded_detection_note": "Pinned Linguist bounds detector input at 128KiB; full file byte sizes and all tracked files are counted.",
+    "enumeration_matches_git_ls_tree": true,
+    "git_tree_oid": "97f02dd13320d6051f995f3943afe5c2e8d908ca",
+    "source_code_retained_in_publishable_artifacts": false,
+    "submodules": 0,
+    "symlinks": 0
+  },
+  "snapshot_id": "snap_f97687a4e0807cb2",
+  "tag_or_release": "2.2.3",
+  "tag_resolution_note": "tag 2.2.3 peels to 1741c580d71cfca8e541e96cc372305c8892ee74",
+  "tracked_files_scanned": 202,
+  "vulnerable_commit": "1741c580d71cfca8e541e96cc372305c8892ee74"
+}

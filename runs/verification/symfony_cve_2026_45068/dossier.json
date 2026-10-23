@@ -1,0 +1,405 @@
+{
+ "candidate_id": "disc2_b779903e6c513da42bbb3dc0",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:25:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45068",
+  "aliases": [
+   "CVE-2026-45068",
+   "GHSA-xx3c-qf5g-hc39"
+  ],
+  "title": "Symfony SendmailTransport appends recipients to the sendmail command line without an end-of-options separator, enabling argument injection via a leading-dash address",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/mailer",
+    "purl": "pkg:composer/symfony/mailer",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/mailer",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 the transport appends \" --\" before the recipient list; fix c4514486 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: tag v5.4.52 peels to eabc5f9e and SendmailTransport.php blob e150194a matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "c45144862dc289d03952f41f6078174089a3afc6",
+    "branch": "5.4",
+    "message": "[Mailer] Add end-of-options separator before recipients in SendmailTransport; reject addresses starting with a dash",
+    "url": "https://github.com/symfony/symfony/commit/c45144862dc289d03952f41f6078174089a3afc6"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-88"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N",
+   "score": 8.7,
+   "level": "high",
+   "numeric_level_rationale": "CVSS 4.0 base 8.7 (CNA) and the NVD Primary CVSS 3.1 7.5 both fall in High (7.0-8.9). The GitHub advisory page and OSV publish a different CVSS 4.0 score of 6.2 MODERATE with PR:L/VC:H, while the CVE List v5 record from the same GitHub_M assigner publishes PR:N/VC:N 8.7; the canonical severity keeps the CVE record vector and records all three published scores.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-xx3c-qf5g-hc39",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 6.2,
+     "level": "moderate",
+     "source": "github.com advisory page and OSV database_specific.severity (MODERATE)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:N/SC:N/SI:N/SA:N/E:U"
+    },
+    {
+     "version": "4.0",
+     "score": 8.7,
+     "level": "high",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N"
+    }
+   ]
+  },
+  "category_l1": "injection",
+  "category_l2": "argument injection: a recipient address beginning with \"-\" is passed as a sendmail command-line option because the recipient list is not preceded by \"--\"",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45068",
+  "published_at": "2026-07-14T19:02:10Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45068",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-xx3c-qf5g-hc39",
+   "https://github.com/symfony/symfony/commit/c45144862dc289d03952f41f6078174089a3afc6",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45068",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45068_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45068",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Mailer/Transport/SendmailTransport.php",
+  "function": "SendmailTransport::doSend",
+  "language": "PHP",
+  "line": 111,
+  "critical_operation": {
+   "code_excerpt": "        foreach ($recipients as $recipient) {\n            $command .= ' '.escapeshellarg($recipient->getEncodedAddress());",
+   "description": "In -t mode, doSend() assembles the sendmail command line. It strips \" -t\" when envelope recipients are present, appends the sender as \"-f\" plus a shell-escaped address, and then appends each recipient as \" \" plus escapeshellarg(address) without a \"--\" end-of-options separator. escapeshellarg neutralizes shell metacharacters, but the sendmail process still parses each resulting argv token; a recipient such as \"-X/tmp/out\" or \"-OQueueDirectory=...\" is therefore consumed as an option rather than as an address. The 5.4.52 fix appends \" --\" before the recipient list so all following tokens are treated as operands.",
+   "file": "src/Symfony/Component/Mailer/Transport/SendmailTransport.php",
+   "function": "SendmailTransport::doSend",
+   "language": "PHP",
+   "line": 111,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L110-L111"
+  },
+  "entry_point": {
+   "description": "An application configures a sendmail transport with the -t flag (for example a sendmail:// DSN or new SendmailTransport(\"/usr/sbin/sendmail -t\")) and lets a user-influenced address reach the envelope recipients, for example a contact form that adds the submitter to Cc. Mime Address accepts a leading-dash local part, so the value survives into doSend().",
+   "file": "src/Symfony/Component/Mailer/Transport/SendmailTransport.php",
+   "function": "SendmailTransport::doSend",
+   "language": "PHP",
+   "line": 90,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L90"
+  },
+  "trace": [
+   {
+    "description": "doSend() removes \" -t\" when recipients are present and builds the command line from the configured sendmail command",
+    "file": "src/Symfony/Component/Mailer/Transport/SendmailTransport.php",
+    "function": "SendmailTransport::doSend",
+    "language": "PHP",
+    "line": 96,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L96-L97"
+   },
+   {
+    "description": "each recipient address is appended with escapeshellarg but with no preceding \"--\"",
+    "file": "src/Symfony/Component/Mailer/Transport/SendmailTransport.php",
+    "function": "SendmailTransport::doSend",
+    "language": "PHP",
+    "line": 111,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L110-L111"
+   },
+   {
+    "description": "ProcessStream receives the command and executes it; sendmail parses a leading-dash token as an option",
+    "file": "src/Symfony/Component/Mailer/Transport/SendmailTransport.php",
+    "function": "SendmailTransport::doSend",
+    "language": "PHP",
+    "line": 114,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L114"
+   }
+  ],
+  "verification_method": "Static read of SendmailTransport.php at v5.4.45 and v5.4.52, the 5.4 fix diff and its test expectations, tag peels, blob comparison and ancestry; no sendmail binary, PHP runtime or message was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45068_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "961f530bd74fc813c86954a857df12c48e813a000e9c4f40993771df43975c2e",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45068",
+   "supports": [
+    "NVD status Analyzed; description states SendmailTransport in -t mode appended recipient addresses without a -- end-of-options separator, so a leading-dash address is parsed as a sendmail option",
+    "NVD carries a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N)",
+    "NVD also carries a Secondary CVSS 4.0 8.7 HIGH metric from security-advisories@github.com"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45068_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "0d67df658c812cbc990f5370058f03f82b40f7e32edf9d3bf205b1fbc1682754",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45068",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T19:02:10Z",
+    "affected ranges <5.4.52 and 6.4.40/7.4.12/8.0.12 for products symfony and mailer",
+    "CNA CVSS 4.0 8.7 HIGH AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N and CWE-88",
+    "the CNA reference list names fix commit c45144862dc289d03952f41f6078174089a3afc6"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45068_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "2c833d3e8ea3577acb1999a58cba1e89efad4ce8e0b233547d602225da12d2c3",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-xx3c-qf5g-hc39",
+   "supports": [
+    "GHSA-xx3c-qf5g-hc39 aliases CVE-2026-45068, github_reviewed, cwe_ids CWE-88, database severity MODERATE",
+    "affected symfony/mailer and symfony/symfony: 0..5.4.52, 6.0.0..6.4.40, 7.0.0..7.4.12, 8.0.0..8.0.12",
+    "the GHSA reference list names the same fix commit c4514486 as the CVE record",
+    "the database severity MODERATE disagrees with both published scores (4.0 8.7 High and 3.1 7.5 High)"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45068_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "ff3ec50e49c68717572020fa398cd7d5f9c39c9d4aa8a890b8c0c4e5da4aecad",
+   "source_url": "https://symfony.com/cve-2026-45068",
+   "supports": [
+    "the advisory explains that -t mode passes recipients as command-line arguments and that a recipient beginning with - is interpreted as a sendmail option",
+    "resolution: SendmailTransport now sets -- before the list of recipients",
+    "affected <5.4.52, >=6 <6.4.40, >=7 <7.4.12, >=8 <8.0.12; credits Claude Mythos Preview (via Project Glasswing)"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45068_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "bba739b1a5905d8fc1a33f156ddabed980fade0581f5112fc00173e6746a6c5b",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-xx3c-qf5g-hc39",
+   "supports": [
+    "the GitHub advisory page carries the same description, resolution and ranges as symfony.com",
+    "the page links fix commit c4514486, consistent with the CNA reference",
+    "the advisory label is Moderate while both published CVSS vectors (4.0 8.7 and 3.1 7.5) classify as High"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45068_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "4a84ec45a5366fd68b6b97b0c137c3c7a8f9cc3fcfac11377dbdee3d1f39b62b",
+   "source_url": "https://github.com/symfony/symfony/commit/c45144862dc289d03952f41f6078174089a3afc6",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit c4514486 is dated 2026-05-11 with subject \"[Mailer] Add end-of-options separator before recipients in SendmailTransport; reject addresses starting with a dash\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "SendmailTransport.php blob is 712016b5 at v5.4.45 (patch pre-image) and e150194a at v5.4.52 (patch post-image)",
+    "the commit subject mentions rejecting dash-leading addresses, but the diff only adds \" --\" before the recipient list and adjusts the expected argv in two tests; it does not add a dash rejection"
+   ],
+   "verification_method": "git rev-parse/merge-base/show; blob comparison; patch read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/sendmailtransport_5.4.45.php",
+   "evidence_id": "ev_symfony_45068_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "fc7b6e1102d18f5be73e60c0a8d9e72777e6d5fb16dda423c0cdd78ad07cdebf",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L90-L112",
+   "supports": [
+    "doSend() is the -t-mode send path; when recipients are present it removes the \" -t\" flag from the command",
+    "it appends the sender as \" -f\" plus escapeshellarg(address), then appends each recipient as \" \".escapeshellarg(address) with no \"--\" separator (lines 110-111)",
+    "escapeshellarg prevents shell metacharacter injection but does not stop the sendmail process from parsing a leading-dash argument as an option",
+    "the stream later receives the assembled command and is initialized/executed"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 712016b5)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/sendmailtransport_5.4.52.php",
+   "evidence_id": "ev_symfony_45068_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "eac4dd2804defa83138c32f3ea7a03d63bf267f099fd97e1d0540c3b5e7b5109",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L90-L115",
+   "supports": [
+    "at v5.4.52 the code appends \" --\" once before the recipients loop when the recipient list is non-empty",
+    "the per-recipient escaping is unchanged"
+   ],
+   "verification_method": "file read at v5.4.52 (blob e150194a)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45068_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "50766c02f08161b72e9b48e9ff0d7f2e72bf06bdf07c4914fb1dfb501d87db76",
+   "source_url": "https://github.com/symfony/symfony/commit/c45144862dc289d03952f41f6078174089a3afc6.patch",
+   "supports": [
+    "the patch adds if ($recipients) { $command .= ' --'; } immediately before the recipients foreach",
+    "the test expectations change from \"-ffrom@mail.com to@mail.com\" to \"-ffrom@mail.com -- to@mail.com\" and from \"-ffrom@mail.com recipient@mail.com\" to \"-ffrom@mail.com -- recipient@mail.com\"",
+    "the pre-image blob 712016b5 and post-image blob e150194a match the file contents at v5.4.45 and v5.4.52",
+    "the diff contains no code that rejects an address starting with a dash, despite the commit subject"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45068/sources/sendmailtransport_5.4.45.php",
+   "evidence_id": "ev_symfony_45068_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "fc7b6e1102d18f5be73e60c0a8d9e72777e6d5fb16dda423c0cdd78ad07cdebf",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mailer/Transport/SendmailTransport.php#L1-L14",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Component\\Mailer\\Transport",
+    "the snapshot inventory records the Mailer component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   9
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-88, the missing \"--\" mechanism, the <5.4.52 range and the v5.4.52 release, and both the CNA record and the GHSA name the same fix commit c4514486 (no dead reference in this advisory). NVD has a Primary CVSS 3.1 7.5 HIGH metric and a Secondary CVSS 4.0 8.7 HIGH metric; both compute to High. The GHSA label MODERATE conflicts with both and is recorded as a defect. The commit subject claims addresses starting with a dash are rejected, but the diff only adds \"--\".",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read SendmailTransport::doSend at v5.4.45 and confirm recipients are appended without \"--\".",
+   "An independent reviewer must confirm c4514486 is absent from v5.4.45 and present in v5.4.52, and that the diff only adds \"--\" despite the commit subject.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "An independent reviewer must assess whether the -t-mode narrative matches the code (the code strips \" -t\" when recipients exist) and record any discrepancy.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No sendmail binary, PHP runtime or message was executed; the finding is static and the option-parsing consequence is reasoned from sendmail semantics.",
+  "Exploitability requires the application to configure the -t mode and let a user-influenced address into the envelope recipients; no specific application was tested.",
+  "The advisory says \"-t mode appends recipients to the command line\", while the code removes \" -t\" when recipients are non-empty before appending them; the dossier describes the code path rather than repeating the advisory wording.",
+  "Only the 5.4 branch was fetched and compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "GHSA label MODERATE disagrees with the 4.0 8.7 and 3.1 7.5 scores; the commit subject claims a dash rejection that the diff does not contain.",
+  "The GitHub advisory page and OSV publish CVSS 4.0 6.2 MODERATE with PR:L/VC:H, inconsistent with the CVE List v5 CNA metric (PR:N/VC:N, 8.7) issued by the same assigner."
+ ],
+ "open_questions": [
+  "Which sendmail options are usable with the privileges of the web process was not assessed.",
+  "Whether the sendmail DSN commonly enables -t in real deployments was not surveyed."
+ ]
+}

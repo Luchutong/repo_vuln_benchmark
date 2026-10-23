@@ -1,0 +1,24 @@
+{
+  "key": "rails_activemodel",
+  "repository": "rails/rails",
+  "path": "activemodel/activemodel.gemspec",
+  "retrieved_at": "2026-10-21T10:56:18.874Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"../RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"activemodel\"\n  s.version     = version\n  s.summary     = \"A toolkit for building modeling frameworks (part of Rails).\"\n  s.description = \"A toolkit for building modeling frameworks like Active Record. Rich support for attributes, callbacks, validations, serialization, internationalization, and testing.\"\n\n  s.required_ruby_version = \">= 3.3.5\"\n\n  s.license = \"MIT\"\n\n  s.author   = \"David Heinemeier Hansson\"\n  s.email    = \"david@loudthinking.com\"\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files        = Dir[\"CHANGELOG.md\", \"MIT-LICENSE\", \"README.rdoc\", \"lib/**/*\"]\n  s.require_path = \"lib\"\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/blob/v#{version}/activemodel/CHANGELOG.md\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}/activemodel\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  # NOTE: Please read our dependency guidelines before updating versions:\n  # https://edgeguides.rubyonrails.org/security.html#dependency-management-and-cves\n\n  s.add_dependency \"activesupport\", version\nend\n",
+      "encoding": "utf-8",
+      "sha": "c22555dacd8c504da9a96c56d070331c96c0ed94",
+      "display_url": "https://github.com/rails/rails/blob/main/activemodel/activemodel.gemspec",
+      "display_title": "activemodel.gemspec"
+    },
+    "isError": false
+  }
+}

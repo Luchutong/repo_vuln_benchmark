@@ -1,0 +1,50 @@
+Repository: https://github.com/phoenixframework/phoenix
+Local blobless bare mirror: /tmp/phoenix_vuln.git (git clone --bare --filter=blob:none)
+
+Dataset snapshot: tag v1.6.13, commit 6234b576b94476f285a3397c0a9c5a610d1cdb67.
+  $ git rev-parse v1.6.13^{commit}
+  6234b576b94476f285a3397c0a9c5a610d1cdb67
+  runs/language/snap_ee79f4175242bbee/file_inventory.json records
+  assets/js/phoenix/presence.js bytes=4871,
+  git_oid=cfb5af6c081f73cbb2a512987df3e19031a76d89, language=JavaScript,
+  which matches the pre-image index of the fix commit (cfb5af6c08).
+  The same commit's root package.json is "name": "phoenix", "version": "1.6.13"
+  and lists "assets/js/phoenix/*" in "files", so the vulnerable file ships in
+  the npm package pkg:npm/phoenix.
+
+1.6-branch fix commit: 89a1c4be161e436241e12b2378a719904b9bd96f
+  "fix presence keys colliding with object prototype chain", 2026-07-07
+  $ git merge-base --is-ancestor 89a1c4be v1.6.13^{commit} ; echo $?
+  1   (NOT an ancestor of the vulnerable snapshot)
+  $ git merge-base --is-ancestor 89a1c4be v1.6.16^{commit} ; echo $?
+  1   (not in v1.6.16 either)
+  $ git merge-base --is-ancestor 89a1c4be v1.6.17^{commit} ; echo $?
+  0   (contained in v1.6.17)
+  $ git tag --contains 89a1c4be | grep -E '^v1\.(5|6|7|8)\.' | sort -V | head -1
+  v1.6.17
+  The fixed file at v1.6.17 has blob 01a4259d2786ccaa2c98d2875d0beb4c5b407be1
+  (post-image of 89a1c4be); it adds Object.create(null) state and
+  toNullProtoObj/1 plus the prototype-collision regression tests.
+
+Other branch fixes from the advisory:
+  $ git merge-base --is-ancestor 7f7b971c v1.5.14^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor 7f7b971c v1.5.15^{commit} ; echo $?  -> 0
+  $ git merge-base --is-ancestor b90b2252 v1.7.23^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor b90b2252 v1.7.24^{commit} ; echo $?  -> 0
+  $ git merge-base --is-ancestor beffc4da v1.8.8^{commit} ; echo $?   -> 1
+  $ git merge-base --is-ancestor beffc4da v1.8.9^{commit} ; echo $?   -> 0
+  So 7f7b971c -> 1.5.15, 89a1c4be -> 1.6.17, b90b2252 -> 1.7.24,
+  beffc4da -> 1.8.9. Each is absent from the immediately preceding release tag.
+
+Release tags resolve to:
+  $ git rev-parse v1.5.15^{commit} -> a131bbbcd89f6bab41e9d1cd9781e1d6875bf8c9
+  $ git rev-parse v1.6.17^{commit} -> d26a1292a80d8c66b5528a3cbd1adca1d99b855a
+  $ git rev-parse v1.7.24^{commit} -> 5447f02fa9356c0f96c41bb18fa11b331eae349e
+  $ git rev-parse v1.8.9^{commit}  -> 734c8d1c32253627e234c8a1cb831367191ff5dd
+  These are exactly the release commits listed as fixed events by OSV.
+
+Commit 2270aaf21bd02c6a6a1022820564efb605a97655 is not a fix: it is the
+2016 commit "Add Presence to phoenix.js" that first created the JavaScript
+Presence client, and the CNA record uses it as the introducing version. OSV
+lists it in the fixed-commit list, which is an upstream metadata defect.
+  $ git show -s --format='%ad %s' --date=short 2270aaf -> 2016-02-01 Add Presence to phoenix.js

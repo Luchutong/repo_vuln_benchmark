@@ -1,0 +1,38 @@
+{
+  "repo": "openssl/openssl",
+  "query": "official GitHub Releases collection",
+  "observations": [
+    {
+      "path": "runs/discovery_v2/connector/openssl__openssl_releases_1.json",
+      "page": 1,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:00.916Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/openssl__openssl_releases_2.json",
+      "page": 2,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:04.511Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/openssl__openssl_releases_3.json",
+      "page": 3,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:06.833Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/openssl__openssl_releases_4.json",
+      "page": 4,
+      "records": 22,
+      "retrieved_at": "2026-10-21T11:03:13.106Z",
+      "status": "PASS"
+    }
+  ],
+  "pagination_complete": true,
+  "total_records": 322,
+  "status": "PASS_QUERY_ONLY",
+  "limitation": "GitHub Releases excludes tag-only releases, historical external security advisories, deleted releases and security reports without release text."
+}

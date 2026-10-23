@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/spring-projects/spring-framework.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:36.460806+00:00", "elapsed_seconds": 1.224, "response": {"returncode": 0, "stdout": "fdcbd436decf546c412dde2738bcf7b3d5ff799c\tHEAD\n", "stderr": ""}}

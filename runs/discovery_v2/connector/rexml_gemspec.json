@@ -1,0 +1,24 @@
+{
+  "key": "rexml_gemspec",
+  "repository": "ruby/rexml",
+  "path": "rexml.gemspec",
+  "retrieved_at": "2026-10-21T10:55:22.612Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "begin\n  require_relative \"lib/rexml/rexml\"\nrescue LoadError\n  # for Ruby core repository\n  require_relative \"rexml\"\nend\n\nGem::Specification.new do |spec|\n  spec.name          = \"rexml\"\n  spec.version       = REXML::VERSION\n  spec.authors       = [\"Kouhei Sutou\"]\n  spec.email         = [\"kou@cozmixng.org\"]\n\n  spec.summary       = %q{An XML toolkit for Ruby}\n  spec.description   = %q{An XML toolkit for Ruby}\n  spec.homepage      = \"https://github.com/ruby/rexml\"\n  spec.license       = \"BSD-2-Clause\"\n\n  spec.metadata = {\n    \"changelog_uri\" => \"#{spec.homepage}/releases/tag/v#{spec.version}\"\n  }\n\n  files = [\n    \"LICENSE.txt\",\n    \"NEWS.md\",\n    \"README.md\",\n  ]\n  rdoc_files = files.dup\n  lib_path = \"lib\"\n  spec.require_paths = [lib_path]\n  lib_dir = File.join(__dir__, lib_path)\n  if File.exist?(lib_dir)\n    Dir.chdir(lib_dir) do\n      Dir.glob(\"**/*.rb\").each do |file|\n        files << \"lib/#{file}\"\n      end\n    end\n  end\n  doc_path = \"doc\"\n  doc_dir = File.join(__dir__, doc_path)\n  if File.exist?(doc_dir)\n    Dir.chdir(doc_dir) do\n      Dir.glob(\"**/*.rdoc\").each do |rdoc_file|\n        files << \"#{doc_path}/#{rdoc_file}\"\n        rdoc_files << \"#{doc_path}/#{rdoc_file}\"\n      end\n    end\n  end\n  tasks_path = \"tasks\"\n  tasks_dir = File.join(__dir__, tasks_path)\n  Dir.chdir(doc_dir) do\n    Dir.glob(\"**/*.rake\").each do |task_file|\n      files << \"#{tasks_path}/#{task_file}\"\n    end\n  end\n  spec.files = files\n  spec.rdoc_options.concat([\"--main\", \"README.md\"])\n  spec.extra_rdoc_files = rdoc_files\n\n  spec.required_ruby_version = '>= 2.6.0'\nend\n",
+      "encoding": "utf-8",
+      "sha": "cdeb624a1c07c89125846da68b28b783a3217848",
+      "display_url": "https://github.com/ruby/rexml/blob/master/rexml.gemspec",
+      "display_title": "rexml.gemspec"
+    },
+    "isError": false
+  }
+}

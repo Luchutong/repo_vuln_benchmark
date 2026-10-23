@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_httpext",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Http/Http.Extensions/src/Microsoft.AspNetCore.Http.Extensions.csproj",
+  "retrieved_at": "2026-10-21T10:56:27.552Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core common extension methods for HTTP abstractions, HTTP headers, HTTP request/response, and session state.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore</PackageTags>\n    <IsPackable>false</IsPackable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SharedSourceRoot)ObjectMethodExecutor\\**\\*.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ParameterBindingMethodCache.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)RequestDelegateCreationMessages.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)EndpointMetadataPopulator.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)PropertyAsParameterInfo.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"..\\..\\Shared\\StreamCopyOperationInternal.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ApiExplorerTypes\\*.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)TypeNameHelper\\TypeNameHelper.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ProblemDetails\\ProblemDetailsDefaults.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ValueStringBuilder\\**\\*.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)Json\\JsonSerializerExtensions.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)RouteHandlers\\ExecuteHandlerHelper.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)AntiforgeryMetadata.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(RepoRoot)src\\Components\\Endpoints\\src\\FormMapping\\**\\*.cs\" LinkBase=\"SharedFormMapping\" />\n    <EmbeddedResource Include=\"$(RepoRoot)src\\Components\\Endpoints\\src\\FormMapping\\**\\*.resx\" LinkBase=\"SharedFormMapping\">\n      <ClassName>Microsoft.AspNetCore.Components.Endpoints.FormMapping.FormDataResources</ClassName>\n      <Language>CSharp</Language>\n    </EmbeddedResource>\n    <Compile Include=\"$(RepoRoot)src\\Shared\\ClosedGenericMatcher\\ClosedGenericMatcher.cs\" LinkBase=\"SharedFormMapping\" />\n    <!-- Exclude Blazor-specific form binding suppliers. -->\n    <Compile Remove=\"$(RepoRoot)src\\Components\\Endpoints\\src\\FormMapping\\HttpContextFormValueMapper.cs\" LinkBase=\"SharedFormMapping\" />\n    <Compile Remove=\"$(RepoRoot)src\\Components\\Endpoints\\src\\FormMapping\\HttpContextFormDataProvider.cs\" LinkBase=\"SharedFormMapping\" />\n    <Compile Remove=\"$(RepoRoot)src\\Components\\Endpoints\\src\\FormMapping\\BrowserFileFromFormFile.cs\" LinkBase=\"SharedFormMapping\" />\n    <Compile Include=\"$(SharedSourceRoot)ContentTypeConstants.cs\" LinkBase=\"Shared\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Headers\\src\\Microsoft.Net.Http.Headers.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\WebUtilities\\src\\Microsoft.AspNetCore.WebUtilities.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Http.Extensions.Tests\" />\n  </ItemGroup>\n\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "7cd28f9db996060dc4d605cf60699e11ab947579",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Http/Http.Extensions/src/Microsoft.AspNetCore.Http.Extensions.csproj",
+      "display_title": "Microsoft.AspNetCore.Http.Extensions.csproj"
+    },
+    "isError": false
+  }
+}

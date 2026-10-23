@@ -1,0 +1,21 @@
+commit 18b326d22d831e1fe05e737209e367e30796d5f3
+Author: Taylor Otwell <taylor@laravel.com>
+Date:   Fri Nov 8 13:12:42 2024 +1000
+
+    only use argv on console
+
+diff --git a/src/Illuminate/Foundation/Application.php b/src/Illuminate/Foundation/Application.php
+index 1a6ecc1..659cf1b 100755
+--- a/src/Illuminate/Foundation/Application.php
++++ b/src/Illuminate/Foundation/Application.php
+@@ -759,7 +759,9 @@ class Application extends Container implements ApplicationContract, CachesConfig
+      */
+     public function detectEnvironment(Closure $callback)
+     {
+-        $args = $_SERVER['argv'] ?? null;
++        $args = $this->runningInConsole() && $_SERVER['argv']
++            ? $_SERVER['argv']
++            : null;
+ 
+         return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);
+     }

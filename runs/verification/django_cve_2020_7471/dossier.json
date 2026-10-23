@@ -1,0 +1,430 @@
+{
+  "candidate_id": "disc2_3ec1978b77d626bc703bbf5b",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/osv_ghsa.json",
+      "evidence_id": "ev_django_osv_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:04:00Z",
+      "sha256_of_observation": "fa5d3d88c5a62eb553d85d5e1a9f8ee14f5ff26fac5add97af4a18cd99d8bc8f",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-hmr4-m2h5-33qx",
+      "supports": [
+        "GHSA-hmr4-m2h5-33qx aliases CVE-2020-7471, BIT-django-2020-7471 and PYSEC-2020-35",
+        "three PyPI ranges: <1.11.28, >=2.0 <2.2.10, >=3.0 <3.0.3",
+        "severity CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H and CVSS 4.0 AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H",
+        "database_specific says CWE-89 and CRITICAL",
+        "references name four fix commits including 505826b469b16ab36693360da9e11fd13213421b"
+      ],
+      "verification_method": "OSV API query"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/cve_v5.json",
+      "evidence_id": "ev_django_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:04:00Z",
+      "sha256_of_observation": "60d7b9f4fdfbde54bdec732ad39eeebca20ff5e0e70a4fb4fabcfe7842cce89e",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2020-7471",
+      "supports": [
+        "CVE-2020-7471 state PUBLISHED, assigner mitre, published 2020-02-03T11:59:20Z",
+        "the CNA affected entry is a placeholder (vendor/product/version all n/a), with no usable range, no CVSS and no problemType"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/nvd_cve.json",
+      "evidence_id": "ev_django_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:04:00Z",
+      "sha256_of_observation": "48df7ecd5fcdaebc30c5c35c3dd0635c99ff6500805f7846eb82e88cc248a156",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2020-7471",
+      "supports": [
+        "NVD primary CVSS 3.1 9.8 CRITICAL AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "NVD assigns CWE-89",
+        "CPE ranges 1.11 <= v < 1.11.28, 2.2 <= v < 2.2.10 and 3.0 <= v < 3.0.3",
+        "NVD status Modified, published 2020-02-03T12:15:26.993"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/djangoproject_security.html",
+      "evidence_id": "ev_django_advisory",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:04:00Z",
+      "sha256_of_observation": "3c052e82e1a67a6a396f258e2d2bdc1cf05f133a2ac433e60fd2d06240e976a5",
+      "source_url": "https://www.djangoproject.com/weblog/2020/feb/03/security-releases/",
+      "supports": [
+        "the security release announcement covers CVE-2020-7471 Potential SQL injection via StringAgg(delimiter)",
+        "fixed releases are 1.11.28, 2.2.10 and 3.0.3",
+        "affected lines are 1.11.x before 1.11.28, 2.2.x before 2.2.10 and 3.0.x before 3.0.3"
+      ],
+      "verification_method": "upstream announcement HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/git_object_checks.txt",
+      "evidence_id": "ev_django_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:06:00Z",
+      "sha256_of_observation": "a818c4fb2775781efa793e0893f071fb5d3818b9d069dec31743ea71a314faff",
+      "source_url": "https://github.com/django/django/commit/505826b469b16ab36693360da9e11fd13213421b",
+      "supports": [
+        "Django refs/tags/3.0.2 peels to a36974395ebc03a41928db1743074575b143330d",
+        "refs/tags/3.0.3 peels to c459a4661b2e96b53d3784c76e1fd5651b8cdc4a",
+        "505826b4 is the 3.0.x fix, parent 673444da, dated 2019-12-31, subject 'Fixed CVE-2020-7471 -- Properly escaped StringAgg(delimiter) parameter.'",
+        "505826b4 is an ancestor of 3.0.3 and absent from 3.0.2",
+        "master eb31d84, 2.2.x c67a368 and 1.11.x 001b063 are separate branch fixes",
+        "001b063 is an ancestor of 1.11.28 and c67a368 is an ancestor of 2.2.10",
+        "ls-tree at 3.0.2 lists 6163 tracked files",
+        "StringAgg was introduced by e4cf8c84 (Fixed #24301, 2015-02-08, shipped in 1.9)",
+        "the same vulnerable delimiter template is present at tags 1.9, 1.10.8, 2.0 and 2.1.15"
+      ],
+      "verification_method": "exact-tag shallow fetches into a bare repository; git rev-parse of peeled tags; merge-base --is-ancestor in both directions; git grep of fixed tags"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/general_3.0.2.py",
+      "evidence_id": "ev_django_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:05:00Z",
+      "sha256_of_observation": "c3a1a2c6a87f66d189c24a43d53b582ce00a112a65ced2e523a6eb02dfc509ca",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/postgres/aggregates/general.py#L52-L58",
+      "supports": [
+        "StringAgg.template at line 54 interpolates '%(delimiter)s' inside single quotes",
+        "StringAgg.__init__ at lines 57-58 passes the delimiter as a raw extra kwarg, not as a Value expression"
+      ],
+      "verification_method": "file read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/general_3.0.3.py",
+      "evidence_id": "ev_django_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:05:00Z",
+      "sha256_of_observation": "effe5545345a673c1ed7e3537622f22d6f83de9de89826aaba287dd21272d029",
+      "source_url": "https://github.com/django/django/blob/c459a4661b2e96b53d3784c76e1fd5651b8cdc4a/django/contrib/postgres/aggregates/general.py#L52-L60",
+      "supports": [
+        "the fixed StringAgg template has no delimiter placeholder",
+        "the delimiter is wrapped in Value(str(delimiter)) and passed as a positional expression, so it becomes a bound parameter"
+      ],
+      "verification_method": "file read at the 3.0.3 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/expressions_3.0.2.py",
+      "evidence_id": "ev_django_func_as_sql",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:05:00Z",
+      "sha256_of_observation": "b58401d34f43207875696a50993d566e94ff6cb9e4e737948efde255359a3a86",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/db/models/expressions.py#L619-L638",
+      "supports": [
+        "Func.__init__ stores the extra kwargs, including the raw delimiter, in self.extra",
+        "Func.as_sql merges self.extra into the template data at line 627",
+        "Func.as_sql returns template % data at line 638, while params only collects SQL from source_expressions (623-626)",
+        "the delimiter therefore reaches the SQL text as literal syntax rather than a bound parameter"
+      ],
+      "verification_method": "file read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/fix_diff.txt",
+      "evidence_id": "ev_django_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:05:00Z",
+      "sha256_of_observation": "e00d10d9d708ce6f594f570a157fd20873c6b06ee3f29538f219dc731d277a24",
+      "source_url": "https://github.com/django/django/commit/505826b469b16ab36693360da9e11fd13213421b",
+      "supports": [
+        "the fix removes '%(delimiter)s' from StringAgg.template and passes Value(str(delimiter))",
+        "OrderableAggMixin.__init__ changes to *expressions so the delimiter expression can be forwarded",
+        "the same commit adds the test test_string_agg_delimiter_escaping and release notes for 1.11.28, 2.2.10 and 3.0.3"
+      ],
+      "verification_method": "git show of the 3.0.x fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/regression_test_aggregates.py",
+      "evidence_id": "ev_django_regression_test",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:05:00Z",
+      "sha256_of_observation": "68c536105682046aadb7e3035bc938939f30b996ad2175ab161b26fa2a6ffde1",
+      "source_url": "https://github.com/django/django/blob/505826b469b16ab36693360da9e11fd13213421b/tests/postgres_tests/test_aggregates.py",
+      "supports": [
+        "test_string_agg_delimiter_escaping aggregates with delimiter=\"'\" and expects the quote to survive as data",
+        "the test exercises the PostgreSQL backend and was read but not executed"
+      ],
+      "verification_method": "file read at the fix commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "evidence_id": "ev_django_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:04:00Z",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "supports": [
+        "snapshot_id snap_ab695ba3db678939 at 3.0.2",
+        "6163 tracked files scanned; 67 ambiguous files; 1266 binary files",
+        "Python first-party 815 files / 4,480,847 bytes / 15.24% of tracked nonbinary bytes",
+        "full_scan=true with pinned github-linguist 9.7.0"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/general_1.11.28.py",
+      "evidence_id": "ev_django_fixed_11128",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:06:00Z",
+      "sha256_of_observation": "6c39bd1536bb64a1029785b82d17254cc2ebb5bd6660a433beca1f7653c75564",
+      "source_url": "https://github.com/django/django/blob/e09f09b965ef47ffd99abd2c26ba7416751cffa6/django/contrib/postgres/aggregates/general.py",
+      "supports": [
+        "1.11.28 StringAgg uses Value(str(delimiter)) and a template without a delimiter placeholder",
+        "the 1.11.x fix 001b063 is an ancestor of the 1.11.28 tag"
+      ],
+      "verification_method": "file read at the 1.11.28 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_7471/sources/general_2.2.10.py",
+      "evidence_id": "ev_django_fixed_2210",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:06:00Z",
+      "sha256_of_observation": "effe5545345a673c1ed7e3537622f22d6f83de9de89826aaba287dd21272d029",
+      "source_url": "https://github.com/django/django/blob/b2c33a57b3b98f1e90bbc2a2be2c5a6d814eed29/django/contrib/postgres/aggregates/general.py",
+      "supports": [
+        "2.2.10 StringAgg uses Value(str(delimiter)) and a template without a delimiter placeholder",
+        "the 2.2.x fix c67a368 is an ancestor of the 2.2.10 tag"
+      ],
+      "verification_method": "file read at the 2.2.10 tag"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 2, 3],
+    "aliases": [0, 1],
+    "critical_operation": [5, 7, 8, 9],
+    "cwe": [0, 2],
+    "fix_commits": [0, 4, 8],
+    "fixed_releases": [4, 6, 11, 12],
+    "languages": [10],
+    "severity": [2],
+    "vulnerable_commit": [4, 5]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No PostgreSQL server was started and no crafted delimiter was executed; the finding is static. The upstream regression test was read, not run.",
+    "Reachability requires the application to pass an untrusted string as StringAgg's delimiter argument. StringAgg takes an explicit delimiter parameter, but not every application exposes it to user input.",
+    "The CVE v5 CNA record is a placeholder (vendor/product/version n/a) with no CVSS and no CWE. NVD and GHSA/OSV supply CWE-89 and CVSS 3.1 9.8; the canonical values come from those sources.",
+    "OSV expresses the 1.11 range as introduced 0 and the 2.x range as introduced 2.0; NVD CPE starts at 1.11 and 2.2. The 2.0-2.2 window is not represented by an NVD CPE range, so the canonical range uses the NVD/upstream branch boundaries >=2.2,<2.2.10 and records OSV's wider 2.0 start.",
+    "The fix exists as four branch-specific commits. Only the 3.0.x commit (505826b4) is an ancestor of 3.0.3; the master commit eb31d84 is not an ancestor of any fixed release tag, and the 2.2.x/1.11.x commits are ancestors of their own fixed tags. No single commit fixes all branches. MITRE and NVD cite only the master commit, which never shipped in a fixed tag.",
+    "NVD's lower bounds (>=1.11 and >=2.2) understate code-level exposure: the identical vulnerable template is present in the unsupported 1.9/1.10.8 and 2.0/2.1.15 lines as well (StringAgg was introduced in 1.9 by e4cf8c84). OSV is over-broad in the other direction: its 1.x versions list includes 1.0.1-1.8.x, which predate StringAgg. The canonical ranges stay at the NVD/upstream supported-branch boundaries, and both source defects are recorded rather than silently resolved.",
+    "Commit dates are misleading: the fix commits carry author dates (2019-12-31; 2020-01-22 for 1.11.x) that can precede the 3.0.2 tag date, yet 505826b4 is not an ancestor of 3.0.2 because it landed on the release branch after the tag was cut. Ancestry, not dates, was used.",
+    "The added regression test asserts that a single-quote delimiter survives as data; it does not assert that a syntactically hostile delimiter is rejected, so it is a targeted escaping test rather than a general injection test.",
+    "The snapshot inventory has 6163 tracked files and 67 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+    "No downstream distribution backport (Debian, Ubuntu, Fedora, NetApp) was verified; only upstream tags and commits are used."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "class StringAgg(OrderableAggMixin, Aggregate):\n    function = 'STRING_AGG'\n    template = \"%(function)s(%(distinct)s%(expressions)s, '%(delimiter)s'%(ordering)s)\"\n    allow_distinct = True\n\n    def __init__(self, expression, delimiter, **extra):\n        super().__init__(expression, delimiter=delimiter, **extra)",
+      "description": "StringAgg builds its SQL from a template that embeds the caller-supplied delimiter between single quotes. StringAgg.__init__ forwards the delimiter as a raw extra kwarg; Func.__init__ stores extras in self.extra, and Func.as_sql merges self.extra into the template data and applies `template % data`, while params only collect SQL from the source expressions. The delimiter therefore becomes SQL text rather than a bound parameter, so a delimiter containing a quote can break out of the string literal and inject SQL. The 3.0.x fix replaces the template interpolation with Value(str(delimiter)), giving the delimiter its own bound parameter.",
+      "file": "django/contrib/postgres/aggregates/general.py",
+      "function": "StringAgg.__init__",
+      "language": "Python",
+      "line": "52-58",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/postgres/aggregates/general.py#L52-L58"
+    },
+    "entry_point": {
+      "description": "An application constructs StringAgg(expression, delimiter) and the queryset compiles to SQL. The delimiter argument is the injection point when it is derived from request data; the aggregate is translated by the PostgreSQL backend through Func.as_sql.",
+      "file": "django/contrib/postgres/aggregates/general.py",
+      "function": "StringAgg.__init__",
+      "language": "Python",
+      "line": 57,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/postgres/aggregates/general.py#L57"
+    },
+    "location_id": "loc_CVE-2020-7471_snap_ab695ba3db678939",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "trace": [
+      {
+        "description": "StringAgg passes the delimiter as a raw keyword argument into Func",
+        "file": "django/contrib/postgres/aggregates/general.py",
+        "function": "StringAgg.__init__",
+        "language": "Python",
+        "line": 58,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/postgres/aggregates/general.py#L58"
+      },
+      {
+        "description": "Func stores extras, including the delimiter, in self.extra",
+        "file": "django/db/models/expressions.py",
+        "function": "Func.__init__",
+        "language": "Python",
+        "line": 592,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/db/models/expressions.py#L592"
+      },
+      {
+        "description": "Func.as_sql merges self.extra into the template data",
+        "file": "django/db/models/expressions.py",
+        "function": "Func.as_sql",
+        "language": "Python",
+        "line": 627,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/db/models/expressions.py#L627"
+      },
+      {
+        "description": "the template is interpolated with the raw delimiter while params contain only source-expression SQL",
+        "file": "django/db/models/expressions.py",
+        "function": "Func.as_sql",
+        "language": "Python",
+        "line": 638,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/db/models/expressions.py#L638"
+      }
+    ],
+    "verification_method": "Static read of general.py, expressions.py, the fix diff and the added test at 3.0.2/3.0.3 and the fixed 1.11.28/2.2.10 tags; no code executed.",
+    "vulnerability_id": "CVE-2020-7471"
+  },
+  "open_questions": [
+    "No running PostgreSQL instance was used to confirm which delimiter payloads produce syntactically valid injected SQL.",
+    "Whether a particular downstream application exposes the delimiter to user input was not surveyed.",
+    "The exact PostgreSQL parser behavior for multi-statement payloads inside an aggregate call was not tested."
+  ],
+  "prepared_at": "2026-10-21T15:07:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/django/django",
+    "full_name": "django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "repo_id": "4164482",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read StringAgg and Func.as_sql at 3.0.2 and confirm the delimiter reaches `template % data` outside params.",
+      "An independent reviewer must confirm 505826b4 is absent from 3.0.2 and an ancestor of 3.0.3, and that the fixed source uses Value(str(delimiter)).",
+      "An independent reviewer must confirm the three affected branches and fixed releases against a second source family.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "Django security release announcement",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "OSV/GHSA record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD, OSV/GHSA and the Django announcement agree on the three supported branches and fixed releases. The MITRE CNA record is a placeholder with no range, CVSS or CWE, so the canonical CWE-89 and 9.8 vector come from NVD/GHSA. OSV's 2.x range starts at 2.0 while NVD's CPE starts at 2.2; the upstream announcement says 2.2.x, and both agree on the 2.2.10 fixed boundary. Two range defects are recorded: NVD understates exposure because the same template exists in unsupported 1.9/1.10.8 and 2.0/2.1.15, while OSV lists 1.0.1-1.8.x even though StringAgg only appeared in 1.9. The fix is split across four branch commits, and MITRE/NVD cite only the master commit that never shipped in a fixed tag; the 3.0.x backport is the one verified against this snapshot.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2020/feb/03/security-releases/",
+    "affected_packages": [
+      {
+        "affected_range": ">=1.11,<1.11.28",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      },
+      {
+        "affected_range": ">=2.2,<2.2.10",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      },
+      {
+        "affected_range": ">=3.0,<3.0.3",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      }
+    ],
+    "aliases": [
+      "CVE-2020-7471",
+      "GHSA-hmr4-m2h5-33qx",
+      "BIT-django-2020-7471",
+      "PYSEC-2020-35"
+    ],
+    "category_l1": "injection",
+    "category_l2": "SQL injection through StringAgg delimiter interpolation",
+    "cwe_ids": [
+      "CWE-89"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "master",
+        "message": "Fixed CVE-2020-7471 -- Properly escaped StringAgg(delimiter) parameter.",
+        "sha": "eb31d845323618d688ad429479c6dda973056136",
+        "url": "https://github.com/django/django/commit/eb31d845323618d688ad429479c6dda973056136"
+      },
+      {
+        "branch": "3.0.x",
+        "message": "[3.0.x] Fixed CVE-2020-7471 -- Properly escaped StringAgg(delimiter) parameter.",
+        "sha": "505826b469b16ab36693360da9e11fd13213421b",
+        "url": "https://github.com/django/django/commit/505826b469b16ab36693360da9e11fd13213421b"
+      },
+      {
+        "branch": "2.2.x",
+        "message": "[2.2.x] Fixed CVE-2020-7471 -- Properly escaped StringAgg(delimiter) parameter.",
+        "sha": "c67a368c16e4680b324b4f385398d638db4d8147",
+        "url": "https://github.com/django/django/commit/c67a368c16e4680b324b4f385398d638db4d8147"
+      },
+      {
+        "branch": "1.11.x",
+        "message": "[1.11.x] Fixed CVE-2020-7471 -- Properly escaped StringAgg(delimiter) parameter.",
+        "sha": "001b0634cd309e372edb6d7d95d083d02b8e37bd",
+        "url": "https://github.com/django/django/commit/001b0634cd309e372edb6d7d95d083d02b8e37bd"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/1.11/releases/1.11.28/",
+        "tag": "1.11.28",
+        "verified_content": "At tag 1.11.28 (e09f09b9), StringAgg uses Value(str(delimiter)) and a template without a delimiter placeholder; fix 001b063 is an ancestor of the tag",
+        "version": "1.11.28"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/2.2/releases/2.2.10/",
+        "tag": "2.2.10",
+        "verified_content": "At tag 2.2.10 (b2c33a57), StringAgg uses Value(str(delimiter)) and a template without a delimiter placeholder; fix c67a368 is an ancestor of the tag",
+        "version": "2.2.10"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.3/",
+        "tag": "3.0.3",
+        "verified_content": "At tag 3.0.3 (c459a466), StringAgg uses Value(str(delimiter)) and a template without a delimiter placeholder; fix 505826b4 is an ancestor of the tag",
+        "version": "3.0.3"
+      }
+    ],
+    "published_at": "2020-02-03T11:59:20Z",
+    "references": [
+      "https://www.djangoproject.com/weblog/2020/feb/03/security-releases/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-7471",
+      "https://github.com/advisories/GHSA-hmr4-m2h5-33qx",
+      "https://github.com/django/django/commit/505826b469b16ab36693360da9e11fd13213421b",
+      "https://github.com/django/django/commit/eb31d845323618d688ad429479c6dda973056136"
+    ],
+    "repo_id": "4164482",
+    "severity": {
+      "level": "critical",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 9.8 falls in Critical (9.0-10.0); GHSA/OSV CVSS 3.1 vector also evaluates to 9.8",
+      "score": 9.8,
+      "source": "NVD primary metric nvd@nist.gov; GHSA/OSV carry the same CVSS 3.1 vector",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2020-7471",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_ab695ba3db678939",
+    "source_type": "upstream_advisory",
+    "title": "Django StringAgg delimiter is interpolated into SQL without escaping, allowing SQL injection",
+    "vulnerability_id": "CVE-2020-7471",
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_commit_basis": "tag 3.0.2 points directly at a3697439..., released 2020-02-03; 3.0.3 is the first 3.0.x release containing fix 505826b4, and the fix is absent from this tag",
+    "vulnerable_version": "3.0.2"
+  }
+}

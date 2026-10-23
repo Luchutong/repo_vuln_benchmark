@@ -1,0 +1,28 @@
+# libarchive CVE-2025-5915 git checks
+
+## tags (annotated)
+7ce42547f682ea79f9382d580bd97355c0885a0f	refs/tags/v3.7.7
+b439d586f53911c84be5e380445a8a259e19114c	refs/tags/v3.7.7^{}
+2ed9bd7bfc5a7276acef97aee629b6ae199226db	refs/tags/v3.8.0
+70ff28fcf04ec129a1d064f96e49aa57fcc90e37	refs/tags/v3.8.0^{}
+
+## peeled commits
+b439d586f53911c84be5e380445a8a259e19114c
+70ff28fcf04ec129a1d064f96e49aa57fcc90e37
+
+## fix commit
+a612bf62f86a6faa47bd57c52b94849f0a404d8c 09685126fcec664e2b8ca595e1fc371bd494d209 2025-05-11 19:00:11 +0200 rar: Fix heap-buffer-overflow (#2599)
+
+## ancestry
+a612bf62 in v3.8.0: YES
+a612bf62 in v3.7.7: NO
+
+## stat
+a612bf62f86a6faa47bd57c52b94849f0a404d8c rar: Fix heap-buffer-overflow (#2599)
+
+ Makefile.am                                        |  2 +
+ libarchive/archive_read_support_format_rar.c       | 17 ++++----
+ libarchive/test/CMakeLists.txt                     |  1 +
+ libarchive/test/test_read_format_rar_overflow.c    | 48 ++++++++++++++++++++++
+ .../test/test_read_format_rar_overflow.rar.uu      | 11 +++++
+ 5 files changed, 72 insertions(+), 7 deletions(-)

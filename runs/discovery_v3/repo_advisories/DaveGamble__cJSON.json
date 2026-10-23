@@ -1,0 +1,9 @@
+{
+  "advisories": [],
+  "query": {
+    "repository_full_name": "DaveGamble/cJSON",
+    "url": "https://api.github.com/repos/DaveGamble/cJSON/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:02.552944+00:00",
+  "tool": "github_rest_readonly"
+}

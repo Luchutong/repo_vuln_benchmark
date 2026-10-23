@@ -1,0 +1,362 @@
+{
+  "candidate_id": "disc2_2591ed35b6eb1740534384d1",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T09:30:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/protocolbuffers/protobuf",
+    "full_name": "protocolbuffers/protobuf",
+    "primary_language": "C++",
+    "project_kind": "protocol buffers compiler and language runtimes (Java core located in java/core)",
+    "repo_id": "23357588",
+    "snapshot_id": "snap_6bc3f36eb61ef280"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2022-3509",
+    "aliases": [
+      "CVE-2022-3509",
+      "GHSA-g5ww-5jh7-63cx"
+    ],
+    "title": "protobuf-java TextFormat parser rebuilds and re-merges a singular sub-message on every occurrence, giving quadratic work on crafted text input",
+    "category_l1": "denial_of_service",
+    "category_l2": "quadratic parse cost in TextFormat via MessageReflection.BuilderAdapter.newMergeTargetForField copying the existing sub-message",
+    "cwe_ids": [
+      "CWE-400"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": 7.5,
+      "level": "high",
+      "source": "CNA (CVE List v5, Google) and NVD Primary (nvd@nist.gov) publish the identical CVSS 3.1 7.5 HIGH vector; NVD Secondary (cve-coordination@google.com) repeats it; the OSV GHSA record carries the same vector and database severity HIGH",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-3509"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "com.google.protobuf:protobuf-java",
+        "purl": "pkg:maven/com.google.protobuf/protobuf-java",
+        "affected_range": ">=3.20.0 <3.20.3 (also >=3.17.0 <3.19.6, >=3.21.0 <3.21.7, >=3.0.0 <3.16.3)"
+      },
+      {
+        "ecosystem": "Maven",
+        "package": "com.google.protobuf:protobuf-javalite",
+        "purl": "pkg:maven/com.google.protobuf/protobuf-javalite",
+        "affected_range": ">=3.20.0 <3.20.3 (same intervals as core)"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "main (3.21.x); backported to the 3.20 branch for 3.20.3",
+        "sha": "a3888f53317a8018e7a439bac4abeb8f3425d5e9",
+        "message": "Clean up TextFormat parser (#10673): CHANGES.txt records 'Fix TextFormat parser to build up recurring (but supposedly not repeated) sub-messages directly from text rather than building a new sub-message and merging the fully formed message into the existing field.' message.",
+        "url": "https://github.com/protocolbuffers/protobuf/commit/a3888f53317a8018e7a439bac4abeb8f3425d5e9"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "com.google.protobuf:protobuf-java",
+        "tag": "v3.20.3",
+        "version": "3.20.3",
+        "release_url": "https://github.com/protocolbuffers/protobuf/releases/tag/v3.20.3",
+        "verified_content": "Tag v3.20.3 (annotated tag 66b473b3, peels to commit fe271ab7) contains java/core/src/main/java/com/google/protobuf/MessageReflection.java with git blob 294d8417, byte-identical to the blob produced by fix commit a3888f5. That file has hasNestedBuilders, getFieldBuilder(), the MessageLite.Builder branch in setField, the getFieldBuilder-based mergeMessage/mergeGroup/newMergeTargetForField, and finish() returning the builder. v3.20.1 has blob b7f5d52d and none of these."
+      }
+    ],
+    "published_at": "2022-11-01T18:09:31Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/advisories/GHSA-g5ww-5jh7-63cx",
+    "references": [
+      "https://github.com/advisories/GHSA-g5ww-5jh7-63cx",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-3509",
+      "https://github.com/protocolbuffers/protobuf/commit/a3888f53317a8018e7a439bac4abeb8f3425d5e9"
+    ],
+    "vulnerable_commit": "21027a27c4c2ec1000859ccbcfff46d83b16e1ed",
+    "vulnerable_commit_basis": "Tag v3.20.1 is a lightweight tag that points directly at refs/tags/v3.20.1 = 21027a27c4c2ec1000859ccbcfff46d83b16e1ed, the snapshot commit; the CNA range 3.20.0 <= v < 3.20.3 contains 3.20.1, and the fix commit a3888f5 is not an ancestor of it",
+    "vulnerable_version": "3.20.1",
+    "snapshot_id": "snap_6bc3f36eb61ef280",
+    "repo_id": "23357588",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE-2022-3509_snap_6bc3f36eb61ef280",
+    "location_kind": "logic",
+    "snapshot_id": "snap_6bc3f36eb61ef280",
+    "vulnerability_id": "CVE-2022-3509",
+    "verification_method": "Static read of TextFormat.java and MessageReflection.java at the exact v3.20.1 commit and at the v3.20.3 tag, the upstream fix patch a3888f5, and git object checks (blob identity and ancestry). No Java code was compiled or executed and no text-format input was parsed.",
+    "critical_operation": {
+      "file": "java/core/src/main/java/com/google/protobuf/MessageReflection.java",
+      "function": "com.google.protobuf.MessageReflection.BuilderAdapter.newMergeTargetForField",
+      "language": "Java",
+      "line": "503-517",
+      "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/MessageReflection.java#L503-L517",
+      "code_excerpt": "Message.Builder subBuilder;\nif (defaultInstance != null) {\n  subBuilder = defaultInstance.newBuilderForType();\n} else {\n  subBuilder = builder.newBuilderForField(field);\n}\nif (!field.isRepeated()) {\n  Message originalMessage = (Message) getField(field);\n  if (originalMessage != null) {\n    subBuilder.mergeFrom(originalMessage);\n  }\n}\nreturn new BuilderAdapter(subBuilder);",
+      "description": "每次进入一个 singular message 字段时，newMergeTargetForField 都新建一个子 builder，并把该字段已有的完整消息 mergeFrom 进新 builder；解析完再用 finish() 的 buildPartial() 生成不可变对象，由 setField 存回父 builder。文本格式允许同一个 singular 字段反复出现（默认策略下是合并语义），因此第 k 次出现要复制前 k-1 次的内容，n 次出现退化为 O(n^2) 的时间和分配。修复 a3888f5 增加 hasNestedBuilders/getFieldBuilder()，让 setField/mergeMessage/mergeGroup/newMergeTargetForField 直接复用父 builder 的 field builder，finish() 返回 builder 本身，从而只构建一次。"
+    },
+    "entry_point": {
+      "file": "java/core/src/main/java/com/google/protobuf/TextFormat.java",
+      "function": "com.google.protobuf.TextFormat.Parser.merge(CharSequence, ExtensionRegistry, Message.Builder)",
+      "language": "Java",
+      "line": "1793-1808",
+      "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/TextFormat.java#L1793-L1808",
+      "description": "公开入口把调用方传入的 Message.Builder 包成 MessageReflection.BuilderAdapter（1799 行），随后循环调用 mergeField；消息字段在 consumeFieldValue（2027 行起）中经 target.newMergeTargetForField(field, defaultInstance)（2079-2080 行）递归解析。攻击者控制的就是这段文本输入；是否可达取决于应用把不可信文本交给 TextFormat。调用方没有长度或重复次数限制。"
+    },
+    "trace": [
+      {
+        "file": "java/core/src/main/java/com/google/protobuf/TextFormat.java",
+        "function": "TextFormat.Parser.merge",
+        "language": "Java",
+        "line": 1799,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/TextFormat.java#L1799",
+        "description": "new MessageReflection.BuilderAdapter(builder) 包装调用方的 builder"
+      },
+      {
+        "file": "java/core/src/main/java/com/google/protobuf/TextFormat.java",
+        "function": "TextFormat.Parser.consumeFieldValue",
+        "language": "Java",
+        "line": "2079-2080",
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/TextFormat.java#L2079-L2080",
+        "description": "消息字段调用 target.newMergeTargetForField(field, defaultInstance) 取得子 merge target"
+      },
+      {
+        "file": "java/core/src/main/java/com/google/protobuf/MessageReflection.java",
+        "function": "MessageReflection.BuilderAdapter.newMergeTargetForField",
+        "language": "Java",
+        "line": "503-517",
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/MessageReflection.java#L503-L517",
+        "description": "新 builder 生成并 mergeFrom 既有字段值；这是二次复杂度的来源"
+      },
+      {
+        "file": "java/core/src/main/java/com/google/protobuf/MessageReflection.java",
+        "function": "MessageReflection.BuilderAdapter.finish",
+        "language": "Java",
+        "line": "545-546",
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/MessageReflection.java#L545-L546",
+        "description": "finish() 调用 buildPartial() 把整棵子树物化；随后 TextFormat 2193 行 target.setField(field, value) 存回父 builder，下一次出现再整体复制"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_protobuf_osv",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/osv_GHSA-g5ww-5jh7-63cx.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-g5ww-5jh7-63cx",
+      "retrieved_at": "2026-10-22T09:12:00Z",
+      "sha256_of_observation": "7336239ba60c0e5fe844d3c2d5e85fc87df5974b0dec60558c6ddfeecd7d0fe0",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA-g5ww-5jh7-63cx aliases CVE-2022-3509; github_reviewed true; published 2022-12-12",
+        "details: textformat parsing issue in protobuf-java core and lite prior to 3.21.7, 3.20.3, 3.19.6 and 3.16.3; repeated instances of non-repeated embedded messages convert objects back and forth between mutable and immutable forms",
+        "Maven com.google.protobuf:protobuf-java and protobuf-javalite ECOSYSTEM intervals 3.20.0 -> 3.20.3, 3.17.0 -> 3.19.6, 3.21.0 -> 3.21.7, 3.0.0 -> 3.16.3",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H; database_specific severity HIGH and cwe_ids [CWE-400]",
+        "references include fix commit a3888f53317a8018e7a439bac4abeb8f3425d5e9"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_cve_v5",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/cve_v5_CVE-2022-3509.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-3509",
+      "retrieved_at": "2026-10-22T09:12:00Z",
+      "sha256_of_observation": "2343528f7a0d9cd0e3ade5a7cd4d60c4870da85d7e3cf3e858f2bff3bb001aaa",
+      "verification_method": "CVE List v5 record (CNA Google)",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2022-11-01T18:09:31.634Z",
+        "CNA description of the textformat parsing issue and the mutable/immutable conversion",
+        "CNA affected versions for ProtocolBuffers: 3.21.0 <3.21.7, 3.20.0 <3.20.3, 3.19.0 <3.19.6, 3.16.0 <3.16.3",
+        "CNA CVSS 3.1 7.5 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "CNA problemType records n/a (no CWE); the only reference is fix commit a3888f5"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_nvd",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/nvd_CVE-2022-3509.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-3509",
+      "retrieved_at": "2026-10-22T09:12:00Z",
+      "sha256_of_observation": "b640489f59ca278e9b5ac93bc5e99b33d1443b49e978e1a0e7225df6f0e7d316",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "published 2022-12-12T13:15:14.607, status Modified",
+        "Primary metric nvd@nist.gov CVSS 3.1 7.5 HIGH, same vector as the CNA",
+        "Secondary metric cve-coordination@google.com also 7.5 HIGH",
+        "weaknesses: nvd@nist.gov NVD-CWE-noinfo plus a CISA-ADP entry CWE-400"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_git_checks",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/git_object_checks.txt",
+      "source_url": "https://github.com/protocolbuffers/protobuf/commit/a3888f53317a8018e7a439bac4abeb8f3425d5e9",
+      "retrieved_at": "2026-10-22T09:26:00Z",
+      "sha256_of_observation": "a0d9a5c6c8aaf26ab6862eb641ffed9ebd509abffce563c42f85d972308ee853",
+      "verification_method": "exact-SHA fetch into a bare repository (filter blob:none); git merge-base --is-ancestor; git rev-parse for blobs",
+      "result": "PASS",
+      "supports": [
+        "fix commit a3888f5 (2022-09-29) has parent 3b5301c and is NOT an ancestor of v3.20.1 commit 21027a2",
+        "v3.20.1 tag is a lightweight tag pointing directly at 21027a2 (the snapshot commit)",
+        "v3.20.3 tag 66b473b peels to commit fe271ab; a3888f5 is not its ancestor because the 3.20 fix was backported",
+        "MessageReflection.java blob at v3.20.1 is b7f5d52d; at v3.20.3 and at a3888f5 it is 294d8417 (identical content)",
+        "local copies hash to exactly those git blobs"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_vuln_file",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/MessageReflection_v3.20.1.java",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/MessageReflection.java",
+      "retrieved_at": "2026-10-22T09:20:00Z",
+      "sha256_of_observation": "e2244986f2a1c98371c740f5e7388eeaca709b9b9683990db5a999696f8a75c7",
+      "verification_method": "raw.githubusercontent.com at the exact v3.20.1 commit (991 lines; git blob b7f5d52d)",
+      "result": "PASS",
+      "supports": [
+        "BuilderAdapter.newMergeTargetForField (503-517) always allocates a new sub-builder and mergeFrom(getField(field))",
+        "setField (373-376) stores plain values, finish (545-546) returns builder.buildPartial()",
+        "the class has no hasNestedBuilders flag and no getFieldBuilder() helper",
+        "parseMessage/parseMessageFromBytes/parseGroup rebuild a sub-builder from the existing value in the same way"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_fixed_file",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/MessageReflection_v3.20.3.java",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/v3.20.3/java/core/src/main/java/com/google/protobuf/MessageReflection.java",
+      "retrieved_at": "2026-10-22T09:21:00Z",
+      "sha256_of_observation": "3f9cae0c5e998e154fa6bacf30da948e0bf78ff82ecd32e6541bfe546c346394",
+      "verification_method": "raw.githubusercontent.com at tag v3.20.3 (blob 294d8417, identical to the fix commit blob)",
+      "result": "PASS",
+      "supports": [
+        "hasNestedBuilders field (381) and getFieldBuilder() (397-405)",
+        "setField short-circuits MessageLite.Builder values (414-421)",
+        "mergeMessage/mergeGroup reuse getFieldBuilder (565, 595) and newMergeTargetForField reuses it (630)",
+        "finish() returns the builder itself (671-673)"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_entry_file",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/TextFormat_v3.20.1.java",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/TextFormat.java",
+      "retrieved_at": "2026-10-22T09:22:00Z",
+      "sha256_of_observation": "83c37aa044fa79adfa43506f67783e1b478b3a169ddb0fb29b9cd0b3431a95c9",
+      "verification_method": "raw.githubusercontent.com at the exact v3.20.1 commit (2700 lines)",
+      "result": "PASS",
+      "supports": [
+        "Parser.merge(CharSequence, ExtensionRegistry, Message.Builder) at 1793 wraps the caller builder in MessageReflection.BuilderAdapter at 1799",
+        "consumeFieldValue at 2027 calls target.newMergeTargetForField(field, defaultInstance) at 2079-2080 and recuses mergeField for the sub-target",
+        "subField.finish() at 2089 and target.setField(field, value) at 2193 complete the copy-and-replace cycle per occurrence",
+        "no input length, occurrence count or depth limit exists in this path"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_fix_patch",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/fix_commit_a3888f5.patch",
+      "source_url": "https://github.com/protocolbuffers/protobuf/commit/a3888f53317a8018e7a439bac4abeb8f3425d5e9",
+      "retrieved_at": "2026-10-22T09:16:00Z",
+      "sha256_of_observation": "58d3c4f40540504d4255d22c1cbb1cb846553966d9980a3d9c778d48c937e48d",
+      "verification_method": "upstream commit patch (commit.patch)",
+      "result": "PASS",
+      "supports": [
+        "subject \"Clean up TextFormat parser (#10673)\"",
+        "CHANGES.txt: build recurring (but supposedly not repeated) sub-messages directly from text instead of building a new sub-message and merging",
+        "adds hasNestedBuilders, getFieldBuilder(), MessageLite.Builder handling in setField/setRepeatedField/addRepeatedField",
+        "rewrites mergeGroup, mergeMessage and newMergeTargetForField to reuse the existing field builder; finish() returns builder"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_tag_refs",
+      "artifact_path": "runs/verification/protobuf_cve_2022_3509/sources/tag_refs_3509.txt",
+      "source_url": "https://github.com/protocolbuffers/protobuf",
+      "retrieved_at": "2026-10-22T09:19:00Z",
+      "sha256_of_observation": "e6e6d787c6d53585e66f1482b78523dbaecebe8236777c98e8337510c26fc228",
+      "verification_method": "git ls-remote of refs/tags/v3.20.1, v3.20.3 and v3.21.7",
+      "result": "PASS",
+      "supports": [
+        "refs/tags/v3.20.1 = 21027a27c4c2ec1000859ccbcfff46d83b16e1ed (lightweight, equals the snapshot vulnerable_commit)",
+        "refs/tags/v3.20.3 = 66b473b3a20d02cf0d1a01f6c55ab94a141437d6",
+        "refs/tags/v3.21.7 = 39599a37a47bdf6284d0563472c555e9e7604074"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "aliases": [
+      0,
+      1
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "affected_ranges": [
+      0,
+      1
+    ],
+    "fix_commits": [
+      0,
+      1,
+      7
+    ],
+    "fixed_releases": [
+      5,
+      7
+    ],
+    "vulnerable_commit": [
+      3,
+      8
+    ],
+    "critical_operation": [
+      4,
+      6,
+      7
+    ],
+    "location": [
+      4,
+      5
+    ],
+    "languages": [
+      4,
+      6
+    ]
+  },
+  "field_evidence_note": "Each index names the evidence item that supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV GHSA-g5ww-5jh7-63cx (Maven protobuf-java/protobuf-javalite intervals)",
+      "CVE List v5 (CNA Google, CVSS 3.1 7.5, no CWE)",
+      "NVD 2.0 (Primary nvd@nist.gov 7.5, Secondary cve-coordination@google.com 7.5, CISA-ADP CWE-400)",
+      "upstream git: tags v3.20.1/v3.20.3 and fix commit a3888f5"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA and NVD agree on 3.20.0..3.20.3 and on CVSS 3.1 7.5; the CNA problemType is 'n/a' (no CWE), NVD's own primary weakness is NVD-CWE-noinfo, and CWE-400 comes from the CISA-ADP entry inside the NVD record and from the GitHub advisory metadata. The technical root-cause text and the fix pointer trace to Google (the CNA); NVD adds an independent assessment of score and CWE but no separate root-cause analysis.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read TextFormat.java and MessageReflection.java at v3.20.1 (commit 21027a2) and confirm the newMergeTargetForField copy/merge path and the finish()->buildPartial()->setField cycle.",
+      "An independent reviewer must confirm v3.20.3's MessageReflection.java contains getFieldBuilder()/hasNestedBuilders and that the file blob equals the fix commit's blob.",
+      "An independent reviewer must state whether the repeated-singular-field input is reachable without a caller-level size limit and whether the DoS impact is credible for this dataset.",
+      "No formal reviews row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No code was compiled or executed and no text input was parsed: the quadratic blow-up is read from the code path, not measured.",
+    "Only java/core was mapped. The CNA lists protobuf-javalite as affected as well, and the lite runtime's text handling was not read.",
+    "The fix commit a3888f5 is on main (3.21.x) and is not an ancestor of the v3.20.3 tag commit; the 3.20.3 backport commit has not been named by the advisory. Fixed-release content was verified by identical git blob (294d8417) rather than by ancestry.",
+    "The CNA records no CWE; CWE-400 is taken from NVD's CISA-ADP entry and the GitHub advisory metadata, while NVD's own primary weakness is NVD-CWE-noinfo.",
+    "The advisory's own CVE text says 'similar to CVE-2022-3171'; no comparison against that separate CVE was made here.",
+    "No independent (non-Google) technical analysis was found in the saved sources; if none exists the independent-evidence field will be false."
+  ],
+  "open_questions": [
+    "Whether protobuf-javalite reaches the same MessageReflection.BuilderAdapter code or a separate implementation.",
+    "Whether the O(n^2) growth is bounded in practice by the parser's recursion or token limits in 3.20.1 (none were found in the reviewed files).",
+    "Whether any downstream project published its own analysis rather than the vendor text."
+  ]
+}

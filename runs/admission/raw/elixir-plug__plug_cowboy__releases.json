@@ -1,0 +1,1 @@
+{"tool":"github_fetch","query":{"url":"https://api.github.com/repos/elixir-plug/plug_cowboy/releases?per_page=3"},"retrieved_at":"2026-10-21T10:54:54.352Z","is_error":false,"response":{"content":"[]","title":"releases","url":"https://api.github.com/repos/elixir-plug/plug_cowboy/releases?per_page=3"}}

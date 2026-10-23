@@ -1,0 +1,55 @@
+# git ls-remote --tags https://github.com/caddyserver/caddy refs/tags/v2.11.*
+13ff4fa4bb89c7ccefe94027358b1cfbb9d50765	refs/tags/v2.11.0
+03243e42fe46f6bf276cbbf5dcdc7e18fde461d7	refs/tags/v2.11.0^{}
+8d5a2f8785abc95141e0105370453f033cb27cbf	refs/tags/v2.11.0-beta.1
+df9386fa128ff8746d24afeda1d0f37085a58f8d	refs/tags/v2.11.0-beta.1^{}
+2b6abf241bb206a77bcfc0be9ddd887f258a1bf9	refs/tags/v2.11.0-beta.2
+7b031e1eb5bc0bae9a8394d93f20399932ebd4d3	refs/tags/v2.11.0-beta.2^{}
+cc4b04e157642d35744867f939d37a0d0b010885	refs/tags/v2.11.1
+6610e2f1bd8f54853006eefd3849c9965190e57f	refs/tags/v2.11.1^{}
+6b6c131cc2ef307a8a2b3051bf5d054c8da2e010	refs/tags/v2.11.2
+ffb6ab0644f24c5ee6542aca6bd59b7a1b0a8f91	refs/tags/v2.11.2^{}
+28a44fbb85e90080b31974b9b0ef7faf64b9e24b	refs/tags/v2.11.3
+cc58caa1099240ef1a4c280b892260b380a85c86	refs/tags/v2.11.3^{}
+8ec11a4b7e39a5fd00da2fc5cb9b543e31fd7926	refs/tags/v2.11.4
+e2eee6a7fce366321294c9c2a79f3146891dcbdf	refs/tags/v2.11.4^{}
+91eb0e28cca1a765a7c066bcfca7c87c5168c836	refs/tags/v2.11.5
+0a137e2fafc3c3fffcd2f27c8ef0a78913165902	refs/tags/v2.11.5^{}
+14571dec859484962a2c63c9820c297424d8c184	refs/tags/v2.11.6
+ac834b5dc70a17dca296f47c78c64587d6631cbb	refs/tags/v2.11.6^{}
+87c43dc4f54861ec7e54302cfb2ad3e34508b6dc	refs/tags/v2.11.7
+72dd0fb067f6d7826c7f79907670ba4a713bfe37	refs/tags/v2.11.7^{}
+
+# local cat-file / rev-parse
+## v2.11.4
+type: tag
+tag_object: 8ec11a4b7e39a5fd00da2fc5cb9b543e31fd7926
+peeled_commit: e2eee6a7fce366321294c9c2a79f3146891dcbdf
+tree: 89190a02601c918d8de199c16a9d7d778ba204fa
+commit_date: 2026-06-01 13:35:02 -0600
+subject: templates: Patch for GHSA-vcc4-2c75-vc9v (#7785)
+tagger: Matthew Holt <mholt@users.noreply.github.com> 1780458880 -0600
+## v2.11.5
+type: tag
+tag_object: 91eb0e28cca1a765a7c066bcfca7c87c5168c836
+peeled_commit: 0a137e2fafc3c3fffcd2f27c8ef0a78913165902
+tree: 9f3557d4902c2aad65658b31a0b977b4dafc7942
+commit_date: 2026-09-30 13:50:42 -0600
+subject: caddyhttp: use errors.AsType for request body limit errors (#8090)
+tagger: Francis Lavoie <lavofr@gmail.com> 1790803625 -0400
+## v2.11.6
+type: tag
+tag_object: 14571dec859484962a2c63c9820c297424d8c184
+peeled_commit: ac834b5dc70a17dca296f47c78c64587d6631cbb
+tree: 1290d76367286ca5eafed88f549f3f186ada24d5
+commit_date: 2026-09-30 18:11:32 -0400
+subject: ci: pin cosign to v2 for release signing (#8092)
+tagger: Francis Lavoie <lavofr@gmail.com> 1790806963 -0400
+## v2.11.7
+type: tag
+tag_object: 87c43dc4f54861ec7e54302cfb2ad3e34508b6dc
+peeled_commit: 72dd0fb067f6d7826c7f79907670ba4a713bfe37
+tree: 733d77ae935d64209fac7398d4aeeb9a6fea840e
+commit_date: 2026-10-03 01:06:18 -0400
+subject: timeouts: fix idle writer terminate h2 response writers between writes (#8119)
+tagger: Francis Lavoie <lavofr@gmail.com> 1791005114 -0400

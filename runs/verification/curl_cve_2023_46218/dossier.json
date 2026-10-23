@@ -1,0 +1,396 @@
+{
+ "candidate_id": "disc2_efc9455063983f9d1b5894cc",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/curl_advisory.json",
+   "evidence_id": "ev_curl_46218_advisory_json",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "fb80830baf7d1a92901b15597a7bd0bc41c81f8ba7ce199e83c6b14abe0391b6",
+   "source_url": "https://curl.se/docs/CVE-2023-46218.json",
+   "supports": [
+    "CURL-CVE-2023-46218 aliases CVE-2023-46218 and names CWE-201 Information Exposure Through Sent Data",
+    "severity is Medium and last_affected is 8.4.0",
+    "SEMVER range is introduced 7.46.0, fixed 8.5.0",
+    "GIT range is introduced e77b5b7453c1e8ccd7ec0816890d98e2f392e465 and fixed 2b0994c29a721c91c572cff7808c572a24d251eb",
+    "the explicit versions list runs from 7.46.0 through 8.4.0",
+    "the issue is HackerOne report 2212193 and the credits name Harry Sintonen"
+   ],
+   "verification_method": "curl.se advisory JSON metadata"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/curl_advisory.html",
+   "evidence_id": "ev_curl_46218_advisory_html",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "4e5960e86ce9df3be67404ce0beaac9d3b393d6668b733fe39703307f5c26634",
+   "source_url": "https://curl.se/docs/CVE-2023-46218.html",
+   "supports": [
+    "advisory date is December 6 2023 and affected versions are curl 7.46.0 through 8.4.0",
+    "not affected are versions below 7.46.0 and 8.5.0 or later",
+    "the fixed-in link is https://github.com/curl/curl/commit/2b0994c29a721c91c57",
+    "CWE-201 and severity Medium are stated",
+    "the solution says: starting in curl 8.5.0, the code converts both strings to lowercase before checks",
+    "without PSL support curl cannot protect against the problem; the trigger needs a build with libpsl",
+    "the example sets domain=co.UK for a lowercase host below co.uk"
+   ],
+   "verification_method": "curl.se advisory HTML text read; no scripts executed"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/cve_v5.json",
+   "evidence_id": "ev_curl_46218_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "947d658b929941ec4753d8f90c7668e9246e6dcf7b65211f4c0189017edaa106",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2023-46218",
+   "supports": [
+    "CVE state PUBLISHED, assigner hackerone, published 2023-12-07T01:10:34.846Z",
+    "the affected block encodes 7.46.0 through 8.4.0: 8.4.0 affected with lessThanOrEqual, 7.46.0 unaffected with lessThan",
+    "the CNA record supplies no metrics and no problemTypes",
+    "references include the curl.se advisory, the HackerOne report and distro advisories"
+   ],
+   "verification_method": "CVE List v5 MITRE record"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/nvd_cve.json",
+   "evidence_id": "ev_curl_46218_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "45081a7cdf7861015135d81861f120a500aecf14d26cb2ceeb84faf17a3d3711",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-46218",
+   "supports": [
+    "NVD primary CVSS 3.1 is 6.5 MEDIUM with AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+    "NVD primary weakness is NVD-CWE-noinfo; CISA-ADP secondary weakness is CWE-178",
+    "CISA-ADP SSVC records exploitation poc, automatable yes, technical impact partial",
+    "published 2023-12-07 and last modified 2023-12-07"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/osv_cve.json",
+   "evidence_id": "ev_curl_46218_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "694f780caab3f6ccd019ca4c6ea805f9e8ffbb3239adcddd71bd938c6dd07e90",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2023-46218",
+   "supports": [
+    "OSV alias is CURL-CVE-2023-46218",
+    "OSV CVSS_V3 score is CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+    "the GIT range introduced event is e2ae32ff (7.46.0 release-notes commit) and the last_affected event is 172e54cd (tiny-curl patch after 8.4.0)",
+    "the versions list runs from 7.46.0 through curl-8_4_0 and includes tiny-curl-8_4_0",
+    "CPE_RANGE extraction in the OSV record states 7.46.0 through 8.4.0"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/git_object_checks.txt",
+   "evidence_id": "ev_curl_46218_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "f4fbc0f7f3dbb66c4d7f9da694484ffc4a5ff1f2de7795394103f3fd6379b743",
+   "source_url": "https://github.com/curl/curl/commit/2b0994c29a721c91c572cff7808c572a24d251eb",
+   "supports": [
+    "curl-8_3_0 peels to 6fa1d817 and curl-8_5_0 peels to 7161cb17",
+    "fix commit 2b0994c2 has subject \"cookie: lowercase the domain names before PSL checks\"",
+    "fix is an ancestor of curl-8_5_0 and absent from both curl-8_4_0 and curl-8_3_0",
+    "the advisory introduced-in commit e77b5b74 is \"cookies: Add support for Mozilla's Publix Suffix List\", dated 2015-10-17",
+    "OSV GIT endpoints are a 7.46.0 release-notes commit (e2ae32ff) and a tiny-curl patch commit after 8.4.0 (172e54cd)",
+    "blob lib/cookie.c is 4345a84c at 8.3.0 and 9095cea3 at 8.5.0",
+    "the 8.3.0 PSL call is at line 1048; the 8.5.0 lowercasing calls are at lines 1039-1040"
+   ],
+   "verification_method": "exact-tag shallow fetches into a bare repository; git merge-base --is-ancestor in both directions; direct fetch of the OSV-named and advisory-introduced commits; git show"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/cookie_8.3.0.c",
+   "evidence_id": "ev_curl_46218_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "36d41aedbca60990727c5c94d5d6cc61b85242fba1a5090ee97dcbb824b9f097",
+   "source_url": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/cookie.c#L1047-L1048",
+   "supports": [
+    "in Curl_cookie_add the libpsl branch calls psl_is_cookie_domain_acceptable(psl, domain, co->domain)",
+    "neither argument is lowercased before the call; domain is the URL host string and co->domain is the Set-Cookie domain attribute",
+    "the branch is compiled only under USE_LIBPSL",
+    "the call result is used directly as acceptable; a false result drops the cookie and a true result accepts it"
+   ],
+   "verification_method": "file read at curl-8_3_0"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/cookie_8.5.0.c",
+   "evidence_id": "ev_curl_46218_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "5b4988b7a71e3a2ba6ddcb9b6c070201af7de9a322a35a452427fa70693d3139",
+   "source_url": "https://github.com/curl/curl/blob/7161cb17c01dcff1dc5bf89a18437d9d729f1ecd/lib/cookie.c#L1039-L1042",
+   "supports": [
+    "the fixed branch copies both domain strings through Curl_strntolower into 256-byte buffers before the PSL check",
+    "psl_is_cookie_domain_acceptable is then called with the lowercased lcase and lcookie",
+    "names longer than the local buffers skip the PSL call entirely",
+    "the comment states the PSL check requires lowercase domain name and pattern"
+   ],
+   "verification_method": "file read at curl-8_5_0"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/fix_commit.txt",
+   "evidence_id": "ev_curl_46218_fix_commit",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "690876061a647a9216472b7393aebe2a39503be38873d188c164fffa55efa3eb",
+   "source_url": "https://github.com/curl/curl/commit/2b0994c29a721c91c572cff7808c572a24d251eb",
+   "supports": [
+    "the diff replaces the direct PSL call with lowercase copies passed to the PSL check",
+    "the commit message is \"cookie: lowercase the domain names before PSL checks\", Reported-by Harry Sintonen, Closes #12387",
+    "the change is confined to lib/cookie.c"
+   ],
+   "verification_method": "git show of the fix commit"
+  },
+  {
+   "artifact_path": "runs/verification/curl_cve_2023_46218/sources/fix_commit_stat.txt",
+   "evidence_id": "ev_curl_46218_fix_stat",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "1687965779d2b8296484dad90a2a79dc08c65e8003d810e3db8ec3cbd39d0c86",
+   "source_url": "https://github.com/curl/curl/commit/2b0994c29a721c91c572cff7808c572a24d251eb",
+   "supports": [
+    "the commit changes only lib/cookie.c: 16 insertions and 8 deletions",
+    "no regression test file is added or modified by the fix"
+   ],
+   "verification_method": "git show --stat of the fix commit"
+  },
+  {
+   "artifact_path": "runs/language/snap_0ec1c11542393304/snapshot_proposal.json",
+   "evidence_id": "ev_curl_46218_snapshot",
+   "result": "PASS",
+   "retrieved_at": "2026-10-21T17:05:00Z",
+   "sha256_of_observation": "a77e644bf72faefed60c6cb9ea0d55bc61b0be9dab2a6fd19a48f8c9a7599aeb",
+   "source_url": "https://github.com/curl/curl/tree/6fa1d817e5b1a00d7d0c8168091877476b499317",
+   "supports": [
+    "snapshot_id snap_0ec1c11542393304, tag curl-8_3_0, vulnerable_commit 6fa1d817, 3798 tracked files",
+    "C is a first-party programming language with 438 files, 5,736,857 bytes and 32.20% of tracked nonbinary bytes",
+    "file lib/cookie.c is inventoried with git_oid 4345a84c, language C, programming, not vendored or generated"
+   ],
+   "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "aliases": [
+   0,
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   3
+  ],
+  "fix_commits": [
+   0,
+   1,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   5,
+   7
+  ],
+  "languages": [
+   10
+  ],
+  "severity": [
+   0,
+   1,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6,
+   10
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No HTTP server, cookie jar or crafted response was executed; the finding is static. No regression test was shipped with the fix, so there was no upstream test to read either.",
+  "The PSL comparison semantics were not verified against libpsl source; the conclusion rests on the upstream advisory wording and on the fix itself lowercasing both inputs before the same call.",
+  "The flaw only exists in builds compiled with libpsl; a build without PSL drops to bad_domain() and does not take the vulnerable branch.",
+  "CWE is split: the curl advisory assigns CWE-201 (information exposure through sent data), NVD primary is NVD-CWE-noinfo, and CISA-ADP assigns CWE-178 (improper handling of case sensitivity). Both specific CWEs are recorded.",
+  "Severity agrees numerically: NVD and OSV both carry CVSS 3.1 6.5 MEDIUM, and the advisory labels it Medium. Unlike CVE-2023-38545 there is no score conflict here.",
+  "The OSV record writes the GIT range as introduced e2ae32ff and last_affected 172e54cd; those are a 7.46.0 release-notes commit and a tiny-curl patch commit after 8.4.0, not the code boundaries. The advisory GIT events and the release tags were used instead.",
+  "The 256-byte stack buffers added by the fix make names of 256 bytes or longer skip the PSL check; this is visible in the fixed source but was not analyzed as a separate weakness."
+ ],
+ "location": {
+  "critical_operation": {
+   "code_excerpt": "    if(psl) {\n      acceptable = psl_is_cookie_domain_acceptable(psl, domain, co->domain);\n      Curl_psl_release(data);\n    }",
+   "description": "In Curl_cookie_add's USE_LIBPSL branch, the URL host `domain` and the cookie's `co->domain` attribute are passed verbatim to psl_is_cookie_domain_acceptable. The PSL check requires lowercase inputs; at 8.3.0 nothing lowercases them, so `domain=co.UK` presented to a lowercase host under co.uk does not match the PSL rule and the otherwise-forbidden cookie is accepted. The 8.5.0 fix copies both strings through Curl_strntolower first.",
+   "file": "lib/cookie.c",
+   "function": "Curl_cookie_add",
+   "language": "C",
+   "line": "1047-1048",
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/cookie.c#L1047-L1048"
+  },
+  "entry_point": {
+   "description": "Curl_cookie_add parses a Set-Cookie header (or a cookie file line). The domain attribute is attacker-controlled by the HTTP server sending the response, and `domain` is the host curl is talking to. The PSL branch runs only when curl is built with libpsl and the cookie carries a domain attribute that is not an IP literal.",
+   "file": "lib/cookie.c",
+   "function": "Curl_cookie_add",
+   "language": "C",
+   "line": 1037,
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/cookie.c#L1037"
+  },
+  "location_id": "loc_CVE-2023-46218_snap_0ec1c11542393304",
+  "vulnerability_id": "CVE-2023-46218",
+  "snapshot_id": "snap_0ec1c11542393304",
+  "location_kind": "logic",
+  "verification_method": "Static read of lib/cookie.c at curl-8_3_0 and curl-8_5_0, the fix diff and the CURL-CVE advisory; no code executed.",
+  "trace": [
+   {
+    "description": "A cookie is received or loaded and Curl_cookie_add parses its domain",
+    "file": "lib/cookie.c",
+    "function": "Curl_cookie_add",
+    "language": "C",
+    "line": 1037,
+    "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/cookie.c#L1037"
+   },
+   {
+    "description": "The mixed-case domain and cookie domain are passed to the PSL check without lower-casing",
+    "file": "lib/cookie.c",
+    "function": "Curl_cookie_add",
+    "language": "C",
+    "line": 1047,
+    "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/cookie.c#L1047-L1048"
+   },
+   {
+    "description": "A public suffix written in mixed case is accepted, allowing a supercookie",
+    "file": "lib/cookie.c",
+    "function": "Curl_cookie_add",
+    "language": "C",
+    "line": 1047,
+    "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/cookie.c#L1047-L1048"
+   }
+  ]
+ },
+ "open_questions": [
+  "Whether a specific libpsl version compares locale-sensitively or by ASCII folding was not inspected in libpsl source.",
+  "No end-to-end cookie-jar experiment was run to show the supercookie being replayed to a second origin.",
+  "Whether other case-folding call sites in cookie.c have the same assumption was not audited."
+ ],
+ "prepared_at": "2026-10-21T17:05:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "canonical_url": "https://github.com/curl/curl",
+  "full_name": "curl/curl",
+  "primary_language": "C",
+  "project_kind": "command-line tool and library for transferring data with URLs",
+  "repo_id": "569041",
+  "snapshot_id": "snap_0ec1c11542393304"
+ },
+ "review": {
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read lib/cookie.c at curl-8_3_0 and confirm the PSL call receives non-lowercased domain and co->domain.",
+   "An independent reviewer must confirm 2b0994c2 is absent from curl-8_3_0 and curl-8_4_0 and present in curl-8_5_0.",
+   "An independent reviewer must confirm the CVE v5 affected block and the advisory agree on 7.46.0 through 8.4.0.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "status": "PENDING_INDEPENDENT_REVIEW"
+ },
+ "source_crosscheck": {
+  "families": [
+   "curl.se advisory (HTML and JSON)",
+   "CVE List v5 HackerOne record",
+   "NVD analysis",
+   "OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on 7.46.0 through 8.4.0 and the 8.5.0 fix. Encoding differs: the CVE v5 affected block is expressed as 8.4.0 affected with lessThanOrEqual plus 7.46.0 unaffected with lessThan (correct here, unlike CVE-2023-38545); OSV GIT events use a release-notes commit and a tiny-curl patch commit rather than code boundaries, while its CPE_RANGE extraction is correct. CWE is split between CWE-201 (curl), NVD-CWE-noinfo (NVD primary) and CWE-178 (CISA-ADP). Severity is consistent at 6.5 MEDIUM.",
+  "severity_disagreement": false
+ },
+ "status": "awaiting_independent_review",
+ "vulnerability": {
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://curl.se/docs/CVE-2023-46218.html",
+  "affected_packages": [
+   {
+    "affected_range": ">=7.46.0,<=8.4.0",
+    "ecosystem": "generic",
+    "package": "curl",
+    "purl": "pkg:generic/curl"
+   }
+  ],
+  "aliases": [
+   "CVE-2023-46218",
+   "CURL-CVE-2023-46218"
+  ],
+  "category_l1": "information_disclosure",
+  "category_l2": "cookie PSL check is case-sensitive, allowing mixed-case supercookies to be sent to unrelated domains",
+  "cwe_ids": [
+   "CWE-201",
+   "CWE-178"
+  ],
+  "discovery_cutoff_date": "2026-10-21",
+  "fix_commits": [
+   {
+    "branch": "master",
+    "message": "cookie: lowercase the domain names before PSL checks",
+    "sha": "2b0994c29a721c91c572cff7808c572a24d251eb",
+    "url": "https://github.com/curl/curl/commit/2b0994c29a721c91c572cff7808c572a24d251eb"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "generic",
+    "package": "curl",
+    "release_url": "https://github.com/curl/curl/releases/tag/curl-8_5_0",
+    "tag": "curl-8_5_0",
+    "verified_content": "At curl-8_5_0, Curl_cookie_add lowercases both domain strings with Curl_strntolower before psl_is_cookie_domain_acceptable; fix 2b0994c2 is an ancestor of the tag and absent from curl-8_4_0 and curl-8_3_0",
+    "version": "8.5.0"
+   }
+  ],
+  "published_at": "2023-12-07T01:10:34Z",
+  "references": [
+   "https://curl.se/docs/CVE-2023-46218.html",
+   "https://curl.se/docs/CVE-2023-46218.json",
+   "https://hackerone.com/reports/2212193",
+   "https://nvd.nist.gov/vuln/detail/CVE-2023-46218",
+   "https://github.com/curl/curl/commit/2b0994c29a721c91c572cff7808c572a24d251eb",
+   "https://github.com/curl/curl/releases/tag/curl-8_5_0"
+  ],
+  "repo_id": "569041",
+  "severity": {
+   "level": "medium",
+   "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 6.5 falls in Medium (4.0-6.9); the curl advisory also labels it Medium while scoring it qualitatively, and OSV republishes the same 3.1 vector",
+   "score": 6.5,
+   "source": "NVD primary metric nvd@nist.gov; the CNA supplied no CVSS",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-46218",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:N",
+   "version": "3.1"
+  },
+  "snapshot_id": "snap_0ec1c11542393304",
+  "source_type": "upstream_advisory",
+  "title": "curl PSL cookie-domain check does not lowercase inputs, so a mixed-case public suffix bypasses the check and sets supercookies",
+  "vulnerability_id": "CVE-2023-46218",
+  "vulnerable_commit": "6fa1d817e5b1a00d7d0c8168091877476b499317",
+  "vulnerable_commit_basis": "tag curl-8_3_0 peels to 6fa1d817..., released 2023-09-13; the advisory names 8.3.0 as affected and the fix 2b0994c2 is absent from this tag",
+  "vulnerable_version": "8.3.0"
+ }
+}

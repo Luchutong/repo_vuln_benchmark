@@ -1,0 +1,9 @@
+{
+  "advisories": [],
+  "query": {
+    "repository_full_name": "JamesNK/Newtonsoft.Json",
+    "url": "https://api.github.com/repos/JamesNK/Newtonsoft.Json/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:16.402871+00:00",
+  "tool": "github_rest_readonly"
+}

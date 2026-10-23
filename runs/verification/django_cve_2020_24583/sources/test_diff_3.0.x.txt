@@ -1,0 +1,135 @@
+commit 08892bffd275c79ee1f8f67639eb170aaaf1181e
+Author: Mariusz Felisiak <felisiak.mariusz@gmail.com>
+Date:   Fri Aug 21 11:44:46 2020 +0200
+
+    [3.0.x] Fixed CVE-2020-24583, #31921 -- Fixed permissions on intermediate-level static and storage directories on Python 3.7+.
+    
+    Thanks WhiteSage for the report.
+    
+    Backport of ea0febbba531a3ecc8c77b570efbfb68ca7155db from master.
+
+diff --git a/tests/file_storage/tests.py b/tests/file_storage/tests.py
+index 1c4176014c..e2a1d06b5d 100644
+--- a/tests/file_storage/tests.py
++++ b/tests/file_storage/tests.py
+@@ -7,6 +7,7 @@ import time
+ import unittest
+ from datetime import datetime, timedelta
+ from io import StringIO
++from pathlib import Path
+ from urllib.request import urlopen
+ 
+ from django.core.cache import cache
+@@ -910,16 +911,19 @@ class FileStoragePermissions(unittest.TestCase):
+     @override_settings(FILE_UPLOAD_DIRECTORY_PERMISSIONS=0o765)
+     def test_file_upload_directory_permissions(self):
+         self.storage = FileSystemStorage(self.storage_dir)
+-        name = self.storage.save("the_directory/the_file", ContentFile("data"))
+-        dir_mode = os.stat(os.path.dirname(self.storage.path(name)))[0] & 0o777
+-        self.assertEqual(dir_mode, 0o765)
++        name = self.storage.save('the_directory/subdir/the_file', ContentFile('data'))
++        file_path = Path(self.storage.path(name))
++        self.assertEqual(file_path.parent.stat().st_mode & 0o777, 0o765)
++        self.assertEqual(file_path.parent.parent.stat().st_mode & 0o777, 0o765)
+ 
+     @override_settings(FILE_UPLOAD_DIRECTORY_PERMISSIONS=None)
+     def test_file_upload_directory_default_permissions(self):
+         self.storage = FileSystemStorage(self.storage_dir)
+-        name = self.storage.save("the_directory/the_file", ContentFile("data"))
+-        dir_mode = os.stat(os.path.dirname(self.storage.path(name)))[0] & 0o777
+-        self.assertEqual(dir_mode, 0o777 & ~self.umask)
++        name = self.storage.save('the_directory/subdir/the_file', ContentFile('data'))
++        file_path = Path(self.storage.path(name))
++        expected_mode = 0o777 & ~self.umask
++        self.assertEqual(file_path.parent.stat().st_mode & 0o777, expected_mode)
++        self.assertEqual(file_path.parent.parent.stat().st_mode & 0o777, expected_mode)
+ 
+ 
+ class FileStoragePathParsing(SimpleTestCase):
+diff --git a/tests/staticfiles_tests/test_storage.py b/tests/staticfiles_tests/test_storage.py
+index 93bd60446a..063fbb38e4 100644
+--- a/tests/staticfiles_tests/test_storage.py
++++ b/tests/staticfiles_tests/test_storage.py
+@@ -4,6 +4,7 @@ import sys
+ import tempfile
+ import unittest
+ from io import StringIO
++from pathlib import Path
+ from unittest import mock
+ 
+ from django.conf import settings
+@@ -530,12 +531,19 @@ class TestStaticFilePermissions(CollectionTestCase):
+     )
+     def test_collect_static_files_permissions(self):
+         call_command('collectstatic', **self.command_params)
+-        test_file = os.path.join(settings.STATIC_ROOT, "test.txt")
+-        test_dir = os.path.join(settings.STATIC_ROOT, "subdir")
+-        file_mode = os.stat(test_file)[0] & 0o777
+-        dir_mode = os.stat(test_dir)[0] & 0o777
++        static_root = Path(settings.STATIC_ROOT)
++        test_file = static_root / 'test.txt'
++        file_mode = test_file.stat().st_mode & 0o777
+         self.assertEqual(file_mode, 0o655)
+-        self.assertEqual(dir_mode, 0o765)
++        tests = [
++            static_root / 'subdir',
++            static_root / 'nested',
++            static_root / 'nested' / 'css',
++        ]
++        for directory in tests:
++            with self.subTest(directory=directory):
++                dir_mode = directory.stat().st_mode & 0o777
++                self.assertEqual(dir_mode, 0o765)
+ 
+     @override_settings(
+         FILE_UPLOAD_PERMISSIONS=None,
+@@ -543,12 +551,19 @@ class TestStaticFilePermissions(CollectionTestCase):
+     )
+     def test_collect_static_files_default_permissions(self):
+         call_command('collectstatic', **self.command_params)
+-        test_file = os.path.join(settings.STATIC_ROOT, "test.txt")
+-        test_dir = os.path.join(settings.STATIC_ROOT, "subdir")
+-        file_mode = os.stat(test_file)[0] & 0o777
+-        dir_mode = os.stat(test_dir)[0] & 0o777
++        static_root = Path(settings.STATIC_ROOT)
++        test_file = static_root / 'test.txt'
++        file_mode = test_file.stat().st_mode & 0o777
+         self.assertEqual(file_mode, 0o666 & ~self.umask)
+-        self.assertEqual(dir_mode, 0o777 & ~self.umask)
++        tests = [
++            static_root / 'subdir',
++            static_root / 'nested',
++            static_root / 'nested' / 'css',
++        ]
++        for directory in tests:
++            with self.subTest(directory=directory):
++                dir_mode = directory.stat().st_mode & 0o777
++                self.assertEqual(dir_mode, 0o777 & ~self.umask)
+ 
+     @override_settings(
+         FILE_UPLOAD_PERMISSIONS=0o655,
+@@ -557,12 +572,19 @@ class TestStaticFilePermissions(CollectionTestCase):
+     )
+     def test_collect_static_files_subclass_of_static_storage(self):
+         call_command('collectstatic', **self.command_params)
+-        test_file = os.path.join(settings.STATIC_ROOT, "test.txt")
+-        test_dir = os.path.join(settings.STATIC_ROOT, "subdir")
+-        file_mode = os.stat(test_file)[0] & 0o777
+-        dir_mode = os.stat(test_dir)[0] & 0o777
++        static_root = Path(settings.STATIC_ROOT)
++        test_file = static_root / 'test.txt'
++        file_mode = test_file.stat().st_mode & 0o777
+         self.assertEqual(file_mode, 0o640)
+-        self.assertEqual(dir_mode, 0o740)
++        tests = [
++            static_root / 'subdir',
++            static_root / 'nested',
++            static_root / 'nested' / 'css',
++        ]
++        for directory in tests:
++            with self.subTest(directory=directory):
++                dir_mode = directory.stat().st_mode & 0o777
++                self.assertEqual(dir_mode, 0o740)
+ 
+ 
+ @override_settings(

@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_iisint",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Servers/IIS/IISIntegration/src/Microsoft.AspNetCore.Server.IISIntegration.csproj",
+  "retrieved_at": "2026-10-21T10:56:26.159Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core components for working with the IIS AspNetCoreModule.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;iis</PackageTags>\n    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>\n    <IsPackable>false</IsPackable>\n    <IsTrimmable>true</IsTrimmable>\n\n    <!-- Ignore platform compatibility warnings for this project. We know this only works on windows.-->\n    <NoWarn>$(NoWarn);CA1416</NoWarn>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Abstractions\\src\\Microsoft.AspNetCore.Hosting.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Server.Abstractions\\src\\Microsoft.AspNetCore.Hosting.Server.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Authentication.Abstractions\\src\\Microsoft.AspNetCore.Authentication.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Authentication.Core\\src\\Microsoft.AspNetCore.Authentication.Core.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Extensions\\src\\Microsoft.AspNetCore.Http.Extensions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http\\src\\Microsoft.AspNetCore.Http.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Middleware\\HttpOverrides\\src\\Microsoft.AspNetCore.HttpOverrides.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.Server.IISIntegration.Tests\" />\n  </ItemGroup>\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "698bd7e9bcc9996fa8a3c3c49bfd474cdf81de7d",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Servers/IIS/IISIntegration/src/Microsoft.AspNetCore.Server.IISIntegration.csproj",
+      "display_title": "Microsoft.AspNetCore.Server.IISIntegration.csproj"
+    },
+    "isError": false
+  }
+}

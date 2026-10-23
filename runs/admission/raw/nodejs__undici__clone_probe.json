@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/nodejs/undici.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:34.138680+00:00", "elapsed_seconds": 1.257, "response": {"returncode": 0, "stdout": "25543f5bd5744ff673016ed89b4bb09455e4875a\tHEAD\n", "stderr": ""}}

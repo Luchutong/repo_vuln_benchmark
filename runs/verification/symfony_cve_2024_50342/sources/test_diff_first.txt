@@ -1,0 +1,53 @@
+commit 296d4b34a33b1a6ca5475c6040b3203622520f5b
+Author: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date:   Fri Oct 25 10:13:01 2024 +0200
+
+    [HttpClient] Filter private IPs before connecting when Host == IP
+
+diff --git a/src/Symfony/Component/HttpClient/Tests/NoPrivateNetworkHttpClientTest.php b/src/Symfony/Component/HttpClient/Tests/NoPrivateNetworkHttpClientTest.php
+index 8c51e9eaa8..7130c097a2 100644
+--- a/src/Symfony/Component/HttpClient/Tests/NoPrivateNetworkHttpClientTest.php
++++ b/src/Symfony/Component/HttpClient/Tests/NoPrivateNetworkHttpClientTest.php
+@@ -65,10 +65,10 @@ class NoPrivateNetworkHttpClientTest extends TestCase
+     /**
+      * @dataProvider getExcludeData
+      */
+-    public function testExclude(string $ipAddr, $subnets, bool $mustThrow)
++    public function testExcludeByIp(string $ipAddr, $subnets, bool $mustThrow)
+     {
+         $content = 'foo';
+-        $url = sprintf('http://%s/', 0 < substr_count($ipAddr, ':') ? sprintf('[%s]', $ipAddr) : $ipAddr);
++        $url = sprintf('http://%s/', strtr($ipAddr, '.:', '--'));
+ 
+         if ($mustThrow) {
+             $this->expectException(TransportException::class);
+@@ -85,6 +85,29 @@ class NoPrivateNetworkHttpClientTest extends TestCase
+         }
+     }
+ 
++    /**
++     * @dataProvider getExcludeData
++     */
++    public function testExcludeByHost(string $ipAddr, $subnets, bool $mustThrow)
++    {
++        $content = 'foo';
++        $url = sprintf('http://%s/', str_contains($ipAddr, ':') ? sprintf('[%s]', $ipAddr) : $ipAddr);
++
++        if ($mustThrow) {
++            $this->expectException(TransportException::class);
++            $this->expectExceptionMessage(sprintf('Host "%s" is blocked for "%s".', $ipAddr, $url));
++        }
++
++        $previousHttpClient = $this->getHttpClientMock($url, $ipAddr, $content);
++        $client = new NoPrivateNetworkHttpClient($previousHttpClient, $subnets);
++        $response = $client->request('GET', $url);
++
++        if (!$mustThrow) {
++            $this->assertEquals($content, $response->getContent());
++            $this->assertEquals(200, $response->getStatusCode());
++        }
++    }
++
+     public function testCustomOnProgressCallback()
+     {
+         $ipAddr = '104.26.14.6';

@@ -1,0 +1,17 @@
+{
+  "repo": "libarchive/libarchive",
+  "query": "official GitHub Releases collection",
+  "observations": [
+    {
+      "path": "runs/discovery_v2/connector/libarchive__libarchive_releases_1.json",
+      "page": 1,
+      "records": 36,
+      "retrieved_at": "2026-10-21T11:03:00.916Z",
+      "status": "PASS"
+    }
+  ],
+  "pagination_complete": true,
+  "total_records": 36,
+  "status": "PASS_QUERY_ONLY",
+  "limitation": "GitHub Releases excludes tag-only releases, historical external security advisories, deleted releases and security reports without release text."
+}

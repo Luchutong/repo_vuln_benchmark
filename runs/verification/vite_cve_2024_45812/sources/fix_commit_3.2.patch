@@ -1,0 +1,19 @@
+commit 2ddd8541ec3b2d2e5b698749e0f2362ef28056bd
+Author: jackfromeast <thisiszhengyu@gmail.com>
+Date:   Mon Sep 16 11:42:53 2024 -0400
+
+    fix: backport #18115, DOM Clobbering in
+
+diff --git a/packages/vite/src/node/build.ts b/packages/vite/src/node/build.ts
+index fe147c1cd..24e5118c7 100644
+--- a/packages/vite/src/node/build.ts
++++ b/packages/vite/src/node/build.ts
+@@ -1005,7 +1005,7 @@ const getRelativeUrlFromDocument = (relativePath: string, umd = false) =>
+   getResolveUrl(
+     `'${relativePath}', ${
+       umd ? `typeof document === 'undefined' ? location.href : ` : ''
+-    }document.currentScript && document.currentScript.src || document.baseURI`
++    }document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT' && document.currentScript.src || document.baseURI`
+   )
+ 
+ const relativeUrlMechanisms: Record<

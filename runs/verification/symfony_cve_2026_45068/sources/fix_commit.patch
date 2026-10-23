@@ -1,0 +1,47 @@
+From c45144862dc289d03952f41f6078174089a3afc6 Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Thu, 16 Apr 2026 16:52:52 +0200
+Subject: [PATCH] [Mailer] Add end-of-options separator before recipients in
+ SendmailTransport; reject addresses starting with a dash
+
+---
+ .../Mailer/Tests/Transport/SendmailTransportTest.php          | 4 ++--
+ src/Symfony/Component/Mailer/Transport/SendmailTransport.php  | 3 +++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php b/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php
+index 660d29c37c0f0..fdbe1d7af3999 100644
+--- a/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php
++++ b/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php
+@@ -70,7 +70,7 @@ public function testToIsUsedWhenRecipientsAreNotSet()
+         $sendmailTransport = new SendmailTransport(self::FAKE_SENDMAIL);
+         $sendmailTransport->send($mail, $envelope);
+ 
+-        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com to@mail.com');
++        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com -- to@mail.com');
+     }
+ 
+     public function testRecipientsAreUsedWhenSet()
+@@ -82,7 +82,7 @@ public function testRecipientsAreUsedWhenSet()
+         $sendmailTransport = new SendmailTransport(self::FAKE_SENDMAIL);
+         $sendmailTransport->send($mail, $envelope);
+ 
+-        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com recipient@mail.com');
++        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com -- recipient@mail.com');
+     }
+ 
+     public function testThrowsTransportExceptionOnFailure()
+diff --git a/src/Symfony/Component/Mailer/Transport/SendmailTransport.php b/src/Symfony/Component/Mailer/Transport/SendmailTransport.php
+index 712016b5fed2b..e150194a28f69 100644
+--- a/src/Symfony/Component/Mailer/Transport/SendmailTransport.php
++++ b/src/Symfony/Component/Mailer/Transport/SendmailTransport.php
+@@ -107,6 +107,9 @@ protected function doSend(SentMessage $message): void
+             $chunks = AbstractStream::replace("\n.", "\n..", $chunks);
+         }
+ 
++        if ($recipients) {
++            $command .= ' --';
++        }
+         foreach ($recipients as $recipient) {
+             $command .= ' '.escapeshellarg($recipient->getEncodedAddress());
+         }

@@ -1,0 +1,66 @@
+{
+  "review_id": "selrev_106995_snap_5ab17df9ee6e4957_2026-10-23",
+  "snapshot_id": "snap_5ab17df9ee6e4957",
+  "repo_id": "106995",
+  "full_name": "sinatra/sinatra",
+  "reviewed_by": "selection-reviewer-sinatra-v401-0x7dc5940e",
+  "reviewed_at": "2026-10-22T18:37:58Z",
+  "verdict": "accept",
+  "tag_resolution": {
+    "tag": "v4.0.1",
+    "peeled_commit": "7dc5940e44cfa6d176b267f2165aa8116032669d",
+    "matches": true,
+    "tag_type": "annotated",
+    "commit_date": "2025-05-24T07:01:37+09:00",
+    "commit_subject": "4.0.1 release",
+    "commit_tree_sha": "b65107d8754b6a399d23ffd1330542e4d5c14e68",
+    "is_stable_release": true,
+    "method": "git ls-remote --tags + full clone cat-file; tag object 45c5d28952657c20ec7c85993a52a568a38ee9ba (annotated, PGP-signed, tagger zzak) peels to 7dc5940e44cfa6d176b267f2165aa8116032669d"
+  },
+  "export_checks": {
+    "archive_sha256_matches": true,
+    "manifest_sha256_matches": true,
+    "no_git_metadata": true,
+    "counts_reconcile": true,
+    "archive_sha256_recomputed": "639f863fd49d4625de350580f96f25799a5298ba2d4ad59d5cdbe4dcc0983a63",
+    "archive_sha256_expected": "639f863fd49d4625de350580f96f25799a5298ba2d4ad59d5cdbe4dcc0983a63",
+    "manifest_sha256_recomputed": "52791abed06a0d6d179019208ec563817a48fd3e09d780ea85fb016bc831289a",
+    "manifest_sha256_expected": "52791abed06a0d6d179019208ec563817a48fd3e09d780ea85fb016bc831289a",
+    "tree_file_count": 289,
+    "exported_file_count": 289,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "count_equation": "289 = 289 (files) + 0 (symlinks) + 0 (gitlinks)"
+  },
+  "build_ok": true,
+  "build_attempt": {
+    "commands": ["cd /tmp/sinatra_extract && gem build sinatra.gemspec"],
+    "versions": "ruby 3.2.3 (2024-01-18 revision 52bb2ac0a6) [x86_64-linux-gnu]; RubyGems 3.4.20; bundler not installed (not required for gem build)",
+    "exit_codes": "0",
+    "observed": "gem build emitted open-ended-dependency WARNINGs for logger, then 'Successfully built RubyGem. Name: sinatra, Version: 4.0.1, File: sinatra-4.0.1.gem'; produced /tmp/sinatra_extract/sinatra-4.0.1.gem (135168 bytes)"
+  },
+  "anchors_checked": [
+    {
+      "vulnerability_id": "CVE-2024-21510",
+      "url": "https://github.com/advisories/GHSA-hxx2-7vcw-mqr3",
+      "range_text": "introduced 0, fixed 4.1.0 (ECOSYSTEM); affected versions list explicitly includes 4.0.1",
+      "fixed": "4.1.0",
+      "affected": true,
+      "note": "OSV (https://api.osv.dev/v1/vulns/GHSA-hxx2-7vcw-mqr3): range introduced 0 / fixed 4.1.0, and the affected 'versions' array lists 4.0.1 and 4.0.0. GitHub advisory-database raw JSON (raw.githubusercontent.com/.../GHSA-hxx2-7vcw-mqr3.json): same range, severity MODERATE, CWE-807. ruby-advisory-db (raw.githubusercontent.com/rubysec/ruby-advisory-db/master/gems/sinatra/CVE-2024-21510.yml): patched_versions >= 4.1.0, description 'from 0.0.0 vulnerable ... via X-Forwarded-Host (XFH) header'. CVE CNA (Snyk, cveawg.mitre.org): 'from 0.0.0', CVSS 3.1 5.4 MEDIUM, CWE-807, no explicit fixed version (open-ended; NVD 'lessThan *'). All sources that express a fix agree on 4.1.0; only the CNA/NVD leaves the upper bound unexpressed."
+    }
+  ],
+  "leakage_check": {
+    "assessment": "P6 audit export is clean: CHANGELOG.md (the only source file containing CVE identifiers) was removed; extracted audit tree contains 0 CVE ids, 0 GHSA ids, 0 advisory/security-keyword hits, 0 benchmark/dataset labels, no .git metadata, and no fix patch (host_authorization absent, which is expected because v4.0.1 predates the fix). Packet leakage_facts accurately describe the source tree pre-redaction.",
+    "advisory_id_hits": 0,
+    "notes": "audit manifest has 288 entries vs full manifest 289; diff shows exactly CHANGELOG.md removed, all 288 remaining files byte-identical (same sha256). Full export CHANGELOG.md contains 2 old unrelated CVEs (CVE-2018-11627, CVE-2018-7212) and 0 GHSA ids, matching packet leakage_facts (cve_id_count=2, files_with_advisory_ids_count=1, ghsa_id_count=0, git_metadata_present=false). No reference to CVE-2024-21510 / host_authorization / X-Forwarded-Host in CHANGELOG.md."
+  },
+  "discrepancies": [
+    "Chronology nuance (not a defect): v4.0.1 was tagged 2025-05-24, which is AFTER v4.1.0 (2024-11-18) and v4.1.1 (2024-11-20) on the main line; v4.0.1 is a 4.0.x maintenance-branch release. By gem version ordering 4.0.1 < 4.1.0, so OSV/GHSA/ruby-advisory-db all still place it in the affected range, and I independently confirmed the v4.0.1 tree lacks the host_authorization fix (fix commit cd3e00de20ddaff34ea30f7a74a7b9dad189d1d8 is an ancestor of v4.1.0 but not of v4.0.1).",
+    "CVE CNA/NVD record for CVE-2024-21510 does not express a fixed version (open-ended 'from 0.0.0'); this differs from the three advisory databases which all state fixed/patched 4.1.0. Not a substantive disagreement on 4.0.1 being affected."
+  ],
+  "limitations": [
+    "GitHub REST API (api.github.com) was rate-limited unauthenticated; advisory range was confirmed via OSV API and raw.githubusercontent.com copies of github/advisory-database and rubysec/ruby-advisory-db instead.",
+    "Build check ran 'gem build' only (gemspec packaging); no full test suite was run, and runtime dependencies (rack, mustermann, tilt, etc.) were not installed."
+  ],
+  "notes": "All five independent checks passed: annotated tag v4.0.1 resolves to packet commit 7dc5940e44cfa6d176b267f2165aa8116032669d with tree b65107d8754b6a399d23ffd1330542e4d5c14e68; export archive/manifest sha256 match packet, no .git metadata, 289 files all byte-identical to git blob content, counts reconcile; positive anchor CVE-2024-21510 confirmed affected on 4.0.1 from three public sources; gem build succeeds; audit export is leakage-clean. Verdict: accept."
+}

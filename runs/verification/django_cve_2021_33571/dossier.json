@@ -1,0 +1,389 @@
+{
+  "candidate_id": "disc2_b13cb198dfbc82d5b0b0b950",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T20:05:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/django/django",
+    "full_name": "django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "repo_id": "4164482",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2021-33571",
+    "aliases": [
+      "CVE-2021-33571",
+      "GHSA-p99v-5w3c-jqq9",
+      "PYSEC-2021-99",
+      "BIT-django-2021-33571"
+    ],
+    "title": "Django URLValidator and IPv4 validators accept leading-zero octets, allowing an IP-based access-control bypass (indeterminate SSRF/RFI/LFI) before 3.1.12 and 3.2.4",
+    "category_l1": "ssrf",
+    "category_l2": "IP access-control bypass via leading-zero octal-style IPv4 octets accepted by validators",
+    "cwe_ids": [
+      "CWE-918"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "score": 7.5,
+      "level": "high",
+      "source": "NVD Primary metric nvd@nist.gov, identical to the OSV/GHSA CVSS_V3 metric; OSV GHSA severity HIGH and CVSS 4.0 AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N; the CNA container has no CVSS metric",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-33571"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=2.2a1,<2.2.24"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.0a1,<3.1.12"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.2a1,<3.2.4"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "3.1.x",
+        "sha": "203d4ab9ebcd72fc4d6eb7398e66ed9e474e118e",
+        "message": "[3.1.x] Fixed CVE-2021-33571 -- Prevented leading zeros in IPv4 addresses.",
+        "url": "https://github.com/django/django/commit/203d4ab9ebcd72fc4d6eb7398e66ed9e474e118e"
+      },
+      {
+        "branch": "3.2.x",
+        "sha": "9f75e2e562fa0c0482f3dde6fc7399a9070b4a3d",
+        "message": "[3.2.x] Fixed CVE-2021-33571 -- Prevented leading zeros in IPv4 addresses.",
+        "url": "https://github.com/django/django/commit/9f75e2e562fa0c0482f3dde6fc7399a9070b4a3d"
+      },
+      {
+        "branch": "2.2.x",
+        "sha": "f27c38ab5d90f68c9dd60cabef248a570c0be8fc",
+        "message": "[2.2.x] Fixed CVE-2021-33571 -- Prevented leading zeros in IPv4 addresses.",
+        "url": "https://github.com/django/django/commit/f27c38ab5d90f68c9dd60cabef248a570c0be8fc"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "tag": "3.1.12",
+        "version": "3.1.12",
+        "release_url": "https://github.com/django/django/releases/tag/3.1.12",
+        "verified_content": "Release commit 625d3c1c has fix 203d4ab9 as its direct parent. django/core/validators.py blob 1d0e6a94 at this tag has ipv4_re r'(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)...' at line 67 and the leading-zero octet rejection in validate_ipv4_address at line 255."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "tag": "3.2.4",
+        "version": "3.2.4",
+        "release_url": "https://github.com/django/django/releases/tag/3.2.4",
+        "verified_content": "Release commit 843c34b3 has fix 9f75e2e5 as its direct parent. django/core/validators.py blob 731ccf2d at this tag has the fixed ipv4_re at line 69 and the leading-zero octet rejection at line 284."
+      }
+    ],
+    "published_at": "2021-06-08T00:00:00.000Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2021/jun/02/security-releases/",
+    "references": [
+      "https://docs.djangoproject.com/en/3.2/releases/security/",
+      "https://www.djangoproject.com/weblog/2021/jun/02/security-releases/",
+      "https://groups.google.com/g/django-announce/c/sPyjSKMi8Eo",
+      "https://github.com/django/django/commit/203d4ab9ebcd72fc4d6eb7398e66ed9e474e118e",
+      "https://github.com/django/django/commit/9f75e2e562fa0c0482f3dde6fc7399a9070b4a3d",
+      "https://github.com/django/django/commit/f27c38ab5d90f68c9dd60cabef248a570c0be8fc",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-33571",
+      "https://osv.dev/vulnerability/GHSA-p99v-5w3c-jqq9"
+    ],
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_commit_basis": "annotated tag 3.0.2 (tag object 27431091) peels to a3697439; the snapshot is inside the advisory range >=3.0,<3.1.12 and its validators.py blob 2e00ca3f contains the leading-zero-accepting regex",
+    "vulnerable_version": "3.0.2",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "repo_id": "4164482",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2021_33571_snap_ab695ba3db678939",
+    "location_kind": "logic",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "vulnerability_id": "CVE-2021-33571",
+    "verification_method": "Static read of django/core/validators.py at 3.0.2, 3.0.14, 3.1.12 and 3.2.4, the tests at 3.0.2/3.1.12, and the two fix diffs. No code executed.",
+    "critical_operation": {
+      "file": "django/core/validators.py",
+      "function": "URLValidator",
+      "language": "Python",
+      "line": "79-79",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/validators.py#L79",
+      "code_excerpt": "    ipv4_re = r'(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)(?:\\.(?:25[0-5]|2[0-4]\\d|[0-1]?\\d?\\d)){3}'",
+      "description": "URLValidator composes its regex from ipv4_re (line 79), whose octet alternative `[0-1]?\\d?\\d` matches one-to-three digits and therefore accepts octets with leading zeros (000, 016, 01, 002). A URL such as http://016.016.016.016/ passes validation even though many resolvers read a leading-zero octet as octal (016 -> 14), so an access-control decision based on the dotted string can disagree with the address actually connected to, yielding the 'indeterminate SSRF, RFI, and LFI' described by the advisory. The same restriction is absent from validate_ipv4_address (lines 252-256, which only delegates to ipaddress.IPv4Address, permissive before Python 3.9.5) and therefore from validate_ipv46_address (264-269); the 3.1/3.2 fix changes ipv4_re to `(?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)` and adds an explicit leading-zero octet rejection to validate_ipv4_address. This dossier's canonical location is the ipv4_re pattern on line 79."
+    },
+    "entry_point": {
+      "file": "django/forms/fields.py",
+      "function": "URLField",
+      "language": "Python",
+      "line": 661,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/forms/fields.py#L661",
+      "description": "URLField's default_validators is [validators.URLValidator()] (line 661), so any form or model field validation of an attacker-supplied URL reaches URLValidator and then RegexValidator.__call__, which accepts the value if ipv4_re matches. The regex is also used directly by applications that construct URLValidator themselves."
+    },
+    "trace": [
+      {
+        "file": "django/forms/fields.py",
+        "function": "URLField",
+        "language": "Python",
+        "line": 661,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/forms/fields.py#L661",
+        "description": "URLField registers URLValidator as a default validator for user-supplied URLs"
+      },
+      {
+        "file": "django/core/validators.py",
+        "function": "RegexValidator.__call__",
+        "language": "Python",
+        "line": 58,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/validators.py#L58",
+        "description": "Validation applies self.regex.search and raises only when there is no match"
+      },
+      {
+        "file": "django/core/validators.py",
+        "function": "URLValidator",
+        "language": "Python",
+        "line": 79,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/validators.py#L79",
+        "description": "ipv4_re octet pattern accepts leading-zero octets, so http://016.016.016.016/ is a valid URL"
+      },
+      {
+        "file": "django/core/validators.py",
+        "function": "URLValidator",
+        "language": "Python",
+        "line": 87,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/validators.py#L87-L89",
+        "description": "ipv4_re is embedded as an alternative in the URL regex, making the bypass reachable from the general URL syntax"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_django_osv_ghsa",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/osv_GHSA-p99v-5w3c-jqq9.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-p99v-5w3c-jqq9",
+      "retrieved_at": "2026-10-21T19:49:00Z",
+      "sha256_of_observation": "b1be593454f1fbf3dce67e5ad4926f6f36ac2c61413f72fb63068a6801a84bdb",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases BIT-django-2021-33571, CVE-2021-33571, PYSEC-2021-99",
+        "PyPI ranges: 2.2a1-2.2.24, 3.0a1-3.1.12, 3.2a1-3.2.4",
+        "CVSS_V3 7.5 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N and CVSS_V4 AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N",
+        "database_specific severity HIGH, cwe_ids [CWE-918], github_reviewed true",
+        "FIX references 203d4ab9, 9f75e2e5, f27c38ab"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_cve_v5",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/cve_v5_CVE-2021-33571.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-33571",
+      "retrieved_at": "2026-10-21T19:49:00Z",
+      "sha256_of_observation": "8fe7b1a2ed0de2da385075bfa8b7e4d38d9e0405be71c9f51f6fb14870284d21",
+      "verification_method": "CVE List v5 MITRE record",
+      "result": "PASS",
+      "supports": [
+        "CVE published 2021-06-08, state PUBLISHED, assigner mitre",
+        "CNA description: Django 2.2 before 2.2.24, 3.x before 3.1.12, 3.2 before 3.2.4; URLValidator, validate_ipv4_address and validate_ipv46_address do not prohibit leading zeros; may bypass IP-based access control; the two functions are unaffected on Python 3.9.5+",
+        "CNA has no CVSS metric and no CWE",
+        "CNA references the three fix commits and the Django security releases page"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_nvd",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/nvd_CVE-2021-33571.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-33571",
+      "retrieved_at": "2026-10-21T19:49:00Z",
+      "sha256_of_observation": "6058c51e022464a000722b2e7a2aa51f75093310e2a678c27c7386bee56d2dfe",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "NVD status Modified, published 2021-06-08T18:15:08",
+        "NVD Primary CVSS 3.1 7.5 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "legacy CVSS 2.0 5.0",
+        "CWE-918 from the NVD Primary source",
+        "CPE ranges >=2.2,<2.2.24; >=3.0,<3.1.12; >=3.2,<3.2.4"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_git_checks",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/git_object_checks.txt",
+      "source_url": "https://github.com/django/django/commit/203d4ab9ebcd72fc4d6eb7398e66ed9e474e118e",
+      "retrieved_at": "2026-10-21T20:00:00Z",
+      "sha256_of_observation": "4a0d9d3f137a06d2fc85cad199bc041c91211840b402a10f8f79f79dd3c3809a",
+      "verification_method": "tag reads and exact-SHA fetches in a bare mirror; git ls-tree / cat-file / merge-base --is-ancestor; blob ids compared across 3.0.2, 3.0.14, 3.1.12, 3.2.4",
+      "result": "PASS",
+      "supports": [
+        "annotated tag 3.0.2 peels to a3697439",
+        "3.0.2 validators.py blob is 2e00ca3f (540 lines) and contains the vulnerable ipv4_re at line 79",
+        "fix commits 203d4ab9 (3.1.x), 9f75e2e5 (3.2.x), f27c38ab (2.2.x) with their first parents",
+        "release commits 625d3c1c (3.1.12) and 843c34b3 (3.2.4) have the fixes as direct parents",
+        "fixed blobs 1d0e6a94 (3.1.12) and 731ccf2d (3.2.4) contain the new ipv4_re and octet check",
+        "3.0.14 validators.py blob is identical to 3.0.2 (2e00ca3f), so the 3.0.x line contains no fix",
+        "snapshot 3.0.2 lies inside >=3.0,<3.1.12"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_vuln_file",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/validators_3.0.2.py",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/validators.py#L79",
+      "retrieved_at": "2026-10-21T19:55:00Z",
+      "sha256_of_observation": "545e96088bda7c6ac75081e9fb31adcdfe82e6c3d3cca2b70c60568a3482489a",
+      "verification_method": "file read at the 3.0.2 commit (git show 3.0.2:django/core/validators.py)",
+      "result": "PASS",
+      "supports": [
+        "vulnerable root-cause line 79: ipv4_re with the [0-1]?\\d?\\d octet alternative",
+        "URLValidator composes the URL regex from ipv4_re at lines 87-89",
+        "validate_ipv4_address (252-256) only delegates to ipaddress.IPv4Address",
+        "validate_ipv46_address (264-269) delegates to validate_ipv4_address",
+        "line 58 applies the regex in RegexValidator.__call__"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fixed_3_1_12",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/validators_3.1.12.py",
+      "source_url": "https://github.com/django/django/blob/625d3c1c643b0eb5c84339415ca0ba9f1728efa2/django/core/validators.py#L67",
+      "retrieved_at": "2026-10-21T19:55:00Z",
+      "sha256_of_observation": "870d5ba30bdc869dc1aeac5ee6d1627bdf00cf70cd20e7f077b29b83253dc7eb",
+      "verification_method": "file read at the 3.1.12 commit",
+      "result": "PASS",
+      "supports": [
+        "fixed ipv4_re at line 67: (?:0|25[0-5]|2[0-4]\\d|1\\d?\\d?|[1-9]\\d?)",
+        "validate_ipv4_address rejects non-\"0\" octets starting with 0 at lines 250-259",
+        "the URL regex still embeds ipv4_re at line 87"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fixed_3_2_4",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/validators_3.2.4.py",
+      "source_url": "https://github.com/django/django/blob/843c34b3ab921c1acf77ee2014a97bc7975595b8/django/core/validators.py#L69",
+      "retrieved_at": "2026-10-21T19:55:00Z",
+      "sha256_of_observation": "381a22f4cc945cbaf00873c2cc7b0dcf8f2eaee887f842175d8d38f4b7c5a6a9",
+      "verification_method": "file read at the 3.2.4 commit",
+      "result": "PASS",
+      "supports": [
+        "fixed ipv4_re at line 69",
+        "leading-zero octet rejection at line 284",
+        "the same fix is present on the 3.2 branch as on 3.1"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_regression_test",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/test_validators_3.1.12.py",
+      "source_url": "https://github.com/django/django/blob/625d3c1c643b0eb5c84339415ca0ba9f1728efa2/tests/validators/tests.py#L138-L146",
+      "retrieved_at": "2026-10-21T19:55:00Z",
+      "sha256_of_observation": "64636672756c44b5f431a35bcff51b76c02b39db8bf057f7e204aaff3f4cdde1",
+      "verification_method": "file read at the 3.1.12 commit",
+      "result": "PASS",
+      "supports": [
+        "test_validators 3.1.12 adds leading-zero cases (000.000.000.000, 016.016.016.016, 192.168.000.001, 01.2.3.4, 1.02.3.4, 1.2.03.4, 1.2.3.04) at lines 138-146 and 173-181",
+        "the 3.0.2 test file has no such cases (grep for 016.016 returns nothing)"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_snapshot",
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "retrieved_at": "2026-10-21T14:17:32Z",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_ab695ba3db678939, tag_or_release 3.0.2, vulnerable_commit a3697439",
+        "6163 tracked files scanned, git tree oid ec5992e4",
+        "Python first-party 815 files / 4,480,847 bytes / 15.24% share"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fix_patch_3_1",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/fix_commit_203d4ab9_3.1.patch",
+      "source_url": "https://github.com/django/django/commit/203d4ab9ebcd72fc4d6eb7398e66ed9e474e118e",
+      "retrieved_at": "2026-10-21T19:56:00Z",
+      "sha256_of_observation": "e3fb896b64acb3c6f98cd9f4cdbe16091dbd1999f20c1fc434167ca665d1929e",
+      "verification_method": "git diff 20c67a06 203d4ab9 in the local mirror",
+      "result": "PASS",
+      "supports": [
+        "the fix rewrites ipv4_re to reject every leading-zero octet",
+        "it adds an else branch to validate_ipv4_address rejecting octets not equal to \"0\" that start with \"0\"",
+        "it adds the CVE-2021-33571 release-note section for 2.2.24 and 3.1.12",
+        "it adds leading-zero cases to tests/validators and invalid_urls.txt"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_unfixed_3_0_14",
+      "artifact_path": "runs/verification/django_cve_2021_33571/sources/validators_3.0.14.py",
+      "source_url": "https://github.com/django/django/blob/f52800243545af658c27f83623b5fc72ae6b8dcf/django/core/validators.py#L79",
+      "retrieved_at": "2026-10-21T19:55:00Z",
+      "sha256_of_observation": "545e96088bda7c6ac75081e9fb31adcdfe82e6c3d3cca2b70c60568a3482489a",
+      "verification_method": "file read at the 3.0.14 commit",
+      "result": "PASS",
+      "supports": [
+        "3.0.14 (last 3.0.x release, 2021-04-06) validators.py is byte-identical to 3.0.2",
+        "the vulnerable ipv4_re is still at line 79",
+        "the 3.0.x line never received the fix; the first fixed releases are 3.1.12 and 3.2.4"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [1, 0, 2],
+    "aliases": [0, 1],
+    "critical_operation": [4],
+    "cwe": [0, 2],
+    "fix_commits": [3, 9],
+    "fixed_releases": [3, 5, 6],
+    "languages": [8],
+    "severity": [0, 2],
+    "vulnerable_commit": [3, 4, 8]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-p99v-5w3c-jqq9 and CVE-2021-33571, PyPI ranges)",
+      "CVE List v5 MITRE record",
+      "NVD analysis (Primary CVSS 3.1 and CWE-918)",
+      "upstream git history (tags 3.0.2-3.2.4, fixes 203d4ab9/9f75e2e5/f27c38ab)"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA (mitre) gives the affected versions and description but no CVSS and no CWE. NVD supplies its own Primary CVSS 3.1 7.5 HIGH and CWE-918, so it is an independent assessment rather than a mirror. OSV/GHSA repeats the 3.1 vector and adds a CVSS 4.0 vector, severity HIGH and the same CWE. All published severity levels are HIGH (7.5); no level conflict. The git evidence matches the advisory ranges: 3.0.2 and 3.0.14 carry the vulnerable blob, 3.1.12 and 3.2.4 carry the fixed blobs and their release commits are direct children of the fix commits.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read django/core/validators.py at 3.0.2 and confirm line 79 (URLValidator.ipv4_re) accepts leading-zero octets.",
+      "An independent reviewer must confirm validate_ipv4_address has no leading-zero check at 3.0.2 and that the fix adds one.",
+      "An independent reviewer must confirm 203d4ab9/9f75e2e5 are the fixes and that 3.1.12/3.2.4 release commits are their direct children, and that 3.0.14 is still unfixed.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No code was executed: the leading-zero acceptance is read from the regex and the Python version note, not reproduced, and no SSRF request was made.",
+    "Only 3.1.12 and 3.2.4 were fetched and content-verified as fixed; the 2.2.24 fix (f27c38ab) is recorded from the advisory/OSV and was not content-verified here.",
+    "The 3.0.x line never received a fixed release (3.0.14 still carries blob 2e00ca3f), so users of this snapshot must upgrade to 3.1.12/3.2.4 or later; the dataset records the flaw at 3.0.2 without a same-line fixed release.",
+    "The CNA record carries no CVSS or CWE; severity and CWE rest on NVD (Primary) and GHSA, which agree.",
+    "Exploitability depends on the application using URLValidator (or the IPv4 validators) as the basis of an IP allow/deny decision; the library-level defect is the missing restriction, not an end-to-end exploit.",
+    "The advisory gives no reporter or reproduction reference, so no independent reproduction is available and grade A is not attainable."
+  ],
+  "open_questions": [
+    "Which resolvers treat leading-zero octets as octal rather than rejecting the address was not tested; the advisory's 'indeterminate' wording covers that variability.",
+    "Whether every downstream IP-allowlist pattern that parses the dotted string (rather than reusing the socket layer) is bypassable was not surveyed.",
+    "Whether the 2.2.24 fix is byte-equivalent to the 3.1.12/3.2.4 fix was not content-verified; only the 3.1/3.2 trees were read."
+  ]
+}

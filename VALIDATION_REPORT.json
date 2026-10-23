@@ -1,0 +1,251 @@
+{
+  "report_version": "repo-vuln-50-v03/validation-report-1",
+  "generated_at": "2026-10-22T02:00:00Z",
+  "root": "/home/luchitong/work/repo-vuln-50-v03",
+  "mode": "draft",
+  "summary": {
+    "draft_errors": 0,
+    "draft_warnings": 50,
+    "release_errors": 132,
+    "release_ready": false,
+    "verdict": "迁移结构与引用一致，可作为 v0.3 draft 继续工作；未达到 release 门槛。"
+  },
+  "commands": [
+    {
+      "cmd": "v03/scripts/migrate_v02_to_v03.py --source /home/luchitong/work/repo-vuln-50-v02 (dry-run)",
+      "exit": 0,
+      "result": "source_repositories=50, source_snapshots=75, source_evaluation_snapshots=22, selected_targets=22, issues=28 UNSELECTED, 0 AMBIGUOUS",
+      "artifact": "/home/luchitong/work/v03_work/preflight.json"
+    },
+    {
+      "cmd": "v03/scripts/migrate_v02_to_v03.py --source ... --out /home/luchitong/work/repo-vuln-50-v03 --apply",
+      "exit": 0,
+      "result": "新目录创建，源目录未写入，migration_backup_v02/data 生成",
+      "artifact": "/home/luchitong/work/v03_work/apply.stdout"
+    },
+    {
+      "cmd": "v03/scripts/validate_dataset.py . --draft (第 1 次，未打 schema 补丁)",
+      "exit": 1,
+      "result": "9 errors：vulnerabilities.jsonl 的 9 条 GHSA canonical ID 被 starter schema 的大写正则拒绝",
+      "artifact": "/home/luchitong/work/v03_work/validation_draft_1.json"
+    },
+    {
+      "cmd": "v03/scripts/validate_dataset.py . --draft (schema 补丁后)",
+      "exit": 0,
+      "result": "0 errors / 50 warnings；22 evaluation targets；73 confirmed_affected；73 grade B",
+      "artifact": "/home/luchitong/work/v03_work/validation_draft_2.json"
+    },
+    {
+      "cmd": "v03/scripts/validate_dataset.py . (严格 release 模式)",
+      "exit": 1,
+      "result": "132 errors / 50 warnings，均为发布门槛未达成（见 blockers）",
+      "artifact": "/home/luchitong/work/v03_work/validation_release.json"
+    },
+    {
+      "cmd": "scripts/validate_dataset.py . --draft (v0.2 原验证器，回归对照)",
+      "exit": 0,
+      "result": "0 errors，迁移后旧结构仍然自洽",
+      "artifact": "/home/luchitong/work/v03_work/validate_v02_orig.txt"
+    },
+    {
+      "cmd": "v03/scripts/validate_v02_reference.py . --draft",
+      "exit": 1,
+      "result": "9 errors，均为该参考验证器的 case-sensitive 别名比较缺陷（见 known_tool_defects），不是数据错误",
+      "artifact": "/home/luchitong/work/v03_work/validate_v02_ref.txt"
+    },
+    {
+      "cmd": "python -m unittest discover -s v03/tests -v",
+      "exit": 0,
+      "result": "Ran 5 tests, OK",
+      "artifact": "/home/luchitong/work/v03_work/unittest_v03.txt"
+    },
+    {
+      "cmd": "python -m unittest discover -s tests -p test_collection.py -v",
+      "exit": 0,
+      "result": "Ran 5 tests, OK",
+      "artifact": "/home/luchitong/work/v03_work/unittest_v02.txt"
+    }
+  ],
+  "counts": {
+    "repositories": 50,
+    "snapshots": 75,
+    "vulnerabilities": 73,
+    "locations": 73,
+    "evidence": 1839,
+    "reviews": 73,
+    "candidates": 2626,
+    "discovery_coverage": 50,
+    "snapshot_vulnerability_status": 73,
+    "evaluation_selection": 22
+  },
+  "draft_snapshot": {
+    "evaluation_snapshot_count": 22,
+    "repos_with_one_target": 22,
+    "known_positives": 73,
+    "truth_statuses": {
+      "confirmed_affected": 73
+    },
+    "grade_counts": {
+      "B": 73
+    }
+  },
+  "draft_warning_categories": {
+    "coverage unresolved candidates": 49,
+    "grade A below 60%": 1
+  },
+  "blockers": [
+    {
+      "id": "B1",
+      "severity": "blocking",
+      "item": "28/50 仓库没有正式评测快照",
+      "detail": "这些仓库 Catalog 已验证漏洞为 0；25 个只有默认分支 HEAD（tag=null），axios/OpenSSL/sinatra 另有带 tag 的历史快照但同样无 confirmed_affected。按 v0.3 规则不能自动选择。",
+      "evidence": "validate_dataset.py release: 'repo <id>: release requires EXACTLY one evaluation snapshot' ×28; 'no catalog vulnerabilities' ×28"
+    },
+    {
+      "id": "B2",
+      "severity": "blocking",
+      "item": "22 个已选目标全部是 proposed，0 frozen",
+      "detail": "缺少 reviewed_by、selection_reviewed_at、approval_evidence_urls、frozen_at；leakage_controls 全部为 false/uncontrolled。",
+      "evidence": "release: 'selection <repo>: not frozen' ×22"
+    },
+    {
+      "id": "B3",
+      "severity": "blocking",
+      "item": "PASS_KNOWN_SWEEP = 0/50",
+      "detail": "所有仓库 coverage outcome=NEEDS_REVIEW；未解决候选 2114 条，检索未达停止条件。",
+      "evidence": "release: 'coverage <repo>: NOT PASS_KNOWN_SWEEP' ×50"
+    },
+    {
+      "id": "B4",
+      "severity": "blocking",
+      "item": "manifest 不是 release",
+      "detail": "status=draft；freeze_timestamp 缺失；source_cutoff_date=null（迁移指南要求从 coverage/日志复核后填写）。",
+      "evidence": "release: 3 manifest errors"
+    },
+    {
+      "id": "B5",
+      "severity": "blocking",
+      "item": "evaluation_selection 22 != 50",
+      "detail": "随 B1 而来。",
+      "evidence": "release: 'evaluation_selection 22 != 50'"
+    },
+    {
+      "id": "B6",
+      "severity": "limitation",
+      "item": "grade A = 0（73 条全部 B 级）",
+      "detail": "没有隔离环境下的红/绿动态复现；B 级不等于 PoC 成功。",
+      "evidence": "draft warning: 'grade A <60% aspirational target'"
+    }
+  ],
+  "schema_patch": {
+    "file": "v03/schemas/vulnerabilities.schema.json",
+    "reason": "starter v0.3 的 vulnerability_id 正则 GHSA-[0-9A-Z-]+ 拒绝真实 GHSA 编号中的小写字符（GHSA 使用 base32 小写），导致 9 条既有 canonical ID 校验失败；v0.2 原 schema 已允许小写。",
+    "shipped_sha256": "bffa74693e0d393de65f44a1530830b44fff7ceb02ecf5af86d58e84794ac52c",
+    "patched_sha256": "efa419ad698472bb4d97cad17966215fd0daf79644b681be5016271c12ac4265",
+    "change": "^(GHSA-[0-9A-Z-]+|CVE-...) → ^(GHSA-[0-9A-Za-z-]+|CVE-...)",
+    "data_changed": false
+  },
+  "known_tool_defects": [
+    {
+      "tool": "v03/scripts/validate_v02_reference.py",
+      "line": 108,
+      "defect": "将 vulnerability_id 原值与已大写的别名集合比较，导致 9 条小写 GHSA canonical ID 被误报 “ID missing in alias list”。",
+      "impact": "仅影响该参考验证器的输出；v03/scripts/validate_dataset.py 使用 str(vid).upper() 比较，结果为 0 errors。",
+      "action": "未修改该参考脚本（只用于对照），在报告中记录误报；不改数据。"
+    }
+  ],
+  "checksums": {
+    "data": {
+      "candidates.jsonl": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be",
+      "discovery_coverage.jsonl": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+      "evaluation_selection.jsonl": "ce219de79f9256c205202ab9458de832f16647fc903dbd50715590a3505670e5",
+      "evidence.jsonl": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3",
+      "excluded_candidates.jsonl": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a",
+      "historical_snapshot_status.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "locations.jsonl": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a",
+      "repositories.jsonl": "6d67534488228d8a2c9a4837944d3c446190342248b421523588e9b7e6e9e6cb",
+      "reviews.jsonl": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c",
+      "snapshot_vulnerability_status.jsonl": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868",
+      "snapshots.jsonl": "cd9159cc6c11fdb1567813682842f901e987ee90bafe9971a8ade0b384b17638",
+      "vulnerabilities.jsonl": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9"
+    },
+    "schemas": {
+      "adjudications.schema.json": "e6a74a02d78c1b131077dcc64c68962992d9b8870a29f38e0b2e3ec08e06e5a5",
+      "agent_findings.schema.json": "cba98c02cf27b46d14d25afd3cbb098d9db199857fb5e817085b9551af36563a",
+      "candidates.schema.json": "d5fb8c6cd62b5ff2997e5b99fd71a7213e2306fcd9aa5d68c1a15be0a599f114",
+      "discovery_coverage.schema.json": "054c0a490db0d687207c6e585622e074fd2d68c8aad08d007258b91b45f97fd8",
+      "evaluation_selection.schema.json": "e8c3e1c4f56acb9dd206f2c70299748af48db18799311536bffebad06deac1da",
+      "evidence.schema.json": "1bc9013dc9cb2a531dc093d13b21c444329d5bd53e5c594841533408962e5486",
+      "locations.schema.json": "4a438c6201e705685049fc840e24c739e4eb5cb33527a04536938293f6ee0d7c",
+      "manifest.schema.json": "cc0ed8b32e8e025f0c7d7fd00e9de9783f04324ee412071cca4446a80e079e9a",
+      "repositories.schema.json": "43302030962f254be1c27ea36aa4f0803f5176c41261f67f7642c10d2950d7b7",
+      "reviews.schema.json": "2458c3e873ab55efced3caee04a7997de912f3d03af7e8b235264faed5d11ce1",
+      "snapshot_vulnerability_status.schema.json": "ffe02cdbebfe504553433bac46877509a890312ee9f10f08843eafd9f0162625",
+      "snapshots.schema.json": "6faff8a77f202f08d7ac61f7a7e3af68b0c1636ac7f5b38fe5753b9cd3b3d886",
+      "vulnerabilities.schema.json": "efa419ad698472bb4d97cad17966215fd0daf79644b681be5016271c12ac4265"
+    },
+    "scripts": {
+      "migrate_v02_to_v03.py": "f3987e3941c83617f25a8d6c3b7c56261babcad6551751d72387ed69dcf6042a",
+      "plan_selections.py": "5f8e99d3875b15735a001f8d68ba2d10a285583ffe0d5fae21bbae878c639b0f",
+      "score_adjudicated.py": "c056b3e2f76bf5294628a2d498fe056d750e7c7cf505a1086341279ef35d61f6",
+      "validate_dataset.py": "445ef87b6d3109498df7efeb99af42beec3dd0648e74e4dcf4c71df9b73444c7",
+      "validate_v02_reference.py": "93a4974a96573867e76708d8069a0c515dbd5f627f19510203e514647e531dff"
+    }
+  },
+  "source_backup_verification": {
+    "repositories": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "0ab22dc4be2c77f74e91492179b4f020754560052c8315841c2b505fd78e0cd6"
+    },
+    "snapshots": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "7e7537b33cbc25be84ddc0d3b79d11d810ac88f5fb9eed69f862dbe95556a6d0"
+    },
+    "vulnerabilities": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9"
+    },
+    "locations": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a"
+    },
+    "evidence": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3"
+    },
+    "reviews": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c"
+    },
+    "candidates": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be"
+    },
+    "discovery_coverage": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b"
+    },
+    "snapshot_vulnerability_status": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868"
+    },
+    "excluded_candidates": {
+      "exists": true,
+      "sha256_equal_source": true,
+      "sha256": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a"
+    }
+  },
+  "notes": [
+    "验证器只检查结构、引用与声明的证据状态，不验证漏洞真实性或覆盖完整性。",
+    "draft 通过不等于可以发布；发布需要 B1–B5 全部关闭。"
+  ]
+}

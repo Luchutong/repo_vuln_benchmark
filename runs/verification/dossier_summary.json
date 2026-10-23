@@ -1,0 +1,16 @@
+{
+  "by_status": {
+    "in_validation": 1003,
+    "pending_location": 755,
+    "pending_version": 450
+  },
+  "dossiers": 2208,
+  "limitations": [
+    "No dossier is a verified vulnerability; location mapping and independent review are absent.",
+    "Each dossier inherits its source record set; duplicate roots across advisories are not merged."
+  ],
+  "with_cvss_v3": 1249,
+  "with_cwe": 1498,
+  "with_fixed_version": 1758,
+  "with_same_repo_fix_commit": 1006
+}

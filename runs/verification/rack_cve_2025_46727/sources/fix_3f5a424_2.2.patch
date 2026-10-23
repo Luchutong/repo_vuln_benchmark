@@ -1,0 +1,254 @@
+From 3f5a4249118d09d199fe480466c8c6717e43b6e3 Mon Sep 17 00:00:00 2001
+From: Jeremy Evans <code@jeremyevans.net>
+Date: Tue, 6 May 2025 19:08:08 +0900
+Subject: [PATCH] Merge commit from fork
+
+* Apply bytesize and number of param limits in QueryParser
+
+The param limit is 4096, chosen because it matches the existing
+multipart limit.  The bytesize limit is 4MB.  These limits should
+substantially exceed what almost all applications need, though
+there will likely be applications that require higher limits.
+Allow overriding the limits on a per-QueryParser basis via the
+constructors, and allow overriding the default limits with
+environment variables RACK_QUERY_PARSER_BYTESIZE_LIMIT and
+RACK_QUERY_PARSER_PARAMS_LIMIT.
+
+Add new Rack::QueryParser::QueryLimitError to raise in case one
+of the limits are exceeded, and make ParamsTooDeepError an
+alias to, since that is also a case where a limit is exceeded.
+This allows code that already rescues ParamsTooDeepError to
+automatically handle these other limits as well.
+
+* Update CHANGELOG.
+
+---------
+
+Co-authored-by: Samuel Williams <samuel.williams@oriontransfer.co.nz>
+---
+ CHANGELOG.md              |  1 +
+ README.rdoc               | 27 +++++++++++++++++
+ lib/rack/query_parser.rb  | 63 ++++++++++++++++++++++++++++++++-------
+ test/spec_query_parser.rb | 33 ++++++++++++++++++++
+ test/spec_request.rb      |  8 +++++
+ 5 files changed, 122 insertions(+), 10 deletions(-)
+ create mode 100644 test/spec_query_parser.rb
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 6925fdc4f..5b8770f1d 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file. For info on
+ ### Security
+ 
+ - [CVE-2025-32441](https://github.com/rack/rack/security/advisories/GHSA-vpfw-47h7-xj4g) Rack session can be restored after deletion.
++- [CVE-2025-46727](https://github.com/rack/rack/security/advisories/GHSA-gjh7-p2fx-99vx) Unbounded parameter parsing in `Rack::QueryParser` can lead to memory exhaustion.
+ 
+ ## [2.2.13] - 2025-03-11
+ 
+diff --git a/README.rdoc b/README.rdoc
+index cbb257239..6f678ea6b 100644
+--- a/README.rdoc
++++ b/README.rdoc
+@@ -179,6 +179,33 @@ e.g:
+ 
+     Rack::Utils.key_space_limit = 128
+ 
++=== `RACK_QUERY_PARSER_BYTESIZE_LIMIT`
++
++This environment variable sets the default for the maximum query string bytesize
++that `Rack::QueryParser` will attempt to parse.  Attempts to use a query string
++that exceeds this number of bytes will result in a
++`Rack::QueryParser::QueryLimitError` exception. If this enviroment variable is
++provided, it must be an integer, or `Rack::QueryParser` will raise an exception.
++
++The default limit can be overridden on a per-`Rack::QueryParser` basis using
++the `bytesize_limit` keyword argument when creating the `Rack::QueryParser`.
++
++=== `RACK_QUERY_PARSER_PARAMS_LIMIT`
++
++This environment variable sets the default for the maximum number of query
++parameters that `Rack::QueryParser` will attempt to parse.  Attempts to use a
++query string with more than this many query parameters will result in a
++`Rack::QueryParser::QueryLimitError` exception. If this enviroment variable is
++provided, it must be an integer, or `Rack::QueryParser` will raise an exception.
++
++The default limit can be overridden on a per-`Rack::QueryParser` basis using
++the `params_limit` keyword argument when creating the `Rack::QueryParser`.
++
++This is implemented by counting the number of parameter separators in the
++query string, before attempting parsing, so if the same parameter key is
++used multiple times in the query, each counts as a separate parameter for
++this check.
++
+ === key_space_limit
+ 
+ The default number of bytes to allow all parameters keys in a given parameter hash to take up.
+diff --git a/lib/rack/query_parser.rb b/lib/rack/query_parser.rb
+index 1c3923c32..a6f6d68c2 100644
+--- a/lib/rack/query_parser.rb
++++ b/lib/rack/query_parser.rb
+@@ -16,20 +16,47 @@ class ParameterTypeError < TypeError; end
+     # sequence.
+     class InvalidParameterError < ArgumentError; end
+ 
+-    # ParamsTooDeepError is the error that is raised when params are recursively
+-    # nested over the specified limit.
+-    class ParamsTooDeepError < RangeError; end
++    # QueryLimitError is for errors raised when the query provided exceeds one
++    # of the query parser limits.
++    class QueryLimitError < RangeError
++    end
++
++    # ParamsTooDeepError is the old name for the error that is raised when params
++    # are recursively nested over the specified limit. Make it the same as
++    # as QueryLimitError, so that code that rescues ParamsTooDeepError error
++    # to handle bad query strings also now handles other limits.
++    ParamsTooDeepError = QueryLimitError
+ 
+-    def self.make_default(key_space_limit, param_depth_limit)
+-      new Params, key_space_limit, param_depth_limit
++    def self.make_default(key_space_limit, param_depth_limit, **options)
++      new(Params, key_space_limit, param_depth_limit, **options)
+     end
+ 
+     attr_reader :key_space_limit, :param_depth_limit
+ 
+-    def initialize(params_class, key_space_limit, param_depth_limit)
++    env_int = lambda do |key, val|
++      if str_val = ENV[key]
++        begin
++          val = Integer(str_val, 10)
++        rescue ArgumentError
++          raise ArgumentError, "non-integer value provided for environment variable #{key}"
++        end
++      end
++
++      val
++    end
++
++    BYTESIZE_LIMIT = env_int.call("RACK_QUERY_PARSER_BYTESIZE_LIMIT", 4194304)
++    private_constant :BYTESIZE_LIMIT
++
++    PARAMS_LIMIT = env_int.call("RACK_QUERY_PARSER_PARAMS_LIMIT", 4096)
++    private_constant :PARAMS_LIMIT
++
++    def initialize(params_class, key_space_limit, param_depth_limit, bytesize_limit: BYTESIZE_LIMIT, params_limit: PARAMS_LIMIT)
+       @params_class = params_class
+       @key_space_limit = key_space_limit
+       @param_depth_limit = param_depth_limit
++      @bytesize_limit = bytesize_limit
++      @params_limit = params_limit
+     end
+ 
+     # Stolen from Mongrel, with some small modifications:
+@@ -42,7 +69,7 @@ def parse_query(qs, d = nil, &unescaper)
+ 
+       params = make_params
+ 
+-      (qs || '').split(d ? (COMMON_SEP[d] || /[#{d}] */n) : DEFAULT_SEP).each do |p|
++      check_query_string(qs, d).split(d ? (COMMON_SEP[d] || /[#{d}] */n) : DEFAULT_SEP).each do |p|
+         next if p.empty?
+         k, v = p.split('=', 2).map!(&unescaper)
+ 
+@@ -69,7 +96,7 @@ def parse_nested_query(qs, d = nil)
+       params = make_params
+ 
+       unless qs.nil? || qs.empty?
+-        (qs || '').split(d ? (COMMON_SEP[d] || /[#{d}] */n) : DEFAULT_SEP).each do |p|
++        check_query_string(qs, d).split(d ? (COMMON_SEP[d] || /[#{d}] */n) : DEFAULT_SEP).each do |p|
+           k, v = p.split('=', 2).map! { |s| unescape(s) }
+ 
+           normalize_params(params, k, v, param_depth_limit)
+@@ -155,8 +182,24 @@ def params_hash_has_key?(hash, key)
+       true
+     end
+ 
+-    def unescape(s)
+-      Utils.unescape(s)
++    def check_query_string(qs, sep)
++      if qs
++        if qs.bytesize > @bytesize_limit
++          raise QueryLimitError, "total query size (#{qs.bytesize}) exceeds limit (#{@bytesize_limit})"
++        end
++
++        if (param_count = qs.count(sep.is_a?(String) ? sep : '&')) >= @params_limit
++          raise QueryLimitError, "total number of query parameters (#{param_count+1}) exceeds limit (#{@params_limit})"
++        end
++
++        qs
++      else
++        ''
++      end
++    end
++
++    def unescape(string, encoding = Encoding::UTF_8)
++      Utils.unescape(string, encoding)
+     end
+ 
+     class Params
+diff --git a/test/spec_query_parser.rb b/test/spec_query_parser.rb
+new file mode 100644
+index 000000000..bee712612
+--- /dev/null
++++ b/test/spec_query_parser.rb
+@@ -0,0 +1,33 @@
++# frozen_string_literal: true
++
++require_relative 'helper'
++require_relative '../lib/rack/query_parser'
++
++describe Rack::QueryParser do
++  it "can normalize values with missing values" do
++    query_parser = Rack::QueryParser.make_default(Rack::Utils.key_space_limit, 8)
++    query_parser.parse_nested_query("a=a").must_equal({"a" => "a"})
++    query_parser.parse_nested_query("a=").must_equal({"a" => ""})
++    query_parser.parse_nested_query("a").must_equal({"a" => nil})
++  end
++
++  it "accepts bytesize_limit to specify maximum size of query string to parse" do
++    query_parser = Rack::QueryParser.make_default(Rack::Utils.key_space_limit, 32, bytesize_limit: 3)
++    query_parser.parse_query("a=a").must_equal({"a" => "a"})
++    query_parser.parse_nested_query("a=a").must_equal({"a" => "a"})
++    query_parser.parse_nested_query("a=a", '&').must_equal({"a" => "a"})
++    proc { query_parser.parse_query("a=aa") }.must_raise Rack::QueryParser::QueryLimitError
++    proc { query_parser.parse_nested_query("a=aa") }.must_raise Rack::QueryParser::QueryLimitError
++    proc { query_parser.parse_nested_query("a=aa", '&') }.must_raise Rack::QueryParser::QueryLimitError
++  end
++
++  it "accepts params_limit to specify maximum number of query parameters to parse" do
++    query_parser = Rack::QueryParser.make_default(Rack::Utils.key_space_limit, 32, params_limit: 2)
++    query_parser.parse_query("a=a&b=b").must_equal({"a" => "a", "b" => "b"})
++    query_parser.parse_nested_query("a=a&b=b").must_equal({"a" => "a", "b" => "b"})
++    query_parser.parse_nested_query("a=a&b=b", '&').must_equal({"a" => "a", "b" => "b"})
++    proc { query_parser.parse_query("a=a&b=b&c=c") }.must_raise Rack::QueryParser::QueryLimitError
++    proc { query_parser.parse_nested_query("a=a&b=b&c=c", '&') }.must_raise Rack::QueryParser::QueryLimitError
++    proc { query_parser.parse_query("b[]=a&b[]=b&b[]=c") }.must_raise Rack::QueryParser::QueryLimitError
++  end
++end
+diff --git a/test/spec_request.rb b/test/spec_request.rb
+index a4982009c..ebf9c723f 100644
+--- a/test/spec_request.rb
++++ b/test/spec_request.rb
+@@ -1535,6 +1535,10 @@ def params
+ 
+   class NonDelegate < Rack::Request
+     def delegate?; false; end
++
++    def query_parser
++      Rack::QueryParser.make_default(Rack::Utils.key_space_limit, Rack::Utils.param_depth_limit, bytesize_limit: 2**30)
++    end
+   end
+ 
+   def make_request(env)
+@@ -1558,6 +1562,10 @@ def initialize(req)
+       def delegate?; true; end
+ 
+       def env; @req.env.dup; end
++
++      def query_parser
++        Rack::QueryParser.make_default(Rack::Utils.key_space_limit, Rack::Utils.param_depth_limit, bytesize_limit: 2**30)
++      end
+     end
+ 
+     def make_request(env)

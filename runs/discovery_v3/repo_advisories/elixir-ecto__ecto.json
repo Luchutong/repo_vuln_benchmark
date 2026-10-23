@@ -1,0 +1,483 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 6,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Snehil-Shah",
+          "type": "reporter"
+        },
+        {
+          "login": "maennchen",
+          "type": "coordinator"
+        },
+        {
+          "login": "josevalim",
+          "type": "remediation_developer"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/130062020?v=4",
+            "events_url": "https://api.github.com/users/Snehil-Shah/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Snehil-Shah/followers",
+            "following_url": "https://api.github.com/users/Snehil-Shah/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Snehil-Shah/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Snehil-Shah",
+            "id": 130062020,
+            "login": "Snehil-Shah",
+            "node_id": "U_kgDOB8CWxA",
+            "organizations_url": "https://api.github.com/users/Snehil-Shah/orgs",
+            "received_events_url": "https://api.github.com/users/Snehil-Shah/received_events",
+            "repos_url": "https://api.github.com/users/Snehil-Shah/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Snehil-Shah/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Snehil-Shah/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Snehil-Shah",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "coordinator",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/333918?v=4",
+            "events_url": "https://api.github.com/users/maennchen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/maennchen/followers",
+            "following_url": "https://api.github.com/users/maennchen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/maennchen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/maennchen",
+            "id": 333918,
+            "login": "maennchen",
+            "node_id": "MDQ6VXNlcjMzMzkxOA==",
+            "organizations_url": "https://api.github.com/users/maennchen/orgs",
+            "received_events_url": "https://api.github.com/users/maennchen/received_events",
+            "repos_url": "https://api.github.com/users/maennchen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/maennchen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/maennchen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/maennchen",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+            "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+            "followers_url": "https://api.github.com/users/josevalim/followers",
+            "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+            "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/josevalim",
+            "id": 9582,
+            "login": "josevalim",
+            "node_id": "MDQ6VXNlcjk1ODI=",
+            "organizations_url": "https://api.github.com/users/josevalim/orgs",
+            "received_events_url": "https://api.github.com/users/josevalim/received_events",
+            "repos_url": "https://api.github.com/users/josevalim/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/josevalim",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-66838",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 5.9,
+          "vector_string": "CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:N/VC:H/VI:L/VA:N/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-89"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-89",
+          "name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+        }
+      ],
+      "description": "### Summary\r\n\r\nPostgrex does not sanitize the `:comment` query option on its streaming path. An attacker who can influence that value closes the comment delimiter with `*/` and appends clauses to the streamed statement, which execute under the connection's role. `Ecto.Repo.stream/2` forwards the same option.\r\n\r\n### Details\r\n\r\n`Postgrex.stream/4` in `lib/postgrex.ex` does not validate the `:comment` option.\r\n\r\n`parse_describe_comment_msgs/3` in `lib/postgrex/protocol.ex` concatenates the query text, `/*`, the comment, and `*/` into the statement sent in an extended-protocol `Parse` message. A comment cannot be parameterised, so the value is interpolated without escaping.\r\n\r\n`Parse` accepts one command, so a second statement cannot be chained. The streamed statement can be extended with set operations.\r\n\r\nBoth ways of consuming the stream carry the option: enumeration, and `Enum.into/2` for `COPY ... FROM STDIN`. `COPY` takes no trailing clause that composes the way `SELECT` does, so the write direction is the more restricted case.\r\n\r\n### PoC\r\n\r\n1. Create a table the application streams from, and a second table the role can read but the query does not select.\r\n2. Inside a transaction, call `Postgrex.stream/4` with a `SELECT` against the first table and `:comment` set to `*/ UNION SELECT secret FROM app_secrets --`.\r\n3. Enumerate the stream. The results include rows from the second table.\r\n4. The same comment passed to `Postgrex.query/4` raises a `Postgrex.Error`.\r\n\r\n### Impact\r\n\r\nAn attacker controlling `:comment` can read tables the database role can access, and can change state through volatile functions invoked inside the injected set operation. Applications are affected where the comment carries request, tenant, or user-supplied metadata.\r\n\r\n### References\r\n\r\n* Introducing commit: https://github.com/elixir-ecto/postgrex/commit/4971a2722fa72f8e1b54a2c403cad4c43916e36d\r\n* Patch commit: https://github.com/elixir-ecto/postgrex/commit/e1ecba618ddea4cee2556bd6ad9b6285e05f9d3c",
+      "ghsa_id": "GHSA-3gww-3f36-2388",
+      "html_url": "https://github.com/elixir-ecto/ecto/security/advisories/GHSA-3gww-3f36-2388",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-3gww-3f36-2388"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-66838"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-08-07T12:16:42Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+        "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+        "followers_url": "https://api.github.com/users/josevalim/followers",
+        "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+        "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/josevalim",
+        "id": 9582,
+        "login": "josevalim",
+        "node_id": "MDQ6VXNlcjk1ODI=",
+        "organizations_url": "https://api.github.com/users/josevalim/orgs",
+        "received_events_url": "https://api.github.com/users/josevalim/received_events",
+        "repos_url": "https://api.github.com/users/josevalim/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/josevalim",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "SQL injection via the `:comment` option in `Postgrex.stream/4`",
+      "updated_at": "2026-08-07T12:20:52Z",
+      "url": "https://api.github.com/repos/elixir-ecto/ecto/security-advisories/GHSA-3gww-3f36-2388",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "postgrex"
+          },
+          "patched_versions": "0.22.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 0.19.3 and < 0.22.4"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 6,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "PJUllrich",
+          "type": "reporter"
+        },
+        {
+          "login": "josevalim",
+          "type": "remediation_developer"
+        },
+        {
+          "login": "maennchen",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/10426523?v=4",
+            "events_url": "https://api.github.com/users/PJUllrich/events{/privacy}",
+            "followers_url": "https://api.github.com/users/PJUllrich/followers",
+            "following_url": "https://api.github.com/users/PJUllrich/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PJUllrich/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/PJUllrich",
+            "id": 10426523,
+            "login": "PJUllrich",
+            "node_id": "MDQ6VXNlcjEwNDI2NTIz",
+            "organizations_url": "https://api.github.com/users/PJUllrich/orgs",
+            "received_events_url": "https://api.github.com/users/PJUllrich/received_events",
+            "repos_url": "https://api.github.com/users/PJUllrich/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/PJUllrich/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PJUllrich/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/PJUllrich",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+            "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+            "followers_url": "https://api.github.com/users/josevalim/followers",
+            "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+            "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/josevalim",
+            "id": 9582,
+            "login": "josevalim",
+            "node_id": "MDQ6VXNlcjk1ODI=",
+            "organizations_url": "https://api.github.com/users/josevalim/orgs",
+            "received_events_url": "https://api.github.com/users/josevalim/received_events",
+            "repos_url": "https://api.github.com/users/josevalim/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/josevalim",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/333918?v=4",
+            "events_url": "https://api.github.com/users/maennchen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/maennchen/followers",
+            "following_url": "https://api.github.com/users/maennchen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/maennchen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/maennchen",
+            "id": 333918,
+            "login": "maennchen",
+            "node_id": "MDQ6VXNlcjMzMzkxOA==",
+            "organizations_url": "https://api.github.com/users/maennchen/orgs",
+            "received_events_url": "https://api.github.com/users/maennchen/received_events",
+            "repos_url": "https://api.github.com/users/maennchen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/maennchen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/maennchen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/maennchen",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-58225",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 2.1,
+          "vector_string": "CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-89"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-89",
+          "name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+        }
+      ],
+      "description": "### Summary\r\n\r\n`Postgrex.Notifications` in the `postgrex` escapes double quotes in channel names but not PostgreSQL's dollar-quote delimiter (`$$`). An attacker who can influence a single `LISTEN` channel name (for example via untrusted tenant or user identifiers) can inject `$$` into the reconnect replay query that the notification process builds on every (re)connect. The corrupted query is rejected by PostgreSQL on each connect, silently dropping notifications for every channel sharing that connection, a denial of service against all tenants on that connection. The existing escaping of double-quote happens to prevent forming a fully valid injected statement, so arbitrary SQL execution is not achievable.\r\n\r\n### Details\r\n\r\n1. Set up an application that uses `Postgrex.Notifications` and passes untrusted input (a tenant or user identifier) as the channel name to `Postgrex.Notifications.listen/3`.\r\n2. Register a benign channel on the shared connection (e.g. `tenant_42`).\r\n3. As the attacker, call `Postgrex.Notifications.listen/3` with a crafted channel name containing the dollar-quote delimiter, e.g. `x$$;SELECT 1;--` (15 bytes, no null byte, so it passes the `listen/3` guards).\r\n4. On the next (auto-)reconnect, `handle_connect/1` replays both subscriptions inside a single `DO $$BEGIN ... END$$` block. The attacker's `$$` closes the block early, PostgreSQL parses the remainder as extra statements and rejects the whole query with a syntax error.\r\n5. The replay fails on every reconnect, so notifications stop being delivered for all channels on that connection.\r\n\r\n### Impact\r\n\r\nAn attacker who can influence a single channel name passed to `Postgrex.Notifications.listen/3` can corrupt the reconnect replay query for the entire connection, causing it to fail on every connect and silently drop PostgreSQL notifications for all channels (all tenants) sharing that connection. Any application that derives channel names from untrusted input is affected, no privileges beyond the ability to influence one channel name are required. Such applications must either upgrade or ensure the user input does not contain the `$` character.\r\n\r\n### References\r\n\r\n* Introduction commit: https://github.com/elixir-ecto/postgrex/commit/266b530faf9bde094e31e0e4ab851f933fadc0f5\r\n* Patch commit: https://github.com/elixir-ecto/postgrex/commit/797d395906c0a1d28bea55e3a2b03ce75c827f55\r\n",
+      "ghsa_id": "GHSA-4mw9-4qgj-m97w",
+      "html_url": "https://github.com/elixir-ecto/ecto/security/advisories/GHSA-4mw9-4qgj-m97w",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-4mw9-4qgj-m97w"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-58225"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-07-09T08:54:53Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+        "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+        "followers_url": "https://api.github.com/users/josevalim/followers",
+        "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+        "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/josevalim",
+        "id": 9582,
+        "login": "josevalim",
+        "node_id": "MDQ6VXNlcjk1ODI=",
+        "organizations_url": "https://api.github.com/users/josevalim/orgs",
+        "received_events_url": "https://api.github.com/users/josevalim/received_events",
+        "repos_url": "https://api.github.com/users/josevalim/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/josevalim",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "SQL injection via unescaped dollar-quote (`$$`) in reconnect `DO` block",
+      "updated_at": "2026-07-09T08:54:53Z",
+      "url": "https://api.github.com/repos/elixir-ecto/ecto/security-advisories/GHSA-4mw9-4qgj-m97w",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "postgrex"
+          },
+          "patched_versions": ">= 0.22.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 0.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 8,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "PJUllrich",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/10426523?v=4",
+            "events_url": "https://api.github.com/users/PJUllrich/events{/privacy}",
+            "followers_url": "https://api.github.com/users/PJUllrich/followers",
+            "following_url": "https://api.github.com/users/PJUllrich/following{/other_user}",
+            "gists_url": "https://api.github.com/users/PJUllrich/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/PJUllrich",
+            "id": 10426523,
+            "login": "PJUllrich",
+            "node_id": "MDQ6VXNlcjEwNDI2NTIz",
+            "organizations_url": "https://api.github.com/users/PJUllrich/orgs",
+            "received_events_url": "https://api.github.com/users/PJUllrich/received_events",
+            "repos_url": "https://api.github.com/users/PJUllrich/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/PJUllrich/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/PJUllrich/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/PJUllrich",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-32687",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 7.5,
+          "vector_string": "CVSS:4.0/AV:L/AC:L/AT:P/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [
+        "CWE-89"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-89",
+          "name": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')"
+        }
+      ],
+      "description": "### Summary\r\n\r\nSQL injection in `Postgrex.Notifications.listen/3`: the `channel` argument is interpolated straight into `LISTEN \"...\"` / `UNLISTEN \"...\"` without escaping the `\"` character. Any caller that lets a user influence the channel name (e.g. a pub/sub bridge that uses a tenant id or topic slug as the channel) and the name is not sanitized can execute arbitrary SQL on the notifications connection.\r\n\r\nOnly those using the `Postgrex.Notifications` directly or via a dependency, with a non-sanitized channel name are vulnerable. Ecto does not use Postgrex.Notifications by default, but you must validate if any other dependency does.\r\n\r\n### Details\r\n\r\nPostgreSQL escapes a `\"` inside a quoted identifier by doubling it to `\"\"`. Postgrex doesn't do that doubling, so a `\"` inside `channel` closes the identifier early and everything after it is parsed as SQL on the same connection.\r\n\r\nThe notifications connection runs as whatever DB role the app is configured with. Unlike the `Postgrex.query/4` API, there's no extended-protocol guard here: `LISTEN`/`UNLISTEN` are sent as simple queries, so multi-statement payloads work and the attacker can chain `; CREATE TABLE …`, `; DROP …`, `; CREATE ROLE …`, etc.\r\n\r\n### Impact\r\n\r\nSQL injection on the notifications connection. Affects any application that calls `Postgrex.Notifications.listen/3` (or `unlisten/3`) with a channel name derived from untrusted input. Executes as the configured DB user with no protocol-level limit on what can be chained, so the realistic blast radius is read/modify/destroy on any data the app's DB role can reach.\r\n\r\n### Fix\r\n\r\nUpgrade to latest Postgrex v0.22.2 or later. Altenratively, sanitize any user input given as channel name by making sure it doesn't include quotes as well as null bytes (not strictly required, but recommended):\r\n\r\n```elixir\r\nif String.contains?(channel_name, [\"\\\"\", \"\\0\"]) do\r\n  raise \"bad channel name\"\r\nend\r\n```",
+      "ghsa_id": "GHSA-r73h-97w8-m54h",
+      "html_url": "https://github.com/elixir-ecto/ecto/security/advisories/GHSA-r73h-97w8-m54h",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-r73h-97w8-m54h"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-32687"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-05-12T14:02:19Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9582?v=4",
+        "events_url": "https://api.github.com/users/josevalim/events{/privacy}",
+        "followers_url": "https://api.github.com/users/josevalim/followers",
+        "following_url": "https://api.github.com/users/josevalim/following{/other_user}",
+        "gists_url": "https://api.github.com/users/josevalim/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/josevalim",
+        "id": 9582,
+        "login": "josevalim",
+        "node_id": "MDQ6VXNlcjk1ODI=",
+        "organizations_url": "https://api.github.com/users/josevalim/orgs",
+        "received_events_url": "https://api.github.com/users/josevalim/received_events",
+        "repos_url": "https://api.github.com/users/josevalim/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/josevalim/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/josevalim/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/josevalim",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Channel-name SQL injection in `Postgrex.Notifications.listen/3`",
+      "updated_at": "2026-05-12T14:02:19Z",
+      "url": "https://api.github.com/repos/elixir-ecto/ecto/security-advisories/GHSA-r73h-97w8-m54h",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "erlang",
+            "name": "postgrex"
+          },
+          "patched_versions": "> 0.22.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "> 0.16.0"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "elixir-ecto/ecto",
+    "url": "https://api.github.com/repos/elixir-ecto/ecto/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:06.011300+00:00",
+  "tool": "github_rest_readonly"
+}

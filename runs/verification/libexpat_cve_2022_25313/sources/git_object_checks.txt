@@ -1,0 +1,15 @@
+# CVE-2022-25313 git object checks (bare clone /tmp/libexpat_rev/libexpat.git)
+tag R_2_4_4 object: c637e3b1560e8b66632ddf8f510788ab7e3cd12e
+tag R_2_4_4 peeled: 81b89678e200820271b72cacdd45fb5868855765
+tag R_2_4_5 object: 0cd6665f894f6d8f9bc613a9d63b4e1b6e04dddd
+tag R_2_4_5 peeled: 97a4840578693a346e79302909b67d97492e1880
+fix 9b4ce651: 2022-02-15 12:16:23 +0000 Prevent stack exhaustion in build_model
+fix ancestor of R_2_4_5: YES
+fix ancestor of R_2_4_4: NO
+blob R_2_4_4:expat/lib/xmlparse.c = 4b43e61321691c082721fbeeab59ef53f5f58e73
+blob R_2_4_5:expat/lib/xmlparse.c = c479a258b53481d77a3f41fbe7973f7bfc699be1
+2.4.4 has build_node: 1
+2.4.5 has build_node: 0
+2.4.4 recursive call line: 7346
+OSV fixed 97a48405: 2022-02-18 23:39:29 +0100 Merge pull request #564 from libexpat/issue-557-prepare-release
+97a48405 is the merge of the 2.4.5 release-prep PR, not the code fix

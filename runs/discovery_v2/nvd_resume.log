@@ -1,0 +1,3 @@
+NVD openssl/openssl openssl PASS_QUERY_ONLY 677
+NVD libarchive/libarchive libarchive PASS_QUERY_ONLY 106
+NVD jbeder/yaml-cpp yaml-cpp PASS_QUERY_ONLY 7

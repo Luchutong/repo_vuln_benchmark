@@ -1,0 +1,24 @@
+{
+  "key": "rails_actionmailer",
+  "repository": "rails/rails",
+  "path": "actionmailer/actionmailer.gemspec",
+  "retrieved_at": "2026-10-21T10:56:17.674Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"../RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"actionmailer\"\n  s.version     = version\n  s.summary     = \"Email composition and delivery framework (part of Rails).\"\n  s.description = \"Email on Rails. Compose, deliver, and test emails using the familiar controller/view pattern. First-class support for multipart email and attachments.\"\n\n  s.required_ruby_version = \">= 3.3.5\"\n\n  s.license = \"MIT\"\n\n  s.author   = \"David Heinemeier Hansson\"\n  s.email    = \"david@loudthinking.com\"\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files        = Dir[\"CHANGELOG.md\", \"README.rdoc\", \"MIT-LICENSE\", \"lib/**/*\"]\n  s.require_path = \"lib\"\n  s.requirements << \"none\"\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/blob/v#{version}/actionmailer/CHANGELOG.md\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}/actionmailer\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  # NOTE: Please read our dependency guidelines before updating versions:\n  # https://edgeguides.rubyonrails.org/security.html#dependency-management-and-cves\n\n  s.add_dependency \"activesupport\", version\n  s.add_dependency \"actionpack\", version\n  s.add_dependency \"actionview\", version\n  s.add_dependency \"activejob\", version\n\n  s.add_dependency \"mail\", \">= 2.8.0\"\n  s.add_dependency \"rails-dom-testing\", \"~> 2.2\"\nend\n",
+      "encoding": "utf-8",
+      "sha": "55928cf59fad197a5ca00e9fffd3e0d768c9584c",
+      "display_url": "https://github.com/rails/rails/blob/main/actionmailer/actionmailer.gemspec",
+      "display_title": "actionmailer.gemspec"
+    },
+    "isError": false
+  }
+}

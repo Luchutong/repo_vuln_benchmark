@@ -1,0 +1,404 @@
+From 4710d65339251aaf1d1599f19545db99be24d981 Mon Sep 17 00:00:00 2001
+From: Daniel Beck <daniel-beck@users.noreply.github.com>
+Date: Tue, 2 Dec 2025 13:46:01 +0000
+Subject: [PATCH] [SECURITY-783]
+
+---
+ .../hudson/model/BuildAuthorizationToken.java |  75 +++++++-
+ .../BuildAuthorizationToken/config.jelly      |   3 +-
+ .../BuildAuthorizationTokenMigrationTest.java | 166 ++++++++++++++++++
+ .../jobs/job_without_token/config.xml         |  17 ++
+ .../jobs/my_freestyle_job/config.xml          |  18 ++
+ .../job-config-with-plain-token.xml           |  18 ++
+ 6 files changed, 292 insertions(+), 5 deletions(-)
+ create mode 100644 test/src/test/java/hudson/model/BuildAuthorizationTokenMigrationTest.java
+ create mode 100644 test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/job_without_token/config.xml
+ create mode 100644 test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/my_freestyle_job/config.xml
+ create mode 100644 test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/job-config-with-plain-token.xml
+
+diff --git a/core/src/main/java/hudson/model/BuildAuthorizationToken.java b/core/src/main/java/hudson/model/BuildAuthorizationToken.java
+index 365403124c3a..96fb27f816e3 100644
+--- a/core/src/main/java/hudson/model/BuildAuthorizationToken.java
++++ b/core/src/main/java/hudson/model/BuildAuthorizationToken.java
+@@ -25,10 +25,22 @@
+ package hudson.model;
+ 
+ import com.thoughtworks.xstream.converters.basic.AbstractSingleValueConverter;
++import hudson.Extension;
+ import hudson.Util;
++import hudson.diagnosis.OldDataMonitor;
++import hudson.model.listeners.ItemListener;
+ import hudson.security.ACL;
++import hudson.util.Secret;
+ import jakarta.servlet.http.HttpServletResponse;
+ import java.io.IOException;
++import java.nio.charset.StandardCharsets;
++import java.security.MessageDigest;
++import java.util.logging.Level;
++import java.util.logging.Logger;
++import jenkins.model.Jenkins;
++import jenkins.model.ParameterizedJobMixIn;
++import org.kohsuke.accmod.Restricted;
++import org.kohsuke.accmod.restrictions.NoExternalUse;
+ import org.kohsuke.stapler.HttpResponses;
+ import org.kohsuke.stapler.StaplerRequest;
+ import org.kohsuke.stapler.StaplerRequest2;
+@@ -47,10 +59,25 @@
+  */
+ @Deprecated
+ public final class BuildAuthorizationToken {
+-    private final String token;
++    private final Secret token;
+ 
++    private transient boolean fromPlaintext;
++
++    /**
++     * @deprecated since TODO
++     */
++    @Deprecated
+     public BuildAuthorizationToken(String token) {
++        this.token = Secret.fromString(token);
++        this.fromPlaintext = true;
++    }
++
++    /**
++     * @since TODO
++     */
++    public BuildAuthorizationToken(Secret token) {
+         this.token = token;
++        this.fromPlaintext = false;
+     }
+ 
+     /**
+@@ -85,7 +112,7 @@ public static void checkPermission(Job<?, ?> project, BuildAuthorizationToken to
+         if (token != null && token.token != null) {
+             //check the provided token
+             String providedToken = req.getParameter("token");
+-            if (providedToken != null && providedToken.equals(token.token))
++            if (providedToken != null && MessageDigest.isEqual(providedToken.getBytes(StandardCharsets.UTF_8), token.getToken().getBytes(StandardCharsets.UTF_8)))
+                 return;
+             if (providedToken != null)
+                 throw new AccessDeniedException(Messages.BuildAuthorizationToken_InvalidTokenProvided());
+@@ -110,7 +137,15 @@ public static void checkPermission(Job<?, ?> project, BuildAuthorizationToken to
+         checkPermission(project, token, StaplerRequest.toStaplerRequest2(req), StaplerResponse.toStaplerResponse2(rsp));
+     }
+ 
++    @Deprecated
+     public String getToken() {
++        return token.getPlainText();
++    }
++
++    /**
++     * @since TODO
++     */
++    public Secret getEncryptedToken() {
+         return token;
+     }
+ 
+@@ -122,12 +157,44 @@ public boolean canConvert(Class type) {
+ 
+         @Override
+         public Object fromString(String str) {
+-            return new BuildAuthorizationToken(str);
++            if (Secret.decrypt(str) == null) {
++                return new BuildAuthorizationToken(str);
++            }
++            return new BuildAuthorizationToken(Secret.fromString(str));
+         }
+ 
+         @Override
+         public String toString(Object obj) {
+-            return ((BuildAuthorizationToken) obj).token;
++            final BuildAuthorizationToken bat = (BuildAuthorizationToken) obj;
++            // We assume this only gets called when re-saving to its usual destination, so let's clear the in-memory state:
++            bat.fromPlaintext = false;
++            return bat.token.getEncryptedValue();
++        }
++    }
++
++    @Extension
++    @Restricted(NoExternalUse.class)
++    public static class ItemListenerImpl extends ItemListener {
++        private static final Logger LOGGER = Logger.getLogger(ItemListenerImpl.class.getName());
++
++        @Override
++        public void onUpdated(Item item) {
++            if (item instanceof ParameterizedJobMixIn.ParameterizedJob job) {
++                BuildAuthorizationToken bat = job.getAuthToken();
++                if (bat != null) {
++                    if (bat.fromPlaintext) {
++                        OldDataMonitor.report(item, "2.528.3 / 2.541");
++                        LOGGER.log(Level.FINE, "Reporting " + item.getFullName());
++                    } else {
++                        LOGGER.log(Level.FINE, "Skipping reporting of " + item.getFullName());
++                    }
++                }
++            }
++        }
++
++        @Override
++        public void onLoaded() {
++            Jenkins.get().getAllItems(ParameterizedJobMixIn.ParameterizedJob.class).forEach(this::onUpdated);
+         }
+     }
+ }
+diff --git a/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly b/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly
+index 5603d9d8f2c6..97b16ee0f5b0 100644
+--- a/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly
++++ b/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly
+@@ -35,7 +35,8 @@ THE SOFTWARE.
+         title="${%Trigger builds remotely} (${%e.g., from scripts})"
+         checked="${it.authToken!=null}">
+       <f:entry title="${%Authentication Token}">
+-        <f:textbox name="authToken" value="${it.authToken.token}" />
++        <f:password name="authToken" value="${it.authToken.encryptedToken}" />
++        <div class="clearfix"/><!-- f:password in readOnlyMode only has a span, not a div, so the following text would be on the same line as "****" -->
+         ${%Use the following URL to trigger build remotely:}
+         <code>JENKINS_URL</code>/${it.url}build?token=<code>TOKEN_NAME</code>
+         ${%or}
+diff --git a/test/src/test/java/hudson/model/BuildAuthorizationTokenMigrationTest.java b/test/src/test/java/hudson/model/BuildAuthorizationTokenMigrationTest.java
+new file mode 100644
+index 000000000000..03ff2e95a4b4
+--- /dev/null
++++ b/test/src/test/java/hudson/model/BuildAuthorizationTokenMigrationTest.java
+@@ -0,0 +1,166 @@
++package hudson.model;
++
++import static org.hamcrest.MatcherAssert.assertThat;
++import static org.hamcrest.Matchers.containsString;
++import static org.hamcrest.Matchers.equalTo;
++import static org.hamcrest.Matchers.not;
++import static org.hamcrest.Matchers.notNullValue;
++
++import hudson.util.Secret;
++import jakarta.servlet.ServletRequest;
++import java.net.URL;
++import java.nio.charset.StandardCharsets;
++import jenkins.model.Jenkins;
++import org.apache.commons.io.IOUtils;
++import org.htmlunit.HttpMethod;
++import org.htmlunit.Page;
++import org.htmlunit.WebRequest;
++import org.htmlunit.html.HtmlForm;
++import org.htmlunit.html.HtmlPage;
++import org.htmlunit.xml.XmlPage;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++import org.jvnet.hudson.test.Issue;
++import org.jvnet.hudson.test.JenkinsRule;
++import org.jvnet.hudson.test.MockAuthorizationStrategy;
++import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
++import org.jvnet.hudson.test.recipes.LocalData;
++
++@SuppressWarnings("deprecation")
++@Issue("SECURITY-783")
++@WithJenkins
++public class BuildAuthorizationTokenMigrationTest {
++    private static final String OLDTOKEN = "oldtoken";
++    private static final String ADMIN_USERNAME = "alice";
++    private static final String VERSION_NUMBER = "2.528.3 / 2.541";
++    private static final String JOB_NAME = "my_freestyle_job";
++    private static final String OLD_DATA_PAGE_URL = "administrativeMonitor/OldData/manage";
++    private static final String JOB_WITHOUT_TOKEN_NAME = "job_without_token";
++    public static final String EXTENDED_READER_USERNAME = "bob";
++
++    // This should be a JenkinsSessionRule / RealJenkinsRule, to ensure no monitor after startup,
++    // but it looks like neither works (anymore) with @LocalData/@WithLocalData.
++    private JenkinsRule j;
++
++    @BeforeEach
++    public void setUp(JenkinsRule j) {
++        this.j = j;
++    }
++
++    @Test
++    @LocalData
++    void basicMigration() throws Throwable {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy()
++                .grant(Jenkins.READ).everywhere().toEveryone()
++                .grant(Item.READ, Item.EXTENDED_READ).everywhere().to(EXTENDED_READER_USERNAME)
++                .grant(Jenkins.ADMINISTER).everywhere().to(ADMIN_USERNAME));
++        j.jenkins.save();
++
++        final FreeStyleProject fs = j.jenkins.getItemByFullName(JOB_NAME, FreeStyleProject.class);
++
++        {
++            // inspect original migrated token
++            assertThat(fs.getConfigFile().asString(), containsString("<authToken>" + OLDTOKEN + "</authToken>"));
++
++            final BuildAuthorizationToken authToken = fs.getAuthToken();
++            assertThat(authToken, notNullValue());
++            assertThat(authToken.getToken(), equalTo(OLDTOKEN));
++            assertThat(authToken.getEncryptedToken().getPlainText(), equalTo(OLDTOKEN));
++
++            // Not redacted yet
++            try (JenkinsRule.WebClient wc = j.createWebClient().login(EXTENDED_READER_USERNAME)) {
++                final XmlPage xmlPage = wc.goToXml(fs.getUrl() + "config.xml");
++                assertThat(xmlPage.getWebResponse().getContentAsString(), containsString("<authToken>" + OLDTOKEN + "</authToken>"));
++            }
++        }
++
++        assertThat(j.jenkins.getAdministrativeMonitor("OldData").isActivated(), equalTo(true));
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().login(ADMIN_USERNAME)) {
++            {
++                final HtmlPage oldDataPage = wc.goTo(OLD_DATA_PAGE_URL);
++                final String oldDataContent = oldDataPage.getWebResponse().getContentAsString();
++                assertThat(oldDataContent, containsString(JOB_NAME));
++                assertThat(oldDataContent, not(containsString(JOB_WITHOUT_TOKEN_NAME)));
++
++                assertThat(oldDataContent, containsString(VERSION_NUMBER));
++                assertThat(oldDataContent, not(containsString("No old data")));
++
++                final HtmlForm form = oldDataPage.getFormByName("oldDataUpgrade");
++                form.submit(form.getButtonByName("Submit"));
++            }
++            {
++                final HtmlPage oldDataPage = wc.goTo(OLD_DATA_PAGE_URL);
++                final String oldDataContent = oldDataPage.getWebResponse().getContentAsString();
++                assertThat(oldDataContent, not(containsString(JOB_NAME)));
++                assertThat(oldDataContent, not(containsString(VERSION_NUMBER)));
++                assertThat(oldDataContent, containsString("No old data"));
++            }
++        }
++
++        assertThat(j.jenkins.getAdministrativeMonitor("OldData").isActivated(), equalTo(false));
++
++        {
++            // New auth token
++            final BuildAuthorizationToken authToken = fs.getAuthToken();
++            assertThat(authToken, notNullValue());
++            assertThat(authToken.getToken(), equalTo(OLDTOKEN));
++            final Secret newEncryptedToken = authToken.getEncryptedToken();
++            assertThat(newEncryptedToken.getPlainText(), equalTo(OLDTOKEN));
++
++            assertThat(fs.getConfigFile().asString(), not(containsString("<authToken>" + OLDTOKEN + "</authToken>")));
++            assertThat(fs.getConfigFile().asString(), containsString("<authToken>" + newEncryptedToken.getEncryptedValue() + "</authToken>"));
++
++            // Redacted after save
++            try (JenkinsRule.WebClient wc = j.createWebClient().login(EXTENDED_READER_USERNAME)) {
++                final XmlPage xmlPage = wc.goToXml(fs.getUrl() + "config.xml");
++                assertThat(xmlPage.getWebResponse().getContentAsString(), containsString("<authToken>********</authToken>"));
++            }
++        }
++    }
++
++    @Test
++    void testPostConfigXmlAndClearing() throws Exception {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy().grant(Jenkins.READ).everywhere().toEveryone().grant(Jenkins.ADMINISTER).everywhere().to(ADMIN_USERNAME));
++
++        assertThat(j.jenkins.getAdministrativeMonitor("OldData").isActivated(), equalTo(false));
++
++        final FreeStyleProject freeStyleProject = j.createFreeStyleProject();
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().login(ADMIN_USERNAME)) {
++            {
++                // POST config.xml with plain token
++                final WebRequest webRequest = new WebRequest(new URL(j.getURL(), freeStyleProject.getUrl() + "config.xml?" +
++                        j.jenkins.getCrumbIssuer().getDescriptor().getCrumbRequestField() + "=" + j.jenkins.getCrumbIssuer().getCrumb((ServletRequest) null)),
++                        HttpMethod.POST);
++                webRequest.setAdditionalHeader("Content-Type", "application/xml");
++                webRequest.setRequestBody(IOUtils.resourceToString("/" + getClass().getName().replace(".", "/") + "/job-config-with-plain-token.xml", StandardCharsets.UTF_8));
++                final Page apiPage = wc.getPage(webRequest);
++                assertThat(apiPage.getWebResponse().getStatusCode(), equalTo(200));
++            }
++
++            assertThat(j.jenkins.getAdministrativeMonitor("OldData").isActivated(), equalTo(true));
++
++            {
++                // Testing that GET config.xml does not clear the in-memory flag via ConverterImpl
++                final XmlPage xmlPage = wc.goToXml(freeStyleProject.getUrl() + "config.xml");
++                assertThat(xmlPage.getWebResponse().getContentAsString(), containsString("plain_token"));
++
++                assertThat(freeStyleProject.getConfigFile().asString(), containsString("plain_token"));
++            }
++
++            // Saving clears the admin monitor
++            freeStyleProject.save();
++            assertThat(j.jenkins.getAdministrativeMonitor("OldData").isActivated(), equalTo(false));
++
++            {
++                final XmlPage xmlPage = wc.goToXml(freeStyleProject.getUrl() + "config.xml");
++                assertThat(xmlPage.getWebResponse().getContentAsString(), not(containsString("plain_token")));
++                assertThat(freeStyleProject.getConfigFile().asString(), not(containsString("plain_token")));
++            }
++
++        }
++    }
++}
+diff --git a/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/job_without_token/config.xml b/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/job_without_token/config.xml
+new file mode 100644
+index 000000000000..e1a47d21c4e6
+--- /dev/null
++++ b/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/job_without_token/config.xml
+@@ -0,0 +1,17 @@
++<?xml version='1.1' encoding='UTF-8'?>
++<project>
++    <actions/>
++    <description></description>
++    <keepDependencies>false</keepDependencies>
++    <properties/>
++    <scm class="hudson.scm.NullSCM"/>
++    <canRoam>true</canRoam>
++    <disabled>false</disabled>
++    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
++    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
++    <triggers/>
++    <concurrentBuild>false</concurrentBuild>
++    <builders/>
++    <publishers/>
++    <buildWrappers/>
++</project>
+\ No newline at end of file
+diff --git a/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/my_freestyle_job/config.xml b/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/my_freestyle_job/config.xml
+new file mode 100644
+index 000000000000..4bbe7ccb025c
+--- /dev/null
++++ b/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/basicMigration/jobs/my_freestyle_job/config.xml
+@@ -0,0 +1,18 @@
++<?xml version='1.1' encoding='UTF-8'?>
++<project>
++    <actions/>
++    <description></description>
++    <keepDependencies>false</keepDependencies>
++    <properties/>
++    <scm class="hudson.scm.NullSCM"/>
++    <canRoam>true</canRoam>
++    <disabled>false</disabled>
++    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
++    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
++    <authToken>oldtoken</authToken>
++    <triggers/>
++    <concurrentBuild>false</concurrentBuild>
++    <builders/>
++    <publishers/>
++    <buildWrappers/>
++</project>
+\ No newline at end of file
+diff --git a/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/job-config-with-plain-token.xml b/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/job-config-with-plain-token.xml
+new file mode 100644
+index 000000000000..b425ab59a953
+--- /dev/null
++++ b/test/src/test/resources/hudson/model/BuildAuthorizationTokenMigrationTest/job-config-with-plain-token.xml
+@@ -0,0 +1,18 @@
++<?xml version='1.1' encoding='UTF-8'?>
++<project>
++    <actions/>
++    <description></description>
++    <keepDependencies>false</keepDependencies>
++    <properties/>
++    <scm class="hudson.scm.NullSCM"/>
++    <canRoam>true</canRoam>
++    <disabled>false</disabled>
++    <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
++    <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
++    <authToken>plain_token</authToken>
++    <triggers/>
++    <concurrentBuild>false</concurrentBuild>
++    <builders/>
++    <publishers/>
++    <buildWrappers/>
++</project>
+\ No newline at end of file

@@ -1,0 +1,36 @@
+{
+  "GHSA-8qx7-j2v2-x6q5": {
+    "github_repo_advisory_html_http": 200,
+    "github_global_advisory_html_http": 404,
+    "affected_versions": "Affected versions <=v2.11.4 Patched versions v2.11.5 Description <div class=\"Bo",
+    "patched_versions": "Patched versions v2.11.5 Description Important up-front notice This is my first security report ever, I honestly apologiz",
+    "cve": "CVE ID CVE-2026-55458 Weaknesses <summary role=\"button\" data-target=\"details-toggle.summaryTarget\" data-action=\"click:details-toggle#toggle\" aria-expanded=\"false\" data-view-",
+    "weaknesses": "Weaknesses Weakness CWE-444 <h4 data-v",
+    "severity": "Severity: low\" data-view-component=\"true\" class=\"Label Label--primary Label--large text-bold mr-2 tmp-mr-2\"> Low mholt published <span class=\"text-bold user-sele",
+    "references_section_present": false
+  },
+  "GHSA-6365-7ppr-5r92": {
+    "github_repo_advisory_html_http": 200,
+    "github_global_advisory_html_http": 404,
+    "affected_versions": "Affected versions < v2.11.5 Patched versions v.2.11.5 Description <div class=\"B",
+    "patched_versions": "Patched versions v.2.11.5 Description Summary We have found an issue where Caddy is using the wrong connection when a han",
+    "cve": "CVE ID No known CVE Weaknesses No CWEs Credits <ul cla",
+    "weaknesses": "Weaknesses No CWEs Credits <a class=\"d-inline-block\" data-hovercard-type=\"user\" data-hovercard-url=\"/users/carlt/hovercard\" data-octo-click=\"hoverc",
+    "severity": "Severity: moderate\" data-view-component=\"true\" class=\"Label Label--warning Label--large text-bold mr-2 tmp-mr-2\"> Moderate mholt published <span class=\"text-bold",
+    "references_section_present": false
+  },
+  "osv_api": {
+    "GHSA-8qx7-j2v2-x6q5": "HTTP 404 {\"code\":5,\"message\":\"Vulnerability not found\"}",
+    "CVE-2026-55458": "HTTP 404 {\"code\":5,\"message\":\"Vulnerability not found\"}",
+    "GHSA-6365-7ppr-5r92": "HTTP 404 {\"code\":5,\"message\":\"Vulnerability not found\"}"
+  },
+  "nvd_api": {
+    "CVE-2026-55458": "HTTP 200 totalResults=0"
+  },
+  "cveorg_api": {
+    "CVE-2026-55458": "HTTP 404 {\"error\":\"CVE_RECORD_DNE\"}"
+  },
+  "github_rest_api": {
+    "note": "unauthenticated api.github.com returned HTTP 403 rate-limited (x-ratelimit-remaining: 0, reset 1792698724); repository advisory JSON taken from repo-scoped cache collected 2026-10-21T13:24:00Z via github_rest_readonly"
+  }
+}

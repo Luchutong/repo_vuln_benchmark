@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/gin-gonic/gin.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:31.364200+00:00", "elapsed_seconds": 1.11, "response": {"returncode": 0, "stdout": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646\tHEAD\n", "stderr": ""}}

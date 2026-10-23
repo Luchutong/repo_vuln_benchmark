@@ -1,0 +1,37 @@
+CVE-2026-48736 -- static git object checks (symfony/symfony, local bare mirror /tmp/symfony_git)
+Generated 2026-10-22
+
+tag peels
+  v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+  v5.4.53 -> 6436e377f7a82a1e7b120da519c7c96a154ece2a
+
+fix commits
+  82765368cf74177c36613575182f168a2eb765b2  [HttpClient] Block IPv6 transition forms in NoPrivateNetworkHttpClient
+     author date 2026-05-22 12:12:16 +0200
+     ancestor of v5.4.53 -> YES; ancestor of v5.4.45 -> NO
+  85b831555be8ea1f43bf01078afe87bc4c92f65e  [HttpFoundation] Block IPv6 transition forms in IpUtils::PRIVATE_SUBNETS
+     author date 2026-05-22 12:15:19 +0200
+     the object is not in the fetched 5.4 history (this is the 6.4+ side of the fix); its patch was read from GitHub
+     IpUtils::PRIVATE_SUBNETS exists only on 6.4+; on 5.4 the private constant lives in NoPrivateNetworkHttpClient
+
+blob ids for src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+  v5.4.45: 757a9e8a9b38eebeb67e1812d7becee87fa61292
+  v5.4.53: 7c6eb1fba1866b74e756f8221be355e6bd5bc620
+  the 82765368 patch pre-image is ad973671c08d9 (the refactored file that landed between .45 and the fix),
+  so the full-file diff from v5.4.45 to v5.4.53 contains unrelated refactoring as well; the constant change is the security-relevant part
+
+vulnerable behaviour at v5.4.45
+  private const PRIVATE_SUBNETS (line 33) lists only:
+    127.0.0.0/8, 10.0.0.0/8, 192.168.0.0/16, 172.16.0.0/12, 169.254.0.0/16,
+    0.0.0.0/8, 240.0.0.0/4, ::1/128, fc00::/7, fe80::/10, ::ffff:0:0/96, ::/128
+  line 84: if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? self::PRIVATE_SUBNETS))
+  the request is delegated to $this->client->request() and the check runs in the on_progress callback;
+  transition forms (::/96, 2002::/16, 2001::/32, 64:ff9b::/96, 64:ff9b:1::/48) are absent, so an embedded private IPv4 is not blocked
+
+fixed behaviour at v5.4.53
+  the constant adds ::/96, 2002::/16, 2001::/32, 64:ff9b::/96, 64:ff9b:1::/48
+  the request path was refactored in the same release window and resolves/checks the host before the request
+
+patch contents (82765368)
+  five new CIDR entries in PRIVATE_SUBNETS
+  tests assert that ::7f00:1, 2002:7f00:1::, 2001::1, 64:ff9b::7f00:1 and 64:ff9b:1::7f00:1 are blocked

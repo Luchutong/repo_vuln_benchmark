@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/tokio-rs/tokio.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:36.464110+00:00", "elapsed_seconds": 1.15, "response": {"returncode": 0, "stdout": "b4df9d279bb3bc97e74186898f97c9939735cafd\tHEAD\n", "stderr": ""}}

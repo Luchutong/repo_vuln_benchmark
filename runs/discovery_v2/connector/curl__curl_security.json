@@ -1,0 +1,24 @@
+{
+  "key": "curl__curl_security",
+  "repository": "curl/curl",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:02.632Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<!--\nCopyright (C) Daniel Stenberg, <daniel@haxx.se>, et al.\n\nSPDX-License-Identifier: curl\n-->\n\n# Security Policy\n\nRead our [Vulnerability Disclosure Policy](docs/VULN-DISCLOSURE-POLICY.md).\n\n## Reporting a Vulnerability\n\nIf you have found or suspect a security problem somewhere in curl or libcurl,\n[report it](https://curl.se/dev/vuln-disclosure.html)!\n\nWe treat security issues with confidentiality until controlled and disclosed\nresponsibly.\n\n## OpenSSF Best Practices\n\ncurl has achieved Gold status on the Open Source Security Foundation (OpenSSF)\n[Best Practices](https://bestpractices.dev/) (formerly Core Infrastructure\nInitiative Best Practices), reflecting its adherence to rigorous security and\nbest practice standards. This achievement highlights curl's comprehensive\ndocumentation, secure development processes, effective change control\nmechanisms, and strong maintenance routines. Meeting these criteria\ndemonstrates curl's commitment to security and reliability, ensuring the\nproject's sustainability and trustworthiness. This underscores curl's role as\na leader in open-source software practices. More information can be found on\n[curl's OpenSSF Best Practices project page](https://www.bestpractices.dev/projects/63).\n",
+      "encoding": "utf-8",
+      "sha": "e579ebb6e63bd53f5dfe8fcb0f7fb61393dfa976",
+      "display_url": "https://github.com/curl/curl/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

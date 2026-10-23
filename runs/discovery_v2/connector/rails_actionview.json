@@ -1,0 +1,24 @@
+{
+  "key": "rails_actionview",
+  "repository": "rails/rails",
+  "path": "actionview/actionview.gemspec",
+  "retrieved_at": "2026-10-21T10:56:18.874Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"../RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"actionview\"\n  s.version     = version\n  s.summary     = \"Rendering framework putting the V in MVC (part of Rails).\"\n  s.description = \"Simple, battle-tested conventions and helpers for building web pages.\"\n\n  s.required_ruby_version = \">= 3.3.5\"\n\n  s.license = \"MIT\"\n\n  s.author   = \"David Heinemeier Hansson\"\n  s.email    = \"david@loudthinking.com\"\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files        = Dir[\"CHANGELOG.md\", \"README.rdoc\", \"MIT-LICENSE\", \"lib/**/*\"]\n  s.require_path = \"lib\"\n  s.requirements << \"none\"\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/blob/v#{version}/actionview/CHANGELOG.md\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}/actionview\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  # NOTE: Please read our dependency guidelines before updating versions:\n  # https://edgeguides.rubyonrails.org/security.html#dependency-management-and-cves\n\n  s.add_dependency \"activesupport\", version\n\n  s.add_dependency \"builder\",       \"~> 3.1\"\n  s.add_dependency \"erubi\",         \"~> 1.11\"\n  s.add_dependency \"herb\",          \">= 0.10\"\n  s.add_dependency \"rails-html-sanitizer\", \"~> 1.7\"\n  s.add_dependency \"rails-dom-testing\", \"~> 2.2\"\n\n  s.add_development_dependency \"actionpack\",  version\n  s.add_development_dependency \"activemodel\", version\nend\n",
+      "encoding": "utf-8",
+      "sha": "13e72af993f519ff11d88136ec4f1174d44e0592",
+      "display_url": "https://github.com/rails/rails/blob/main/actionview/actionview.gemspec",
+      "display_title": "actionview.gemspec"
+    },
+    "isError": false
+  }
+}

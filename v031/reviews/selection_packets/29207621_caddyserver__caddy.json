@@ -1,0 +1,174 @@
+{
+  "packet_id": "selrev_29207621_snap_ea53ce6e88becc8f",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "29207621",
+    "full_name": "caddyserver/caddy",
+    "canonical_url": "https://github.com/caddyserver/caddy",
+    "primary_language": "Go",
+    "project_kind": "Fast and extensible multi-platform HTTP/1-2-3 web server with automatic HTTPS"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_ea53ce6e88becc8f",
+    "tag_or_release": "v2.11.4",
+    "commit_sha": "e2eee6a7fce366321294c9c2a79f3146891dcbdf"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "e2eee6a7fce366321294c9c2a79f3146891dcbdf",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "89190a02601c918d8de199c16a9d7d778ba204fa",
+    "tree_file_count": 614,
+    "exported_file_count": 614,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/caddyserver__caddy/snap_ea53ce6e88becc8f.tar.gz",
+    "archive_sha256": "bd5fdbf04a4d1ddee9021154091bca4149c4d34ff95027f929e3887a738d7102",
+    "archive_bytes": 835587,
+    "manifest_path": "exports/caddyserver__caddy/snap_ea53ce6e88becc8f.manifest.jsonl",
+    "manifest_sha256": "d95b5546f58890bac41279657fadec31b06a00e5c55ffbf5f5db52ba02ad682a"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/workflows/auto-release-pr.yml",
+      ".github/workflows/release-proposal.yml",
+      ".github/workflows/release.yml",
+      ".github/workflows/release_published.yml"
+    ],
+    "cve_id_count": 1,
+    "cve_ids_sample": [
+      "CVE-2019-11043"
+    ],
+    "files_with_advisory_ids_count": 7,
+    "files_with_advisory_ids_sample": [
+      "caddytest/integration/forwardauth_test.go",
+      "modules/caddyhttp/reverseproxy/fastcgi/fastcgi.go",
+      "modules/caddyhttp/reverseproxy/fastcgi/fastcgi_test.go",
+      "modules/caddyhttp/rewrite/rewrite.go",
+      "modules/caddyhttp/rewrite/rewrite_test.go",
+      "modules/caddyhttp/server.go",
+      "modules/caddyhttp/server_test.go"
+    ],
+    "ghsa_id_count": 5,
+    "ghsa_ids_sample": [
+      "GHSA-3G8V-8R37-CGJM",
+      "GHSA-F59H-Q822-G45G",
+      "GHSA-G966-83W7-6W38",
+      "GHSA-J8PX-RMRX-76H9",
+      "GHSA-V4H7-CJ44-8FC8"
+    ],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CONTRIBUTING.md",
+      ".github/FUNDING.yml",
+      ".github/ISSUE_TEMPLATE/ISSUE.yml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/SECURITY.md",
+      ".github/dependabot.yml",
+      ".github/pull_request_template.md",
+      ".github/workflows/ai.yml",
+      ".github/workflows/auto-release-pr.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/cross-build.yml",
+      ".github/workflows/lint.yml",
+      ".github/workflows/release-proposal.yml",
+      ".github/workflows/release.yml",
+      ".github/workflows/release_published.yml",
+      ".github/workflows/scorecard.yml"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "go": [
+        "go.mod"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_missing_in_probe_environment",
+    "systems": [
+      "go"
+    ],
+    "toolchain_available": {
+      "go": {
+        "go": false
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-55458",
+      "aliases": [
+        "CVE-2026-55458",
+        "GHSA-8qx7-j2v2-x6q5"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<= v2.11.4",
+          "ecosystem": "Go",
+          "note": "v2.11.4 is the frozen snapshot. Only the repository-scoped advisory and its rendered page carry this range; no mirror (OSV, NVD, CVE.org, global GHSA) has a record.",
+          "package": "github.com/caddyserver/caddy/v2",
+          "purl": "pkg:golang/github.com/caddyserver/caddy/v2",
+          "range_expressions": [
+            {
+              "first_patched_version": "v2.11.5",
+              "range": "<= v2.11.4",
+              "source": "GitHub repository advisory (2026-10-13)"
+            },
+            {
+              "first_patched_version": "v2.11.5",
+              "range": "<= v2.11.4",
+              "source": "repository-scoped advisory HTML page (2026-10-22)"
+            }
+          ],
+          "versions_includes": "v2.11.4"
+        }
+      ],
+      "published_at": "2026-10-13T16:27:12Z",
+      "advisory_url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5",
+      "severity": {
+        "derivation_method": "CVSS 3.1 base metrics were chosen by the collector from the verified code path and the advisory text, then the base score was computed with the official 3.1 formula: AV:N (a remote client receives the upstream's response), AC:H (the upstream must be malicious or compromised and must answer the upgrade), PR:N, UI:R (the client must open the WebSocket upgrade), S:U, C:N (the leaked headers give no direct read of protected data), I:L (injected hop-by-hop headers can alter client/proxy connection state), A:N. The independent reviewer must recompute this vector and may replace or reject it; if the reviewer rejects it, the dossier must not be promoted.",
+        "derived": true,
+        "discrepancy_note": "Severity is the only field in this dossier that is not a published value. Every published CVSS slot is null; the advisory provides only the label 'low'. The score is a documented analyst reading, flagged so that it can be audited and replaced.",
+        "level": "low",
+        "metric_rationale": {
+          "A": "N - the repro shows no availability impact.",
+          "AC": "H - exploitation presupposes a malicious or compromised upstream that sets the headers; the client cannot inject them through Caddy.",
+          "AV": "N - the 101 response is delivered over the network to any client that opens the proxied WebSocket route.",
+          "C": "N - the repro shows header leakage only; no protected data is read.",
+          "I": "L - Alt-Svc/Set-Cookie/Proxy-Authenticate injection can change client connection state, but no integrity compromise was demonstrated beyond that.",
+          "PR": "N - no privileges on Caddy or the upstream are required of the victim.",
+          "S": "U - the impact stays within the client/proxy connection.",
+          "UI": "R - the victim has to establish the upgraded connection for the leaked response headers to reach it."
+        },
+        "numeric_level_rationale": "The derived base score is 3.1, which is Low (0.1-3.9) and agrees with the advisory's published qualitative label 'low'. Because no published numeric metric exists, this score must not be cited as a vendor or CNA score.",
+        "published_score": null,
+        "published_vector": null,
+        "score": 3.1,
+        "source": "Analyst-derived CVSS 3.1 base metric; NOT vendor-published. The repository advisory publishes severity=low but leaves cvss.score/vector_string and both cvss_severities entries null, and no other database (global GHSA, OSV, NVD, CVE.org) has a record for CVE-2026-55458.",
+        "source_url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5",
+        "upstream_qualitative": "low",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:N/I:L/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

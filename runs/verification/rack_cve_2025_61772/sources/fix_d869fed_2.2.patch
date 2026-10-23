@@ -1,0 +1,187 @@
+From d869fed663b113b95a74ad53e1b5cae6ab31f29e Mon Sep 17 00:00:00 2001
+From: Jeremy Evans <code@jeremyevans.net>
+Date: Mon, 15 Sep 2025 17:17:03 -0700
+Subject: [PATCH] Fix denial of service vulnerbilties in multipart parsing
+
+Two separate vulnerabilities:
+
+1. Unbounded buffering of uploaded data waiting for a boundary.
+
+2. Unbounded buffering of uploaded data waiting for complete
+   mime part header.
+
+The respective limits are 16KB for (1) and 64KB for (2), but those
+limits only apply for non-default buffer sizes. If left at the
+default configuration, 1MB (default buffer size) will be the limit
+for both.
+
+This changes one EmptyContentError exception to an Error exception,
+but EmptyContentError is probably the wrong error to raise for a
+very long boundary.
+---
+ CHANGELOG.md                 |  9 ++++
+ lib/rack/multipart/parser.rb | 20 ++++++++-
+ test/spec_multipart.rb       | 83 ++++++++++++++++++++++++++++++++++++
+ 3 files changed, 110 insertions(+), 2 deletions(-)
+
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 23dadc484..7bc15d5bf 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -2,8 +2,17 @@
+ 
+ All notable changes to this project will be documented in this file. For info on how to format all future additions to this file please reference [Keep A Changelog](https://keepachangelog.com/en/1.0.0/).
+ 
++## [2.2.19] - 2025-10-07
++
++### Security
++
++- [CVE-2025-61772](https://github.com/advisories/GHSA-wpv5-97wm-hp9c) Multipart parser buffers unbounded per-part headers, enabling DoS (memory exhaustion)
++- [CVE-2025-61770](https://github.com/advisories/GHSA-p543-xpfm-54cp) Unbounded multipart preamble buffering enables DoS (memory exhaustion)
++
+ ## [2.2.18] - 2025-09-25
+ 
++### Security
++
+ - [CVE-2025-59830](https://github.com/rack/rack/security/advisories/GHSA-625h-95r8-8xpm) Unbounded parameter parsing in `Rack::QueryParser` can lead to memory exhaustion via semicolon-separated parameters.
+ 
+ ## [2.2.17] - 2025-06-03
+diff --git a/lib/rack/multipart/parser.rb b/lib/rack/multipart/parser.rb
+index 3b53832fc..0cb5d347c 100644
+--- a/lib/rack/multipart/parser.rb
++++ b/lib/rack/multipart/parser.rb
+@@ -20,6 +20,12 @@ class Parser
+ 
+       BOUNDARY_REGEX = /\A([^\n]*(?:\n|\Z))/
+ 
++      BOUNDARY_START_LIMIT = 16 * 1024
++      private_constant :BOUNDARY_START_LIMIT
++
++      MIME_HEADER_BYTESIZE_LIMIT = 64 * 1024
++      private_constant :MIME_HEADER_BYTESIZE_LIMIT
++
+       class BoundedIO # :nodoc:
+         def initialize(io, content_length)
+           @io             = io
+@@ -241,7 +247,13 @@ def handle_fast_forward
+           @state = :MIME_HEAD
+         else
+           raise EOFError, "bad content body" if @sbuf.rest_size >= @bufsize
+-          :want_read
++
++          # We raise if we don't find the multipart boundary, to avoid unbounded memory
++          # buffering. Note that the actual limit is the higher of 16KB and the buffer size (1MB by default)
++          raise EOFError, "multipart boundary not found within limit" if @sbuf.string.bytesize > BOUNDARY_START_LIMIT
++
++          # no boundary found, keep reading data
++          return :want_read
+         end
+       end
+ 
+@@ -274,7 +286,11 @@ def handle_mime_head
+           @collector.on_mime_head @mime_index, head, filename, content_type, name
+           @state = :MIME_BODY
+         else
+-          :want_read
++          # We raise if the mime part header is too large, to avoid unbounded memory
++          # buffering. Note that the actual limit is the higher of 64KB and the buffer size (1MB by default)
++          raise EOFError, "multipart mime part header too large" if @sbuf.string.bytesize > MIME_HEADER_BYTESIZE_LIMIT
++
++          return :want_read
+         end
+       end
+ 
+diff --git a/test/spec_multipart.rb b/test/spec_multipart.rb
+index dcc004dae..f2ae74aca 100644
+--- a/test/spec_multipart.rb
++++ b/test/spec_multipart.rb
+@@ -159,6 +159,89 @@ def rd.rewind; end
+     wr.close
+   end
+ 
++  it "rejects excessive data before boundary" do
++    rd, wr = IO.pipe
++    def rd.rewind; end
++    wr.sync = true
++
++    thr = Thread.new do
++      begin
++        longer = "0123456789" * 1024 * 1024
++        (1024 * 1024).times do
++           wr.write(longer)
++        end
++
++        wr.write("\r\n\r\n--AaB03x")
++        wr.write("\r\n")
++        wr.write('content-disposition: form-data; name="a"; filename="a.txt"')
++        wr.write("\r\n")
++        wr.write("content-type: text/plain\r\n")
++        wr.write("\r\na")
++        wr.write("--AaB03x--\r\n")
++        wr.close
++      rescue => err # this is EPIPE if Rack shuts us down
++        err
++      end
++    end
++
++    fixture = {
++      "CONTENT_TYPE" => "multipart/form-data; boundary=AaB03x",
++      "CONTENT_LENGTH" => (1024 * 1024 * 8).to_s,
++      :input => rd,
++    }
++
++    env = Rack::MockRequest.env_for '/', fixture
++    lambda {
++      Rack::Multipart.parse_multipart(env)
++    }.must_raise(EOFError).message.must_equal "multipart boundary not found within limit"
++    rd.close
++
++    err = thr.value
++    err.must_be_instance_of Errno::EPIPE
++    wr.close
++  end
++
++  it "rejects excessive mime header size" do
++    rd, wr = IO.pipe
++    def rd.rewind; end
++    wr.sync = true
++
++    thr = Thread.new do
++      begin
++        wr.write("\r\n\r\n--AaB03x")
++        wr.write("\r\n")
++        wr.write('content-disposition: form-data; name="a"; filename="a.txt"')
++        wr.write("\r\n")
++        wr.write("content-type: text/plain\r\n")
++        longer = "0123456789" * 1024 * 1024
++        (1024 * 1024).times do
++          wr.write(longer)
++        end
++        wr.write("\r\na")
++        wr.write("--AaB03x--\r\n")
++        wr.close
++      rescue => err # this is EPIPE if Rack shuts us down
++        err
++      end
++    end
++
++    fixture = {
++      "CONTENT_TYPE" => "multipart/form-data; boundary=AaB03x",
++      "CONTENT_LENGTH" => (1024 * 1024 * 8).to_s,
++      :input => rd,
++    }
++
++    env = Rack::MockRequest.env_for '/', fixture
++    lambda {
++      Rack::Multipart.parse_multipart(env)
++    }.must_raise(EOFError).message.must_equal "multipart mime part header too large"
++    rd.close
++
++    err = thr.value
++    err.must_be_instance_of Errno::EPIPE
++    wr.close
++  end
++
+   # see https://github.com/rack/rack/pull/1309
+   it "parse strange multipart pdf" do
+     boundary = '---------------------------932620571087722842402766118'

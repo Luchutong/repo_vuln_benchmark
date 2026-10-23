@@ -1,0 +1,448 @@
+{
+  "candidate_id": "disc2_be9385655ada9d84d990bc8c",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/jenkins_advisory.html",
+      "evidence_id": "ev_jenkins_advisory",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:10:00Z",
+      "sha256_of_observation": "b01ecac840c461a8179937f14e76bc2fd6d1a222d04f4a54a1560e7ece2bfaa8",
+      "source_url": "https://www.jenkins.io/security/advisory/2024-01-24/",
+      "supports": [
+        "SECURITY-3314 / CVE-2024-23897: arbitrary file read through the CLI can lead to RCE, severity Critical",
+        "args4j expandAtFiles replaces an @-prefixed argument with the file contents",
+        "affected: Jenkins 2.441 and earlier, LTS 2.426.2 and earlier",
+        "fixed: Jenkins 2.442 and LTS 2.426.3",
+        "attackers with Overall/Read can read entire files; without it they can read the first lines"
+      ],
+      "verification_method": "upstream advisory HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/cve_v5.json",
+      "evidence_id": "ev_jenkins_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:10:00Z",
+      "sha256_of_observation": "abac2e7624d0d655c99a4bcd244c9c074f2e025124ef17feb9e03641897b98b2",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-23897",
+      "supports": [
+        "CVE-2024-23897 state PUBLISHED, assigner jenkins, published 2024-01-24T18:15:09.370Z",
+        "CNA affected block names 1.606 as the start of the affected weekly line and lists 2.442, 2.426.3 and 2.440.1 as unaffected boundaries",
+        "the CNA supplies no CVSS and no problemType"
+      ],
+      "verification_method": "CVE List v5 Jenkins CNA record"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/nvd_cve.json",
+      "evidence_id": "ev_jenkins_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:10:00Z",
+      "sha256_of_observation": "90549d48f992b3422421b65a55ad3d626cd86a7a072aab7539fb8cdffcf4cad7",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-23897",
+      "supports": [
+        "NVD primary CVSS 3.1 9.8 CRITICAL AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "NVD primary CWE-22; a secondary analyzer assigns CWE-27",
+        "CPE configuration has an lts edition <2.426.3 and a non-LTS edition <2.442",
+        "NVD status Analyzed, published 2024-01-24T18:15:09.370"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/osv_cve.json",
+      "evidence_id": "ev_jenkins_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:11:00Z",
+      "sha256_of_observation": "8e13e65542709f12c61ac2a00c21211a35ef6a302ff3640f4909f831275f82c4",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-23897",
+      "supports": [
+        "OSV aliases BIT-jenkins-2024-23897 and GHSA-6f9g-cxwr-q5jr",
+        "OSV severity CVSS 3.1 9.8 AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "OSV GIT range events name fixed 9ed5f66f62ac5b116357d2f58cb37ca3161c5b60 and 10b1b883319ff21bfe742bd0abe225dd12f10c2b",
+        "those two commits are the release-prep commits, not the [SECURITY-3314] source fixes",
+        "OSV lists CISA KEV as a reference"
+      ],
+      "verification_method": "OSV API query"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/git_object_checks.txt",
+      "evidence_id": "ev_jenkins_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:23:00Z",
+      "sha256_of_observation": "040902e00f3870fd4e732a98f4923e9fa4c4e51b7bcf1303b20cbbbf914a8f2c",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/a74865391d697f171cdfa977a956e8b96e0b0336",
+      "supports": [
+        "jenkins-2.441 peels to 3b0de10d, jenkins-2.442 to 10b1b883, jenkins-2.426.2 to 3eb70099, jenkins-2.426.3 to 9ed5f66f",
+        "a7486539 is '[SECURITY-3314]', ancestor of jenkins-2.426.3 and absent from the other three tags",
+        "554f0378 is '[SECURITY-3314]', ancestor of jenkins-2.442 and absent from the other three tags",
+        "9ed5f66f and 10b1b883 are the maven-release-plugin prepare-release commits immediately above the two source fixes",
+        "the 2.426.2..2.426.3 and 2.441..2.442 logs place the fixes directly below the release commits",
+        "jenkins-2.440.1 peels to 02f2a4cc and 3e876d4c [SECURITY-3314] is an ancestor of that tag",
+        "3e876d4c is the LTS 2.440 cherry-pick; its file content matches the 2.442 fix"
+      ],
+      "verification_method": "exact-tag shallow fetches plus --deepen into a bare repository; git rev-parse of peeled tags; merge-base --is-ancestor; git log of the release ranges"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/CLICommand_2.441.java",
+      "evidence_id": "ev_jenkins_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:12:00Z",
+      "sha256_of_observation": "c17fa6e3bdd80a76707036a48f3f9ce6ca8587f6c177e7f0180e144358ac8172",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLICommand.java#L309-L311",
+      "supports": [
+        "CLICommand.getCmdLineParser at lines 309-311 constructs new CmdLineParser(this) with default properties",
+        "no ParserProperties.withAtSyntax(false) is applied, so args4j's expandAtFiles stays enabled",
+        "there is no ALLOW_AT_SYNTAX switch in 2.441"
+      ],
+      "verification_method": "file read at the jenkins-2.441 tag"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/CLICommand_2.442.java",
+      "evidence_id": "ev_jenkins_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:12:00Z",
+      "sha256_of_observation": "d5c3ee592f57df438c45091273dbe41ed8778db55a5009d82ad520160499e4d9",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/10b1b883319ff21bfe742bd0abe225dd12f10c2b/core/src/main/java/hudson/cli/CLICommand.java#L121-L324",
+      "supports": [
+        "2.442 adds static ALLOW_AT_SYNTAX from SystemProperties, default false",
+        "getCmdLineParser builds ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX) and passes it to CmdLineParser"
+      ],
+      "verification_method": "file read at the jenkins-2.442 tag"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/CLIRegisterer_2.441.java",
+      "evidence_id": "ev_jenkins_registerer_vuln",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:12:00Z",
+      "sha256_of_observation": "3d31683f992171f0d5418d27cf58bf099c6aab2cd2a77a4587c2f361dcac3fa3",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/declarative/CLIRegisterer.java#L134",
+      "supports": [
+        "the declarative @CLIMethod path builds new CmdLineParser(null) at line 134 with default properties",
+        "this is a second parser construction path independent of CLICommand.getCmdLineParser"
+      ],
+      "verification_method": "file read at the jenkins-2.441 tag"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/CLIRegisterer_2.442.java",
+      "evidence_id": "ev_jenkins_registerer_fixed",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:12:00Z",
+      "sha256_of_observation": "1baeb26a319e231aff4e6b60f965b9a435dcaf6528fe4aaf63b486cb1a2ec94b",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/10b1b883319ff21bfe742bd0abe225dd12f10c2b/core/src/main/java/hudson/cli/declarative/CLIRegisterer.java#L134-L136",
+      "supports": [
+        "2.442 also applies ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX) to the declarative parser",
+        "both parser construction paths are closed by the fix"
+      ],
+      "verification_method": "file read at the jenkins-2.442 tag"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/fix_diff.txt",
+      "evidence_id": "ev_jenkins_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:12:00Z",
+      "sha256_of_observation": "4381659d127157fc46b92fc4f8ce76e3f78e19356ba480717e180dee0725463f",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/a74865391d697f171cdfa977a956e8b96e0b0336",
+      "supports": [
+        "the LTS fix adds ALLOW_AT_SYNTAX and disables @-syntax on both CmdLineParser constructions",
+        "the same commit adds Security3314Test with a connect-node and disable-job parameterization",
+        "the weekly fix 554f0378 carries the same change on the weekly branch"
+      ],
+      "verification_method": "git show of the LTS fix commit; ancestry of the weekly commit checked separately"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/Security3314Test.java",
+      "evidence_id": "ev_jenkins_regression_test",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:12:00Z",
+      "sha256_of_observation": "0fea7d2deebcbf2ca33be21f5b666522b29a9ec4f1f6c7d9e003bab74723a216",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/a74865391d697f171cdfa977a956e8b96e0b0336/test/src/test/java/jenkins/security/Security3314Test.java",
+      "supports": [
+        "the test passes an @-prefixed temp file to connect-node and disable-job",
+        "it asserts stderr contains the literal @path and not the file content",
+        "the test was read but not executed"
+      ],
+      "verification_method": "file read at the fix commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_d9b0ffa82cd068d0/snapshot_proposal.json",
+      "evidence_id": "ev_jenkins_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:12:00Z",
+      "sha256_of_observation": "3609257f0ee5f5c4fed67b3ff05868e11d07b9f0ff1bddf01d828528d0d0208f",
+      "source_url": "https://github.com/jenkinsci/jenkins/tree/3b0de10df3bedba515e13032104d4d84f83045be",
+      "supports": [
+        "snapshot_id snap_d9b0ffa82cd068d0 at jenkins-2.441",
+        "12049 tracked files scanned; 82 ambiguous files; 327 binary files",
+        "Java first-party 1144 files / 7,633,949 bytes / 24.89% of tracked nonbinary bytes",
+        "full_scan=true with pinned github-linguist 9.7.0"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    },
+    {
+      "artifact_path": "runs/verification/jenkins_cve_2024_23897/sources/CLICommand_2.440.1.java",
+      "evidence_id": "ev_jenkins_fixed_24401",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:23:00Z",
+      "sha256_of_observation": "d5c3ee592f57df438c45091273dbe41ed8778db55a5009d82ad520160499e4d9",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/02f2a4cc586630e6637ff9bc4e0eb611a79efb05/core/src/main/java/hudson/cli/CLICommand.java#L121-L324",
+      "supports": [
+        "at tag jenkins-2.440.1, CLICommand uses ALLOW_AT_SYNTAX and withAtSyntax at both parser construction sites",
+        "the 2.440-line fix 3e876d4c is an ancestor of jenkins-2.440.1"
+      ],
+      "verification_method": "file read at the jenkins-2.440.1 tag"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "aliases": [
+      1,
+      3
+    ],
+    "critical_operation": [
+      5,
+      7,
+      9,
+      10
+    ],
+    "cwe": [
+      2
+    ],
+    "fix_commits": [
+      4,
+      9
+    ],
+    "fixed_releases": [
+      4,
+      6,
+      12
+    ],
+    "languages": [
+      11
+    ],
+    "severity": [
+      2
+    ],
+    "vulnerable_commit": [
+      4,
+      5
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No Jenkins controller was started and no CLI command was sent; the finding is static. The upstream Security3314Test was read, not run.",
+    "Jenkins publishes a weekly line and an LTS line whose version numbers interleave: fixed LTS 2.426.3 and 2.440.1 are both numerically below the affected weekly 2.441, while weekly 2.427-2.441 remain affected. A flat Maven range cannot express this disjunction. The two canonical ranges are the advisory's line boundaries (<2.442 weekly, <2.426.3 LTS); a consumer comparing LTS releases against the weekly range can over-approximate fixed 2.426.3/2.440.1.",
+    "The CVE v5 CNA record supplies no CVSS and no problemType and encodes the versions with unusual lessThan/status pairs; CWE-22 and the 9.8 vector come from NVD, with CWE-27 from a secondary NVD analyzer.",
+    "OSV's GIT 'fixed' endpoints 9ed5f66f and 10b1b883 are the maven-release-plugin prepare-release commits, not the source fixes. The source fixes are a7486539 (LTS) and 554f0378 (weekly), both '[SECURITY-3314]'.",
+    "The two source fixes are branch-specific: a7486539 is only in the 2.426.x LTS line and 554f0378 only in the weekly line. Neither is in jenkins-2.441.",
+    "The advisory describes what an attacker can read as depending on overall permissions and available CLI commands; no line-count or permission experiment was performed.",
+    "The snapshot inventory has 12049 tracked files and 82 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+    "The fixed-release claim is verified at 2.442, 2.426.3 and 2.440.1. The 2.440.1 tag commit is dated 2024-02-21, after the advisory's 2024-01-24 publication, so the advisory page was revised; the CNA record's dateUpdated is 2024-04-15.",
+    "MITRE and NVD copy a description saying unauthenticated attackers can read arbitrary files; the Jenkins advisory limits unauthenticated reads to the first few lines (three in recent releases) and requires Overall/Read for full files. The canonical limitation text follows the advisory.",
+    "OSV's affected.versions list contains release candidates and pseudo-versions such as jenkins-2.426.3-rc and builds/341, and omits 2.440.1; it is not used as the range source."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "    protected CmdLineParser getCmdLineParser() {\n        return new CmdLineParser(this);\n    }",
+      "description": "Jenkins parses CLI command arguments with args4j. In 2.441 both parser construction sites use default ParserProperties, which leave expandAtFiles enabled: an argument beginning with @ is replaced by that file's contents before the command sees it. CLICommand.getCmdLineParser returns `new CmdLineParser(this)` with no properties, and CLIRegisterer.bindMethod builds `new CmdLineParser(null)` for declarative @CLIMethod commands. The fixed releases add a default-false ALLOW_AT_SYNTAX switch and call ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX) at both sites, so the @-syntax is no longer expanded unless an administrator explicitly enables it.",
+      "file": "core/src/main/java/hudson/cli/CLICommand.java",
+      "function": "getCmdLineParser",
+      "language": "Java",
+      "line": "309-311",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLICommand.java#L309-L311"
+    },
+    "entry_point": {
+      "description": "Remote and local CLI commands reach CLICommand.main, which calls getCmdLineParser().parseArgument to bind the argument list. The argument list is attacker-controlled for unauthenticated CLI transports.",
+      "file": "core/src/main/java/hudson/cli/CLICommand.java",
+      "function": "main",
+      "language": "Java",
+      "line": 227,
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLICommand.java#L227"
+    },
+    "location_id": "loc_CVE-2024-23897_snap_d9b0ffa82cd068d0",
+    "location_kind": "config",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "trace": [
+      {
+        "description": "CLICommand.main receives the argument list and calls getCmdLineParser",
+        "file": "core/src/main/java/hudson/cli/CLICommand.java",
+        "function": "main",
+        "language": "Java",
+        "line": 227,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLICommand.java#L227"
+      },
+      {
+        "description": "main calls getCmdLineParser, which returns a parser with default properties, leaving args4j expandAtFiles enabled",
+        "file": "core/src/main/java/hudson/cli/CLICommand.java",
+        "function": "getCmdLineParser",
+        "language": "Java",
+        "line": 233,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLICommand.java#L233"
+      },
+      {
+        "description": "declarative @CLIMethod commands build their parser the same way",
+        "file": "core/src/main/java/hudson/cli/declarative/CLIRegisterer.java",
+        "function": "bindMethod",
+        "language": "Java",
+        "line": 134,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/declarative/CLIRegisterer.java#L134"
+      },
+      {
+        "description": "args4j replaces @path with the file contents before option binding, so file contents become command arguments",
+        "file": "core/src/main/java/hudson/cli/CLICommand.java",
+        "function": "getCmdLineParser",
+        "language": "Java",
+        "line": 310,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLICommand.java#L310"
+      }
+    ],
+    "verification_method": "Static read of CLICommand.java and CLIRegisterer.java at 2.441/2.442, the fix diff, the added test, and release-tag ancestry; no code executed.",
+    "vulnerability_id": "CVE-2024-23897"
+  },
+  "open_questions": [
+    "Which CLI commands and permission levels allow how many lines to be read was not measured.",
+    "Binary-file reading and key extraction described by the advisory were not attempted.",
+    "The exact args4j version and its default expandAtFiles behavior were not inspected from the dependency jar."
+  ],
+  "prepared_at": "2026-10-21T15:14:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "full_name": "jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read CLICommand.getCmdLineParser and CLIRegisterer.bindMethod at 2.441 and confirm both use default parser properties.",
+      "An independent reviewer must confirm a7486539 is absent from jenkins-2.441 and an ancestor of jenkins-2.426.3, and 554f0378 is an ancestor of jenkins-2.442.",
+      "An independent reviewer must confirm the advisory boundaries and that the OSV GIT endpoints are release commits, not source fixes.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "Jenkins security advisory",
+      "CVE List v5 Jenkins CNA record",
+      "NVD analysis",
+      "OSV record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "The advisory, NVD and OSV agree on the 2.442 and 2.426.3 fix boundaries and on the 9.8 CVSS 3.1 vector. The CNA record supplies no CVSS and no CWE; CWE-22 comes from NVD, CWE-27 from a secondary NVD analyzer. OSV's GIT fixed endpoints are the two maven-release-plugin prepare-release commits, not the [SECURITY-3314] source fixes, and OSV carries no severity field while its references include CISA KEV. The weekly and LTS lines interleave numerically, so the two canonical ranges are the advisory's line boundaries and a flat Maven comparison can over-approximate fixed LTS releases.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2024-01-24/",
+    "affected_packages": [
+      {
+        "affected_range": ">=1.606,<2.442",
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+      },
+      {
+        "affected_range": "<2.426.3",
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core"
+      }
+    ],
+    "aliases": [
+      "CVE-2024-23897",
+      "GHSA-6f9g-cxwr-q5jr",
+      "BIT-jenkins-2024-23897"
+    ],
+    "category_l1": "path_traversal",
+    "category_l2": "CLI @-file expansion allows arbitrary file read",
+    "cwe_ids": [
+      "CWE-22",
+      "CWE-27"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "stable-2.426",
+        "message": "[SECURITY-3314]",
+        "sha": "a74865391d697f171cdfa977a956e8b96e0b0336",
+        "url": "https://github.com/jenkinsci/jenkins/commit/a74865391d697f171cdfa977a956e8b96e0b0336"
+      },
+      {
+        "branch": "master",
+        "message": "[SECURITY-3314]",
+        "sha": "554f03782057c499c49bbb06575f0d28b5200edb",
+        "url": "https://github.com/jenkinsci/jenkins/commit/554f03782057c499c49bbb06575f0d28b5200edb"
+      },
+      {
+        "branch": "stable-2.440",
+        "message": "[SECURITY-3314]",
+        "sha": "3e876d4c0c14b1a421799a9c69ced6124ad21af4",
+        "url": "https://github.com/jenkinsci/jenkins/commit/3e876d4c0c14b1a421799a9c69ced6124ad21af4"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "release_url": "https://github.com/jenkinsci/jenkins/releases/tag/jenkins-2.442",
+        "tag": "jenkins-2.442",
+        "verified_content": "At tag jenkins-2.442 (10b1b883), CLICommand and CLIRegisterer construct CmdLineParser with ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX); fix 554f0378 is an ancestor of the tag",
+        "version": "2.442"
+      },
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "release_url": "https://github.com/jenkinsci/jenkins/releases/tag/jenkins-2.426.3",
+        "tag": "jenkins-2.426.3",
+        "verified_content": "At tag jenkins-2.426.3 (9ed5f66f), CLICommand and CLIRegisterer construct CmdLineParser with ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX); fix a7486539 is an ancestor of the tag",
+        "version": "2.426.3"
+      },
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "release_url": "https://github.com/jenkinsci/jenkins/releases/tag/jenkins-2.440.1",
+        "tag": "jenkins-2.440.1",
+        "verified_content": "At tag jenkins-2.440.1 (02f2a4cc), CLICommand and CLIRegisterer use ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX); cherry-pick 3e876d4c is an ancestor of the tag",
+        "version": "2.440.1"
+      }
+    ],
+    "published_at": "2024-01-24T18:15:09Z",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2024-01-24/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-23897",
+      "https://github.com/advisories/GHSA-6f9g-cxwr-q5jr",
+      "https://github.com/jenkinsci/jenkins/commit/a74865391d697f171cdfa977a956e8b96e0b0336",
+      "https://www.cisa.gov/known-exploited-vulnerabilities-catalog?field_cve=CVE-2024-23897"
+    ],
+    "repo_id": "1103607",
+    "severity": {
+      "level": "critical",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 9.8 falls in Critical (9.0-10.0); OSV carries the same vector",
+      "score": 9.8,
+      "source": "NVD primary metric nvd@nist.gov; the Jenkins CNA supplied no CVSS",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-23897",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "source_type": "upstream_advisory",
+    "title": "Jenkins CLI args4j @-file expansion lets unauthenticated attackers read controller files",
+    "vulnerability_id": "CVE-2024-23897",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "vulnerable_commit_basis": "tag jenkins-2.441 points directly at 3b0de10d..., and both source fixes are absent from this tag",
+    "vulnerable_version": "2.441"
+  }
+}

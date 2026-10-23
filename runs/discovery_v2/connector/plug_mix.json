@@ -1,0 +1,24 @@
+{
+  "key": "plug_mix",
+  "repository": "elixir-plug/plug",
+  "path": "mix.exs",
+  "retrieved_at": "2026-10-21T10:55:24.857Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "defmodule Plug.MixProject do\n  use Mix.Project\n\n  @version \"1.21.0-dev\"\n  @description \"Compose web applications with functions\"\n  @xref_exclude [Plug.Cowboy, :ssl]\n  @source_url \"https://github.com/elixir-plug/plug\"\n\n  def project do\n    [\n      app: :plug,\n      version: @version,\n      elixir: \"~> 1.15\",\n      deps: deps(),\n      package: package(),\n      description: @description,\n      name: \"Plug\",\n      elixirc_options: [no_warn_undefined: @xref_exclude],\n      consolidate_protocols: Mix.env() != :test,\n      docs: [\n        extras: [\n          \"CHANGELOG.md\",\n          \"README.md\",\n          \"guides/https.md\"\n        ],\n        main: \"readme\",\n        groups_for_modules: groups_for_modules(),\n        groups_for_extras: groups_for_extras(),\n        source_ref: \"v#{@version}\",\n        source_url: @source_url\n      ],\n      test_ignore_filters: [&String.starts_with?(&1, \"test/fixtures/\")]\n    ]\n  end\n\n  # Configuration for the OTP application\n  def application do\n    [\n      extra_applications: extra_applications(Mix.env()),\n      mod: {Plug.Application, []},\n      env: [validate_header_keys_during_test: true]\n    ]\n  end\n\n  defp extra_applications(:test), do: [:logger, :eex, :ssl]\n  defp extra_applications(_), do: [:logger, :eex]\n\n  def deps do\n    [\n      {:mime, \"~> 1.0 or ~> 2.0\"},\n      {:plug_crypto, plug_crypto_version()},\n      {:telemetry, \"~> 0.4.3 or ~> 1.0\"},\n      {:ex_doc, \"~> 0.21\", only: :docs}\n    ]\n  end\n\n  if System.get_env(\"PLUG_CRYPTO_2_0\", \"true\") == \"true\" do\n    defp plug_crypto_version, do: \"~> 1.1.1 or ~> 1.2 or ~> 2.0\"\n  else\n    defp plug_crypto_version, do: \"~> 1.1.1 or ~> 1.2\"\n  end\n\n  defp package do\n    %{\n      licenses: [\"Apache-2.0\"],\n      maintainers: [\"Gary Rennie\", \"José Valim\"],\n      links: %{\n        \"Changelog\" => \"#{@source_url}/blob/main/CHANGELOG.md\",\n        \"GitHub\" => @source_url\n      },\n      files: [\"lib\", \"mix.exs\", \"README.md\", \"CHANGELOG.md\", \"LICENSE\", \"src\", \".formatter.exs\"]\n    }\n  end\n\n  defp groups_for_modules do\n    # Ungrouped Modules\n    #\n    # Plug\n    # Plug.Builder\n    # Plug.Conn\n    # Plug.HTML\n    # Plug.Router\n    # Plug.Test\n    # Plug.Upload\n\n    [\n      Plugs: [\n        Plug.BasicAuth,\n        Plug.CSRFProtection,\n        Plug.Head,\n        Plug.Logger,\n        Plug.MethodOverride,\n        Plug.Parsers,\n        Plug.RequestId,\n        Plug.RewriteOn,\n        Plug.SSL,\n        Plug.Session,\n        Plug.Static,\n        Plug.Telemetry\n      ],\n      \"Error handling\": [\n        Plug.Debugger,\n        Plug.ErrorHandler,\n        Plug.Exception\n      ],\n      \"Plug.Conn\": [\n        Plug.Conn.Adapter,\n        Plug.Conn.Cookies,\n        Plug.Conn.Query,\n        Plug.Conn.Status,\n        Plug.Conn.Unfetched,\n        Plug.Conn.Utils\n      ],\n      \"Plug.Parsers\": [\n        Plug.Parsers.JSON,\n        Plug.Parsers.MULTIPART,\n        Plug.Parsers.URLENCODED\n      ],\n      \"Plug.Session\": [\n        Plug.Session.COOKIE,\n        Plug.Session.ETS,\n        Plug.Session.Store\n      ]\n    ]\n  end\n\n  defp groups_for_extras do\n    [\n      Guides: ~r/guides\\/[^\\/]+\\.md/\n    ]\n  end\nend\n",
+      "encoding": "utf-8",
+      "sha": "841855943260e8c89c34eae685fa1f3e1eb29555",
+      "display_url": "https://github.com/elixir-plug/plug/blob/main/mix.exs",
+      "display_title": "mix.exs"
+    },
+    "isError": false
+  }
+}

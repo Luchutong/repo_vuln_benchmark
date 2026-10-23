@@ -1,0 +1,22 @@
+tags:
+2b66d7d7d8129531229708ef708860844db91944
+057d88bef2d18a10d3b0b8fb093332131dc58e2f
+blobs:
+62addf1e7a75eea0135b43b04fb7ad716d62256d
+91f9e8fee35a96998995d3c285f64e046c63ad5b
+fix 18ecd03e ancestry:
+v5.4.46 YES
+v5.4.45 NO
+v5.4.45 shell invocation:
+
+        $cmd = 'cmd /V:ON /E:ON /D /C ('.str_replace("\n", ' ', $cmd).')';
+        foreach ($this->processPipes->getFiles() as $offset => $filename) {
+v5.4.46 shell invocation:
+
+        if (!$comSpec && $comSpec = (new ExecutableFinder())->find('cmd.exe')) {
+            // Escape according to CommandLineToArgvW rules
+            $comSpec = '"'.preg_replace('{(\\\\*+)"}', '$1$1\"', $comSpec) .'"';
+        }
+
+        $cmd = ($comSpec ?? 'cmd').' /V:ON /E:ON /D /C ('.str_replace("\n", ' ', $cmd).')';
+        foreach ($this->processPipes->getFiles() as $offset => $filename) {

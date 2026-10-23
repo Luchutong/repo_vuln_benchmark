@@ -1,0 +1,440 @@
+{
+ "candidate_id": "disc2_25c00454e4dc5734add865b2",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:15:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45065",
+  "aliases": [
+   "CVE-2026-45065",
+   "GHSA-72xp-p242-47p9"
+  ],
+  "title": "Symfony UrlGenerator anchors a raw alternation requirement incorrectly, so a middle alternative can match a substring and yield a protocol-relative off-site URL",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/routing",
+    "purl": "pkg:composer/symfony/routing",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/routing",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 both requirement checks wrap the alternation in a non-capturing group; fix bcf487c2 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: tag v5.4.52 peels to eabc5f9e and UrlGenerator.php blob 97fc8116 matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "bcf487c22f3240ba994124e0e0fe8616f3cfc47a",
+    "branch": "5.4",
+    "message": "[Routing] Fix regex alternation anchoring in UrlGenerator requirement validation",
+    "url": "https://github.com/symfony/symfony/commit/bcf487c22f3240ba994124e0e0fe8616f3cfc47a"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-185",
+   "CWE-601"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+   "score": 2.3,
+   "level": "low",
+   "numeric_level_rationale": "CVSS 4.0 base 2.3 falls in Low (0.1-3.9); the CNA publishes this vector and NVD republishes it as a Secondary metric. NVD additionally carries a Primary CVSS 3.1 metric from nvd@nist.gov (6.1 MEDIUM, AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N). The GHSA label MODERATE tracks the 3.1 score and disagrees with the 4.0 2.3 Low; the canonical severity keeps the CNA 4.0 vector and records both NVD metrics.",
+   "source": "GitHub_M CNA CVSS 4.0 metric (Secondary in NVD); NVD also has a Primary CVSS 3.1 6.1 MEDIUM metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-72xp-p242-47p9",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 2.3,
+     "level": "low",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 6.1,
+     "level": "medium",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+    }
+   ]
+  },
+  "category_l1": "open_redirect",
+  "category_l2": "an ungrouped alternation in a route requirement lets a substring match a middle alternative, so an attacker-influenced route parameter such as _locale can be set to //host and produce a protocol-relative off-site URL",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45065",
+  "published_at": "2026-07-14T17:43:45Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45065",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-72xp-p242-47p9",
+   "https://github.com/symfony/symfony/commit/bcf487c22f3240ba994124e0e0fe8616f3cfc47a",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45065",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45065_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45065",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+  "function": "UrlGenerator::doGenerate",
+  "language": "PHP",
+  "line": "192",
+  "critical_operation": {
+   "code_excerpt": "                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\\(\\?(?:=|<=|!|<!)((?:[^()\\\\\\\\]+|\\\\\\\\.|\\((?1)\\))*)\\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]] ?? '')) {",
+   "description": "doGenerate() builds the requirement validation pattern as \"#^\" . $token[2] . \"$#i\" where $token[2] is the raw route requirement. For a requirement written as an alternation such as \"en|fr|vi|de\", the ^ and $ anchors apply only to the first and last alternatives, so any middle alternative matches anywhere in the supplied value. A value like \"/evil.com\" therefore passes because it contains \"vi\", and the same value is then substituted into the generated path, which begins \"//evil.com/\" and is interpreted by browsers as a protocol-relative URL to another host. The 5.4.52 fix wraps the requirement in \"(?: ... )\" so the anchors cover the whole alternation. The host-token branch at line 247 had the same defect and is fixed in the same commit.",
+   "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+   "function": "UrlGenerator::doGenerate",
+   "language": "PHP",
+   "line": 192,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L192"
+  },
+  "entry_point": {
+   "description": "An application route declares a requirement as an alternation (a locale list is the common case) and passes a request-influenced parameter to the Twig path()/url() helpers or to UrlGenerator::generate(). The requirement check is the gate that is bypassed.",
+   "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+   "function": "UrlGenerator::generate",
+   "language": "PHP",
+   "line": 128,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L128"
+  },
+  "trace": [
+   {
+    "description": "generate() resolves the route and calls doGenerate() with the user-supplied parameters",
+    "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+    "function": "UrlGenerator::generate",
+    "language": "PHP",
+    "line": 128,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L128"
+   },
+   {
+    "description": "doGenerate() checks each variable token against the anchored raw requirement; with an alternation a middle alternative matches as a substring",
+    "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+    "function": "UrlGenerator::doGenerate",
+    "language": "PHP",
+    "line": 192,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L192"
+   },
+   {
+    "description": "the accepted value is substituted into the path as $token[1].$mergedParams[$varName].$url, so \"/evil.com\" yields a path beginning \"//evil.com/...\" that browsers treat as protocol-relative",
+    "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+    "function": "UrlGenerator::doGenerate",
+    "language": "PHP",
+    "line": 204,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L204"
+   }
+  ],
+  "verification_method": "Static read of UrlGenerator.php at v5.4.45 and v5.4.52, the 5.4 fix diff and its regression test, tag peels, blob comparison and ancestry; no PHP code was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45065_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "fba2577c5c42baceda1f4d2108646b9bd9fb4ba2b04cfa6977bf216d9648d0f2",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45065",
+   "supports": [
+    "NVD status Analyzed; CPE sensiolabs:symfony versionEndExcluding 5.4.52 (and 6.4.40/7.4.12/8.0.12)",
+    "NVD carries only a CVSS 4.0 2.3 LOW metric marked Secondary from security-advisories@github.com; there is no NVD-primary metric",
+    "NVD maps the CVE to the upstream description about UrlGenerator building a validation pattern from the raw requirement string"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45065_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "254092cd6dfa706ab19eab2c4d1abdb30eab34419e61ae44e8183d7b9ea9df4a",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45065",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T17:43:45Z",
+    "affected ranges <5.4.52, >=6.0.0-BETA1 <6.4.40, >=7.0.0-BETA1 <7.4.12, >=8.0.0-BETA1 <8.0.12",
+    "CNA CVSS 4.0 2.3 LOW AV:N/AC:L/AT:P/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N; CWE-185 and CWE-601",
+    "CNA description states UrlGenerator builds the pattern as ^ plus the raw requirement plus $, so ungrouped alternations match unanchored substrings and //evil.com can satisfy a locale requirement"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45065_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "01463a56759079f9b513886509bd75d78e02a5ea36868a19ddf8dc20e7ba163e",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-72xp-p242-47p9",
+   "supports": [
+    "GHSA-72xp-p242-47p9 aliases CVE-2026-45065, github_reviewed, cwe_ids CWE-185 and CWE-601, severity MODERATE",
+    "affected symfony/routing and symfony/symfony: 0..5.4.52, 6.0.0..6.4.40, 7.0.0..7.4.12, 8.0.0..8.0.12",
+    "the GHSA resolution names the 5.4 fix commit bcf487c22f3240ba994124e0e0fe8616f3cfc47a",
+    "the GHSA body says the class now wraps the requirement in a non-capturing group so the anchors apply to the whole alternation"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45065_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "2f65ca7f83c22d7d9812919ea4f6b760456d1bed749ae8b2a5fe9cc604de28ac",
+   "source_url": "https://symfony.com/cve-2026-45065",
+   "supports": [
+    "affected Symfony versions <5.4.52, >=6 <6.4.40, >=7 <7.4.12, >=8 <8.0.12 of the Routing component; fixed in 5.4.52, 6.4.40, 7.4.12, 8.0.12",
+    "description: a common _locale requirement such as ar|bg|...|vi|...|zh_CN is wrapped as #^req$#, so a value like /evil.com satisfies it because it contains vi, and the generated path //evil.com/... is protocol-relative",
+    "resolution: UrlGenerator wraps the requirement in a non-capturing group so ^ and $ anchor the whole alternation",
+    "the page dates the advisory May 20, 2026 and publishes the branch 5.4 patch bcf487c2"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45065_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "fa7dd0ca0bc69dec192fb9757e343e76884335f7d7b706dad14f82bb55f2cfa4",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-72xp-p242-47p9",
+   "supports": [
+    "the GitHub advisory page carries the same description, resolution, affected ranges and the bcf487c2 5.4 patch link as symfony.com",
+    "the advisory credits Claude Mythos Preview (via Project Glasswing)",
+    "the advisory label is MODERATE while its CVSS 4.0 vector computes to 2.3 LOW"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45065_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "87aeb968c203787052bdc12bc0dd53c277dcd1d977ff94b204446862d5db2b7a",
+   "source_url": "https://github.com/symfony/symfony/commit/bcf487c22f3240ba994124e0e0fe8616f3cfc47a",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7d8129531229708ef708860844db91944 and v5.4.52 peels to eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f",
+    "fix commit bcf487c2 is dated 2026-04-16 with subject \"[Routing] Fix regex alternation anchoring in UrlGenerator requirement validation\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "UrlGenerator.php blob is 4419e9ef at v5.4.45 (patch pre-image) and 97fc8116 at v5.4.52 (patch post-image)",
+    "the v5.4.45 line 192 and v5.4.52 line 192 excerpts inside the file show the added non-capturing group"
+   ],
+   "verification_method": "git rev-parse/merge-base/show plus local blob ids; corroborated by the GitHub compare API"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/compare_45_52.json",
+   "evidence_id": "ev_symfony_45065_compare_45_52",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "ba559d52cd8da9efeba9f59cc5ffa4f96a822a62aba5ed7b5f980988de65b6b4",
+   "source_url": "https://api.github.com/repos/symfony/symfony/compare/v5.4.45...v5.4.52",
+   "supports": [
+    "GitHub compare reports status ahead, behind_by 0, ahead_by 188, so v5.4.45 is an ancestor of v5.4.52",
+    "bcf487c2 appears in the commit list of the comparison"
+   ],
+   "verification_method": "GitHub compare API JSON"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/compare_45_fix.json",
+   "evidence_id": "ev_symfony_45065_compare_45_fix",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "a15230f31ee58bf24fb6ac9d14a715ce29e1bef8aaec732ddcfd2950d398f02f",
+   "source_url": "https://api.github.com/repos/symfony/symfony/compare/v5.4.45...bcf487c22f3240ba994124e0e0fe8616f3cfc47a",
+   "supports": [
+    "GitHub compare reports status ahead, behind_by 0, ahead_by 160, so the fix commit is a descendant of v5.4.45",
+    "bcf487c2 itself is the head commit of this comparison"
+   ],
+   "verification_method": "GitHub compare API JSON"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/urlgenerator_5.4.45.php",
+   "evidence_id": "ev_symfony_45065_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "184adf79e1cb44838e2bd80a923eaa1cee2de19adabe7032a6cf8da68bae496f",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L192",
+   "supports": [
+    "doGenerate() validates each variable token against preg_match('#^'.$token[2].'$#i', ...) when strictRequirements is enabled (default true)",
+    "the raw route requirement is interpolated between the anchors without grouping, so for an alternation requirement the anchors bind only the first and last alternatives",
+    "the same construction is repeated for host tokens at line 247 of the same file"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 4419e9ef)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/urlgenerator_5.4.52.php",
+   "evidence_id": "ev_symfony_45065_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "459c153b34fefc7382f82305941502a24580863111cdd634e56761635f612251",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L192",
+   "supports": [
+    "at v5.4.52 the pattern is '#^(?:'.$token[2].')$#i', wrapping the requirement so the anchors apply to the whole alternation",
+    "the host-token branch at line 247 takes the same non-capturing-group form"
+   ],
+   "verification_method": "file read at v5.4.52 (blob 97fc8116)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45065_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "73eab0906637817617163b72eaa2c9dec5643366af2dd30efb9ae2a8f26e28e5",
+   "source_url": "https://github.com/symfony/symfony/commit/bcf487c22f3240ba994124e0e0fe8616f3cfc47a.patch",
+   "supports": [
+    "the patch changes both requirement checks in UrlGenerator::doGenerate to use '#^(?:' ... ')$#i'",
+    "the patch adds testGenerateForRouteWithAlternationRequirementRejectsSubstringMatch, which builds a route with _locale requirement en|fr|vi|de and expects /evil.com to raise InvalidParameterException",
+    "the pre-image blob 4419e9ef and post-image blob 97fc8116 in the diff headers match the file contents at v5.4.45 and v5.4.52"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/urlgenerator_5.4.45.php",
+   "evidence_id": "ev_symfony_45065_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "184adf79e1cb44838e2bd80a923eaa1cee2de19adabe7032a6cf8da68bae496f",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L1-L14",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Component\\Routing\\Generator",
+    "the snapshot inventory records the Routing component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45065/sources/ref_545.json",
+   "evidence_id": "ev_symfony_45065_tag_ref",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:15:00Z",
+   "sha256_of_observation": "6a0f1c1c770d21b74cef96c7616e4954060cfea610fe01fad5846d0c208ed2f8",
+   "source_url": "https://api.github.com/repos/symfony/symfony/git/ref/tags/v5.4.45",
+   "supports": [
+    "the GitHub ref for tag v5.4.45 is an annotated tag object a19172db79078b67b622f5872a65cb6b6a5bbab1",
+    "peeling that tag yields commit 2b66d7d7 in the local bare clone"
+   ],
+   "verification_method": "GitHub git refs API JSON"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   8,
+   9,
+   10
+  ],
+  "cwe": [
+   0,
+   1,
+   2,
+   4
+  ],
+  "fix_commits": [
+   4,
+   5,
+   6,
+   10
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   11
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6,
+   8,
+   12
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history, release tags and GitHub compare"
+  ],
+  "independent_of_primary": true,
+  "notes": "NVD, the CNA, GHSA/OSV and symfony.com agree on the mechanism, CWE-185/CWE-601, the <5.4.52 range and the v5.4.52 release. The GHSA names the 5.4 fix commit and the advisory resolution matches the diff. NVD has both a Primary CVSS 3.1 6.1 MEDIUM metric (nvd@nist.gov) and a Secondary CVSS 4.0 2.3 LOW metric (the CNA vector); the GHSA MODERATE label tracks the 3.1 score. The canonical severity keeps the CNA 4.0 vector, and both scores are recorded in all_published_scores.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read UrlGenerator::doGenerate at v5.4.45 and confirm the requirement is interpolated between ^ and $ without grouping.",
+   "An independent reviewer must confirm bcf487c2 is absent from v5.4.45 and present in v5.4.52, and that the fixed pattern adds the non-capturing group.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "An independent reviewer must assess whether an attacker-controlled route parameter is necessary for reachability and record that prerequisite.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No PHP runtime, Symfony application or route was executed; the finding is static.",
+  "Reachability requires application code to pass a request-influenced value into a route parameter whose requirement is an alternation; the advisory describes the pattern but no specific application was tested.",
+  "The browser interpretation of a leading // as protocol-relative is standard behavior but was not exercised here.",
+  "Only the 5.4 branch was fetched and compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "NVD carries no primary CVSS metric; the 2.3 LOW score is the CNA vector republished as Secondary. GHSA labels it MODERATE, which disagrees with the 2.3 Low base score.",
+  "NVD publishes two metrics for this CVE: a Primary CVSS 3.1 6.1 MEDIUM from nvd@nist.gov and a Secondary CVSS 4.0 2.3 LOW from the CNA. The canonical severity keeps the CNA 4.0 vector; the GHSA MODERATE label is consistent with the 3.1 score, not with 2.3."
+ ],
+ "open_questions": [
+  "How many upstream route defaults use alternations that contain short substrings was not surveyed.",
+  "Whether the host-token branch (line 247) is independently reachable with user input was not traced through application call sites."
+ ]
+}

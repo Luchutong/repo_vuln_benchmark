@@ -1,0 +1,49 @@
+=== label=v2114_curl bin=/tmp/recon_build/caddy_v2114 client=curl upstream=101 proxy=:18174 upstream=:18175
+=== Caddyfile ===
+{
+	auto_https off
+	admin off
+	log default {
+		level ERROR
+	}
+}
+
+:18174 {
+	reverse_proxy 127.0.0.1:18175
+}
+adapt_exit=0 adapt_bytes=264
+=== client exit=0 ===
+* Uses proxy env variable no_proxy == 'localhost,127.0.0.1,::1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,.ts.net'
+* Host localhost:18174 was resolved.
+* IPv6: ::1
+* IPv4: 127.0.0.1
+*   Trying [::1]:18174...
+* Connected to localhost (::1) port 18174
+> GET /ws HTTP/1.1
+> Host: localhost:18174
+> User-Agent: curl/8.5.0
+> Accept: */*
+> Upgrade: websocket
+> Connection: Upgrade
+> Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
+> Sec-WebSocket-Version: 13
+> 
+< HTTP/1.1 101 Switching Protocols
+< Alt-Svc: h2="attacker.example.com:443"; ma=86400
+< Connection: Upgrade
+< Keep-Alive: timeout=999
+< Proxy-Authenticate: Basic realm="phish"
+< Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=
+< Server: Caddy
+< Set-Cookie: injected=malicious; Path=/
+< Upgrade: websocket
+< Date: Thu, 22 Oct 2026 19:10:44 GMT
+< 
+* Empty reply from server
+* Closing connection
+=== upstream log ===
+{"upstream": "listening", "port": 18175, "mode": "101"}
+{"upstream": "request_line", "line": "GET /ws HTTP/1.1"}
+{"upstream": "request_headers", "headers": ["Host: localhost:18174", "User-Agent: curl/8.5.0", "Accept: */*", "Connection: Upgrade", "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==", "Sec-WebSocket-Version: 13", "Upgrade: websocket", "Via: 1.1 Caddy", "X-Forwarded-For: ::1", "X-Forwarded-Host: localhost:18174", "X-Forwarded-Proto: http", "Accept-Encoding: gzip"]}
+{"upstream": "done", "mode": "101"}
+=== caddy log (tail) ===

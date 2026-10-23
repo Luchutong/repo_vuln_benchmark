@@ -1,0 +1,6 @@
+tag 12.0.3 -> 7c3d7f8da7e35dde8fa74188b0decff70f8f10e3 (lightweight)
+tag 13.0.1 -> ae9fe44e1323e91bcbd185ca1a14099fba7c021f (lightweight)
+advisory fix commit 7e77bbe1beccceac4fc7b174b53abfefac278b66 'Change JsonReader and JsonSerializer default max depth to 128 (#2462)'
+is-ancestor fix v13.0.1: exit 0
+follow-up b6dc05be 'Change MaxDepth default to 64 (#2473)' also before 13.0.1; final default at 13.0.1 is 64
+12.0.3 JsonReader ctor has no _maxDepth assignment; JsonSerializerSettings.MaxDepth getter returns _maxDepth (null)

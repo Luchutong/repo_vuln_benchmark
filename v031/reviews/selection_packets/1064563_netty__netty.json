@@ -1,0 +1,186 @@
+{
+  "packet_id": "selrev_1064563_snap_5c3900a03253c043",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "1064563",
+    "full_name": "netty/netty",
+    "canonical_url": "https://github.com/netty/netty",
+    "primary_language": "Java",
+    "project_kind": "Netty project - an event-driven asynchronous network application framework"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_5c3900a03253c043",
+    "tag_or_release": "netty-4.1.137.Final",
+    "commit_sha": "5471f0a6ffa4ab39db22c468c6c851af4ecae709"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "5471f0a6ffa4ab39db22c468c6c851af4ecae709",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "146e08abbd819b78f0019b5e38663bc29b16bdab",
+    "tree_file_count": 3479,
+    "exported_file_count": 3479,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/netty__netty/snap_5c3900a03253c043.tar.gz",
+    "archive_sha256": "089a09beb81c59702a762d6b171b55fca988086997561d5259f74cf5d99c711f",
+    "archive_bytes": 3284544,
+    "manifest_path": "exports/netty__netty/snap_5c3900a03253c043.manifest.jsonl",
+    "manifest_sha256": "aadd350f8baba81f31dd1290b044be4b45f0a733cbd62c145b38a8ea3d4e2ea5"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/scripts/local_staging_install_release.sh",
+      ".github/scripts/local_staging_merge_release.sh",
+      ".github/scripts/release_checkout_tag.sh",
+      ".github/scripts/release_rollback.sh",
+      ".github/workflows/ci-release-4.2.yml",
+      ".github/workflows/ci-release-5.yml",
+      ".github/workflows/ci-release.yml"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 1,
+    "files_with_advisory_ids_sample": [
+      "codec-http/src/main/java/io/netty/handler/codec/http/HttpUtil.java"
+    ],
+    "ghsa_id_count": 1,
+    "ghsa_ids_sample": [
+      "GHSA-QF3V-RC95-96J5"
+    ],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CONTRIBUTING.md",
+      ".github/ISSUE_TEMPLATE.md",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/actions/thread-dump-jvms/action.yml",
+      ".github/scripts/build_affected_only.sh",
+      ".github/scripts/bundle_create.sh",
+      ".github/scripts/bundle_upload.sh",
+      ".github/scripts/check_bom_dependencies.sh",
+      ".github/scripts/check_build_result.sh",
+      ".github/scripts/check_leak.sh",
+      ".github/scripts/check_load_native.sh",
+      ".github/scripts/local_staging_install_release.sh",
+      ".github/scripts/local_staging_install_snapshot.sh",
+      ".github/scripts/local_staging_merge_release.sh",
+      ".github/scripts/local_staging_merge_snapshot.sh",
+      ".github/scripts/release_checkout_tag.sh",
+      ".github/scripts/release_rollback.sh",
+      ".github/workflows/autoport-41.yml",
+      ".github/workflows/autoport-42.yml",
+      ".github/workflows/autoport-50.yml",
+      ".github/workflows/ci-build-riscv64.yml",
+      ".github/workflows/ci-build.yml",
+      ".github/workflows/ci-deploy.yml",
+      ".github/workflows/ci-pr-reports.yml",
+      ".github/workflows/ci-pr.yml",
+      ".github/workflows/ci-release-4.2.yml",
+      ".github/workflows/ci-release-5.yml",
+      ".github/workflows/ci-release.yml",
+      ".github/workflows/ci-verify-load.yml",
+      ".github/workflows/codeql-analysis.yml"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "java_maven": [
+        "pom.xml"
+      ],
+      "make": [
+        "Makefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "java_maven",
+      "make"
+    ],
+    "toolchain_available": {
+      "java_maven": {
+        "java": false,
+        "mvn": false
+      },
+      "make": {
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-93494",
+      "aliases": [
+        "CVE-2026-93494",
+        "GHSA-ghg5-c4jg-8q5j"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<= 4.1.137.Final",
+          "ecosystem": "Maven",
+          "package": "io.netty:netty-codec-stomp",
+          "purl": "pkg:maven/io.netty/netty-codec-stomp"
+        },
+        {
+          "affected_range": ">= 4.2.0.Final, <= 4.2.17.Final",
+          "ecosystem": "Maven",
+          "package": "io.netty:netty-codec-stomp",
+          "purl": "pkg:maven/io.netty/netty-codec-stomp"
+        }
+      ],
+      "published_at": "2026-09-10T00:42:12Z",
+      "advisory_url": "https://github.com/netty/netty/security/advisories/GHSA-ghg5-c4jg-8q5j",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "Red Hat CNA (cveawg.mitre.org)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "GHSA-ghg5-c4jg-8q5j",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "NVD secondary (secalert@redhat.com)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          }
+        ],
+        "level": "high",
+        "numeric_level_rationale": "The Red Hat CNA, the GitHub advisory and the NVD secondary metric all publish CVSS 3.1 7.5 High with the same vector. NVD has not produced its own primary metric; the record remains Awaiting Analysis, so no independent NVD score exists to compare. The CNA problemType CWE-1035 disagrees with the GHSA weakness CWE-772. OSV publishes a different metric, CVSS v4.0 AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N, as a vector only with no numeric score, so it cannot be compared on the 3.1 scale and is recorded here rather than flattened into 7.5.",
+        "score": 7.5,
+        "source": "Red Hat CNA (CVE record), GHSA and NVD secondary metric",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-93494",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

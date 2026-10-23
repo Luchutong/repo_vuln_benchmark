@@ -1,0 +1,24 @@
+{
+  "key": "plugcowboy_mix",
+  "repository": "elixir-plug/plug_cowboy",
+  "path": "mix.exs",
+  "retrieved_at": "2026-10-21T10:55:24.857Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "defmodule Plug.Cowboy.MixProject do\n  use Mix.Project\n\n  @source_url \"https://github.com/elixir-plug/plug_cowboy\"\n  @version \"2.9.0\"\n  @description \"A Plug adapter for Cowboy\"\n\n  def project do\n    [\n      app: :plug_cowboy,\n      version: @version,\n      elixir: \"~> 1.15\",\n      deps: deps(),\n      package: package(),\n      description: @description,\n      name: \"Plug.Cowboy\",\n      docs: [\n        main: \"Plug.Cowboy\",\n        source_ref: \"v#{@version}\",\n        source_url: @source_url,\n        extras: [\"CHANGELOG.md\"]\n      ],\n      aliases: aliases()\n    ]\n  end\n\n  def application do\n    [\n      extra_applications: [:logger],\n      mod: {Plug.Cowboy, []}\n    ]\n  end\n\n  def deps do\n    [\n      {:plug, \"~> 1.18\"},\n      {:cowboy, \"~> 2.7\"},\n      {:cowboy_telemetry, \"~> 0.3\"},\n      {:ex_doc, \"~> 0.20\", only: :docs},\n      {:hackney, \"~> 1.2\", only: :test},\n      {:x509, \"~> 0.6\", only: :test}\n    ]\n  end\n\n  defp package do\n    %{\n      licenses: [\"Apache-2.0\"],\n      maintainers: [\"José Valim\", \"Gary Rennie\"],\n      links: %{\"GitHub\" => @source_url}\n    }\n  end\n\n  defp aliases do\n    [\n      test: [\"x509.gen.suite -f -p cowboy -o test/fixtures/ssl\", \"test\"]\n    ]\n  end\nend\n",
+      "encoding": "utf-8",
+      "sha": "7d3bf2aa49165b02d7e27473bacf992602b849e3",
+      "display_url": "https://github.com/elixir-plug/plug_cowboy/blob/master/mix.exs",
+      "display_title": "mix.exs"
+    },
+    "isError": false
+  }
+}

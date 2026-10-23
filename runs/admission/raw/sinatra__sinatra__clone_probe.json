@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/sinatra/sinatra.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:35.759510+00:00", "elapsed_seconds": 1.031, "response": {"returncode": 0, "stdout": "cb22afd7902b566b6eaba6c4ea89739494a65d12\tHEAD\n", "stderr": ""}}

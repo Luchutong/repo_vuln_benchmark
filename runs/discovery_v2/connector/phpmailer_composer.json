@@ -1,0 +1,24 @@
+{
+  "key": "phpmailer_composer",
+  "repository": "PHPMailer/PHPMailer",
+  "path": "composer.json",
+  "retrieved_at": "2026-10-21T10:55:23.698Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n    \"name\": \"phpmailer/phpmailer\",\n    \"type\": \"library\",\n    \"description\": \"PHPMailer is a full-featured email creation and transfer class for PHP\",\n    \"authors\": [\n        {\n            \"name\": \"Marcus Bointon\",\n            \"email\": \"phpmailer@synchromedia.co.uk\"\n        },\n        {\n            \"name\": \"Jim Jagielski\",\n            \"email\": \"jimjag@gmail.com\"\n        },\n        {\n            \"name\": \"Andy Prevost\",\n            \"email\": \"codeworxtech@users.sourceforge.net\"\n        },\n        {\n            \"name\": \"Brent R. Matzelle\"\n        }\n    ],\n    \"funding\": [\n        {\n            \"url\": \"https://github.com/Synchro\",\n            \"type\": \"github\"\n        }\n    ],\n    \"config\": {\n        \"allow-plugins\": {\n            \"dealerdirect/phpcodesniffer-composer-installer\": true\n        },\n        \"lock\": false\n    },\n    \"require\": {\n        \"php\": \">=5.5.0\",\n        \"ext-ctype\": \"*\",\n        \"ext-filter\": \"*\",\n        \"ext-hash\": \"*\"\n    },\n    \"require-dev\": {\n        \"dealerdirect/phpcodesniffer-composer-installer\": \"^1.0\",\n        \"doctrine/annotations\": \"^1.2.6 || ^1.13.3\",\n        \"php-parallel-lint/php-console-highlighter\": \"^1.0.0\",\n        \"php-parallel-lint/php-parallel-lint\": \"^1.3.2\",\n        \"phpcompatibility/php-compatibility\": \"^10.0.0@dev\",\n        \"squizlabs/php_codesniffer\": \"^3.13.5\",\n        \"yoast/phpunit-polyfills\": \"^1.0.4\"\n    },\n    \"suggest\": {\n        \"decomplexity/SendOauth2\": \"Adapter for using XOAUTH2 authentication\",\n        \"ext-imap\": \"Needed to support advanced email address parsing according to RFC822\",\n        \"ext-mbstring\": \"Needed to send email in multibyte encoding charset or decode encoded addresses\",\n        \"ext-openssl\": \"Needed for secure SMTP sending and DKIM signing\",\n        \"greew/oauth2-azure-provider\": \"Needed for Microsoft Azure XOAUTH2 authentication\",\n        \"hayageek/oauth2-yahoo\": \"Needed for Yahoo XOAUTH2 authentication\",\n        \"league/oauth2-google\": \"Needed for Google XOAUTH2 authentication\",\n        \"psr/log\": \"For optional PSR-3 debug logging\",\n        \"symfony/polyfill-mbstring\": \"To support UTF-8 if the Mbstring PHP extension is not enabled (^1.2)\",\n        \"thenetworg/oauth2-azure\": \"Needed for Microsoft XOAUTH2 authentication\",\n        \"directorytree/imapengine\": \"For uploading sent messages via IMAP, see gmail example\"\n    },\n    \"minimum-stability\": \"dev\",\n    \"prefer-stable\": true,\n    \"autoload\": {\n        \"psr-4\": {\n            \"PHPMailer\\\\PHPMailer\\\\\": \"src/\"\n        }\n    },\n    \"autoload-dev\": {\n        \"psr-4\": {\n            \"PHPMailer\\\\Test\\\\\": \"test/\"\n        }\n    },\n    \"license\": \"LGPL-2.1-only\",\n    \"scripts\": {\n        \"check\": \"./vendor/bin/phpcs\",\n        \"style\": \"./vendor/bin/phpcbf\",\n        \"test\": \"./vendor/bin/phpunit --no-coverage\",\n        \"coverage\": \"./vendor/bin/phpunit\",\n        \"lint\": [\n            \"@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . --show-deprecated -e php,phps --exclude vendor --exclude .git --exclude build\"\n        ]\n    }\n}\n",
+      "encoding": "utf-8",
+      "sha": "63d0ffd674e575971c23d6900b676e12db862bde",
+      "display_url": "https://github.com/PHPMailer/PHPMailer/blob/master/composer.json",
+      "display_title": "composer.json"
+    },
+    "isError": false
+  }
+}

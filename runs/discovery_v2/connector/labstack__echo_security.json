@@ -1,0 +1,24 @@
+{
+  "key": "labstack__echo_security",
+  "repository": "labstack/echo",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:08.176Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\n## Supported Versions\n\n| Version   | Supported                           |\n|-----------|-------------------------------------|\n| 5.x.x     | :white_check_mark:                  |\n| >= 4.15.x | :white_check_mark: until 2026.12.31 |\n| < 4.15    | :x:                                 |\n\n## Reporting a Vulnerability\n\nReport vulnerabilities privately through GitHub:\nhttps://github.com/labstack/echo/security/advisories/new\n\nDo not open public issues, pull requests, or discussions for security problems.\n",
+      "encoding": "utf-8",
+      "sha": "e534c2c3fb57487223c916c9362f101645447ff4",
+      "display_url": "https://github.com/labstack/echo/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

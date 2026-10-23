@@ -1,0 +1,194 @@
+{
+  "packet_id": "selrev_80945428_snap_af37094ca730365c",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "80945428",
+    "full_name": "nestjs/nest",
+    "canonical_url": "https://github.com/nestjs/nest",
+    "primary_language": "TypeScript",
+    "project_kind": "A progressive Node.js framework for building efficient, scalable, and enterprise-grade server-side applications with TypeScript/JavaScript 🚀"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_af37094ca730365c",
+    "tag_or_release": "v11.2.3",
+    "commit_sha": "2b36ee5fea13dedcedfd9815a9c193b2d21130c1"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "2b36ee5fea13dedcedfd9815a9c193b2d21130c1",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "a4bc24860e31c7ace6a133d4acc64c7faeb55659",
+    "tree_file_count": 2141,
+    "exported_file_count": 2141,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/nestjs__nest/snap_af37094ca730365c.tar.gz",
+    "archive_sha256": "b432e7ea89892f28e64e68c9e171e1f86ca4dc5b3d4fa0e612c51dd5dff0d5d8",
+    "archive_bytes": 1155352,
+    "manifest_path": "exports/nestjs__nest/snap_af37094ca730365c.manifest.jsonl",
+    "manifest_sha256": "3ca2f8780bb1e4240ba025d6748fbd6a2df3da6753348b2692d638c905814573"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/FUNDING.yml",
+      ".github/ISSUE_TEMPLATE/Bug_report.yml",
+      ".github/ISSUE_TEMPLATE/Feature_request.yml",
+      ".github/ISSUE_TEMPLATE/Regression.yml",
+      ".github/ISSUE_TEMPLATE/Suggestion_improve_performance.yml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/dependabot.yml",
+      ".github/lock.yml",
+      ".github/workflows/codeql-analysis.yml",
+      "SECURITY.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "node": [
+        "package-lock.json",
+        "package.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node"
+    ],
+    "toolchain_available": {
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-102281",
+      "aliases": [
+        "CVE-2026-102281",
+        "GHSA-m8vh-jmq9-5rjg"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<11.2.4",
+          "ecosystem": "npm",
+          "note": "v11.2.3 is the frozen snapshot. OSV's version list names v11.2.3 explicitly and excludes v11.2.4; the GHSA says '< 11.2.4'. The affected component is the @nestjs/microservices package inside the nestjs/nest monorepo.",
+          "package": "@nestjs/microservices",
+          "purl": "pkg:npm/%40nestjs/microservices",
+          "range_completeness": {
+            "additional_verified_affected": [
+              {
+                "evidence": "Built from the tag and executed: one depth-100000 TCP frame exits the process with RangeError at server-tcp.js:58 (poc_reproduction.txt).",
+                "package": "@nestjs/microservices",
+                "source": "collector build and execution, 2026-10-23",
+                "version": "v11.2.3"
+              }
+            ],
+            "exhaustive": false,
+            "first_affected_version": null,
+            "policy": "The dataset keeps the published ranges. The lower bound is recorded as introduced 0 by OSV and '< 11.2.4' by the GitHub advisory; no lower bound was bisected by the collector.",
+            "published_versions": [
+              "v11.2.3",
+              "v12.0.1",
+              "v12.0.0"
+            ],
+            "status": "published_range_first_patched_verified",
+            "upper_bound_verified": true
+          },
+          "range_expressions": [
+            {
+              "first_patched_version": "11.2.4",
+              "range": "< 11.2.4",
+              "source": "GHSA-m8vh-jmq9-5rjg via GitHub Advisory API, reviewed 2026-09-29"
+            },
+            {
+              "first_patched_version": "11.2.4",
+              "range": "introduced 0, fixed 11.2.4",
+              "source": "OSV GHSA-m8vh-jmq9-5rjg SEMVER range"
+            },
+            {
+              "first_patched_version": "11.2.4",
+              "range": "introduced 0, fixed d5046225d86131285fb2f44c4c06860316a99474 (v11.2.4)",
+              "source": "OSV CVE-2026-102281 GIT range, modified 2026-10-21"
+            },
+            {
+              "first_patched_version": "11.2.4",
+              "range": "< 11.2.4",
+              "source": "NVD 2.0 affected versions and CVE.org CNA range"
+            }
+          ],
+          "versions_includes": "11.2.3"
+        },
+        {
+          "affected_range": ">=12.0.0, <12.0.2",
+          "ecosystem": "npm",
+          "note": "The 12.x line restart: the regression was reintroduced at v12.0.0 and fixed again in v12.0.2. The frozen 11.2.3 snapshot is not in this range; the range is recorded because every advisory publishes it and the fixed release 12.0.2 is part of the fix set.",
+          "package": "@nestjs/microservices",
+          "purl": "pkg:npm/%40nestjs/microservices",
+          "range_expressions": [
+            {
+              "first_patched_version": "12.0.2",
+              "range": ">= 12.0.0, < 12.0.2",
+              "source": "GHSA-m8vh-jmq9-5rjg via GitHub Advisory API, reviewed 2026-09-29"
+            },
+            {
+              "first_patched_version": "12.0.2",
+              "range": "introduced 12.0.0, fixed 12.0.2",
+              "source": "OSV GHSA-m8vh-jmq9-5rjg SEMVER range"
+            },
+            {
+              "first_patched_version": "12.0.2",
+              "range": "introduced 6494a6c27400547ea6cd9b78da07b2e9c2547ca0, fixed ee168a569d30e600d301ed38abb14d2171a6f315 (v12.0.2)",
+              "source": "OSV CVE-2026-102281 GIT range, modified 2026-10-21"
+            }
+          ],
+          "versions_includes": null
+        }
+      ],
+      "published_at": "2026-09-28T22:17:32Z",
+      "advisory_url": "https://github.com/nestjs/nest/security/advisories/GHSA-m8vh-jmq9-5rjg",
+      "severity": {
+        "level": "high",
+        "metric_disagreement": null,
+        "numeric_level_rationale": "7.5 falls in the High band (7.0-8.9). Availability-only impact, no privileges or user interaction required.",
+        "published_level": "HIGH",
+        "published_score": 7.5,
+        "published_vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "published_version": "3.1",
+        "score": 7.5,
+        "source": "GitHub CNA (security-advisories@github.com), published in the CVE.org record and carried by NVD as a Secondary CVSS 3.1 metric and by GHSA and OSV",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-102281",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

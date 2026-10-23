@@ -1,0 +1,408 @@
+{
+  "candidate_id": "disc2_d4baa85d7249fb4d8aea8a5a",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T19:55:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "23357588",
+    "full_name": "protocolbuffers/protobuf",
+    "canonical_url": "https://github.com/protocolbuffers/protobuf",
+    "primary_language": "Java",
+    "project_kind": "language-neutral data serialization runtime and code generator",
+    "snapshot_id": "snap_6bc3f36eb61ef280"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-7254",
+    "aliases": [
+      "CVE-2024-7254",
+      "GHSA-735f-pc8j-v9w8"
+    ],
+    "title": "protobuf-java unknown-field group parsing recurses without a depth limit, allowing StackOverflowError",
+    "repo_id": "23357588",
+    "snapshot_id": "snap_6bc3f36eb61ef280",
+    "vulnerable_commit": "21027a27c4c2ec1000859ccbcfff46d83b16e1ed",
+    "affected_packages": [
+      {
+        "ecosystem": "maven",
+        "package": "com.google.protobuf:protobuf-java",
+        "purl": "pkg:maven/com.google.protobuf/protobuf-java",
+        "affected_range": "<3.25.5 (3.x line); >=4.0.0-RC1,<4.27.5; >=4.28.0-RC1,<4.28.2"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "maven",
+        "package": "com.google.protobuf:protobuf-java",
+        "version": "3.25.5",
+        "tag": "v3.25.5",
+        "release_url": "https://github.com/protocolbuffers/protobuf/releases/tag/v3.25.5",
+        "verified_content": "At v3.25.5 UnknownFieldSchema declares DEFAULT_RECURSION_LIMIT=100 and a static recursionLimit, and the START_GROUP case of mergeOneFieldFrom increments currentDepth, throws InvalidProtocolBufferException.recursionLimitExceeded() at the limit, and passes currentDepth into mergeFrom; at v3.20.1 the START_GROUP case calls mergeFrom(subFields, reader) with no depth check and the class has no limit constant."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "4728531c162f2f9e8c2ca1add713cfee2db6be3b",
+        "branch": "3.25",
+        "release": "3.25.5",
+        "message": "Add recursion check when parsing unknown fields in Java.",
+        "url": "https://github.com/protocolbuffers/protobuf/commit/4728531c162f2f9e8c2ca1add713cfee2db6be3b"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-400",
+      "CWE-674",
+      "CWE-787"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": 7.5,
+      "level": "high",
+      "numeric_level_rationale": "NVD publishes 7.5 HIGH as its Primary CVSS 3.1 metric; the CNA and NVD Secondary publish CVSS 4.0 8.7 HIGH, and the GitHub advisory publishes the same 3.1 7.5 and 4.0 8.7 vectors with database severity HIGH. Every published metric is HIGH, so the level is consistent; the numeric scores differ only because they use different CVSS versions.",
+      "source": "NVD Primary CVSS 3.1 7.5 HIGH; CNA / NVD Secondary / GitHub advisory CVSS 4.0 8.7 HIGH",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-7254",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 7.5,
+          "level": "high",
+          "source": "NVD Primary (nvd@nist.gov)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "4.0",
+          "score": 8.7,
+          "level": "high",
+          "source": "CVE List v5 CNA (Google) and NVD Secondary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+        },
+        {
+          "version": "3.1+4.0",
+          "score": 7.5,
+          "level": "high",
+          "source": "GitHub advisory / OSV (database severity HIGH)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H; CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+        }
+      ]
+    },
+    "category_l1": "denial_of_service",
+    "category_l2": "Unbounded recursion: nested START_GROUP wire-type fields inside unknown fields recurse through UnknownFieldSchema.mergeFrom with no depth limit, so a crafted message overflows the Java stack",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-735f-pc8j-v9w8",
+    "published_at": "2024-09-19T00:18:45Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-735f-pc8j-v9w8",
+      "https://github.com/protocolbuffers/protobuf/commit/4728531c162f2f9e8c2ca1add713cfee2db6be3b",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-7254",
+      "https://github.com/protocolbuffers/protobuf/releases/tag/v3.25.5",
+      "https://cveawg.mitre.org/api/cve/CVE-2024-7254"
+    ]
+  },
+  "description": "The Java protobuf runtime parses unknown fields through UnknownFieldSchema. At v3.20.1 the WireFormat.WIRETYPE_START_GROUP case of mergeOneFieldFrom (lines 98-105) calls mergeFrom(subFields, reader) at line 101 with no recursion-depth parameter and no limit, and mergeFrom (lines 114-121) loops back into mergeOneFieldFrom. Each nested group therefore adds a Java stack frame proportional to the nesting depth encoded in the wire message. A message whose unknown fields contain deeply nested groups, parsed by the full or lite runtime (including DiscardUnknownFieldsParser paths and map fields), recurses until the thread stack is exhausted and the process throws StackOverflowError. The fix 4728531c on the 3.25 branch adds DEFAULT_RECURSION_LIMIT=100 and a currentDepth parameter: the START_GROUP case increments the depth, throws InvalidProtocolBufferException.recursionLimitExceeded() at the limit (v3.25.5 lines 84-89), and passes the depth into mergeFrom; the same commit also bounds group skipping in the CodedInputStream.ArrayDecoder skipMessage/skipField implementations (the base CodedInputStream declares skipField abstract) and in ArrayDecoders.",
+  "location": {
+    "location_id": "loc_CVE-2024-7254_snap_6bc3f36eb61ef280",
+    "vulnerability_id": "CVE-2024-7254",
+    "snapshot_id": "snap_6bc3f36eb61ef280",
+    "location_kind": "logic",
+    "file": "java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java",
+    "function": "mergeOneFieldFrom",
+    "language": "Java",
+    "line": "98-105",
+    "critical_operation": {
+      "file": "java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java",
+      "function": "mergeOneFieldFrom",
+      "language": "Java",
+      "line": "98-105",
+      "code_excerpt": "      case WireFormat.WIRETYPE_START_GROUP:\n        final B subFields = newBuilder();\n        int endGroupTag = WireFormat.makeTag(fieldNumber, WireFormat.WIRETYPE_END_GROUP);\n        mergeFrom(subFields, reader);\n        if (endGroupTag != reader.getTag()) {\n          throw InvalidProtocolBufferException.invalidEndTag();\n        }\n        addGroup(unknownFields, fieldNumber, toImmutable(subFields));",
+      "description": "The START_GROUP branch of mergeOneFieldFrom recursively merges the nested group through mergeFrom without any recursion-depth parameter or limit. Because mergeFrom (lines 114-121) loops back into mergeOneFieldFrom, every nested group in the unknown-field stream adds stack frames; a crafted message with deeply nested groups exhausts the thread stack. The v3.25.5 fix increments currentDepth and throws recursionLimitExceeded() at 100 before recursing (lines 84-89).",
+      "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java#L98-L105"
+    },
+    "entry_point": {
+      "description": "MessageSchema.mergeFromHelper (line 3909) routes unknown fields into unknownFieldSchema.mergeOneFieldFrom; generated message parsers call MessageSchema.mergeFrom (line 3851) on attacker-supplied bytes.",
+      "file": "java/core/src/main/java/com/google/protobuf/MessageSchema.java",
+      "function": "mergeFromHelper",
+      "language": "Java",
+      "line": 3909,
+      "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/MessageSchema.java#L3909"
+    },
+    "trace": [
+      {
+        "description": "generated parsers call MessageSchema.mergeFrom, which delegates to mergeFromHelper",
+        "file": "java/core/src/main/java/com/google/protobuf/MessageSchema.java",
+        "function": "mergeFrom",
+        "language": "Java",
+        "line": 3851,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/MessageSchema.java#L3851"
+      },
+      {
+        "description": "mergeFromHelper hands unknown fields to UnknownFieldSchema.mergeOneFieldFrom",
+        "file": "java/core/src/main/java/com/google/protobuf/MessageSchema.java",
+        "function": "mergeFromHelper",
+        "language": "Java",
+        "line": 3909,
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/MessageSchema.java#L3909"
+      },
+      {
+        "description": "the START_GROUP case recurses into mergeFrom with no depth argument",
+        "file": "java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java",
+        "function": "mergeOneFieldFrom",
+        "language": "Java",
+        "line": "98-105",
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java#L98-L105"
+      },
+      {
+        "description": "mergeFrom loops mergeOneFieldFrom, so each nested group grows the stack until StackOverflowError",
+        "file": "java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java",
+        "function": "mergeFrom",
+        "language": "Java",
+        "line": "114-121",
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java#L114-L121"
+      },
+      {
+        "description": "CodedInputStream.skipField also recurses on nested groups via skipMessage in 3.20.1, so the discard-unknown-fields path is affected too",
+        "file": "java/core/src/main/java/com/google/protobuf/CodedInputStream.java",
+        "function": "skipField",
+        "language": "Java",
+        "line": "662-666",
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/CodedInputStream.java#L662-L666"
+      },
+      {
+        "description": "the 3.25.5 fix increments currentDepth and throws recursionLimitExceeded() before recursing",
+        "file": "java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java",
+        "function": "mergeOneFieldFrom",
+        "language": "Java",
+        "line": "81-93",
+        "permalink": "https://github.com/protocolbuffers/protobuf/blob/9d0ec0f92b5b5fdeeda11f9dcecc1872ff378014/java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java#L81-L93"
+      }
+    ],
+    "verification_method": "Static read of UnknownFieldSchema, MessageSchema and CodedInputStream at v3.20.1 and v3.25.5, of the 4728531c patch, and of local git tags plus the GitHub compare API; no parser or test was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_protobuf_7254_cve_v5",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-7254",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "4987b6f4b661dd5acefda980bd82edec41449a582216c9763997d227909408df",
+      "verification_method": "CVE List v5 CNA record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, published 2024-09-19",
+        "description: parsing unknown fields in the Java full and lite runtimes can recurse without bound and crash the process",
+        "affected protobuf-java versions are 'less than 3.25.5', 'less than 4.27.5' and 'less than 4.28.2' (custom ranges starting at 0)",
+        "CNA CVSS 4.0 8.7 HIGH, vector CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "CWE-400 and CWE-674",
+        "one reference: commit cc8b3483a5584b3301e3d43d17eb59704857ffaa"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_7254_nvd",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-7254",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "194c0188e311bfa7ba6c02b843425fd0f49b7aeb0c05edc7f947ea81ae16704b",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2024-09-19",
+        "CVSS 3.1 7.5 HIGH Primary from nvd@nist.gov and CVSS 4.0 8.7 HIGH Secondary from cve-coordination@google.com",
+        "CWE-787 Primary, CWE-400 and CWE-674 Secondary (the database records disagree on the CWE mapping)"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_7254_osv_cve",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-7254",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "0cb746805243e5feb2bec0f38f70da7b5d13d3d6fd5887744ed4c608311c2a65",
+      "verification_method": "OSV.dev API record generated from cvelistV5",
+      "result": "PASS",
+      "supports": [
+        "OSV CVE-2024-7254 with the GHSA-735f-pc8j-v9w8 alias",
+        "CVSS_V4 CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_7254_osv_ghsa",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-735f-pc8j-v9w8",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "c98035d892a07d16b74ef8c2d6aff79f435233ca8922857c9cf6411427a9620d",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "details: parsing nested groups as unknown fields with DiscardUnknownFieldsParser, the Lite parser, or against map fields creates unbounded recursion",
+        "affected com.google.protobuf:protobuf-java introduced 0, fixed 3.25.5; 4.x introduced 4.0.0-RC1 fixed 4.27.5 and introduced 4.28.0-RC1 fixed 4.28.2",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H and CVSS_V4 CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N; database severity HIGH",
+        "database_specific cwe_ids CWE-20, CWE-400, CWE-787",
+        "references list commits 4728531c, 850fcce9, 9a5f5fe7, ac9fb5b4, cc8b3483 and d6c82fc5"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_7254_vuln_src",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/UnknownFieldSchema_3.20.1.java",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/21027a27c4c2ec1000859ccbcfff46d83b16e1ed/java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java#L98-L105",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "583e74b3daaa915ec250e578fa2e590616dcded4b6f875a241a2dd7dff9cff71",
+      "verification_method": "file read at snapshot commit 21027a27 (v3.20.1); blob 681b824d matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "mergeOneFieldFrom (line 82) handles WireFormat.WIRETYPE_START_GROUP at lines 98-105",
+        "the START_GROUP case calls mergeFrom(subFields, reader) at line 101 with no recursion depth argument or limit",
+        "mergeFrom (lines 114-121) loops mergeOneFieldFrom; the class declares no recursion limit constant"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_7254_fixed_src",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/UnknownFieldSchema_3.25.5.java",
+      "source_url": "https://github.com/protocolbuffers/protobuf/blob/9d0ec0f92b5b5fdeeda11f9dcecc1872ff378014/java/core/src/main/java/com/google/protobuf/UnknownFieldSchema.java#L81-L93",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "de920549466ee6cd006a34e29fa70b58b8adf26041ab3619f5bcfe6b082afc33",
+      "verification_method": "file read at release tag v3.25.5 (9d0ec0f9); blob 80602b16",
+      "result": "PASS",
+      "supports": [
+        "DEFAULT_RECURSION_LIMIT = 100 (line 16) and a static recursionLimit (line 19)",
+        "the START_GROUP case increments currentDepth and throws InvalidProtocolBufferException.recursionLimitExceeded() when currentDepth >= recursionLimit (lines 84-89) before calling mergeFrom(subFields, reader, currentDepth)",
+        "mergeFrom is now private and carries currentDepth (lines 102-109)"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_7254_patch",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/fix_commit.patch",
+      "source_url": "https://github.com/protocolbuffers/protobuf/commit/4728531c162f2f9e8c2ca1add713cfee2db6be3b",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "7c9339cb6f563c417163c8fb9d25c1e0a135e8f6d65c93566c592064113a571e",
+      "verification_method": "downloaded commit patch for the 3.25-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 4728531c 'Add recursion check when parsing unknown fields in Java.' (2024-09-18, parent 850fcce9)",
+        "adds the UnknownFieldSchema recursion limit and the currentDepth parameter to mergeOneFieldFrom/mergeFrom",
+        "also adds checkRecursionLimit()/++recursionDepth to CodedInputStream.skipMessage/skipField paths and depth accounting in ArrayDecoders",
+        "adds CodedInputStreamTest and LiteTest cases that exercise nested unknown groups"
+      ]
+    },
+    {
+      "evidence_id": "ev_protobuf_7254_git",
+      "artifact_path": "runs/verification/protobuf_cve_2024_7254/sources/git_object_checks.txt",
+      "source_url": "https://github.com/protocolbuffers/protobuf",
+      "retrieved_at": "2026-10-22T19:55:00Z",
+      "sha256_of_observation": "eb50e87ef23213d6cca0af04a49302d2fea2cfd32e40f30c8b3cd3319d1bc1fb",
+      "verification_method": "local git tags, blob comparison and GitHub compare API",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag v3.20.1 resolves to 21027a27 and the UnknownFieldSchema/MessageSchema/ArrayDecoders/CodedInputStream blobs match the inventory",
+        "fix commit 4728531c is an ancestor of v3.25.5 (compare status ahead, ahead_by 4, behind_by 0)",
+        "the main-branch merge d6c82fc5 is not an ancestor of v3.25.5 (compare diverged), so the 3.25-branch commit is recorded",
+        "v3.25.5 has the recursion limit and v3.20.1 does not"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      3
+    ],
+    "aliases": [
+      0,
+      3
+    ],
+    "critical_operation": [
+      4,
+      5,
+      7
+    ],
+    "cwe": [
+      0,
+      1,
+      3
+    ],
+    "fix_commits": [
+      0,
+      3,
+      6,
+      7
+    ],
+    "fixed_releases": [
+      0,
+      1,
+      3,
+      5,
+      6,
+      7
+    ],
+    "languages": [
+      4,
+      5
+    ],
+    "severity": [
+      0,
+      1,
+      3
+    ],
+    "vulnerable_commit": [
+      7
+    ]
+  },
+  "field_evidence_note": "Indexes into the evidence array, as in the other dossiers.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 CNA record",
+      "NVD analysis (Primary 7.5 HIGH; Secondary 8.7 HIGH)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and the GitHub compare API"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD and the GitHub advisory agree on the mechanism (unbounded recursion while parsing nested groups in unknown fields), on the fixed versions (3.25.5, 4.27.5, 4.28.2) and on HIGH severity: NVD's Primary is 7.5 HIGH (CVSS 3.1) and the CNA/NVD Secondary/GHSA scores are 8.7 HIGH (CVSS 4.0). The CWE mappings differ: the CNA lists CWE-400 and CWE-674, GHSA lists CWE-20/CWE-400/CWE-787, and NVD's Primary is CWE-787; all published values are recorded and CWE-674 (uncontrolled recursion) is the closest match to the mechanism. CVE v5 references only cc8b3483, which the reviewer found to be a whitespace/message-only 'Internal change' rather than the recursion fix; the GHSA references all six commits, and the 3.25-branch commit 4728531c is the one verified as an ancestor of v3.25.5. This root cause is distinct from the previously promoted protobuf entry CVE-2022-1941 (a wire-format parsing issue in the C++ runtime).",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read UnknownFieldSchema.java at v3.20.1 and confirm the START_GROUP case recurses through mergeFrom with no depth limit.",
+      "An independent reviewer must confirm 4728531c is the 3.25-branch fix and is contained in v3.25.5.",
+      "An independent reviewer must confirm the affected ranges (<3.25.5 on 3.x; 4.0.0-RC1-<4.27.5; 4.28.0-RC1-<4.28.2).",
+      "An independent reviewer must confirm all published severity levels are HIGH and record the differing CWE mappings without coercing them.",
+      "An independent reviewer must confirm the mechanism is distinct from CVE-2022-1941.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "Claude (independent vulnerability reviewer)",
+      "verdict_path": "runs/independent/protobuf_CVE-2024-7254_round1/verdict.json",
+      "verdict": "vulnerable_commit",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "severity_level": "high",
+      "location_line": "82-121 (mergeOneFieldFrom at 82; WIRETYPE_START_GROUP at 98-105; unbounded recursive call at line 101; mergeFrom loop at 114-121)"
+    },
+    "independent_corrections_accepted": [
+      "The CodedInputStream group branch cited at 662-666 is in the nested ArrayDecoder implementation (repeated at 1378 and 2146); the base CodedInputStream declares skipField abstract. File, line numbers and the affected-path conclusion were correct, and the evidence wording was corrected.",
+      "d6c82fc5 is a single-parent GitHub squash commit for PR #18388, not a merge commit. The non-ancestry relative to v3.25.5 was confirmed (compare status diverged, ahead_by 75, behind_by 1608).",
+      "The GHSA 'Proof of Concept' section links only upstream unit tests (LiteTest, CodedInputStreamTest) and credits the Trail of Bits reporter; it does not link a separate reporter-provided reproduction, so grade A stays unavailable.",
+      "NVD tags commit cc8b3483 as 'Patch', but it is a whitespace/message-only 'Internal change' (PiperOriginRevId 653615736, the same internal change as the fix parent 850fcce9), not the recursion fix; the real fix is 4728531c.",
+      "The CNA record expresses the Java ranges from version 0 with lessThan only; the recorded RC lower bounds (4.0.0-RC1, 4.28.0-RC1) match GHSA-735f-pc8j-v9w8 and NVD CPE.",
+      "The fix date 2024-09-18 is the committer date; the author date of 4728531c is 2024-09-17.",
+      "Field-semantics clarification: evidence_independent means the reviewer's evidence was derived independently of the dossier, not that a third-party reproduction exists. The reviewer re-evaluated it to true and kept grade B."
+    ],
+    "duplicate_check": "The reviewer confirmed this is distinct from CVE-2022-1941 (GHSA-8gq9-2x98-w8hf) on public records: CVE-2022-1941 is an out-of-memory denial of service in the protobuf-cpp and protobuf-python runtimes caused by MessageSet wire-format parsing (CWE-1286/CWE-119, CNA 5.7 MEDIUM, fixed in 3.18.3/3.19.5/3.20.2/4.21.6), whereas CVE-2024-7254 is unbounded Java-runtime recursion while parsing nested unknown group/SGROUP tags, yielding StackOverflowError (CWE-400/674; NVD Primary CWE-787; HIGH 7.5/8.7). Different language/runtime, wire construct, failure mode, CWE set and severity."
+  },
+  "limitations": [
+    "Static verification only; no protobuf parser, generated message or test was run and no StackOverflowError was triggered.",
+    "The issue is a denial of service that requires the application to parse attacker-controlled protobuf bytes with the Java full or lite runtime; the CVSS vectors assume network reachability with no privileges.",
+    "Only the Java runtime location is recorded; the advisory says the Kotlin and JRuby runtimes are affected because they use the Java runtime, and the C++/other language runtimes have separate advisories not covered here.",
+    "The fix is recorded from the 3.25 branch commit 4728531c; the main-branch squash commit d6c82fc5 (PR #18388) has the same content but is a single-parent squash, not a merge, and is not an ancestor of v3.25.5, so it is not used as the fix commit.",
+    "Published CWE mappings disagree (CNA CWE-400/CWE-674, NVD Primary CWE-787, GHSA CWE-20/CWE-400/CWE-787); all are recorded and none is coerced into a single authoritative id.",
+    "The advisory points to unit tests as reproduction details, but no independent third-party reproduction reference is recorded, so grade A is not available.",
+    "NVD tags commit cc8b3483 as 'Patch', but the reviewer found it to be a whitespace/message-only 'Internal change' (same PiperOriginRevId family as the fix parent 850fcce9), not the recursion fix; the fix used here is 4728531c, referenced by GHSA/OSV.",
+    "The fix date 2024-09-18 is the committer date; the author date of 4728531c is 2024-09-17."
+  ],
+  "open_questions": [
+    "Whether the 4.28.0-RC1 range's fix (4.28.2) and the 4.27.5 range interact in semver ordering was not investigated; the ranges are quoted from the advisory."
+  ]
+}

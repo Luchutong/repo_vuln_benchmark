@@ -1,0 +1,5 @@
+a71af9c144f9579f6dbe945341c1df37aaf09c0d 2020-03-07 21:51:33 +0800 removing log injection (#2277)
+v1.5.0_commit 15ced05c5316609bce5b43389f8e3f06102a8b18
+v1.6.0_commit c4fd2489ced13e86c6e9328e7d66cd3bb2957f00
+merge-base --is-ancestor a71af9c c4fd2489: exit 0
+v1.5.0 logger.go:144 format=%s ; v1.6.0 logger.go:144 format=%#v

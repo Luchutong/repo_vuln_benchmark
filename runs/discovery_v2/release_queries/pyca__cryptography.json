@@ -1,0 +1,17 @@
+{
+  "repo": "pyca/cryptography",
+  "query": "official GitHub Releases collection",
+  "observations": [
+    {
+      "path": "runs/discovery_v2/connector/pyca__cryptography_releases_1.json",
+      "page": 1,
+      "records": 0,
+      "retrieved_at": "2026-10-21T11:03:16.932Z",
+      "status": "PASS"
+    }
+  ],
+  "pagination_complete": true,
+  "total_records": 0,
+  "status": "PASS_QUERY_ONLY",
+  "limitation": "GitHub Releases excludes tag-only releases, historical external security advisories, deleted releases and security reports without release text."
+}

@@ -1,0 +1,23 @@
+# symfony CVE-2024-51996 git object checks (collected 2026-10-22)
+
+## refs
+refs/tags/v5.4.45^{} = 2b66d7d7d8129531229708ef708860844db91944
+refs/tags/v5.4.47^{} = d869cc180cf38d3848feff1dcf38fefaecfd8177
+fix commit = 81354d392c5f0b7a52bcbd729d6f82501e94135a
+
+## fix commit
+81354d392c5f0b7a52bcbd729d6f82501e94135a
+2024-11-07 09:29:25 +0100
+[security-http] Check owner of persisted remember-me cookie
+
+81354d392c [security-http] Check owner of persisted remember-me cookie
+ .../Http/RememberMe/PersistentRememberMeHandler.php   | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
+
+## ancestry
+81354d39 NOT ancestor of v5.4.45
+81354d39 IS ancestor of v5.4.47
+
+## blobs
+v5.4.45 src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php blob 2b8759a2f070e133d720aabcbeb589cbc1c1af66
+v5.4.47 src/Symfony/Component/Security/Http/RememberMe/PersistentRememberMeHandler.php blob 438db1b8c4b02c501bf17dc92aae87ecf7f2a955

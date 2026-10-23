@@ -1,0 +1,141 @@
+{
+  "packet_id": "selrev_3542607_snap_5b58f4c33f6103b5",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "3542607",
+    "full_name": "leethomason/tinyxml2",
+    "canonical_url": "https://github.com/leethomason/tinyxml2",
+    "primary_language": "C++",
+    "project_kind": "TinyXML2 is a simple, small, efficient, C++ XML parser that can be easily integrated into other programs."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_5b58f4c33f6103b5",
+    "tag_or_release": "10.0.0",
+    "commit_sha": "321ea883b7190d4e85cae5512a12e5eaa8f8731f"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "321ea883b7190d4e85cae5512a12e5eaa8f8731f",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "d0705dfde7203c93642a251bbec61025c20f3967",
+    "tree_file_count": 273,
+    "exported_file_count": 273,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/leethomason__tinyxml2/snap_5b58f4c33f6103b5.tar.gz",
+    "archive_sha256": "8ee4dbb6ebb5eeca2d45a5a9b54641cabb01a97372def419297315d4167d7dd4",
+    "archive_bytes": 632032,
+    "manifest_path": "exports/leethomason__tinyxml2/snap_5b58f4c33f6103b5.manifest.jsonl",
+    "manifest_sha256": "ca607417f407481c0138d88cbf461790e3b285c762cff54ae1833297ef02a4ce"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/workflows/test.yml"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "cmake": [
+        "CMakeLists.txt"
+      ],
+      "configure": [
+        "meson.build"
+      ],
+      "make": [
+        "Makefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "cmake",
+      "configure",
+      "make"
+    ],
+    "toolchain_available": {
+      "cmake": {
+        "cmake": true,
+        "make": true
+      },
+      "configure": {
+        "gcc": true,
+        "make": true
+      },
+      "make": {
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-50615",
+      "aliases": [
+        "CVE-2024-50615",
+        "GHSA-884x-p7qm-gq3f",
+        "DEBIAN-CVE-2024-50615"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<=10.0.0",
+          "ecosystem": "generic",
+          "package": "tinyxml2",
+          "purl": "pkg:generic/tinyxml2",
+          "range_expressions": [
+            {
+              "first_patched_version": null,
+              "range": "introduced 0, last_affected 321ea883b7190d4e85cae5512a12e5eaa8f8731f",
+              "source": "OSV CVE-2024-50615 GIT range"
+            },
+            {
+              "first_patched_version": null,
+              "range": "cpe:2.3:a:tinyxml2_project:tinyxml2:*, versionEndIncluding 10.0.0",
+              "source": "NVD CPE configuration"
+            },
+            {
+              "first_patched_version": "10.1.0+dfsg-1",
+              "range": ">=0, <10.1.0+dfsg-1",
+              "source": "Debian OSV, Debian 13/14"
+            }
+          ]
+        }
+      ],
+      "published_at": null,
+      "advisory_url": "https://github.com/advisories/GHSA-884x-p7qm-gq3f",
+      "severity": {
+        "level": "medium",
+        "score": 6.5,
+        "source": "NVD carries only a Secondary cvssMetricV31 (CISA-ADP) at 6.5 with this vector, and GHSA cvss_severities.cvss_v3 publishes the identical vector and score; no NVD Primary metric exists and CVE.org carries no CVSS.",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50615",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

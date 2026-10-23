@@ -1,0 +1,37 @@
+Repository: https://github.com/netty/netty
+Local bare mirror: /tmp/netty_vuln.git
+
+Dataset snapshot: tag netty-4.1.59.Final, commit 97d044812dc84288ea2c44c0862c5b1c26cb5b2d.
+  $ git rev-parse netty-4.1.59.Final^{commit}
+  97d044812dc84288ea2c44c0862c5b1c26cb5b2d
+  runs/language/snap_bb344e672a0544ef/file_inventory.json records
+  codec/src/main/java/io/netty/handler/codec/compression/SnappyFrameDecoder.java
+  bytes=8914, git_oid=74a12895946062bebdf7636da59eb3c5c29775e8,
+  language=Java, which matches both the file at the snapshot tag and the
+  pre-image index of the fix commit (74a12895).
+
+Fix commit: 6da4956b31023ae967451e1d94ff51a746a9194f
+  "Merge pull request from GHSA-9vjp-v76f-g363", 2021-09-09
+  Adds MAX_COMPRESSED_CHUNK_SIZE (16777216-1), MAX_DECOMPRESSED_DATA_SIZE
+  (65536), the snappy.getPreamble() size check, and on-the-fly skipping of
+  RESERVED_SKIPPABLE bytes (numBytesToSkip).
+  $ git merge-base --is-ancestor 6da4956b netty-4.1.59.Final^{commit} ; echo $?
+  1   (NOT an ancestor of the vulnerable snapshot)
+  $ git merge-base --is-ancestor 6da4956b netty-4.1.67.Final^{commit} ; echo $?
+  1   (not in the previous release either)
+  $ git merge-base --is-ancestor 6da4956b netty-4.1.68.Final^{commit} ; echo $?
+  0   (contained in netty-4.1.68.Final)
+  $ git tag --contains 6da4956b | sort -V | head -1
+  netty-4.1.68.Final
+  The fixed file at netty-4.1.68.Final has blob 51997596... (post-image of 6da4956b).
+
+Release tag netty-4.1.68.Final resolves to 7d34282f9d2ffdd64c91cb4780b09902d9779b92
+("[maven-release-plugin] prepare release netty-4.1.68.Final"). The OSV record's
+fixed GIT event names this release commit (7d34282f), not the code change; the
+code change used here is the parent-branch merge 6da4956b.
+
+Duplicate check in the dataset at this snapshot: CVE-2021-37136 is the
+Bzip2Decoder accumulation issue in a different file, and the existing
+GHSA-wm47-8v5p-wjpj entry is the HTTP/2 Content-Length smuggling issue. This
+candidate is the SnappyFrameDecoder memory-exhaustion issue and has a distinct
+root cause and file.

@@ -1,0 +1,39 @@
+CVE-2026-45305 -- static git object checks (symfony/symfony, local bare mirror /tmp/symfony_git)
+Generated 2026-10-22
+
+tag peels
+  v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+  v5.4.52 -> eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+
+fix commit
+  9749cd43c5e09b3735093623670b21b9d8a056cb
+  author date 2026-05-08 22:46:58 +0200
+  subject "[Yaml] Harden the Parser::cleanup() regexes against catastrophic backtracking"
+
+ancestry
+  git merge-base --is-ancestor 9749cd43 v5.4.52 -> YES
+  git merge-base --is-ancestor 9749cd43 v5.4.45 -> NO
+
+blob ids
+  Parser.php v5.4.45 6b5b273a77ead2a84da5f2532b1aebfcb2de1aff
+             v5.4.52 cda68ac1393cc06712ed2802e61e794a6155a23e
+  patch pre-image 08b97b2ada2d5, post-image cda68ac1393cc -- the pre-image is the post-image of the CVE-2026-45304 fix e77391b2,
+  so the two commit diffs are stacked in the 5.4 history
+
+vulnerable behaviour at v5.4.45 (Parser.php, cleanup(), function starts line 1004)
+  line 1010: $value = preg_replace('#^\%YAML[: ][\d\.]+.*\n#u', '', $value, -1, $count);
+  line 1014: $trimmedValue = preg_replace('#^(\#.*?\n)+#s', '', $value, -1, $count);
+  line 1024: $trimmedValue = preg_replace('#^\-\-\-.*?\n#s', '', $value, -1, $count);
+  line 1029: $value = preg_replace('#\.\.\.\s*$#', '', $value);
+  [\d.]+ followed by .* overlaps on the dot; the nested quantifier in the leading-comment regex has the same problem
+
+fixed behaviour at v5.4.52 (cleanup() starts line 1041)
+  line 1049: '#^%YAML[: ][\d.]++[^\n]*+\n#u'        possessive quantifiers
+  line 1053: '#^(?:\#[^\n]*+\n)++#'
+  line 1063: '#^---[^\n]*+\n#'
+  line 1068: '#\.\.\.[ \t]*+$#'
+  the test additions feed 100000-character YAML headers, 100000-character leading comments and long document markers
+
+patch contents (9749cd43)
+  Parser.php: the four cleanup() regexes rewritten
+  ParserTest.php: three regression tests

@@ -1,0 +1,324 @@
+From 31598feb0aa514d8978d2c27a4c9a5a9b8d80a57 Mon Sep 17 00:00:00 2001
+From: Kevin-CB <kguerroudj@cloudbees.com>
+Date: Tue, 2 Dec 2025 13:46:13 +0000
+Subject: [PATCH] [SECURITY-1166]
+
+---
+ .../AuthenticationProcessingFilter2.java      |  34 +++
+ .../authenticate-security-token.jelly         |   1 +
+ .../jenkins/model/Jenkins/login.jelly         |   1 +
+ .../jenkins/security/Security1166Test.java    | 209 ++++++++++++++++++
+ 4 files changed, 245 insertions(+)
+ create mode 100644 test/src/test/java/jenkins/security/Security1166Test.java
+
+diff --git a/core/src/main/java/hudson/security/AuthenticationProcessingFilter2.java b/core/src/main/java/hudson/security/AuthenticationProcessingFilter2.java
+index 052b57fa92af..47d25d71dc35 100644
+--- a/core/src/main/java/hudson/security/AuthenticationProcessingFilter2.java
++++ b/core/src/main/java/hudson/security/AuthenticationProcessingFilter2.java
+@@ -26,6 +26,7 @@
+ 
+ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+ import hudson.model.User;
++import hudson.security.csrf.CrumbIssuer;
+ import jakarta.servlet.FilterChain;
+ import jakarta.servlet.ServletException;
+ import jakarta.servlet.http.HttpServletRequest;
+@@ -34,12 +35,14 @@
+ import java.io.IOException;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
++import jenkins.model.Jenkins;
+ import jenkins.security.SecurityListener;
+ import jenkins.security.seed.UserSeedProperty;
+ import jenkins.util.SystemProperties;
+ import org.kohsuke.accmod.Restricted;
+ import org.kohsuke.accmod.restrictions.NoExternalUse;
+ import org.springframework.http.HttpMethod;
++import org.springframework.security.authentication.InsufficientAuthenticationException;
+ import org.springframework.security.core.Authentication;
+ import org.springframework.security.core.AuthenticationException;
+ import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+@@ -55,6 +58,13 @@
+ @Restricted(NoExternalUse.class)
+ public final class AuthenticationProcessingFilter2 extends UsernamePasswordAuthenticationFilter {
+ 
++    /**
++     * Escape hatch to disable CSRF protection for login requests.
++     */
++    @Restricted(NoExternalUse.class)
++    @SuppressFBWarnings(value = "MS_SHOULD_BE_FINAL", justification = "for script console")
++    public static /* non-final */ boolean SKIP_CSRF_CHECK = SystemProperties.getBoolean(AuthenticationProcessingFilter2.class.getName() + ".skipCSRFCheck");
++
+     @SuppressFBWarnings(value = "HARD_CODE_PASSWORD", justification = "This is a password parameter, not a password")
+     public AuthenticationProcessingFilter2(String authenticationGatewayUrl) {
+         setRequiresAuthenticationRequestMatcher(PathPatternRequestMatcher.withDefaults().matcher(HttpMethod.POST, "/" + authenticationGatewayUrl));
+@@ -63,6 +73,30 @@ public AuthenticationProcessingFilter2(String authenticationGatewayUrl) {
+         setPasswordParameter("j_password");
+     }
+ 
++    @Override
++    public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
++        if (!SKIP_CSRF_CHECK) {
++            Jenkins jenkins = Jenkins.get();
++            CrumbIssuer crumbIssuer = jenkins.getCrumbIssuer();
++            if (crumbIssuer != null) {
++                String crumbField = crumbIssuer.getCrumbRequestField();
++                String crumbSalt = crumbIssuer.getDescriptor().getCrumbSalt();
++
++                String crumb = request.getParameter(crumbField);
++                if (crumb == null) {
++                    crumb = request.getHeader(crumbField);
++                }
++
++                if (crumb == null || !crumbIssuer.validateCrumb(request, crumbSalt, crumb)) {
++                    LOGGER.log(Level.FINE, "No valid crumb was included in authentication request from {0}", request.getRemoteAddr());
++                    throw new InsufficientAuthenticationException("No valid crumb was included in the request");
++                }
++            }
++        }
++
++        return super.attemptAuthentication(request, response);
++    }
++
+     @Override
+     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authResult) throws IOException, ServletException {
+         if (SystemProperties.getInteger(SecurityRealm.class.getName() + ".sessionFixationProtectionMode", 1) == 2) {
+diff --git a/core/src/main/resources/jenkins/install/SetupWizard/authenticate-security-token.jelly b/core/src/main/resources/jenkins/install/SetupWizard/authenticate-security-token.jelly
+index 3877ce94b3d9..fc3461713c0d 100644
+--- a/core/src/main/resources/jenkins/install/SetupWizard/authenticate-security-token.jelly
++++ b/core/src/main/resources/jenkins/install/SetupWizard/authenticate-security-token.jelly
+@@ -6,6 +6,7 @@
+       <st:include page="client-scripts" />
+       <form action="${app.instance.securityRealm.authenticationGatewayUrl}" method="POST">
+         <input type="hidden" name="from" value="${request2.getParameter('from')}" />
++        <input type="hidden" name="${h.getCrumbRequestField()}" value="${h.getCrumb(request2)}"/>
+         <div class="plugin-setup-wizard bootstrap-3">
+           <div class="modal fade in" style="display: block;">
+             <div class="modal-dialog">
+diff --git a/core/src/main/resources/jenkins/model/Jenkins/login.jelly b/core/src/main/resources/jenkins/model/Jenkins/login.jelly
+index d0b990f0f23b..0de6fab2bd80 100644
+--- a/core/src/main/resources/jenkins/model/Jenkins/login.jelly
++++ b/core/src/main/resources/jenkins/model/Jenkins/login.jelly
+@@ -116,6 +116,7 @@ THE SOFTWARE.
+                     </div>
+                   </j:if>
+                   <input type="hidden" name="from" value="${from}"/>
++                  <input type="hidden" name="${h.getCrumbRequestField()}" value="${h.getCrumb(request2)}"/>
+                   <button type="submit"
+                       name="Submit"
+                       class="jenkins-button jenkins-button--primary">
+diff --git a/test/src/test/java/jenkins/security/Security1166Test.java b/test/src/test/java/jenkins/security/Security1166Test.java
+new file mode 100644
+index 000000000000..59308cdebc72
+--- /dev/null
++++ b/test/src/test/java/jenkins/security/Security1166Test.java
+@@ -0,0 +1,209 @@
++package jenkins.security;
++
++import static org.hamcrest.MatcherAssert.assertThat;
++import static org.hamcrest.Matchers.hasItem;
++import static org.hamcrest.Matchers.hasProperty;
++import static org.hamcrest.Matchers.is;
++import static org.hamcrest.Matchers.not;
++import static org.hamcrest.Matchers.startsWith;
++import static org.hamcrest.xml.HasXPath.hasXPath;
++import static org.junit.jupiter.api.Assertions.assertEquals;
++
++import java.net.URL;
++import java.util.ArrayList;
++import java.util.List;
++import org.htmlunit.HttpMethod;
++import org.htmlunit.WebRequest;
++import org.htmlunit.WebResponse;
++import org.htmlunit.html.HtmlForm;
++import org.htmlunit.html.HtmlFormUtil;
++import org.htmlunit.html.HtmlPage;
++import org.htmlunit.util.NameValuePair;
++import org.htmlunit.xml.XmlPage;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++import org.jvnet.hudson.test.Issue;
++import org.jvnet.hudson.test.JenkinsRule;
++import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
++
++@Issue("SECURITY-1166")
++@WithJenkins
++class Security1166Test {
++
++    private JenkinsRule j;
++
++    @BeforeEach
++    void setUp(JenkinsRule rule) {
++        j = rule;
++    }
++
++    @Test
++    void loginRequestFailWithNoCrumb() throws Exception {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false)) {
++            wc.goTo(""); // to trigger the creation of a session
++
++            WebRequest request = new WebRequest(new URL(j.getURL(), "j_spring_security_check"), HttpMethod.POST);
++            List<NameValuePair> params = new ArrayList<>();
++            params.add(new NameValuePair("j_username", "alice"));
++            params.add(new NameValuePair("j_password", "alice"));
++
++            request.setRequestParameters(params);
++
++            WebResponse response = wc.getPage(request).getWebResponse();
++            assertEquals(401, response.getStatusCode());
++            assertUserNotConnected(wc, "alice");
++        }
++    }
++
++    @Test
++    void loginRequestFailWithInvalidCrumb() throws Exception {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false)) {
++            wc.goTo(""); // to trigger the creation of a session
++
++            WebRequest request = new WebRequest(new URL(j.getURL(), "j_spring_security_check"), HttpMethod.POST);
++            List<NameValuePair> params = new ArrayList<>();
++            params.add(new NameValuePair("j_username", "alice"));
++            params.add(new NameValuePair("j_password", "alice"));
++
++            String crumbField = j.jenkins.getCrumbIssuer().getCrumbRequestField();
++            params.add(new NameValuePair(crumbField, "invalid-crumb"));
++
++            request.setRequestParameters(params);
++
++            WebResponse response = wc.getPage(request).getWebResponse();
++            assertEquals(401, response.getStatusCode());
++            assertUserNotConnected(wc, "alice");
++        }
++    }
++
++    @Test
++    void loginRequestSucceedWithValidCrumb() throws Exception {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false)) {
++            wc.goTo(""); // to trigger the creation of a session
++
++            WebRequest request = new WebRequest(new URL(j.getURL(), "j_spring_security_check"), HttpMethod.POST);
++            List<NameValuePair> params = new ArrayList<>();
++            params.add(new NameValuePair("j_username", "alice"));
++            params.add(new NameValuePair("j_password", "alice"));
++
++            String crumbField = j.jenkins.getCrumbIssuer().getCrumbRequestField();
++            String crumbValue = j.jenkins.getCrumbIssuer().getCrumb();
++            params.add(new NameValuePair(crumbField, crumbValue));
++
++            request.setRequestParameters(params);
++
++            WebResponse response = wc.getPage(request).getWebResponse();
++            assertEquals(200, response.getStatusCode());
++            assertUserConnected(wc, "alice");
++        }
++    }
++
++    @Test
++    void loginRequestSucceedWithCrumbInHeader() throws Exception {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false)) {
++            wc.goTo(""); // to trigger the creation of a session
++
++            WebRequest request = new WebRequest(new URL(j.getURL(), "j_spring_security_check"), HttpMethod.POST);
++            List<NameValuePair> params = new ArrayList<>();
++            params.add(new NameValuePair("j_username", "alice"));
++            params.add(new NameValuePair("j_password", "alice"));
++
++            String crumbField = j.jenkins.getCrumbIssuer().getCrumbRequestField();
++            String crumbValue = j.jenkins.getCrumbIssuer().getCrumb();
++            request.setAdditionalHeader(crumbField, crumbValue);
++
++            request.setRequestParameters(params);
++
++            WebResponse response = wc.getPage(request).getWebResponse();
++            assertEquals(200, response.getStatusCode());
++            assertUserConnected(wc, "alice");
++        }
++    }
++
++    @Test
++    void loginRequestSucceedWithNoCrumbIssuer() throws Exception {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++
++        j.jenkins.setCrumbIssuer(null);
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false)) {
++            wc.goTo(""); // to trigger the creation of a session
++
++            WebRequest request = new WebRequest(new URL(j.getURL(), "j_spring_security_check"), HttpMethod.POST);
++            List<NameValuePair> params = new ArrayList<>();
++            params.add(new NameValuePair("j_username", "alice"));
++            params.add(new NameValuePair("j_password", "alice"));
++
++            request.setRequestParameters(params);
++
++            WebResponse response = wc.getPage(request).getWebResponse();
++            assertEquals(200, response.getStatusCode());
++            assertUserConnected(wc, "alice");
++        }
++    }
++
++    @Test
++    void loginRequestFailWithGET() throws Exception {
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false)) {
++            wc.goTo(""); // to trigger the creation of a session
++            wc.setRedirectEnabled(false); // disabling redirection to demonstrates that Spring did not handle the request
++
++            WebRequest request = new WebRequest(new URL(j.getURL(), "j_spring_security_check"), HttpMethod.GET);
++            List<NameValuePair> params = new ArrayList<>();
++            params.add(new NameValuePair("j_username", "alice"));
++            params.add(new NameValuePair("j_password", "alice"));
++
++            String crumbField = j.jenkins.getCrumbIssuer().getCrumbRequestField();
++            String crumbValue = j.jenkins.getCrumbIssuer().getCrumb();
++            params.add(new NameValuePair(crumbField, crumbValue));
++
++            request.setRequestParameters(params);
++
++            WebResponse response = wc.getPage(request).getWebResponse();
++            assertEquals(404, response.getStatusCode());
++            assertThat(response.getResponseHeaders(), hasItem(hasProperty("name", startsWith("Stapler-Trace"))));
++            assertUserNotConnected(wc, "alice");
++        }
++    }
++
++    @Test
++    void loginThroughSetupWizard() throws Exception {
++        j.jenkins.setInstallState(jenkins.install.InstallState.INITIAL_SECURITY_SETUP);
++
++        String initialAdminPassword = j.jenkins.getSetupWizard().getInitialAdminPasswordFile().readToString().trim();
++
++        try (JenkinsRule.WebClient wc = j.createWebClient().withThrowExceptionOnFailingStatusCode(false)) {
++            HtmlPage page = wc.goTo("login");
++            List<HtmlForm> forms = page.getForms();
++            HtmlForm form = forms.get(0);
++
++            assertEquals(1, forms.size()); // It's the only form, which doesn't have a name or an id.
++
++            form.getInputByName("j_password").setValue(initialAdminPassword);
++
++            HtmlFormUtil.submit(form, null);
++
++            assertUserConnected(wc, "admin");
++        }
++    }
++
++    private void assertUserConnected(JenkinsRule.WebClient wc, String expectedUsername) throws Exception {
++        XmlPage page = (XmlPage) wc.goTo("whoAmI/api/xml", "application/xml");
++        assertThat(page, hasXPath("//name", is(expectedUsername)));
++    }
++
++    private void assertUserNotConnected(JenkinsRule.WebClient wc, String notExpectedUsername) throws Exception {
++        XmlPage page = (XmlPage) wc.goTo("whoAmI/api/xml", "application/xml");
++        assertThat(page, hasXPath("//name", not(is(notExpectedUsername))));
++    }
++}

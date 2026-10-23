@@ -1,0 +1,57 @@
+From a1c42cbe517bc146a54da7505a107ded317478fe Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Thu, 16 Apr 2026 19:09:23 +0200
+Subject: [PATCH] [Mime] Reject email addresses containing line breaks in
+ Address
+
+---
+ src/Symfony/Component/Mime/Address.php        |  4 ++++
+ .../Component/Mime/Tests/AddressTest.php      | 20 +++++++++++++++++++
+ 2 files changed, 24 insertions(+)
+
+diff --git a/src/Symfony/Component/Mime/Address.php b/src/Symfony/Component/Mime/Address.php
+index ae83efd73e9b2..b51e598505375 100644
+--- a/src/Symfony/Component/Mime/Address.php
++++ b/src/Symfony/Component/Mime/Address.php
+@@ -52,6 +52,10 @@ public function __construct(string $address, string $name = '')
+         $this->address = trim($address);
+         $this->name = trim(str_replace(["\n", "\r"], '', $name));
+ 
++        if (preg_match('/[\x00-\x1F\x7F]/', $this->address)) {
++            throw new InvalidArgumentException('Email address contains control characters.');
++        }
++
+         if (!self::$validator->isValid($this->address, class_exists(MessageIDValidation::class) ? new MessageIDValidation() : new RFCValidation())) {
+             throw new RfcComplianceException(sprintf('Email "%s" does not comply with addr-spec of RFC 2822.', $address));
+         }
+diff --git a/src/Symfony/Component/Mime/Tests/AddressTest.php b/src/Symfony/Component/Mime/Tests/AddressTest.php
+index 4c64010d9601e..894c22afbcbac 100644
+--- a/src/Symfony/Component/Mime/Tests/AddressTest.php
++++ b/src/Symfony/Component/Mime/Tests/AddressTest.php
+@@ -38,6 +38,26 @@ public function testConstructorWithInvalidAddress()
+         new Address('fab   pot@symfony.com');
+     }
+ 
++    /**
++     * @dataProvider provideAddressesWithControlCharacters
++     */
++    public function testConstructorRejectsControlCharactersInAddress(string $address)
++    {
++        $this->expectException(InvalidArgumentException::class);
++        new Address($address);
++    }
++
++    public static function provideAddressesWithControlCharacters(): iterable
++    {
++        yield 'CRLF in quoted-string' => ["\"x\r\nBcc: attacker@evil\"@example.com"];
++        yield 'CR only' => ["foo\r@example.com"];
++        yield 'LF only' => ["foo\n@example.com"];
++        yield 'NUL byte' => ["foo\x00@example.com"];
++        yield 'HTAB' => ["foo\t@example.com"];
++        yield 'DEL (0x7F)' => ["foo\x7F@example.com"];
++        yield 'control char in domain' => ["foo@example\x01.com"];
++    }
++
+     public function testCreate()
+     {
+         $this->assertSame($a = new Address('fabien@symfony.com'), Address::create($a));

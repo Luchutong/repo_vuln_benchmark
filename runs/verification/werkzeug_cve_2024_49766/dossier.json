@@ -1,0 +1,334 @@
+{
+  "candidate_id": "disc2_a4ec6d72a13263f0ccb28179",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T19:50:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/pallets/werkzeug",
+    "full_name": "pallets/werkzeug",
+    "primary_language": "Python",
+    "project_kind": "WSGI utility library and development server",
+    "repo_id": "997338",
+    "snapshot_id": "snap_b57262de7996e8a2"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-49766",
+    "aliases": [
+      "CVE-2024-49766",
+      "GHSA-f9vj-2wh5-fj8j",
+      "PYSEC-2026-2045"
+    ],
+    "title": "Werkzeug safe_join accepts leading-slash and UNC-style path components on Windows with Python < 3.11 before 3.0.6, allowing paths outside the base directory",
+    "category_l1": "path_traversal",
+    "category_l2": "safe_join bypass via UNC/absolute path component on Windows Python < 3.11",
+    "cwe_ids": [
+      "CWE-22"
+    ],
+    "severity": {
+      "version": "4.0",
+      "vector": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+      "score": 6.3,
+      "level": "medium",
+      "source": "CVE v5 CNA CVSS 4.0 6.3 MEDIUM (GitHub_M), mirrored by the NVD Secondary metric; NVD also carries a Primary CVSS 3.1 5.3 MEDIUM (nvd@nist.gov). Both levels are MEDIUM.",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-49766"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "PyPI",
+        "package": "werkzeug",
+        "purl": "pkg:pypi/werkzeug",
+        "affected_range": "<3.0.6"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "main (merge from fork)",
+        "sha": "2767bcb10a7dd1c297d812cc5e6d11a474c1f092",
+        "message": "Merge commit from fork (safe_join: reject paths starting with \"/\")",
+        "url": "https://github.com/pallets/werkzeug/commit/2767bcb10a7dd1c297d812cc5e6d11a474c1f092"
+      },
+      {
+        "branch": "main (pre-fix base of the merge)",
+        "sha": "50cfeebcb0727e18cc52ffbeb125f4a66551179b",
+        "message": "Merge commit from fork (base commit the fix diff was computed against)",
+        "url": "https://github.com/pallets/werkzeug/commit/50cfeebcb0727e18cc52ffbeb125f4a66551179b"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "werkzeug",
+        "tag": "3.0.6",
+        "version": "3.0.6",
+        "release_url": "https://github.com/pallets/werkzeug/releases/tag/3.0.6",
+        "verified_content": "At the 3.0.6 commit (5eaefc39, direct child of fix 2767bcb1) safe_join's predicate block (lines 151-159) contains `or filename.startswith(\"/\")` after `os.path.isabs(filename)`, and tests/test_security.py has the parametrized case (\"//b/c\", None). The 3.0.2-3.0.5 blobs (587a3cc7 / 9999509d) lack the predicate."
+      }
+    ],
+    "published_at": "2024-10-25T19:22:36.380Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/pallets/werkzeug/security/advisories/GHSA-f9vj-2wh5-fj8j",
+    "references": [
+      "https://github.com/pallets/werkzeug/security/advisories/GHSA-f9vj-2wh5-fj8j",
+      "https://github.com/pallets/werkzeug/commit/2767bcb10a7dd1c297d812cc5e6d11a474c1f092",
+      "https://github.com/pallets/werkzeug/releases/tag/3.0.6",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-49766",
+      "https://osv.dev/vulnerability/GHSA-f9vj-2wh5-fj8j",
+      "https://security.netapp.com/advisory/ntap-20250131-0005/"
+    ],
+    "vulnerable_commit": "d70dcea305bf842c5a3b55265b5ffac2db012e23",
+    "vulnerable_commit_basis": "lightweight tag 3.0.2 points directly at d70dcea3...; 3.0.2 is inside the advisory's affected range (< 3.0.6) and its security.py blob 587a3cc7 contains the predicate block without the leading-slash check",
+    "vulnerable_version": "3.0.2",
+    "snapshot_id": "snap_b57262de7996e8a2",
+    "repo_id": "997338",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2024_49766_snap_b57262de7996e8a2",
+    "location_kind": "logic",
+    "snapshot_id": "snap_b57262de7996e8a2",
+    "vulnerability_id": "CVE-2024-49766",
+    "verification_method": "Static read of src/werkzeug/security.py at 3.0.2, 3.0.5 and 3.0.6, the tests at 3.0.2/3.0.6, the fix diff and the caller files in the same snapshot. No code executed.",
+    "critical_operation": {
+      "file": "src/werkzeug/security.py",
+      "function": "safe_join",
+      "language": "Python",
+      "line": "147-153",
+      "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/security.py#L147-L153",
+      "code_excerpt": "        if (\n            any(sep in filename for sep in _os_alt_seps)\n            or os.path.isabs(filename)\n            or filename == \"..\"\n            or filename.startswith(\"../\")\n        ):\n            return None",
+      "description": "safe_join() normalizes each untrusted component with posixpath.normpath and then rejects it only if it contains an OS alternate separator (backslash on Windows), os.path.isabs() is true, it is exactly \"..\", or it starts with \"../\". On Windows with Python < 3.11, ntpath.isabs() returns False for UNC paths such as //server/share, and posixpath.normpath leaves \"//b/c\" unchanged, so components beginning with \"//\" (and plain \"/...\" components, which os.path.isabs also misses on some Windows/Python combinations) survive the check. posixpath.join then returns a path rooted outside the base directory (or on a UNC share). The missing predicate is exactly `filename.startswith(\"/\")`, which the 3.0.6 fix adds at lines 154-155."
+    },
+    "entry_point": {
+      "file": "src/werkzeug/middleware/shared_data.py",
+      "function": "SharedDataMiddleware.__call__",
+      "language": "Python",
+      "line": 229,
+      "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/middleware/shared_data.py#L229",
+      "description": "SharedDataMiddleware.get_directory_loader's loader passes the client-derived path to safe_join(directory, path) at line 206; __call__ obtains that path with get_path_info(environ) at line 229. If safe_join returns a \"//...\" value, os.path.isfile(path) / self._opener(path) at line 213 operate on that path outside the intended directory. send_from_directory (utils.py:563) is a second public caller whose `path` argument is documented as the client-provided part."
+    },
+    "trace": [
+      {
+        "file": "src/werkzeug/middleware/shared_data.py",
+        "function": "SharedDataMiddleware.__call__",
+        "language": "Python",
+        "line": 229,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/middleware/shared_data.py#L229",
+        "description": "Client request path is taken from the WSGI environ"
+      },
+      {
+        "file": "src/werkzeug/middleware/shared_data.py",
+        "function": "SharedDataMiddleware.get_directory_loader.<locals>.loader",
+        "language": "Python",
+        "line": 206,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/middleware/shared_data.py#L206",
+        "description": "Untrusted path is passed to safe_join(directory, path)"
+      },
+      {
+        "file": "src/werkzeug/security.py",
+        "function": "safe_join",
+        "language": "Python",
+        "line": 147,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/security.py#L147-L153",
+        "description": "Predicate block lacks the leading-slash check, so \"//b/c\" is accepted on Windows Python < 3.11"
+      },
+      {
+        "file": "src/werkzeug/middleware/shared_data.py",
+        "function": "SharedDataMiddleware.get_directory_loader.<locals>.loader",
+        "language": "Python",
+        "line": 213,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/middleware/shared_data.py#L213",
+        "description": "Returned path is checked with os.path.isfile and opened, resolving outside the base directory"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_werkzeug_osv_ghsa",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/osv_GHSA-f9vj-2wh5-fj8j.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-f9vj-2wh5-fj8j",
+      "retrieved_at": "2026-10-21T19:45:00Z",
+      "sha256_of_observation": "04e203f3fb5803aa6542c00a86bd347aae86c51c283db9b5a73a294776f1104c",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases CVE-2024-49766 and PYSEC-2026-2045",
+        "PyPI ECOSYSTEM range introduced 0, fixed 3.0.6",
+        "GIT range introduced 0, fixed 5eaefc39 (tag 3.0.6) and 2767bcb1",
+        "CVSS 4.0 6.3 vector AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N",
+        "database_specific: severity MODERATE, cwe_ids [CWE-22], github_reviewed true"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_cve_v5",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/cve_v5_CVE-2024-49766.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-49766",
+      "retrieved_at": "2026-10-21T19:44:00Z",
+      "sha256_of_observation": "080baad11ea1febfbe89a966c45683e8b5be4c6fbfa50363881a16ad09638fe8",
+      "verification_method": "CVE List v5 MITRE record",
+      "result": "PASS",
+      "supports": [
+        "CVE published 2024-10-25, state PUBLISHED, assigner GitHub_M",
+        "CNA description: os.path.isabs() misses UNC paths like //server/share on Windows Python < 3.11; applications on Python >= 3.11 or not on Windows are not vulnerable; 3.0.6 contains the patch",
+        "CNA CVSS 4.0 6.3 MEDIUM CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+        "CNA CWE-22",
+        "affected version < 3.0.6; references advisory GHSA-f9vj-2wh5-fj8j, commit 2767bcb1 and release 3.0.6"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_nvd",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/nvd_CVE-2024-49766.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-49766",
+      "retrieved_at": "2026-10-21T19:44:00Z",
+      "sha256_of_observation": "5306815c6f2c2ec3e965415cd4b68308c94a2c68dfa58bba1f159b5ba712e596",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "NVD status Analyzed, published 2024-10-25T20:15:04",
+        "NVD Primary CVSS 3.1 5.3 MEDIUM CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N from nvd@nist.gov",
+        "NVD Secondary CVSS 4.0 6.3 MEDIUM from security-advisories@github.com, matching the CNA",
+        "CWE-22 from the GitHub Secondary source",
+        "Both CVSS versions are MEDIUM, so the published level agrees across sources"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_git_checks",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/git_object_checks.txt",
+      "source_url": "https://github.com/pallets/werkzeug/commit/2767bcb10a7dd1c297d812cc5e6d11a474c1f092",
+      "retrieved_at": "2026-10-21T19:47:00Z",
+      "sha256_of_observation": "68ffdb4a84665da11ee594f96a0be8b8eb12c7d86e34d263ae290812c653162e",
+      "verification_method": "exact-SHA and tag reads in a bare mirror; git ls-tree / cat-file / show at tags; blob ids compared across 3.0.2-3.0.6; no ancestry claim across the shallow boundary",
+      "result": "PASS",
+      "supports": [
+        "tag 3.0.2 is lightweight and points at d70dcea3",
+        "tag 3.0.6 is annotated (object a82e04ed) and peels to 5eaefc39",
+        "3.0.3/3.0.4/3.0.5 security.py blobs are 9999509d, still without the leading-slash check",
+        "fix merge 2767bcb1 has parents 50cfeebc and 87cc78a2; diff 50cfeebc..2767bcb1 adds exactly the predicate, CHANGES.rst entry and regression test",
+        "release commit 5eaefc39 has 2767bcb1 as its direct parent",
+        "3.0.6 security.py blob is 9975979 with `or filename.startswith(\"/\")`",
+        "call sites: shared_data.py 170/206 and utils.py 563 pass client-derived paths to safe_join"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_vuln_file",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/security_3.0.2.py",
+      "source_url": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/security.py#L147-L153",
+      "retrieved_at": "2026-10-21T19:45:00Z",
+      "sha256_of_observation": "b659c45a52a3a2e3e9f35217696d2b7925f8e867eca8490f1559f188feb9a4a9",
+      "verification_method": "file read at the 3.0.2 commit (git show 3.0.2:src/werkzeug/security.py)",
+      "result": "PASS",
+      "supports": [
+        "vulnerable root-cause region at lines 147-153",
+        "safe_join normalizes with posixpath.normpath (145) and rejects only backslash, os.path.isabs, \"..\", and \"../\" prefixes",
+        "_os_alt_seps (12-14) holds only OS-specific separators other than \"/\"",
+        "no leading-slash check is present"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_fixed_file",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/security_3.0.6.py",
+      "source_url": "https://github.com/pallets/werkzeug/blob/5eaefc3996aa5cc8c5237d8b82f1b89eed6ea624/src/werkzeug/security.py#L151-L159",
+      "retrieved_at": "2026-10-21T19:45:00Z",
+      "sha256_of_observation": "5b9e984973c113a1f94e4ca19cf9a39353d4a3d5c257adc20b0f48d821e01b34",
+      "verification_method": "file read at the 3.0.6 commit (git show 3.0.6:src/werkzeug/security.py)",
+      "result": "PASS",
+      "supports": [
+        "fixed release content at lines 151-159",
+        "adds `# ntpath.isabs doesn't catch this on Python < 3.11` and `or filename.startswith(\"/\")`",
+        "the rest of safe_join is unchanged, so the predicate is the whole fix"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_regression_test",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/test_security_3.0.6.py",
+      "source_url": "https://github.com/pallets/werkzeug/blob/5eaefc3996aa5cc8c5237d8b82f1b89eed6ea624/tests/test_security.py#L49-L59",
+      "retrieved_at": "2026-10-21T19:45:00Z",
+      "sha256_of_observation": "30c0cd48166ec272e5aa1d58ec6cdf4af726397e757faf217d4e8f09a11587da",
+      "verification_method": "file read at the 3.0.6 commit (git show 3.0.6:tests/test_security.py)",
+      "result": "PASS",
+      "supports": [
+        "test_safe_join is parametrized after the fix",
+        "case (\"//b/c\", None) is the regression case for this CVE",
+        "case (\"b\\\\c\", None if os.name == \"nt\" else \"a/b\\\\c\") keeps the platform-specific separator behaviour",
+        "3.0.2 had a single non-parametrized test with no //b/c case"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_snapshot",
+      "artifact_path": "runs/language/snap_b57262de7996e8a2/snapshot_proposal.json",
+      "source_url": "https://github.com/pallets/werkzeug/tree/d70dcea305bf842c5a3b55265b5ffac2db012e23",
+      "retrieved_at": "2026-10-21T14:17:32Z",
+      "sha256_of_observation": "fe3b23a9a4f0742fe3034eb9015e96a586a86088e1d6b596b028978964572ac8",
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_b57262de7996e8a2 and 311-file inventory",
+        "tag_or_release 3.0.2 with vulnerable_commit d70dcea3",
+        "Python first-party 61 files / 732,584 bytes / 49.65% of first-party text",
+        "tree oid 72c1e243 and full_scan true"
+      ]
+    },
+    {
+      "evidence_id": "ev_werkzeug_fix_patch",
+      "artifact_path": "runs/verification/werkzeug_cve_2024_49766/sources/fix_commit_2767bcb1.patch",
+      "source_url": "https://github.com/pallets/werkzeug/commit/2767bcb10a7dd1c297d812cc5e6d11a474c1f092",
+      "retrieved_at": "2026-10-21T19:45:00Z",
+      "sha256_of_observation": "27cab15c6c02f9f273e0092d6f2f065262d04fe43eadde54b57d5f6e4d4c9664",
+      "verification_method": "git diff 50cfeebc 2767bcb1 in the local mirror; 60-line unified diff read statically",
+      "result": "PASS",
+      "supports": [
+        "the fix touches only CHANGES.rst, src/werkzeug/security.py and tests/test_security.py",
+        "security.py index 9999509..9975979 adds the two comment/predicate lines",
+        "CHANGES.rst entry names :ghsa:`f9vj-2wh5-fj8j` and the ntpath.isabs/Python < 3.11 cause",
+        "tests are rewritten to a parametrized form including (\"//b/c\", None)"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [1, 0],
+    "aliases": [0, 1],
+    "critical_operation": [4],
+    "cwe": [0, 1, 2],
+    "fix_commits": [3, 8],
+    "fixed_releases": [3, 5],
+    "languages": [7],
+    "severity": [0, 1, 2],
+    "vulnerable_commit": [3, 4, 7]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-f9vj-2wh5-fj8j and CVE-2024-49766, PyPI and GIT ranges)",
+      "CVE List v5 MITRE record (assigner GitHub_M)",
+      "NVD analysis (Primary nvd@nist.gov CVSS 3.1, Secondary GitHub CVSS 4.0)",
+      "upstream git history (tags 3.0.2-3.0.6, fix merge 2767bcb1)"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA (GitHub_M) supplies the CVSS 4.0 6.3 metric and CWE-22 and points at the advisory, fix commit 2767bcb1 and release 3.0.6. NVD carries both that Secondary metric and its own Primary CVSS 3.1 5.3 assessment (Analyzed), so it adds independent analysis rather than only mirroring. OSV repeats the CNA vector, records the same commit and both the tag commit 5eaefc39 and 2767bcb1 as fixed GIT events, and adds PYSEC-2026-2045. All three published sources agree on the MEDIUM level (6.3/6.3/5.3 are all MEDIUM); the scores and CVSS versions differ, which is acceptable because the level agrees. The git evidence matches the stated fixed version: 3.0.6 is the first tag whose safe_join carries the predicate, 3.0.2-3.0.5 do not.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read src/werkzeug/security.py at 3.0.2 and confirm lines 147-153 lack a leading-slash predicate.",
+      "An independent reviewer must confirm 3.0.2-3.0.5 blobs (587a3cc7 / 9999509d) are unfixed and 3.0.6 blob 9975979 contains `or filename.startswith(\"/\")`.",
+      "An independent reviewer must confirm 2767bcb1 is the fix merge and that release commit 5eaefc39 is its direct child.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No code was executed: there was no Windows host and no Python < 3.11 interpreter, so the os.path.isabs/ntpath behaviour is taken from the upstream advisory and comment, not reproduced.",
+    "The flaw only manifests on Windows with Python < 3.11 and only when the application passes attacker-controlled components to safe_join (SharedDataMiddleware or send_from_directory); applications on other platforms are not affected, and an end-to-end exploit was not attempted.",
+    "NVD's Primary CVSS 3.1 5.3 differs in score from the CNA CVSS 4.0 6.3; both are MEDIUM, so severity level agrees, and the dossier records the CNA metric as primary.",
+    "The local mirror is shallow at fix merge 2767bcb1, so cross-release ancestry through it (e.g. merge-base against 3.0.5) is not reliable; the dossier relies on tag trees and blob ids instead.",
+    "The advisory gives no reporter or reproduction reference, so no independent reproduction is available and grade A is not attainable."
+  ],
+  "open_questions": [
+    "Whether every Python < 3.11 Windows build misses os.path.isabs for both \"//server/share\" and single-slash \"/x\" forms was not executed; the fix's leading-slash check covers both.",
+    "Whether any 3.0.x release between 3.0.3 and 3.0.5 contains an unrelated safe_join change was checked only by blob id (identical 9999509d), not by a full release-by-release diff.",
+    "Whether applications using only safe_join for non-filesystem purposes (e.g. URL path joining) are affected was not assessed; the CVE speaks of unintended access to data."
+  ]
+}

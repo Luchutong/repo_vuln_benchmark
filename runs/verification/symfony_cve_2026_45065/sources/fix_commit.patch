@@ -1,0 +1,52 @@
+From bcf487c22f3240ba994124e0e0fe8616f3cfc47a Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Thu, 16 Apr 2026 16:37:03 +0200
+Subject: [PATCH] [Routing] Fix regex alternation anchoring in UrlGenerator
+ requirement validation
+
+---
+ src/Symfony/Component/Routing/Generator/UrlGenerator.php  | 4 ++--
+ .../Routing/Tests/Generator/UrlGeneratorTest.php          | 8 ++++++++
+ 2 files changed, 10 insertions(+), 2 deletions(-)
+
+diff --git a/src/Symfony/Component/Routing/Generator/UrlGenerator.php b/src/Symfony/Component/Routing/Generator/UrlGenerator.php
+index 4419e9efd3e6c..97fc8116a0303 100644
+--- a/src/Symfony/Component/Routing/Generator/UrlGenerator.php
++++ b/src/Symfony/Component/Routing/Generator/UrlGenerator.php
+@@ -189,7 +189,7 @@ protected function doGenerate(array $variables, array $defaults, array $requirem
+ 
+                 if (!$optional || $important || !\array_key_exists($varName, $defaults) || (null !== $mergedParams[$varName] && (string) $mergedParams[$varName] !== (string) $defaults[$varName])) {
+                     // check requirement (while ignoring look-around patterns)
+-                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]] ?? '')) {
++                    if (null !== $this->strictRequirements && !preg_match('#^(?:'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).')$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]] ?? '')) {
+                         if ($this->strictRequirements) {
+                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $varName, '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$varName]]));
+                         }
+@@ -244,7 +244,7 @@ protected function doGenerate(array $variables, array $defaults, array $requirem
+             foreach ($hostTokens as $token) {
+                 if ('variable' === $token[0]) {
+                     // check requirement (while ignoring look-around patterns)
+-                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
++                    if (null !== $this->strictRequirements && !preg_match('#^(?:'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).')$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
+                         if ($this->strictRequirements) {
+                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $token[3], '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$token[3]]]));
+                         }
+diff --git a/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php b/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
+index 7f4cc5cc7da54..0ad2909d913e9 100644
+--- a/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
++++ b/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
+@@ -342,6 +342,14 @@ public function testGenerateForRouteWithInvalidParameter()
+         $this->getGenerator($routes)->generate('test', ['foo' => '0'], UrlGeneratorInterface::ABSOLUTE_URL);
+     }
+ 
++    public function testGenerateForRouteWithAlternationRequirementRejectsSubstringMatch()
++    {
++        $routes = $this->getRoutes('test', new Route('/{_locale}/blog', [], ['_locale' => 'en|fr|vi|de']));
++
++        $this->expectException(InvalidParameterException::class);
++        $this->getGenerator($routes)->generate('test', ['_locale' => '/evil.com']);
++    }
++
+     public function testGenerateForRouteWithInvalidOptionalParameterNonStrict()
+     {
+         $routes = $this->getRoutes('test', new Route('/testing/{foo}', ['foo' => '1'], ['foo' => 'd+']));

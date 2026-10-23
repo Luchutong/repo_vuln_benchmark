@@ -1,0 +1,4 @@
+hyper 0.14.10: ['GHSA-f67m-9j94-qv9j', 'RUSTSEC-2022-0022']
+hyper 0.14.11: ['GHSA-f67m-9j94-qv9j', 'RUSTSEC-2022-0022']
+hyper 0.14.12: []
+hyper 1.0.0: []

@@ -1,0 +1,520 @@
+{
+  "dossier_version": "1.0",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T00:26:00Z",
+  "prepared_by": "dataset-collector-repovuln50",
+  "candidate_id": "disc2_f3d3fb4f8db5e98eaf5ffb0b",
+  "repository": {
+    "repo_id": "4164482",
+    "full_name": "django/django",
+    "canonical_url": "https://github.com/django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2020-24584",
+    "aliases": [
+      "CVE-2020-24584",
+      "GHSA-fr28-569j-53c4",
+      "BIT-django-2020-24584",
+      "PYSEC-2020-34"
+    ],
+    "title": "Django FileBasedCache creates intermediate cache directories with the process umask instead of 0o077 on Python 3.7+",
+    "category_l1": "information_disclosure",
+    "category_l2": "permission escalation in intermediate-level directories of the file system cache",
+    "cwe_ids": [
+      "CWE-276"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "score": 7.5,
+      "level": "high",
+      "source": "NVD primary metric nvd@nist.gov",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2020-24584"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=2.2,<2.2.16"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.0,<3.0.10"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.1,<3.1.1"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "master",
+        "sha": "1853724acaf17ed7414d54c7d2b5563a25025a71",
+        "message": "Fixed CVE-2020-24584 -- Fixed permission escalation in intermediate-level directories of the file system cache on Python 3.7+.",
+        "url": "https://github.com/django/django/commit/1853724acaf17ed7414d54c7d2b5563a25025a71"
+      },
+      {
+        "branch": "3.1.x",
+        "sha": "2b099caa5923afa8cfb5f1e8c0d56b6e0e81915b",
+        "message": "[3.1.x] Fixed CVE-2020-24584 -- Fixed permission escalation in intermediate-level directories of the file system cache on Python 3.7+.",
+        "url": "https://github.com/django/django/commit/2b099caa5923afa8cfb5f1e8c0d56b6e0e81915b"
+      },
+      {
+        "branch": "3.0.x",
+        "sha": "cdb367c92a0ba72ddc0cbd13ff42b0e6df709554",
+        "message": "[3.0.x] Fixed CVE-2020-24584 -- Fixed permission escalation in intermediate-level directories of the file system cache on Python 3.7+.",
+        "url": "https://github.com/django/django/commit/cdb367c92a0ba72ddc0cbd13ff42b0e6df709554"
+      },
+      {
+        "branch": "2.2.x",
+        "sha": "a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f",
+        "message": "[2.2.x] Fixed CVE-2020-24584 -- Fixed permission escalation in intermediate-level directories of the file system cache on Python 3.7+.",
+        "url": "https://github.com/django/django/commit/a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "3.0.10",
+        "tag": "3.0.10",
+        "release_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.10/",
+        "verified_content": "At tag 3.0.10 (a208020e), filebased.py blob 64cc175b wraps os.makedirs in os.umask(0o077); fix cdb367c9 is an ancestor of the tag and absent from 3.0.9."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "2.2.16",
+        "tag": "2.2.16",
+        "release_url": "https://docs.djangoproject.com/en/2.2/releases/2.2.16/",
+        "verified_content": "At tag 2.2.16 (bf07047f), filebased.py blob 012b54e8 contains the umask wrapper; fix a3aebfdc is an ancestor of the tag."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "version": "3.1.1",
+        "tag": "3.1.1",
+        "release_url": "https://docs.djangoproject.com/en/3.1/releases/3.1.1/",
+        "verified_content": "At tag 3.1.1 (f33c2528), filebased.py blob 10779c55 contains the umask wrapper; fix 2b099caa is an ancestor of the tag."
+      }
+    ],
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_version": "3.0.2",
+    "vulnerable_commit_basis": "tag 3.0.2 points directly at a3697439; the 3.0.9 filebased.py blob is byte-identical to 3.0.2 and to the 3.0.x fix parent 08892bff, while the 3.0.10 blob differs, so 3.0.2 carries the unfixed _createdir implementation",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "repo_id": "4164482",
+    "published_at": "2020-09-01T13:15:11Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2020/sep/01/security-releases/",
+    "discovery_cutoff_date": "2026-10-21",
+    "references": [
+      "https://www.djangoproject.com/weblog/2020/sep/01/security-releases/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-24584",
+      "https://github.com/advisories/GHSA-fr28-569j-53c4",
+      "https://docs.djangoproject.com/en/3.0/releases/3.0.10/",
+      "https://github.com/django/django/commit/1853724acaf17ed7414d54c7d2b5563a25025a71",
+      "https://github.com/django/django/commit/2b099caa5923afa8cfb5f1e8c0d56b6e0e81915b",
+      "https://github.com/django/django/commit/cdb367c92a0ba72ddc0cbd13ff42b0e6df709554",
+      "https://github.com/django/django/commit/a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2020-24584_snap_ab695ba3db678939",
+    "vulnerability_id": "CVE-2020-24584",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "location_kind": "logic",
+    "critical_operation": {
+      "file": "django/core/cache/backends/filebased.py",
+      "function": "FileBasedCache._createdir",
+      "language": "Python",
+      "line": "115-116",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/filebased.py#L115-L116",
+      "code_excerpt": "    def _createdir(self):\n        os.makedirs(self._dir, 0o700, exist_ok=True)",
+      "description": "FileBasedCache._createdir invokes os.makedirs(self._dir, 0o700, exist_ok=True) without controlling the process umask. On Python 3.7+ os.makedirs applies the mode argument only to the leaf directory; intermediate-level directories are created with 0o777 masked by the ambient umask, typically 0o755, so they are group- and world-readable and traversable while the intended cache directory mode is 0o700. Cache entries are stored as files under self._dir, so a local attacker able to traverse the intermediate directories can reach the cache tree and read cached values whose filenames are predictable md5 digests. The 3.0.10/2.2.16/3.1.1 fix sets the umask to 0o077 around os.makedirs so every created directory receives 0o700."
+    },
+    "entry_point": {
+      "file": "django/core/cache/backends/filebased.py",
+      "function": "FileBasedCache._createdir",
+      "language": "Python",
+      "line": 115,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/filebased.py#L115",
+      "description": "The first cache write or read triggers directory creation for the configured LOCATION, including any missing parent directories."
+    },
+    "trace": [
+      {
+        "description": "_createdir is the only place that creates the cache directory tree",
+        "file": "django/core/cache/backends/filebased.py",
+        "function": "FileBasedCache._createdir",
+        "language": "Python",
+        "line": 115,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/filebased.py#L115"
+      },
+      {
+        "description": "os.makedirs receives 0o700 as the leaf mode but no umask guard, so intermediate directories use the ambient umask",
+        "file": "django/core/cache/backends/filebased.py",
+        "function": "FileBasedCache._createdir",
+        "language": "Python",
+        "line": 116,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/filebased.py#L116"
+      },
+      {
+        "description": "cache entries are written as files beneath the created directory",
+        "file": "django/core/cache/backends/filebased.py",
+        "function": "FileBasedCache._key_to_file",
+        "language": "Python",
+        "line": 124,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/filebased.py#L124"
+      }
+    ],
+    "verification_method": "Static read of filebased.py at 3.0.2, 3.0.9, 3.0.10, 2.2.15 and 2.2.16, of the 3.0.x/2.2.x fix diffs and tests, and of the release notes; git blob identity and tag ancestry were checked against a local full clone. No cache operation or test suite run was performed."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_django24584_osv_ghsa",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/osv_ghsa.json",
+      "sha256_of_observation": "4db3b7074243506115f9a1469b6e80949d3b52cbae61c260017af8a8f9c1b629",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-fr28-569j-53c4",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "GHSA-fr28-569j-53c4 aliases CVE-2020-24584, BIT-django-2020-24584 and PYSEC-2020-34",
+        "three PyPI ranges: 2.2 through <2.2.16, 3.0 through <3.0.10 and 3.1 through <3.1.1",
+        "OSV carries CVSS 3.1 AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N and a CVSS 4.0 vector with VC:N/VI:L/VA:N"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django24584_cve_v5",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/cve_v5.json",
+      "sha256_of_observation": "1c9e4c95ae3b916d1287fc48c5ea9d73dc5bfd3e237d67e5b705a59bddc9ceaa",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2020-24584",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the CVE is PUBLISHED and assigned by mitre",
+        "the CNA affected entry and problemTypes are placeholders (vendor/product/version n/a, description n/a)"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django24584_nvd",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/nvd_cve.json",
+      "sha256_of_observation": "6cb6e389b49c3862d26c2f03fefcff31473608291d1cbb4829b85c70325c3414",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2020-24584",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N; NVD also carries CVSS 2.0 5.0",
+        "NVD assigns CWE-276 (Incorrect Default Permissions)",
+        "CPE ranges are 2.2 through <2.2.16, 3.0 through <3.0.10 and 3.1 through <3.1.1",
+        "the English description states that intermediate-level directories of the filesystem cache had the system's standard umask rather than 0o077 on Python 3.7+"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django24584_advisory",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/djangoproject_security.html",
+      "sha256_of_observation": "bd9111dc597fb3a811578719606b0c4aabebe75102d3f2129c2c1174edf695f3",
+      "source_url": "https://www.djangoproject.com/weblog/2020/sep/01/security-releases/",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the announcement 'Django security releases issued: 3.1.1, 3.0.10 and 2.2.16' lists CVE-2020-24584 as permission escalation in intermediate-level directories of the file system cache on Python 3.7+",
+        "the announcement lists four changesets for CVE-2020-24584 and the three fixed releases"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django24584_ghsa_page",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/ghsa_page.html",
+      "sha256_of_observation": "0e9d10398762d78e649d8fd000102518258917f146b0ae32bf81e2e97325f434",
+      "source_url": "https://github.com/advisories/GHSA-fr28-569j-53c4",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the rendered GitHub advisory page is for CVE-2020-24584 in Django and lists the patched boundaries"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django24584_git_checks",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/git_object_checks.txt",
+      "sha256_of_observation": "b627d572d6574f251a3b7ffe15f4949b5d23d6bc4bb8e5e6429bb8b9572d70d3",
+      "source_url": "https://github.com/django/django",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "tags 3.0.2, 3.0.9, 3.0.10, 2.2.15, 2.2.16, 3.1 and 3.1.1 peel to the recorded commits",
+        "the 3.0.2 and 3.0.9 filebased.py blobs are identical (48b8df90abd97c2111b705db283afc39fe6b05cd) and equal the 3.0.x fix parent 08892bff blob; 3.0.10 is 64cc175b1835b6aa32b572a7ecb82a9ad5eda7d3",
+        "cdb367c9 is an ancestor of 3.0.10 but not of 3.0.9; a3aebfdc is an ancestor of 2.2.16; 2b099caa is an ancestor of 3.1.1; the master changeset 1853724a is first contained in 3.2a1 and is not an ancestor of 3.1.1",
+        "tag 3.0.2 filebased.py lines 115-116 are def _createdir and os.makedirs(self._dir, 0o700, exist_ok=True)"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_vuln_filebased",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/filebased_3.0.2.py",
+      "sha256_of_observation": "1cf9e47840638b9a5019cd364de4a99e8d8063db986efad4a00989225bbb4728",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/filebased.py",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "FileBasedCache._createdir at lines 115-116 calls os.makedirs(self._dir, 0o700, exist_ok=True) with no umask handling",
+        "on Python 3.7+ the mode argument applies only to the leaf directory, so intermediate directories are created with 0o777 masked by the ambient umask rather than 0o700",
+        "the class docstring and _key_to_file show that cache entries are stored as files under self._dir"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_vuln_filebased_309",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/filebased_3.0.9.py",
+      "sha256_of_observation": "1cf9e47840638b9a5019cd364de4a99e8d8063db986efad4a00989225bbb4728",
+      "source_url": "https://github.com/django/django/blob/39716e4578e9563cbba2fa754795901d0e25501f/django/core/cache/backends/filebased.py",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 3.0.9 filebased.py is byte-identical to 3.0.2 (same sha256), so the flaw persisted through every 3.0.x release before 3.0.10"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_fixed_filebased",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/filebased_3.0.10.py",
+      "sha256_of_observation": "0f7479ad4443fedc6d313b896a0a11e10f1de78f4b7d57fcd0e44a3c2add2875",
+      "source_url": "https://github.com/django/django/blob/a208020ecd0aa568cb5be6ef8b76701224ebe1a2/django/core/cache/backends/filebased.py",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the fixed _createdir temporarily sets os.umask(0o077) around os.makedirs(self._dir, 0o700, exist_ok=True) and restores the old umask in a finally block",
+        "the fixed comment states that os.makedirs() does not apply the mode argument to intermediate-level directories"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_vuln_filebased_22",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/filebased_2.2.15.py",
+      "sha256_of_observation": "25c91f9ad335d728bb1f92f56315287a5b6a3d3f0ea920a89aa06199b7222832",
+      "source_url": "https://github.com/django/django/blob/bf6c58435d4707417b7ef386667ede70ebba8929/django/core/cache/backends/filebased.py",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "2.2.15 has the same unguarded os.makedirs(self._dir, 0o700, exist_ok=True) call, so the 2.2 branch shares the root cause"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_fixed_filebased_22",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/filebased_2.2.16.py",
+      "sha256_of_observation": "2d5ce46c1b0ab4c3a74f13c073394ce3c2160225dad09f0a492547d28ae38969",
+      "source_url": "https://github.com/django/django/blob/bf07047f45767eddaf52400c60f7e2becc8891d3/django/core/cache/backends/filebased.py",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "2.2.16 applies the same os.umask(0o077) wrapper"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_release_notes",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/release_notes_3.0.10.html",
+      "sha256_of_observation": "de3e7910cb185893631bf05d3699651971c9ee91583e07beab18406c4a52cd5c",
+      "source_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.10/",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 3.0.10 release notes contain the CVE-2020-24584 paragraph stating that intermediate-level directories had the system standard umask rather than 0o077"
+      ],
+      "verification_method": "HTTP GET of the primary source"
+    },
+    {
+      "evidence_id": "ev_django24584_fix_diff",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/fix_diff_3.0.x.txt",
+      "sha256_of_observation": "7071b755cf9ffcd0e06895dce3413e3b54909b7c44bbf3f9510d6afc89ec2b73",
+      "source_url": "https://github.com/django/django/commit/cdb367c92a0ba72ddc0cbd13ff42b0e6df709554",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 3.0.x fix wraps the existing os.makedirs call in os.umask(0o077) / finally restore and adds the explanatory comment",
+        "the commit message says it is a backport of f56b5797 from master"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_test_diff",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/test_diff_3.0.x.txt",
+      "sha256_of_observation": "5a272bf1d3cda1f11874b4c03c1eb589a37e06c0aded1aafcb2a35a64d41d08f",
+      "source_url": "https://github.com/django/django/commit/cdb367c92a0ba72ddc0cbd13ff42b0e6df709554",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the regression test creates dirname/nested/filebasedcache and asserts that the leaf, parent and grandparent directories all have mode 0o700",
+        "the test is skipped on win32 because Windows only partially supports umasks and chmod",
+        "the tests were read, not executed"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_fix_diff_22",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/fix_diff_2.2.x.txt",
+      "sha256_of_observation": "c7a6c77a60ea138603866a02c62c0a504ae54ac5af9abd0a448c46b2e192a036",
+      "source_url": "https://github.com/django/django/commit/a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2.x fix applies the same umask wrapper to _createdir"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_test_diff_22",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/test_diff_2.2.x.txt",
+      "sha256_of_observation": "8bbe0e0dceaf74c2e712292112d7200c6e815844363eb81b7bc971935a84ee20",
+      "source_url": "https://github.com/django/django/commit/a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "the 2.2.x test asserts the same 0o700 mode on the leaf and both intermediate directories"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_fix_stat",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/fix_commit_stat_3.0.x.txt",
+      "sha256_of_observation": "94a6ef6e36eab6d92710bbd08cd0fca6e43146f0ced3a6ba13e3e685961979fd",
+      "source_url": "https://github.com/django/django/commit/cdb367c92a0ba72ddc0cbd13ff42b0e6df709554",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "commit cdb367c9 has parent 08892bff (the CVE-2020-24583 3.0.x fix), author date 2020-08-21 and committer date 2020-08-25, and touches filebased.py, the release notes and tests"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_fix_stat_22",
+      "artifact_path": "runs/verification/django_cve_2020_24584/sources/fix_commit_stat_2.2.x.txt",
+      "sha256_of_observation": "411ab295d7ae06a74347322bd0e2a6e8452c98f63f1aaabc31fa26f8c8566327",
+      "source_url": "https://github.com/django/django/commit/a3aebfdc8153dc230686b6d2454ccd32ed4c9e6f",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "commit a3aebfdc has parent 375657a7 (the CVE-2020-24583 2.2.x fix) and touches filebased.py and tests"
+      ],
+      "verification_method": "git show / git rev-parse in a local clone"
+    },
+    {
+      "evidence_id": "ev_django24584_snapshot",
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "retrieved_at": "2026-10-22T00:24:00Z",
+      "result": "PASS",
+      "supports": [
+        "snapshot snap_ab695ba3db678939 is the django 3.0.2 tree a3697439",
+        "github-linguist 9.7.0 full scan; status NEEDS_REVIEW with 67 ambiguous files; Python is the largest language by code bytes"
+      ],
+      "verification_method": "read of the permitted language inventory artifact"
+    }
+  ],
+  "field_evidence": {
+    "identity": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "affected_ranges": [
+      0,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      5,
+      6
+    ],
+    "fix_commits": [
+      0,
+      3,
+      5,
+      16,
+      17
+    ],
+    "fixed_releases": [
+      3,
+      5,
+      8,
+      11
+    ],
+    "critical_operation": [
+      5,
+      6,
+      12,
+      13
+    ],
+    "languages": [
+      18
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "Django security release announcement",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "OSV/GHSA record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "The Django announcement, NVD and OSV/GHSA agree on the three affected ranges, the fixed releases 2.2.16/3.0.10/3.1.1 and the root cause in intermediate cache-directory permissions. The MITRE CNA record is a placeholder. NVD assigns CWE-276 and CVSS 3.1 7.5 HIGH. Upstream blob identity ties 3.0.2 and 3.0.9 to the fix parent content. The three backport commits cite a master commit f56b5797 that is not reachable in the public repository; the advisory-listed master changeset 1853724a was verified instead and first appears in tag 3.2a1. The 24584 fixes are chained on the 24583 fixes: cdb367c9 parent 08892bff, a3aebfdc parent 375657a7, 2b099caa parent 934430d2, 1853724a parent 8d727157.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "required_before_promotion": [
+      "An independent reviewer must read FileBasedCache._createdir at 3.0.2 and confirm the unguarded makedirs mode and the Python 3.7+ intermediate-directory behaviour.",
+      "An independent reviewer must confirm cdb367c9 is absent from 3.0.2 and 3.0.9 and an ancestor of 3.0.10, and that 3.0.10 wraps makedirs in umask(0o077).",
+      "An independent reviewer must confirm the 2.2.16 and 3.1.1 fixes and the three release boundaries against a second source family.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No cache operation, filesystem permission experiment or Django test suite was executed; the finding is static.",
+    "The Python 3.7+ os.makedirs intermediate-directory behaviour is taken from the advisory and the fixed comment; it was not reproduced locally.",
+    "The impact requires a local attacker or co-tenant able to traverse the intermediate directories; remote exploitation is not claimed.",
+    "The MITRE CVE v5 CNA record is a placeholder (vendor/product/version n/a, problemType n/a, no CVSS).",
+    "NVD also carries a CVSS 2.0 metric of 5.0; the canonical score follows the NVD primary CVSS 3.1 metric.",
+    "OSV carries a CVSS 4.0 vector (VC:N/VI:L/VA:N) alongside the CVSS 3.1 vector (C:H/I:N/A:N); the integrity and confidentiality treatments differ between versions and were not reconciled.",
+    "The three backport commits state \"Backport of f56b5797... from master\", but that object is not reachable in the public django/django clone and the advisory lists 1853724a as the master changeset. The master-side change was verified through 1853724a, which first appears in tag 3.2a1.",
+    "No downstream distribution backport was verified; only upstream tags and commits are used.",
+    "The snapshot inventory status is NEEDS_REVIEW with 67 ambiguous files, not a clean PASS."
+  ],
+  "open_questions": [
+    "Whether typical deployments place LOCATION under a group-accessible parent was not surveyed.",
+    "The exact CPython change that made os.makedirs stop applying mode to intermediate directories was not traced.",
+    "The sibling CVE-2020-24583 (upload/collectstatic directory permissions) is recorded as a separate candidate and is not covered here."
+  ],
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ]
+}

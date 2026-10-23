@@ -1,0 +1,79 @@
+diff --git a/lodash.js b/lodash.js
+index b39ddce69..f8a1b96d8 100644
+--- a/lodash.js
++++ b/lodash.js
+@@ -1244,8 +1244,22 @@
+     }
+     return result;
+   }
+ 
++  /**
++   * Gets the value at `key`, unless `key` is "__proto__".
++   *
++   * @private
++   * @param {Object} object The object to query.
++   * @param {string} key The key of the property to get.
++   * @returns {*} Returns the property value.
++   */
++  function safeGet(object, key) {
++    return key == '__proto__'
++      ? undefined
++      : object[key];
++  }
++
+   /**
+    * Converts `set` to an array of its values.
+    *
+    * @private
+@@ -3614,9 +3628,9 @@
+           baseMergeDeep(object, source, key, srcIndex, baseMerge, customizer, stack);
+         }
+         else {
+           var newValue = customizer
+-            ? customizer(object[key], srcValue, (key + ''), object, source, stack)
++            ? customizer(safeGet(object, key), srcValue, (key + ''), object, source, stack)
+             : undefined;
+ 
+           if (newValue === undefined) {
+             newValue = srcValue;
+@@ -3641,10 +3655,10 @@
+      * @param {Object} [stack] Tracks traversed source values and their merged
+      *  counterparts.
+      */
+     function baseMergeDeep(object, source, key, srcIndex, mergeFunc, customizer, stack) {
+-      var objValue = object[key],
+-          srcValue = source[key],
++      var objValue = safeGet(object, key),
++          srcValue = safeGet(source, key),
+           stacked = stack.get(srcValue);
+ 
+       if (stacked) {
+         assignMergeValue(object, key, stacked);
+diff --git a/test/test.js b/test/test.js
+index c75e2e923..a87c892c7 100644
+--- a/test/test.js
++++ b/test/test.js
+@@ -7538,8 +7538,23 @@
+ 
+       actual = _.groupBy([{ 'a': '__proto__' }], 'a');
+       assert.notOk(actual instanceof Array);
+     });
++
++    QUnit.test('should not merge "__proto__" properties', function(assert) {
++      assert.expect(1);
++
++      if (JSON) {
++        _.merge({}, JSON.parse('{"__proto__":{"a":1}}'));
++
++        var actual = "a" in objectProto;
++        delete objectProto.a;
++
++        assert.notOk(actual);
++      } else {
++        skipAssert(assert);
++      }
++    });
+   }());
+ 
+   /*--------------------------------------------------------------------------*/
+ 

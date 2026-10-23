@@ -1,0 +1,24 @@
+{
+  "key": "tomcat_pom",
+  "repository": "apache/tomcat",
+  "path": "res/maven/tomcat-catalina.pom",
+  "retrieved_at": "2026-10-21T10:55:22.612Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<!--\n  Licensed to the Apache Software Foundation (ASF) under one or more\n  contributor license agreements.  See the NOTICE file distributed with\n  this work for additional information regarding copyright ownership.\n  The ASF licenses this file to You under the Apache License, Version 2.0\n  (the \"License\"); you may not use this file except in compliance with\n  the License.  You may obtain a copy of the License at\n\n      http://www.apache.org/licenses/LICENSE-2.0\n\n  Unless required by applicable law or agreed to in writing, software\n  distributed under the License is distributed on an \"AS IS\" BASIS,\n  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n  See the License for the specific language governing permissions and\n  limitations under the License.\n-->\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0\n  http://maven.apache.org/xsd/maven-4.0.0.xsd\">\n  <modelVersion>4.0.0</modelVersion>\n  <groupId>org.apache.tomcat</groupId>\n  <artifactId>tomcat-catalina</artifactId>\n  <version>@MAVEN.DEPLOY.VERSION@</version>\n  <description>Tomcat Servlet Engine Core Classes and Standard implementations</description>\n  <url>https://tomcat.apache.org/</url>\n  <licenses>\n    <license>\n      <name>Apache License, Version 2.0</name>\n      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>\n      <distribution>repo</distribution>\n    </license>\n  </licenses>\n  <dependencies>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-servlet-api</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-jsp-api</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-juli</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-annotations-api</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-api</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-jni</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-coyote</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-util</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-util-scan</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n    <dependency>\n      <groupId>org.apache.tomcat</groupId>\n      <artifactId>tomcat-jaspic-api</artifactId>\n      <version>@MAVEN.DEPLOY.VERSION@</version>\n      <scope>compile</scope>\n    </dependency>\n  </dependencies>\n</project>\n",
+      "encoding": "utf-8",
+      "sha": "eb1a43d9c2d2896b36a5b279cf73c12e4bbf528d",
+      "display_url": "https://github.com/apache/tomcat/blob/main/res/maven/tomcat-catalina.pom",
+      "display_title": "tomcat-catalina.pom"
+    },
+    "isError": false
+  }
+}

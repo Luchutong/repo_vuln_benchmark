@@ -1,0 +1,24 @@
+{
+  "key": "lodash__lodash_security",
+  "repository": "lodash/lodash",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:04.287Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\n## Supported versions\n\nThe following table describes the versions of this project that are currently\nsupported with security updates:\n\n| Version | Supported          |\n| ------- | ------------------ |\n| 4.x   | :white_check_mark:   |\n| 3.x   | :x:                  |\n| 2.x   | :x:                  |\n| 1.x   | :x:                  |\n\n## Threat Model\n\nTo better understand which classes of vulnerabilities are considered in-scope or out-of-scope for Lodash, please review the [Lodash Threat Model](./threat-model.md).\n\nThe threat model defines Lodash’s trust boundaries and clarifies how security issues are assessed for triage and disclosure.\n\n## Responsible disclosure security policy\n\nA responsible disclosure policy helps protect users of the project from publicly\ndisclosed security vulnerabilities without a fix by employing a process where\nvulnerabilities are first triaged in a private manner, and only publicly disclosed\nafter a reasonable time period that allows patching the vulnerability and provides\nan upgrade path for users.\n\nWe kindly ask you to refrain from malicious acts that put our users, the project,\nor any of the project’s team members at risk.\n\n## Reporting a security issue\n\nWe consider the security of Lodash a top priority. But no matter how much effort\nwe put into security, there can still be vulnerabilities present.\n\nIf you discover a security vulnerability, please report the security issue\ndirectly to the Lodash maintainers through the [Security tab](https://github.com/lodash/lodash/security) of the Lodash\nrepository.\n\nYour efforts to responsibly disclose your findings are sincerely appreciated.\n\n## Escalation\n\nIf you do not receive an acknowledgement of your report within 6 business days, or if you cannot find a private security contact for the project, you may escalate to the OpenJS Foundation CNA at `security@lists.openjsf.org`.\n\nIf the project acknowledges your report but does not provide any further response or engagement within 14 days, escalation is also appropriate.\n",
+      "encoding": "utf-8",
+      "sha": "79bc7dc0627ea33bb12615422f2240c59cfe2d53",
+      "display_url": "https://github.com/lodash/lodash/blob/main/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

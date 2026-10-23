@@ -1,0 +1,382 @@
+{
+  "candidate_id": "disc2_0d881f3a17671c58603c5691",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T18:35:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "80314213",
+    "full_name": "libexpat/libexpat",
+    "canonical_url": "https://github.com/libexpat/libexpat",
+    "primary_language": "C",
+    "project_kind": "XML parser library",
+    "snapshot_id": "snap_d33251dac37c334c"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2022-43680",
+    "aliases": [
+      "CVE-2022-43680",
+      "DEBIAN-CVE-2022-43680",
+      "A-255449293",
+      "ASB-A-255449293"
+    ],
+    "title": "libexpat through 2.4.9 heap use-after-free when XML_ExternalEntityParserCreate destroys the parent's shared DTD after an out-of-memory failure in parserCreate",
+    "repo_id": "80314213",
+    "snapshot_id": "snap_d33251dac37c334c",
+    "vulnerable_commit": "81b89678e200820271b72cacdd45fb5868855765",
+    "affected_packages": [
+      {
+        "ecosystem": "generic",
+        "package": "expat",
+        "purl": "pkg:generic/expat",
+        "affected_range": "<2.5.0"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "generic",
+        "package": "expat",
+        "version": "2.5.0",
+        "tag": "R_2_5_0",
+        "release_url": "https://github.com/libexpat/libexpat/releases/tag/R_2_5_0",
+        "verified_content": "At R_2_5_0 parserCreate sets parser->m_dtd = NULL before XML_ParserFree when the caller passed a DTD, so the parent's shared DTD is not destroyed on the encoding-name out-of-memory path. The change (5290462a) is first contained in R_2_5_0 and absent from R_2_4_4 and R_2_4_9."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "5290462a7ea1278a8d5c0d5b2860d4e244f997e4",
+        "branch": "master",
+        "release": "2.5.0",
+        "message": "lib: Fix overeager DTD destruction in XML_ExternalEntityParserCreate",
+        "url": "https://github.com/libexpat/libexpat/commit/5290462a7ea1278a8d5c0d5b2860d4e244f997e4"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-416"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": 7.5,
+      "level": "high",
+      "numeric_level_rationale": "NVD publishes the CVSS 3.1 7.5 High vector as its Primary metric; the CISA-ADP Secondary metric in the same NVD record carries the identical vector, and the OSV record carries the same vector without a numeric score. The CNA record publishes no metric. There is no score or level conflict among the published metrics.",
+      "source": "nvd@nist.gov (NVD Primary) and CISA-ADP (NVD Secondary), both CVSS 3.1 7.5 High; OSV carries the same vector",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-43680",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 7.5,
+          "level": "high",
+          "source": "nvd@nist.gov (NVD Primary)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 7.5,
+          "level": "high",
+          "source": "CISA-ADP (NVD Secondary)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": null,
+          "level": "high",
+          "source": "OSV.dev (vector only, no numeric base score)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ]
+    },
+    "category_l1": "memory_corruption",
+    "category_l2": "Use-after-free: a shared DTD is destroyed by XML_ParserFree when parserCreate fails on out-of-memory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/libexpat/libexpat/pull/650",
+    "published_at": "2022-10-24T00:00:00Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/libexpat/libexpat/pull/650",
+      "https://github.com/libexpat/libexpat/issues/649",
+      "https://github.com/libexpat/libexpat/pull/616",
+      "https://github.com/libexpat/libexpat/commit/5290462a7ea1278a8d5c0d5b2860d4e244f997e4",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-43680",
+      "https://github.com/libexpat/libexpat/releases/tag/R_2_5_0"
+    ]
+  },
+  "description": "XML_ExternalEntityParserCreate creates an external parameter-entity parser: with a NULL context it sets newDtd = oldDtd (line 1338) so the new parser shares the parent's DTD, and passes that DTD to parserCreate (line 1351). parserCreate calls parserInit, which copies the caller-supplied encoding name with copyString (line 1090). If that allocation fails, m_protocolEncodingName stays NULL and parserCreate takes its out-of-memory branch (lines 1069-1072): it calls XML_ParserFree(parser) and returns NULL. XML_ParserFree is guarded from destroying a shared DTD only by m_isParamEntity (line 1475), but m_isParamEntity is set to XML_TRUE only later in XML_ExternalEntityParserCreate (line 1409), after parserCreate has returned; on this path it never returns, so the guard is still XML_FALSE and dtdDestroy frees the parent parser's still-in-use DTD. The parent (or a sibling external parser) then dereferences freed DTD structures, a heap use-after-free. 2.5.0's fix 5290462a sets parser->m_dtd = NULL before XML_ParserFree whenever the caller passed a DTD.",
+  "location": {
+    "location_id": "loc_CVE-2022-43680_snap_d33251dac37c334c",
+    "vulnerability_id": "CVE-2022-43680",
+    "snapshot_id": "snap_d33251dac37c334c",
+    "location_kind": "memory",
+    "file": "expat/lib/xmlparse.c",
+    "function": "parserCreate",
+    "language": "C",
+    "line": "1069-1072",
+    "critical_operation": {
+      "file": "expat/lib/xmlparse.c",
+      "function": "parserCreate",
+      "language": "C",
+      "line": "1069-1072",
+      "code_excerpt": "  if (encodingName && ! parser->m_protocolEncodingName) {\n    XML_ParserFree(parser);\n    return NULL;\n  }",
+      "description": "parserCreate's encoding-name failure branch. parserInit has just failed to copy the caller's encodingName (m_protocolEncodingName is NULL), so the branch calls XML_ParserFree on the partially built parser. When called from XML_ExternalEntityParserCreate with a NULL context, that parser's m_dtd is the parent's shared DTD and m_isParamEntity is still XML_FALSE, so XML_ParserFree runs dtdDestroy on the parent's live DTD. The 2.5.0 fix adds `if (dtd) parser->m_dtd = NULL;` before this XML_ParserFree.",
+      "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1069-L1072"
+    },
+    "entry_point": {
+      "description": "The embedding application calls XML_ExternalEntityParserCreate with a NULL context and a non-NULL encoding name while its allocator is failing; the encoding-name copy in parserCreate fails and the shared DTD is destroyed.",
+      "file": "expat/lib/xmlparse.c",
+      "function": "XML_ExternalEntityParserCreate",
+      "language": "C",
+      "line": 1249,
+      "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1249"
+    },
+    "trace": [
+      {
+        "description": "with a NULL context the new parser is given the parent's DTD (newDtd = oldDtd)",
+        "file": "expat/lib/xmlparse.c",
+        "function": "XML_ExternalEntityParserCreate",
+        "language": "C",
+        "line": 1338,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1338"
+      },
+      {
+        "description": "parserCreate is called with that shared DTD",
+        "file": "expat/lib/xmlparse.c",
+        "function": "XML_ExternalEntityParserCreate",
+        "language": "C",
+        "line": 1351,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1351"
+      },
+      {
+        "description": "parserInit fails to copy encodingName, leaving m_protocolEncodingName NULL",
+        "file": "expat/lib/xmlparse.c",
+        "function": "parserInit",
+        "language": "C",
+        "line": 1090,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1090"
+      },
+      {
+        "description": "parserCreate frees the new parser on the encoding-name failure without clearing m_dtd",
+        "file": "expat/lib/xmlparse.c",
+        "function": "parserCreate",
+        "language": "C",
+        "line": "1069-1072",
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1069-L1072"
+      },
+      {
+        "description": "XML_ParserFree destroys m_dtd because m_isParamEntity is still XML_FALSE",
+        "file": "expat/lib/xmlparse.c",
+        "function": "XML_ParserFree",
+        "language": "C",
+        "line": 1475,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L1475"
+      },
+      {
+        "description": "the fixed 2.5.0 code sets parser->m_dtd = NULL before XML_ParserFree when the caller passed a DTD",
+        "file": "expat/lib/xmlparse.c",
+        "function": "parserCreate",
+        "language": "C",
+        "line": "1074-1081",
+        "permalink": "https://github.com/libexpat/libexpat/blob/654d2de0da85662fcc7644a7acd7c2dd2cfb21f0/expat/lib/xmlparse.c#L1074-L1081"
+      }
+    ],
+    "verification_method": "Static read of expat/lib/xmlparse.c at R_2_4_4 and R_2_5_0, of the 5290462a patch, of the 2.5.0 expat/Changes entry and of local git ancestry; no XML document was parsed, no allocator was made to fail, and no parser binary was built or run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_expat_43680_cve_v5",
+      "artifact_path": "runs/verification/libexpat_cve_2022_43680/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-43680",
+      "retrieved_at": "2026-10-22T18:35:00Z",
+      "sha256_of_observation": "14c5ed9b6b63e63ee1b1d517a430b275581021d03ddf0f97b1faefef1e0d9f42",
+      "verification_method": "CVE List v5 CNA record",
+      "result": "PASS",
+      "supports": [
+        "CVE state PUBLISHED, published 2022-10-24",
+        "description: In libexpat through 2.4.9, there is a use-after free caused by overeager destruction of a shared DTD in XML_ExternalEntityParserCreate in out-of-memory situations.",
+        "the CNA record publishes no CVSS metric and no CWE problemType (affected vendor/product/version are 'n/a')",
+        "references name pull/650, issues/649 and pull/616"
+      ]
+    },
+    {
+      "evidence_id": "ev_expat_43680_nvd",
+      "artifact_path": "runs/verification/libexpat_cve_2022_43680/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-43680",
+      "retrieved_at": "2026-10-22T18:35:00Z",
+      "sha256_of_observation": "dcf9c0c527828e768d90767524403747c1994b7e25d3bd7a23d296528ba1d9ec",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "NVD status Modified, published 2022-10-24",
+        "NVD Primary and CISA-ADP Secondary both CVSS 3.1 7.5 HIGH with vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "weaknesses CWE-416 from nvd@nist.gov and from the CISA-ADP container",
+        "CPE libexpat_project:libexpat with versionEndIncluding 2.4.9",
+        "references include pull/650, issues/649 and pull/616"
+      ]
+    },
+    {
+      "evidence_id": "ev_expat_43680_osv",
+      "artifact_path": "runs/verification/libexpat_cve_2022_43680/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2022-43680",
+      "retrieved_at": "2026-10-22T18:35:00Z",
+      "sha256_of_observation": "7ee3af0a9f3510e1b779d7faae7da22bcc2d75e27eb9211de12c2da8c3d356d5",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "OSV record CVE-2022-43680 with the same details text",
+        "CVSS_V3 vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "GIT range introduced 0, last_affected d77291a4 (the 2.4.9 release merge); no fixed event, so the first fixed release is established from the upstream Changes entry for 2.5.0",
+        "aliases A-255449293 and ASB-A-255449293 (Android bulletin IDs)"
+      ]
+    },
+    {
+      "evidence_id": "ev_expat_43680_vuln_source",
+      "artifact_path": "runs/verification/libexpat_cve_2022_43680/sources/xmlparse_R_2_4_4.c",
+      "source_url": "https://github.com/libexpat/libexpat/blob/R_2_4_4/expat/lib/xmlparse.c",
+      "retrieved_at": "2026-10-22T18:35:00Z",
+      "sha256_of_observation": "28d94ab58b1456053216525fb41274a4da6ad3a640d056074e3166528324e6f1",
+      "verification_method": "file read at snapshot commit 81b89678 (R_2_4_4); blob 4b43e613 matches the inventory (273455 bytes)",
+      "result": "PASS",
+      "supports": [
+        "XML_ExternalEntityParserCreate is defined at line 1249",
+        "when context is NULL the new parser shares the parent DTD: newDtd = oldDtd at line 1338, passed to parserCreate at line 1351",
+        "parserCreate's out-of-memory branch at lines 1069-1072 calls XML_ParserFree(parser) and returns NULL without clearing m_dtd",
+        "parserInit copies encodingName via copyString at line 1090; on allocation failure m_protocolEncodingName stays NULL",
+        "XML_ParserFree destroys parser->m_dtd when !m_isParamEntity at line 1475, but m_isParamEntity is only set at line 1409 after parserCreate returns"
+      ]
+    },
+    {
+      "evidence_id": "ev_expat_43680_fixed_source",
+      "artifact_path": "runs/verification/libexpat_cve_2022_43680/sources/xmlparse_R_2_5_0.c",
+      "source_url": "https://github.com/libexpat/libexpat/blob/R_2_5_0/expat/lib/xmlparse.c",
+      "retrieved_at": "2026-10-22T18:35:00Z",
+      "sha256_of_observation": "483518bbd69338eefc706cd7fc0b6039df2d3e347f64097989059ed6d2385a1e",
+      "verification_method": "file read at release tag R_2_5_0 (654d2de0); blob b6c2eca9",
+      "result": "PASS",
+      "supports": [
+        "the out-of-memory branch at lines 1074-1081 now sets parser->m_dtd = NULL when the caller passed a dtd, before XML_ParserFree",
+        "the comment states the DTD is shared with the parent and m_isParamEntity is only set later in XML_ExternalEntityParserCreate"
+      ]
+    },
+    {
+      "evidence_id": "ev_expat_43680_patch",
+      "artifact_path": "runs/verification/libexpat_cve_2022_43680/sources/fix_commit.patch",
+      "source_url": "https://github.com/libexpat/libexpat/commit/5290462a7ea1278a8d5c0d5b2860d4e244f997e4",
+      "retrieved_at": "2026-10-22T18:35:00Z",
+      "sha256_of_observation": "114cfec64eb4859c4f69c742cbe96816d6c1a0492bbfa0f5ad61e6e28b0a853b",
+      "verification_method": "git show of the fix commit in the local mirror",
+      "result": "PASS",
+      "supports": [
+        "commit 5290462a 'lib: Fix overeager DTD destruction in XML_ExternalEntityParserCreate' adds exactly 8 lines in parserCreate",
+        "the added guard is `if (dtd) { parser->m_dtd = NULL; }` before XML_ParserFree"
+      ]
+    },
+    {
+      "evidence_id": "ev_expat_43680_git",
+      "artifact_path": "runs/verification/libexpat_cve_2022_43680/sources/git_object_checks.txt",
+      "source_url": "https://github.com/libexpat/libexpat",
+      "retrieved_at": "2026-10-22T18:35:00Z",
+      "sha256_of_observation": "4430a9d198d3e7a1e89dacae714b3c6aeaca4986e2cde0953a2a75fe77882090",
+      "verification_method": "local git ancestry, tag resolution and blob comparison in /tmp/libexpat.git",
+      "result": "PASS",
+      "supports": [
+        "snapshot R_2_4_4 commit 81b89678 has expat/lib/xmlparse.c blob 4b43e613 matching the inventory",
+        "fix 5290462a is absent from R_2_4_4 and R_2_4_9 and first contained in R_2_5_0",
+        "PR #650 merge 56967f83; regression test 43992e4a; expat/Changes at R_2_5_0 names #616 #649 #650 CVE-2022-43680",
+        "OSV's last_affected d77291a4 is the 2.4.9 release merge, so 2.5.0 is the first fixed release"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      3,
+      4,
+      5
+    ],
+    "cwe": [
+      1
+    ],
+    "fix_commits": [
+      2,
+      5,
+      6
+    ],
+    "fixed_releases": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "languages": [
+      3,
+      4
+    ],
+    "severity": [
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      6
+    ]
+  },
+  "field_evidence_note": "Indexes into the evidence array, as in the other libexpat dossiers.",
+  "source_crosscheck": {
+    "families": [
+      "NVD analysis (with CISA-ADP metric)",
+      "CVE List v5 CNA record",
+      "OSV record generated from cvelistV5",
+      "upstream git history, release tags and Changes file"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD Primary and CISA-ADP Secondary publish the identical 7.5 High vector and the CNA publishes no metric, so there is no score or level conflict; OSV carries the same vector. The records agree the defect affects libexpat through 2.4.9 and is fixed in 2.5.0. The CNA description names the overeager destruction of a shared DTD in XML_ExternalEntityParserCreate in out-of-memory situations, which matches the code path: parserCreate's encoding-name OOM branch frees the new parser before m_isParamEntity is set, and XML_ParserFree therefore destroys the parent's DTD. Upstream's expat/Changes entry for 2.5.0 explicitly attributes CVE-2022-43680 to #616 #649 #650, and 5290462a is the lib change of PR #650 (merge 56967f83). OSV records no fixed GIT event, only last_affected d77291a4 (the 2.4.9 release merge), so the first fixed release is established from the tag and Changes entry.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read parserCreate and XML_ExternalEntityParserCreate at R_2_4_4 and confirm the OOM branch frees the new parser while m_isParamEntity is still XML_FALSE, so the parent's shared DTD is destroyed.",
+      "An independent reviewer must confirm the attacker/model: the application must invoke XML_ExternalEntityParserCreate with a NULL context and a non-NULL encoding name while allocation fails; XML content alone is not sufficient.",
+      "An independent reviewer must confirm 5290462a is the CVE-2022-43680 code fix (via the 2.5.0 Changes entry and PR #650) and is first contained in R_2_5_0.",
+      "An independent reviewer must confirm the '<2.5.0' range and the 7.5 High metrics.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "libexpat-CVE-2022-43680-round1-independent-reviewer-2026-10-22",
+      "verdict_path": "runs/independent/libexpat_CVE-2022-43680_round1/verdict.json",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "location_line": "1069-1072"
+    },
+    "independent_corrections_accepted": [
+      "Compile-time precondition: the mechanism requires an XML_DTD-enabled build; the record adds this to its limitations.",
+      "Alias semantics: DEBIAN-CVE-2022-43680 is a separate Debian-feed OSV record whose upstream is CVE-2022-43680, not an element of the CVE OSV alias array (which lists A-255449293 and ASB-A-255449293); it is kept as a downstream cross-reference.",
+      "Line context: the fix diff hunk applies at old line 1068 on the post-2.4.9 master state, while the snapshot's branch is at 1069-1072; the record's line numbers are scoped to the snapshot, which the reviewer confirmed exactly.",
+      "Shallow-mirror caveat: `git tag --contains` under-reports later tags (for example R_2_6_0); first-contained and presence conclusions were verified by direct blob inspection and ancestry checks."
+    ],
+    "duplicate_check": "Reviewer confirmed CVE-2022-40674 is the 2.4.9 doContent raw-name use-after-free, the five 2.4.5 CVEs (25235/25236/25313/25314/25315) are different fixes, and no other CVE shares fix commit 5290462a."
+  },
+  "limitations": [
+    "Static verification only; nothing was built, executed, parsed, or made to run out of memory.",
+    "Reachability depends on the embedding application calling XML_ExternalEntityParserCreate with a NULL context and a non-NULL encoding name while its allocator fails; the CVE describes this as an out-of-memory condition, and this dossier does not claim an attacker can force it.",
+    "The upstream Changes text says the expected impact is denial of service or potentially arbitrary code execution; exploitability beyond denial of service was not assessed.",
+    "OSV records no fixed GIT event for this CVE (only last_affected d77291a4); the fixed release 2.5.0 is established from the upstream Changes entry and tag containment of 5290462a.",
+    "Location range 1069-1072 is the four-line out-of-memory branch in parserCreate; parserInit's failing copyString at line 1090 and XML_ParserFree's guard at line 1475 are recorded in the trace.",
+    "The mechanism requires a build with XML_DTD enabled, because the shared-DTD path and the m_isParamEntity guard are inside #ifdef XML_DTD. The record does not claim a non-DTD build is affected.",
+    "The reviewer verified the snapshot blob, all cited line numbers (1031, 1090, 1338, 1351, 1409, 1475), the 5290462a patch, the 2.5.0 expat/Changes entry and ancestry; nothing was built, parsed or made to run out of memory."
+  ],
+  "open_questions": [
+    "Whether a remote attacker can reliably induce the allocator failure at exactly the encoding-name copy (the CVE frames it as OOM) was not assessed; the CVSS vector's AC:L reflects the published NVD analysis, not an attacker-controlled trigger."
+  ]
+}

@@ -1,0 +1,37 @@
+# git checks run 2026-10-21T17:27:12Z
+
+$ git log -1 --format='%H %ad %s' 3b0de10df3bedba515e13032104d4d84f83045be
+3b0de10df3bedba515e13032104d4d84f83045be Tue Jan 16 13:07:08 2024 +0000 [maven-release-plugin] prepare release jenkins-2.441
+
+$ git log -1 --format='%H %ad %s' 10b1b883319ff21bfe742bd0abe225dd12f10c2b
+10b1b883319ff21bfe742bd0abe225dd12f10c2b Mon Jan 22 21:35:22 2024 +0000 [maven-release-plugin] prepare release jenkins-2.442
+
+$ git log -1 --format='%H %ad %s' de450967f38398169650b55c002f1229a3fcdb1b
+de450967f38398169650b55c002f1229a3fcdb1b Tue Jan 16 17:07:37 2024 +0000 [SECURITY-3315]
+
+$ git merge-base --is-ancestor de450967 3b0de10d  # fix in 2.441?
+exit=1 (1 = not an ancestor)
+
+$ git merge-base --is-ancestor de450967 jenkins-2.442  # fix in 2.442?
+exit=0
+
+$ git tag --contains de450967
+jenkins-2.442
+
+$ git show 3b0de10d:core/src/main/java/hudson/cli/CLIAction.java | grep -n 'doWs\|isSupported\|getAuthentication2'
+111:        return WebSockets.isSupported();
+117:    public HttpResponse doWs() {
+118:        if (!WebSockets.isSupported()) {
+121:        Authentication authentication = Jenkins.getAuthentication2();
+328:                    try (ServerSideImpl connection = new ServerSideImpl(new PlainCLIProtocol.FramedOutput(download), Jenkins.getAuthentication2())) {
+
+$ git show jenkins-2.442:core/src/main/java/hudson/cli/CLIAction.java | grep -n 'doWs\|Origin\|ALLOW_WEBSOCKET'
+79:     * Boolean values map to allowing/disallowing WS CLI endpoint always, {@code null} is the default of doing an {@code Origin} check.
+82:    /* package-private for testing */ static /* non-final for Script Console */ Boolean ALLOW_WEBSOCKET = SystemProperties.optBoolean(CLIAction.class.getName() + ".ALLOW_WEBSOCKET");
+125:    public HttpResponse doWs(StaplerRequest req) {
+129:        if (ALLOW_WEBSOCKET == null) {
+130:            final String actualOrigin = req.getHeader("Origin");
+131:            final String expectedOrigin = StringUtils.removeEnd(StringUtils.removeEnd(Jenkins.get().getRootUrlFromRequest(), "/"), req.getContextPath());
+133:            if (actualOrigin == null || !actualOrigin.equals(expectedOrigin)) {
+134:                LOGGER.log(Level.FINE, () -> "Rejecting origin: " + actualOrigin + "; expected was from request: " + expectedOrigin);
+137:        } else if (!ALLOW_WEBSOCKET) {

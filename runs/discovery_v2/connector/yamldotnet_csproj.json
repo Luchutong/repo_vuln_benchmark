@@ -1,0 +1,24 @@
+{
+  "key": "yamldotnet_csproj",
+  "repository": "aaubry/YamlDotNet",
+  "path": "YamlDotNet/YamlDotNet.csproj",
+  "retrieved_at": "2026-10-21T10:55:23.698Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "﻿<Project Sdk=\"Microsoft.NET.Sdk\">\r\n\r\n  <PropertyGroup>\r\n    <TargetFrameworks>net10.0;net8.0;netstandard2.0;netstandard2.1;net47</TargetFrameworks>\r\n\r\n    <Configurations>Debug;Release</Configurations>\r\n    <AssemblyOriginatorKeyFile>..\\YamlDotNet.snk</AssemblyOriginatorKeyFile>\r\n    <SignAssembly>true</SignAssembly>\r\n    <DocumentationFile>bin\\$(Configuration)\\YamlDotNet.xml</DocumentationFile>\r\n    <NoWarn>CS1591;CS1574</NoWarn>\r\n    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>\r\n    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>\r\n    <WarningsAsErrors>true</WarningsAsErrors>\r\n    <Nullable>enable</Nullable>\r\n    <NetStandard>false</NetStandard>\r\n    <RealTargetFramework>$(TargetFramework)</RealTargetFramework>\r\n  </PropertyGroup>\r\n\r\n  <PropertyGroup Label=\"Package Properties\">\r\n    <PackageId>YamlDotNet</PackageId>\r\n    <Description>YamlDotNet is a .NET library for YAML. YamlDotNet provides low level parsing and emitting of YAML as well as a high level object model similar to XmlDocument. A serialization library is also included that allows to read and write objects from and to YAML streams.</Description>\r\n    <PackageIcon>images/yamldotnet.png</PackageIcon>\r\n    <PackageReadmeFile>README.md</PackageReadmeFile>\r\n    <DebugSymbols>true</DebugSymbols>\r\n    <IncludeSymbols>true</IncludeSymbols>\r\n    <SymbolPackageFormat>snupkg</SymbolPackageFormat>\r\n  </PropertyGroup>\r\n\r\n  <PropertyGroup Condition=\"'$(TargetFrameworkIdentifier)' != '.NETCoreApp'\">\r\n    <!-- Since the BCL is not yet annotated in other platforms, disable the nullable warnings when compiling for those -->\r\n    <NoWarn>$(NoWarn);CS8602;CS8604</NoWarn>\r\n  </PropertyGroup>\r\n\r\n  <ItemGroup>\r\n    <None Include=\"../README.md\" Pack=\"true\" PackagePath=\"README.md\" />\r\n    <None Include=\"../yamldotnet.png\" Pack=\"true\" PackagePath=\"images/yamldotnet.png\" />\r\n  </ItemGroup>\r\n\r\n  <ItemGroup>\r\n    <PackageReference Include=\"Nullable\" PrivateAssets=\"all\" />\r\n  </ItemGroup>\r\n\r\n  <PropertyGroup Condition=\" '$(Configuration)' == 'Release' \">\r\n    <DefineConstants>$(DefineConstants);RELEASE;TRACE;SIGNED</DefineConstants>\r\n  </PropertyGroup>\r\n\r\n  <Target Name=\"Info\" BeforeTargets=\"CoreCompile\">\r\n    <Message Importance=\"high\" Text=\" \" Condition=\"'$(RealTargetFramework)' != ''\" />\r\n    <Message Importance=\"high\" Text=\"==== Building $(RealTargetFramework) $(Empty.PadRight($([MSBuild]::Subtract(100, $(RealTargetFramework.Length))), '='))\" Condition=\"'$(RealTargetFramework)' != ''\" />\r\n  </Target>\r\n\r\n  <PropertyGroup Label=\"Code Analysis\">\r\n    <AnalysisLevel>latest-Recommended</AnalysisLevel>\r\n    <NoWarn>$(NoWarn);CA1051</NoWarn>  <!-- Do not declare visible instance fields -->\r\n    <NoWarn>$(NoWarn);CA1309</NoWarn>  <!-- Use ordinal string comparison -->\r\n    <NoWarn>$(NoWarn);CA1716</NoWarn>  <!-- Identifiers should not match keywords -->\r\n    <NoWarn>$(NoWarn);CA1510</NoWarn>  <!-- Use ArgumentNullException.ThrowIfNull -->\r\n    <NoWarn>$(NoWarn);CA1711</NoWarn>  <!-- Identifiers should not have incorrect suffix -->\r\n    <NoWarn>$(NoWarn);CA1200</NoWarn>  <!-- Avoid using cref tags with a prefix -->\r\n    <NoWarn>$(NoWarn);CA1707</NoWarn>  <!-- Underscores in variables -->\r\n    <NoWarn>$(NoWarn);CA1725</NoWarn>  <!-- Parameter names should match base declaration and other partial definitions -->\r\n    <NoWarn>$(NoWarn);CS1061;CA1016</NoWarn>  <!-- Mark assemblies with assembly version -->\r\n\r\n    <NoWarn>$(NoWarn);IDE0045</NoWarn>  <!-- 'if' statement can be simplified -->\r\n    <NoWarn>$(NoWarn);IDE0046</NoWarn>  <!-- 'if' statement can be simplified -->\r\n    <NoWarn>$(NoWarn);IDE0047</NoWarn>  <!-- Parentheses can be removed -->\r\n    <NoWarn>$(NoWarn);IDE0078</NoWarn>  <!-- Use pattern matching  -->\r\n    <NoWarn>$(NoWarn);IDE0083</NoWarn>  <!-- Use pattern matching  -->\r\n    <NoWarn>$(NoWarn);IDE0090</NoWarn>  <!-- 'new' expression can be simplified  -->\r\n    <NoWarn>$(NoWarn);IDE0110</NoWarn>  <!-- Discard can be removed  -->\r\n    <NoWarn>$(NoWarn);IDE0290</NoWarn>  <!-- Use primary constructor -->\r\n  </PropertyGroup>\r\n\r\n</Project>\r\n",
+      "encoding": "utf-8",
+      "sha": "a799f5792694993d153b7267406557184d48b78e",
+      "display_url": "https://github.com/aaubry/YamlDotNet/blob/master/YamlDotNet/YamlDotNet.csproj",
+      "display_title": "YamlDotNet.csproj"
+    },
+    "isError": false
+  }
+}

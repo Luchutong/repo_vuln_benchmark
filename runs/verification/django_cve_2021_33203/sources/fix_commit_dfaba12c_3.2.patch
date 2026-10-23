@@ -1,0 +1,111 @@
+diff --git a/django/contrib/admindocs/views.py b/django/contrib/admindocs/views.py
+index bd566cde4..60b357e92 100644
+--- a/django/contrib/admindocs/views.py
++++ b/django/contrib/admindocs/views.py
+@@ -16,6 +16,7 @@ from django.db import models
+ from django.http import Http404
+ from django.template.engine import Engine
+ from django.urls import get_mod_func, get_resolver, get_urlconf
++from django.utils._os import safe_join
+ from django.utils.decorators import method_decorator
+ from django.utils.inspect import (
+     func_accepts_kwargs, func_accepts_var_args, get_func_full_args,
+@@ -329,7 +330,7 @@ class TemplateDetailView(BaseAdminDocsView):
+         else:
+             # This doesn't account for template loaders (#24128).
+             for index, directory in enumerate(default_engine.dirs):
+-                template_file = Path(directory) / template
++                template_file = Path(safe_join(directory, template))
+                 if template_file.exists():
+                     template_contents = template_file.read_text()
+                 else:
+diff --git a/docs/releases/2.2.24.txt b/docs/releases/2.2.24.txt
+index 5b71d9939..9bcf7037c 100644
+--- a/docs/releases/2.2.24.txt
++++ b/docs/releases/2.2.24.txt
+@@ -6,4 +6,14 @@ Django 2.2.24 release notes
+ 
+ Django 2.2.24 fixes two security issues in 2.2.23.
+ 
+-...
++CVE-2021-33203: Potential directory traversal via ``admindocs``
++===============================================================
++
++Staff members could use the :mod:`~django.contrib.admindocs`
++``TemplateDetailView`` view to check the existence of arbitrary files.
++Additionally, if (and only if) the default admindocs templates have been
++customized by the developers to also expose the file contents, then not only
++the existence but also the file contents would have been exposed.
++
++As a mitigation, path sanitation is now applied and only files within the
++template root directories can be loaded.
+diff --git a/docs/releases/3.1.12.txt b/docs/releases/3.1.12.txt
+index 32fd96feb..7d8ee8447 100644
+--- a/docs/releases/3.1.12.txt
++++ b/docs/releases/3.1.12.txt
+@@ -6,4 +6,14 @@ Django 3.1.12 release notes
+ 
+ Django 3.1.12 fixes two security issues in 3.1.11.
+ 
+-...
++CVE-2021-33203: Potential directory traversal via ``admindocs``
++===============================================================
++
++Staff members could use the :mod:`~django.contrib.admindocs`
++``TemplateDetailView`` view to check the existence of arbitrary files.
++Additionally, if (and only if) the default admindocs templates have been
++customized by the developers to also expose the file contents, then not only
++the existence but also the file contents would have been exposed.
++
++As a mitigation, path sanitation is now applied and only files within the
++template root directories can be loaded.
+diff --git a/docs/releases/3.2.4.txt b/docs/releases/3.2.4.txt
+index 7aab5f813..7c1b195d0 100644
+--- a/docs/releases/3.2.4.txt
++++ b/docs/releases/3.2.4.txt
+@@ -6,6 +6,18 @@ Django 3.2.4 release notes
+ 
+ Django 3.2.4 fixes two security issues and several bugs in 3.2.3.
+ 
++CVE-2021-33203: Potential directory traversal via ``admindocs``
++===============================================================
++
++Staff members could use the :mod:`~django.contrib.admindocs`
++``TemplateDetailView`` view to check the existence of arbitrary files.
++Additionally, if (and only if) the default admindocs templates have been
++customized by the developers to also expose the file contents, then not only
++the existence but also the file contents would have been exposed.
++
++As a mitigation, path sanitation is now applied and only files within the
++template root directories can be loaded.
++
+ Bugfixes
+ ========
+ 
+diff --git a/tests/admin_docs/test_views.py b/tests/admin_docs/test_views.py
+index 47bec73a5..45fc50012 100644
+--- a/tests/admin_docs/test_views.py
++++ b/tests/admin_docs/test_views.py
+@@ -137,6 +137,22 @@ class AdminDocViewTests(TestDataMixin, AdminDocsTestCase):
+         self.assertContains(response, 'View documentation')
+ 
+ 
++@unittest.skipUnless(utils.docutils_is_available, 'no docutils installed.')
++class AdminDocViewDefaultEngineOnly(TestDataMixin, AdminDocsTestCase):
++
++    def setUp(self):
++        self.client.force_login(self.superuser)
++
++    def test_template_detail_path_traversal(self):
++        cases = ['/etc/passwd', '../passwd']
++        for fpath in cases:
++            with self.subTest(path=fpath):
++                response = self.client.get(
++                    reverse('django-admindocs-templates', args=[fpath]),
++                )
++                self.assertEqual(response.status_code, 400)
++
++
+ @override_settings(TEMPLATES=[{
+     'NAME': 'ONE',
+     'BACKEND': 'django.template.backends.django.DjangoTemplates',

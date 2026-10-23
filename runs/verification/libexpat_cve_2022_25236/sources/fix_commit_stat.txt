@@ -1,0 +1,6 @@
+a2fe525e660badd64b6c557c2b1ec26ddc07f6e4 2022-02-16 02:07:19 +0100
+lib: Protect against malicious namespace declarations (CVE-2022-25236)
+
+
+ expat/lib/xmlparse.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)

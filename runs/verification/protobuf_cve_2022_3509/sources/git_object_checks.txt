@@ -1,0 +1,22 @@
+== git merge-base --is-ancestor checks ==
+NOT-ANCESTOR: a3888f53317a8018e7a439bac4abeb8f3425d5e9 is NOT ancestor of 21027a27c4c2ec1000859ccbcfff46d83b16e1ed
+NOT-ANCESTOR: a3888f53317a8018e7a439bac4abeb8f3425d5e9 is NOT ancestor of 66b473b3a20d02cf0d1a01f6c55ab94a141437d6
+
+== commit metadata ==
+tree 939c9a5cfe18183539ebe5f0f454ce32f3479ab9
+parent 3b5301c114121d036efe77e2816c44876c258c89
+author Mike Kruskal <62662355+mkruskal-google@users.noreply.github.com> 1664471379 -0700
+committer GitHub <noreply@github.com> 1664471379 -0700
+gpgsig -----BEGIN PGP SIGNATURE-----
+ 
+
+== tag commits ==
+21027a27c4c2ec1000859ccbcfff46d83b16e1ed 2022-04-22 01:00:40 +0000 Merge pull request #9832 from haberman/php-dist
+fe271ab76f2ad2b2b28c10443865d2af21e27e0e 2022-09-29 17:49:52 +0000 Updating changelog
+
+== blob shas ==
+b7f5d52d4a5c3b203a2ef0548fb8e0eb74f4d0f5
+294d8417748774e3c78f498f3b2989618e56b067
+294d8417748774e3c78f498f3b2989618e56b067
+v3.20.3 tag ref 66b473b3 is an annotated tag object; it peels to commit fe271ab7 (2022-09-29 Updating changelog on the 3.20 branch).
+The fix commit a3888f5 (main, 3.21.x) is not an ancestor of the 3.20.3 tag commit; it was backported. The MessageReflection.java blob at the 3.20.3 tag (294d8417) is byte-identical to the blob at the fix commit a3888f5 (294d8417), while v3.20.1 has blob b7f5d52d.

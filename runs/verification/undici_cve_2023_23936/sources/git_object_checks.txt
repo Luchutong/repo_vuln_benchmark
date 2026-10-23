@@ -1,0 +1,8 @@
+repo: https://github.com/nodejs/undici
+tag v5.19.0 (lightweight): f5c89e5c87c7d702996b152c4ad86302b60c4181
+tag v5.19.1 (lightweight): 984d53bad97c98529424a7f3bef6be1d0e76d039
+fix commit: a2eff05401358f6595138df963837c24348f2034 'Merge pull request from GHSA-5r9g-qh6m-jxff'
+fix parent: f5c89e5c87c7d702996b152c4ad86302b60c4181 (== tag v5.19.0)
+merge-base --is-ancestor a2eff05 v5.19.1: TRUE
+merge-base --is-ancestor a2eff05 v5.19.0: FALSE
+diff: lib/core/request.js +3, test/headers-crlf.js +37

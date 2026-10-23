@@ -1,0 +1,12 @@
+# CVE-2022-25315 git object checks (bare clone /tmp/libexpat_rev/libexpat.git)
+tag R_2_4_4 object: c637e3b1560e8b66632ddf8f510788ab7e3cd12e
+tag R_2_4_4 peeled: 81b89678e200820271b72cacdd45fb5868855765
+tag R_2_4_5 peeled: 97a4840578693a346e79302909b67d97492e1880
+fix eb036280: 2022-02-15 12:17:18 +0000 Prevent integer overflow in storeRawNames
+fix ancestor of R_2_4_5: YES
+fix ancestor of R_2_4_4: NO
+blob R_2_4_4:expat/lib/xmlparse.c = 4b43e61321691c082721fbeeab59ef53f5f58e73
+blob R_2_4_5:expat/lib/xmlparse.c = c479a258b53481d77a3f41fbe7973f7bfc699be1
+2.4.4 bufSize assignment line: 2577
+2.4.5 overflow guard line: 2578
+OSV fixed 97a48405 is the 2.4.5 release-prep merge, not the code fix eb036280

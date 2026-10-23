@@ -1,0 +1,67 @@
+Repository: https://github.com/vitejs/vite
+Local mirror: /tmp/vite_vuln.git (partial clone; tags v5.0.11, v5.1.7, v5.1.8,
+v5.2.13, v5.2.14 and others; the same mirror used for the earlier vite entries)
+
+Dataset snapshot: tag v5.0.11, commit b44c49302ffbf0c82f984f6219ed6376d1e4552a.
+  runs/language/snap_2e50b228f2432623/snapshot_proposal.json records
+  tag_or_release=v5.0.11, vulnerable_commit=b44c49302ffbf0c82f984f6219ed6376d1e4552a.
+  runs/language/snap_2e50b228f2432623/file_inventory.json records:
+    packages/vite/src/node/build.ts bytes=37122
+      git_oid=9525809419114d2611606195a662a0066269155c
+  $ git rev-parse v5.0.11:packages/vite/src/node/build.ts
+  9525809419114d2611606195a662a0066269155c
+  The blob matches the snapshot inventory.
+
+Release commits and build.ts blobs:
+  v5.0.11 -> b44c49302ffbf0c82f984f6219ed6376d1e4552a
+    packages/vite/src/node/build.ts -> 9525809419114d2611606195a662a0066269155c
+  v5.1.7  -> e710c2fc6d45405b5f3431bbe812abbb27946aa0
+    packages/vite/src/node/build.ts -> b093ecfb5e213a21972f5a4ff7a6f16f2e90857d
+  v5.1.8  -> fe6323127ba74a159b1ae3cd3cf2fe1677087128
+    packages/vite/src/node/build.ts -> ca8025a386dd712818b41450f219b98967210fc6
+
+Fix commit for the 5.0/5.1 line: 5caa08f069883b39230b8071eb268ee226c5911c
+  "fix: avoid DOM Clobbering gadget in `getRelativeUrlFromDocument` (#18115)",
+  authored 2024-09-16, parent 03f103383 (the v5.1.7-era fs-raw-query fix),
+  first released in v5.1.8.
+  $ git show -s --format='%P' 5caa08f06
+  03f103383e17d2beb02d7d12070ae0c1f5b9400d
+  $ git merge-base --is-ancestor 5caa08f06 v5.0.11^{commit} ; echo $? -> 1
+  $ git merge-base --is-ancestor 5caa08f06 v5.1.7^{commit}  ; echo $? -> 1
+  $ git merge-base --is-ancestor 5caa08f06 v5.1.8^{commit}  ; echo $? -> 0
+  $ git tag --contains 5caa08f06 | sort -V                -> v5.1.8
+
+The same one-line hardening is carried by separate per-line commits listed in the
+GHSA/CVE references:
+  ade1d89660e17eedfd35652165b0c26905259fad  main-line (parent 9d2413c8, the #18112 merge)
+  179b17773cf35c73ddb041f9e6c703fd9f3126af  5.4 line (parent 6820bb3b)
+  2691bb3ff6b073b41fb9046909e1e03a74e36675  5.3 line (parent 4573a6fd)
+  e8127166979e7ace6eeaa2c3b733c8994caa31f3  4.x line  (parent b901438f)
+  2ddd8541ec3b2d2e5b698749e0f2362ef28056bd  3.2 line  "fix: backport #18115, DOM Clobbering in"
+    (parent a6da4508, first tag v3.2.11; rc=1 against v5.0.11, v5.1.7 and v5.1.8)
+  ebb94c5b3bf41950f45562595adec117a4d0ba5e  5.2 line (parent 8339d740, first tag v5.2.14)
+
+Vulnerable code at the snapshot:
+  packages/vite/src/node/build.ts lines 1076-1081 define
+    const getRelativeUrlFromDocument = (relativePath: string, umd = false) =>
+      getResolveUrl(
+        `'${escapeId(relativePath)}', ${
+          umd ? `typeof document === 'undefined' ? location.href : ` : ''
+        }document.currentScript && document.currentScript.src || document.baseURI`,
+      )
+  so the emitted runtime string trusts document.currentScript.src without checking
+  that the currentScript object is a SCRIPT element. The cjs (1097-1100), iife
+  (1102) and umd (1105-1108) entries of relativeUrlMechanisms all route through
+  this helper.
+
+Fixed code at v5.1.8 (build.ts line 1097):
+  }document.currentScript && document.currentScript.tagName.toUpperCase() === 'SCRIPT' && document.currentScript.src || document.baseURI`,
+  v5.1.7 (build.ts line 1097) still has the unfixed expression, matching v5.0.11.
+
+CVE v5 CNA ranges: ">=5.0.0, <5.2.14" (5.x lumped), "<4.5.5", "<3.2.11".
+GHSA-64vr-g452-qvp3 ranges: 5.0.0-<5.1.8, 5.2.0-<5.2.14, 5.3.0-<5.3.6,
+5.4.0-<5.4.6, 4.0.0-<4.5.4, <3.2.11.
+For the v5.0.11 snapshot the operative range is 5.0.0-<5.1.8, fixed by 5.1.8.
+
+No build, dev server, browser or DOM was run; all checks are static reads of the
+git objects and of the mirror's ref graph.

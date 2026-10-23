@@ -1,0 +1,24 @@
+{
+  "key": "davegamble__cjson_security",
+  "repository": "DaveGamble/cJSON",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:02.631Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\n## Supported Versions\n\nSecurity is of the highest importance and all security vulnerabilities or suspected security vulnerabilities should be reported to cjson team privately, to minimize attacks against current users of cjson before they are fixed. Vulnerabilities will be investigated and patched on the next patch (or minor) release as soon as possible. This information could be kept entirely internal to the project.\n\n## Reporting a Vulnerability\n\nIf you know of a publicly disclosed security vulnerability for cjson, please IMMEDIATELY contact wp_scut@163.com and peterlee@apache.org to inform the cjson Team.\n\nIMPORTANT: Do not file public issues on GitHub for security vulnerabilities.\n",
+      "encoding": "utf-8",
+      "sha": "33d99a2e98bf95d89dd7050232284ef38a8da86e",
+      "display_url": "https://github.com/DaveGamble/cJSON/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

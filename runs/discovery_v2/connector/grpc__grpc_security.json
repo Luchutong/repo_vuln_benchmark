@@ -1,0 +1,24 @@
+{
+  "key": "grpc__grpc_security",
+  "repository": "grpc/grpc",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:04.287Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\nFor information on gRPC Security Policy and reporting potential security issues, please see [gRPC CVE Process](https://github.com/grpc/proposal/blob/master/P4-grpc-cve-process.md).\n",
+      "encoding": "utf-8",
+      "sha": "abab279379ba80d7960e3a48ed67175202f4c1e0",
+      "display_url": "https://github.com/grpc/grpc/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

@@ -1,0 +1,209 @@
+{
+  "packet_id": "selrev_133092972_snap_24c4a191fd049fc3",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "133092972",
+    "full_name": "nodejs/undici",
+    "canonical_url": "https://github.com/nodejs/undici",
+    "primary_language": "JavaScript",
+    "project_kind": "An HTTP/1.1 client, written from scratch for Node.js"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_24c4a191fd049fc3",
+    "tag_or_release": "v5.19.0",
+    "commit_sha": "f5c89e5c87c7d702996b152c4ad86302b60c4181"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "f5c89e5c87c7d702996b152c4ad86302b60c4181",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "2712aff28f5792e598138601caa1ebe28f4146c5",
+    "tree_file_count": 591,
+    "exported_file_count": 591,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/nodejs__undici/snap_24c4a191fd049fc3.tar.gz",
+    "archive_sha256": "41914830756306e3fdd0bbc0583345938bc7f5428f1c6e07d4f7a331682d3a19",
+    "archive_bytes": 686331,
+    "manifest_path": "exports/nodejs__undici/snap_24c4a191fd049fc3.manifest.jsonl",
+    "manifest_sha256": "1aa5567be6bdf5486943bd64c8124907b52c9cbd5bb0c492e50ed2519b7f3bcb"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/ISSUE_TEMPLATE/bug-report.md",
+      ".github/ISSUE_TEMPLATE/feature-request.md",
+      ".github/PULL_REQUEST_TEMPLATE/template.md",
+      ".github/dependabot.yml",
+      ".github/workflows/bench.yml",
+      ".github/workflows/fuzz.yml",
+      ".github/workflows/lint.yml",
+      ".github/workflows/nodejs.yml",
+      "SECURITY.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "node": [
+        "package.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node"
+    ],
+    "toolchain_available": {
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2023-23936",
+      "aliases": [
+        "CVE-2023-23936",
+        "GHSA-5r9g-qh6m-jxff"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=2.0.0,<5.19.1",
+          "ecosystem": "npm",
+          "package": "undici",
+          "purl": "pkg:npm/undici"
+        }
+      ],
+      "published_at": "2023-02-16T17:30:23Z",
+      "advisory_url": "https://github.com/nodejs/undici/security/advisories/GHSA-5r9g-qh6m-jxff",
+      "severity": {
+        "level": "medium",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 5.4 falls in Medium (4.0-6.9). The CNA/GitHub secondary metric is 6.5 (UI:N) and is recorded as an alternate, not merged.",
+        "score": 5.4,
+        "source": "NVD primary metric",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-23936",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:L/I:L/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2023-24807",
+      "aliases": [
+        "CVE-2023-24807",
+        "GHSA-r6ch-mqf9-qc9w"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0,<5.19.1",
+          "ecosystem": "npm",
+          "package": "undici",
+          "purl": "pkg:npm/undici"
+        }
+      ],
+      "published_at": "2023-02-16T18:15:12Z",
+      "advisory_url": "https://github.com/nodejs/undici/security/advisories/GHSA-r6ch-mqf9-qc9w",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "GitHub_M CNA",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "nvd@nist.gov (NVD Primary) and security-advisories@github.com (NVD Secondary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          }
+        ],
+        "ghsa_label_note": "GHSA/OSV labels the issue HIGH and publishes the same CVSS 3.1 vector.",
+        "level": "high",
+        "numeric_level_rationale": "CNA, NVD Primary, NVD Secondary and GHSA/OSV all publish CVSS 3.1 7.5 High with the same vector; the CWE differs but the score does not. For classification, CWE-1333 (Inefficient Regular Expression Complexity) is the precise class; the CNA record and OSV carry CWE-20 instead.",
+        "score": 7.5,
+        "source": "GitHub_M CNA and nvd@nist.gov (NVD Primary), both CVSS 3.1 7.5 High",
+        "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-r6ch-mqf9-qc9w",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2023-45143",
+      "aliases": [
+        "CVE-2023-45143",
+        "GHSA-wqq4-5wpv-mx2g"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<5.26.2",
+          "ecosystem": "npm",
+          "package": "undici",
+          "purl": "pkg:npm/undici"
+        }
+      ],
+      "published_at": "2023-10-12T16:21:39Z",
+      "advisory_url": "https://github.com/nodejs/undici/security/advisories/GHSA-wqq4-5wpv-mx2g",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "low",
+            "score": 3.9,
+            "source": "GitHub_M CNA",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L",
+            "version": "3.1"
+          },
+          {
+            "level": "low",
+            "score": 3.9,
+            "source": "nvd@nist.gov (NVD Secondary, from security-advisories@github.com)",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L",
+            "version": "3.1"
+          },
+          {
+            "level": "low",
+            "score": 3.5,
+            "source": "nvd@nist.gov (NVD Primary)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "low",
+        "numeric_level_rationale": "The GitHub_M CNA publishes CVSS 3.1 3.9 Low and NVD carries that same vector as a Secondary metric; NVD's own Primary metric re-scores the issue as 3.5 Low with a narrower vector (AC:L, PR:L, C:L, I:N, A:N). Both published base scores are Low, so the severity level is consistent even though the two vectors differ.",
+        "score": 3.9,
+        "source": "GitHub_M CNA (also NVD Secondary with the same vector); NVD Primary 3.5 Low",
+        "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-wqq4-5wpv-mx2g",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:H/UI:R/S:U/C:L/I:L/A:L",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

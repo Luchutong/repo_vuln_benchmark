@@ -1,0 +1,404 @@
+{
+ "candidate_id": "disc2_5ef6d72c24cf61d02a398467",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T03:20:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45133",
+  "aliases": [
+   "CVE-2026-45133",
+   "GHSA-c2p3-7m5p-cv8x"
+  ],
+  "title": "Symfony YAML parser recurses without a depth limit on nested blocks, sequences and mappings, allowing stack exhaustion",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/yaml",
+    "purl": "pkg:composer/symfony/yaml",
+    "affected_range": "<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": "<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/yaml",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 Parser.php tracks depth through ParserState::enterNestingLevel()/leaveNestingLevel() around parseBlock(), and Inline::parseSequence()/parseMapping() take the shared ParserState and enter a nesting level; v5.4.45 has none of this and no ParserState.php"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "914f427ed9630ddb3904dafba763e53d9f133fe3",
+    "branch": "5.4",
+    "message": "[Yaml] Bound recursion depth in the parser",
+    "url": "https://github.com/symfony/symfony/commit/914f427ed9630ddb3904dafba763e53d9f133fe3"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-674",
+   "CWE-776",
+   "CWE-1333"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+   "score": 8.2,
+   "level": "high",
+   "numeric_level_rationale": "The CNA CVSS 4.0 base is 8.2 High (availability only) and NVD Primary CVSS 3.1 is 7.5 High, but the GHSA page and OSV database label are Low and the OSV vector uses VA:L with E:U. The canonical severity keeps the CNA 4.0 vector and records every published score.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also carries a Primary CVSS 3.1 7.5 High from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-c2p3-7m5p-cv8x",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 8.2,
+     "level": "high",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+   ],
+   "ghsa_label_note": "The GHSA page labels the issue Low and OSV database_specific.severity is LOW with CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U, while the CNA metric is 8.2 High with AT:P/VA:H. The split is material and recorded as published."
+  },
+  "category_l1": "denial_of_service",
+  "category_l2": "Unbounded recursion / stack exhaustion in YAML parsing of untrusted nested structures",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/blog/cve-2026-45133-yaml-parser-stack-exhaustion-via-unbounded-recursion-in-nested-blocks-sequences-and-mappings",
+  "published_at": "2026-07-14T18:45:03Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/blog/cve-2026-45133-yaml-parser-stack-exhaustion-via-unbounded-recursion-in-nested-blocks-sequences-and-mappings",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-c2p3-7m5p-cv8x",
+   "https://github.com/symfony/symfony/commit/914f427ed9630ddb3904dafba763e53d9f133fe3",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45133",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45133_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45133",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Yaml/Parser.php",
+  "function": "Parser::parseBlock",
+  "language": "PHP",
+  "line": 529,
+  "critical_operation": {
+   "code_excerpt": "        $parser = new self();\n        $parser->offset = $offset;\n        $parser->totalNumberOfLines = $this->totalNumberOfLines;",
+   "description": "Parser::parseBlock() instantiates a fresh Parser and delegates to doParse(), so each nested block level begins with an empty parser object and no depth counter is carried across levels. The block parser reaches parseBlock() recursively on nested sequences and mappings, and Inline::parseSequence()/parseMapping() likewise recurse into each other for inline forms without any bound. A crafted YAML document with deeply nested mappings or sequences therefore drives recursion until the PHP stack is exhausted and the worker crashes. At v5.4.45 there is no ParserState.php and no maxNestingLevel at all; v5.4.52 introduces a shared ParserState with a default limit of 128 and enterNestingLevel()/leaveNestingLevel() in both the block and inline parsers.",
+   "file": "src/Symfony/Component/Yaml/Parser.php",
+   "function": "Parser::parseBlock",
+   "language": "PHP",
+   "line": 529,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L529"
+  },
+  "entry_point": {
+   "description": "An application calls Yaml::parse()/parseFile() on attacker-controlled YAML, e.g. user-supplied configuration, fixtures or import data.",
+   "file": "src/Symfony/Component/Yaml/Yaml.php",
+   "function": "Yaml::parse",
+   "language": "PHP",
+   "line": 76,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Yaml.php#L76"
+  },
+  "trace": [
+   {
+    "description": "doParse() recurses into parseBlock() for nested sequence entries",
+    "file": "src/Symfony/Component/Yaml/Parser.php",
+    "function": "Parser::doParse",
+    "language": "PHP",
+    "line": 186,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L186"
+   },
+   {
+    "description": "parseBlock() creates a new Parser with no inherited depth state and calls doParse() again",
+    "file": "src/Symfony/Component/Yaml/Parser.php",
+    "function": "Parser::parseBlock",
+    "language": "PHP",
+    "line": 529,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Parser.php#L529"
+   },
+   {
+    "description": "Inline::parseSequence() recurses into parseSequence()/parseMapping() for nested inline forms",
+    "file": "src/Symfony/Component/Yaml/Inline.php",
+    "function": "Inline::parseSequence",
+    "language": "PHP",
+    "line": 379,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Yaml/Inline.php#L379"
+   }
+  ],
+  "verification_method": "Static read of Parser.php and Inline.php at v5.4.45 and v5.4.52, the fix patch, tag peels and ancestry; no YAML document was parsed and no stack exhaustion was triggered."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45133_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "3e58ea35b758a21a31dc501f5a68306d96bf870ef5108cb3a88e7454389b79ae",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45133",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T18:45:03Z",
+    "affected symfony and yaml <5.4.52 with 6.4.40/7.4.12/8.0.12 branch bounds",
+    "CNA CVSS 4.0 8.2 HIGH AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:H",
+    "problemTypes CWE-674, CWE-776 and CWE-1333",
+    "references name only the GHSA and release tags, no fix commit SHA"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45133_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "6d0de7b05bdbbd577a6e215116c632f46419967245be70365617c8b2a9d6e0de",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45133",
+   "supports": [
+    "NVD status Analyzed",
+    "NVD Primary CVSS 3.1 7.5 HIGH from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H)",
+    "NVD Secondary CVSS 4.0 8.2 HIGH from security-advisories@github.com",
+    "weaknesses CWE-674, CWE-776, CWE-1333"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45133_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "12045cf85fe218aebd97cc0dba2e4474493b327417424f8a575e72f2e128a882",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-c2p3-7m5p-cv8x",
+   "supports": [
+    "GHSA-c2p3-7m5p-cv8x aliases CVE-2026-45133, github_reviewed, database severity LOW",
+    "cwe_ids CWE-1333, CWE-674, CWE-776",
+    "affected symfony/yaml and symfony/symfony introduced 0 fixed 5.4.52 plus the 6.4/7.4/8.0 bounds",
+    "details describe unbounded recursion in Parser::parseBlock() and Inline::parseSequence()/parseMapping()",
+    "the OSV CVSS_V4 vector uses VA:L/E:U and disagrees with the CNA VA:H metric"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45133_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "dd0788c21c415737401cc5db71eede86b119e722d2d7fccee76f39d3454baec5",
+   "source_url": "https://symfony.com/blog/cve-2026-45133-yaml-parser-stack-exhaustion-via-unbounded-recursion-in-nested-blocks-sequences-and-mappings",
+   "supports": [
+    "the blog states that deeply nested mappings or sequences cause block-level and inline parsing to recurse without a depth limit",
+    "a crafted document exhausts the PHP stack and crashes the worker",
+    "resolution: a shared ParserState tracks recursion depth with a default limit of 128",
+    "fixed in 5.4.52, 6.4.40, 7.4.12 and 8.0.12"
+   ],
+   "verification_method": "symfony.com blog text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45133_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "8664a852f7091b16f60e0dcfa7ad9bd84113ccb2ccb79031d873d6793224bcc9",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-c2p3-7m5p-cv8x",
+   "supports": [
+    "the GitHub advisory carries the same description and resolution as the blog",
+    "the advisory page label is Low",
+    "it lists the same fixed releases"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/parser_5.4.45.php",
+   "evidence_id": "ev_symfony_45133_vuln_parser",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "66318c33b7eba8e21dfaf392bd42ef56b5cd6933e1fb51133cc5f895cd32d292",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.45/src/Symfony/Component/Yaml/Parser.php#L529",
+   "supports": [
+    "parseBlock() at line 517 creates a fresh Parser with new self() at line 529 and calls $parser->doParse() at line 536",
+    "doParse() calls parseBlock() recursively at lines 186, 188, 192, 207, 273 and 331",
+    "there is no maxNestingLevel, ParserState or depth counter anywhere in the file"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 6b5b273a)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/inline_5.4.45.php",
+   "evidence_id": "ev_symfony_45133_vuln_inline",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "8a08388d89b58f1580c0a51bb9449e44d23911fdaf29c761815fecb56c21d9ac",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.45/src/Symfony/Component/Yaml/Inline.php#L351-L516",
+   "supports": [
+    "parseSequence() at line 351 calls itself at line 379 and parseMapping() at line 383",
+    "parseMapping() at line 427 calls parseSequence() at line 495 and itself at line 516",
+    "no depth parameter or nesting counter is passed"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 5e4e5f7a)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/parser_5.4.52.php",
+   "evidence_id": "ev_symfony_45133_fixed_parser",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "59aa506137b13597725acf87036023df8d72bc94d23a26f87b79082d3972ffb8",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.52/src/Symfony/Component/Yaml/Parser.php#L565",
+   "supports": [
+    "parseBlock() now calls $this->getState()->enterNestingLevel() at line 565 and leaveNestingLevel() at line 570",
+    "Parser::__construct() accepts $maxNestingLevel defaulting to DEFAULT_MAX_NESTING_LEVEL",
+    "the default is 128 per the blog and the CHANGELOG"
+   ],
+   "verification_method": "file read at v5.4.52 (blob cda68ac1)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/inline_5.4.52.php",
+   "evidence_id": "ev_symfony_45133_fixed_inline",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "822cae461c6075526d668a80ab9338058f282f30523ba68204a685131b11ae8d",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.52/src/Symfony/Component/Yaml/Inline.php#L354-L438",
+   "supports": [
+    "parseSequence() and parseMapping() now take a ParserState argument",
+    "they call $state->enterNestingLevel() at lines 356 and 438 and leaveNestingLevel() on the exits",
+    "the shared state carries the depth across block and inline parsing"
+   ],
+   "verification_method": "file read at v5.4.52 (blob c3fcf223)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45133_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "1ee97a426cd0a25db4f3659723cba3cd7c2bbe3fe37ea2208e844bd583d5b075",
+   "source_url": "https://github.com/symfony/symfony/commit/914f427ed9630ddb3904dafba763e53d9f133fe3.patch",
+   "supports": [
+    "the patch adds ParserState.php with enterNestingLevel()/leaveNestingLevel() and maxNestingLevel = 128",
+    "it threads ParserState through Inline::parse/parseScalar/parseSequence/parseMapping",
+    "it wraps Parser::parseBlock() with enterNestingLevel/leaveNestingLevel",
+    "the tests cover deep block and inline nesting rejection"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45133/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45133_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:20:00Z",
+   "sha256_of_observation": "bfb6cb8a9eb127ff55046342def3ed84e0a0ad1cf672bbcb2837df5afd0ebee8",
+   "source_url": "https://github.com/symfony/symfony/commit/914f427ed9630ddb3904dafba763e53d9f133fe3",
+   "supports": [
+    "v5.4.45 peels to 2b66d7d7 and v5.4.52 to eabc5f9e",
+    "914f427e is an ancestor of v5.4.52 and not of v5.4.45",
+    "ParserState.php does not exist at v5.4.45 and does exist at v5.4.52",
+    "the parser and inline blobs differ between the two tags"
+   ],
+   "verification_method": "git rev-parse/merge-base/cat-file"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   5,
+   6,
+   9
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   9,
+   10
+  ],
+  "fixed_releases": [
+   3,
+   7,
+   8,
+   10
+  ],
+  "languages": [
+   3,
+   5
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   10
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security blog",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-674/776/1333, the unbounded recursion in Parser::parseBlock() and Inline::parseSequence()/parseMapping(), the <5.4.52 range and the 5.4.52 fix. Severity splits: CNA 4.0 8.2 High and NVD Primary 3.1 7.5 High versus GHSA/OSV Low (VA:L, E:U).",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Parser::parseBlock() and the Inline recursion sites at v5.4.45 and confirm no depth bound exists.",
+   "An independent reviewer must confirm 914f427e is absent from v5.4.45 and present in v5.4.52, and that it introduces ParserState with the 128 limit.",
+   "An independent reviewer must confirm the affected range and the 5.4.52 fixed release.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No YAML document was parsed and no stack exhaustion was timed; the recursion depth is established statically.",
+  "The CVE record lists no fix commit SHA; 914f427e is identified from the 5.4.52 tree and its commit message, not from a CVE reference.",
+  "The 5.4.52 fix is stacked: ParserState.php is introduced by 914f427e, and sibling hardening commits (e77391b2 alias bounds, 9749cd43 regex hardening) follow it.",
+  "CNA 4.0 8.2 High and NVD 3.1 7.5 High disagree with the GHSA/OSV Low label and VA:L vector."
+ ],
+ "open_questions": [
+  "The exact nesting depth required to exhaust a default PHP stack was not measured.",
+  "Non-5.4 branches were not diffed; only the 5.4 tags were inspected."
+ ]
+}

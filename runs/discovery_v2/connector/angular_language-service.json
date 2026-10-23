@@ -1,0 +1,24 @@
+{
+  "key": "angular_language-service",
+  "repository": "angular/angular",
+  "path": "packages/language-service/package.json",
+  "retrieved_at": "2026-10-21T10:56:19.842Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/language-service\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - language services\",\n  \"main\": \"./index.js\",\n  \"typings\": \"./index.d.ts\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"exports\": {\n    \".\": {\n      \"types\": \"./index.d.ts\",\n      \"default\": \"./index.js\"\n    },\n    \"./bundles/language-service.js\": {\n      \"default\": \"./bundles/language-service.js\"\n    },\n    \"./package.json\": {\n      \"default\": \"./package.json\"\n    },\n    \"./api\": {\n      \"types\": \"./api.d.ts\",\n      \"default\": \"./api_bundle.js\"\n    },\n    \"./private\": {\n      \"types\": \"./private.d.ts\",\n      \"default\": \"./private_bundle.js\"\n    }\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/language-service\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  }\n}\n",
+      "encoding": "utf-8",
+      "sha": "f0741bcb9243619d2ffe8408242e51e9274260ac",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/language-service/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

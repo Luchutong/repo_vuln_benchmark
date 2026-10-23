@@ -1,0 +1,369 @@
+{
+  "candidate_id": "disc2_a3a0e636047a176549de6c18",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/curl_advisory.json",
+      "evidence_id": "ev_curl_advisory_json",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:56:00Z",
+      "sha256_of_observation": "94d359e7ad09e4fd68e15dba0e4c2d125e805ec88cafea303602ec79bbed1c75",
+      "source_url": "https://curl.se/docs/CVE-2023-38545.json",
+      "supports": [
+        "CURL-CVE-2023-38545 aliases CVE-2023-38545 and names CWE-122 Heap-based Buffer Overflow",
+        "severity is High and last_affected is 8.3.0",
+        "SEMVER range is introduced 7.69.0, fixed 8.4.0",
+        "GIT range is introduced 4a4b63daaa01ef59b131d91e8e6e6dfe275c0f08 and fixed fb4415d8aee6c1045be932a34fe6107c2f5ed147",
+        "the explicit versions list runs from 7.69.0 through 8.3.0",
+        "the issue is HackerOne report 2187833 and the credits name Jay Satiro"
+      ],
+      "verification_method": "curl.se advisory JSON metadata"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/curl_advisory.html",
+      "evidence_id": "ev_curl_advisory_html",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:56:00Z",
+      "sha256_of_observation": "c445e723eb9b00f7278fefc9434ce6cc6fb352883a3f8fbab5a100f7cb8755d2",
+      "source_url": "https://curl.se/docs/CVE-2023-38545.html",
+      "supports": [
+        "advisory date is October 11 2023 and affected versions are libcurl 7.69.0 through 8.3.0",
+        "not affected are versions below 7.69.0 and 8.4.0 or later",
+        "the fixed-in link is https://github.com/curl/curl/commit/fb4415d8aee6c1",
+        "CWE-122 Heap-based Buffer Overflow and severity High are stated",
+        "the target is the heap-based download buffer reused for SOCKS negotiation, 16kB by default",
+        "the advisory describes the local 'let the host resolve' variable taking the wrong value during a slow SOCKS5 handshake"
+      ],
+      "verification_method": "curl.se advisory HTML text read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/cve_v5.json",
+      "evidence_id": "ev_curl_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:56:00Z",
+      "sha256_of_observation": "fcce9afa6a526fbe3912b51afdab3ed651177048d83818b3bbd91198f88cd100",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2023-38545",
+      "supports": [
+        "CVE state PUBLISHED, assigner hackerone, published 2023-10-18T03:52:14Z",
+        "affected range is curl < 8.4.0 and unaffected below 7.69.0",
+        "the CNA record supplies no metrics and no problemTypes",
+        "references include the curl.se advisory"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/nvd_cve.json",
+      "evidence_id": "ev_curl_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:56:00Z",
+      "sha256_of_observation": "07d37ec36f1bb361d358ee2e9f873d122f4279244abff2ce9111274efc4814d6",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2023-38545",
+      "supports": [
+        "NVD primary CVSS 3.1 9.8 CRITICAL AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "NVD secondary CVSS 3.1 8.8 HIGH with UI:R",
+        "NVD primary CWE-787 (out-of-bounds write); a secondary source also assigns CWE-787",
+        "CPE haxx:libcurl range is 7.69.0 through <8.4.0, plus downstream OS/product CPEs",
+        "NVD status is Modified"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/osv_cve.json",
+      "evidence_id": "ev_curl_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:56:00Z",
+      "sha256_of_observation": "7701b7e4d6b974831a46490360662023c5f70e510fd0c8534c11218fc4b8bbb3",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2023-38545",
+      "supports": [
+        "OSV record CVE-2023-38545 aliases CURL-CVE-2023-38545",
+        "OSV severity vector is CVSS 3.1 8.8 with UI:R",
+        "OSV GIT range uses introduced b8d13668 and fixed 172e54cd, which are the 7.69.0 release commit and a later tiny-curl patch commit, not the source fix",
+        "OSV also carries an unresolved standalone range whose events are introduced 8.4.0 and last_affected 8.4.0",
+        "the OSV record was generated from the CVE List v5 record"
+      ],
+      "verification_method": "OSV API query"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/git_object_checks.txt",
+      "evidence_id": "ev_curl_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:57:00Z",
+      "sha256_of_observation": "06fcb91622af24a7be3e65cf6010b6ceeff3aa5de35879002c9648604fd94d16",
+      "source_url": "https://github.com/curl/curl/commit/fb4415d8aee6c1045be932a34fe6107c2f5ed147",
+      "supports": [
+        "curl-8_3_0 peels to 6fa1d817 and curl-8_4_0 peels to d755a5f7",
+        "fix commit fb4415d8 has parent 09e25b9d and subject 'socks: return error if hostname too long for remote resolve'",
+        "fix is an ancestor of curl-8_4_0 and absent from curl-8_3_0",
+        "introduced commit 4a4b63da is present in curl-7_69_0",
+        "b8d13668 is the 7.69.0 release commit and 172e54cd is 'tiny-curl: patch set applied on 8.4.0', dated after 8.4.0",
+        "the fix touches lib/socks.c, tests/data/Makefile.inc and adds tests/data/test728"
+      ],
+      "verification_method": "exact-tag shallow fetches into a bare repository; git merge-base --is-ancestor in both directions; direct fetch of the OSV-named commits; git show --stat"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/socks_8.3.0.c",
+      "evidence_id": "ev_curl_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:57:00Z",
+      "sha256_of_observation": "d6581154231c00d566ec24a748e65652f579c35def8e8935b9542908a02fe6dc",
+      "source_url": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/socks.c#L904-L908",
+      "supports": [
+        "socksreq is data->state.buffer (line 569)",
+        "the CONNECT_RESOLVE_REMOTE branch writes ATYP 3 and a one-byte (char) hostname_len at line 906",
+        "line 907 memcpys the full hostname_len into socksreq with no remaining-buffer check",
+        "line 589-592 only switches socks5_resolve_local to TRUE on the first CONNECT_SOCKS_INIT entry",
+        "socks5_resolve_local is a local variable reinitialized at line 573-574 on every do_SOCKS5 call"
+      ],
+      "verification_method": "file read at curl-8_3_0"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/socks_8.4.0.c",
+      "evidence_id": "ev_curl_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:57:00Z",
+      "sha256_of_observation": "e260baf31fb32b438a4b5fbdcd2037bc64bfc5f94dad473a14e61ca56946d48e",
+      "source_url": "https://github.com/curl/curl/blob/d755a5f7c009dd63a61b2c745180d8ba937cbfeb/lib/socks.c#L588-L593",
+      "supports": [
+        "the fixed CONNECT_SOCKS_INIT branch fails with CURLPX_LONG_HOSTNAME instead of switching to local resolve",
+        "no long hostname reaches the remote-resolve packet construction path",
+        "the one-byte length cast at the old line 906 is changed to unsigned char as a type cleanup"
+      ],
+      "verification_method": "file read at curl-8_4_0"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/fix_diff.txt",
+      "evidence_id": "ev_curl_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:57:00Z",
+      "sha256_of_observation": "a0e7390fc751caac8223e068e70f570275f1a05797da5ab581c39f79253c2cd3",
+      "source_url": "https://github.com/curl/curl/commit/fb4415d8aee6c1045be932a34fe6107c2f5ed147",
+      "supports": [
+        "the source fix replaces the local-resolve switch with failf plus return CURLPX_LONG_HOSTNAME",
+        "the same commit changes '(char) hostname_len' to '(unsigned char) hostname_len'",
+        "the commit adds tests/data/test728 and updates tests/data/Makefile.inc",
+        "the commit body links Bug: https://curl.se/docs/CVE-2023-38545.html"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/curl_cve_2023_38545/sources/regression_test728.txt",
+      "evidence_id": "ev_curl_regression_test",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:57:00Z",
+      "sha256_of_observation": "71bd3204dff9f009115eb0d5dedb4428769b13f93e1698d0b5bd8b0e1320fa63",
+      "source_url": "https://github.com/curl/curl/blob/fb4415d8aee6c1045be932a34fe6107c2f5ed147/tests/data/test728",
+      "supports": [
+        "the test redirects to a 256-character hostname through a socks5h proxy",
+        "the expected result is error code 97 (CURLE_PROXY)",
+        "the expected stderr names the long-hostname proxy error",
+        "the test file was read but not executed"
+      ],
+      "verification_method": "file read at the fix commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_0ec1c11542393304/snapshot_proposal.json",
+      "evidence_id": "ev_curl_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:55:00Z",
+      "sha256_of_observation": "a77e644bf72faefed60c6cb9ea0d55bc61b0be9dab2a6fd19a48f8c9a7599aeb",
+      "source_url": "https://github.com/curl/curl/tree/6fa1d817e5b1a00d7d0c8168091877476b499317",
+      "supports": [
+        "snapshot_id snap_0ec1c11542393304 and a 3798-file inventory",
+        "C first-party 438 files / 5,736,857 bytes / 32.20% of tracked nonbinary bytes",
+        "tree oid 34c08ad4 and ls-tree parity",
+        "full_scan=true; 1737 bounded/ambiguous files are recorded, mostly Windows project templates"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 2, 3, 4],
+    "aliases": [0, 4],
+    "critical_operation": [6, 7, 8, 9],
+    "cwe": [0, 3],
+    "fix_commits": [0, 5, 8],
+    "fixed_releases": [5, 7],
+    "languages": [10],
+    "severity": [3],
+    "vulnerable_commit": [5, 6]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No PoC, proxy server, or crafted redirect was executed; the finding is static. The upstream regression test test728 was read, not run.",
+    "The overflow requires the SOCKS5 hostname-resolve mode (socks5h) and a hostname longer than the download buffer. The advisory says the buffer is 16kB by default and 102400 bytes for the curl tool; no specific application buffer size was tested.",
+    "The advisory's causal wording is 'during a slow SOCKS5 handshake'. The static mechanism is that socks5_resolve_local is a function-local variable reinitialized on every do_SOCKS5 call, so the local-resolve switch made on the first CONNECT_SOCKS_INIT entry is lost when the initial handshake send only partially completes and the function is re-entered. No timing experiment was performed.",
+    "The CVE v5 CNA record (HackerOne) supplies no CVSS, no CWE and a malformed affected block: {version 8.4.0, status affected, lessThan 8.4.0} and {version 7.69.0, status unaffected, lessThan 7.69.0} describe empty intervals and cannot express >=7.69.0,<8.4.0. NVD copies that affected block but its CPE configuration is correct. CISA-ADP supplies CVSS 3.1 8.8 with UI:R and CWE-787. NVD's primary metric is 9.8 CRITICAL with UI:N; the curl advisory and OSV use 8.8 HIGH with UI:R. The canonical severity uses NVD's primary 9.8 and records the disagreement.",
+    "CWE is also split: curl assigns CWE-122 (heap-based buffer overflow), NVD assigns CWE-787 (out-of-bounds write). Both are kept in cwe_ids; no single source is silently preferred.",
+    "OSV's GIT range endpoints are not the source fix: introduced b8d13668 is the 7.69.0 release commit, and fixed 172e54cd is a tiny-curl patch commit dated 2023-10-30 (after 8.4.0). The curl advisory JSON carries the correct source endpoints (4a4b63da / fb4415d8), which this dossier uses.",
+    "OSV also contains an unresolved standalone range (introduced 8.4.0, last_affected 8.4.0), lists curl-8_4_0 in affected.versions, and its GIT-range-derived signatures point at unrelated files (multi.c, cf-socket.c, select.c). These contradict the advisory and are recorded as data defects, not used.",
+    "The curl-8_3_0 fetch is shallow, so a local ancestry check from the 2020 introduced commit to 8.3.0 cannot traverse; the introduction is taken from the curl advisory and from the commit being present in curl-7_69_0.",
+    "The snapshot inventory has 1737 bounded/ambiguous files, mostly Windows project templates; the language job is therefore NEEDS_REVIEW, not a clean PASS."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "      else {\n        socksreq[len++] = 3;\n        socksreq[len++] = (char) hostname_len; /* one byte address length */\n        memcpy(&socksreq[len], sx->hostname, hostname_len); /* w/o NULL */\n        len += hostname_len;",
+      "description": "In do_SOCKS5's CONNECT_RESOLVE_REMOTE branch, curl writes ATYP=3 and a one-byte length for a remotely resolved hostname, then memcpys the full hostname_len bytes into socksreq, which is data->state.buffer. There is no check that hostname_len fits the remaining buffer. The intended guard at CONNECT_SOCKS_INIT (lines 589-592) switches to local resolve for hostnames longer than 255 bytes, but socks5_resolve_local is a function-local variable reinitialized at lines 573-574 each time do_SOCKS5 is called. If the initial handshake send is partial and the function returns, the next call loses the switch, reaches the remote branch with a long hostname, and overflows the buffer. The 8.4.0 fix returns CURLPX_LONG_HOSTNAME instead of switching modes.",
+      "file": "lib/socks.c",
+      "function": "do_SOCKS5",
+      "language": "C",
+      "line": "904-908",
+      "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/socks.c#L904-L908"
+    },
+    "entry_point": {
+      "description": "do_SOCKS5 handles the SOCKS5/SOCKS5h proxy handshake for a connection. sx->hostname comes from the URL the application asked curl to fetch, and data->state.buffer is the download/negotiation buffer. The remotely resolved (socks5h) proxy mode is the trigger; an application must also allow a hostname longer than its configured buffer.",
+      "file": "lib/socks.c",
+      "function": "do_SOCKS5",
+      "language": "C",
+      "line": 875,
+      "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/socks.c#L875"
+    },
+    "location_id": "loc_CVE-2023-38545_snap_0ec1c11542393304",
+    "location_kind": "memory",
+    "snapshot_id": "snap_0ec1c11542393304",
+    "trace": [
+      {
+        "description": "first CONNECT_SOCKS_INIT entry switches a local variable to local resolve for hostnames over 255 bytes",
+        "file": "lib/socks.c",
+        "function": "do_SOCKS5",
+        "language": "C",
+        "line": 589,
+        "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/socks.c#L589"
+      },
+      {
+        "description": "the initial handshake send can return with bytes outstanding, leaving the function while the switch is only in the dead stack frame",
+        "file": "lib/socks.c",
+        "function": "do_SOCKS5",
+        "language": "C",
+        "line": 624,
+        "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/socks.c#L624"
+      },
+      {
+        "description": "on re-entry socks5_resolve_local is reinitialized from the proxy type, losing the earlier switch",
+        "file": "lib/socks.c",
+        "function": "do_SOCKS5",
+        "language": "C",
+        "line": 573,
+        "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/socks.c#L573"
+      },
+      {
+        "description": "remote-resolve branch copies the full long hostname into the fixed download buffer",
+        "file": "lib/socks.c",
+        "function": "do_SOCKS5",
+        "language": "C",
+        "line": 907,
+        "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/socks.c#L907"
+      }
+    ],
+    "verification_method": "Static read of lib/socks.c at 8.3.0 and 8.4.0, the fix diff, the advisory, and the added test; no code executed.",
+    "vulnerability_id": "CVE-2023-38545"
+  },
+  "open_questions": [
+    "The exact buffer size and hostname length needed for a reliable overflow were not tested against a running curl.",
+    "Whether all supported URL parsers permit a hostname longer than 16kB was not surveyed.",
+    "The detailed timing conditions that make the initial SOCKS5 send partial were not reproduced."
+  ],
+  "prepared_at": "2026-10-21T15:00:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/curl/curl",
+    "full_name": "curl/curl",
+    "primary_language": "C",
+    "project_kind": "command-line tool and library for transferring data with URLs",
+    "repo_id": "569041",
+    "snapshot_id": "snap_0ec1c11542393304"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read lib/socks.c at curl-8_3_0 and confirm the remote-resolve branch copies hostname_len without a remaining-buffer check.",
+      "An independent reviewer must confirm socks5_resolve_local is function-local and reinitialized on re-entry, losing the over-255 switch.",
+      "An independent reviewer must confirm fb4415d8 is absent from curl-8_3_0 and present in curl-8_4_0, and that the fixed source returns CURLPX_LONG_HOSTNAME.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "curl.se advisory (HTML and JSON)",
+      "CVE List v5 HackerOne record",
+      "NVD analysis",
+      "OSV record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "All sources agree on the effective 7.69.0-8.3.0 affected range and the 8.4.0 fix, but the encodings differ: the MITRE CNA affected block uses lessThan in a way that yields empty intervals, and NVD copies it while its CPE configuration is correct. The curl advisory's JSON carries the correct GIT endpoints (introduced 4a4b63da, fixed fb4415d8), while OSV's GIT endpoints are release/patch commits (b8d13668 = 7.69.0 release, 172e54cd = tiny-curl patch after 8.4.0); OSV also has a contradictory standalone 8.4.0 range and lists 8.4.0 in affected.versions. Severity disagrees: NVD primary is 9.8 CRITICAL with UI:N, while the curl advisory, CISA-ADP and OSV use 8.8 HIGH with UI:R. CWE disagrees: curl says CWE-122, NVD and CISA-ADP say CWE-787. Both scores and both CWEs are recorded; the canonical severity uses NVD's primary.",
+    "severity_disagreement": true
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://curl.se/docs/CVE-2023-38545.html",
+    "affected_packages": [
+      {
+        "affected_range": ">=7.69.0,<8.4.0",
+        "ecosystem": "generic",
+        "package": "curl",
+        "purl": "pkg:generic/curl"
+      }
+    ],
+    "aliases": [
+      "CVE-2023-38545",
+      "CURL-CVE-2023-38545"
+    ],
+    "category_l1": "memory_corruption",
+    "category_l2": "SOCKS5 remote-resolve heap buffer overflow with an over-long hostname",
+    "cwe_ids": [
+      "CWE-122",
+      "CWE-787"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "master",
+        "message": "socks: return error if hostname too long for remote resolve",
+        "sha": "fb4415d8aee6c1045be932a34fe6107c2f5ed147",
+        "url": "https://github.com/curl/curl/commit/fb4415d8aee6c1045be932a34fe6107c2f5ed147"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "generic",
+        "package": "curl",
+        "release_url": "https://github.com/curl/curl/releases/tag/curl-8_4_0",
+        "tag": "curl-8_4_0",
+        "verified_content": "At curl-8_4_0, do_SOCKS5 fails with CURLPX_LONG_HOSTNAME when a remotely resolved hostname exceeds 255 bytes; fix fb4415d8 is an ancestor of the tag and absent from curl-8_3_0",
+        "version": "8.4.0"
+      }
+    ],
+    "published_at": "2023-10-18T03:52:14Z",
+    "references": [
+      "https://curl.se/docs/CVE-2023-38545.html",
+      "https://curl.se/docs/CVE-2023-38545.json",
+      "https://hackerone.com/reports/2187833",
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-38545",
+      "https://github.com/curl/curl/commit/fb4415d8aee6c1045be932a34fe6107c2f5ed147",
+      "https://github.com/curl/curl/releases/tag/curl-8_4_0"
+    ],
+    "repo_id": "569041",
+    "severity": {
+      "level": "critical",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 9.8 falls in Critical (9.0-10.0). The curl advisory and OSV use 8.8 HIGH with UI:R.",
+      "score": 9.8,
+      "source": "NVD primary metric nvd@nist.gov; the CNA supplied no CVSS",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-38545",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_0ec1c11542393304",
+    "source_type": "upstream_advisory",
+    "title": "curl SOCKS5 remote-resolve handshake overflows the download buffer with a hostname longer than 255 bytes",
+    "vulnerability_id": "CVE-2023-38545",
+    "vulnerable_commit": "6fa1d817e5b1a00d7d0c8168091877476b499317",
+    "vulnerable_commit_basis": "tag curl-8_3_0 points directly at 6fa1d817..., released 2023-09-13; the advisory names 8.3.0 as last_affected and the fix fb4415d8 is absent from this tag",
+    "vulnerable_version": "8.3.0"
+  }
+}

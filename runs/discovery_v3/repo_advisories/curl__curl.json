@@ -1,0 +1,9 @@
+{
+  "advisories": [],
+  "query": {
+    "repository_full_name": "curl/curl",
+    "url": "https://api.github.com/repos/curl/curl/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:01.848850+00:00",
+  "tool": "github_rest_readonly"
+}

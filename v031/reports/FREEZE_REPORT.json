@@ -1,0 +1,23 @@
+{
+  "tool_version": "freeze_snapshots/1.0",
+  "generated_at": "2026-10-23T00:28:53Z",
+  "output": "/home/luchitong/work/repo-vuln-50-v031/data/snapshot_exports.jsonl",
+  "rows": 1,
+  "status_counts": {
+    "exported": 1
+  },
+  "exported": [
+    {
+      "full_name": "actix/actix-web",
+      "snapshot_id": "snap_ca4042bda2431632",
+      "tag": "http-v3.12.0",
+      "commit_sha": "a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b",
+      "tree_sha": "329cd0a915a1b4bdb06db1ca981f85205b65fe20",
+      "archive_sha256": "aad2fee23b8531ba8bcc7eef312e7bbd98e0fae6d9388ad2158cfbbc1baad9b3",
+      "exported_file_count": 418,
+      "leakage_assessment": "no_advisory_identifiers_detected_in_scanned_files",
+      "build_status": "toolchain_available"
+    }
+  ],
+  "failures": []
+}

@@ -1,0 +1,7 @@
+ancestor_exit=0
+tag 7.4.4 -> e3ff079b22820c2029d4c2a87796b6a0b8716ad8 (lightweight, no peeled ref)
+tag 7.4.5 -> 1dd98b0564cb3f6bd16ce683cb755f94c10fbd82 (lightweight, no peeled ref)
+advisory fix commit = 1dd98b0564cb3f6bd16ce683cb755f94c10fbd82 = tag 7.4.5 commit
+is-ancestor fix v7.4.5: exit 0
+7.4.4 tree 21fe7ae1..., 7.4.5 tree 4f4eec86...; RedirectMiddleware.php differs
+fetched with: git fetch --depth=1 --no-tags https://github.com/guzzle/guzzle.git <sha>; FETCH_HEAD verified

@@ -1,0 +1,209 @@
+diff --git a/tests/file_uploads/tests.py b/tests/file_uploads/tests.py
+index 7b31d369b2..f6ab0d183c 100644
+--- a/tests/file_uploads/tests.py
++++ b/tests/file_uploads/tests.py
+@@ -22,6 +22,22 @@ UNICODE_FILENAME = 'test-0123456789_中文_Orléans.jpg'
+ MEDIA_ROOT = sys_tempfile.mkdtemp()
+ UPLOAD_TO = os.path.join(MEDIA_ROOT, 'test_upload')
+ 
++CANDIDATE_TRAVERSAL_FILE_NAMES = [
++    '/tmp/hax0rd.txt',          # Absolute path, *nix-style.
++    'C:\\Windows\\hax0rd.txt',  # Absolute path, win-style.
++    'C:/Windows/hax0rd.txt',    # Absolute path, broken-style.
++    '\\tmp\\hax0rd.txt',        # Absolute path, broken in a different way.
++    '/tmp\\hax0rd.txt',         # Absolute path, broken by mixing.
++    'subdir/hax0rd.txt',        # Descendant path, *nix-style.
++    'subdir\\hax0rd.txt',       # Descendant path, win-style.
++    'sub/dir\\hax0rd.txt',      # Descendant path, mixed.
++    '../../hax0rd.txt',         # Relative path, *nix-style.
++    '..\\..\\hax0rd.txt',       # Relative path, win-style.
++    '../..\\hax0rd.txt',        # Relative path, mixed.
++    '..&#x2F;hax0rd.txt',       # HTML entities.
++    '..&sol;hax0rd.txt',        # HTML entities.
++]
++
+ 
+ @override_settings(MEDIA_ROOT=MEDIA_ROOT, ROOT_URLCONF='file_uploads.urls', MIDDLEWARE=[])
+ class FileUploadTests(TestCase):
+@@ -204,22 +220,8 @@ class FileUploadTests(TestCase):
+         # a malicious payload with an invalid file name (containing os.sep or
+         # os.pardir). This similar to what an attacker would need to do when
+         # trying such an attack.
+-        scary_file_names = [
+-            "/tmp/hax0rd.txt",          # Absolute path, *nix-style.
+-            "C:\\Windows\\hax0rd.txt",  # Absolute path, win-style.
+-            "C:/Windows/hax0rd.txt",    # Absolute path, broken-style.
+-            "\\tmp\\hax0rd.txt",        # Absolute path, broken in a different way.
+-            "/tmp\\hax0rd.txt",         # Absolute path, broken by mixing.
+-            "subdir/hax0rd.txt",        # Descendant path, *nix-style.
+-            "subdir\\hax0rd.txt",       # Descendant path, win-style.
+-            "sub/dir\\hax0rd.txt",      # Descendant path, mixed.
+-            "../../hax0rd.txt",         # Relative path, *nix-style.
+-            "..\\..\\hax0rd.txt",       # Relative path, win-style.
+-            "../..\\hax0rd.txt"         # Relative path, mixed.
+-        ]
+-
+         payload = client.FakePayload()
+-        for i, name in enumerate(scary_file_names):
++        for i, name in enumerate(CANDIDATE_TRAVERSAL_FILE_NAMES):
+             payload.write('\r\n'.join([
+                 '--' + client.BOUNDARY,
+                 'Content-Disposition: form-data; name="file%s"; filename="%s"' % (i, name),
+@@ -239,7 +241,7 @@ class FileUploadTests(TestCase):
+         response = self.client.request(**r)
+         # The filenames should have been sanitized by the time it got to the view.
+         received = response.json()
+-        for i, name in enumerate(scary_file_names):
++        for i, name in enumerate(CANDIDATE_TRAVERSAL_FILE_NAMES):
+             got = received["file%s" % i]
+             self.assertEqual(got, "hax0rd.txt")
+ 
+@@ -517,6 +519,47 @@ class FileUploadTests(TestCase):
+         # shouldn't differ.
+         self.assertEqual(os.path.basename(obj.testfile.path), 'MiXeD_cAsE.txt')
+ 
++    def test_filename_traversal_upload(self):
++        os.makedirs(UPLOAD_TO, exist_ok=True)
++        self.addCleanup(shutil.rmtree, MEDIA_ROOT)
++        tests = [
++            '..&#x2F;test.txt',
++            '..&sol;test.txt',
++        ]
++        for file_name in tests:
++            with self.subTest(file_name=file_name):
++                payload = client.FakePayload()
++                payload.write(
++                    '\r\n'.join([
++                        '--' + client.BOUNDARY,
++                        'Content-Disposition: form-data; name="my_file"; '
++                        'filename="%s";' % file_name,
++                        'Content-Type: text/plain',
++                        '',
++                        'file contents.\r\n',
++                        '\r\n--' + client.BOUNDARY + '--\r\n',
++                    ]),
++                )
++                r = {
++                    'CONTENT_LENGTH': len(payload),
++                    'CONTENT_TYPE': client.MULTIPART_CONTENT,
++                    'PATH_INFO': '/upload_traversal/',
++                    'REQUEST_METHOD': 'POST',
++                    'wsgi.input': payload,
++                }
++                response = self.client.request(**r)
++                result = response.json()
++                self.assertEqual(response.status_code, 200)
++                self.assertEqual(result['file_name'], 'test.txt')
++                self.assertIs(
++                    os.path.exists(os.path.join(MEDIA_ROOT, 'test.txt')),
++                    False,
++                )
++                self.assertIs(
++                    os.path.exists(os.path.join(UPLOAD_TO, 'test.txt')),
++                    True,
++                )
++
+ 
+ @override_settings(MEDIA_ROOT=MEDIA_ROOT)
+ class DirectoryCreationTests(SimpleTestCase):
+@@ -586,6 +629,15 @@ class MultiParserTests(SimpleTestCase):
+         }, StringIO('x'), [], 'utf-8')
+         self.assertEqual(multipart_parser._content_length, 0)
+ 
++    def test_sanitize_file_name(self):
++        parser = MultiPartParser({
++            'CONTENT_TYPE': 'multipart/form-data; boundary=_foo',
++            'CONTENT_LENGTH': '1'
++        }, StringIO('x'), [], 'utf-8')
++        for file_name in CANDIDATE_TRAVERSAL_FILE_NAMES:
++            with self.subTest(file_name=file_name):
++                self.assertEqual(parser.sanitize_file_name(file_name), 'hax0rd.txt')
++
+     def test_rfc2231_parsing(self):
+         test_data = (
+             (b"Content-Type: application/x-stuff; title*=us-ascii'en-us'This%20is%20%2A%2A%2Afun%2A%2A%2A",
+diff --git a/tests/file_uploads/uploadhandler.py b/tests/file_uploads/uploadhandler.py
+index 7c6199fd16..65d70c648c 100644
+--- a/tests/file_uploads/uploadhandler.py
++++ b/tests/file_uploads/uploadhandler.py
+@@ -1,6 +1,8 @@
+ """
+ Upload handlers to test the upload API.
+ """
++import os
++from tempfile import NamedTemporaryFile
+ 
+ from django.core.files.uploadhandler import FileUploadHandler, StopUpload
+ 
+@@ -35,3 +37,32 @@ class ErroringUploadHandler(FileUploadHandler):
+     """A handler that raises an exception."""
+     def receive_data_chunk(self, raw_data, start):
+         raise CustomUploadError("Oops!")
++
++
++class TraversalUploadHandler(FileUploadHandler):
++    """A handler with potential directory-traversal vulnerability."""
++    def __init__(self, request=None):
++        from .views import UPLOAD_TO
++
++        super().__init__(request)
++        self.upload_dir = UPLOAD_TO
++
++    def file_complete(self, file_size):
++        self.file.seek(0)
++        self.file.size = file_size
++        with open(os.path.join(self.upload_dir, self.file_name), 'wb') as fp:
++            fp.write(self.file.read())
++        return self.file
++
++    def new_file(
++        self, field_name, file_name, content_type, content_length, charset=None,
++        content_type_extra=None,
++    ):
++        super().new_file(
++            file_name, file_name, content_length, content_length, charset,
++            content_type_extra,
++        )
++        self.file = NamedTemporaryFile(suffix='.upload', dir=self.upload_dir)
++
++    def receive_data_chunk(self, raw_data, start):
++        self.file.write(raw_data)
+diff --git a/tests/file_uploads/urls.py b/tests/file_uploads/urls.py
+index 3e7985d2f9..eaac1dae3d 100644
+--- a/tests/file_uploads/urls.py
++++ b/tests/file_uploads/urls.py
+@@ -4,6 +4,7 @@ from . import views
+ 
+ urlpatterns = [
+     path('upload/', views.file_upload_view),
++    path('upload_traversal/', views.file_upload_traversal_view),
+     path('verify/', views.file_upload_view_verify),
+     path('unicode_name/', views.file_upload_unicode_name),
+     path('echo/', views.file_upload_echo),
+diff --git a/tests/file_uploads/views.py b/tests/file_uploads/views.py
+index 36c9fc12a2..06c47d18dd 100644
+--- a/tests/file_uploads/views.py
++++ b/tests/file_uploads/views.py
+@@ -6,7 +6,9 @@ from django.http import HttpResponse, HttpResponseServerError, JsonResponse
+ 
+ from .models import FileModel
+ from .tests import UNICODE_FILENAME, UPLOAD_TO
+-from .uploadhandler import ErroringUploadHandler, QuotaUploadHandler
++from .uploadhandler import (
++    ErroringUploadHandler, QuotaUploadHandler, TraversalUploadHandler,
++)
+ 
+ 
+ def file_upload_view(request):
+@@ -141,3 +143,11 @@ def file_upload_fd_closing(request, access):
+     if access == 't':
+         request.FILES  # Trigger file parsing.
+     return HttpResponse()
++
++
++def file_upload_traversal_view(request):
++    request.upload_handlers.insert(0, TraversalUploadHandler())
++    request.FILES  # Trigger file parsing.
++    return JsonResponse(
++        {'file_name': request.upload_handlers[0].file_name},
++    )

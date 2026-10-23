@@ -1,0 +1,11 @@
+# CVE-2022-25236 git object checks (bare clone /tmp/libexpat_rev/libexpat.git)
+tag R_2_4_4 object: c637e3b1560e8b66632ddf8f510788ab7e3cd12e
+tag R_2_4_4 peeled: 81b89678e200820271b72cacdd45fb5868855765
+tag R_2_4_5 peeled: 97a4840578693a346e79302909b67d97492e1880
+fix a2fe525e: 2022-02-16 02:07:19 +0100 lib: Protect against malicious namespace declarations (CVE-2022-25236)
+fix ancestor of R_2_4_5: YES
+fix ancestor of R_2_4_4: NO
+blob R_2_4_4:expat/lib/xmlparse.c = 4b43e61321691c082721fbeeab59ef53f5f58e73
+blob R_2_4_5:expat/lib/xmlparse.c = c479a258b53481d77a3f41fbe7973f7bfc699be1
+2.4.4 uri scan loop lines: 3752
+2.4.5 separator check present: 1

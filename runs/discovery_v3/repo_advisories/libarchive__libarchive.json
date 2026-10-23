@@ -1,0 +1,248 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 9,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "Crypto-Cat",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/12751872?v=4",
+            "events_url": "https://api.github.com/users/Crypto-Cat/events{/privacy}",
+            "followers_url": "https://api.github.com/users/Crypto-Cat/followers",
+            "following_url": "https://api.github.com/users/Crypto-Cat/following{/other_user}",
+            "gists_url": "https://api.github.com/users/Crypto-Cat/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/Crypto-Cat",
+            "id": 12751872,
+            "login": "Crypto-Cat",
+            "node_id": "MDQ6VXNlcjEyNzUxODcy",
+            "organizations_url": "https://api.github.com/users/Crypto-Cat/orgs",
+            "received_events_url": "https://api.github.com/users/Crypto-Cat/received_events",
+            "repos_url": "https://api.github.com/users/Crypto-Cat/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/Crypto-Cat/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/Crypto-Cat/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/Crypto-Cat",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-45308",
+      "cvss": {
+        "score": null,
+        "vector_string": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:N"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:N/I:N/A:N"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-787"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-787",
+          "name": "Out-of-bounds Write"
+        }
+      ],
+      "description": "I found a heap out-of-bounds write in the ZIP writer while testing oversized pathname handling.\r\n\r\nThe issue is in `libarchive/archive_write_set_format_zip.c`. In `zip_write_file_header()`, the code calculates `filename_length` from the archive entry pathname, calls `cd_alloc(zip, filename_length)`, and then copies the full pathname into the returned buffer with `copy_path()`.\r\n\r\nThe problem is that `cd_alloc()` always allocates a fixed 64 KiB segment:\r\n\r\n```c\r\nsegment->buff_size = 64 * 1024;\r\nsegment->buff = malloc(segment->buff_size);\r\n```\r\n\r\nbut later advances the write pointer by the requested `length`:\r\n\r\n```c\r\np = zip->central_directory_last->p;\r\nzip->central_directory_last->p += length;\r\n```\r\n\r\nThen `copy_path()` copies the full pathname length:\r\n\r\n```c\r\npathlen = strlen(path);\r\nmemcpy(p, path, pathlen);\r\n```\r\n\r\nSo if `filename_length > 65536`, the writer copies more data than fits in the allocated central-directory segment.\r\n\r\n## Reachability\r\n\r\nThis is reachable from attacker-controlled input if an application reads an archive entry with a very long pathname and then re-packs it as ZIP.\r\n\r\nOne simple example is:\r\n\r\n```sh\r\nbsdtar --format=zip -cf out.zip @evil.tar\r\n```\r\n\r\nThe tar reader accepts long PAX path values, so a crafted PAX tar can carry the oversized pathname into the ZIP writer.\r\n\r\n## Reproduction\r\n\r\nI reproduced this locally on:\r\n\r\n- released `v3.8.7` (tag `cf3debc3`)\r\n- current master / `3.9.0dev` (commit `aca8b0d3`)\r\n\r\nI used a PAX tar containing one file with a 131072-byte pathname, then converted it to ZIP with an ASAN build of `bsdtar`.\r\n\r\nThe invocation was:\r\n\r\n```bash\r\nbsdtar --format=zip -cf libarchive-zip-pathname-oob-write.zip @libarchive-zip-pathname-oob-write.tar\r\n```\r\n\r\nASAN reported:\r\n\r\n```bash\r\n==2025920==ERROR: AddressSanitizer: heap-buffer-overflow\r\nWRITE of size 131072 at 0x53100004c800 thread T0\r\n    #0 0x... in memcpy\r\n    #1 0x... in copy_path\r\n```\r\n\r\nThe process then aborted with return code `-6`.\r\n\r\nI also checked the exact boundary on an ASAN build of released `v3.8.7`:\r\n\r\n- pathname length `65536`: ZIP creation completed successfully, return code `0`, and there was no ASAN finding\r\n- pathname length `65537`: immediate `AddressSanitizer: heap-buffer-overflow`, `WRITE of size 65537`, followed by `SIGABRT`\r\n\r\nThis matches the source-level condition: the central-directory segment is 65536 bytes, and the overflow begins when `filename_length` exceeds that size.\r\n## Impact\r\n\r\nThis is a confirmed heap out-of-bounds write in the libarchive ZIP writer reachable from crafted archive input that is later converted to ZIP.\r\n\r\nI am using `bsdtar` here as a simple reproducer, but the bug is in the library code in `archive_write_set_format_zip.c`, not in a `bsdtar`-specific wrapper.\r\n\r\nI am only claiming memory corruption here. I have not attempted to demonstrate code execution.\r\n\r\n## Suggested fix\r\n\r\nI think there are two reasonable fixes here:\r\n\r\n1. reject pathnames that exceed the ZIP writer's supported filename length before calling `cd_alloc()` / `copy_path()`\r\n2. make `cd_alloc()` allocate enough space for the requested length instead of always returning a 64 KiB segment",
+      "ghsa_id": "GHSA-xgqq-r5j8-3mch",
+      "html_url": "https://github.com/libarchive/libarchive/security/advisories/GHSA-xgqq-r5j8-3mch",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-xgqq-r5j8-3mch"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-45308"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-08-24T23:33:19Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/189190?v=4",
+        "events_url": "https://api.github.com/users/DHowett/events{/privacy}",
+        "followers_url": "https://api.github.com/users/DHowett/followers",
+        "following_url": "https://api.github.com/users/DHowett/following{/other_user}",
+        "gists_url": "https://api.github.com/users/DHowett/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/DHowett",
+        "id": 189190,
+        "login": "DHowett",
+        "node_id": "MDQ6VXNlcjE4OTE5MA==",
+        "organizations_url": "https://api.github.com/users/DHowett/orgs",
+        "received_events_url": "https://api.github.com/users/DHowett/received_events",
+        "repos_url": "https://api.github.com/users/DHowett/repos",
+        "site_admin": true,
+        "starred_url": "https://api.github.com/users/DHowett/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/DHowett/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/DHowett",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "ZIP writer heap out-of-bounds write with oversized pathname",
+      "updated_at": "2026-08-24T23:33:19Z",
+      "url": "https://api.github.com/repos/libarchive/libarchive/security-advisories/GHSA-xgqq-r5j8-3mch",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "",
+            "name": "libarchive"
+          },
+          "patched_versions": ">= 3.8.8",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<= 3.8.7"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 7,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "sae-as-me",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/188014830?v=4",
+            "events_url": "https://api.github.com/users/sae-as-me/events{/privacy}",
+            "followers_url": "https://api.github.com/users/sae-as-me/followers",
+            "following_url": "https://api.github.com/users/sae-as-me/following{/other_user}",
+            "gists_url": "https://api.github.com/users/sae-as-me/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/sae-as-me",
+            "id": 188014830,
+            "login": "sae-as-me",
+            "node_id": "U_kgDOCzTg7g",
+            "organizations_url": "https://api.github.com/users/sae-as-me/orgs",
+            "received_events_url": "https://api.github.com/users/sae-as-me/received_events",
+            "repos_url": "https://api.github.com/users/sae-as-me/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/sae-as-me/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/sae-as-me/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/sae-as-me",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2025-5915",
+      "cvss": {
+        "score": 3.9,
+        "vector_string": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 3.9,
+          "vector_string": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:N/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-122"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-122",
+          "name": "Heap-based Buffer Overflow"
+        }
+      ],
+      "description": "## Affected Projects\r\nLibarchive 3.7.7 ([https://github.com/libarchive/libarchive](https://github.com/libarchive/libarchive))\r\n## Problem Type\r\nCWE-122: Heap-based Buffer Overflow\r\n## Description\r\n### Summary\r\nA heap-buffer-overflow vulnerability was discovered in the `copy_from_lzss_window` function within the Libarchive Library. This issue occurs when processing certain files, leading to an out-of-bounds read and potential application crash.\r\n### Details\r\nThe vulnerability arises in the `copy_from_lzss_window` function defined in `libarchive/archive_read_support_format_rar.c` at line `3114`. \r\nThe reason for the vulnerability is that the function `copy_from_lzss_window` did not check the buffer boundary or the length that needs to be copied before using `memcpy`. When `length` is a large number, it will cause a buffer overflow.\r\n```c\r\nstatic int\r\ncopy_from_lzss_window(struct archive_read *a, void *buffer,\r\n                      int64_t startpos, int length)\r\n{\r\n  int windowoffs, firstpart;\r\n  struct rar *rar = (struct rar *)(a->format->data);\r\n\r\n  windowoffs = lzss_offset_for_position(&rar->lzss, startpos);\r\n  firstpart = lzss_size(&rar->lzss) - windowoffs;\r\n  if (firstpart < 0) {\r\n    archive_set_error(&a->archive, ARCHIVE_ERRNO_FILE_FORMAT,\r\n                      \"Bad RAR file data\");\r\n    return (ARCHIVE_FATAL);\r\n  }\r\n  if (firstpart < length) {\r\n    memcpy(buffer, &rar->lzss.window[windowoffs], firstpart);\r\n    memcpy(buffer, &rar->lzss.window[0], length - firstpart);    //heap-buffer-overflow\r\n  } else {\r\n    memcpy(buffer, &rar->lzss.window[windowoffs], length);\r\n  }\r\n  return (ARCHIVE_OK);\r\n}\r\n```\r\nAccording to the ASAN report at the end of this report, if using the crash in this example, **`length`** is `0x5801`, **`firstpart`** is `0x200`, but **`rar->dictionary_size`** (i.e. the size of **`rar->lzss.window`**) is only `0x200`, which undoubtedly creates a buffer overflow vulnerability when executing `memcpy(buffer, &rar->lzss.window[0], length - firstpart);`.\r\n![capture](https://github.com/user-attachments/assets/f5091d24-2e3e-4cde-8eba-cfd748eb7efe)\r\n\r\n### PoC\r\n**Steps to reproduce:**\r\n1. Clone the libarchive repository and build it using the following commands(like oss-fuzz) : \r\n```sh\r\nexport CC='clang'\r\nexport CXX='clang++'\r\nexport CFLAGS='-fsanitize=address -O0 -g'\r\nexport CXXFLAGS='-fsanitize=address -O0 -g'\r\n\r\nexport FUZZ_INTROSPECTOR_CONFIG=$SRC/fuzz_introspector_exclusion.config\r\ncat > $FUZZ_INTROSPECTOR_CONFIG <<EOF\r\nFILES_TO_AVOID\r\nlibxml2\r\nEOF\r\n\r\nDEPS=/deps\r\n\r\ncd $SRC/libarchive\r\n\r\nmkdir build2\r\ncd build2\r\ncmake -DDONT_FAIL_ON_CRC_ERROR=ON -DENABLE_WERROR=OFF ../\r\nmake -j$(nproc)\r\n```\r\n2. Compile the fuzzer: \r\n- harness libarchive_fuzzer.cc from oss-fuzz:\r\n```c++\r\n#include <stddef.h>\r\n#include <stdint.h>\r\n#include <vector>\r\n\r\n#include \"archive.h\"\r\n#include \"archive_entry.h\"\r\n\r\nextern \"C\" int LLVMFuzzerTestOneInput(const uint8_t *buf, size_t len) {\r\n  struct archive *a = archive_read_new();\r\n\r\n  archive_read_support_filter_all(a);\r\n  archive_read_support_format_all(a);\r\n  archive_read_support_format_empty(a);\r\n  archive_read_support_format_raw(a);\r\n  archive_read_support_format_gnutar(a);\r\n\r\n  if (ARCHIVE_OK != archive_read_set_options(a, \"zip:ignorecrc32,tar:read_concatenated_archives,tar:mac-ext\")) {\r\n    return 0;\r\n  }\r\n\r\n  archive_read_add_passphrase(a, \"secret\");\r\n\r\n  if (ARCHIVE_OK != archive_read_open_memory(a, buf, len)) {\r\n    archive_read_free(a);\r\n    return 0;\r\n  }\r\n\r\n  while(1) {\r\n    std::vector<uint8_t> data_buffer(getpagesize(), 0);\r\n    struct archive_entry *entry;\r\n    int ret = archive_read_next_header(a, &entry);\r\n    if (ret == ARCHIVE_EOF || ret == ARCHIVE_FATAL)\r\n      break;\r\n    if (ret == ARCHIVE_RETRY)\r\n      continue;\r\n\r\n    (void)archive_entry_pathname(entry);\r\n    (void)archive_entry_pathname_utf8(entry);\r\n    (void)archive_entry_pathname_w(entry);\r\n\r\n    (void)archive_entry_atime(entry);\r\n    (void)archive_entry_birthtime(entry);\r\n    (void)archive_entry_ctime(entry);\r\n    (void)archive_entry_dev(entry);\r\n    (void)archive_entry_digest(entry, ARCHIVE_ENTRY_DIGEST_SHA1);\r\n    (void)archive_entry_filetype(entry);\r\n    (void)archive_entry_gid(entry);\r\n    (void)archive_entry_is_data_encrypted(entry);\r\n    (void)archive_entry_is_encrypted(entry);\r\n    (void)archive_entry_is_metadata_encrypted(entry);\r\n    (void)archive_entry_mode(entry);\r\n    (void)archive_entry_mtime(entry);\r\n    (void)archive_entry_size(entry);\r\n    (void)archive_entry_uid(entry);\r\n\r\n    ssize_t r;\r\n    while ((r = archive_read_data(a, data_buffer.data(),\r\n            data_buffer.size())) > 0)\r\n      ;\r\n    if (r == ARCHIVE_FATAL)\r\n      break;\r\n  }\r\n\r\n  archive_read_has_encrypted_entries(a);\r\n  archive_read_format_capabilities(a);\r\n  archive_file_count(a);\r\n  archive_seek_data(a, 0, SEEK_SET);\r\n\r\n  archive_read_free(a);\r\n  return 0;\r\n}\r\n```\r\n```sh\r\nexport LIB_FUZZING_ENGINE='-fsanitize=fuzzer'\r\n\r\n# build fuzzer(s)\r\n$CXX $CXXFLAGS -I../libarchive \\\r\n    $SRC/libarchive_fuzzer.cc -o $OUT/libarchive_fuzzer \\\r\n    $LIB_FUZZING_ENGINE ./libarchive/libarchive.a \\\r\n    -Wl,-Bstatic -llzo2 -Wl,-Bdynamic -lcrypto -lacl -llzma -llz4 -lbz2 -lz ${DEPS}/libxml2.a\r\n```\r\n3. Run the fuzzer to trigger the segmentation fault: \r\n\r\n[copy_from_lzss_window-hbo.zip](https://github.com/user-attachments/files/19642150/copy_from_lzss_window-hbo.zip)\r\n\r\n\r\n```\r\n./libarchive_fuzzer ./copy_from_lzss_window-hbo\r\n```\r\nThe invalid read access will cause AddressSanitizer to report a segmentation fault during the execution of the post-processing logic.\r\n### Report\r\n```sh\r\nRunning: ./copy_from_lzss_window-hbo\r\n=================================================================\r\n==140747==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x615000000780 at pc 0x5d2446154387 bp 0x7fff2d643160 sp 0x7fff2d642930\r\nREAD of size 22017 at 0x615000000780 thread T0\r\n    #0 0x5d2446154386 in __asan_memcpy (/fuzz/fuzzers/libarchive_fuzzer+0x10f386) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #1 0x5d244623ea62 in copy_from_lzss_window /fuzz/project/libarchive/libarchive/archive_read_support_format_rar.c:3114:5\r\n    #2 0x5d2446237951 in run_filters /fuzz/project/libarchive/libarchive/archive_read_support_format_rar.c:3435:9\r\n    #3 0x5d24462354a0 in read_data_compressed /fuzz/project/libarchive/libarchive/archive_read_support_format_rar.c:2112:12\r\n    #4 0x5d244622a9e5 in archive_read_format_rar_read_data /fuzz/project/libarchive/libarchive/archive_read_support_format_rar.c:1130:11\r\n    #5 0x5d24461abc3d in _archive_read_data_block /fuzz/project/libarchive/libarchive/archive_read.c:986:9\r\n    #6 0x5d24462c832f in archive_read_data_block /fuzz/project/libarchive/libarchive/archive_virtual.c:161:10\r\n    #7 0x5d24461a55b6 in archive_read_data /fuzz/project/libarchive/libarchive/archive_read.c:840:8\r\n    #8 0x5d2446192d9d in LLVMFuzzerTestOneInput /fuzz/project/libarchive_fuzzer.cc:72:17\r\n    #9 0x5d24460b89e3 in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/fuzz/fuzzers/libarchive_fuzzer+0x739e3) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #10 0x5d24460a275f in fuzzer::RunOneTest(fuzzer::Fuzzer*, char const*, unsigned long) (/fuzz/fuzzers/libarchive_fuzzer+0x5d75f) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #11 0x5d24460a84b6 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/fuzz/fuzzers/libarchive_fuzzer+0x634b6) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #12 0x5d24460d22d2 in main (/fuzz/fuzzers/libarchive_fuzzer+0x8d2d2) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #13 0x7935194c8d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16\r\n    #14 0x7935194c8e3f in __libc_start_main csu/../csu/libc-start.c:392:3\r\n    #15 0x5d244609d024 in _start (/fuzz/fuzzers/libarchive_fuzzer+0x58024) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n\r\n0x615000000780 is located 0 bytes to the right of 512-byte region [0x615000000580,0x615000000780)\r\nallocated by thread T0 here:\r\n    #0 0x5d2446155486 in __interceptor_realloc (/fuzz/fuzzers/libarchive_fuzzer+0x110486) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #1 0x5d244623b2cb in parse_codes /fuzz/project/libarchive/libarchive/archive_read_support_format_rar.c:2523:18\r\n    #2 0x5d24462355c1 in read_data_compressed /fuzz/project/libarchive/libarchive/archive_read_support_format_rar.c:2120:41\r\n    #3 0x5d244622a9e5 in archive_read_format_rar_read_data /fuzz/project/libarchive/libarchive/archive_read_support_format_rar.c:1130:11\r\n    #4 0x5d24461abc3d in _archive_read_data_block /fuzz/project/libarchive/libarchive/archive_read.c:986:9\r\n    #5 0x5d24462c832f in archive_read_data_block /fuzz/project/libarchive/libarchive/archive_virtual.c:161:10\r\n    #6 0x5d24461a55b6 in archive_read_data /fuzz/project/libarchive/libarchive/archive_read.c:840:8\r\n    #7 0x5d2446192d9d in LLVMFuzzerTestOneInput /fuzz/project/libarchive_fuzzer.cc:72:17\r\n    #8 0x5d24460b89e3 in fuzzer::Fuzzer::ExecuteCallback(unsigned char const*, unsigned long) (/fuzz/fuzzers/libarchive_fuzzer+0x739e3) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #9 0x5d24460a275f in fuzzer::RunOneTest(fuzzer::Fuzzer*, char const*, unsigned long) (/fuzz/fuzzers/libarchive_fuzzer+0x5d75f) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #10 0x5d24460a84b6 in fuzzer::FuzzerDriver(int*, char***, int (*)(unsigned char const*, unsigned long)) (/fuzz/fuzzers/libarchive_fuzzer+0x634b6) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #11 0x5d24460d22d2 in main (/fuzz/fuzzers/libarchive_fuzzer+0x8d2d2) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f)\r\n    #12 0x7935194c8d8f in __libc_start_call_main csu/../sysdeps/nptl/libc_start_call_main.h:58:16\r\n\r\nSUMMARY: AddressSanitizer: heap-buffer-overflow (/fuzz/fuzzers/libarchive_fuzzer+0x10f386) (BuildId: bb564605b6e49baf403a9ad6676add56ef89831f) in __asan_memcpy\r\nShadow bytes around the buggy address:\r\n  0x0c2a7fff80a0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\r\n  0x0c2a7fff80b0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\r\n  0x0c2a7fff80c0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\r\n  0x0c2a7fff80d0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\r\n  0x0c2a7fff80e0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00\r\n=>0x0c2a7fff80f0:[fa]fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\r\n  0x0c2a7fff8100: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd\r\n  0x0c2a7fff8110: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd\r\n  0x0c2a7fff8120: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd\r\n  0x0c2a7fff8130: fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd fd\r\n  0x0c2a7fff8140: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa\r\nShadow byte legend (one shadow byte represents 8 application bytes):\r\n  Addressable:           00\r\n  Partially addressable: 01 02 03 04 05 06 07 \r\n  Heap left redzone:       fa\r\n  Freed heap region:       fd\r\n  Stack left redzone:      f1\r\n  Stack mid redzone:       f2\r\n  Stack right redzone:     f3\r\n  Stack after return:      f5\r\n  Stack use after scope:   f8\r\n  Global redzone:          f9\r\n  Global init order:       f6\r\n  Poisoned by user:        f7\r\n  Container overflow:      fc\r\n  Array cookie:            ac\r\n  Intra object redzone:    bb\r\n  ASan internal:           fe\r\n  Left alloca redzone:     ca\r\n  Right alloca redzone:    cb\r\n==140747==ABORTING\r\n```\r\n- If the zip is unavailable, please use th follwing base64 of PoC: \r\n[base64_of_poc.txt](https://github.com/user-attachments/files/27096797/base64_of_poc.txt)\r\n",
+      "ghsa_id": "GHSA-6vpf-5947-22g5",
+      "html_url": "https://github.com/libarchive/libarchive/security/advisories/GHSA-6vpf-5947-22g5",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-6vpf-5947-22g5"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-5915"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-05-12T03:18:15Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1398793?v=4",
+        "events_url": "https://api.github.com/users/kientzle/events{/privacy}",
+        "followers_url": "https://api.github.com/users/kientzle/followers",
+        "following_url": "https://api.github.com/users/kientzle/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kientzle/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/kientzle",
+        "id": 1398793,
+        "login": "kientzle",
+        "node_id": "MDQ6VXNlcjEzOTg3OTM=",
+        "organizations_url": "https://api.github.com/users/kientzle/orgs",
+        "received_events_url": "https://api.github.com/users/kientzle/received_events",
+        "repos_url": "https://api.github.com/users/kientzle/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/kientzle/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kientzle/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/kientzle",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Heap-based Buffer Overflow in copy_from_lzss_window",
+      "updated_at": "2026-05-12T03:18:15Z",
+      "url": "https://api.github.com/repos/libarchive/libarchive/security-advisories/GHSA-6vpf-5947-22g5",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "",
+            "name": "libarchive"
+          },
+          "patched_versions": ">= 3.8.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 3.6.0, <= 3.7.9"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "libarchive/libarchive",
+    "url": "https://api.github.com/repos/libarchive/libarchive/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:21.723296+00:00",
+  "tool": "github_rest_readonly"
+}

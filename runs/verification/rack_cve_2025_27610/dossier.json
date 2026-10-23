@@ -1,0 +1,386 @@
+{
+ "candidate_id": "disc2_84d772d7d1826dc62f7a6a43",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T07:55:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "96071",
+  "full_name": "rack/rack",
+  "canonical_url": "https://github.com/rack/rack",
+  "primary_language": "Ruby",
+  "project_kind": "modular Ruby web server interface",
+  "snapshot_id": "snap_f97687a4e0807cb2"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2025-27610",
+  "aliases": [
+   "CVE-2025-27610",
+   "GHSA-7wqh-767x-r66v"
+  ],
+  "title": "Rack::Static authorizes the encoded request path, so traversal escapes the urls: whitelist and serves files under root:",
+  "repo_id": "96071",
+  "snapshot_id": "snap_f97687a4e0807cb2",
+  "vulnerable_commit": "1741c580d71cfca8e541e96cc372305c8892ee74",
+  "affected_packages": [
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "purl": "pkg:gem/rack",
+    "affected_range": ">=0,<2.2.13"
+   },
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "purl": "pkg:gem/rack",
+    "affected_range": ">=3.0,<3.0.14"
+   },
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "purl": "pkg:gem/rack",
+    "affected_range": ">=3.1,<3.1.12"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "version": "2.2.13",
+    "tag": "v2.2.13",
+    "release_url": "https://github.com/rack/rack/releases/tag/v2.2.13",
+    "verified_content": "At v2.2.13 Rack::Static#call resolves Utils.clean_path_info(Utils.unescape_path(PATH_INFO)) and passes that to can_serve, so the urls: whitelist is evaluated on the path that is actually served"
+   },
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "version": "3.0.14",
+    "tag": "v3.0.14",
+    "release_url": "https://github.com/rack/rack/releases/tag/v3.0.14",
+    "verified_content": "Published as a fixed release by the CNA/OSV; the 3.0 branch tree was not inspected in this dossier"
+   },
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "version": "3.1.12",
+    "tag": "v3.1.12",
+    "release_url": "https://github.com/rack/rack/releases/tag/v3.1.12",
+    "verified_content": "Published as a fixed release by the CNA/OSV; the 3.1 branch tree was not inspected in this dossier"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "873d39e6d673a91fbdeb2ec75d42184d35908bb4",
+    "branch": "2-2-stable",
+    "message": "Use a fully resolved file path when confirming if a file can be served by `Rack::Static`.",
+    "url": "https://github.com/rack/rack/commit/873d39e6d673a91fbdeb2ec75d42184d35908bb4"
+   },
+   {
+    "sha": "61f83f6336d3e59d1fa694c354c1ff17e80cefad",
+    "branch": "3.0",
+    "message": "Backport: use a fully resolved file path when confirming if a file can be served by `Rack::Static`.",
+    "url": "https://github.com/rack/rack/commit/61f83f6336d3e59d1fa694c354c1ff17e80cefad"
+   },
+   {
+    "sha": "70cb3228c755c2d066c108a9c59fbe67aff8e889",
+    "branch": "3.1",
+    "message": "Backport: use a fully resolved file path when confirming if a file can be served by `Rack::Static`.",
+    "url": "https://github.com/rack/rack/commit/70cb3228c755c2d066c108a9c59fbe67aff8e889"
+   },
+   {
+    "sha": "50caab74fa01ee8f5dbdee7bb2782126d20c6583",
+    "branch": "main (3.2)",
+    "message": "Advisory-listed fix commit; it is contained in v3.2.0+ but is NOT an ancestor of v2.2.13, v3.0.14 or v3.1.12",
+    "url": "https://github.com/rack/rack/commit/50caab74fa01ee8f5dbdee7bb2782126d20c6583"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-23"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+   "score": 7.5,
+   "level": "high",
+   "numeric_level_rationale": "The CNA (GitHub_M), NVD (carrying the GitHub security-advisories metrics) and OSV all publish CVSS 3.1 7.5 High with the same vector; no disagreement.",
+   "source": "GitHub_M CNA; NVD record carries security-advisories@github.com CVSS 3.1 7.5 High",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27610",
+   "all_published_scores": [
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "GitHub_M CNA",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "security-advisories@github.com (NVD-listed) and OSV",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+    }
+   ]
+  },
+  "category_l1": "path_traversal",
+  "category_l2": "Relative path traversal: the static-file whitelist is applied to the raw PATH_INFO while the file server resolves dot segments and percent-encoding",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/rack/rack/security/advisories/GHSA-7wqh-767x-r66v",
+  "published_at": "2025-03-10T21:22:42Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://github.com/rack/rack/security/advisories/GHSA-7wqh-767x-r66v",
+   "https://github.com/rack/rack/commit/873d39e6d673a91fbdeb2ec75d42184d35908bb4",
+   "https://nvd.nist.gov/vuln/detail/CVE-2025-27610",
+   "https://github.com/rack/rack/releases/tag/v2.2.13"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2025-27610_snap_f97687a4e0807cb2",
+  "vulnerability_id": "CVE-2025-27610",
+  "snapshot_id": "snap_f97687a4e0807cb2",
+  "location_kind": "logic",
+  "file": "lib/rack/static.rb",
+  "function": "Rack::Static#call",
+  "language": "Ruby",
+  "line": 126,
+  "critical_operation": {
+   "code_excerpt": "    def call(env)\n      path = env[PATH_INFO]\n\n      if can_serve(path)\n        if overwrite_file_path(path)\n          env[PATH_INFO] = (add_index_root?(path) ? path + @index : @urls[path])",
+   "description": "Rack::Static#call takes PATH_INFO verbatim (line 124) and asks can_serve(path) whether the request may be served (line 126). can_serve delegates to route_file, which only checks that the raw string starts with one of the configured urls: prefixes (line 116). A request such as \"/cgi/../config.ru\" satisfies that prefix test, and percent-encoded dot segments can hide the traversal from it entirely. The same unmodified PATH_INFO is afterwards handed to the file server, which resolves \"..\" and percent-decoding, so the response can be any file under root:, not only those under the configured urls: prefixes. The traversal cannot escape root: because Rack::Files cleans the path and joins it with root, so the impact is read access to the rest of the root: tree. The 2.2.13 fix computes Utils.clean_path_info(Utils.unescape_path(path)) and authorizes with can_serve(actual_path), aligning the checked path with the served path. CWE-23.",
+   "file": "lib/rack/static.rb",
+   "function": "Rack::Static#call",
+   "language": "Ruby",
+   "line": 126,
+   "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/static.rb#L126"
+  },
+  "entry_point": {
+   "description": "An HTTP request whose PATH_INFO begins with a configured urls: prefix and then contains dot segments or percent-encoded traversal, reaching Rack::Static as middleware.",
+   "file": "lib/rack/static.rb",
+   "function": "Rack::Static#call",
+   "language": "Ruby",
+   "line": 124,
+   "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/static.rb#L124"
+  },
+  "trace": [
+   {
+    "description": "PATH_INFO is read without normalization or unescaping",
+    "file": "lib/rack/static.rb",
+    "function": "Rack::Static#call",
+    "language": "Ruby",
+    "line": 124,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/static.rb#L124"
+   },
+   {
+    "description": "the whitelist decision is made on that raw path",
+    "file": "lib/rack/static.rb",
+    "function": "Rack::Static#call",
+    "language": "Ruby",
+    "line": 126,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/static.rb#L126"
+   },
+   {
+    "description": "route_file only checks a string prefix of a configured url",
+    "file": "lib/rack/static.rb",
+    "function": "Rack::Static#route_file",
+    "language": "Ruby",
+    "line": 116,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/static.rb#L116"
+   },
+   {
+    "description": "the same raw PATH_INFO is served by the file server, which resolves dot segments",
+    "file": "lib/rack/static.rb",
+    "function": "Rack::Static#call",
+    "language": "Ruby",
+    "line": 148,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/static.rb#L148"
+   }
+  ],
+  "verification_method": "Static read of lib/rack/static.rb at 2.2.3 and v2.2.13, the 2.2 fix commit and the regression test, plus git ancestry; no HTTP server or request was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/rack_cve_2025_27610/sources/cve_v5.json",
+   "evidence_id": "ev_rack_27610_cve",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:55:00Z",
+   "sha256_of_observation": "49b34c94fbe37f9fc979c342b2cf334f83b03732420f3c8ba413b4532d0a77a4",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-27610",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M",
+    "description: prior to 2.2.13, 3.0.14 and 3.1.12 Rack::Static can serve files under root: even when urls: is set, because encoded path traversal is not validated, exposing other files under root:",
+    "CNA CVSS 3.1 7.5 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "CNA problemTypes CWE-23"
+   ],
+   "verification_method": "CVE List v5 CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/rack_cve_2025_27610/sources/nvd_cve.json",
+   "evidence_id": "ev_rack_27610_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:55:00Z",
+   "sha256_of_observation": "e3c98404215d77d8ee2071effc76814df6a258cc40ebf8616134934d2e3bc8e0",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27610",
+   "supports": [
+    "NVD carries the GitHub security-advisories CVSS 3.1 7.5 HIGH with the same vector",
+    "NVD weakness CWE-23",
+    "published 2025-03-10"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/rack_cve_2025_27610/sources/osv_ghsa.json",
+   "evidence_id": "ev_rack_27610_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:55:00Z",
+   "sha256_of_observation": "b990fba16a0ceeebcfd72ca5f83b846c980de0b7e6f0cec07884c243cf10fc86",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-27610",
+   "supports": [
+    "CVE-2025-27610 aliases GHSA-7wqh-767x-r66v, package rack (RubyGems), cwe_ids CWE-23",
+    "severity CVSS 3.1 7.5 HIGH with the same vector",
+    "affected ranges fixed at 2.2.13, 3.0.14 and 3.1.12 with commit-based events",
+    "FIX reference only lists 50caab74 (a 3.x-branch commit); the 2.2 code fix is not named"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/rack_cve_2025_27610/sources/static_2.2.3.rb",
+   "evidence_id": "ev_rack_27610_vuln_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:55:00Z",
+   "sha256_of_observation": "6b01f5e1df166b4f85f9075d7e6732670b2d9a07ccb23817b03b9c9d0f267e0f",
+   "source_url": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/static.rb#L126",
+   "supports": [
+    "line 124 takes path = env[PATH_INFO] verbatim",
+    "line 126 authorizes with can_serve(path) on the raw, still-encoded path",
+    "route_file (line 116) accepts any path whose prefix equals a configured url, so \"/cgi/../secret\" passes the url check",
+    "the same raw path is then handed to the file server (which resolves \"..\" and percent-decoding), so the served path escapes the urls: whitelist"
+   ],
+   "verification_method": "file read at snapshot commit 1741c580 (2.2.3), bytes and git_oid cross-checked against the snapshot inventory"
+  },
+  {
+   "artifact_path": "runs/verification/rack_cve_2025_27610/sources/static_2.2.13.rb",
+   "evidence_id": "ev_rack_27610_fixed_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:55:00Z",
+   "sha256_of_observation": "ded01268a2eb28eea16d84dc65b1acfcba6e4821eb246bedcedcf082dd28fb17",
+   "source_url": "https://github.com/rack/rack/blob/v2.2.13/lib/rack/static.rb#L125",
+   "supports": [
+    "the fixed call() computes actual_path = Utils.clean_path_info(Utils.unescape_path(path)) at line 125",
+    "line 127 authorizes with can_serve(actual_path), so the whitelist sees the resolved path instead of the encoded one"
+   ],
+   "verification_method": "file read at release tag v2.2.13 (df6c4735)"
+  },
+  {
+   "artifact_path": "runs/verification/rack_cve_2025_27610/sources/fix_commit_2.2.patch",
+   "evidence_id": "ev_rack_27610_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:55:00Z",
+   "sha256_of_observation": "a5ad3c231b0b6b5b448c929c1ac93cd234f62e25fd16148c00189cf58cba1a46",
+   "source_url": "https://github.com/rack/rack/commit/873d39e6d673a91fbdeb2ec75d42184d35908bb4",
+   "supports": [
+    "the 2.2-branch fix adds clean_path_info(unescape_path(path)) and passes actual_path to can_serve",
+    "it adds a regression test requesting \"/cgi/../spec_static.rb\" and expecting the static 404 behaviour instead of the file",
+    "pre-image index 8cb58b2f matches the snapshot git_oid of lib/rack/static.rb"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/rack_cve_2025_27610/sources/git_object_checks.txt",
+   "evidence_id": "ev_rack_27610_git",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:55:00Z",
+   "sha256_of_observation": "02bbd01d152f366cd543cfad846d2229b5bce086e1444e6f92aef859b0ec51c0",
+   "source_url": "https://github.com/rack/rack/commit/873d39e6d673a91fbdeb2ec75d42184d35908bb4",
+   "supports": [
+    "snapshot commit 1741c580 is tag 2.2.3 and its lib/rack/static.rb blob is 8cb58b2f",
+    "fix 873d39e6 is NOT an ancestor of 2.2.3 (merge-base exit 1)",
+    "fix 873d39e6 IS an ancestor of v2.2.13 (exit 0) and is contained in v2.2.13",
+    "advisory reference commit 50caab74 is not an ancestor of v2.2.13; it is a 3.x-branch commit"
+   ],
+   "verification_method": "git log/merge-base/tag/rev-parse with a blobless bare mirror"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   3,
+   5
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   2,
+   5,
+   6
+  ],
+  "fixed_releases": [
+   2,
+   4,
+   5,
+   6
+  ],
+  "languages": [
+   3,
+   4
+  ],
+  "severity": [
+   0,
+   1,
+   2
+  ],
+  "vulnerable_commit": [
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "CVE record, NVD, OSV and the branch git history agree on CWE-23, the 7.5 High vector and the 2.2.13/3.0.14/3.1.12 fixed versions. The declared impacts go beyond the urls: whitelist but stay inside root:, since Rack::Files cleans the path before File.join. Upstream metadata defects are recorded rather than resolved: the CNA/NVD/OSV FIX reference names only 50caab74, which lives on main and first appears in v3.2.0, so it is not the commit that fixes any of the three listed releases (the backports are 873d39e6, 61f83f63 and 70cb3228); and OSV lists the version-bump commits df6c4735/340cd1f1/e8f47608 as fixed events and appends 50caab74 to the 3.1 range.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Rack::Static#call at 2.2.3 and confirm the whitelist sees the raw PATH_INFO while the file server resolves the traversal.",
+   "An independent reviewer must confirm the 2.2-branch fix is 873d39e6, that it is not an ancestor of 2.2.3 and is contained in v2.2.13, and that the advisory does not name it.",
+   "An independent reviewer must confirm the affected ranges and that CVE/NVD/OSV agree on CVSS and CWE.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "independent_corrections_accepted": [
+   "Bounded impact: the served path can leave the urls: prefixes but cannot escape root:; the description and limitations now say so explicitly.",
+   "Fix-commit mapping: 50caab74 belongs to main and first appears in v3.2.0, not in 2.2.13/3.0.14/3.1.12; the per-branch backports 873d39e6 (2.2), 61f83f63 (3.0) and 70cb3228 (3.1) were verified and added.",
+   "OSV metadata: the version-bump commits are listed as fixed events and 50caab74 is appended to the 3.1 range; recorded as an upstream defect."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No HTTP request was executed; the traversal is established statically from the authorization predicate and the file-server call.",
+  "The 2.2.13 tree was read, but not the 3.0.14 and 3.1.12 trees; those versions are recorded from the advisory ranges as fixed releases.",
+  "The advisory names only a 3.x commit, so the exact 2.2-branch fix commit is established from git history rather than from the advisory text.",
+  "The impact is bounded by root:: Rack::Files calls Utils.clean_path_info and File.join(@root, ...), so leading \"..\" segments are removed and the read cannot escape the configured root: directory."
+ ],
+ "open_questions": [
+  "Whether a front-end that normalizes PATH_INFO before Rack sees it removes the attack surface in specific deployments was not audited."
+ ]
+}

@@ -1,0 +1,346 @@
+{
+  "candidate_id": "adv3_35e2b6ab5b47677a",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/werkzeug_cve_2024_34069/sources/osv_ghsa.json",
+      "evidence_id": "ev_werkzeug_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:20:00Z",
+      "sha256_of_observation": "3c6d3f1400aa5e0f083629c29cc2570a6ccf6ebe7ebb1a0be1b1d12932b1bde6",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-2g68-c3qc-8985",
+      "supports": [
+        "GHSA aliases CVE-2024-34069 and PYSEC-2026-2043",
+        "PyPI werkzeug SEMVER range introduced 0, fixed 3.0.3",
+        "CVSS 3.1 7.5 AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+        "CWE-352 in database_specific with github_reviewed true",
+        "advisory references commit 3386395"
+      ],
+      "verification_method": "OSV API query by GHSA id; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/werkzeug_cve_2024_34069/sources/cve_v5.json",
+      "evidence_id": "ev_werkzeug_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:20:00Z",
+      "sha256_of_observation": "897827a709e2e6874765bed9b8fa76f77702af06c34206809c76847cc74be0e4",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-34069",
+      "supports": [
+        "CVE published 2024-05-06, state PUBLISHED, assigner GitHub_M",
+        "CNA CVSS 3.1 7.5 AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+        "CNA CWE-352",
+        "CNA references advisory GHSA-2g68-c3qc-8985 and commit 3386395"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/werkzeug_cve_2024_34069/sources/nvd_cve.json",
+      "evidence_id": "ev_werkzeug_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:20:00Z",
+      "sha256_of_observation": "5ebe4f26a4cd02d606b1e0378f540fd062ec211fff3565aaee8813ba3a64986c",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-34069",
+      "supports": [
+        "NVD holds only a Secondary (GitHub) CVSS 3.1 7.5 HIGH metric",
+        "CWE-352 from the GitHub secondary source",
+        "references list commit 3386395 twice, with no independent NVD analysis"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/werkzeug_cve_2024_34069/sources/git_object_checks.txt",
+      "evidence_id": "ev_werkzeug_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:19:00Z",
+      "sha256_of_observation": "97dfe6e203659a5fe0d0d46aa518006be43ddd4f147705d37ad4bca98c18b613",
+      "source_url": "https://github.com/pallets/werkzeug/commit/3386395b24c7371db11a5b8eaac0c91da5362692",
+      "supports": [
+        "tag 3.0.2 is lightweight and points at d70dcea3",
+        "tag 3.0.3 is annotated (object dea2a1d1) and peels to f9995e96",
+        "fix 3386395 is an ancestor of 3.0.3 (one release commit above it)",
+        "fix 3386395 is not present in 3.0.2",
+        "merge parents are the trusted-host commits 71b69df and 890b6b6"
+      ],
+      "verification_method": "exact-SHA and tag fetch into a bare repository; git merge-base --is-ancestor in both directions; git show --stat"
+    },
+    {
+      "artifact_path": "runs/verification/werkzeug_cve_2024_34069/sources/debug_init_3.0.2.py",
+      "evidence_id": "ev_werkzeug_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:18:00Z",
+      "sha256_of_observation": "5ce872d07a8a779ff5efc08d3b84976000acce8dbb2737f24b1f00b253709bc2",
+      "source_url": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/debug/__init__.py#L367-L380",
+      "supports": [
+        "vulnerable root-cause region",
+        "execute_command evaluates the cmd argument with no Host/trusted-host check",
+        "__call__ dispatch (lines 500-534) gates eval only on self.secret and check_pin_trust",
+        "display_console and pin_auth are likewise reachable without a host check"
+      ],
+      "verification_method": "file read at the 3.0.2 commit"
+    },
+    {
+      "artifact_path": "runs/verification/werkzeug_cve_2024_34069/sources/debug_init_3.0.3.py",
+      "evidence_id": "ev_werkzeug_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:18:00Z",
+      "sha256_of_observation": "43288c8001c80e8ec8b39eb86a9cea7f962e030ee471c40d43bf8460f7ebbfc9",
+      "source_url": "https://github.com/pallets/werkzeug/blob/f9995e967979eb694d6b31536cc65314fd7e9c8c/src/werkzeug/debug/__init__.py#L378-L400",
+      "supports": [
+        "fixed release content",
+        "trusted_hosts added with default ['.localhost', '127.0.0.1']",
+        "execute_command and display_console return SecurityError unless check_host_trust passes",
+        "evalex rendering is gated by check_host_trust"
+      ],
+      "verification_method": "file read at the peeled 3.0.3 commit"
+    },
+    {
+      "artifact_path": "runs/verification/werkzeug_cve_2024_34069/sources/sansio_utils_3.0.3.py",
+      "evidence_id": "ev_werkzeug_host_is_trusted",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:18:00Z",
+      "sha256_of_observation": "63bce412622f04bb55be0c1276d0611691aa09c941b58c7b19485c922452ca12",
+      "source_url": "https://github.com/pallets/werkzeug/blob/f9995e967979eb694d6b31536cc65314fd7e9c8c/src/werkzeug/sansio/utils.py#L11-L40",
+      "supports": [
+        "host_is_trusted existed before the fix (versionadded 0.9)",
+        "the fix reuses the existing request.host trusted-host mechanism for the debugger",
+        "leading-dot entries match subdomains; trailing port is stripped before comparison"
+      ],
+      "verification_method": "file read at the peeled 3.0.3 commit; no execution"
+    },
+    {
+      "artifact_path": "runs/language/snap_b57262de7996e8a2/snapshot_proposal.json",
+      "evidence_id": "ev_werkzeug_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:17:32Z",
+      "sha256_of_observation": "fe3b23a9a4f0742fe3034eb9015e96a586a86088e1d6b596b028978964572ac8",
+      "source_url": "https://github.com/pallets/werkzeug/tree/d70dcea305bf842c5a3b55265b5ffac2db012e23",
+      "supports": [
+        "snapshot_id and 311-file inventory",
+        "Python first-party 61 files / 732,584 bytes / 49.65% of first-party text",
+        "tree oid 72c1e243",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "fix_commits": [
+      3
+    ],
+    "fixed_releases": [
+      3,
+      5
+    ],
+    "languages": [
+      7
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      3,
+      4
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No HTTP request, DNS rebinding, or debugger session was performed; the finding is static.",
+    "The advisory requires the attacker to lure the developer to a controlled domain and to enter the debugger PIN; the dossier verifies the missing host check, not a full exploit chain.",
+    "NVD carries no independent analysis: every metric and CWE comes from the GitHub secondary source, so NVD is a mirror here, not an independent corroboration.",
+    "Only the 3.0.2 -> 3.0.3 path is verified. The 3.0.3 tag is an annotated tag; its peeled commit was used everywhere.",
+    "No regression test was added in the fix commit; upstream behaviour is verified from source and docs only."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "            elif (\n                self.evalex\n                and cmd is not None\n                and frame is not None\n                and self.secret == secret\n                and self.check_pin_trust(environ)\n            ):\n                response = self.execute_command(request, cmd, frame)  # type: ignore",
+      "description": "In 3.0.2, DebuggedApplication.__call__ (lines 500-534) dispatches any request carrying `__debugger__=yes` using only query parameters (cmd, f, frm, s) plus self.secret and the pin cookie; it never validates the request Host or Origin against trusted hosts. The evalex branch (520-527) therefore routes an attacker-routed request into execute_command (367-380), which reaches `frame.eval(command)` at line 380 and then `exec()` in console.py. `pin_auth`, `log_pin_request` and `display_console` (`/console`) are likewise unguarded. The fix in 3.0.3 adds `trusted_hosts` (default `.localhost`, `127.0.0.1`) and returns `SecurityError` from those handlers unless `check_host_trust` passes, and also gates the rendered evalex console. The root cause is the absence of these checks, not a defect in the pre-existing `host_is_trusted` helper.",
+      "file": "src/werkzeug/debug/__init__.py",
+      "function": "DebuggedApplication.__call__",
+      "language": "Python",
+      "line": "500-534",
+      "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/debug/__init__.py#L500-L534"
+    },
+    "entry_point": {
+      "description": "DebuggedApplication.__call__ dispatches every `?__debugger__=yes` request. For cmd values it requires only that the `s` argument equals self.secret and that check_pin_trust(environ) returns truthy; there is no Host or Origin constraint before calling execute_command. The `/console` path is likewise served by display_console without a host check.",
+      "file": "src/werkzeug/debug/__init__.py",
+      "function": "DebuggedApplication.__call__",
+      "language": "Python",
+      "line": 500,
+      "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/debug/__init__.py#L500"
+    },
+    "location_id": "loc_CVE_2024_34069_snap_b57262de7996e8a2",
+    "location_kind": "logic",
+    "snapshot_id": "snap_b57262de7996e8a2",
+    "trace": [
+      {
+        "description": "Dispatch begins for any request carrying __debugger__=yes",
+        "file": "src/werkzeug/debug/__init__.py",
+        "function": "DebuggedApplication.__call__",
+        "language": "Python",
+        "line": 509,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/debug/__init__.py#L509"
+      },
+      {
+        "description": "Only the secret and the PIN cookie are checked before eval",
+        "file": "src/werkzeug/debug/__init__.py",
+        "function": "DebuggedApplication.__call__",
+        "language": "Python",
+        "line": 520,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/debug/__init__.py#L520"
+      },
+      {
+        "description": "Command is handed to execute_command",
+        "file": "src/werkzeug/debug/__init__.py",
+        "function": "DebuggedApplication.__call__",
+        "language": "Python",
+        "line": 527,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/debug/__init__.py#L527"
+      },
+      {
+        "description": "Arbitrary Python expression is evaluated in the frame namespace",
+        "file": "src/werkzeug/debug/__init__.py",
+        "function": "DebuggedApplication.execute_command",
+        "language": "Python",
+        "line": 380,
+        "permalink": "https://github.com/pallets/werkzeug/blob/d70dcea305bf842c5a3b55265b5ffac2db012e23/src/werkzeug/debug/__init__.py#L380"
+      }
+    ],
+    "verification_method": "Static read of debug/__init__.py at 3.0.2 and 3.0.3, plus the fix diff and sansio/utils.py. No code executed.",
+    "vulnerability_id": "CVE-2024-34069"
+  },
+  "open_questions": [
+    "Whether a modern browser's DNS-rebinding protections or SameSite cookie rules block any step of the advisory chain was not tested.",
+    "Whether the same missing host check exists in 2.3.x maintenance releases was not checked.",
+    "The advisory text says the attacker must 'enter the debugger PIN'; whether a rebound origin can complete pin_auth without the PIN was not evaluated."
+  ],
+  "prepared_at": "2026-10-21T15:22:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/pallets/werkzeug",
+    "full_name": "pallets/werkzeug",
+    "primary_language": "Python",
+    "project_kind": "WSGI utility library and development server",
+    "repo_id": "997338",
+    "snapshot_id": "snap_b57262de7996e8a2"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read debug/__init__.py at 3.0.2 and confirm execute_command has no host trust check.",
+      "An independent reviewer must confirm 3386395 is in 3.0.3 and not in 3.0.2.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-2g68-c3qc-8985, PyPI range)",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "upstream git history"
+    ],
+    "independent_of_primary": true,
+    "notes": "CVE v5 (assigner GitHub_M) supplies CVSS 3.1 7.5 and CWE-352, and references the advisory and commit 3386395. NVD contains only a Secondary metric copied from security-advisories@github.com and the same CWE; no NVD analyst assessment is present, so NVD does not add independent corroboration. OSV metadata matches the CNA and adds PYSEC-2026-2043. The advisory's fixed version 3.0.3 agrees with the git evidence: 3386395 is one commit before the 3.0.3 release commit and is absent from 3.0.2.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/pallets/werkzeug/security/advisories/GHSA-2g68-c3qc-8985",
+    "affected_packages": [
+      {
+        "affected_range": "<3.0.3",
+        "ecosystem": "PyPI",
+        "package": "werkzeug",
+        "purl": "pkg:pypi/werkzeug"
+      }
+    ],
+    "aliases": [
+      "CVE-2024-34069",
+      "GHSA-2g68-c3qc-8985",
+      "PYSEC-2026-2043"
+    ],
+    "category_l1": "injection",
+    "category_l2": "debugger host-trust bypass leading to code execution",
+    "cwe_ids": [
+      "CWE-352"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "main",
+        "message": "Merge pull request from GHSA-2g68-c3qc-8985 (restrict debugger trusted hosts, require trusted host for evalex)",
+        "sha": "3386395b24c7371db11a5b8eaac0c91da5362692",
+        "url": "https://github.com/pallets/werkzeug/commit/3386395b24c7371db11a5b8eaac0c91da5362692"
+      },
+      {
+        "branch": "main (fix branch)",
+        "message": "restrict debugger trusted hosts",
+        "sha": "71b69dfb7df3d912e66bab87fbb1f21f83504967",
+        "url": "https://github.com/pallets/werkzeug/commit/71b69dfb7df3d912e66bab87fbb1f21f83504967"
+      },
+      {
+        "branch": "main (fix branch)",
+        "message": "only require trusted host for evalex",
+        "sha": "890b6b62634fa61224222aee31081c61b054ff01",
+        "url": "https://github.com/pallets/werkzeug/commit/890b6b62634fa61224222aee31081c61b054ff01"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "werkzeug",
+        "release_url": "https://github.com/pallets/werkzeug/releases/tag/3.0.3",
+        "tag": "3.0.3",
+        "verified_content": "At the peeled 3.0.3 commit, DebuggedApplication has trusted_hosts defaulting to ['.localhost', '127.0.0.1']; execute_command, display_console, pin_auth and log_pin_request return SecurityError when check_host_trust fails, and evalex rendering is gated by check_host_trust. The 3.0.2 file contains none of these checks.",
+        "version": "3.0.3"
+      }
+    ],
+    "published_at": "2024-05-06T14:21:27Z",
+    "references": [
+      "https://github.com/pallets/werkzeug/security/advisories/GHSA-2g68-c3qc-8985",
+      "https://github.com/pallets/werkzeug/commit/3386395b24c7371db11a5b8eaac0c91da5362692",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-34069",
+      "https://security.netapp.com/advisory/ntap-20240614-0004/",
+      "https://lists.fedoraproject.org/archives/list/package-announce@lists.fedoraproject.org/message/HFERFN7PINV4MOGMGA3DPIXJPDCYOEJZ/"
+    ],
+    "repo_id": "997338",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); CNA and the NVD secondary metric agree.",
+      "score": 7.5,
+      "source": "CVE v5 CNA metric, mirrored by NVD secondary metric from security-advisories@github.com",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-34069",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_b57262de7996e8a2",
+    "source_type": "upstream_advisory",
+    "title": "Werkzeug debugger lacks a trusted-host check before evaluating console commands before 3.0.3",
+    "vulnerability_id": "CVE-2024-34069",
+    "vulnerable_commit": "d70dcea305bf842c5a3b55265b5ffac2db012e23",
+    "vulnerable_commit_basis": "lightweight tag 3.0.2 points directly at d70dcea3...; 3.0.2 is the last release before the advisory's fixed version 3.0.3",
+    "vulnerable_version": "3.0.2"
+  }
+}

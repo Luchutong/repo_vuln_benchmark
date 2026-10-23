@@ -1,0 +1,109 @@
+From 18ecd03eda3917fdf901a48e72518f911c64a1c9 Mon Sep 17 00:00:00 2001
+From: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date: Mon, 28 Oct 2024 12:35:32 +0100
+Subject: [PATCH] [Process] Use %PATH% before %CD% to load the shell on Windows
+
+---
+ .../Component/Process/ExecutableFinder.php        | 14 ++++++++------
+ .../Component/Process/PhpExecutableFinder.php     | 15 ++-------------
+ src/Symfony/Component/Process/Process.php         |  9 ++++++++-
+ 3 files changed, 18 insertions(+), 20 deletions(-)
+
+diff --git a/src/Symfony/Component/Process/ExecutableFinder.php b/src/Symfony/Component/Process/ExecutableFinder.php
+index 1604b6f0851c0..89edd22fb2400 100644
+--- a/src/Symfony/Component/Process/ExecutableFinder.php
++++ b/src/Symfony/Component/Process/ExecutableFinder.php
+@@ -19,7 +19,6 @@
+  */
+ class ExecutableFinder
+ {
+-    private $suffixes = ['.exe', '.bat', '.cmd', '.com'];
+     private const CMD_BUILTINS = [
+         'assoc', 'break', 'call', 'cd', 'chdir', 'cls', 'color', 'copy', 'date',
+         'del', 'dir', 'echo', 'endlocal', 'erase', 'exit', 'for', 'ftype', 'goto',
+@@ -28,6 +27,8 @@ class ExecutableFinder
+         'setlocal', 'shift', 'start', 'time', 'title', 'type', 'ver', 'vol',
+     ];
+ 
++    private $suffixes = [];
++
+     /**
+      * Replaces default suffixes of executable.
+      */
+@@ -65,11 +66,13 @@ public function find(string $name, ?string $default = null, array $extraDirs = [
+             $extraDirs
+         );
+ 
+-        $suffixes = [''];
++        $suffixes = [];
+         if ('\\' === \DIRECTORY_SEPARATOR) {
+             $pathExt = getenv('PATHEXT');
+-            $suffixes = array_merge($pathExt ? explode(\PATH_SEPARATOR, $pathExt) : $this->suffixes, $suffixes);
++            $suffixes = $this->suffixes;
++            $suffixes = array_merge($suffixes, $pathExt ? explode(\PATH_SEPARATOR, $pathExt) : ['.exe', '.bat', '.cmd', '.com']);
+         }
++        $suffixes = '' !== pathinfo($name, PATHINFO_EXTENSION) ? array_merge([''], $suffixes) : array_merge($suffixes, ['']);
+         foreach ($suffixes as $suffix) {
+             foreach ($dirs as $dir) {
+                 if ('' === $dir) {
+@@ -85,12 +88,11 @@ public function find(string $name, ?string $default = null, array $extraDirs = [
+             }
+         }
+ 
+-        if (!\function_exists('exec') || \strlen($name) !== strcspn($name, '/'.\DIRECTORY_SEPARATOR)) {
++        if ('\\' === \DIRECTORY_SEPARATOR || !\function_exists('exec') || \strlen($name) !== strcspn($name, '/'.\DIRECTORY_SEPARATOR)) {
+             return $default;
+         }
+ 
+-        $command = '\\' === \DIRECTORY_SEPARATOR ? 'where %s 2> NUL' : 'command -v -- %s';
+-        $execResult = exec(\sprintf($command, escapeshellarg($name)));
++        $execResult = exec('command -v -- '.escapeshellarg($name));
+ 
+         if (($executablePath = substr($execResult, 0, strpos($execResult, \PHP_EOL) ?: null)) && @is_executable($executablePath)) {
+             return $executablePath;
+diff --git a/src/Symfony/Component/Process/PhpExecutableFinder.php b/src/Symfony/Component/Process/PhpExecutableFinder.php
+index b9aff6907e13c..c3a9680d757b3 100644
+--- a/src/Symfony/Component/Process/PhpExecutableFinder.php
++++ b/src/Symfony/Component/Process/PhpExecutableFinder.php
+@@ -34,19 +34,8 @@ public function __construct()
+     public function find(bool $includeArgs = true)
+     {
+         if ($php = getenv('PHP_BINARY')) {
+-            if (!is_executable($php)) {
+-                if (!\function_exists('exec') || \strlen($php) !== strcspn($php, '/'.\DIRECTORY_SEPARATOR)) {
+-                    return false;
+-                }
+-
+-                $command = '\\' === \DIRECTORY_SEPARATOR ? 'where %s 2> NUL' : 'command -v -- %s';
+-                $execResult = exec(\sprintf($command, escapeshellarg($php)));
+-                if (!$php = substr($execResult, 0, strpos($execResult, \PHP_EOL) ?: null)) {
+-                    return false;
+-                }
+-                if (!is_executable($php)) {
+-                    return false;
+-                }
++            if (!is_executable($php) && !$php = $this->executableFinder->find($php)) {
++                return false;
+             }
+ 
+             if (@is_dir($php)) {
+diff --git a/src/Symfony/Component/Process/Process.php b/src/Symfony/Component/Process/Process.php
+index 62addf1e7a75e..0f3457f382179 100644
+--- a/src/Symfony/Component/Process/Process.php
++++ b/src/Symfony/Component/Process/Process.php
+@@ -1592,7 +1592,14 @@ function ($m) use (&$env, &$varCache, &$varCount, $uid) {
+             $cmd
+         );
+ 
+-        $cmd = 'cmd /V:ON /E:ON /D /C ('.str_replace("\n", ' ', $cmd).')';
++        static $comSpec;
++
++        if (!$comSpec && $comSpec = (new ExecutableFinder())->find('cmd.exe')) {
++            // Escape according to CommandLineToArgvW rules
++            $comSpec = '"'.preg_replace('{(\\\\*+)"}', '$1$1\"', $comSpec) .'"';
++        }
++
++        $cmd = ($comSpec ?? 'cmd').' /V:ON /E:ON /D /C ('.str_replace("\n", ' ', $cmd).')';
+         foreach ($this->processPipes->getFiles() as $offset => $filename) {
+             $cmd .= ' '.$offset.'>"'.$filename.'"';
+         }

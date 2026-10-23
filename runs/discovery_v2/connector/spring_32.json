@@ -1,0 +1,25 @@
+{
+  "key": "spring_32",
+  "repository": "spring-projects/spring-framework",
+  "path": "settings.gradle",
+  "ref": "v3.2.18.RELEASE",
+  "retrieved_at": "2026-10-21T10:56:57.531Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "rootProject.name = \"spring\"\n\ninclude \"spring-aop\"\ninclude \"spring-aspects\"\ninclude \"spring-beans\"\ninclude \"spring-context\"\ninclude \"spring-context-support\"\ninclude \"spring-core\"\ninclude \"spring-expression\"\ninclude \"spring-instrument\"\ninclude \"spring-instrument-tomcat\"\ninclude \"spring-jdbc\"\ninclude \"spring-jms\"\ninclude \"spring-orm\"\ninclude \"spring-orm-hibernate4\"\ninclude \"spring-oxm\"\ninclude \"spring-struts\"\ninclude \"spring-test\"\ninclude \"spring-test-mvc\"\ninclude \"spring-tx\"\ninclude \"spring-web\"\ninclude \"spring-webmvc\"\ninclude \"spring-webmvc-portlet\"\ninclude \"spring-webmvc-tiles3\"\ninclude \"spring-framework-bom\"\n\n// Exposes gradle buildSrc for IDE support\ninclude \"buildSrc\"\nrootProject.children.find{ it.name == \"buildSrc\" }.name = \"spring-build-src\"\n",
+      "encoding": "utf-8",
+      "sha": "5a93a86fec5f8beca996611fc98132eb77a45bfb",
+      "display_url": "https://github.com/spring-projects/spring-framework/blob/v3.2.18.RELEASE/settings.gradle",
+      "display_title": "settings.gradle"
+    },
+    "isError": false
+  }
+}

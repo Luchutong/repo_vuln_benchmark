@@ -1,0 +1,1 @@
+{"created_at": "2026-10-21T11:00:49.005597Z", "failed_manifest_fetches": ["runs/discovery_v2/connector/echo_33.json", "runs/discovery_v2/connector/grpc_package.json", "runs/discovery_v2/connector/protobuf_pyproject.json", "runs/discovery_v2/connector/protobuf_python.json"], "initial_queries": 50, "queries": 329, "repositories": 50}

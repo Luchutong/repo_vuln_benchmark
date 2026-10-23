@@ -1,0 +1,19 @@
+repo_id: 29207621 (confirmed = caddyserver/caddy via https://github.com/caddyserver/caddy octolytics-dimension-repository_id meta)
+snapshot_id: snap_5f7d6c5c600a7a23
+tag_or_release: None
+vulnerable_commit: f355b8687d5582ea9fcc99f71598109d1e5b6ced
+git_tree_oid: 2c52c53dec668480d0ca49f48919827aa67b6235
+evaluation_target: False
+purpose: historical_evidence
+collected_at: 2026-10-21T13:14:59.511648Z
+
+# comparison against the requested tag
+v2.11.4 peeled commit: e2eee6a7fce366321294c9c2a79f3146891dcbdf
+v2.11.4 tree:          89190a02601c918d8de199c16a9d7d778ba204fa
+snapshot commit == v2.11.4 commit? NO
+snapshot tree   == v2.11.4 tree?   NO
+snapshot commit == clone HEAD f355b8687d5582ea9fcc99f71598109d1e5b6ced? YES
+snapshot tree   == clone HEAD tree 2c52c53dec668480d0ca49f48919827aa67b6235? YES
+
+# fix presence in the dataset snapshot commit
+git merge-base --is-ancestor 25b3eab6 f355b868 -> 0  (fix ALREADY PRESENT)

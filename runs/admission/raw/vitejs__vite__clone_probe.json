@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/vitejs/vite.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:36.808607+00:00", "elapsed_seconds": 1.263, "response": {"returncode": 0, "stdout": "6f2730eacae327cc2ce95c87509b7e7779c615e0\tHEAD\n", "stderr": ""}}

@@ -1,0 +1,24 @@
+{
+  "key": "gin_go",
+  "repository": "gin-gonic/gin",
+  "path": "go.mod",
+  "retrieved_at": "2026-10-21T10:55:19.240Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "module github.com/gin-gonic/gin\n\ngo 1.26.0\n\nrequire (\n\tgithub.com/bytedance/sonic v1.15.0\n\tgithub.com/gin-contrib/sse v1.1.0\n\tgithub.com/go-playground/validator/v10 v10.30.3\n\tgithub.com/goccy/go-json v0.10.6\n\tgithub.com/goccy/go-yaml v1.19.2\n\tgithub.com/json-iterator/go v1.1.12\n\tgithub.com/mattn/go-isatty v0.0.20\n\tgithub.com/modern-go/reflect2 v1.0.2\n\tgithub.com/pelletier/go-toml/v2 v2.2.4\n\tgithub.com/quic-go/quic-go v0.60.0\n\tgithub.com/stretchr/testify v1.12.1\n\tgithub.com/ugorji/go/codec v1.3.1\n\tgo.mongodb.org/mongo-driver/v2 v2.5.0\n\tgolang.org/x/net v0.57.0\n\tgoogle.golang.org/protobuf v1.36.11\n)\n\nrequire (\n\tgithub.com/bytedance/gopkg v0.1.3 // indirect\n\tgithub.com/bytedance/sonic/loader v0.5.0 // indirect\n\tgithub.com/cloudwego/base64x v0.1.6 // indirect\n\tgithub.com/gabriel-vasile/mimetype v1.4.13 // indirect\n\tgithub.com/go-playground/locales v0.14.1 // indirect\n\tgithub.com/go-playground/universal-translator v0.18.1 // indirect\n\tgithub.com/klauspost/cpuid/v2 v2.3.0 // indirect\n\tgithub.com/leodido/go-urn v1.4.0 // indirect\n\tgithub.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect\n\tgithub.com/quic-go/qpack v0.6.0 // indirect\n\tgithub.com/twitchyliquid64/golang-asm v0.15.1 // indirect\n\tgo.uber.org/mock v0.6.0 // indirect\n\tgo.yaml.in/yaml/v3 v3.0.5 // indirect\n\tgolang.org/x/arch v0.25.0 // indirect\n\tgolang.org/x/crypto v0.56.0 // indirect\n\tgolang.org/x/sys v0.47.0 // indirect\n\tgolang.org/x/text v0.41.0 // indirect\n)\n",
+      "encoding": "utf-8",
+      "sha": "99a8d5bb453c8d9e532f2f45710f1ad7e0c31a8a",
+      "display_url": "https://github.com/gin-gonic/gin/blob/master/go.mod",
+      "display_title": "go.mod"
+    },
+    "isError": false
+  }
+}

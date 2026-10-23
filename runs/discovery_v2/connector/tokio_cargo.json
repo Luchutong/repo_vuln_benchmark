@@ -1,0 +1,24 @@
+{
+  "key": "tokio_cargo",
+  "repository": "tokio-rs/tokio",
+  "path": "Cargo.toml",
+  "retrieved_at": "2026-10-21T10:55:21.744Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "[workspace]\nresolver = \"2\"\nmembers = [\n  \"tokio\",\n  \"tokio-macros\",\n  \"tokio-test\",\n  \"tokio-stream\",\n  \"tokio-util\",\n\n  # Internal\n  \"benches\",\n  \"examples\",\n  \"stress-test\",\n  \"tests-build\",\n  \"tests-integration\",\n]\n\n[patch.crates-io]\ntokio = { path = \"tokio\" }\ntokio-macros = { path = \"tokio-macros\" }\ntokio-stream = { path = \"tokio-stream\" }\ntokio-test = { path = \"tokio-test\" }\ntokio-util = { path = \"tokio-util\" }\n\n[workspace.metadata.spellcheck]\nconfig = \"spellcheck.toml\"\n\n[workspace.lints.rust]\nunexpected_cfgs = { level = \"warn\", check-cfg = [\n  'cfg(fuzzing)',\n  'cfg(loom)',\n  'cfg(mio_unsupported_force_poll_poll)',\n  'cfg(tokio_allow_from_blocking_fd)',\n  'cfg(tokio_internal_mt_counters)',\n  'cfg(tokio_no_parking_lot)',\n  'cfg(tokio_no_tuning_tests)',\n  'cfg(tokio_unstable)',\n  'cfg(target_os, values(\"cygwin\"))',\n] }\n",
+      "encoding": "utf-8",
+      "sha": "2238a50d8f43657be4d723c103219e6f62d53971",
+      "display_url": "https://github.com/tokio-rs/tokio/blob/master/Cargo.toml",
+      "display_title": "Cargo.toml"
+    },
+    "isError": false
+  }
+}

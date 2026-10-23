@@ -1,0 +1,437 @@
+{
+  "candidate_id": "disc2_a1210c5eda3ce65cc2b19524",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T19:41:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-67635",
+    "aliases": [
+      "CVE-2025-67635",
+      "GHSA-9p56-p6mw-w8qc",
+      "BIT-jenkins-2025-67635"
+    ],
+    "title": "Jenkins CLI reader thread skips handleClose on a corrupted stream, leaving HTTP CLI request threads waiting indefinitely (unauthenticated DoS)",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:cli",
+        "purl": "pkg:maven/org.jenkins-ci.main/cli",
+        "affected_range": "weekly <=2.540; LTS <=2.528.2 (snapshot 2.441 is in range)"
+      },
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.540; LTS <=2.528.2 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.541",
+        "tag": "jenkins-2.541",
+        "release_url": "https://www.jenkins.io/changelog/#v2.541",
+        "verified_content": "The 2.541 release commit ea9c7278 has the SECURITY-3630 master commit efa18163 as an ancestor (git merge-base --is-ancestor exits 0) and the 2.528.3 release commit 40e29179 has the LTS commit 92b61576 as an ancestor. PlainCLIProtocol.java, CLIAction.java and FullDuplexHttpService.java are blobs 4bd45b7b, 4538d857 and 4b83d49d at both fix commits and at both release tags. In the fixed trees PlainCLIProtocol calls side.handleClose() from a finally, and both wait loops in CLIAction.run and FullDuplexHttpService.upload are bounded by CONNECTION_TIMEOUT. Security3630Test asserts that a full-duplex CLI connection whose stream is closed early releases its request thread within 2x CONNECTION_TIMEOUT."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "efa1816322026f2b9235a27eee814bcc7ba0a764",
+        "branch": "master",
+        "release": "2.541",
+        "message": "[SECURITY-3630]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/efa1816322026f2b9235a27eee814bcc7ba0a764"
+      },
+      {
+        "sha": "92b6157622e57549889e50b082d824cbd6146bdb",
+        "branch": "2.528.x LTS",
+        "release": "2.528.3",
+        "message": "[SECURITY-3630]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/92b6157622e57549889e50b082d824cbd6146bdb"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-404"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "score": 7.5,
+      "level": "high",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 7.5 HIGH, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 7.5 vector and records HIGH, which is the same high band. The CNA container has no CVSS metric. Every published severity level is high, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 7.5 HIGH; GHSA/OSV 7.5 HIGH",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-67635",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 7.5,
+          "level": "high",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 7.5,
+          "level": "high",
+          "source": "GHSA-9p56-p6mw-w8qc / OSV (database_specific HIGH)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+        }
+      ]
+    },
+    "category_l1": "denial_of_service",
+    "category_l2": "The PlainCLIProtocol reader calls side.handleClose() on every exit path except IOException, so a corrupted CLI stream ends the reader without waking the session; CLIAction.run and FullDuplexHttpService.upload then wait without a timeout and hold their request threads",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-3630",
+    "published_at": "2025-12-10T16:50:35Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-3630",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-67635",
+      "https://github.com/advisories/GHSA-9p56-p6mw-w8qc",
+      "https://github.com/jenkinsci/jenkins/commit/efa1816322026f2b9235a27eee814bcc7ba0a764",
+      "https://fluidattacks.com/blog/unauth-dos-in-jenkins-cli"
+    ]
+  },
+  "description": "Jenkins exposes the HTTP-based CLI at cli?remoting=false as a full-duplex pair of requests. FullDuplexHttpService.Response.generateResponse (2.441 lines 166-199) explicitly establishes the connection without any permission check (comment at 168-169: 'do not require any permission to establish a CLI connection'); the download request runs the CLI session while the upload request supplies the client's frames. On the server the frames are read by PlainCLIProtocol.run (2.441 lines 124-167). Its outer catch chain calls side.handleClose() for ClosedChannelException (156), ReadPendingException (162) and RuntimeException (165), but the IOException branch (157-158) only logs and returns. That is the branch taken when the stream is corrupted - for example the 'corrupt stream: negative frame length' IOException thrown at line 136, or any IOException raised by the socket - so a corrupted connection ends the reader without notifying the CLI session. The session's run() method blocks in CLIAction.java 274-279 on 'while (!ready) wait();'. ready is set by ready() (269-272) from onStart() (247-249), which fires only when the START frame has been parsed, and from handleClose() (261-267); a stream corrupted before that point therefore never wakes the command thread. The download request thread therefore parks forever, and because completed is set in the finally of that same run() (FullDuplexHttpService.java 118-124) the paired upload request also stays parked in FullDuplexHttpService.upload (2.441 lines 144-147, 'while (!completed) wait();'). CONNECTION_TIMEOUT (15 s, line 71) exists and is already applied to the download-side wait for the upload stream (104-116), but not to these two waits. An unauthenticated client can open such connections at will and corrupt the stream, pinning request-handling threads and their sockets indefinitely; repeating this exhausts the HTTP thread pool and denies service to legitimate users. The SECURITY-3630 fix (efa18163 master, 92b61576 LTS) moves side.handleClose() into a finally in PlainCLIProtocol, bounds both waits with CONNECTION_TIMEOUT in 1 s slices, makes CLIAction return early on timeout and FullDuplexHttpService.upload throw IOException('CLI timeout'), and replaces CLIAction's HashMap of pending duplex services with a ConcurrentHashMap (the concurrent-admission race is the second defect covered by the same commit). Security3630Test::testIndefiniteWait opens a CLI stream, writes 10 bytes, closes it, and asserts the 'Handling POST /jenkins/cli' thread disappears within 2x CONNECTION_TIMEOUT.",
+  "location": {
+    "location_id": "loc_CVE-2025-67635_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-67635",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "cli/src/main/java/hudson/cli/PlainCLIProtocol.java",
+    "function": "PlainCLIProtocol$FramedReader.run",
+    "language": "Java",
+    "line": "154-166",
+    "critical_operation": {
+      "file": "cli/src/main/java/hudson/cli/PlainCLIProtocol.java",
+      "function": "PlainCLIProtocol$FramedReader.run",
+      "language": "Java",
+      "line": "154-166",
+      "code_excerpt": "} catch (ClosedChannelException x) {\n    LOGGER.log(Level.FINE, null, x);\n    side.handleClose();\n} catch (IOException x) {\n    LOGGER.log(Level.WARNING, null, flightRecorder.analyzeCrash(x, \"broken stream\"));\n} catch (ReadPendingException x) {\n    // in case trick in CLIAction does not work\n    LOGGER.log(Level.FINE, null, x);\n    side.handleClose();\n} catch (RuntimeException x) {\n    LOGGER.log(Level.WARNING, null, x);\n    side.handleClose();",
+      "description": "The IOException exit path - the one a corrupted stream takes - is the only one that does not call side.handleClose(), so the CLI session is never told the stream ended. The fix replaces the three per-branch calls with a single finally.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/cli/src/main/java/hudson/cli/PlainCLIProtocol.java#L154-L166"
+    },
+    "entry_point": {
+      "description": "Unauthenticated full-duplex request to cli?remoting=false: a download side with a Session header, then an upload side whose stream is corrupted and closed.",
+      "file": "core/src/main/java/jenkins/util/FullDuplexHttpService.java",
+      "function": "FullDuplexHttpService.Response.generateResponse",
+      "language": "Java",
+      "line": "166-199",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/util/FullDuplexHttpService.java#L166-L199"
+    },
+    "trace": [
+      {
+        "description": "the response handler establishes the download and upload sides without any permission check",
+        "file": "core/src/main/java/jenkins/util/FullDuplexHttpService.java",
+        "function": "FullDuplexHttpService.Response.generateResponse",
+        "language": "Java",
+        "line": "166-199",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/util/FullDuplexHttpService.java#L166-L199"
+      },
+      {
+        "description": "the reader throws a plain IOException for a corrupted frame (negative frame length)",
+        "file": "cli/src/main/java/hudson/cli/PlainCLIProtocol.java",
+        "function": "PlainCLIProtocol$FramedReader.run",
+        "language": "Java",
+        "line": "135-137",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/cli/src/main/java/hudson/cli/PlainCLIProtocol.java#L135-L137"
+      },
+      {
+        "description": "the IOException branch logs and returns without calling side.handleClose()",
+        "file": "cli/src/main/java/hudson/cli/PlainCLIProtocol.java",
+        "function": "PlainCLIProtocol$FramedReader.run",
+        "language": "Java",
+        "line": "154-166",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/cli/src/main/java/hudson/cli/PlainCLIProtocol.java#L154-L166"
+      },
+      {
+        "description": "the CLI session waits for ready without a timeout; before the START frame only handleClose() can set it, and the IOException path skips that call",
+        "file": "core/src/main/java/hudson/cli/CLIAction.java",
+        "function": "CLIAction$CLI2.run",
+        "language": "Java",
+        "line": "269-279",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLIAction.java#L269-L279"
+      },
+      {
+        "description": "the paired upload request waits for completed without a timeout; completed is set only when the download side's run() returns",
+        "file": "core/src/main/java/jenkins/util/FullDuplexHttpService.java",
+        "function": "FullDuplexHttpService.upload",
+        "language": "Java",
+        "line": "132-148",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/util/FullDuplexHttpService.java#L132-L148"
+      },
+      {
+        "description": "the fixed tree calls side.handleClose() from a finally",
+        "file": "cli/src/main/java/hudson/cli/PlainCLIProtocol.java",
+        "function": "PlainCLIProtocol$FramedReader.run",
+        "language": "Java",
+        "line": "153-166",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3/cli/src/main/java/hudson/cli/PlainCLIProtocol.java#L153-L166"
+      },
+      {
+        "description": "the fixed tree bounds the session wait and returns early",
+        "file": "core/src/main/java/hudson/cli/CLIAction.java",
+        "function": "CLIAction$CLI2.run",
+        "language": "Java",
+        "line": "316-327",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3/core/src/main/java/hudson/cli/CLIAction.java#L316-L327"
+      }
+    ],
+    "verification_method": "Static read of PlainCLIProtocol.java, CLIAction.java and FullDuplexHttpService.java at 2.441 and at the two fixed release tags, plus the efa18163 patch and its Security3630Test; no Jenkins instance, HTTP request or test was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_67635_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/cve_v5_CVE-2025-67635.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-67635",
+      "retrieved_at": "2026-10-21T19:40:00Z",
+      "sha256_of_observation": "099b154a32255f6235cc36e66da713d93f920870a2d69591bae782ae56903890",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-12-10, assigner Jenkins",
+        "description: Jenkins 2.540 and earlier, LTS 2.528.2 and earlier does not properly close HTTP-based CLI connections when the connection stream becomes corrupted, allowing unauthenticated attackers to cause a denial of service",
+        "affected versions: weekly unaffected from 2.541, LTS 2.528.* unaffected from 2.528.3; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-3630"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/nvd_CVE-2025-67635.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-67635",
+      "retrieved_at": "2026-10-21T19:40:00Z",
+      "sha256_of_observation": "9cbfe4dbe34909935ded11a21257b6d5379ba12e48696e22ca4f339ae0af73d6",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-12-10, status Analyzed",
+        "one CVSS 3.1 7.5 HIGH metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "there is no Primary metric",
+        "CWE-404 from the same Secondary source"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/osv_CVE-2025-67635.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-67635",
+      "retrieved_at": "2026-10-21T19:40:00Z",
+      "sha256_of_observation": "0ca484a4b1e6bfb9a38b186ca9cd79ad4c7e9df14fa2e1ea1064ae5e24498410",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "aliases GHSA-9p56-p6mw-w8qc and BIT-jenkins-2025-67635",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H (7.5 HIGH)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 40e29179 (2.528.3 release commit) and ea9c7278 (2.541 release commit)"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/osv_GHSA-9p56-p6mw-w8qc.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-9p56-p6mw-w8qc",
+      "retrieved_at": "2026-10-21T19:40:00Z",
+      "sha256_of_observation": "f228089b9454940f37243942b5f76654b0b23b8244c7797ea778dc6ff981ce73",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H, database_specific severity HIGH",
+        "database_specific cwe_ids is [CWE-404]",
+        "Maven ECOSYSTEM ranges: one introduced 0 -> fixed 2.528.3, the other introduced 2.529 -> fixed 2.541, which conflicts with the CNA text and the CVE GIT range for the weekly line",
+        "references include https://github.com/jenkinsci/jenkins/commit/efa1816322026f2b9235a27eee814bcc7ba0a764 and https://fluidattacks.com/blog/unauth-dos-in-jenkins-cli"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_plaincli_2441",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/PlainCLIProtocol_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/cli/src/main/java/hudson/cli/PlainCLIProtocol.java",
+      "retrieved_at": "2026-10-21T19:39:00Z",
+      "sha256_of_observation": "6d31da87618496ab4ca868dba63fff5aa9ebc3b83b2678674972109db46050af",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob e49daa24",
+      "result": "PASS",
+      "supports": [
+        "the reader's catch chain at 154-166 calls side.handleClose() for ClosedChannelException (156), ReadPendingException (162) and RuntimeException (165)",
+        "the IOException branch at 157-158 only logs and returns; it does not call side.handleClose()",
+        "the corrupted-frame case throws an IOException at 135-137 ('corrupt stream: negative frame length')"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_cliaction_2441",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/CLIAction_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLIAction.java",
+      "retrieved_at": "2026-10-21T19:39:00Z",
+      "sha256_of_observation": "710160adc8116910cf077930585b2c53f0eb5c71718f40ba0ebb232948f61ff6",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 633ecca3",
+      "result": "PASS",
+      "supports": [
+        "handleClose() (261-267) calls ready(), which sets ready and notifies (269-272)",
+        "run() blocks at 274-279 in 'while (!ready) { wait(); }' with no timeout",
+        "the pending duplex services are kept in a plain HashMap (line 76)"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_fullduplex_2441",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/FullDuplexHttpService_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/util/FullDuplexHttpService.java",
+      "retrieved_at": "2026-10-21T19:39:00Z",
+      "sha256_of_observation": "ce157acf744e73d6ce7c676e29a9bf19ff8595f3b06c6e6e854189d82aa99d8b",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 01f79b02",
+      "result": "PASS",
+      "supports": [
+        "generateResponse (166-199) states at 168-169 that no permission is required to establish a CLI connection",
+        "CONNECTION_TIMEOUT is 15 s (line 71) and is already used for the download-side wait (104-116)",
+        "upload() waits at 144-147 in 'while (!completed) { wait(); }' with no timeout",
+        "completed is set in the finally of the download handler's run(..) at 118-124"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_plaincli_fixed",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/PlainCLIProtocol_2.541.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/efa1816322026f2b9235a27eee814bcc7ba0a764/cli/src/main/java/hudson/cli/PlainCLIProtocol.java",
+      "retrieved_at": "2026-10-21T19:39:00Z",
+      "sha256_of_observation": "e0bf4ce05be54dbc1ad5d5064dab55b52a8daacedf2881d8b178344e441a8f3c",
+      "verification_method": "file read at tag jenkins-2.541; blob 4bd45b7b, identical to the blob at the LTS release tag jenkins-2.528.3",
+      "result": "PASS",
+      "supports": [
+        "the fixed reader calls side.handleClose() from a finally, so the IOException path also notifies the session"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_fullduplex_fixed",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/FullDuplexHttpService_2.528.3.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/92b6157622e57549889e50b082d824cbd6146bdb/core/src/main/java/jenkins/util/FullDuplexHttpService.java",
+      "retrieved_at": "2026-10-21T19:39:00Z",
+      "sha256_of_observation": "0431e56a06e738017b3b8860a1a8ba0c5c6f2fe42965c0db6767d7c15d2c6510",
+      "verification_method": "file read at tag jenkins-2.528.3; blob 4b83d49d, identical to the blob at tag jenkins-2.541",
+      "result": "PASS",
+      "supports": [
+        "upload() now waits in 1 s slices bounded by CONNECTION_TIMEOUT and throws IOException('CLI timeout') when it expires"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/fix_commit_efa18163.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/efa1816322026f2b9235a27eee814bcc7ba0a764",
+      "retrieved_at": "2026-10-21T19:39:00Z",
+      "sha256_of_observation": "28e1d9f0a56c9bc856cd6b797444bc9a78faa4afaffcb77bb96b899a07584090",
+      "verification_method": "git show of the master-branch fix commit",
+      "result": "PASS",
+      "supports": [
+        "commit efa18163 '[SECURITY-3630]', 2025-12-02, parent 31598feb",
+        "PlainCLIProtocol moves side.handleClose() into a finally; CLIAction bounds the ready wait and returns on timeout, and switches duplexServices to ConcurrentHashMap; FullDuplexHttpService bounds the completed wait and throws IOException('CLI timeout')",
+        "it adds Security3630Test, whose testIndefiniteWait asserts that the 'Handling POST /jenkins/cli' thread disappears within 2x CONNECTION_TIMEOUT after a stream is closed early"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67635_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67635/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-21T19:41:00Z",
+      "sha256_of_observation": "6cc7beb5db9c1018e18befba5a5f37a91895948727250e3ba47f5b80250ad205",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and the three files are blobs e49daa24, 633ecca3 and 01f79b02 at that commit",
+        "master fix efa18163 is an ancestor of the 2.541 release commit ea9c7278, and LTS fix 92b61576 is an ancestor of the 2.528.3 release commit 40e29179",
+        "the three file blobs are 4bd45b7b, 4538d857 and 4b83d49d at both fix commits and at both release tags",
+        "CNA affected range 2.540 and earlier weekly / 2.528.2 and earlier LTS includes the 2.441 snapshot"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2,
+      3,
+      10
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6,
+      9
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      9,
+      10
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      9,
+      10
+    ],
+    "languages": [
+      4,
+      5,
+      6
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      10
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 PlainCLIProtocol reader, the 2.441 CLIAction and FullDuplexHttpService waits, and the fix patch; the git checks support the commit/release chain.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 7.5 HIGH)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (HTTP-based CLI connections are not properly closed when the stream is corrupted, enabling unauthenticated denial of service) and on the fixed releases (2.541 weekly, 2.528.3 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 7.5 HIGH, which OSV/GHSA repeats as HIGH, and the CNA has no metric, so all published levels are high. CWE-404 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA text and the CVE GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. The OSV record also links an independent Fluid Attacks write-up of the unauthenticated CLI DoS.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read PlainCLIProtocol at 2.441 and confirm the IOException branch does not call side.handleClose() while the other three branches do.",
+      "An independent reviewer must confirm that a corrupted stream reaches that IOException branch and that CLIAction.run and FullDuplexHttpService.upload then wait without a timeout.",
+      "An independent reviewer must confirm the fix commits efa18163/92b61576 move handleClose() into a finally and bound both waits, and that they are contained in releases 2.541 and 2.528.3.",
+      "An independent reviewer must confirm the affected range (weekly <=2.540, LTS <=2.528.2) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are high (7.5) and record CWE-404.",
+      "An independent reviewer must confirm this entry is distinct from the other Jenkins CVEs in the dataset.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or test was run.",
+    "The DoS is modeled from the code paths: one corrupted connection parks the download and upload request threads indefinitely; exhausting the servlet container's thread pool requires many such connections, which this dossier does not exercise.",
+    "The CVE combines two defects fixed in one commit (the missing close/indefinite wait and the HashMap race in CLIAction); this dossier's location and claim cover the missing close, as named by the CVE description, and records the HashMap race in the description without claiming it as the location.",
+    "The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA and the CVE GIT range; the conflict is documented, not resolved silently.",
+    "No third-party reproduction or PoC was used; the Fluid Attacks write-up is cited by the OSV record but was not executed."
+  ],
+  "open_questions": [
+    "Whether the servlet container's request thread is also released by connection-level timeouts in some deployments was not determined; the Jenkins fix bounds the wait regardless."
+  ]
+}

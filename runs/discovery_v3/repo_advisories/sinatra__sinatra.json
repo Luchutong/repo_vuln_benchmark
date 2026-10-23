@@ -1,0 +1,243 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "dentarg",
+          "type": "remediation_reviewer"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "remediation_reviewer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/42626?v=4",
+            "events_url": "https://api.github.com/users/dentarg/events{/privacy}",
+            "followers_url": "https://api.github.com/users/dentarg/followers",
+            "following_url": "https://api.github.com/users/dentarg/following{/other_user}",
+            "gists_url": "https://api.github.com/users/dentarg/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/dentarg",
+            "id": 42626,
+            "login": "dentarg",
+            "node_id": "MDQ6VXNlcjQyNjI2",
+            "organizations_url": "https://api.github.com/users/dentarg/orgs",
+            "received_events_url": "https://api.github.com/users/dentarg/received_events",
+            "repos_url": "https://api.github.com/users/dentarg/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/dentarg/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/dentarg/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/dentarg",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2025-61921",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Summary\r\n\r\nThere is a denial of service vulnerability in the `If-Match` and `If-None-Match` header parsing component of Sinatra, if the `etag` method is used when constructing the response and you are using Ruby < 3.2.\r\n\r\n### Details\r\n\r\nCarefully crafted input can cause `If-Match` and `If-None-Match` header parsing in Sinatra to take an unexpected amount of time, possibly resulting in a denial of service attack vector. This header is typically involved in generating the `ETag` header value. Any applications that use the `etag` method when generating a response are impacted if they are using Ruby below version 3.2.\r\n\r\n### References\r\n\r\n* https://github.com/sinatra/sinatra/issues/2120 (report)\r\n* https://github.com/sinatra/sinatra/pull/2121 (fix)\r\n* https://github.com/sinatra/sinatra/pull/1823 (older ReDoS vulnerability)\r\n* https://bugs.ruby-lang.org/issues/19104 (fix in Ruby >=3.2)",
+      "ghsa_id": "GHSA-mr3q-g2mv-mr4q",
+      "html_url": "https://github.com/sinatra/sinatra/security/advisories/GHSA-mr3q-g2mv-mr4q",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-mr3q-g2mv-mr4q"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-61921"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-10-10T16:15:26Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/42626?v=4",
+        "events_url": "https://api.github.com/users/dentarg/events{/privacy}",
+        "followers_url": "https://api.github.com/users/dentarg/followers",
+        "following_url": "https://api.github.com/users/dentarg/following{/other_user}",
+        "gists_url": "https://api.github.com/users/dentarg/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/dentarg",
+        "id": 42626,
+        "login": "dentarg",
+        "node_id": "MDQ6VXNlcjQyNjI2",
+        "organizations_url": "https://api.github.com/users/dentarg/orgs",
+        "received_events_url": "https://api.github.com/users/dentarg/received_events",
+        "repos_url": "https://api.github.com/users/dentarg/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/dentarg/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/dentarg/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/dentarg",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "ReDoS vulnerability in ETag generation",
+      "updated_at": "2025-10-10T16:15:26Z",
+      "url": "https://api.github.com/repos/sinatra/sinatra/security-advisories/GHSA-mr3q-g2mv-mr4q",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "sinatra"
+          },
+          "patched_versions": ">= 4.2.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.2.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "motoyasu-saburi",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/18521568?v=4",
+            "events_url": "https://api.github.com/users/motoyasu-saburi/events{/privacy}",
+            "followers_url": "https://api.github.com/users/motoyasu-saburi/followers",
+            "following_url": "https://api.github.com/users/motoyasu-saburi/following{/other_user}",
+            "gists_url": "https://api.github.com/users/motoyasu-saburi/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/motoyasu-saburi",
+            "id": 18521568,
+            "login": "motoyasu-saburi",
+            "node_id": "MDQ6VXNlcjE4NTIxNTY4",
+            "organizations_url": "https://api.github.com/users/motoyasu-saburi/orgs",
+            "received_events_url": "https://api.github.com/users/motoyasu-saburi/received_events",
+            "repos_url": "https://api.github.com/users/motoyasu-saburi/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/motoyasu-saburi/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/motoyasu-saburi/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/motoyasu-saburi",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2022-45442",
+      "cvss": {
+        "score": 8.8,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 8.8,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Description\r\nAn issue was discovered in Sinatra 2.0 before 2.2.3 and 3.0 before 3.0.4. An application is vulnerable to a reflected file download (RFD) attack that sets the Content-Disposition header of a response when the filename is derived from user-supplied input.\r\n\r\n### References\r\n* https://www.blackhat.com/docs/eu-14/materials/eu-14-Hafif-Reflected-File-Download-A-New-Web-Attack-Vector.pdf\r\n* https://github.com/advisories/GHSA-8x94-hmjh-97hq",
+      "ghsa_id": "GHSA-2x8x-jmrp-phxw",
+      "html_url": "https://github.com/sinatra/sinatra/security/advisories/GHSA-2x8x-jmrp-phxw",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-2x8x-jmrp-phxw"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2022-45442"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2022-11-26T16:40:59Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/585943?v=4",
+        "events_url": "https://api.github.com/users/jkowens/events{/privacy}",
+        "followers_url": "https://api.github.com/users/jkowens/followers",
+        "following_url": "https://api.github.com/users/jkowens/following{/other_user}",
+        "gists_url": "https://api.github.com/users/jkowens/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/jkowens",
+        "id": 585943,
+        "login": "jkowens",
+        "node_id": "MDQ6VXNlcjU4NTk0Mw==",
+        "organizations_url": "https://api.github.com/users/jkowens/orgs",
+        "received_events_url": "https://api.github.com/users/jkowens/received_events",
+        "repos_url": "https://api.github.com/users/jkowens/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/jkowens/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/jkowens/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/jkowens",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Sinatra vulnerable to Reflected File Download attack",
+      "updated_at": "2022-11-28T17:27:20Z",
+      "url": "https://api.github.com/repos/sinatra/sinatra/security-advisories/GHSA-2x8x-jmrp-phxw",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "sinatra"
+          },
+          "patched_versions": "3.0.4",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 3.0, < 3.0.4"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "sinatra"
+          },
+          "patched_versions": "2.2.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 2.2.3"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "sinatra/sinatra",
+    "url": "https://api.github.com/repos/sinatra/sinatra/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:43.443822+00:00",
+  "tool": "github_rest_readonly"
+}

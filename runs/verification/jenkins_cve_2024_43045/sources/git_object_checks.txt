@@ -1,0 +1,70 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local mirror: /tmp/jenkins_git/jenkins.git (bare; remote named gh). The snapshot tag
+jenkins-2.441 was already present; commits 5d26b53a (SECURITY-3430), 3752f406
+(SECURITY-3349) and the 2.471 release commit d0df46d2 were fetched with --depth=80.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be.
+  runs/language/snap_d9b0ffa82cd068d0/snapshot_proposal.json records
+  snapshot_id=snap_d9b0ffa82cd068d0, repo_id=1103607, tag_or_release=jenkins-2.441,
+  vulnerable_commit=3b0de10df3bedba515e13032104d4d84f83045be.
+  runs/language/snap_d9b0ffa82cd068d0/file_inventory.json records (commit 3b0de10d):
+    core/src/main/java/hudson/model/MyViewsProperty.java
+      bytes=8976 git_oid=9d7b8b651d1cc61f2d75912c5f055440c5dc39df language=Java
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/MyViewsProperty.java'
+  9d7b8b651d1cc61f2d75912c5f055440c5dc39df
+  Matches the snapshot inventory (bytes 8976).
+
+Vulnerable code at the snapshot (2.441):
+  hudson/model/MyViewsProperty.java line 62 declares
+    public class MyViewsProperty extends UserProperty implements ModifiableViewGroup, Action, StaplerFallback {
+  It implements Action (getIconFileName/getUrlName) but does not implement StaplerProxy
+  and has no getTarget() permission gate anywhere in the class. getIconFileName at
+  lines 227-229 unconditionally returns "symbol-browsers", so the "My Views" action is
+  exposed for every user without a permission check, and the object is reachable through
+  Stapler at /user/<id>/my-views/. getACL() (215-218) delegates to the user's ACL but is
+  never consulted by a getTarget gate.
+  $ grep -n 'getTarget\|checkPermission\|StaplerProxy' myviews_2.441.java
+  190:        checkPermission(View.CREATE);     (unrelated view-creation checks)
+  200:        checkPermission(View.CREATE);
+  (no getTarget, no StaplerProxy, no ADMINISTER check)
+
+Fix commit: 3752f406bfef764e4954238acf44343169ae5799
+  "[SECURITY-3349]", 2024-07-30 18:37:07 +0000, parent 5d26b53a (the SECURITY-3430 fix).
+  Diff: hudson/model/MyViewsProperty.java + test/src/test/java/hudson/model/Security3349Test.java.
+  It makes MyViewsProperty implement StaplerProxy and adds:
+    - static SKIP_PERMISSION_CHECK escape hatch;
+    - getIconFileName returns "symbol-browsers" only if SKIP_PERMISSION_CHECK or
+      getACL().hasPermission(Jenkins.ADMINISTER), otherwise null;
+    - getTarget() calls checkPermission(Jenkins.ADMINISTER) unless SKIP_PERMISSION_CHECK.
+  $ git show -s --format='%H %P | %ci | %s' 3752f406
+  3752f406bfef764e4954238acf44343169ae5799 5d26b53ad3a5cd8c4a060eef4f56d75e65ca17a5 | 2024-07-30 18:37:07 +0000 | [SECURITY-3349]
+  $ git merge-base --is-ancestor 3752f406 d0df46d2; echo $?
+  0
+  (d0df46d2 is "[maven-release-plugin] prepare release jenkins-2.471", parent 3752f406.)
+
+Fixed release:
+  Jenkins 2.471 (weekly): release commit d0df46d2e83e89bdd3eced69460842ab7aa03315,
+  parent 3752f406. Fixed file blob at 2.471 is 49fdfac48d2d9e77bd12c23509fa097920e6e507
+  (vulnerable blob is 9d7b8b651d1cc61f2d75912c5f055440c5dc39df).
+  The CNA record also lists LTS 2.452.4 and 2.462.1 as unaffected; those LTS branches
+  carry their own backports and were not fetched or asserted here.
+
+Affected range:
+  CNA record: Jenkins 2.470 and earlier (weekly), LTS 2.452.3 and earlier, defaultStatus
+  affected. Snapshot 2.441 is a weekly release and is inside the affected range.
+  NVD/OSV CPE ranges: * up to 2.471 (weekly) and LTS up to 2.452.4.
+
+Public records:
+  CVE List v5 CVE-2024-43045, state PUBLISHED, datePublished 2024-08-07, assigner
+  Jenkins, no CVSS metric and no CWE in the CNA container; description says Jenkins
+  2.470 and earlier / LTS 2.452.3 and earlier does not perform a permission check in an
+  HTTP endpoint, allowing attackers with Overall/Read permission to access other users'
+  "My Views". Reference: https://www.jenkins.io/security/advisory/2024-08-07/#SECURITY-3349
+  NVD: CWE-862, CVSS 3.1 6.3 MEDIUM (Primary nvd@nist.gov and Secondary from
+  security-advisories@github.com), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L.
+  OSV/GHSA-8pv9-qh96-9hc6: same CVSS 3.1 vector; no separate severity level.
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of git
+objects, the fix patch and public records.

@@ -1,0 +1,489 @@
+{
+  "candidate_id": "disc2_168a749485f4ae7dc83d9f65",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "prepared_at": "2026-10-21T15:48:00Z",
+  "repository": {
+    "repo_id": "458058",
+    "full_name": "symfony/symfony",
+    "canonical_url": "https://github.com/symfony/symfony",
+    "primary_language": "PHP",
+    "project_kind": "web framework monorepo of reusable components",
+    "snapshot_id": "snap_39105a8a3ceb9fe4"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-50342",
+    "repo_id": "458058",
+    "snapshot_id": "snap_39105a8a3ceb9fe4",
+    "aliases": [
+      "CVE-2024-50342",
+      "GHSA-9c3x-r3wp-mgxm"
+    ],
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://symfony.com/blog/cve-2024-50342-internal-address-and-port-enumeration-allowed-by-noprivatenetworkhttpclient",
+    "source_type": "upstream_advisory",
+    "title": "NoPrivateNetworkHttpClient checks only primary_ip, so hostnames that resolve into private subnets reach the transport and enable internal IP/port enumeration",
+    "category_l1": "information_disclosure",
+    "category_l2": "internal network address and port enumeration via unresolved hostnames in NoPrivateNetworkHttpClient",
+    "cwe_ids": [
+      "CWE-200"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "published_at": "2024-11-06T21:03:12Z",
+    "vulnerable_version": "5.4.45",
+    "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+    "vulnerable_commit_basis": "annotated tag v5.4.45 peels to 2b66d7d7...; neither compound fix commit (first patch 296d4b34, second patch b4bf5afd) is an ancestor of this tag, and the file blob 757a9e8a exactly matches the first patch's parent 706d8628",
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "source": "NVD Primary metric nvd@nist.gov; the GitHub_M CNA record and GHSA-9c3x-r3wp-mgxm use AC:H and score 3.1 LOW",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50342",
+      "numeric_level_rationale": "NVD Primary CVSS 3.1 numeric 4.3 falls in Medium (4.0-6.9); the CNA/GHSA vector is identical except Attack Complexity High, which yields 3.1 Low"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/http-client",
+        "purl": "pkg:composer/symfony/http-client",
+        "affected_range": "<5.4.47"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/http-client",
+        "purl": "pkg:composer/symfony/http-client",
+        "affected_range": ">=6.0,<6.4.15"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/http-client",
+        "purl": "pkg:composer/symfony/http-client",
+        "affected_range": ">=7.0,<7.1.8"
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "296d4b34a33b1a6ca5475c6040b3203622520f5b",
+        "branch": "5.4",
+        "message": "[HttpClient] Filter private IPs before connecting when Host == IP",
+        "url": "https://github.com/symfony/symfony/commit/296d4b34a33b1a6ca5475c6040b3203622520f5b",
+        "role": "first patch; adds a URL-host check but IpUtils::checkIp only matches literal IPs, so hostnames are still not resolved or blocked"
+      },
+      {
+        "sha": "b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa",
+        "branch": "5.4",
+        "message": "[HttpClient] Resolve hostnames in NoPrivateNetworkHttpClient",
+        "url": "https://github.com/symfony/symfony/commit/b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa",
+        "role": "second patch; resolves the URL host through the transport resolve closure or dns_get_record(A/AAAA) and checks the resolved address before connecting"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/http-client",
+        "version": "5.4.47",
+        "tag": "v5.4.47",
+        "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.47",
+        "verified_content": "At tag v5.4.47 (d869cc18) NoPrivateNetworkHttpClient resolves the host via the optional $resolve closure or dns_get_record(DNS_A/DNS_AAAA) and runs IpUtils::checkIp on the resolved IP before the request proceeds; 296d4b34 and b4bf5afd are both ancestors"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/http-client",
+        "version": "6.4.15",
+        "tag": "v6.4.15",
+        "release_url": "https://github.com/symfony/symfony/releases/tag/v6.4.15",
+        "verified_content": "At tag v6.4.15 (cfb00ec5) the same hostname-resolution check is present; 296d4b34 and b4bf5afd are both ancestors"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "symfony/http-client",
+        "version": "7.1.8",
+        "tag": "v7.1.8",
+        "release_url": "https://github.com/symfony/symfony/releases/tag/v7.1.8",
+        "verified_content": "At tag v7.1.8 (fa8dfde8) the same hostname-resolution check is present; 296d4b34 and b4bf5afd are both ancestors"
+      }
+    ],
+    "references": [
+      "https://symfony.com/blog/cve-2024-50342-internal-address-and-port-enumeration-allowed-by-noprivatenetworkhttpclient",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-50342",
+      "https://github.com/symfony/symfony/security/advisories/GHSA-9c3x-r3wp-mgxm",
+      "https://github.com/symfony/symfony/commit/296d4b34a33b1a6ca5475c6040b3203622520f5b",
+      "https://github.com/symfony/symfony/commit/b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa",
+      "https://osv.dev/vulnerability/CVE-2024-50342"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2024-50342_snap_39105a8a3ceb9fe4",
+    "vulnerability_id": "CVE-2024-50342",
+    "snapshot_id": "snap_39105a8a3ceb9fe4",
+    "location_kind": "dataflow",
+    "verification_method": "Static read of NoPrivateNetworkHttpClient.php at v5.4.45, v5.4.46 and v5.4.47, both fix commits, their regression tests, and peeled-tag ancestry checks; no PHP runtime, DNS resolver or network request was executed.",
+    "entry_point": {
+      "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+      "function": "request",
+      "language": "PHP",
+      "line": 72,
+      "description": "Decorator entry point. Every wrapped request is expected to be filtered against PRIVATE_SUBNETS before the inner client may connect.",
+      "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L72"
+    },
+    "critical_operation": {
+      "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+      "function": "request",
+      "language": "PHP",
+      "line": "82-85",
+      "code_excerpt": "        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use ($onProgress, $subnets, &$lastPrimaryIp): void {\n            if ($info['primary_ip'] !== $lastPrimaryIp) {\n                if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? self::PRIVATE_SUBNETS)) {\n                    throw new TransportException(sprintf('IP \"%s\" is blocked for \"%s\".', $info['primary_ip'], $info['url']));",
+      "description": "The subnet policy is enforced only inside the on_progress callback and only against $info['primary_ip'] (lines 82-89; the excerpt shows the opening check). The callback does not resolve the URL hostname, so a hostname that resolves into PRIVATE_SUBNETS is never compared against the blocked ranges; and when primary_ip is empty (for example before or during host resolution) the check is skipped entirely. The request is delegated to the inner client at line 94, so the transport still performs host resolution and connection attempts. The advisory describes the resulting behavior as internal IP/port enumeration. The first patch (v5.4.46) adds a URL-host check, but IpUtils::checkIp rejects non-IP hostnames, so DNS names remain unchecked; the second patch resolves the host and checks the resolved address before connecting.",
+      "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L82-L85"
+    },
+    "trace": [
+      {
+        "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+        "function": "request",
+        "language": "PHP",
+        "line": 72,
+        "description": "decorator receives the caller-supplied method, URL and options",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L72"
+      },
+      {
+        "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+        "function": "request",
+        "language": "PHP",
+        "line": 74,
+        "description": "caller on_progress is captured and wrapped, making the wrapper the only enforcement point",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L74"
+      },
+      {
+        "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+        "function": "request",
+        "language": "PHP",
+        "line": 83,
+        "description": "the check is gated on $info['primary_ip'] changing, not on the URL hostname",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L83"
+      },
+      {
+        "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+        "function": "request",
+        "language": "PHP",
+        "line": 84,
+        "description": "IpUtils::checkIp is applied to primary_ip only; no DNS resolution of the host is performed for this check",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L84"
+      },
+      {
+        "file": "src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php",
+        "function": "request",
+        "language": "PHP",
+        "line": 94,
+        "description": "request proceeds to the wrapped client, which resolves and connects to the host",
+        "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L94"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_symfony50342_blog",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/symfony_blog.html",
+      "source_url": "https://symfony.com/blog/cve-2024-50342-internal-address-and-port-enumeration-allowed-by-noprivatenetworkhttpclient",
+      "retrieved_at": "2026-10-21T15:39:00Z",
+      "sha256_of_observation": "585c39f042f6c63b7110272d333e0a18898f1176e2e647a246d0a712da9b6558",
+      "verification_method": "official upstream advisory HTML read; no code executed",
+      "result": "PASS",
+      "supports": [
+        "affected Symfony <5.4.47, >=6 <6.4.15, >=7 <7.1.8 of the HttpClient component",
+        "the advisory was updated on 2024-11-13: 5.4.46, 6.4.14 and 7.1.7 are still affected; the new releases are 5.4.47, 6.4.15 and 7.1.8",
+        "internal information leaks during host resolution and allows IP/port enumeration",
+        "two patches are referenced: 296d4b34 and b4bf5afd, both for branch 5.4"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_cna",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-50342",
+      "retrieved_at": "2026-10-21T15:39:00Z",
+      "sha256_of_observation": "e332b27fc203aa26d0cd3324f1b6eebe0b7eb0c307ee46762e7ff03d6f3d3462",
+      "verification_method": "CVE List v5 CNA JSON read",
+      "result": "PASS",
+      "supports": [
+        "assigner GitHub_M, published 2024-11-06T21:03:12Z",
+        "CWE-200",
+        "CVSS 3.1 AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N, base 3.1 LOW",
+        "alias GHSA-9c3x-r3wp-mgxm and first fix commit 296d4b34",
+        "CNA affected strings are stale: <5.4.46, >=6.0.0 <6.4.14, >=7.0.0 <7.1.7"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_nvd",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-50342",
+      "retrieved_at": "2026-10-21T15:39:00Z",
+      "sha256_of_observation": "8c12e7bfcd05c53bf2645469d0cca4a97d6676f9e7f9840ebd75bb668d1e88df",
+      "verification_method": "NVD 2.0 API JSON read",
+      "result": "PASS",
+      "supports": [
+        "NVD Primary CVSS 3.1 AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N, base 4.3 MEDIUM",
+        "a Secondary metric from security-advisories@github.com carries the CNA 3.1 LOW vector",
+        "CWE-200 listed as Secondary",
+        "description still names 5.4.46, 6.4.14 and 7.1.7 as the versions that filter blocked IPs earlier (stale relative to the revised advisory)"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_osv",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-50342",
+      "retrieved_at": "2026-10-21T15:39:00Z",
+      "sha256_of_observation": "fdb8622ff97b144fc060522234455df01329259153b8f171314c6879ec92f26f",
+      "verification_method": "OSV API JSON read",
+      "result": "PASS",
+      "supports": [
+        "alias GHSA-9c3x-r3wp-mgxm and CWE-200",
+        "OSV GIT ranges still end at 5.4.46, 6.4.14 and 7.1.7 (stale relative to the revised advisory)",
+        "the source fix 296d4b34 is listed only as a REFERENCE/commit"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_ghsa",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/ghsa_page.html",
+      "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-9c3x-r3wp-mgxm",
+      "retrieved_at": "2026-10-21T15:39:00Z",
+      "sha256_of_observation": "a504ad964dc1124bc8cc7eb979bdb7080bdb25a77e616260ee3b0bc42c695a8e",
+      "verification_method": "GitHub advisory HTML read; the REST API was not used",
+      "result": "PASS",
+      "supports": [
+        "affected versions <5.4.47, >=6 <6.4.15, >=7 <7.1.8 and patched versions 5.4.47, 6.4.15 and 7.1.8",
+        "severity Low and the CVSS 3.1 vector CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "credits Linus Karlsson and Chris Smith for reporting and Nicolas Grekas for the fix"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_git_checks",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/git_object_checks.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa",
+      "retrieved_at": "2026-10-21T15:47:00Z",
+      "sha256_of_observation": "ffa660241ca6e0a3035bf7a20d463591c857bf03cfd6c7e087fe1e150b873c89",
+      "verification_method": "exact-tag shallow fetches with --deepen in a bare repository; rev-parse of peeled tags; merge-base --is-ancestor; git log per file; blob-id comparison",
+      "result": "PASS",
+      "supports": [
+        "v5.4.45 peels to 2b66d7d7, v5.4.46 to 057d88be and v5.4.47 to d869cc18; v6.4.13/14/15 and v7.1.6/7/8 peel to the recorded SHAs",
+        "first patch 296d4b34 (parent 706d8628) is absent from v5.4.45, v6.4.13 and v7.1.6 and present in v5.4.46, v6.4.14 and v7.1.7",
+        "second patch b4bf5afd (parent 2c7c4bac) is absent from v5.4.46, v6.4.14 and v7.1.7 and present in v5.4.47, v6.4.15 and v7.1.8",
+        "security merges 3fc5471c and b8f41169 name cve-2024-50342 and carry the respective patch commits as parents",
+        "v5.4.45 file blob 757a9e8a equals the first patch parent blob; v5.4.46 blob c252fce8 equals the second patch parent blob"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_vulnerable_source",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/NoPrivateNetworkHttpClient_v5.4.45.php",
+      "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L82-L94",
+      "retrieved_at": "2026-10-21T15:41:00Z",
+      "sha256_of_observation": "4decc06fb7381b29ca7d10fdeabd36464596dc166fc736251ba015d42403be22",
+      "verification_method": "git show of the file at tag v5.4.45; read-only",
+      "result": "PASS",
+      "supports": [
+        "lines 82-89 are the only subnet check and inspect primary_ip only",
+        "no DNS resolution or hostname-to-IP comparison exists in the file",
+        "line 94 delegates to the wrapped client unconditionally"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_first_patch_source",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/NoPrivateNetworkHttpClient_v5.4.46.php",
+      "source_url": "https://github.com/symfony/symfony/blob/057d88bef2d18a10d3b0b8fb093332131dc58e2f/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L83-L99",
+      "retrieved_at": "2026-10-21T15:41:00Z",
+      "sha256_of_observation": "14a22a955f0910d0f6fa73a3a2b5f46f00d78b35b540a136adbbb491552b5959",
+      "verification_method": "git show of the file at tag v5.4.46; read-only",
+      "result": "PASS",
+      "supports": [
+        "the first patch adds a URL-host check and a $lastUrl guard",
+        "the check still calls IpUtils::checkIp on the raw host, which only matches literal IP addresses",
+        "no dns_get_record or resolve closure is available, so hostnames remain unchecked before connection"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_fixed_source",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/NoPrivateNetworkHttpClient_v5.4.47.php",
+      "source_url": "https://github.com/symfony/symfony/blob/d869cc180cf38d3848feff1dcf38fefaecfd8177/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php#L83-L102",
+      "retrieved_at": "2026-10-21T15:41:00Z",
+      "sha256_of_observation": "8384fdf57018cc15bc3d359355c3c12d917ecc60c682200538be96b97be944b6",
+      "verification_method": "git show of the file at tag v5.4.47; read-only",
+      "result": "PASS",
+      "supports": [
+        "the on_progress callback receives an optional $resolve closure",
+        "a non-IP host is resolved through $resolve($host) or dns_get_record(DNS_A/DNS_AAAA)",
+        "IpUtils::checkIp is applied to the resolved $ip, and $resolve($host, $ip) populates the transport DNS cache",
+        "the request is blocked with 'Host ... is blocked' before the inner client connects"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_fix_diff_first",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/fix_diff_first.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/296d4b34a33b1a6ca5475c6040b3203622520f5b",
+      "retrieved_at": "2026-10-21T15:41:00Z",
+      "sha256_of_observation": "0dba570202c6c5d791354d645fe67c988c868f8670ee1ec3c8964fa5c0a93ff2",
+      "verification_method": "git show of the first fix commit, NoPrivateNetworkHttpClient.php hunk only",
+      "result": "PASS",
+      "supports": [
+        "the first patch adds $lastUrl and a host check before the primary_ip check",
+        "it changes only NoPrivateNetworkHttpClient.php in production code"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_fix_diff_second",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/fix_diff_second.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa",
+      "retrieved_at": "2026-10-21T15:41:00Z",
+      "sha256_of_observation": "5c0968078bf8123336789b502d5301412d436a0a77dc9108e700de4248466097",
+      "verification_method": "git show of the second fix commit for production files only",
+      "result": "PASS",
+      "supports": [
+        "NoPrivateNetworkHttpClient now resolves the host and checks the resolved IP",
+        "NativeHttpClient, CurlResponse and AmpResponse pass a $resolve closure backed by their DNS caches",
+        "AsyncContext, AsyncResponse and TraceableHttpClient forward the fourth on_progress argument",
+        "Symfony\\Contracts\\HttpClient\\HttpClientInterface documents the optional $resolve argument"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_test_diff_first",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/test_diff_first.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/296d4b34a33b1a6ca5475c6040b3203622520f5b",
+      "retrieved_at": "2026-10-21T15:41:00Z",
+      "sha256_of_observation": "2f420178e5afafb23dad04ae5a356871d7c1259ac9d05c885e1bcccefcedcfad",
+      "verification_method": "git show of the first fix commit for NoPrivateNetworkHttpClientTest.php; read-only",
+      "result": "PASS",
+      "supports": [
+        "testExcludeByIp keeps the existing primary_ip-based assertion",
+        "new testExcludeByHost asserts a 'Host ... is blocked' exception when the URL host is an IP literal",
+        "the test does not cover DNS-name hosts"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_test_diff_second",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/test_diff_second.txt",
+      "source_url": "https://github.com/symfony/symfony/commit/b4bf5afdbdcb2fd03da513ee03beeabeb551e5fa",
+      "retrieved_at": "2026-10-21T15:41:00Z",
+      "sha256_of_observation": "a202e2b8bbf92cba52c047248d348c5d7c3b5d976aebaf4b0a0ab6683ac96194",
+      "verification_method": "git show of the second fix commit for HttpClientTestCase.php and MockHttpClientTest.php; read-only",
+      "result": "PASS",
+      "supports": [
+        "testNoPrivateNetwork expects 'Host \"localhost\" is blocked' to be raised by the decorated client",
+        "testNoPrivateNetworkWithResolve expects symfony.com mapped to 127.0.0.1 through the resolve option to be blocked",
+        "MockHttpClientTest rethrows transport exceptions for testNoPrivateNetwork* cases"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_snapshot",
+      "artifact_path": "runs/language/snap_39105a8a3ceb9fe4/snapshot_proposal.json",
+      "source_url": "https://github.com/symfony/symfony/tree/2b66d7d7d8129531229708ef708860844db91944",
+      "retrieved_at": "2026-10-21T15:25:31Z",
+      "sha256_of_observation": "f21911b9286584aa9c4dc0121f233575890c42b13362b11abb22777acb2d2e3e",
+      "verification_method": "inventory_snapshot.py with pinned github-linguist 9.7.0; enumeration matches git ls-tree",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_39105a8a3ceb9fe4 at tag v5.4.45, vulnerable_commit 2b66d7d7",
+        "11040 tracked files scanned; 150 ambiguous files",
+        "PHP first-party 3327 files / 11,758,368 bytes / 25.45% of tracked nonbinary bytes",
+        "full_scan=true"
+      ]
+    },
+    {
+      "evidence_id": "ev_symfony50342_iputils",
+      "artifact_path": "runs/verification/symfony_cve_2024_50342/sources/IpUtils_v5.4.45.php",
+      "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/IpUtils.php#L37-L58",
+      "retrieved_at": "2026-10-21T15:52:00Z",
+      "sha256_of_observation": "9979ca52e355fad4bc196063fe7788cfeb2c4a58b8c299d4a837efcdaba81dd0",
+      "verification_method": "git show of IpUtils.php at tag v5.4.45; read-only",
+      "result": "PASS",
+      "supports": [
+        "IpUtils::checkIp dispatches to checkIp4 or checkIp6, which compare packed binary addresses against CIDR subnets",
+        "a DNS hostname is not an IP literal and therefore never matches a private subnet",
+        "the first patch's IpUtils::checkIp($host, ...) therefore cannot block hostnames that resolve into private ranges"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "aliases": [
+      1,
+      4
+    ],
+    "severity": [
+      2,
+      1
+    ],
+    "cwe": [
+      1,
+      2
+    ],
+    "affected_ranges": [
+      0,
+      4
+    ],
+    "fix_commits": [
+      5,
+      9,
+      10
+    ],
+    "fixed_releases": [
+      0,
+      4,
+      5
+    ],
+    "vulnerable_commit": [
+      5,
+      6
+    ],
+    "critical_operation": [
+      6,
+      9,
+      10,
+      14
+    ],
+    "languages": [
+      13
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "independent_of_primary": true,
+    "severity_disagreement": true,
+    "families": [
+      "Symfony security advisory (blog)",
+      "GitHub advisory GHSA / CVE List v5 CNA record",
+      "NVD analysis",
+      "OSV record",
+      "upstream git history and release tags"
+    ],
+    "notes": "The revised Symfony advisory and the GHSA page agree on the two-patch fix and on the real fixed releases 5.4.47, 6.4.15 and 7.1.8; the CNA record, NVD description and OSV ranges are stale and still end at 5.4.46, 6.4.14 and 7.1.7. Git history confirms the advisory: the first patch landed in 5.4.46/6.4.14/7.1.7 and the second in 5.4.47/6.4.15/7.1.8. Severity disagrees: NVD Primary is 4.3 MEDIUM with AC:L, while the CNA and GHSA use AC:H and 3.1 LOW. The canonical severity uses the NVD Primary metric; the canonical affected ranges and fixed releases use the revised advisory and GHSA, corroborated by git ancestry."
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No PHP runtime, DNS query or HTTP request was executed. The claim that host resolution/connection behavior leaks internal IP and port information is taken from the advisory; the precise observable signal (timing, error, or connection result) was not measured.",
+    "The vulnerable snapshot is v5.4.45; the same snapshot is also the evaluation target for CVE-2024-50340 and CVE-2024-50345, which is legitimate because all three vulnerabilities exist at the same exact SHA.",
+    "The advisory's affected ranges were revised on 2024-11-13; versions 5.4.46, 6.4.14 and 7.1.7 are still affected. The CNA record, NVD description and OSV ranges still name those versions as fixed and are stale. The dossier uses the revised advisory and GHSA ranges, corroborated by git ancestry.",
+    "NVD has a Primary CVSS 3.1 metric of 4.3 MEDIUM; the CNA and GHSA carry 3.1 LOW with AC:H. The canonical score is the NVD Primary metric; the disagreement is recorded, not reconciled.",
+    "The GitHub advisory credits Linus Karlsson and Chris Smith; the Symfony blog credits only Linus Karlsson. This does not affect the technical fields.",
+    "The regression tests were read, not executed. testNoPrivateNetwork uses localhost and testNoPrivateNetworkWithResolve uses an explicit resolve map; neither exercises real DNS A/AAAA fallback.",
+    "The second patch changes the on_progress callback contract by adding an optional fourth argument. The dossier records the change but does not audit downstream callers for callbacks that declare a fixed arity.",
+    "The repository snapshot has 11040 tracked files and 150 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+    "No dynamic red/green test was run, so no reproduction_reference exists and the entry is grade B at best.",
+    "The advisory does not state whether every transport (curl, native, amp) reached on_progress with an empty primary_ip before connecting at v5.4.45; the fix adds hostname resolution to the decorator itself, which removes that dependence.",
+    "Independent language reproduction is approximate: the 3327 first-party PHP files can be matched under an explicit filter, but the byte total 11,755,821 differs from the snapshot's 11,758,368 by 2,547 bytes (0.02%), and 25.45% is the share of all nonbinary tracked bytes, not of all tracked bytes (PHP is 87.45% of the latter). The canonical language evidence stays the snapshot proposal; the reviewer's reproduction supports the PHP-primary conclusion.",
+    "The GitHub GHSA page's Weaknesses section shows 'No CWEs', while the CNA problemTypes, NVD weaknesses (Secondary) and OSV database_specific all list CWE-200. The canonical cwe_ids use the data-layer CWE-200."
+  ],
+  "open_questions": [
+    "Which applications expose attacker-influenced URLs to NoPrivateNetworkHttpClient is application-specific; the component itself is a mitigation wrapper, and the advisory treats it as a security boundary.",
+    "The exact leak primitive (blind timing versus observable error/status differences) is not specified in the advisory and was not measured; the fixed code blocks before connection, which is consistent with enumeration through connection behavior."
+  ],
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read NoPrivateNetworkHttpClient::request at v5.4.45 and confirm that the only subnet check uses primary_ip and never resolves the URL hostname.",
+      "An independent reviewer must confirm that 296d4b34 and b4bf5afd are absent from v5.4.45, that the first patch alone still cannot block DNS names, and that both are ancestors of v5.4.47/v6.4.15/v7.1.8.",
+      "An independent reviewer must check the 4.3 MEDIUM NVD Primary metric against the 3.1 LOW CNA/GHSA metric, CWE-200, and the revised affected ranges.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ]
+}

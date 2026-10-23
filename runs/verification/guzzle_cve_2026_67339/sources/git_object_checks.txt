@@ -1,0 +1,88 @@
+Repository: https://github.com/guzzle/guzzle
+Local mirror: /tmp/guzzle_git (bare). Tags and the fix commit were fetched with
+`git fetch --depth=1 https://github.com/guzzle/guzzle.git <ref>`; because each
+ref is a separate shallow fetch, ancestry queries between them are NOT
+meaningful. The decisive evidence is blob identity plus the fix commit's own
+diff against its parent.
+
+Dataset snapshot (existing evaluation snapshot; no new snapshot was built):
+  tag 7.4.4
+  $ git rev-parse '7.4.4^{commit}'
+  e3ff079b22820c2029d4c2a87796b6a0b8716ad8
+  snapshot_id snap_efe695448113758a, repo_id 1420053, 117 tracked files
+  $ git ls-tree 7.4.4 src/Handler/CurlFactory.php
+  100644 blob 0c45089f1e0a1329a2a3ecddb7461abb425873f7  (22691 bytes)
+  file_inventory.json for the snapshot lists src/Handler/CurlFactory.php with
+  git_oid 0c45089f1e0a1329a2a3ecddb7461abb425873f7, so the file under review is
+  byte-identical to the snapshot blob.
+
+Tags examined:
+  7.4.4  = e3ff079b, CurlFactory.php blob 0c45089f (595 lines)
+  7.14.2 = fa88c578, CurlFactory.php blob 4ee3377 (2473 lines)
+
+Vulnerable code at the snapshot (7.4.4, blob 0c45089f):
+  getDefaultConf() line 222 copies every request header:
+    '_headers' => $easy->request->getHeaders(),
+  applyHeaders() lines 312-330 serialises them all into libcurl's origin list:
+    312  private function applyHeaders(EasyHandle $easy, array &$conf): void
+    314    foreach ($conf['_headers'] as $name => $values) {
+    315      foreach ($values as $value) {
+    ...
+    320          $conf[\CURLOPT_HTTPHEADER][] = "$name;";
+    322          $conf[\CURLOPT_HTTPHEADER][] = "$name: $value";
+  $ grep -n "Proxy-Authorization\|PROXYHEADER\|HEADEROPT" 7.4.4 -- src
+    (no match)
+  i.e. the cURL handlers at this version have no special handling for
+  Proxy-Authorization at all: a first-class Proxy-Authorization header stays in
+  CURLOPT_HTTPHEADER. libcurl defaults to CURLHEADER_UNIFIED, so those lines are
+  sent to the origin server as well, exactly the disclosure the advisory
+  describes ("put every first-class request header in cURL's origin header
+  list"; the advisory's own "no proxy-only channel available" paragraph covers
+  this state). The stream handler only adds Proxy-Authorization to the
+  proxy request when URL userinfo is parsed (StreamHandler.php:433) and does
+  not remove a first-class header from the origin-bound list.
+
+Fix (upstream commit 9e4580d4b9981e903dc6323fe37f50a96e85b05e, PR #3876,
+2026-07-14, "Never send first-class `Proxy-Authorization` headers to
+origins"):
+  parent 6b1d2429a2c312474c523aa9017fba0c07b5f4a0
+  diff header for src/Handler/CurlFactory.php reads index b7bc930..4ee3377
+  In 7.14.2 (blob 4ee3377) applyHeaders() starts with:
+    1980  if (\strtr((string) $name, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+                   'abcdefghijklmnopqrstuvwxyz') === 'proxy-authorization') {
+    1981      continue;
+  and applyManagedProxyAuthorization() routes the values to
+  CURLOPT_PROXYHEADER with CURLHEADER_SEPARATE, or fails before network I/O
+  when proxy header separation is unavailable. StreamHandler.php also removes
+  first-class Proxy-Authorization before route selection.
+  The post-fix blob 4ee3377 at commit 9e4580d4 is byte-identical to
+  v7.14.2:src/Handler/CurlFactory.php.
+
+Regression tests:
+  7.4.4  tests/Handler/CurlFactoryTest.php: 0 occurrences of
+         "Proxy-Authorization".
+  7.14.2 tests/Handler/CurlFactoryTest.php: 70 occurrences, including
+         assertions that the value lands in the proxy header option
+         ($proxyHeaderOption) rather than CURLOPT_HTTPHEADER, and that a
+         literal Proxy-Authorization inside a raw CURLOPT_HTTPHEADER does not
+         change that.
+
+Public records:
+  CVE List v5 (sources/cve_v5_CVE-2026-67339.json): assigner VulnCheck,
+  published 2026-08-01; CNA CVSS 4.0 6.9 MEDIUM
+  CVSS:4.0/AV:N/AC:L/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N, CWE-200,
+  affected "0" to "< 7.14.2" for pkg:composer/guzzlehttp/guzzle.
+  NVD (sources/nvd_CVE-2026-67339.json): status "Awaiting Analysis"; two
+  Secondary metrics from disclosure@vulncheck.com, CVSS 3.1 5.3 MEDIUM
+  CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N and CVSS 4.0 6.9 MEDIUM;
+  weakness CWE-200; no CPE configurations yet.
+  OSV GHSA-94pj-82f3-465w (sources/osv_GHSA-94pj-82f3-465w.json): CVSS_V3
+  5.3, database_specific severity MODERATE, cwe_ids [CWE-200, CWE-201, CWE-522],
+  github_reviewed true, range 0 -> 7.14.2; references fix commit 9e4580d4 and
+  PR 3876.
+  All published levels agree at medium/moderate; no source rates it high.
+  The CNA (VulnCheck) is not the vendor and publishes its own advisory.
+
+No PHP code was run, no HTTP request was made and no proxy was used; every
+check is a static read of git objects, the fix commit and the saved advisory
+records.

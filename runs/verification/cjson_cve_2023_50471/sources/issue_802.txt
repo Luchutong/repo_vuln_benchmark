@@ -1,0 +1,12 @@
+Source: https://github.com/DaveGamble/cJSON/issues/802
+Title: bug for cJSON_InsertItemInArray function
+Retrieved: 2026-10-21 via GitHub HTML page (API was rate-limited)
+
+Description (verbatim from the page metadata):
+"If the the newitem passed in cJSON_InsertItemInArray dont have prev, the newitem->prev
+will be null. The null pointer dereference will cause SEGV in function
+cJSON_InsertItemInArray cJSON.c:2287
+Version commit cb8693b058ba302f..."
+
+The cited commit cb8693b058ba302f4829ec6d03f609ac6f848546 is the v1.7.16 release commit,
+matching the snapshot SHA. Line 2287 in that tree is `newitem->prev->next = newitem;`.

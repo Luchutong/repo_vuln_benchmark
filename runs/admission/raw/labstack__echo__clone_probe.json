@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/labstack/echo.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:32.469706+00:00", "elapsed_seconds": 1.105, "response": {"returncode": 0, "stdout": "8fd0e184dd390ffdf082f5eda247c3ab41d5d290\tHEAD\n", "stderr": ""}}

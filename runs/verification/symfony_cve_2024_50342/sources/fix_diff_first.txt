@@ -1,0 +1,32 @@
+commit 296d4b34a33b1a6ca5475c6040b3203622520f5b
+Author: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date:   Fri Oct 25 10:13:01 2024 +0200
+
+    [HttpClient] Filter private IPs before connecting when Host == IP
+
+diff --git a/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php b/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+index 757a9e8a9b..c252fce8cd 100644
+--- a/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
++++ b/src/Symfony/Component/HttpClient/NoPrivateNetworkHttpClient.php
+@@ -77,9 +77,20 @@ final class NoPrivateNetworkHttpClient implements HttpClientInterface, LoggerAwa
+         }
+ 
+         $subnets = $this->subnets;
++        $lastUrl = '';
+         $lastPrimaryIp = '';
+ 
+-        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use ($onProgress, $subnets, &$lastPrimaryIp): void {
++        $options['on_progress'] = function (int $dlNow, int $dlSize, array $info) use ($onProgress, $subnets, &$lastUrl, &$lastPrimaryIp): void {
++            if ($info['url'] !== $lastUrl) {
++                $host = trim(parse_url($info['url'], PHP_URL_HOST) ?: '', '[]');
++
++                if ($host && IpUtils::checkIp($host, $subnets ?? self::PRIVATE_SUBNETS)) {
++                    throw new TransportException(sprintf('Host "%s" is blocked for "%s".', $host, $info['url']));
++                }
++
++                $lastUrl = $info['url'];
++            }
++
+             if ($info['primary_ip'] !== $lastPrimaryIp) {
+                 if ($info['primary_ip'] && IpUtils::checkIp($info['primary_ip'], $subnets ?? self::PRIVATE_SUBNETS)) {
+                     throw new TransportException(sprintf('IP "%s" is blocked for "%s".', $info['primary_ip'], $info['url']));

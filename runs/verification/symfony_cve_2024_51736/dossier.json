@@ -1,0 +1,377 @@
+{
+ "candidate_id": "disc2_30376ce611735bc208895bc0",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T03:45:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2024-51736",
+  "aliases": [
+   "CVE-2024-51736",
+   "GHSA-qq5c-677p-737q"
+  ],
+  "title": "Symfony Process resolves cmd.exe through the current working directory on Windows, allowing a planted cmd.exe to hijack command execution",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/process",
+    "purl": "pkg:composer/symfony/process",
+    "affected_range": "<5.4.46"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": "<5.4.46"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/process",
+    "version": "5.4.46",
+    "tag": "v5.4.46",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.46",
+    "verified_content": "At v5.4.46 prepareWindowsCommandLine() resolves cmd.exe with ExecutableFinder and uses the absolute path; v5.4.45 hard-codes the bare name \"cmd\""
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "18ecd03eda3917fdf901a48e72518f911c64a1c9",
+    "branch": "5.4",
+    "message": "[Process] Use %PATH% before %CD% to load the shell on Windows",
+    "url": "https://github.com/symfony/symfony/commit/18ecd03eda3917fdf901a48e72518f911c64a1c9"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-77"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N",
+   "score": 0.0,
+   "level": "none",
+   "numeric_level_rationale": "The CNA record published by GitHub_M scores the issue 0.0 None, while the GHSA/OSV data labels it HIGH with a CVSS 3.1 8.4 vector (AV:L/C:H/I:H/A:H) and NVD Primary scores 9.8 Critical with AV:N. The canonical severity keeps the CNA vector verbatim and records all three; the 0.0 is an upstream inconsistency, not a judgement that the issue is harmless. The dataset treats the GHSA High and NVD Critical scores as published values and does not adopt either as fact.",
+   "source": "GitHub_M CNA CVSS 3.1 metric (0.0 NONE); GHSA/OSV label HIGH with CVSS 3.1 8.4; NVD Primary 3.1 9.8 CRITICAL",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-qq5c-677p-737q",
+   "all_published_scores": [
+    {
+     "version": "3.1",
+     "score": 0.0,
+     "level": "none",
+     "source": "GitHub_M CNA (also NVD Secondary)",
+     "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N"
+    },
+    {
+     "version": "3.1",
+     "score": 8.4,
+     "level": "high",
+     "source": "GHSA/OSV database severity (vector computed)",
+     "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+    },
+    {
+     "version": "4.0",
+     "score": 8.5,
+     "level": "high",
+     "source": "OSV CVSS_V4 vector (computed base)",
+     "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 9.8,
+     "level": "critical",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H"
+    }
+   ],
+   "ghsa_label_note": "GHSA and OSV label the issue HIGH; the CNA CVSS field is 0.0 NONE with an all-zero impact vector. NVD independently scores 9.8 Critical and switches the attack vector to network. The three published assessments are irreconcilable; no single score is canonical in practice, so the CNA value is kept for schema stability and the others are recorded."
+  },
+  "category_l1": "command_injection",
+  "category_l2": "Windows shell resolution / binary planting: bare cmd.exe resolved through the current working directory",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2024-51736",
+  "published_at": "2024-11-06T20:51:38Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2024-51736",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-qq5c-677p-737q",
+   "https://github.com/symfony/symfony/commit/18ecd03eda3917fdf901a48e72518f911c64a1c9",
+   "https://nvd.nist.gov/vuln/detail/CVE-2024-51736",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.46"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2024-51736_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2024-51736",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Process/Process.php",
+  "function": "Process::prepareWindowsCommandLine",
+  "language": "PHP",
+  "line": 1595,
+  "critical_operation": {
+   "code_excerpt": "        $cmd = 'cmd /V:ON /E:ON /D /C ('.str_replace(\"\\n\", ' ', $cmd).')';",
+   "description": "prepareWindowsCommandLine() builds the command line for every Windows process as the literal string \"cmd /V:ON /E:ON /D /C (...)\". The shell name is not resolved through an absolute path or through %COMSPEC%; Windows resolves a bare \"cmd\" against the current working directory before (or ahead of) the system directory in the search order used here. If an attacker can place an executable cmd.exe (or cmd.bat/cmd.cmd, depending on PATHEXT) in the working directory of the PHP process, that binary is launched instead of the system shell and receives the full command line, which is command-execution hijacking. The 5.4.46 fix resolves cmd.exe with ExecutableFinder (which prefers PATH) and quotes the absolute path. The issue is Windows-specific; on Unix-like platforms prepareWindowsCommandLine() is not called.",
+   "file": "src/Symfony/Component/Process/Process.php",
+   "function": "Process::prepareWindowsCommandLine",
+   "language": "PHP",
+   "line": 1595,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Process/Process.php#L1595"
+  },
+  "entry_point": {
+   "description": "An application runs a Process on Windows with a working directory that an attacker can write to (uploads, extracted archives, shared temp dirs).",
+   "file": "src/Symfony/Component/Process/Process.php",
+   "function": "Process::start",
+   "language": "PHP",
+   "line": 328,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Process/Process.php#L328"
+  },
+  "trace": [
+   {
+    "description": "start() calls prepareWindowsCommandLine() on Windows",
+    "file": "src/Symfony/Component/Process/Process.php",
+    "function": "Process::start",
+    "language": "PHP",
+    "line": 328,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Process/Process.php#L328"
+   },
+   {
+    "description": "prepareWindowsCommandLine() hard-codes the bare shell name \"cmd\"",
+    "file": "src/Symfony/Component/Process/Process.php",
+    "function": "Process::prepareWindowsCommandLine",
+    "language": "PHP",
+    "line": 1595,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Process/Process.php#L1595"
+   }
+  ],
+  "verification_method": "Static read of Process.php at v5.4.45 and v5.4.46 plus the fix patch and ancestry; no process was started and no binary was planted."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_51736_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "400da41de6ec9d30828036f863c1af8456382d128e87ce049ea1f96262fc88c3",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-51736",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2024-11-06T20:51:38Z",
+    "affected symfony (Process) <5.4.46 with 6.4.14/7.1.7 bounds",
+    "CNA CVSS 3.1 0.0 NONE AV:L/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N",
+    "problemTypes CWE-77",
+    "references point at GHSA-qq5c-677p-737q"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_51736_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "7095c8e2904ee67e4def4dcdd688066485d6c1751aa78ab2fbbcca6c5ee98960",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-51736",
+   "supports": [
+    "NVD status Analyzed",
+    "NVD Primary CVSS 3.1 9.8 CRITICAL AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H from nvd@nist.gov",
+    "NVD Secondary CVSS 3.1 0.0 NONE copied from security-advisories@github.com",
+    "weaknesses CWE-77"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_51736_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "e9d76db4dc6afc593533d4424d02b5516cd9ea8cffbc782db0b3d5af5d91fffd",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-qq5c-677p-737q",
+   "supports": [
+    "GHSA-qq5c-677p-737q aliases CVE-2024-51736, github_reviewed, database severity HIGH",
+    "cwe_ids CWE-77",
+    "OSV CVSS_V3 AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H (8.4) and CVSS_V4 AV:L/.../VC:H/VI:H/VA:H",
+    "affected symfony/process and symfony/symfony introduced 0 fixed 5.4.46 plus the 6.4/7.1 bounds",
+    "references name fix commit 18ecd03e"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_51736_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "a330ce0a852a9057fffd80f983d91da33452fc3b893cdc686145b75b62e98da8",
+   "source_url": "https://symfony.com/cve-2024-51736",
+   "supports": [
+    "the advisory states that on Windows an executable cmd.exe in the current working directory is called by Process when preparing command arguments",
+    "resolution: the Process class now uses the absolute path to cmd.exe",
+    "affected <5.4.46, fixed in 5.4.46, 6.4.14 and 7.1.7"
+   ],
+   "verification_method": "symfony.com advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/ghsa.html",
+   "evidence_id": "ev_symfony_51736_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "78319e5653ef74fd4713ec30e136c806349a80800df6a359ff0d010d40124cf6",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-qq5c-677p-737q",
+   "supports": [
+    "the GitHub advisory carries the same description and resolution",
+    "the advisory label is High",
+    "it links the 5.4 patch"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/process_5.4.45.php",
+   "evidence_id": "ev_symfony_51736_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "f6ebc99438859d0c1f35fd7ca9d8dd1ce09dbe35b02a13e1ebadf5db8f1d2485",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.45/src/Symfony/Component/Process/Process.php#L1595",
+   "supports": [
+    "prepareWindowsCommandLine() begins at line 1557",
+    "line 1595 builds the command line as the literal \"cmd /V:ON /E:ON /D /C (...)\"",
+    "start() calls it at line 328 behind a Windows check",
+    "no absolute path or COMSPEC lookup is used"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 62addf1e)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/process_5.4.46.php",
+   "evidence_id": "ev_symfony_51736_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "a6d0c3c816d48f7f21c76979514df69b7ec4ad9150041dfcc2b5bbe46b10df13",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.46/src/Symfony/Component/Process/Process.php#L1597-L1602",
+   "supports": [
+    "a static $comSpec is resolved with (new ExecutableFinder())->find('cmd.exe')",
+    "the resolved path is quoted and used in place of the bare name",
+    "ExecutableFinder in the same commit prefers PATH before the current directory"
+   ],
+   "verification_method": "file read at v5.4.46 (blob 91f9e8fe)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_51736_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "a51f29f14a60db356bf5b27fbfd758d8d935f86b4a6a8c25d85bd5b1134fecc0",
+   "source_url": "https://github.com/symfony/symfony/commit/18ecd03eda3917fdf901a48e72518f911c64a1c9.patch",
+   "supports": [
+    "the patch changes ExecutableFinder suffix and search handling so PATH is searched before %CD% on Windows",
+    "it changes PhpExecutableFinder to use the finder",
+    "it replaces the bare \"cmd\" with the resolved absolute cmd.exe path in Process::prepareWindowsCommandLine()"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2024_51736/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_51736_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:45:00Z",
+   "sha256_of_observation": "f766c32d21e572d354a186dab543e2cb56e6a16ce554dabcb27684c673610c85",
+   "source_url": "https://github.com/symfony/symfony/commit/18ecd03eda3917fdf901a48e72518f911c64a1c9",
+   "supports": [
+    "v5.4.45 peels to 2b66d7d7 and v5.4.46 to 057d88be",
+    "18ecd03e is an ancestor of v5.4.46 and not of v5.4.45",
+    "the Process.php blob is 62addf1e at v5.4.45 and 91f9e8fe at v5.4.46"
+   ],
+   "verification_method": "git rev-parse/merge-base and source comparison"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   5,
+   7
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   2,
+   3,
+   7,
+   8
+  ],
+  "fixed_releases": [
+   3,
+   6,
+   8
+  ],
+  "languages": [
+   3,
+   5
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   8
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-77, the Windows cmd.exe resolution defect, the <5.4.46 range and fix 18ecd03e. Severity is irreconcilable: CNA 3.1 0.0 None, GHSA/OSV HIGH (8.4), NVD Primary 3.1 9.8 Critical with AV:N.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Process::prepareWindowsCommandLine() at v5.4.45 and confirm the bare \"cmd\" invocation and that it runs on Windows.",
+   "An independent reviewer must confirm 18ecd03e is absent from v5.4.45 and present in v5.4.46, and that it resolves cmd.exe through ExecutableFinder.",
+   "An independent reviewer must assess the CNA 0.0 versus GHSA High versus NVD 9.8 discrepancy and the Windows-only applicability.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "Windows-only vulnerability; the snapshot is platform-independent but no Windows execution was performed and no cmd.exe was planted.",
+  "The CNA score is 0.0 None while GHSA/OSV label the issue High and NVD scores 9.8 Critical; the dataset records all three and does not resolve the contradiction.",
+  "Only the 5.4 branch was inspected; 6.4.14 and 7.1.7 were not diffed.",
+  "Whether the attacker-controlled working directory is reachable depends on the application; no specific deployment was analysed."
+ ],
+ "open_questions": [
+  "The exact Windows binary search order (CWD versus System32) for the bare name was not tested.",
+  "Whether all Process use on Windows passes through prepareWindowsCommandLine() was not exhaustively audited."
+ ]
+}

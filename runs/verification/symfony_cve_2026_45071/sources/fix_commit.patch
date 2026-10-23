@@ -1,0 +1,46 @@
+From eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Fri, 17 Apr 2026 09:30:55 +0200
+Subject: [PATCH] [DomCrawler] Fix XXE in addXmlContent() by not enabling
+ `validateOnParse`
+
+---
+ src/Symfony/Component/DomCrawler/Crawler.php         |  1 -
+ .../DomCrawler/Tests/AbstractCrawlerTestCase.php     | 12 ++++++++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/src/Symfony/Component/DomCrawler/Crawler.php b/src/Symfony/Component/DomCrawler/Crawler.php
+index 239ace66ef262..0f6fb02b7d7a4 100644
+--- a/src/Symfony/Component/DomCrawler/Crawler.php
++++ b/src/Symfony/Component/DomCrawler/Crawler.php
+@@ -240,7 +240,6 @@ public function addXmlContent(string $content, string $charset = 'UTF-8', int $o
+         }
+ 
+         $dom = new \DOMDocument('1.0', $charset);
+-        $dom->validateOnParse = true;
+ 
+         if ('' !== trim($content)) {
+             @$dom->loadXML($content, $options);
+diff --git a/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php b/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php
+index e60f3e4ef8b0b..a3bd6b67e7a1a 100644
+--- a/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php
++++ b/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php
+@@ -153,6 +153,18 @@ public function testAddXmlContent()
+         $this->assertEquals('foo', $crawler->filterXPath('//div')->attr('class'), '->addXmlContent() adds nodes from an XML string');
+     }
+ 
++    public function testAddXmlContentDoesNotExpandExternalEntities()
++    {
++        $crawler = $this->createCrawler();
++        $crawler->addXmlContent(
++            '<?xml version="1.0"?>'
++            .'<!DOCTYPE r [<!ENTITY xxe SYSTEM "file:///etc/hosts">]>'
++            .'<r>&xxe;</r>'
++        );
++
++        $this->assertSame('', $crawler->text());
++    }
++
+     public function testAddXmlContentCharset()
+     {
+         $crawler = $this->createCrawler();

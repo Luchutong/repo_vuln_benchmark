@@ -1,0 +1,562 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 7,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "scadastrangelove",
+          "type": "reporter"
+        },
+        {
+          "login": "seanmonstar",
+          "type": "remediation_developer"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/16428031?v=4",
+            "events_url": "https://api.github.com/users/scadastrangelove/events{/privacy}",
+            "followers_url": "https://api.github.com/users/scadastrangelove/followers",
+            "following_url": "https://api.github.com/users/scadastrangelove/following{/other_user}",
+            "gists_url": "https://api.github.com/users/scadastrangelove/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/scadastrangelove",
+            "id": 16428031,
+            "login": "scadastrangelove",
+            "node_id": "MDQ6VXNlcjE2NDI4MDMx",
+            "organizations_url": "https://api.github.com/users/scadastrangelove/orgs",
+            "received_events_url": "https://api.github.com/users/scadastrangelove/received_events",
+            "repos_url": "https://api.github.com/users/scadastrangelove/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/scadastrangelove/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/scadastrangelove/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/scadastrangelove",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "remediation_developer",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/51479?v=4",
+            "events_url": "https://api.github.com/users/seanmonstar/events{/privacy}",
+            "followers_url": "https://api.github.com/users/seanmonstar/followers",
+            "following_url": "https://api.github.com/users/seanmonstar/following{/other_user}",
+            "gists_url": "https://api.github.com/users/seanmonstar/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/seanmonstar",
+            "id": 51479,
+            "login": "seanmonstar",
+            "node_id": "MDQ6VXNlcjUxNDc5",
+            "organizations_url": "https://api.github.com/users/seanmonstar/orgs",
+            "received_events_url": "https://api.github.com/users/seanmonstar/received_events",
+            "repos_url": "https://api.github.com/users/seanmonstar/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/seanmonstar/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/seanmonstar/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/seanmonstar",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": null,
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-400"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-400",
+          "name": "Uncontrolled Resource Consumption"
+        }
+      ],
+      "description": "## Summary\r\n\r\nThe `h2` crate, used internally by `hyper`, had a flaw that would accept and queue empty `DATA` frames without limit. If streams were not actively drained, this could lead to unbounded memory usage, or a panic if the length overflows.\r\n\r\n## Impact\r\n\r\n**Severity:** Low\r\n\r\nIf affected, this can result in unbounded memory growth and unnecessary CPU consumption, or denial of service.\r\n\r\nTo determine if vulnerable, all these things must be true:\r\n\r\n- You are using HTTP/2, either as a server or a client.\r\n- Your application does **not** fully drain incoming request or response bodies (for example, a proxy applying backpressure, or a client that delays reading the body).\r\n- The direct remote peer is malicious and intentionally sends large numbers of empty `DATA` frames.\r\n\r\n## Patches\r\n\r\nWe have released the following patch version(s):\r\n\r\n- v0.4.16\r\n\r\n## Workarounds\r\n\r\nBesides upgrading, you can take the following actions:\r\n\r\n- Actively drain all incoming body streams.\r\n- Place a proxy in-between your `h2` service and a peer that enforces empty DATA frame limits.\r\n\r\n## Credits\r\n\r\n- Reported-by: SCADA StrangeLove\r\n- Patched-by: Sean McArthur",
+      "ghsa_id": "GHSA-q83h-524g-xf6h",
+      "html_url": "https://github.com/hyperium/hyper/security/advisories/GHSA-q83h-524g-xf6h",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-q83h-524g-xf6h"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-08-17T13:29:12Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/51479?v=4",
+        "events_url": "https://api.github.com/users/seanmonstar/events{/privacy}",
+        "followers_url": "https://api.github.com/users/seanmonstar/followers",
+        "following_url": "https://api.github.com/users/seanmonstar/following{/other_user}",
+        "gists_url": "https://api.github.com/users/seanmonstar/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/seanmonstar",
+        "id": 51479,
+        "login": "seanmonstar",
+        "node_id": "MDQ6VXNlcjUxNDc5",
+        "organizations_url": "https://api.github.com/users/seanmonstar/orgs",
+        "received_events_url": "https://api.github.com/users/seanmonstar/received_events",
+        "repos_url": "https://api.github.com/users/seanmonstar/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/seanmonstar/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/seanmonstar/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/seanmonstar",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "h2 unbounded empty DATA frames",
+      "updated_at": "2026-08-17T13:29:12Z",
+      "url": "https://api.github.com/repos/hyperium/hyper/security-advisories/GHSA-q83h-524g-xf6h",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rust",
+            "name": "h2"
+          },
+          "patched_versions": "0.4.16",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 0.4.16"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "mattiasgrenfeldt",
+          "type": "analyst"
+        },
+        {
+          "login": "asta12",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9297883?v=4",
+            "events_url": "https://api.github.com/users/mattiasgrenfeldt/events{/privacy}",
+            "followers_url": "https://api.github.com/users/mattiasgrenfeldt/followers",
+            "following_url": "https://api.github.com/users/mattiasgrenfeldt/following{/other_user}",
+            "gists_url": "https://api.github.com/users/mattiasgrenfeldt/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/mattiasgrenfeldt",
+            "id": 9297883,
+            "login": "mattiasgrenfeldt",
+            "node_id": "MDQ6VXNlcjkyOTc4ODM=",
+            "organizations_url": "https://api.github.com/users/mattiasgrenfeldt/orgs",
+            "received_events_url": "https://api.github.com/users/mattiasgrenfeldt/received_events",
+            "repos_url": "https://api.github.com/users/mattiasgrenfeldt/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/mattiasgrenfeldt/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/mattiasgrenfeldt/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/mattiasgrenfeldt",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/45568620?v=4",
+            "events_url": "https://api.github.com/users/asta12/events{/privacy}",
+            "followers_url": "https://api.github.com/users/asta12/followers",
+            "following_url": "https://api.github.com/users/asta12/following{/other_user}",
+            "gists_url": "https://api.github.com/users/asta12/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/asta12",
+            "id": 45568620,
+            "login": "asta12",
+            "node_id": "MDQ6VXNlcjQ1NTY4NjIw",
+            "organizations_url": "https://api.github.com/users/asta12/orgs",
+            "received_events_url": "https://api.github.com/users/asta12/received_events",
+            "repos_url": "https://api.github.com/users/asta12/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/asta12/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/asta12/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/asta12",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2021-32715",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-444"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-444",
+          "name": "Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')"
+        }
+      ],
+      "description": "### Summary\r\n\r\nhyper's HTTP/1 server code had a flaw that incorrectly parses and accepts requests with a `Content-Length` header with a prefixed plus sign, when it should have been rejected as illegal. This combined with an upstream HTTP proxy that doesn't parse such `Content-Length` headers, but forwards them, can result in \"request smuggling\" or \"desync attacks\".\r\n\r\n### Vulnerability\r\n\r\nThe flaw exists in all prior versions of hyper, if built with [`rustc` v1.5.0 or newer](https://github.com/rust-lang/rust/pull/28826/commits/123a83326fb95366e94a3be1a74775df4db97739).\r\n\r\nExample:\r\n\r\n```\r\nGET / HTTP/1.1\r\nHost: example.com\r\nContent-Length: +3\r\n\r\nabc\r\n```\r\n\r\nThis request gets accepted and hyper reads the body as abc. The request _should_ be rejected, according to RFC 7230, since the ABNF for `Content-Length` only allows for `DIGIT`s. This is due to using the `FromStr` implementation for `u64` in the standard library. By differing from the spec, it is possible to send requests like these to endpoints that have different HTTP implementations, with different interpretations of the payload semantics, and cause \"desync attacks\".\r\n\r\nIn this particular case, an upstream proxy would need to error when parsing the `Content-Length`, but _not_ reject the request (swallowing its own error), and forwarding the request as-is with the `Content-Length` still included. _Then_ the upstream proxy and hyper would disagree on the length of the request body. The combination of these factors would be extremely rare.\r\n\r\nRead more about desync attacks: https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn\r\n\r\n### Impact\r\n\r\nTo determine if vulnerable, all these things must be true:\r\n\r\n- **Using hyper as an HTTP server**. While the lenient decoder also exists in the client, a vulnerability does not exist around _responses_.\r\n- **Using HTTP/1**. The HTTP/2 code uses a stricter parser.\r\n- **Using a vulnerable HTTP proxy upstream to hyper**. If an upstream proxy correctly rejects the illegal `Content-Length` header, *OR* can parse the length with the plus sign, the desync attack cannot succeed.\r\n\r\n### Patches\r\n\r\nWe have released the following patch versions:\r\n\r\n- v0.14.10 (to be released when this advisor is published)\r\n\r\n### Workarounds\r\n\r\nBesides upgrading hyper, you can take the following options:\r\n\r\n- Reject requests manually that contain a plus sign prefix in the `Content-Length` header.\r\n- Ensure any upstream proxy handles `Content-Length` headers with a plus sign prefix.\r\n\r\n### Credits\r\n\r\nThis issue was initially reported by [Mattias Grenfeldt](https://grenfeldt.dev/) and Asta Olofsson.",
+      "ghsa_id": "GHSA-f3pg-qwvg-p99c",
+      "html_url": "https://github.com/hyperium/hyper/security/advisories/GHSA-f3pg-qwvg-p99c",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-f3pg-qwvg-p99c"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-32715"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-07-07T18:37:10Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/51479?v=4",
+        "events_url": "https://api.github.com/users/seanmonstar/events{/privacy}",
+        "followers_url": "https://api.github.com/users/seanmonstar/followers",
+        "following_url": "https://api.github.com/users/seanmonstar/following{/other_user}",
+        "gists_url": "https://api.github.com/users/seanmonstar/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/seanmonstar",
+        "id": 51479,
+        "login": "seanmonstar",
+        "node_id": "MDQ6VXNlcjUxNDc5",
+        "organizations_url": "https://api.github.com/users/seanmonstar/orgs",
+        "received_events_url": "https://api.github.com/users/seanmonstar/received_events",
+        "repos_url": "https://api.github.com/users/seanmonstar/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/seanmonstar/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/seanmonstar/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/seanmonstar",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "Lenient Parsing of Content-Length Header When Prefixed with Plus Sign",
+      "updated_at": "2021-07-07T18:37:10Z",
+      "url": "https://api.github.com/repos/hyperium/hyper/security-advisories/GHSA-f3pg-qwvg-p99c",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "crates.io",
+            "name": "hyper"
+          },
+          "patched_versions": "0.14.10",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 0.14.10"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 4,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "mattiasgrenfeldt",
+          "type": "analyst"
+        },
+        {
+          "login": "asta12",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/9297883?v=4",
+            "events_url": "https://api.github.com/users/mattiasgrenfeldt/events{/privacy}",
+            "followers_url": "https://api.github.com/users/mattiasgrenfeldt/followers",
+            "following_url": "https://api.github.com/users/mattiasgrenfeldt/following{/other_user}",
+            "gists_url": "https://api.github.com/users/mattiasgrenfeldt/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/mattiasgrenfeldt",
+            "id": 9297883,
+            "login": "mattiasgrenfeldt",
+            "node_id": "MDQ6VXNlcjkyOTc4ODM=",
+            "organizations_url": "https://api.github.com/users/mattiasgrenfeldt/orgs",
+            "received_events_url": "https://api.github.com/users/mattiasgrenfeldt/received_events",
+            "repos_url": "https://api.github.com/users/mattiasgrenfeldt/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/mattiasgrenfeldt/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/mattiasgrenfeldt/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/mattiasgrenfeldt",
+            "user_view_type": "public"
+          }
+        },
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/45568620?v=4",
+            "events_url": "https://api.github.com/users/asta12/events{/privacy}",
+            "followers_url": "https://api.github.com/users/asta12/followers",
+            "following_url": "https://api.github.com/users/asta12/following{/other_user}",
+            "gists_url": "https://api.github.com/users/asta12/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/asta12",
+            "id": 45568620,
+            "login": "asta12",
+            "node_id": "MDQ6VXNlcjQ1NTY4NjIw",
+            "organizations_url": "https://api.github.com/users/asta12/orgs",
+            "received_events_url": "https://api.github.com/users/asta12/received_events",
+            "repos_url": "https://api.github.com/users/asta12/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/asta12/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/asta12/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/asta12",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2021-32714",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-190"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-190",
+          "name": "Integer Overflow or Wraparound"
+        }
+      ],
+      "description": "### Summary\r\n\r\nhyper's HTTP server and client code had a flaw that could trigger an integer overflow when decoding chunk sizes that are too big. This allows possible data loss, or if combined with an upstream HTTP proxy that allows chunk sizes larger than hyper does, can result in \"request smuggling\" or \"desync attacks\".\r\n\r\n### Vulnerability\r\n\r\nExample:\r\n\r\n```\r\nGET / HTTP/1.1\r\nHost: example.com\r\nTransfer-Encoding: chunked\r\n\r\nf0000000000000003\r\nabc\r\n0\r\n\r\n```\r\n\r\nhyper only reads the rightmost 64-bit integer as the chunk size. So it reads `f0000000000000003` as `3`. A loss of data can occur since hyper would then read only 3 bytes of the body. Additionally, an HTTP request smuggling vulnerability would occur if using a proxy which instead has prefix truncation in the chunk size, or that understands larger than 64-bit chunk sizes.\r\n\r\nRead more about desync attacks: https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn\r\n\r\n### Impact\r\n\r\nTo determine if vulnerable to _data loss_, these things must be true:\r\n\r\n- **Using HTTP/1.1.** Since HTTP/2 does not use chunked encoding, it is not vulnerable.\r\n- **Using hyper as a server or client.** The body would be improperly truncated in either case.\r\n- **Users send requests or responses with chunk sizes greater than 18 exabytes**.\r\n\r\nTo determine if vulnerable to _desync attacks_, these things must be true:\r\n\r\n- **Using an upstream proxy that allows chunks sizes larger than 64-bit.** If the proxy rejects chunk sizes that are too large, that request won't be forwarded to hyper.\r\n\r\n### Patches\r\n\r\nWe have released the following patch versions:\r\n\r\n - v0.14.10 (to be released when this advisory is published)\r\n\r\n### Workarounds\r\n\r\nBesides upgrading hyper, you can take the following options:\r\n\r\n- Reject requests manually that contain a `Transfer-Encoding` header.\r\n- Ensure any upstream proxy rejects `Transfer-Encoding` chunk sizes greater than what fits in 64-bit unsigned integers.\r\n\r\n\r\n### Credits\r\n\r\nThis issue was initially reported by [Mattias Grenfeldt](https://grenfeldt.dev/) and Asta Olofsson.",
+      "ghsa_id": "GHSA-5h46-h7hh-c6x9",
+      "html_url": "https://github.com/hyperium/hyper/security/advisories/GHSA-5h46-h7hh-c6x9",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-5h46-h7hh-c6x9"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-32714"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-07-07T18:37:24Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/51479?v=4",
+        "events_url": "https://api.github.com/users/seanmonstar/events{/privacy}",
+        "followers_url": "https://api.github.com/users/seanmonstar/followers",
+        "following_url": "https://api.github.com/users/seanmonstar/following{/other_user}",
+        "gists_url": "https://api.github.com/users/seanmonstar/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/seanmonstar",
+        "id": 51479,
+        "login": "seanmonstar",
+        "node_id": "MDQ6VXNlcjUxNDc5",
+        "organizations_url": "https://api.github.com/users/seanmonstar/orgs",
+        "received_events_url": "https://api.github.com/users/seanmonstar/received_events",
+        "repos_url": "https://api.github.com/users/seanmonstar/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/seanmonstar/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/seanmonstar/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/seanmonstar",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Integer Overflow in Chunked Transfer-Encoding",
+      "updated_at": "2021-07-07T18:37:24Z",
+      "url": "https://api.github.com/repos/hyperium/hyper/security-advisories/GHSA-5h46-h7hh-c6x9",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "crates.io",
+            "name": "hyper"
+          },
+          "patched_versions": "0.14.10",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 0.14.10"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 3,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "ZeddYu",
+          "type": "analyst"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "analyst",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/29536474?v=4",
+            "events_url": "https://api.github.com/users/ZeddYu/events{/privacy}",
+            "followers_url": "https://api.github.com/users/ZeddYu/followers",
+            "following_url": "https://api.github.com/users/ZeddYu/following{/other_user}",
+            "gists_url": "https://api.github.com/users/ZeddYu/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/ZeddYu",
+            "id": 29536474,
+            "login": "ZeddYu",
+            "node_id": "MDQ6VXNlcjI5NTM2NDc0",
+            "organizations_url": "https://api.github.com/users/ZeddYu/orgs",
+            "received_events_url": "https://api.github.com/users/ZeddYu/received_events",
+            "repos_url": "https://api.github.com/users/ZeddYu/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/ZeddYu/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/ZeddYu/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/ZeddYu",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2021-21299",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Summary\r\n\r\nhyper's HTTP server code had a flaw that incorrectly understands some requests with multiple transfer-encoding headers to have a chunked payload, when it should have been rejected as illegal. This combined with an upstream HTTP proxy that understands the request payload boundary differently can result in \"request smuggling\" or \"desync attacks\".\r\n\r\n### Vulnerability\r\n\r\nThe flaw was introduced in https://github.com/hyperium/hyper/commit/26417fc24a7d05df538e0f39239b373c5c3d61f6, released in v0.12.0.\r\n\r\nConsider this example request:\r\n\r\n```\r\nPOST /yolo HTTP/1.1\r\nTransfer-Encoding: chunked\r\nTransfer-Encoding: cow\r\n```\r\n\r\nThis request *should* be rejected, according to RFC 7230, since it has a `Transfer-Encoding` header, but after folding, it does not end in `chunked`. hyper would notice the `chunked` in the first line, and then check the second line, and thanks to a missing boolean assignment, *not* set the error condition. hyper would treat the payload as being `chunked`. By differing from the spec, it is possible to send requests like these to endpoints that have different HTTP implementations, with different interpretations of the payload semantics, and cause \"desync attacks\".\r\n\r\nThere are several parts of the spec that must also be checked, and hyper correctly handles all of those. Additionally, hyper's *client* does not allow sending requests with improper headers, so the misunderstanding cannot be propagated further.\r\n\r\nRead more about desync attacks: https://portswigger.net/research/http-desync-attacks-request-smuggling-reborn\r\n\r\n### Impact\r\n\r\nTo determine if vulnerable, all these things must be true:\r\n\r\n- **Using hyper as an HTTP *server*.** The client is not affected.\r\n- **Using HTTP/1.1.** HTTP/2 does not use `transfer-encoding`.\r\n- **Using a vulnerable HTTP proxy upstream to hyper.** If an upstream proxy correctly rejects the illegal transfer-encoding headers, the desync attack cannot succeed. If there is *no* proxy upstream of hyper, hyper cannot *start* the desync attack, as the client will repair the headers before forwarding.\r\n\r\n### Patches\r\n\r\nWe have released and backported the following patch versions:\r\n\r\n- v0.14.3\r\n- v0.13.10\r\n\r\n### Workarounds\r\n\r\nBesides upgrading hyper, you can take the following options:\r\n\r\n- Reject requests that contain a `transfer-encoding` header.\r\n- Ensure any upstream proxy handles `transfer-encoding` correctly.\r\n\r\n### Credits\r\n\r\nThis issue was initially reported by ZeddYu Lu From Qi An Xin Technology Research Institute.\r\n",
+      "ghsa_id": "GHSA-6hfq-h8hq-87mf",
+      "html_url": "https://github.com/hyperium/hyper/security/advisories/GHSA-6hfq-h8hq-87mf",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-6hfq-h8hq-87mf"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-21299"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2021-02-05T22:55:23Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/51479?v=4",
+        "events_url": "https://api.github.com/users/seanmonstar/events{/privacy}",
+        "followers_url": "https://api.github.com/users/seanmonstar/followers",
+        "following_url": "https://api.github.com/users/seanmonstar/following{/other_user}",
+        "gists_url": "https://api.github.com/users/seanmonstar/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/seanmonstar",
+        "id": 51479,
+        "login": "seanmonstar",
+        "node_id": "MDQ6VXNlcjUxNDc5",
+        "organizations_url": "https://api.github.com/users/seanmonstar/orgs",
+        "received_events_url": "https://api.github.com/users/seanmonstar/received_events",
+        "repos_url": "https://api.github.com/users/seanmonstar/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/seanmonstar/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/seanmonstar/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/seanmonstar",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "Multiple Transfer-Encoding headers misinterprets request payload",
+      "updated_at": "2021-02-05T22:55:23Z",
+      "url": "https://api.github.com/repos/hyperium/hyper/security-advisories/GHSA-6hfq-h8hq-87mf",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "crates.io",
+            "name": "hyper"
+          },
+          "patched_versions": "0.14.3, 0.13.10",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "0.12.0-0.14.2"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "hyperium/hyper",
+    "url": "https://api.github.com/repos/hyperium/hyper/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:15.669921+00:00",
+  "tool": "github_rest_readonly"
+}

@@ -1,0 +1,57 @@
+diff --git a/django/contrib/gis/db/models/aggregates.py b/django/contrib/gis/db/models/aggregates.py
+index 993d9f91..9d169275 100644
+--- a/django/contrib/gis/db/models/aggregates.py
++++ b/django/contrib/gis/db/models/aggregates.py
+@@ -1,6 +1,7 @@
+ from django.contrib.gis.db.models.fields import (
+     ExtentField, GeometryCollectionField, GeometryField, LineStringField,
+ )
++from django.db.models import Value
+ from django.db.models.aggregates import Aggregate
+ from django.utils.functional import cached_property
+ 
+@@ -27,9 +28,16 @@ class GeoAggregate(Aggregate):
+         )
+ 
+     def as_oracle(self, compiler, connection, **extra_context):
+-        tolerance = self.extra.get('tolerance') or getattr(self, 'tolerance', 0.05)
+-        template = None if self.is_extent else '%(function)s(SDOAGGRTYPE(%(expressions)s,%(tolerance)s))'
+-        return self.as_sql(compiler, connection, template=template, tolerance=tolerance, **extra_context)
++        if not self.is_extent:
++            tolerance = self.extra.get('tolerance') or getattr(self, 'tolerance', 0.05)
++            clone = self.copy()
++            clone.set_source_expressions([
++                *self.get_source_expressions(),
++                Value(tolerance),
++            ])
++            template = '%(function)s(SDOAGGRTYPE(%(expressions)s))'
++            return clone.as_sql(compiler, connection, template=template, **extra_context)
++        return self.as_sql(compiler, connection, **extra_context)
+ 
+     def resolve_expression(self, query=None, allow_joins=True, reuse=None, summarize=False, for_save=False):
+         c = super().resolve_expression(query, allow_joins, reuse, summarize, for_save)
+diff --git a/django/contrib/gis/db/models/functions.py b/django/contrib/gis/db/models/functions.py
+index a79067a4..1b0a2a42 100644
+--- a/django/contrib/gis/db/models/functions.py
++++ b/django/contrib/gis/db/models/functions.py
+@@ -111,12 +111,14 @@ class OracleToleranceMixin:
+     tolerance = 0.05
+ 
+     def as_oracle(self, compiler, connection, **extra_context):
+-        tol = self.extra.get('tolerance', self.tolerance)
+-        return self.as_sql(
+-            compiler, connection,
+-            template="%%(function)s(%%(expressions)s, %s)" % tol,
+-            **extra_context
+-        )
++        tolerance = Value(self._handle_param(
++            self.extra.get('tolerance', self.tolerance),
++            'tolerance',
++            NUMERIC_TYPES,
++        ))
++        clone = self.copy()
++        clone.set_source_expressions([*self.get_source_expressions(), tolerance])
++        return clone.as_sql(compiler, connection, **extra_context)
+ 
+ 
+ class Area(OracleToleranceMixin, GeoFunc):

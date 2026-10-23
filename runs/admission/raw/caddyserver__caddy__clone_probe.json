@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/caddyserver/caddy.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:30.485345+00:00", "elapsed_seconds": 2.199, "response": {"returncode": 0, "stdout": "bfdbeb4a1bf7e267b0b93070ed854b847beef581\tHEAD\n", "stderr": ""}}

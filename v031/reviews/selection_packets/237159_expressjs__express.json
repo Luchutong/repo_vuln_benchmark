@@ -1,0 +1,138 @@
+{
+  "packet_id": "selrev_237159_snap_3166f788b2c56baa",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "237159",
+    "full_name": "expressjs/express",
+    "canonical_url": "https://github.com/expressjs/express",
+    "primary_language": "JavaScript",
+    "project_kind": "Fast, unopinionated, minimalist web framework for node."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_3166f788b2c56baa",
+    "tag_or_release": "4.19.2",
+    "commit_sha": "b28db2c12c3bd9cd763316824446f79bf81e0686"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "04bc62787be974874bc1467b23606c36bc9779ba",
+    "tag_matches_commit": false,
+    "tag_commit_tree_sha": "f18a74c2f183fd0ab2bd3b411ddd44b792d4481a",
+    "tag_tree_matches_commit": true,
+    "accepted_via": "identical_tree",
+    "tag_resolution_note": "npm registry gitHead b28db2c; tag 4.19.2 peels to 04bc627 with the same tree"
+  },
+  "export_facts": {
+    "tree_sha": "f18a74c2f183fd0ab2bd3b411ddd44b792d4481a",
+    "tree_file_count": 231,
+    "exported_file_count": 231,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/expressjs__express/snap_3166f788b2c56baa.tar.gz",
+    "archive_sha256": "3e4266386f40e58f0065295c3734444ec001c4a4daa7ee6de0048c47795fe966",
+    "archive_bytes": 143558,
+    "manifest_path": "exports/expressjs__express/snap_3166f788b2c56baa.manifest.jsonl",
+    "manifest_sha256": "168526e6280068d55117db815163ef94ed4e71f35d925aedf0c3c381c7bab122"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "History.md",
+      "Release-Process.md"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/workflows/ci.yml",
+      "History.md",
+      "Release-Process.md",
+      "Security.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "make": [
+        "Makefile"
+      ],
+      "node": [
+        "package.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node",
+      "make"
+    ],
+    "toolchain_available": {
+      "make": {
+        "make": true
+      },
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "GHSA-qw6h-vgh9-j6wx",
+      "aliases": [
+        "GHSA-qw6h-vgh9-j6wx",
+        "CVE-2024-43796"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<4.20.0",
+          "ecosystem": "npm",
+          "package": "express",
+          "purl": "pkg:npm/express"
+        },
+        {
+          "affected_range": ">=5.0.0-alpha.1, <5.0.0",
+          "ecosystem": "npm",
+          "package": "express",
+          "purl": "pkg:npm/express"
+        }
+      ],
+      "published_at": "2024-09-10T19:41:04Z",
+      "advisory_url": "https://github.com/expressjs/express/security/advisories/GHSA-qw6h-vgh9-j6wx",
+      "severity": {
+        "alternate_scores": [
+          {
+            "level": "medium",
+            "score": 4.7,
+            "source": "nvd@nist.gov",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "CVSS 3.1 numeric 5.0 falls in Medium (4.0-6.9); the GitHub qualitative label \"low\" is not used for level.",
+        "score": 5.0,
+        "source": "CNA security-advisories@github.com, as recorded by NVD (Secondary) and cvelistV5",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-43796",
+        "upstream_qualitative": "low (GitHub Advisory API label)",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

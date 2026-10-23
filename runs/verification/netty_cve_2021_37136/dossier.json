@@ -1,0 +1,378 @@
+{
+ "candidate_id": "disc2_4077e6557cbbf772adcaa1f7",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T06:00:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "1064563",
+  "full_name": "netty/netty",
+  "canonical_url": "https://github.com/netty/netty",
+  "primary_language": "Java",
+  "project_kind": "asynchronous event-driven network application framework",
+  "snapshot_id": "snap_bb344e672a0544ef"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2021-37136",
+  "aliases": [
+   "CVE-2021-37136",
+   "GHSA-grg4-wf29-r9vv"
+  ],
+  "title": "Netty Bzip2Decoder accumulates all decompressed blocks of one input buffer instead of streaming them, allowing memory-exhaustion denial of service",
+  "repo_id": "1064563",
+  "snapshot_id": "snap_bb344e672a0544ef",
+  "vulnerable_commit": "97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+  "affected_packages": [
+   {
+    "ecosystem": "Maven",
+    "package": "io.netty:netty-codec",
+    "purl": "pkg:maven/io.netty/netty-codec",
+    "affected_range": ">=0,<4.1.68.Final"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Maven",
+    "package": "io.netty:netty-codec",
+    "version": "4.1.68.Final",
+    "tag": "netty-4.1.68.Final",
+    "release_url": "https://github.com/netty/netty/releases/tag/netty-4.1.68.Final",
+    "verified_content": "At the 4.1.68 release commit (7d34282f) Bzip2Decoder returns after each block and Bzip2BlockDecompressor rejects bwtBlockLength above MAX_BLOCK_LENGTH"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "41d3d61a61608f2223bb364955ab2045dd5e4020",
+    "branch": "4.1",
+    "message": "Merge pull request from GHSA-grg4-wf29-r9vv",
+    "url": "https://github.com/netty/netty/commit/41d3d61a61608f2223bb364955ab2045dd5e4020"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-400"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+   "score": 7.5,
+   "level": "high",
+   "numeric_level_rationale": "NVD Primary CVSS 3.1 is 7.5 High and the GHSA/OSV label is HIGH with the same vector; the CNA publishes no numeric score. The legacy NVD CVSS v2 score is 5.0 Medium.",
+   "source": "nvd@nist.gov (NVD Primary), CVSS 3.1 7.5 High",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-37136",
+   "all_published_scores": [
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    },
+    {
+     "version": "2.0",
+     "score": 5.0,
+     "level": "medium",
+     "source": "nvd@nist.gov (CVSS v2)",
+     "vector": "AV:N/AC:L/Au:N/C:N/I:N/A:P"
+    }
+   ],
+   "ghsa_label_note": "GHSA/OSV labels the issue HIGH and publishes the same CVSS 3.1 vector; it carries no separate numeric base score."
+  },
+  "category_l1": "denial_of_service",
+  "category_l2": "Decompression: decode() retains every block output in the out list until the input buffer is exhausted, so heap use scales with total decompressed size rather than one block",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/netty/netty/security/advisories/GHSA-grg4-wf29-r9vv",
+  "published_at": "2021-10-19T15:15:00Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://github.com/netty/netty/security/advisories/GHSA-grg4-wf29-r9vv",
+   "https://github.com/netty/netty/commit/41d3d61a61608f2223bb364955ab2045dd5e4020",
+   "https://nvd.nist.gov/vuln/detail/CVE-2021-37136",
+   "https://github.com/netty/netty/releases/tag/netty-4.1.68.Final"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2021-37136_snap_bb344e672a0544ef",
+  "vulnerability_id": "CVE-2021-37136",
+  "snapshot_id": "snap_bb344e672a0544ef",
+  "location_kind": "logic",
+  "file": "codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java",
+  "function": "Bzip2Decoder::decode",
+  "language": "Java",
+  "line": 294,
+  "critical_operation": {
+   "code_excerpt": "                final int blockLength = blockDecompressor.blockLength();\n                final ByteBuf uncompressed = ctx.alloc().buffer(blockLength);\n                boolean success = false;\n                try {\n                    int uncByte;\n                    while ((uncByte = blockDecompressor.read()) >= 0) {\n                        uncompressed.writeByte(uncByte);\n                    }",
+   "description": "Bzip2Decoder.decode() handles a whole input buffer in one loop. For each compressed block it allocates an output buffer, inflates the block into it, adds it to the out list and then breaks back into the loop rather than returning. ByteToMessageDecoder.callDecode() flushes out only after decode() returns, so every block decompressed from one input buffer stays resident at the same time. Heap use therefore scales with the total decompressed size of the input buffer rather than with one block, and a small crafted bzip2 stream that decompresses to a very large output can exhaust the heap (CWE-400). The 4.1.68 fix returns after each block so buffers are propagated and released incrementally; its added MAX_BLOCK_LENGTH check is defense-in-depth on top of the existing streamBlockSize bounds, not the reachable defect.",
+   "file": "codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java",
+   "function": "Bzip2Decoder::decode",
+   "language": "Java",
+   "line": 294,
+   "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java#L294"
+  },
+  "entry_point": {
+   "description": "An attacker-controlled peer sends a bzip2-compressed byte stream to a channel pipeline that includes Bzip2Decoder; the stream decompresses to far more data than the peer sends.",
+   "file": "codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java",
+   "function": "Bzip2Decoder::decode",
+   "language": "Java",
+   "line": 80,
+   "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java#L80"
+  },
+  "trace": [
+   {
+    "description": "decode() is invoked for each inbound ByteBuf",
+    "file": "codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java",
+    "function": "Bzip2Decoder::decode",
+    "language": "Java",
+    "line": 80,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java#L80"
+   },
+   {
+    "description": "the Huffman block is inflated into a freshly allocated buffer",
+    "file": "codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java",
+    "function": "Bzip2Decoder::decode",
+    "language": "Java",
+    "line": 294,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java#L294"
+   },
+   {
+    "description": "the block is appended to out and the loop breaks, so the buffer is retained until the input is consumed",
+    "file": "codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java",
+    "function": "Bzip2Decoder::decode",
+    "language": "Java",
+    "line": 305,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java#L305"
+   },
+   {
+    "description": "Bzip2BlockDecompressor stores bwtBlockLength without bounding it to MAX_BLOCK_LENGTH",
+    "file": "codec/src/main/java/io/netty/handler/codec/compression/Bzip2BlockDecompressor.java",
+    "function": "Bzip2BlockDecompressor::decodeHuffmanData",
+    "language": "Java",
+    "line": 231,
+    "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec/src/main/java/io/netty/handler/codec/compression/Bzip2BlockDecompressor.java#L231"
+   }
+  ],
+  "verification_method": "Static read of Bzip2Decoder.java and Bzip2BlockDecompressor.java at 4.1.59 and 4.1.68, the fix patch and git ancestry; no compressed stream was decompressed and no JVM was run."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/cve_v5.json",
+   "evidence_id": "ev_netty_37136_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "7fc507e0915008676b755ee93c9049989c01904df70c2c8197433f4991c983b8",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-37136",
+   "supports": [
+    "CVE state PUBLISHED, assigner The Netty project",
+    "CNA affected: Netty before 4.1.68Final",
+    "CNA problemTypes CWE-400",
+    "CNA record carries no CVSS metrics"
+   ],
+   "verification_method": "CVE List v5 CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/nvd_cve.json",
+   "evidence_id": "ev_netty_37136_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "0389438f7a07103e491bb4c71a035eec618162029ad40e1bb0d1271c0092cb43",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-37136",
+   "supports": [
+    "NVD Primary CVSS 3.1 7.5 HIGH: AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "legacy CVSS v2 5.0 Medium: AV:N/AC:L/Au:N/C:N/I:N/A:P",
+    "published 2021-10-19"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/osv_ghsa.json",
+   "evidence_id": "ev_netty_37136_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "f826da07bc8e6618a5ab0210171166a55fa894c0150b31af75c109084eb26ef6",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-grg4-wf29-r9vv",
+   "supports": [
+    "GHSA-grg4-wf29-r9vv aliases CVE-2021-37136, github_reviewed, database severity HIGH",
+    "cwe_ids CWE-400",
+    "affected io.netty:netty-codec fixed 4.1.68.Final",
+    "details: the Bzip2 decompression decoder does not allow size restrictions on decompressed output; malicious input can trigger OOME/DoS",
+    "references name fix commit 41d3d61a"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/ghsa.html",
+   "evidence_id": "ev_netty_37136_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "7399b68e990bebb6623a8af4e79dee0cbe83bacd3b87a8ea120d7ebc9c2aa767",
+   "source_url": "https://github.com/netty/netty/security/advisories/GHSA-grg4-wf29-r9vv",
+   "supports": [
+    "upstream advisory confirms all users of Bzip2Decoder are affected",
+    "it states malicious input can trigger an OOME and a DoS attack",
+    "it links the 4.1.68 fixed release and the code areas in Bzip2Decoder"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/Bzip2Decoder_4.1.59.java",
+   "evidence_id": "ev_netty_37136_vuln_decoder",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "e9a94a926e15132a46c1b248a698ed0cb0d8e9f7e7fa57e62379825969e1bbcb",
+   "source_url": "https://github.com/netty/netty/blob/netty-4.1.59.Final/codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java#L294",
+   "supports": [
+    "decode() loops over blocks in a single call",
+    "line 294 allocates an output buffer of blockLength",
+    "lines 296-311 decompress a block and add it to out, then line 313 breaks to continue the loop instead of returning",
+    "nothing bounds the total decompressed bytes accumulated in out for one input buffer"
+   ],
+   "verification_method": "file read at snapshot commit 97d04481 (netty-4.1.59.Final)"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/Bzip2BlockDecompressor_4.1.59.java",
+   "evidence_id": "ev_netty_37136_vuln_block",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "7677b1e54b85c3b6af1a76ede414b1888de337084c4617ca0426923534080915",
+   "source_url": "https://github.com/netty/netty/blob/netty-4.1.59.Final/codec/src/main/java/io/netty/handler/codec/compression/Bzip2BlockDecompressor.java#L231",
+   "supports": [
+    "decodeHuffmanData() sets bwtBlockLength at line 231 after the existing streamBlockSize checks",
+    "lines 203-205 and 220-222 already bound bwtBlockLength to the declared block size (at most 900000)",
+    "the 4.1.68 MAX_BLOCK_LENGTH check is added after those existing bounds and is defense-in-depth, not the reachable root cause"
+   ],
+   "verification_method": "file read at commit 97d04481"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/Bzip2Decoder_4.1.68.java",
+   "evidence_id": "ev_netty_37136_fixed_decoder",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "a0144d778393f6260067e03cfc72f3b9d949a73c917e94502493f34307ca9ee1",
+   "source_url": "https://github.com/netty/netty/blob/netty-4.1.68.Final/codec/src/main/java/io/netty/handler/codec/compression/Bzip2Decoder.java#L314",
+   "supports": [
+    "line 301 resets the state before the CRC check",
+    "line 305 adds the buffer to out and line 306 clears the local reference",
+    "line 314 returns after each decoded block so the buffer is propagated and released immediately"
+   ],
+   "verification_method": "file read at release tag netty-4.1.68.Final (7d34282f)"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/Bzip2BlockDecompressor_4.1.68.java",
+   "evidence_id": "ev_netty_37136_fixed_block",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "e348eaf7882d0b04a67e0a5854d2fe275fa9ab143e8cf85eb546b81cbf889346",
+   "source_url": "https://github.com/netty/netty/blob/netty-4.1.68.Final/codec/src/main/java/io/netty/handler/codec/compression/Bzip2BlockDecompressor.java#L231",
+   "supports": [
+    "lines 231-234 throw DecompressionException when bwtBlockLength exceeds MAX_BLOCK_LENGTH",
+    "MAX_BLOCK_LENGTH is MAX_BLOCK_SIZE * BASE_BLOCK_SIZE (900000)",
+    "this is a defense-in-depth bound on top of the pre-existing streamBlockSize checks"
+   ],
+   "verification_method": "file read at netty-4.1.68.Final"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/fix_commit.patch",
+   "evidence_id": "ev_netty_37136_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "275cd57461c355dbc0516a72808939b34ff362de9ed7e2423b3cfc44d9569d9e",
+   "source_url": "https://github.com/netty/netty/commit/41d3d61a61608f2223bb364955ab2045dd5e4020",
+   "supports": [
+    "the patch makes Bzip2Decoder stream each block and return after adding it to out",
+    "it adds MAX_BLOCK_LENGTH as a defense-in-depth bound in Bzip2BlockDecompressor",
+    "the patch contains no regression test for the streaming behavior"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/netty_cve_2021_37136/sources/git_object_checks.txt",
+   "evidence_id": "ev_netty_37136_git",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T06:00:00Z",
+   "sha256_of_observation": "10f29a7d2407387044f7c712bc775e31cc1c1bb62bf1f6bc5e4306fca0845724",
+   "source_url": "https://github.com/netty/netty/commit/41d3d61a61608f2223bb364955ab2045dd5e4020",
+   "supports": [
+    "snapshot commit 97d04481 is the netty-4.1.59.Final tag commit",
+    "fix 41d3d61a is not an ancestor of 4.1.59 (merge-base exit 1)",
+    "fix 41d3d61a is an ancestor of netty-4.1.68.Final (7d34282f)",
+    "git tag --contains 41d3d61a starts at netty-4.1.68.Final"
+   ],
+   "verification_method": "git log/merge-base/tag with local bare mirror"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   4,
+   8
+  ],
+  "cwe": [
+   0,
+   2
+  ],
+  "fix_commits": [
+   2,
+   8
+  ],
+  "fixed_releases": [
+   2,
+   3,
+   6,
+   8
+  ],
+  "languages": [
+   4,
+   5
+  ],
+  "severity": [
+   1,
+   2
+  ],
+  "vulnerable_commit": [
+   9
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 Netty CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "NVD, GHSA/OSV, the upstream advisory and git history agree on the defect and the 4.1.68.Final fixed release. The CNA publishes no CVSS score, so NVD is the only numeric source; the legacy v2 score is lower but not contradictory.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Bzip2Decoder.decode() at 4.1.59 and confirm output buffers accumulate and block length is not capped.",
+   "An independent reviewer must confirm 41d3d61a is not an ancestor of 4.1.59 and is contained in netty-4.1.68.Final, and that the fix streams blocks and adds MAX_BLOCK_LENGTH.",
+   "An independent reviewer must confirm the affected range and the 4.1.68.Final fixed release.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No bzip2 stream was crafted and no JVM heap exhaustion was attempted; impact is established statically from the buffering and allocation path.",
+  "Only the 4.1 branch was inspected; other codec modules and native transports were not audited.",
+  "The practical memory ceiling depends on the application pipeline, heap size and how quickly downstream handlers release buffers.",
+  "The missing MAX_BLOCK_LENGTH check in 4.1.59 is not a reachable oversized-block path because the existing streamBlockSize checks already bound bwtBlockLength; only the non-streaming accumulation is treated as the root cause."
+ ],
+ "open_questions": [
+  "The exact compression ratio needed to exhaust a given heap was not measured.",
+  "Whether a caller that drains out per block can fully avoid the accumulation for a single oversized input buffer was not tested."
+ ]
+}

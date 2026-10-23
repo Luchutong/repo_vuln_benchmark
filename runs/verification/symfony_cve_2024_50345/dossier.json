@@ -1,0 +1,412 @@
+{
+ "candidate_id": "disc2_34519011afc9ee3d3907ee30",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+ "prepared_at": "2026-10-21T15:35:00Z",
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "web framework monorepo of reusable components",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "aliases": [
+   "CVE-2024-50345",
+   "GHSA-mrqx-rp3w-jpjp"
+  ],
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/blog/cve-2024-50345-open-redirect-via-browser-sanitized-urls",
+  "category_l1": "open_redirect",
+  "category_l2": "Request::create parses URLs differently from browsers, so a validator built on it can approve a redirect to another host",
+  "cwe_ids": [
+   "CWE-601"
+  ],
+  "discovery_cutoff_date": "2026-10-21",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "purl": "pkg:composer/symfony/http-foundation",
+    "affected_range": "<5.4.46"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "purl": "pkg:composer/symfony/http-foundation",
+    "affected_range": ">=6.0,<6.4.14"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "purl": "pkg:composer/symfony/http-foundation",
+    "affected_range": ">=7.0,<7.1.7"
+   }
+  ],
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "fix_commits": [
+   {
+    "sha": "5a9b08e5740af795854b1b639b7d45b9cbfe8819",
+    "branch": "5.4",
+    "message": "[HttpFoundation] Reject URIs that contain invalid characters",
+    "url": "https://github.com/symfony/symfony/commit/5a9b08e5740af795854b1b639b7d45b9cbfe8819"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "version": "5.4.46",
+    "tag": "v5.4.46",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.46",
+    "verified_content": "At tag v5.4.46 (057d88be) Request::create rejects backslashes, CR/LF/TAB, and leading/trailing control characters or spaces with BadRequestException; fix 5a9b08e is an ancestor of the tag"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "version": "6.4.14",
+    "tag": "v6.4.14",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v6.4.14",
+    "verified_content": "At tag v6.4.14 (d1797e5b) Request::create carries the same invalid-character checks; fix 5a9b08e is an ancestor of the tag"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/http-foundation",
+    "version": "7.1.7",
+    "tag": "v7.1.7",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v7.1.7",
+    "verified_content": "At tag v7.1.7 (50011435) Request::create carries the same invalid-character checks; fix 5a9b08e is an ancestor of the tag"
+   }
+  ],
+  "vulnerability_id": "CVE-2024-50345",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "source_type": "upstream_advisory",
+  "title": "Symfony Request::create accepts browser-sanitized URIs, enabling open redirects through validators built on it",
+  "published_at": "2024-11-06T20:56:21Z",
+  "vulnerable_version": "5.4.45",
+  "vulnerable_commit_basis": "annotated tag v5.4.45 peels to 2b66d7d7..., whose Request.php blob matches the fix commit's parent e39f6a96; the fix is absent from this tag",
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+   "score": 6.1,
+   "level": "medium",
+   "source": "NVD primary metric nvd@nist.gov; the GitHub_M CNA and GHSA use a different 3.1 LOW vector",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-50345",
+   "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 6.1 falls in Medium (4.0-6.9); the CNA/GHSA vector scores 3.1 LOW and is recorded as a source disagreement"
+  },
+  "references": [
+   "https://symfony.com/blog/cve-2024-50345-open-redirect-via-browser-sanitized-urls",
+   "https://nvd.nist.gov/vuln/detail/CVE-2024-50345",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-mrqx-rp3w-jpjp",
+   "https://github.com/symfony/symfony/commit/5a9b08e5740af795854b1b639b7d45b9cbfe8819",
+   "https://osv.dev/vulnerability/GHSA-mrqx-rp3w-jpjp"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2024-50345_snap_39105a8a3ceb9fe4",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "dataflow",
+  "entry_point": {
+   "file": "src/Symfony/Component/HttpFoundation/Request.php",
+   "function": "create",
+   "language": "PHP",
+   "line": 337,
+   "description": "Public static factory used by applications and by validators that derive a Request from a user-supplied URL string. The URI argument is the attacker-controlled value in the open-redirect scenario.",
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L337"
+  },
+  "critical_operation": {
+   "file": "src/Symfony/Component/HttpFoundation/Request.php",
+   "function": "create",
+   "language": "PHP",
+   "line": "358-361",
+   "code_excerpt": "        if (false === ($components = parse_url($uri)) && '/' === ($uri[0] ?? '')) {\n            $components = parse_url($uri.'#');\n            unset($components['fragment']);\n        }",
+   "description": "In 5.4.45 create() delegates URI parsing to PHP parse_url and never validates the input against the WHATWG URL rules that browsers apply. parse_url accepts backslashes, CR/LF/TAB, NUL bytes, and leading/trailing spaces or control characters, and it resolves them differently from a browser. A validator that calls Request::create on a user-supplied redirect target can therefore extract a host that differs from the host the browser will navigate to, which is the open redirect. Fixed releases insert four guards after parse_url: reject a false parse result, reject a backslash before the query/fragment delimiter, reject CR/LF/TAB anywhere, and reject a leading or trailing byte <= 0x20; invalid input raises BadRequestException.",
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L358-L361"
+  },
+  "trace": [
+   {
+    "file": "src/Symfony/Component/HttpFoundation/Request.php",
+    "function": "create",
+    "language": "PHP",
+    "line": 337,
+    "description": "entry: application passes an attacker-influenced URI string to Request::create",
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L337"
+   },
+   {
+    "file": "src/Symfony/Component/HttpFoundation/Request.php",
+    "function": "create",
+    "language": "PHP",
+    "line": 358,
+    "description": "parse_url is the only parsing step; there is no invalid-character assertion in 5.4.45",
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L358"
+   },
+   {
+    "file": "src/Symfony/Component/HttpFoundation/Request.php",
+    "function": "create",
+    "language": "PHP",
+    "line": 364,
+    "description": "the parsed host is copied into SERVER_NAME/HTTP_HOST, so callers see the parse_url host rather than the browser host",
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L364"
+   }
+  ],
+  "vulnerability_id": "CVE-2024-50345",
+  "verification_method": "Static read of Request.php at v5.4.45 and the three fixed tags, the fix commit and its regression test, plus peeled-tag ancestry checks; no PHP, browser or HTTP client was executed."
+ },
+ "evidence": [
+  {
+   "evidence_id": "ev_symfony_blog",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/symfony_blog.html",
+   "source_url": "https://symfony.com/blog/cve-2024-50345-open-redirect-via-browser-sanitized-urls",
+   "retrieved_at": "2026-10-21T15:25:00Z",
+   "sha256_of_observation": "b0e9502964871e4fed7ebfd46693385e339ca710173dc67f25827964568d9f95",
+   "verification_method": "official upstream advisory HTML read; no code executed",
+   "result": "PASS",
+   "supports": [
+    "Request does not parse URIs with special characters the way browsers do",
+    "an attacker can trick a validator relying on Request to redirect users to another domain",
+    "Request::create now asserts the URI contains no invalid characters per WHATWG URL",
+    "patched in 5.4.46, 6.4.14 and 7.1.7; no known workaround"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_cna",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/cve_v5.json",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-50345",
+   "retrieved_at": "2026-10-21T15:25:00Z",
+   "sha256_of_observation": "0699e4104a74f8db0deea46d082aa194c7835095c06173ebcba1d64301f11ef2",
+   "verification_method": "CVE List v5 CNA JSON read",
+   "result": "PASS",
+   "supports": [
+    "assigner GitHub_M, state PUBLISHED, published 2024-11-06, updated 2025-11-03",
+    "CWE-601 only",
+    "CVSS 3.1 AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N, base 3.1 LOW"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_nvd",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/nvd_cve.json",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-50345",
+   "retrieved_at": "2026-10-21T15:25:00Z",
+   "sha256_of_observation": "2d8f99a4b9062ed128cefb2b74fde21b6c3c96d0bdf58989a7237fe38a05022d",
+   "verification_method": "NVD 2.0 API JSON read",
+   "result": "PASS",
+   "supports": [
+    "NVD Primary CVSS 3.1 AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N, base 6.1 MEDIUM",
+    "GitHub secondary metric 3.1 LOW",
+    "CWE-601",
+    "description names patched versions 5.4.46, 6.4.14 and 7.1.7"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_osv",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/osv_ghsa.json",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-mrqx-rp3w-jpjp",
+   "retrieved_at": "2026-10-21T15:25:00Z",
+   "sha256_of_observation": "f5be19960df37dbdd96b4d8934d4d330122fee94cd480fc3fd2f4b9ac738bf0f",
+   "verification_method": "OSV API JSON read",
+   "result": "PASS",
+   "supports": [
+    "package symfony/http-foundation, ecosystem Packagist",
+    "ranges: 0-5.4.46, 6.0.0-6.4.14, 7.0.0-7.1.7",
+    "severity CVSS 3.1 vector and CVSS 4.0 vector",
+    "details describe the browser/parse_url mismatch and the Request::create fix"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_git_checks",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/git_object_checks.txt",
+   "source_url": "https://github.com/symfony/symfony/commit/5a9b08e5740af795854b1b639b7d45b9cbfe8819",
+   "retrieved_at": "2026-10-21T15:33:00Z",
+   "sha256_of_observation": "d8033e29f3fee8c625836927c199cae4fd296f17b23ce9c43883344fac5a39bf",
+   "verification_method": "exact-tag shallow fetches with --deepen in a bare repository; rev-parse of peeled tags; merge-base --is-ancestor; git log --grep",
+   "result": "PASS",
+   "supports": [
+    "v5.4.45 peels to 2b66d7d7, v5.4.46 to 057d88be, v6.4.13 to 5128d5b8, v6.4.14 to d1797e5b, v7.1.6 to da35c47b, v7.1.7 to 50011435",
+    "5a9b08e is absent from v5.4.45, v6.4.13 and v7.1.6, and is an ancestor of v5.4.46, v6.4.14 and v7.1.7",
+    "the 5.4 security merge ad0a241e names cve-2024-50345 and carries 5a9b08e",
+    "the fix commit changes only Request.php and RequestTest.php"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_vulnerable_source",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/Request_v5.4.45.php",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/HttpFoundation/Request.php#L337-L380",
+   "retrieved_at": "2026-10-21T15:30:00Z",
+   "sha256_of_observation": "6964b4db0f8474d55ac0bd0b2be2df8d8e8fcbc3b803f031c8ebc5417eb1ba08",
+   "verification_method": "git show of the file at tag v5.4.45; read-only",
+   "result": "PASS",
+   "supports": [
+    "create() at line 337 calls parse_url at line 358 with no invalid-character validation",
+    "the parsed host is assigned to SERVER_NAME and HTTP_HOST at lines 378-381"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_fixed_source",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/Request_v5.4.46.php",
+   "source_url": "https://github.com/symfony/symfony/blob/057d88bef2d18a10d3b0b8fb093332131dc58e2f/src/Symfony/Component/HttpFoundation/Request.php#L363-L378",
+   "retrieved_at": "2026-10-21T15:30:00Z",
+   "sha256_of_observation": "cb4dd6a9fbb46c2ec99b584903a8420c8229b42b5dc53eca648fded41a3e53a8",
+   "verification_method": "git show of the file at tag v5.4.46; read-only",
+   "result": "PASS",
+   "supports": [
+    "after parse_url the fixed code throws BadRequestException on a false parse result",
+    "it rejects backslashes before the query/fragment delimiter",
+    "it rejects CR/LF/TAB anywhere and a leading/trailing byte <= 0x20"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_fix_diff",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/fix_diff.txt",
+   "source_url": "https://github.com/symfony/symfony/commit/5a9b08e5740af795854b1b639b7d45b9cbfe8819",
+   "retrieved_at": "2026-10-21T15:30:00Z",
+   "sha256_of_observation": "b0e166ef36c76ad970d8e48ffce853fd529b9b451d18cacc368c10b1c944778a",
+   "verification_method": "git show of the fix commit, Request.php hunk only",
+   "result": "PASS",
+   "supports": [
+    "the fix adds the BadRequestException import and four guards after parse_url",
+    "no other Request.php behaviour is changed in the source fix"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_regression_test",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/test_diff.txt",
+   "source_url": "https://github.com/symfony/symfony/commit/5a9b08e5740af795854b1b639b7d45b9cbfe8819",
+   "retrieved_at": "2026-10-21T15:30:00Z",
+   "sha256_of_observation": "24eaeaea5c9c53f9742e762a17f2a48bb79f02c8c55a6d6f5f6d4edae34b4d32",
+   "verification_method": "git diff of RequestTest.php between v5.4.45 and v5.4.46; read-only",
+   "result": "PASS",
+   "supports": [
+    "testCreateWithBadRequestUri rejects http://foo.com\\bar, \\\\foo.com/bar, CR, LF, TAB, NUL at either end, leading/trailing spaces and ':'",
+    "a fragment containing a backslash is still accepted and the query value is percent-encoded",
+    "the upstream test was read, not executed"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_ghsa_page",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/ghsa_page.html",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-mrqx-rp3w-jpjp",
+   "retrieved_at": "2026-10-21T15:25:00Z",
+   "sha256_of_observation": "c50bc645672208257017bfa50a0fc45410e516efeab4bea56ddbbef1ba03cf8e",
+   "verification_method": "GitHub advisory HTML read; the REST API was rate-limited from this egress",
+   "result": "PASS",
+   "supports": [
+    "GitHub advisory duplicates the Symfony text and credits the reporter",
+    "advisory severity shown as LOW with the 3.1 vector"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_fix_stat",
+   "artifact_path": "runs/verification/symfony_cve_2024_50345/sources/fix_commit_stat.txt",
+   "source_url": "https://github.com/symfony/symfony/commit/5a9b08e5740af795854b1b639b7d45b9cbfe8819",
+   "retrieved_at": "2026-10-21T15:30:00Z",
+   "sha256_of_observation": "5f10f75c315e2f60aae806c26ed81cedb61354dafad5d29b6e8d588eec7681af",
+   "verification_method": "git show -s --format plus --stat",
+   "result": "PASS",
+   "supports": [
+    "commit 5a9b08e, single parent e39f6a96, authored 2024-10-22",
+    "touches Request.php and RequestTest.php only (45 insertions, 2 deletions)"
+   ]
+  },
+  {
+   "evidence_id": "ev_symfony_snapshot",
+   "artifact_path": "runs/language/snap_39105a8a3ceb9fe4/snapshot_proposal.json",
+   "source_url": "https://github.com/symfony/symfony/tree/2b66d7d7d8129531229708ef708860844db91944",
+   "retrieved_at": "2026-10-21T15:25:31Z",
+   "sha256_of_observation": "f21911b9286584aa9c4dc0121f233575890c42b13362b11abb22777acb2d2e3e",
+   "verification_method": "inventory_snapshot.py with pinned github-linguist 9.7.0; enumeration matches git ls-tree",
+   "result": "PASS",
+   "supports": [
+    "snapshot_id snap_39105a8a3ceb9fe4 at tag v5.4.45",
+    "11040 tracked files scanned; 150 ambiguous files",
+    "PHP first-party 3327 files / 11,758,368 bytes / 25.45% of tracked nonbinary bytes",
+    "full_scan=true"
+   ]
+  }
+ ],
+ "field_evidence": {
+  "aliases": [
+   1,
+   3
+  ],
+  "severity": [
+   1,
+   2
+  ],
+  "cwe": [
+   1,
+   2
+  ],
+  "affected_ranges": [
+   2,
+   3
+  ],
+  "fix_commits": [
+   4,
+   7
+  ],
+  "fixed_releases": [
+   0,
+   2,
+   4
+  ],
+  "vulnerable_commit": [
+   4,
+   5
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7
+  ],
+  "languages": [
+   11
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "independent_of_primary": true,
+  "families": [
+   "Symfony security advisory (blog)",
+   "GitHub advisory GHSA / CVE List v5 CNA record",
+   "NVD analysis",
+   "OSV record",
+   "upstream git history and release tags"
+  ],
+  "severity_disagreement": true,
+  "notes": "NVD scores the issue 6.1 MEDIUM with AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N. The CNA record (GitHub_M), the GHSA page and OSV all carry 3.1 LOW with AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:N/A:N. NVD's vector changes the scope to CHANGED and adds low integrity impact; that is NVD's own enrichment, not the reporter's. The canonical severity keeps the NVD Primary 6.1 and records the 3.1 LOW as a source disagreement. All four families agree on CWE-601, on the mechanism, and on the three fixed releases. OSV's version arrays are internally inconsistent in spelling (some entries '2.0.4', later entries 'v2.0.10') but the range events are consistent with the advisory. The independent reviewer additionally found that OSV's affected.versions list omits several released tags inside its own ranges (v5.4.41, v5.4.43, v6.4.1, v6.4.5, v6.4.6, v6.4.9, v6.4.11, v7.1.2, v7.1.4), and that GHSA/OSV carry a CVSS v4.0 2.3 vector absent from the CNA and NVD records. The reviewer's own canonical severity uses the CNA 3.1 LOW vector; this dossier keeps NVD Primary 6.1 MEDIUM and records both."
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No browser, HTTP client or PHP runtime was executed. The mismatch between PHP parse_url and WHATWG browser parsing is taken from the advisory and the upstream regression test, not measured locally.",
+  "The exploitation step is application-specific: the advisory describes a validator that calls Request::create on user input and redirects to the resulting URL. No concrete downstream application is part of this repository snapshot, so the redirect sink is outside the mapped location.",
+  "The vulnerable snapshot is v5.4.45, the last 5.4 release before the fix; the 6.4 and 7.1 branches were checked only for fix ancestry and fixed-file content, not inventaried.",
+  "The GitHub REST advisory endpoint was rate-limited from the shared egress IP; the advisory page was read as HTML instead and the failed response was not treated as evidence.",
+  "The repository snapshot has 11040 tracked files and 150 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+  "No dynamic red/green test was run, so no reproduction_reference exists and the entry is grade B at best.",
+  "OSV's range events are correct, but its affected.versions enumeration omits released tags inside those ranges: v5.4.41, v5.4.43, v6.4.1, v6.4.5, v6.4.6, v6.4.9, v6.4.11, v7.1.2 and v7.1.4 were confirmed to exist upstream by the independent reviewer. Scanners keyed to the list rather than the range under-report.",
+  "The CNA record and NVD carry no CVSS v4.0 entry, while the GHSA page and OSV add CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N (2.3 LOW). Only the v3.1 vectors are used for the canonical severity.",
+  "NVD keys the product as CPE vendor sensiolabs:symfony; the CNA, GHSA and OSV key the Packagist package symfony/http-foundation. The monorepo tags are the same source.",
+  "The upstream credit differs: the Symfony blog names only Sam Mush, while GHSA/OSV add IPASSLab and ZGC Lab. This does not affect the technical fields.",
+  "The fix commit's author date is 2024-10-22 and its committer date is 2024-10-29; ancestry, not date, is used for the release boundaries."
+ ],
+ "open_questions": [
+  "Which concrete browser/parse_url input pair the reporters used is not published; the regression test lists the rejected classes but not an end-to-end redirect.",
+  "Whether applications commonly pass raw user input to Request::create as a redirect validator was not surveyed."
+ ],
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Request::create at v5.4.45 and confirm the absence of invalid-character validation around parse_url.",
+   "An independent reviewer must confirm 5a9b08e is absent from v5.4.45/v6.4.13/v7.1.6 and an ancestor of v5.4.46/v6.4.14/v7.1.7.",
+   "An independent reviewer must check the severity split between NVD 6.1 and CNA/GHSA 3.1 and the single CWE-601 claim.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ]
+}

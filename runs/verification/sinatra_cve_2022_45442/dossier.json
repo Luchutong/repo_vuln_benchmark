@@ -1,0 +1,402 @@
+{
+  "candidate_id": "disc2_c0d4b10d271f78420fc6bd7d",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T04:12:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/sinatra/sinatra",
+    "full_name": "sinatra/sinatra",
+    "primary_language": "Ruby",
+    "project_kind": "web framework",
+    "repo_id": "106995",
+    "snapshot_id": "snap_916afbf76073e831"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2022-45442",
+    "aliases": [
+      "CVE-2022-45442",
+      "GHSA-2x8x-jmrp-phxw"
+    ],
+    "title": "Sinatra's attachment helper interpolates an unescaped filename into the Content-Disposition header, enabling header injection and Reflected File Download before 2.2.3 and 3.0.4",
+    "category_l1": "header_injection",
+    "category_l2": "unescaped filename in Content-Disposition output from the attachment helper (Reflected File Download)",
+    "cwe_ids": [
+      "CWE-494"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+      "score": 8.8,
+      "level": "high",
+      "source": "CNA GitHub_M metric, NVD Primary metric nvd@nist.gov and OSV GHSA-2x8x-jmrp-phxw all publish the identical CVSS 3.1 8.8 HIGH vector; GHSA database_specific severity HIGH",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-45442"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "RubyGems",
+        "package": "sinatra",
+        "purl": "pkg:gem/sinatra",
+        "affected_range": ">=2.0,<2.2.3"
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "sinatra",
+        "purl": "pkg:gem/sinatra",
+        "affected_range": ">=3.0,<3.0.4"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "3.0 line",
+        "sha": "ea8fc9495a350f7551b39e3025bfcd06f49f363b",
+        "message": "escape filename in the Content-Disposition header",
+        "url": "https://github.com/sinatra/sinatra/commit/ea8fc9495a350f7551b39e3025bfcd06f49f363b"
+      },
+      {
+        "branch": "2.2 line",
+        "sha": "1808bcdf3424eab0c659ef2d0e85579aab977a1a",
+        "message": "escape filename in the Content-Disposition header",
+        "url": "https://github.com/sinatra/sinatra/commit/1808bcdf3424eab0c659ef2d0e85579aab977a1a"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "RubyGems",
+        "package": "sinatra",
+        "tag": "v3.0.4",
+        "version": "3.0.4",
+        "release_url": "https://github.com/sinatra/sinatra/releases/tag/v3.0.4",
+        "verified_content": "Tag v3.0.4 peels to eca7b54a (subject '3.0.4 release'). lib/sinatra/base.rb blob cbb3f2f is exactly the post-image of fix commit ea8fc949 (the patch header reads index d7e2d65..cbb3f2f, and d7e2d65 is the v3.0.3 blob). The fixed file defines MULTIPART_FORM_DATA_REPLACEMENT_TABLE at lines 399-404 and applies gsub(/[\"\\r\\n]/, ...) at line 412."
+      },
+      {
+        "ecosystem": "RubyGems",
+        "package": "sinatra",
+        "tag": "v2.2.3",
+        "version": "2.2.3",
+        "release_url": "https://github.com/sinatra/sinatra/releases/tag/v2.2.3",
+        "verified_content": "Tag v2.2.3 peels to 0bdb254b (subject '2.2.3 release'). lib/sinatra/base.rb blob fb6945c is exactly the post-image of fix commit 1808bcdf (patch header index 986fe45..fb6945c; 986fe45 is the v2.2.2 blob). The same replacement table and gsub are present at lines 385-397."
+      }
+    ],
+    "published_at": "2022-11-28T00:00:00.000Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/sinatra/sinatra/security/advisories/GHSA-2x8x-jmrp-phxw",
+    "references": [
+      "https://github.com/sinatra/sinatra/security/advisories/GHSA-2x8x-jmrp-phxw",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-45442",
+      "https://github.com/sinatra/sinatra/commit/ea8fc9495a350f7551b39e3025bfcd06f49f363b",
+      "https://github.com/sinatra/sinatra/commit/1808bcdf3424eab0c659ef2d0e85579aab977a1a",
+      "https://github.com/advisories/GHSA-8x94-hmjh-97hq",
+      "https://github.com/rubysec/ruby-advisory-db/blob/master/gems/sinatra/CVE-2022-45442.yml",
+      "https://lists.debian.org/debian-lts-announce/2023/01/msg00005.html",
+      "https://www.blackhat.com/docs/eu-14/materials/eu-14-Hafif-Reflected-File-Download-A-New-Web-Attack-Vector.pdf"
+    ],
+    "vulnerable_commit": "cafaab99db5b644e5fbe2a19bdba168e671ff1f2",
+    "vulnerable_commit_basis": "tag v3.0.3 peels to cafaab99; it is inside the advisory range >=3.0,<3.0.4 and its lib/sinatra/base.rb blob d7e2d65 interpolates File.basename(filename) into the Content-Disposition header without escaping at line 405",
+    "vulnerable_version": "3.0.3",
+    "snapshot_id": "snap_916afbf76073e831",
+    "repo_id": "106995",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2022_45442_snap_916afbf76073e831",
+    "location_kind": "logic",
+    "snapshot_id": "snap_916afbf76073e831",
+    "vulnerability_id": "CVE-2022-45442",
+    "verification_method": "Static read of lib/sinatra/base.rb at v3.0.3, v3.0.4, v2.2.2 and v2.2.3, the two fix patches, the helpers tests at v3.0.3/v3.0.4, and the saved advisory records. No Ruby code was run and no request was made.",
+    "critical_operation": {
+      "file": "lib/sinatra/base.rb",
+      "function": "attachment",
+      "language": "Ruby",
+      "line": "405-405",
+      "permalink": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/lib/sinatra/base.rb#L405",
+      "code_excerpt": "      params = format('; filename=\"%s\"', File.basename(filename))\n      response['Content-Disposition'] << params",
+      "description": "attachment builds the Content-Disposition value by interpolating File.basename(filename) between the quotes of the filename parameter (line 405) and appends it to the response header (line 406). File.basename only strips directory components; it does not remove or encode a double quote, CR or LF. A filename such as `test.xml\";\\r\\next=.txt` therefore closes the quoted string and appends attacker-chosen parameters (and a raw CRLF, where the server does not reject it), so the saved download name and disposition can be controlled. The fix escapes `\"`, CR and LF to %22/%0D/%0A before interpolation; its regression test asserts the escaped header for exactly that filename."
+    },
+    "entry_point": {
+      "file": "lib/sinatra/base.rb",
+      "function": "attachment",
+      "language": "Ruby",
+      "line": 401,
+      "permalink": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/lib/sinatra/base.rb#L401",
+      "description": "attachment is a public Sinatra helper. The advisory's precondition is an application that passes user-supplied input as the filename (directly, or via send_file's :filename option, which delegates to the same helper). The framework itself provides no route that reaches the helper with request data."
+    },
+    "trace": [
+      {
+        "file": "lib/sinatra/base.rb",
+        "function": "attachment",
+        "language": "Ruby",
+        "line": 402,
+        "permalink": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/lib/sinatra/base.rb#L402-L403",
+        "description": "the helper starts the header from the disposition and returns early when no filename was given"
+      },
+      {
+        "file": "lib/sinatra/base.rb",
+        "function": "attachment",
+        "language": "Ruby",
+        "line": 405,
+        "permalink": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/lib/sinatra/base.rb#L405",
+        "description": "File.basename(filename) keeps quotes and CR/LF, and the value is formatted into filename=\"%s\" without escaping"
+      },
+      {
+        "file": "lib/sinatra/base.rb",
+        "function": "attachment",
+        "language": "Ruby",
+        "line": 406,
+        "permalink": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/lib/sinatra/base.rb#L406",
+        "description": "the unescaped fragment is appended to response['Content-Disposition'], so the quote/CRLF breakout reaches the outgoing header"
+      },
+      {
+        "file": "lib/sinatra/base.rb",
+        "function": "send_file",
+        "language": "Ruby",
+        "line": 414,
+        "permalink": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/lib/sinatra/base.rb#L414-L420",
+        "description": "send_file forwards opts[:filename] to attachment when a disposition is requested, so the same sink is reachable through the file-serving helper"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_sinatra_osv_ghsa",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/osv_GHSA-2x8x-jmrp-phxw.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-2x8x-jmrp-phxw",
+      "retrieved_at": "2026-10-22T04:02:00Z",
+      "sha256_of_observation": "8285be00ca470bb5efcd5846b9718c120a5b5cac161fdae5db4acd9ec2045779",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases CVE-2022-45442; github_reviewed true; nvd_published_at 2022-11-28",
+        "RubyGems ranges: introduced 3.0 fixed 3.0.4 (versions 3.0.0-3.0.3), introduced 2.0.0 fixed 2.2.3",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H (8.8) and database_specific severity HIGH",
+        "database_specific cwe_ids [CWE-494]",
+        "details: application is vulnerable to RFD when the filename is derived from user-supplied input; references fix commit ea8fc949"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_cve_v5",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/cve_v5_CVE-2022-45442.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-45442",
+      "retrieved_at": "2026-10-22T04:02:00Z",
+      "sha256_of_observation": "5e3d3b56b910167b781b29fa5ee3937405e5f30b0fcd0b0b006e75a51749412f",
+      "verification_method": "CVE List v5 record (assigner GitHub_M)",
+      "result": "PASS",
+      "supports": [
+        "published 2022-11-28 by GitHub_M",
+        "CNA description: Sinatra 2.0 before 2.2.3 and 3.0 before 3.0.4; RFD attack that sets the Content-Disposition header when the filename is derived from user input; 2.2.3 and 3.0.4 contain patches",
+        "CNA CVSS 3.1 8.8 HIGH with the same vector as NVD and OSV",
+        "CNA CWE-494 and affected ranges '>= 3.0, < 3.0.4' / '>= 2.0, < 2.2.3'",
+        "references the fix commit ea8fc949, GHSA-2x8x-jmrp-phxw and GHSA-8x94-hmjh-97hq"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_nvd",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/nvd_CVE-2022-45442.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-45442",
+      "retrieved_at": "2026-10-22T04:02:00Z",
+      "sha256_of_observation": "758f9c1376870492d745890b5da0a490ea486c39bef2f433f5b200f6f27adb07",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "published 2022-11-28T21:15:10, status Modified",
+        "NVD Primary CVSS 3.1 8.8 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H and a Secondary 8.8 HIGH from security-advisories@github.com",
+        "weakness CWE-494 from the GitHub secondary source; no NVD-primary CWE",
+        "description repeats the 2.0<2.2.3 / 3.0<3.0.4 ranges and the user-supplied filename precondition",
+        "CPE product sinatrarb:sinatra plus Debian entries"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_git_checks",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/git_object_checks.txt",
+      "source_url": "https://github.com/sinatra/sinatra/commit/ea8fc9495a350f7551b39e3025bfcd06f49f363b",
+      "retrieved_at": "2026-10-22T04:05:00Z",
+      "sha256_of_observation": "50ed450d410cd0a93b7a6f8d995fac48eb3327c44eea6980ceda977823d18b13",
+      "verification_method": "per-tag shallow fetches in a bare mirror; git rev-parse / ls-tree / cat-file and the fix patches' own index lines; blob identity compared across v3.0.3, v3.0.4, v2.2.2 and v2.2.3",
+      "result": "PASS",
+      "supports": [
+        "v3.0.3 peels to cafaab99 (subject '3.0.3 release'); base.rb blob d7e2d65",
+        "v3.0.4 peels to eca7b54a (subject '3.0.4 release'); base.rb blob cbb3f2f equals the ea8fc949 post-image",
+        "v2.2.2 base.rb blob 986fe45 and v2.2.3 blob fb6945c equal the 1808bcdf pre/post-images",
+        "fix commits ea8fc949 (parent c90f203f) and 1808bcdf (parent ee12b185), both 'escape filename in the Content-Disposition header'",
+        "v3.0.4 regression test at test/helpers_test.rb:784 uses the breakout filename and asserts the escaped header; v3.0.3 has no such test"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_vuln_file",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/base_3.0.3.rb",
+      "source_url": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/lib/sinatra/base.rb#L401-L410",
+      "retrieved_at": "2026-10-22T04:03:00Z",
+      "sha256_of_observation": "c3cc1273798d58e58fef64c1c8a60d8000e35c15599d9845552ca77198da2439",
+      "verification_method": "git cat-file -p v3.0.3:lib/sinatra/base.rb (2024 lines)",
+      "result": "PASS",
+      "supports": [
+        "attachment is defined at line 401",
+        "line 405: params = format('; filename=\"%s\"', File.basename(filename)) with no escaping",
+        "line 406 appends params to response['Content-Disposition']",
+        "no MULTIPART_FORM_DATA_REPLACEMENT_TABLE is defined in this file"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_fixed_3_0_4",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/base_3.0.4.rb",
+      "source_url": "https://github.com/sinatra/sinatra/blob/eca7b54a64d1b64c4245c0f025e8dabb1cafde7c/lib/sinatra/base.rb#L399-L412",
+      "retrieved_at": "2026-10-22T04:03:00Z",
+      "sha256_of_observation": "38250c5f9d03c76fe782bd3aafc9769e582b4cbabab5c89887c1d89a4e294929",
+      "verification_method": "git cat-file -p v3.0.4:lib/sinatra/base.rb (2031 lines)",
+      "result": "PASS",
+      "supports": [
+        "MULTIPART_FORM_DATA_REPLACEMENT_TABLE maps double quote to %22, CR to %0D and LF to %0A (lines 399-404)",
+        "attachment is defined at line 408",
+        "line 412 applies gsub(/[\"\\r\\n]/, MULTIPART_FORM_DATA_REPLACEMENT_TABLE) to File.basename(filename) before formatting"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_vuln_2_2_2",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/base_2.2.2.rb",
+      "source_url": "https://github.com/sinatra/sinatra/blob/a2b82435c32ece4f649b1c9494913cb89fbc659a/lib/sinatra/base.rb#L386-L390",
+      "retrieved_at": "2026-10-22T04:03:00Z",
+      "sha256_of_observation": "caff2df990c2b7b52f8fdf61599fcb1aee37b412b028ec21dd85fc711142d783",
+      "verification_method": "git cat-file -p v2.2.2:lib/sinatra/base.rb (2022 lines)",
+      "result": "PASS",
+      "supports": [
+        "the 2.2 line has the same sink: line 389 params = '; filename=\"%s\"' % File.basename(filename)",
+        "attachment is defined at line 386 and appends the fragment to Content-Disposition"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_fixed_2_2_3",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/base_2.2.3.rb",
+      "source_url": "https://github.com/sinatra/sinatra/blob/0bdb254b9a21aaef9eb24540f174318abefca2a2/lib/sinatra/base.rb#L385-L397",
+      "retrieved_at": "2026-10-22T04:03:00Z",
+      "sha256_of_observation": "ad83491454ad0cb9e2d7b8cb7d35d403081b9dfadb79304f85335a95bccf9fa2",
+      "verification_method": "git cat-file -p v2.2.3:lib/sinatra/base.rb (2029 lines)",
+      "result": "PASS",
+      "supports": [
+        "the same MULTIPART_FORM_DATA_REPLACEMENT_TABLE is defined at lines 385-389",
+        "line 397 applies the gsub to File.basename(filename)"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_regression_test",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/test_helpers_3.0.4.rb",
+      "source_url": "https://github.com/sinatra/sinatra/blob/eca7b54a64d1b64c4245c0f025e8dabb1cafde7c/test/helpers_test.rb#L784-L797",
+      "retrieved_at": "2026-10-22T04:03:00Z",
+      "sha256_of_observation": "3ab1e5040512218efceaf5c4b2fdf83ea6eefb9844cf3b860bfa74437a5459b1",
+      "verification_method": "git cat-file -p v3.0.4:test/helpers_test.rb (2045 lines)",
+      "result": "PASS",
+      "supports": [
+        "the added test at line 784 is named 'escapes filename in the Content-Disposition header according to the multipart form data spec in WHATWG living standard'",
+        "it calls attachment \"test.xml\\\";\\r\\next=.txt\" and asserts 'attachment; filename=\"test.xml%22;%0D%0Aext=.txt\"'",
+        "the body remains '<sinatra></sinatra>', i.e. the test is about the header only"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_test_before",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/test_helpers_3.0.3.rb",
+      "source_url": "https://github.com/sinatra/sinatra/blob/cafaab99db5b644e5fbe2a19bdba168e671ff1f2/test/helpers_test.rb#L746-L780",
+      "retrieved_at": "2026-10-22T04:03:00Z",
+      "sha256_of_observation": "8403e6af76fb895d2393489d36a5be6f62dedb40ce6abfd3103773b5162718c5",
+      "verification_method": "git cat-file -p v3.0.3:test/helpers_test.rb (2033 lines)",
+      "result": "PASS",
+      "supports": [
+        "the attachment tests at lines 746-780 only pass 'test.xml' and 'test'",
+        "no test in this file uses a quote, CR or LF in the filename",
+        "the escaped-header assertion is absent before the fix"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_fix_patch_3_0",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/fix_commit_ea8fc949_3.0.patch",
+      "source_url": "https://github.com/sinatra/sinatra/commit/ea8fc9495a350f7551b39e3025bfcd06f49f363b",
+      "retrieved_at": "2026-10-22T04:04:00Z",
+      "sha256_of_observation": "df873ff626448af85845ff0305ef68137896fbbb643c5212f9b47b92cfa5838a",
+      "verification_method": "git show ea8fc949 (parent c90f203f)",
+      "result": "PASS",
+      "supports": [
+        "adds the MULTIPART_FORM_DATA_REPLACEMENT_TABLE constant",
+        "replaces the raw File.basename(filename) with the gsub-escaped form",
+        "adds the regression test in test/helpers_test.rb",
+        "the diff index line d7e2d65..cbb3f2f ties the change to the v3.0.3 and v3.0.4 blobs"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_fix_patch_2_2",
+      "artifact_path": "runs/verification/sinatra_cve_2022_45442/sources/fix_commit_1808bcdf_2.2.patch",
+      "source_url": "https://github.com/sinatra/sinatra/commit/1808bcdf3424eab0c659ef2d0e85579aab977a1a",
+      "retrieved_at": "2026-10-22T04:04:00Z",
+      "sha256_of_observation": "b4b243c92758ed4b36798ec8f828fb590bd9b08ccf7f1597b2f47f66d7c88deb",
+      "verification_method": "git show 1808bcdf (parent ee12b185)",
+      "result": "PASS",
+      "supports": [
+        "the 2.2 backport applies the same replacement table and gsub",
+        "the diff index line 986fe45..fb6945c ties the change to the v2.2.2 and v2.2.3 blobs",
+        "adds the same regression test"
+      ]
+    },
+    {
+      "evidence_id": "ev_sinatra_snapshot",
+      "artifact_path": "runs/language/snap_916afbf76073e831/snapshot_proposal.json",
+      "source_url": "https://github.com/sinatra/sinatra/tree/cafaab99db5b644e5fbe2a19bdba168e671ff1f2",
+      "retrieved_at": "2026-10-22T04:00:00Z",
+      "sha256_of_observation": "c9dde10af5cd4bd41096049f1494b59990a6de38a98c3f4442d35a5fa97c0fde",
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_916afbf76073e831, tag_or_release v3.0.3, vulnerable_commit cafaab99",
+        "tag v3.0.3 resolved to cafaab99 before inventory",
+        "280 tracked files scanned; Ruby first-party 60 files / 235,904 bytes / 27.44% share",
+        "full_scan true; evaluation snapshot added for this vulnerability cycle"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 1, 2],
+    "aliases": [0, 1],
+    "critical_operation": [4, 10],
+    "cwe": [0, 1, 2],
+    "fix_commits": [3, 10, 11],
+    "fixed_releases": [3, 5, 7],
+    "languages": [12],
+    "severity": [0, 1, 2],
+    "vulnerable_commit": [3, 4, 12]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-2x8x-jmrp-phxw, RubyGems ranges)",
+      "CVE List v5 record from GitHub_M",
+      "NVD analysis (Primary CVSS 3.1 8.8 HIGH, CWE-494 from the GitHub secondary source)",
+      "upstream git history (tags v2.2.2-v3.0.4, fixes ea8fc949 and 1808bcdf)"
+    ],
+    "independent_of_primary": true,
+    "notes": "All three published sources carry the identical CVSS 3.1 8.8 HIGH vector and the same HIGH level; the CNA and NVD Primary scores are not mirrors of an OSV-derived number (NVD lists its own Primary metric). CWE-494 is published by the CNA and GHSA and repeated by NVD from the GitHub secondary source; no competing CWE is published. The affected ranges agree (>=2.0,<2.2.3 and >=3.0,<3.0.4) and the git blobs confirm v3.0.3 is vulnerable while v3.0.4 and v2.2.3 carry the fix.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read lib/sinatra/base.rb at v3.0.3 and confirm line 405 interpolates File.basename(filename) into Content-Disposition without escaping quotes or CR/LF.",
+      "An independent reviewer must confirm v3.0.4 (blob cbb3f2f) and v2.2.3 (blob fb6945c) are the fix post-images of ea8fc949 and 1808bcdf.",
+      "An independent reviewer must confirm the advisory's precondition (application-derived filename) and decide whether that is attacker-controllable enough for this dataset's impact criterion.",
+      "An independent reviewer must check whether any independent (non-vendor, non-reporter) analysis or reproduction exists; if not, evidence_independent is false and the entry stays below grade A.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No code was executed and no HTTP response was produced: the header injection is read from the string interpolation and the fix, not reproduced against a Rack server.",
+    "The advisory's precondition is an application that derives the filename from user input; Sinatra's own routes never call attachment with request data, so stock applications are not exposed.",
+    "Whether a raw CR/LF survives depends on the Rack server/proxy in front of the application; the quote breakout and the resulting filename manipulation do not depend on CRLF acceptance.",
+    "The 2.2.3 fix was content-verified only by blob identity and the backport patch; no 2.2.x runtime was exercised.",
+    "NVD publishes no Primary CWE; CWE-494 rests on the CNA and GHSA records. The classification as CWE-494 rather than a header-injection CWE is a source judgement, not independently re-derived.",
+    "No third-party reproduction or analysis was found in the saved sources; if none exists, the independent-evidence field will be false and the entry cannot reach grade A."
+  ],
+  "open_questions": [
+    "Whether typical Rack versions in the affected range reject or strip CR/LF in response headers, which would reduce the impact to quote-only filename manipulation.",
+    "Whether the Reflected File Download impact requires the response body to contain attacker-controlled content in addition to the filename; the advisory frames it as an application pattern rather than a framework-internal route.",
+    "Whether the same unescaped helper is reachable through sinatra-contrib or other bundled extensions in ways the advisory does not enumerate."
+  ]
+}

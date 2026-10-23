@@ -1,0 +1,104 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; master fix 4710d653 and LTS fix c3d776a4 (both
+"[SECURITY-783]"), and the release tags jenkins-2.541 / jenkins-2.528.3 were fetched
+with --depth=5 (so some parents are outside the shallow boundary).
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/BuildAuthorizationToken.java'
+  f101eb3d6e7466b2073baa079891942d7a0c3341     (4216 bytes, 114 lines; matches file_inventory.json)
+
+Vulnerable code at 2.441 (BuildAuthorizationToken.java, blob f101eb3d):
+    48  public final class BuildAuthorizationToken {
+    49      private final String token;
+    51      public BuildAuthorizationToken(String token) {
+    52          this.token = token;
+    53      }
+    98      public static final class ConverterImpl extends AbstractSingleValueConverter {
+   104          public Object fromString(String str) {
+   106              return new BuildAuthorizationToken(str);
+   107          }
+   109          public String toString(Object obj) {
+   111              return ((BuildAuthorizationToken) obj).token;
+   112          }
+   113      }
+  The token is a plain String both at rest and in the XStream representation used for
+  job config.xml, so the serialized job configuration contains the build
+  authorization token in clear text. Jenkins' config.xml redaction (from 2.500) only
+  handles Secret values, so a user with Item/Extended Read sees this string
+  unmasked, and it is also readable in clear text on the controller file system.
+
+Fix commits:
+  $ git show -s --format='%H %P | %ci | %s' 4710d653 c3d776a4
+  4710d65339251aaf1d1599f19545db99be24d981 1366fa95dfff89ee0261b1db0fb4f28dcdbeee33 | 2025-12-02 13:46:01 +0000 | [SECURITY-783]  (master)
+  c3d776a4d4b5c517ee469a6c0d9b651774eb6a92 <parent outside shallow boundary> | 2025-11-26 08:56:19 +0000 | [SECURITY-783]  (2.528.x LTS)
+  Both change the field to hudson.util.Secret:
+    62      private final Secret token;
+    70      public BuildAuthorizationToken(String token) { this.token = Secret.fromString(token); ... }
+    78      public BuildAuthorizationToken(Secret token) { ... }
+   111  public static void checkPermission(...) { ... MessageDigest.isEqual(providedToken.getBytes(UTF_8), token.getToken().getBytes(UTF_8)) ... }
+   140  @Deprecated public String getToken() { return token.getPlainText(); }
+   148  public Secret getEncryptedToken() { return token; }
+   152  public static final class ConverterImpl extends AbstractSingleValueConverter {
+   159      public Object fromString(String str) {
+   160          if (Secret.decrypt(str) == null) {
+   161              return new BuildAuthorizationToken(str);
+   162          }
+   163          return new BuildAuthorizationToken(Secret.fromString(str));
+   164      }
+   167      public String toString(Object obj) {
+   168          final BuildAuthorizationToken bat = (BuildAuthorizationToken) obj;
+   170          bat.fromPlaintext = false;
+   171          return bat.token.getEncryptedValue();
+   172      }
+   173  }
+  plus an ItemListenerImpl (@Extension, lines 175-199) that reports legacy plaintext
+  tokens through OldDataMonitor on load/update.
+  File blobs: master fix 96fb27f8 (same as tag jenkins-2.541), LTS fix e6d7de58 (same
+  as tag jenkins-2.528.3); the two differ because the branches diverged.
+  Regression test: BuildAuthorizationTokenMigrationTest (new file) loads jobs whose
+  config.xml contains a plain-token <authToken> and asserts the value is migrated to
+  an encrypted Secret on save, and that jobs without a token are unaffected.
+
+Fixed releases:
+  Jenkins 2.541 (weekly): tag jenkins-2.541, release commit
+    ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3 (parent efa18163).
+  Jenkins 2.528.3 (LTS): tag jenkins-2.528.3, release commit
+    40e29179c3edf88b685d7043ab7c37cc8591138f (parent 92b61576).
+  $ git merge-base --is-ancestor 4710d653 ea9c7278 -> exit 0
+  $ git merge-base --is-ancestor c3d776a4 40e29179 -> exit 0
+
+Affected range:
+  CNA record: Jenkins 2.540 and earlier, LTS 2.528.2 and earlier; unaffected from
+  2.541 (weekly) and 2.528.3 (LTS), defaultStatus affected.
+  OSV CVE GIT range: introduced 0 -> fixed 40e29179 (2.528.3) and ea9c7278 (2.541).
+  The GHSA ECOSYSTEM weekly range is introduced 2.529 -> fixed 2.541, which conflicts
+  with the CNA text and with the CVE GIT range; the LTS range is 0 -> 2.528.3.
+  Snapshot 2.441 is inside the CNA/GIT affected range.
+
+Related sibling (kept separate, see advisory):
+  SECURITY-783 is also the subject of CVE-2025-67638 (the config form displays the
+  token unmasked); this dossier covers only the cleartext storage in config.xml and
+  the XStream converter, which is CVE-2025-67637.
+
+Public records:
+  CVE List v5 CVE-2025-67637, state PUBLISHED, datePublished 2025-12-10,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE. Description:
+  Jenkins 2.540 and earlier, LTS 2.528.2 and earlier stores build authorization
+  tokens unencrypted in job config.xml files on the controller where they can be
+  viewed by users with Item/Extended Read permission or access to the controller
+  file system.
+  CISA-ADP (Secondary) metrics: CVSS 3.1 4.3 MEDIUM
+  CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N and CWE-312.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), CWE-312 from the same source; no Primary metric.
+  OSV/GHSA-fxj7-6v9w-xc76: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-312].
+  Jenkins advisory 2025-12-10: https://www.jenkins.io/security/advisory/2025-12-10/
+  #SECURITY-783.
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

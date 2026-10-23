@@ -1,0 +1,384 @@
+{
+ "candidate_id": "disc2_00fa6ecb103cd81d803f7210",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T05:30:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "1103607",
+  "full_name": "jenkinsci/jenkins",
+  "canonical_url": "https://github.com/jenkinsci/jenkins",
+  "primary_language": "Java",
+  "project_kind": "extensible automation server",
+  "snapshot_id": "snap_d9b0ffa82cd068d0"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2024-23898",
+  "aliases": [
+   "CVE-2024-23898",
+   "GHSA-53ph-2r2x-vqw8"
+  ],
+  "title": "Jenkins CLI WebSocket endpoint accepts cross-origin upgrades without Origin validation, enabling cross-site WebSocket hijacking",
+  "repo_id": "1103607",
+  "snapshot_id": "snap_d9b0ffa82cd068d0",
+  "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+  "affected_packages": [
+   {
+    "ecosystem": "Maven",
+    "package": "org.jenkins-ci.main:jenkins-core",
+    "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+    "affected_range": ">=2.217,<2.442"
+   },
+   {
+    "ecosystem": "Maven",
+    "package": "org.jenkins-ci.main:jenkins-core",
+    "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+    "affected_range": ">=2.222.1,<2.426.3"
+   },
+   {
+    "ecosystem": "Maven",
+    "package": "org.jenkins-ci.main:jenkins-core",
+    "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+    "affected_range": ">=2.440,<2.440.1"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Maven",
+    "package": "org.jenkins-ci.main:jenkins-core",
+    "version": "2.442",
+    "tag": "jenkins-2.442",
+    "release_url": "https://github.com/jenkinsci/jenkins/releases/tag/jenkins-2.442",
+    "verified_content": "At jenkins-2.442 (10b1b883) doWs(StaplerRequest) compares the Origin header with the request-derived root URL and returns 403 on mismatch"
+   },
+   {
+    "ecosystem": "Maven",
+    "package": "org.jenkins-ci.main:jenkins-core",
+    "version": "2.440.1",
+    "tag": "jenkins-2.440.1",
+    "release_url": "https://github.com/jenkinsci/jenkins/releases/tag/jenkins-2.440.1",
+    "verified_content": "Listed as a fixed LTS release by the upstream advisory and the CNA affected-version boundaries"
+   },
+   {
+    "ecosystem": "Maven",
+    "package": "org.jenkins-ci.main:jenkins-core",
+    "version": "2.426.3",
+    "tag": "jenkins-2.426.3",
+    "release_url": "https://github.com/jenkinsci/jenkins/releases/tag/jenkins-2.426.3",
+    "verified_content": "Listed as a fixed LTS release by the upstream advisory, the CNA record and the OSV range"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "de450967f38398169650b55c002f1229a3fcdb1b",
+    "branch": "master",
+    "message": "[SECURITY-3315]",
+    "url": "https://github.com/jenkinsci/jenkins/commit/de450967f38398169650b55c002f1229a3fcdb1b"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-346"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+   "score": 8.8,
+   "level": "high",
+   "numeric_level_rationale": "NVD Primary and NVD Secondary both publish CVSS 3.1 8.8 High with this vector; the GHSA/OSV label is HIGH. The CNA record carries no metrics, so NVD is the only numeric source.",
+   "source": "nvd@nist.gov (NVD Primary) and CISA-ADP (NVD Secondary), both CVSS 3.1 8.8 High",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-23898",
+   "all_published_scores": [
+    {
+     "version": "3.1",
+     "score": 8.8,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+    },
+    {
+     "version": "3.1",
+     "score": 8.8,
+     "level": "high",
+     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP, NVD Secondary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H"
+    }
+   ],
+   "ghsa_label_note": "GHSA/OSV labels the issue HIGH and publishes the same CVSS 3.1 vector; it carries no separate numeric base score."
+  },
+  "category_l1": "cross_site_websocket_hijacking",
+  "category_l2": "WebSocket endpoint authenticates the ambient session but never validates the Origin header, so a cross-site page can open an authenticated CLI channel",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://www.jenkins.io/security/advisory/2024-01-24/#SECURITY-3315",
+  "published_at": "2024-01-24T18:15:09Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://www.jenkins.io/security/advisory/2024-01-24/#SECURITY-3315",
+   "https://github.com/jenkinsci/jenkins/commit/de450967f38398169650b55c002f1229a3fcdb1b",
+   "https://nvd.nist.gov/vuln/detail/CVE-2024-23898",
+   "https://api.osv.dev/v1/vulns/GHSA-53ph-2r2x-vqw8"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2024-23898_snap_d9b0ffa82cd068d0",
+  "vulnerability_id": "CVE-2024-23898",
+  "snapshot_id": "snap_d9b0ffa82cd068d0",
+  "location_kind": "logic",
+  "file": "core/src/main/java/hudson/cli/CLIAction.java",
+  "function": "CLIAction::doWs",
+  "language": "Java",
+  "line": 117,
+  "critical_operation": {
+   "code_excerpt": "    public HttpResponse doWs() {\n        if (!WebSockets.isSupported()) {\n            return HttpResponses.notFound();\n        }\n        Authentication authentication = Jenkins.getAuthentication2();",
+   "description": "doWs() handles GET /cli/ws, the WebSocket transport of the Jenkins CLI. It checks only that WebSockets are supported and then takes the ambient Authentication from the request (session cookie or HTTP Basic/API token) before upgrading the connection. Because there is no Origin-header validation, a page on any origin can open the WebSocket with the victim browser's Jenkins cookies attached and drive CLI commands as the victim (CWE-346). The fix in de450967 adds StaplerRequest and rejects a missing or mismatched Origin unless the ALLOW_WEBSOCKET escape hatch is enabled.",
+   "file": "core/src/main/java/hudson/cli/CLIAction.java",
+   "function": "CLIAction::doWs",
+   "language": "Java",
+   "line": 117,
+   "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLIAction.java#L117"
+  },
+  "entry_point": {
+   "description": "A victim with an authenticated Jenkins session visits an attacker page; script in that page opens a cross-origin WebSocket to /cli/ws, and the browser attaches the Jenkins session cookie.",
+   "file": "core/src/main/java/hudson/cli/CLIAction.java",
+   "function": "CLIAction::doWs",
+   "language": "Java",
+   "line": 117,
+   "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLIAction.java#L117"
+  },
+  "trace": [
+   {
+    "description": "Stapler maps GET /cli/ws to doWs() on the UnprotectedRootAction",
+    "file": "core/src/main/java/hudson/cli/CLIAction.java",
+    "function": "CLIAction::doWs",
+    "language": "Java",
+    "line": 117,
+    "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLIAction.java#L117"
+   },
+   {
+    "description": "WebSockets.isSupported() gates the endpoint but performs no origin check",
+    "file": "core/src/main/java/hudson/cli/CLIAction.java",
+    "function": "CLIAction::isWebSocketSupported",
+    "language": "Java",
+    "line": 111,
+    "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLIAction.java#L111"
+   },
+   {
+    "description": "the ambient Authentication is taken from the cross-origin request",
+    "file": "core/src/main/java/hudson/cli/CLIAction.java",
+    "function": "CLIAction::doWs",
+    "language": "Java",
+    "line": 121,
+    "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/cli/CLIAction.java#L121"
+   }
+  ],
+  "verification_method": "Static read of CLIAction.java at jenkins-2.441 and jenkins-2.442, the SECURITY-3315 patch and regression test, and git ancestry; no browser, WebSocket or Jenkins instance was run."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/cve_v5.json",
+   "evidence_id": "ev_jenkins_23898_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "2b786ea7693616f7eb525d3996ec65c9a29f923092724f1c9d5b1689c5c78c2e",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-23898",
+   "supports": [
+    "CVE state PUBLISHED, assigner Jenkins Project",
+    "CNA description: versions 2.217 through 2.441 and LTS 2.222.1 through 2.426.2 do not validate Origin on the CLI WebSocket endpoint, enabling CSWSH",
+    "CNA affected versions encode fix boundaries 2.442, 2.440.1 and 2.426.3",
+    "the record carries no CNA CVSS metrics or problemTypes"
+   ],
+   "verification_method": "CVE List v5 CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/nvd_cve.json",
+   "evidence_id": "ev_jenkins_23898_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "b2ba530cf7261c031c9ca4fc315f5bc63213a67f0a1feb20264aa844e1d353de",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-23898",
+   "supports": [
+    "NVD Primary CVSS 3.1 8.8 HIGH from nvd@nist.gov: AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+    "NVD Secondary CVSS 3.1 8.8 HIGH with the same vector",
+    "published 2024-01-24, last modified 2026-06-17",
+    "SSVC: exploitation none, automatable no, technical impact total"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/osv_ghsa.json",
+   "evidence_id": "ev_jenkins_23898_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "5474cfb321c15feaab10a54eb736e5d90e297168e704810bebad876bf8c80112",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-53ph-2r2x-vqw8",
+   "supports": [
+    "GHSA-53ph-2r2x-vqw8 aliases CVE-2024-23898, github_reviewed, database severity HIGH",
+    "cwe_ids CWE-346",
+    "affected org.jenkins-ci.main:jenkins-core has two ranges: introduced 2.217 fixed 2.426.3, and introduced 2.427 fixed 2.442",
+    "the second range additionally lists versions 2.440, 2.440.1, 2.440.2 and 2.440.3 as affected, although 2.440.1 is the fixed LTS release per the CNA record and the git tags",
+    "details state Jenkins 2.217 through 2.441 and LTS 2.222.1 through 2.426.2 lack Origin validation on the CLI WebSocket endpoint",
+    "references name fix commit de450967"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/advisory.html",
+   "evidence_id": "ev_jenkins_23898_advisory",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "b01ecac840c461a8179937f14e76bc2fd6d1a222d04f4a54a1560e7ece2bfaa8",
+   "source_url": "https://www.jenkins.io/security/advisory/2024-01-24/",
+   "supports": [
+    "SECURITY-3315 advisory confirms affected weekly 2.217-2.441 and LTS 2.222.1-2.426.2",
+    "fixed in weekly 2.442 and LTS 2.440.1 / 2.426.3",
+    "the endpoint relies on default web authentication (session cookies or Basic/API token), which a cross-site page can ride"
+   ],
+   "verification_method": "upstream advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/CLIAction-2.441.java",
+   "evidence_id": "ev_jenkins_23898_vuln_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "710160adc8116910cf077930585b2c53f0eb5c71718f40ba0ebb232948f61ff6",
+   "source_url": "https://github.com/jenkinsci/jenkins/blob/jenkins-2.441/core/src/main/java/hudson/cli/CLIAction.java#L117",
+   "supports": [
+    "line 117 declares doWs() with no request parameter and no Origin check",
+    "lines 118-120 only return 404 when WebSockets.isSupported() is false",
+    "line 121 authenticates from the ambient request and upgrades the session",
+    "the WebSocket CLI path reaches this handler for /cli/ws"
+   ],
+   "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441)"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/CLIAction-2.442.java",
+   "evidence_id": "ev_jenkins_23898_fixed_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "2f57aa421af80d8740c631a614b23f2137f6ca6597e7e083e548dce7e866c98f",
+   "source_url": "https://github.com/jenkinsci/jenkins/blob/jenkins-2.442/core/src/main/java/hudson/cli/CLIAction.java#L125",
+   "supports": [
+    "line 125 changes doWs() to receive StaplerRequest",
+    "lines 129-135 reject missing or mismatched Origin unless the ALLOW_WEBSOCKET escape hatch is set",
+    "line 137 rejects all WebSocket upgrades when ALLOW_WEBSOCKET is explicitly false"
+   ],
+   "verification_method": "file read at release tag jenkins-2.442 (10b1b883)"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/Security3315Test_2.442.java",
+   "evidence_id": "ev_jenkins_23898_test",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "d32e12055481cfd2cd11c00dc4bdf9ec498e2f06d6ce04456f049461d555e587",
+   "source_url": "https://github.com/jenkinsci/jenkins/blob/jenkins-2.442/test/src/test/java/hudson/cli/Security3315Test.java",
+   "supports": [
+    "the regression test requests /cli/ws with no Origin, a foreign Origin and a mismatched port",
+    "it expects HTTP 403 unless the escape hatch is true",
+    "it asserts 400 (WebSocket success in HtmlUnit) only when ALLOW_WEBSOCKET=true"
+   ],
+   "verification_method": "test source read at jenkins-2.442"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/fix_commit.patch",
+   "evidence_id": "ev_jenkins_23898_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "e69d223ae7d7c72a85bccaf0eae7fcaff8ea0a9730999c4a2913ab9201704bf8",
+   "source_url": "https://github.com/jenkinsci/jenkins/commit/de450967f38398169650b55c002f1229a3fcdb1b",
+   "supports": [
+    "the patch adds an Origin check to CLIAction.doWs() with an optional ALLOW_WEBSOCKET escape hatch",
+    "it adds Security3315Test covering the no-Origin, wrong-host and wrong-port cases"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/jenkins_cve_2024_23898/sources/git_object_checks.txt",
+   "evidence_id": "ev_jenkins_23898_git",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T05:30:00Z",
+   "sha256_of_observation": "9a27633b61e2c69a5bd08d9041f85fb8f1891d809451ec8d9fe4ff8153c6208c",
+   "source_url": "https://github.com/jenkinsci/jenkins/commit/de450967f38398169650b55c002f1229a3fcdb1b",
+   "supports": [
+    "snapshot commit 3b0de10d is the jenkins-2.441 release commit",
+    "fix de450967 is not an ancestor of 2.441 (merge-base exit 1)",
+    "fix de450967 is an ancestor of jenkins-2.442 (release commit 10b1b883)",
+    "git tag --contains de450967 returns jenkins-2.442"
+   ],
+   "verification_method": "git log/merge-base/tag with local bare mirror"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   4,
+   7
+  ],
+  "cwe": [
+   2
+  ],
+  "fix_commits": [
+   2,
+   6,
+   7
+  ],
+  "fixed_releases": [
+   2,
+   3,
+   5,
+   7
+  ],
+  "languages": [
+   4,
+   5
+  ],
+  "severity": [
+   1,
+   2
+  ],
+  "vulnerable_commit": [
+   7
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 Jenkins CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "NVD, GHSA/OSV, the Jenkins advisory and git history agree on the defect, the affected weekly range 2.217-2.441 and the fix commit de450967. The current OSV record (modified 2026-08-07) carries two ranges, the second being introduced 2.427 fixed 2.442, but its version list still names the fixed LTS releases 2.440.1-2.440.3 as affected. That conflicts with the CNA boundaries and with the 2.440.1 tree, which contains the fix; the source disagreement is preserved here rather than resolved.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read CLIAction.doWs() at 3b0de10d and confirm there is no Origin validation before the WebSocket upgrade.",
+   "An independent reviewer must confirm de450967 is not an ancestor of 2.441 and is contained in jenkins-2.442, and that the patch adds the Origin check.",
+   "An independent reviewer must confirm the affected range and the 2.442 / 2.440.1 / 2.426.3 fixed releases.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No browser, WebSocket client or Jenkins instance was run; the hijack is established statically from the handler and browser cookie behavior.",
+  "The WebSocket CLI transport is only enabled when the bundled Jetty supports WebSockets; deployments on other containers may not expose /cli/ws.",
+  "The OSV version list names 2.440.1-2.440.3 as affected while the CNA record, the upstream advisory and the 2.440.1 tree treat 2.440.1 as fixed; this dossier keeps the latter."
+ ],
+ "open_questions": [
+  "Whether every supported servlet container exposes /cli/ws was not audited.",
+  "The exact set of CLI commands reachable over the WebSocket transport was not enumerated."
+ ]
+}

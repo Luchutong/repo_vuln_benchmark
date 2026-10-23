@@ -1,0 +1,371 @@
+{
+  "candidate_id": "disc2_cf687150cfd1e463ab3a8550",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T04:00:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-67637",
+    "aliases": [
+      "CVE-2025-67637",
+      "GHSA-fxj7-6v9w-xc76",
+      "BIT-jenkins-2025-67637"
+    ],
+    "title": "Jenkins stores build authorization tokens unencrypted in job config.xml files",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.540; LTS <=2.528.2 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.541",
+        "tag": "jenkins-2.541",
+        "release_url": "https://www.jenkins.io/changelog/#v2.541",
+        "verified_content": "The 2.541 release commit ea9c7278 has the SECURITY-783 commit 4710d653 as an ancestor (git merge-base --is-ancestor exits 0), and BuildAuthorizationToken.java at the tag is blob 96fb27f8, the same blob as at 4710d653. The 2.528.3 release commit 40e29179 has the LTS commit c3d776a4 as an ancestor, and the file at that tag is blob e6d7de58, the same blob as at c3d776a4. In both fixed trees the token field is a hudson.util.Secret and the XStream converter writes Secret.getEncryptedValue(), so new and migrated job configurations contain the token only in encrypted form. BuildAuthorizationTokenMigrationTest loads a job whose config.xml holds a plain <authToken> and asserts it is migrated to an encrypted Secret on save and that the plaintext no longer appears."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "4710d65339251aaf1d1599f19545db99be24d981",
+        "branch": "master",
+        "release": "2.541",
+        "message": "[SECURITY-783]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/4710d65339251aaf1d1599f19545db99be24d981"
+      },
+      {
+        "sha": "c3d776a4d4b5c517ee469a6c0d9b651774eb6a92",
+        "branch": "2.528.x LTS",
+        "release": "2.528.3",
+        "message": "[SECURITY-783]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/c3d776a4d4b5c517ee469a6c0d9b651774eb6a92"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-312"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-67637",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "GHSA-fxj7-6v9w-xc76 / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "cleartext_storage",
+    "category_l2": "The build authorization token is held in a plain String and emitted verbatim by the XStream single-value converter, so job config.xml stores it in clear text and the config.xml redaction layer, which handles Secret values only, does not mask it",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-783",
+    "published_at": "2025-12-10T16:50:36Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-783",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-67637",
+      "https://github.com/advisories/GHSA-fxj7-6v9w-xc76",
+      "https://github.com/jenkinsci/jenkins/commit/4710d65339251aaf1d1599f19545db99be24d981"
+    ]
+  },
+  "description": "A Jenkins job can be triggered remotely with a build authorization token, captured on the job configuration form (pseudoRemoteTrigger / authToken) and stored on the job as a BuildAuthorizationToken. At 2.441 that class keeps the value in a plain String field (line 49) and its XStream ConverterImpl serializes it with ((BuildAuthorizationToken) obj).token (lines 109-112), so every job config.xml on the controller contains the build authorization token in clear text. Two consequences follow from the same storage decision. First, any user who can read job configuration XML - in particular Item/Extended Read, which is served through the config.xml endpoint - obtains the plaintext token, because the config.xml redaction introduced in 2.500 only knows how to mask Secret values and BuildAuthorizationToken is not one. Second, anyone with access to the controller file system can read the token directly from the file. The 2.541/2.528.3 fix commits 4710d653 and c3d776a4 change the field to hudson.util.Secret, keep a String constructor that marks the value as originally plaintext, make the converter write Secret.getEncryptedValue() and set fromPlaintext=false when re-saving, accept both plaintext and already-encrypted values when loading old XML, and add an ItemListener that reports legacy plaintext tokens through OldDataMonitor. BuildAuthorizationTokenMigrationTest loads a job config that contains <authToken> with the plaintext OLDTOKEN and asserts the token is migrated, the re-saved config no longer contains the plaintext and contains the encrypted value instead, and the OldData administrative monitor reports the affected job only.",
+  "location": {
+    "location_id": "loc_CVE-2025-67637_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-67637",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+    "function": "ConverterImpl.toString (field token)",
+    "language": "Java",
+    "line": "49-112",
+    "critical_operation": {
+      "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+      "function": "ConverterImpl.toString",
+      "language": "Java",
+      "line": "98-113",
+      "code_excerpt": "    private final String token;\n\n    public BuildAuthorizationToken(String token) {\n        this.token = token;\n    }\n...\n    public static final class ConverterImpl extends AbstractSingleValueConverter {\n        @Override\n        public Object fromString(String str) {\n            return new BuildAuthorizationToken(str);\n        }\n\n        @Override\n        public String toString(Object obj) {\n            return ((BuildAuthorizationToken) obj).token;\n        }\n    }",
+      "description": "The token is a plain String and the converter's toString returns it verbatim, so the value written into job config.xml is cleartext. Because it is not a Secret, the 2.500 config.xml redaction cannot mask it, which is what makes the token readable by Item/Extended Read users as well as from the controller file system.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/BuildAuthorizationToken.java#L98-L113"
+    },
+    "entry_point": {
+      "description": "Reading a job's config.xml (GET /job/<name>/config.xml) as a user with Overall/Read and Item/Extended Read but without Item/Configure, or reading the same file on the controller file system.",
+      "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+      "function": "ConverterImpl.toString",
+      "language": "Java",
+      "line": "98-113",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/BuildAuthorizationToken.java#L98-L113"
+    },
+    "trace": [
+      {
+        "description": "the job configuration form supplies the token and it is stored as a plain String field",
+        "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+        "function": "create",
+        "language": "Java",
+        "line": "49-63",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/BuildAuthorizationToken.java#L49-L63"
+      },
+      {
+        "description": "the XStream converter serializes the plain String into config.xml",
+        "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+        "function": "ConverterImpl.toString",
+        "language": "Java",
+        "line": "98-113",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/BuildAuthorizationToken.java#L98-L113"
+      },
+      {
+        "description": "the fixed tree stores a Secret and writes its encrypted value (2.541 lines 62-78 and 167-172)",
+        "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+        "function": "ConverterImpl.toString",
+        "language": "Java",
+        "line": "152-173",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3/core/src/main/java/hudson/model/BuildAuthorizationToken.java#L152-L173"
+      }
+    ],
+    "verification_method": "Static read of BuildAuthorizationToken.java at 2.441 and at the two fix commits and fixed release tags, plus the 4710d653 patch and its BuildAuthorizationTokenMigrationTest; no Jenkins instance, HTTP request or test was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_67637_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-67637",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "6de82c290b46aebe732a03e272a5ec214e86232362c4e82da90761aef9195e23",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-12-10, assigner Jenkins",
+        "description: Jenkins 2.540 and earlier, LTS 2.528.2 and earlier stores build authorization tokens unencrypted in job config.xml files on the controller where they can be viewed by users with Item/Extended Read permission or access to the controller file system",
+        "affected versions: weekly unaffected from 2.541, LTS 2.528.* unaffected from 2.528.3; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-783"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-67637",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "79b0651f1e67e0efe4704a04a136360576e189d67e446b2b80e870cca50c8325",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-12-10, status Analyzed",
+        "one CVSS 3.1 4.3 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "there is no Primary metric",
+        "CWE-312 from the same Secondary source"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-67637",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "8d3e2c3077f07346e315ff1bb9cabb47313f28f55b3d3ecb438ba3a17daa336d",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "aliases GHSA-fxj7-6v9w-xc76 and BIT-jenkins-2025-67637",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 40e29179 (2.528.3 release commit) and ea9c7278 (2.541 release commit)",
+        "OSV's extracted CPE ranges are weekly <2.541 and LTS <2.528.3"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-fxj7-6v9w-xc76",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "4b106f1df33f3bb641e5a42c095e9574a5c71f788b66cd4bd006405687246f71",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3), database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-312]",
+        "one Maven ECOSYSTEM range is introduced 0 -> fixed 2.528.3; the other is introduced 2.529 -> fixed 2.541, which conflicts with the CNA text and the CVE GIT range for the weekly line",
+        "references include https://github.com/jenkinsci/jenkins/commit/4710d65339251aaf1d1599f19545db99be24d981"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_vuln_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/BuildAuthorizationToken_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/BuildAuthorizationToken.java#L98-L113",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "df1280e072716c785c8ea59e37076d68307cadf79b771f769565110d9752965f",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob f101eb3d matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "the field is 'private final String token' at 49 and the constructor assigns it directly at 51-53",
+        "ConverterImpl.fromString builds the token from the raw string (104-107) and toString returns ((BuildAuthorizationToken) obj).token (109-112)",
+        "nothing in the class uses hudson.util.Secret, so the serialized job configuration contains the token in clear text"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_fixed_master",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/BuildAuthorizationToken_2.541.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/4710d65339251aaf1d1599f19545db99be24d981/core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "18d9dea864741c28d12f0fbfecf981f8623f743bcd15a8d110da9e8d566490c7",
+      "verification_method": "file read at tag jenkins-2.541; blob 96fb27f8, identical to the blob at the fix commit 4710d653",
+      "result": "PASS",
+      "supports": [
+        "the field is 'private final Secret token' at 62 with a String constructor that wraps Secret.fromString and marks fromPlaintext, and a Secret constructor at 78",
+        "ConverterImpl.fromString decrypts-or-wraps (159-164) and toString writes token.getEncryptedValue() and clears fromPlaintext (167-172)",
+        "an ItemListenerImpl reports legacy plaintext tokens through OldDataMonitor (175-199)"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_fixed_lts",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/BuildAuthorizationToken_2.528.3.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/c3d776a4d4b5c517ee469a6c0d9b651774eb6a92/core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "5c031c0b5cba930329e72940d7ea313648b34c10c04a719ee2512478a68f7ff1",
+      "verification_method": "file read at tag jenkins-2.528.3; blob e6d7de58, identical to the blob at the LTS fix commit c3d776a4",
+      "result": "PASS",
+      "supports": [
+        "the LTS tree carries the same Secret field and encrypted-value converter",
+        "the LTS file differs from the master file because the branches diverged; the storage change is present in both"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/4710d65339251aaf1d1599f19545db99be24d981",
+      "retrieved_at": "2026-10-22T03:56:00Z",
+      "sha256_of_observation": "0cc7fbb1111fa585de85c2f1265d682bdaab649f5aed3fcb0236d2b27294648c",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 4710d653 '[SECURITY-783]', 2025-12-02, parent 1366fa95",
+        "the production change converts the field to Secret, adds constant-time comparison in checkPermission, migrates plaintext on load/save and masks the configuration form",
+        "it adds BuildAuthorizationTokenMigrationTest, which asserts that a job config containing <authToken>OLDTOKEN</authToken> is migrated so the re-saved config contains the encrypted value and not the plaintext, and that the OldData monitor reports the job"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67637_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67637/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-22T04:00:00Z",
+      "sha256_of_observation": "c2438373284933ebbc73c579eeddba1f0e5f8cfcf5eb1e0cc1449c63ceb8faad",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and BuildAuthorizationToken.java blob f101eb3d is the 114-line 2.441 file",
+        "master fix 4710d653 is an ancestor of the 2.541 release commit ea9c7278 and its blob 96fb27f8 equals the blob at tag jenkins-2.541",
+        "LTS fix c3d776a4 is an ancestor of the 2.528.3 release commit 40e29179 and its blob e6d7de58 equals the blob at tag jenkins-2.528.3",
+        "CNA affected range 2.540 and earlier weekly / 2.528.2 and earlier LTS includes the 2.441 snapshot; the CVE GIT range is introduced 0",
+        "the GHSA ECOSYSTEM weekly range introduced 2.529 conflicts with the CNA and GIT range; the conflict is documented, not resolved silently"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      7,
+      8
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      7,
+      8
+    ],
+    "languages": [
+      4,
+      5,
+      6
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      8
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 class, both fixed trees and the fix patch; the git checks support the commit/release chain.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 4.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (build authorization tokens stored unencrypted in job config.xml, readable by Item/Extended Read or from the file system) and on the fixed releases (2.541 weekly, 2.528.3 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 4.3 MEDIUM, which OSV/GHSA repeats as 4.3 MODERATE, and the CNA has no metric, so all published levels are medium. CWE-312 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA text and the CVE GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. CVE-2025-67638 covers the unmasked display of the same token on the configuration form; the two are separate advisory rows even though one commit fixes both, and this dossier claims only the cleartext storage.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read BuildAuthorizationToken at 2.441 and confirm the token is a plain String and the converter writes it verbatim into config.xml.",
+      "An independent reviewer must confirm the fix commits 4710d653/c3d776a4 switch the field to Secret with an encrypted converter and are contained in releases 2.541 and 2.528.3.",
+      "An independent reviewer must confirm the affected range (weekly <=2.540, LTS <=2.528.2) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are medium (4.3) and record CWE-312.",
+      "An independent reviewer must confirm this entry is distinct from CVE-2025-67638 and from the other Jenkins CVEs in the dataset.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or test was run.",
+    "The mechanism by which a config.xml reader obtains the plaintext is the XStream serialization of the job, not a dedicated endpoint; the config.xml redaction added in 2.500 masks Secret values only and therefore does not cover this field, which the fix's own migration test demonstrates by expecting the plaintext before migration.",
+    "The fix also masks the value on the configuration form; that display aspect is CVE-2025-67638 and is outside this row.",
+    "The LTS fix commit c3d776a4 has no visible parent in the shallow mirror, so its parent relationship was not checked; its containment in the 2.528.3 release commit was checked directly.",
+    "The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA and the CVE GIT range; the conflict is documented, not resolved silently."
+  ],
+  "open_questions": [
+    "Whether older job configurations created before the token feature existed are equally affected was not enumerated; the migration test covers the plaintext-token case."
+  ]
+}

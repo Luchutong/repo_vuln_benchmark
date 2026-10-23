@@ -1,0 +1,461 @@
+{
+ "candidate_id": "disc2_49ab8b917b7f862af6ea3968",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T11:30:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required",
+  "independent_review_failed:severity_consistent"
+ ],
+ "repository": {
+  "repo_id": "16072585",
+  "full_name": "phoenixframework/phoenix",
+  "canonical_url": "https://github.com/phoenixframework/phoenix",
+  "primary_language": "Elixir",
+  "project_kind": "Elixir web framework with a JavaScript presence client shipped in the hex and npm phoenix packages",
+  "snapshot_id": "snap_ee79f4175242bbee"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-56812",
+  "aliases": [
+   "CVE-2026-56812",
+   "EEF-CVE-2026-56812",
+   "GHSA-63mc-hw7g-86rr"
+  ],
+  "title": "Phoenix JavaScript presence client crashes on presence keys that collide with Object.prototype members",
+  "repo_id": "16072585",
+  "snapshot_id": "snap_ee79f4175242bbee",
+  "vulnerable_commit": "6234b576b94476f285a3397c0a9c5a610d1cdb67",
+  "affected_packages": [
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=1.2.0-rc.0,<1.5.15"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=1.6.0-rc.0,<1.6.17"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=1.7.0-rc.0,<1.7.24"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "purl": "pkg:hex/phoenix",
+    "affected_range": ">=1.8.0-rc.0,<1.8.9"
+   },
+   {
+    "ecosystem": "npm",
+    "package": "phoenix",
+    "purl": "pkg:npm/phoenix",
+    "affected_range": ">=1.2.0-rc.0,<1.5.15"
+   },
+   {
+    "ecosystem": "npm",
+    "package": "phoenix",
+    "purl": "pkg:npm/phoenix",
+    "affected_range": ">=1.6.0-rc.0,<1.6.17"
+   },
+   {
+    "ecosystem": "npm",
+    "package": "phoenix",
+    "purl": "pkg:npm/phoenix",
+    "affected_range": ">=1.7.0-rc.0,<1.7.24"
+   },
+   {
+    "ecosystem": "npm",
+    "package": "phoenix",
+    "purl": "pkg:npm/phoenix",
+    "affected_range": ">=1.8.0-rc.0,<1.8.9"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.5.15",
+    "tag": "v1.5.15",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.5.15",
+    "verified_content": "Published as a fixed release by the CNA/OSV; 7f7b971c is contained only in v1.5.15 among the 1.5 tags"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.6.17",
+    "tag": "v1.6.17",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.6.17",
+    "verified_content": "At v1.6.17 Presence uses Object.create(null) state and toNullProtoObj/1, so keys such as __proto__ and constructor no longer resolve to Object.prototype members"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.7.24",
+    "tag": "v1.7.24",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.7.24",
+    "verified_content": "Published as a fixed release by the CNA/OSV; b90b2252 is contained only in v1.7.24 among the 1.7 tags"
+   },
+   {
+    "ecosystem": "Hex",
+    "package": "phoenix",
+    "version": "1.8.9",
+    "tag": "v1.8.9",
+    "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.8.9",
+    "verified_content": "Published as a fixed release by the CNA/OSV; beffc4da is contained only in v1.8.9 among the 1.8 tags"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "7f7b971c1ea0994e3fbd1c11ddb05e780bd38ad8",
+    "branch": "1.5",
+    "release": "1.5.15",
+    "message": "fix presence keys colliding with object prototype chain",
+    "url": "https://github.com/phoenixframework/phoenix/commit/7f7b971c1ea0994e3fbd1c11ddb05e780bd38ad8"
+   },
+   {
+    "sha": "89a1c4be161e436241e12b2378a719904b9bd96f",
+    "branch": "1.6",
+    "release": "1.6.17",
+    "message": "fix presence keys colliding with object prototype chain",
+    "url": "https://github.com/phoenixframework/phoenix/commit/89a1c4be161e436241e12b2378a719904b9bd96f"
+   },
+   {
+    "sha": "b90b22521465ece00eb5a19d5aa2b9465b209c85",
+    "branch": "1.7",
+    "release": "1.7.24",
+    "message": "fix presence keys colliding with object prototype chain",
+    "url": "https://github.com/phoenixframework/phoenix/commit/b90b22521465ece00eb5a19d5aa2b9465b209c85"
+   },
+   {
+    "sha": "beffc4da1e787e572121f68902c63daf4fe7d9c2",
+    "branch": "1.8",
+    "release": "1.8.9",
+    "message": "fix presence keys colliding with object prototype chain",
+    "url": "https://github.com/phoenixframework/phoenix/commit/beffc4da1e787e572121f68902c63daf4fe7d9c2"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-754"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N",
+   "score": 6.3,
+   "level": "medium",
+   "numeric_level_rationale": "The EEF CNA and OSV publish CVSS 4.0 6.3 Medium with attack requirements PRESENT and low availability impact; NVD additionally publishes a CVSS 3.1 7.5 High vector from nvd@nist.gov. The band difference is a metric-version difference (CVSS 4.0 AT:P/VA:L vs CVSS 3.1 A:H), not a conflict between sources publishing the same metric version.",
+   "source": "EEF CNA (CVSS 4.0 6.3); NVD also carries a CVSS 3.1 7.5 record",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56812",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 6.3,
+     "level": "medium",
+     "source": "EEF CNA",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "4.0",
+     "score": 6.3,
+     "level": "medium",
+     "source": "OSV; NVD Secondary carries the same EEF vector",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary, CVSS 3.1)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+   ]
+  },
+  "category_l1": "denial_of_service",
+  "category_l2": "Client-side denial of service: presence keys named after Object.prototype members make the presence client read .metas off a built-in and throw",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/phoenixframework/phoenix/security/advisories/GHSA-63mc-hw7g-86rr",
+  "published_at": "2026-07-07T16:16:40Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://github.com/phoenixframework/phoenix/security/advisories/GHSA-63mc-hw7g-86rr",
+   "https://cna.erlef.org/cves/CVE-2026-56812.html",
+   "https://github.com/phoenixframework/phoenix/commit/89a1c4be161e436241e12b2378a719904b9bd96f",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-56812",
+   "https://github.com/phoenixframework/phoenix/releases/tag/v1.6.17"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-56812_snap_ee79f4175242bbee",
+  "vulnerability_id": "CVE-2026-56812",
+  "snapshot_id": "snap_ee79f4175242bbee",
+  "location_kind": "logic",
+  "file": "assets/js/phoenix/presence.js",
+  "function": "Presence.syncState",
+  "language": "JavaScript",
+  "line": "68-82",
+  "critical_operation": {
+   "code_excerpt": "  static syncState(currentState, newState, onJoin, onLeave){\n    let state = this.clone(currentState)\n    let joins = {}\n    let leaves = {}\n\n    this.map(state, (key, presence) => {\n      if(!newState[key]){\n        leaves[key] = presence\n      }\n    })\n    this.map(newState, (key, newPresence) => {\n      let currentPresence = state[key]\n      if(currentPresence){\n        let newRefs = newPresence.metas.map(m => m.phx_ref)\n        let curRefs = currentPresence.metas.map(m => m.phx_ref)",
+   "description": "Presence.syncState/4 clones the current state into a plain object (line 69) and then uses bare bracket lookups plus truthiness tests on attacker-influenced presence keys: line 74 tests !newState[key] and line 79 reads currentPresence = state[key]. A key named after an Object.prototype member (__proto__, constructor, hasOwnProperty, toString, ...) resolves through the prototype chain to a built-in value instead of undefined, so line 80 treats it as an existing presence and line 82 calls currentPresence.metas.map(...), throwing an uncaught TypeError because the built-in has no metas array. The same pattern exists in syncDiff/4 at lines 115-120. The exception propagates out of the channel presence_state/presence_diff handler (lines 21-32 and 34-43), so the local state is not updated and onSync() never runs, leaving every viewer of the topic with a presence client that no longer processes updates. The 1.6 fix 89a1c4be creates the state with Object.create(null), converts inputs through toNullProtoObj/1, and adds the __proto__/constructor/hasOwnProperty regression tests (CWE-754).",
+   "file": "assets/js/phoenix/presence.js",
+   "function": "Presence.syncState",
+   "language": "JavaScript",
+   "line": "68-82",
+   "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/assets/js/phoenix/presence.js#L68"
+  },
+  "entry_point": {
+   "description": "A user with ordinary channel access joins a presence channel using a presence key that is an Object.prototype member name; the server then sends presence_state or presence_diff over the channel, and the client hands the decoded object to Presence.syncState/syncDiff.",
+   "file": "assets/js/phoenix/presence.js",
+   "function": "Presence.syncState",
+   "language": "JavaScript",
+   "line": 68,
+   "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/assets/js/phoenix/presence.js#L68"
+  },
+  "trace": [
+   {
+    "description": "the constructor stores presence state in a plain object with Object.prototype in its chain",
+    "file": "assets/js/phoenix/presence.js",
+    "function": "Presence.constructor",
+    "language": "JavaScript",
+    "line": 11,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/assets/js/phoenix/presence.js#L11"
+   },
+   {
+    "description": "the presence_state handler passes the server payload to Presence.syncState",
+    "file": "assets/js/phoenix/presence.js",
+    "function": "Presence.constructor",
+    "language": "JavaScript",
+    "line": 25,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/assets/js/phoenix/presence.js#L25"
+   },
+   {
+    "description": "the state is cloned into another plain object, and the new payload key is looked up on it",
+    "file": "assets/js/phoenix/presence.js",
+    "function": "Presence.syncState",
+    "language": "JavaScript",
+    "line": 79,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/assets/js/phoenix/presence.js#L79"
+   },
+   {
+    "description": "the prototype built-in is treated as a presence and .metas.map throws a TypeError",
+    "file": "assets/js/phoenix/presence.js",
+    "function": "Presence.syncState",
+    "language": "JavaScript",
+    "line": 82,
+    "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/assets/js/phoenix/presence.js#L82"
+   }
+  ],
+  "verification_method": "Static read of assets/js/phoenix/presence.js at v1.6.13 and v1.6.17 plus the 1.6 fix commit and its regression tests; no browser, JavaScript runtime or channel server was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/phoenix_presence_56812/sources/cve_v5.json",
+   "evidence_id": "ev_phoenix_56812_cve",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T11:30:00Z",
+   "sha256_of_observation": "24072adfa1cf22ed24a886bc69ce30aa9cc2231d2b1efcb2cbcc841f87d39b2f",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-56812",
+   "supports": [
+    "CVE state PUBLISHED, assigner EEF",
+    "description: bare truthiness test state[key] instead of an own-property check lets keys named after Object.prototype members resolve to built-ins and throw",
+    "CNA CVSS 4.0 6.3 Medium AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:L",
+    "CNA problemTypes CWE-754",
+    "affected hex and npm package phoenix, program file assets/js/phoenix/presence.js, routines Presence.syncState and Presence.syncDiff, ranges below 1.5.15, 1.6.17, 1.7.24 and 1.8.9"
+   ],
+   "verification_method": "CVE List v5 CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_presence_56812/sources/nvd_cve.json",
+   "evidence_id": "ev_phoenix_56812_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T11:30:00Z",
+   "sha256_of_observation": "f09eea2a29ae801861d45ca8cb50a5baaac7d8339fa4a4b784dc863a069e7940",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-56812",
+   "supports": [
+    "NVD publishes a CVSS 3.1 7.5 HIGH primary record (nvd@nist.gov) and a CVSS 4.0 6.3 MEDIUM secondary record",
+    "NVD weakness CWE-754",
+    "CPE ranges 1.2.0-1.5.15, 1.6.0-1.6.17, 1.7.0-1.7.24 and 1.8.0-1.8.9",
+    "published 2026-07-07"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_presence_56812/sources/osv_ghsa.json",
+   "evidence_id": "ev_phoenix_56812_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T11:30:00Z",
+   "sha256_of_observation": "4ea0d36666ca089f7166ede182b9aa8808f47f824f15ec912a17efec30fc1d4f",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2026-56812",
+   "supports": [
+    "CVE-2026-56812 aliases EEF-CVE-2026-56812 and GHSA-63mc-hw7g-86rr",
+    "CVSS 4.0 6.3 with the same vector as the CNA",
+    "affected ranges 1.2.0-1.5.15, 1.6.0-1.6.17, 1.7.0-1.7.24 and 1.8.0-1.8.9, so 1.6.13 is inside the 1.6 range",
+    "the fixed-commit list includes 2270aaf (the 2016 commit that introduced the Presence client) alongside the four branch fixes"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_presence_56812/sources/presence_1.6.13.js",
+   "evidence_id": "ev_phoenix_56812_vuln_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T11:30:00Z",
+   "sha256_of_observation": "c6b2b66730d8282bef563dc465fef081e9f4de40334507b99fa7e46d3bb8fea6",
+   "source_url": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/assets/js/phoenix/presence.js#L69",
+   "supports": [
+    "line 11 initializes this.state = {} with Object.prototype in its chain",
+    "line 74 tests !newState[key] and line 79 reads state[key] without an own-property check",
+    "line 80 branches on the truthiness of the resolved value and line 82 calls currentPresence.metas.map, which throws when the value is an Object.prototype built-in",
+    "syncDiff/4 repeats the lookup at lines 115-120"
+   ],
+   "verification_method": "file read at snapshot commit 6234b576 (v1.6.13), bytes and git_oid cross-checked against the snapshot inventory"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_presence_56812/sources/presence_1.6.17.js",
+   "evidence_id": "ev_phoenix_56812_fixed_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T11:30:00Z",
+   "sha256_of_observation": "e7b2cd17986c1d88f989d45582ac803c303a9723d89f61fb0155ce07918d1005",
+   "source_url": "https://github.com/phoenixframework/phoenix/blob/v1.6.17/assets/js/phoenix/presence.js#L11",
+   "supports": [
+    "the fixed file sets this.state = Object.create(null) at line 11",
+    "syncState converts state and newState through toNullProtoObj/1 and uses Object.create(null) for joins/leaves (lines 69-72)",
+    "syncDiff converts its incoming state at line 111",
+    "toNullProtoObj/1 is defined at lines 169-177 and copies own property names onto a null-prototype object"
+   ],
+   "verification_method": "file read at release tag v1.6.17 (d26a1292)"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_presence_56812/sources/fix_commit.patch",
+   "evidence_id": "ev_phoenix_56812_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T11:30:00Z",
+   "sha256_of_observation": "a421f09d6a2c348ae3c70404a1d5f73bd8ef3c2b09172ba75454dedd8ab83876",
+   "source_url": "https://github.com/phoenixframework/phoenix/commit/89a1c4be161e436241e12b2378a719904b9bd96f",
+   "supports": [
+    "the 1.6 fix 89a1c4be switches presence bookkeeping to null-prototype objects and adds toNullProtoObj/1",
+    "it adds regression tests for __proto__, constructor and hasOwnProperty keys in syncState and syncDiff",
+    "pre-image index cfb5af6c08 matches the snapshot git_oid of assets/js/phoenix/presence.js"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/phoenix_presence_56812/sources/git_object_checks.txt",
+   "evidence_id": "ev_phoenix_56812_git",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T11:30:00Z",
+   "sha256_of_observation": "6e0c1304ffa8b8696f97831b63ddb98e77fb60797f1c27f491d2013e8f6ee3f9",
+   "source_url": "https://github.com/phoenixframework/phoenix/commit/89a1c4be161e436241e12b2378a719904b9bd96f",
+   "supports": [
+    "v1.6.13 resolves to the dataset snapshot commit 6234b576 and its presence.js blob is cfb5af6c",
+    "fix 89a1c4be is NOT an ancestor of v1.6.13 or v1.6.16 (merge-base exit 1)",
+    "fix 89a1c4be IS an ancestor of v1.6.17 (exit 0) and tag v1.6.17 is the only 1.6 tag containing it",
+    "the branch fixes map 7f7b971c->v1.5.15, 89a1c4be->v1.6.17, b90b2252->v1.7.24, beffc4da->v1.8.9, each excluded from the immediately preceding release tag",
+    "2270aaf is the 2016 'Add Presence to phoenix.js' commit, not a fix, although OSV lists it as fixed"
+   ],
+   "verification_method": "git rev-parse/merge-base/tag with a blobless bare mirror"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   2,
+   6
+  ],
+  "aliases": [
+   0,
+   2
+  ],
+  "critical_operation": [
+   3,
+   5
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   2,
+   5,
+   6
+  ],
+  "fixed_releases": [
+   2,
+   4,
+   5,
+   6
+  ],
+  "languages": [
+   3,
+   4
+  ],
+  "severity": [
+   0,
+   1,
+   2
+  ],
+  "vulnerable_commit": [
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 EEF CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "CVE, NVD and OSV agree on CWE-754, the affected ranges and the 1.6.17 fix. Severity is published in two metric versions: CVSS 4.0 6.3 Medium (CNA, OSV, NVD Secondary; AT:P and VA:L) and CVSS 3.1 7.5 High (NVD Primary; A:H). The bands differ because the metric versions differ; no source disagrees within the same version. OSV's fixed-commit list includes 2270aaf, which local history shows is the 2016 commit that introduced the Presence client, an upstream metadata defect; the real branch fixes 7f7b971c/89a1c4be/b90b2252/beffc4da map to 1.5.15/1.6.17/1.7.24/1.8.9 by ancestry. The same file ships in npm phoenix (root package.json files list assets/js/phoenix/*) as well as the hex package.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Presence.syncState/syncDiff at v1.6.13 and confirm that bare bracket lookups on plain objects resolve Object.prototype members for keys such as __proto__ or constructor and that .metas.map then throws.",
+   "An independent reviewer must confirm 89a1c4be is the 1.6-branch fix, not an ancestor of 1.6.13/1.6.16 and contained in 1.6.17.",
+   "An independent reviewer must confirm the affected ranges, the CVSS 4.0 / 3.1 records, and whether the client-side impact claim is supported.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "independent_verdict": {
+   "reviewer_identity": "deepseek-flash-independent-reviewer-CVE-2026-56812-round1",
+   "verdict_path": "runs/independent/phoenix_CVE-2026-56812_round1/verdict.json",
+   "grade_recommendation": "B",
+   "fields_verified_true": 18,
+   "fields_verified_false": [
+    "severity_consistent"
+   ],
+   "location_line": "74-130",
+   "outcome": "not promoted: the reviewer set severity_consistent=false because NVD's primary CVSS 3.1 7.5 HIGH record disagrees with the CNA/OSV/GHSA CVSS 4.0 6.3 MEDIUM record"
+  },
+  "independent_corrections_accepted": [
+   "The reviewer verified a wider line range (74-130) covering both syncState and syncDiff; the dossier keeps 68-82 as the critical operation window.",
+   "The snapshot's built artifacts priv/static/phoenix.js, phoenix.cjs.js and phoenix.mjs also contain the vulnerable presence code; the dossier now notes the npm bundle surface.",
+   "GHSA-63mc-hw7g-86rr says the fix adds Object.prototype.hasOwnProperty.call gating, but the actual fix uses Object.create(null) and toNullProtoObj/1; the GHSA wording is imprecise and is recorded as an upstream defect.",
+   "The advisory omits the equivalent main-branch fix e84b8f6a (ancestor of main e5880ef7), so the CNA git range cannot mark current main unaffected.",
+   "The OSV-EEF GitHub affected-version enumeration omits several tags inside the declared ranges (for example v1.5.14, v1.6.8/v1.6.9, v1.7.17/v1.7.21); the ranges themselves are still correct.",
+   "The impact precondition is narrower than GHSA's 'any authenticated channel participant': the application must derive the presence key from untrusted client input.",
+   "Severity: NVD primary CVSS 3.1 7.5 HIGH versus CNA/OSV/GHSA CVSS 4.0 6.3 MEDIUM; the reviewer judged the published records inconsistent and the promotion gate therefore fails on severity_consistent."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "The independent reviewer set severity_consistent=false (NVD CVSS 3.1 7.5 HIGH vs CNA/OSV/GHSA CVSS 4.0 6.3 MEDIUM); the vulnerability was not promoted and stays pending a severity-convention decision.",
+  "No browser, JavaScript runtime, WebSocket client or channel server was executed; the crash path is established statically from the prototype-chain lookup and the .metas.map call.",
+  "Impact requires the attacker to control a presence key (applications commonly use a client-supplied username or id) and affects viewers of that presence topic; it is client-side denial of service, not server compromise.",
+  "Only the 1.6 branch was diffed; the 1.5.15, 1.7.24 and 1.8.9 fixed trees were not inspected.",
+  "OSV lists the introducing commit 2270aaf as fixed; that is an upstream metadata defect, and the branch fixes are mapped by local ancestry instead.",
+  "The npm package was not downloaded; its affectedness is taken from the CNA and from the repository's root package.json files list, not from an npm tarball inspection."
+ ],
+ "open_questions": [
+  "Whether every server-side presence implementation allows a client-chosen key literally named __proto__ was not audited; the advisory states that presence keys can be attacker-controlled, and this dossier relies on that statement."
+ ]
+}

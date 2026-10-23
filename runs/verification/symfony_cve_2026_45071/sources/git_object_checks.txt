@@ -1,0 +1,125 @@
+# git object checks for CVE-2026-45071 (collected 2026-10-22, static only)
+## tag peels (bare clone /tmp/symfony_git)
+v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+v5.4.52 -> eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+
+## fix commit eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d
+eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d
+2026-04-17 09:30:55 +0200
+[DomCrawler] Fix XXE in addXmlContent() by not enabling `validateOnParse`
+
+## ancestry
+fix ancestor of v5.4.45: NO
+fix ancestor of v5.4.52: YES
+
+## blob ids for src/Symfony/Component/DomCrawler/Crawler.php
+v5.4.45: 239ace66ef2626401c3eec40a56eee3f7d45baa8
+v5.4.52: 0f6fb02b7d7a4f92d1538aaaca1a75a1f0bb8bd0
+downloaded v5.4.45 blob sha1: 239ace66ef2626401c3eec40a56eee3f7d45baa8
+downloaded v5.4.52 blob sha1: 0f6fb02b7d7a4f92d1538aaaca1a75a1f0bb8bd0
+patch pre-image 239ace66ef262; post-image 0f6fb02b7d7a4
+
+## vulnerable code at v5.4.45 (Crawler.php lines 230-248)
+    public function addXmlContent(string $content, string $charset = 'UTF-8', int $options = \LIBXML_NONET)
+    {
+        // remove the default namespace if it's the only namespace to make XPath expressions simpler
+        if (!preg_match('/xmlns:/', $content)) {
+            $content = str_replace('xmlns', 'ns', $content);
+        }
+
+        $internalErrors = libxml_use_internal_errors(true);
+        if (\LIBXML_VERSION < 20900) {
+            $disableEntities = libxml_disable_entity_loader(true);
+        }
+
+        $dom = new \DOMDocument('1.0', $charset);
+        $dom->validateOnParse = true;
+
+        if ('' !== trim($content)) {
+            @$dom->loadXML($content, $options);
+        }
+
+
+## fixed code at v5.4.52 (Crawler.php lines 230-248)
+    public function addXmlContent(string $content, string $charset = 'UTF-8', int $options = \LIBXML_NONET)
+    {
+        // remove the default namespace if it's the only namespace to make XPath expressions simpler
+        if (!preg_match('/xmlns:/', $content)) {
+            $content = str_replace('xmlns', 'ns', $content);
+        }
+
+        $internalErrors = libxml_use_internal_errors(true);
+        if (\LIBXML_VERSION < 20900) {
+            $disableEntities = libxml_disable_entity_loader(true);
+        }
+
+        $dom = new \DOMDocument('1.0', $charset);
+
+        if ('' !== trim($content)) {
+            @$dom->loadXML($content, $options);
+        }
+
+        libxml_use_internal_errors($internalErrors);
+
+## residual validateOnParse in parseXhtml at v5.4.52 (unchanged by this fix)
+1184:        $dom->validateOnParse = true;
+
+        $internalErrors = libxml_use_internal_errors(true);
+        if (\LIBXML_VERSION < 20900) {
+            $disableEntities = libxml_disable_entity_loader(true);
+        }
+
+        $dom = new \DOMDocument('1.0', $charset);
+        $dom->validateOnParse = true;
+
+        if ('' !== trim($htmlContent)) {
+            @$dom->loadHTML($htmlContent);
+        }
+
+## patch
+From eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Fri, 17 Apr 2026 09:30:55 +0200
+Subject: [PATCH] [DomCrawler] Fix XXE in addXmlContent() by not enabling
+ `validateOnParse`
+
+---
+ src/Symfony/Component/DomCrawler/Crawler.php         |  1 -
+ .../DomCrawler/Tests/AbstractCrawlerTestCase.php     | 12 ++++++++++++
+ 2 files changed, 12 insertions(+), 1 deletion(-)
+
+diff --git a/src/Symfony/Component/DomCrawler/Crawler.php b/src/Symfony/Component/DomCrawler/Crawler.php
+index 239ace66ef262..0f6fb02b7d7a4 100644
+--- a/src/Symfony/Component/DomCrawler/Crawler.php
++++ b/src/Symfony/Component/DomCrawler/Crawler.php
+@@ -240,7 +240,6 @@ public function addXmlContent(string $content, string $charset = 'UTF-8', int $o
+         }
+ 
+         $dom = new \DOMDocument('1.0', $charset);
+-        $dom->validateOnParse = true;
+ 
+         if ('' !== trim($content)) {
+             @$dom->loadXML($content, $options);
+diff --git a/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php b/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php
+index e60f3e4ef8b0b..a3bd6b67e7a1a 100644
+--- a/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php
++++ b/src/Symfony/Component/DomCrawler/Tests/AbstractCrawlerTestCase.php
+@@ -153,6 +153,18 @@ public function testAddXmlContent()
+         $this->assertEquals('foo', $crawler->filterXPath('//div')->attr('class'), '->addXmlContent() adds nodes from an XML string');
+     }
+ 
++    public function testAddXmlContentDoesNotExpandExternalEntities()
++    {
++        $crawler = $this->createCrawler();
++        $crawler->addXmlContent(
++            '<?xml version="1.0"?>'
++            .'<!DOCTYPE r [<!ENTITY xxe SYSTEM "file:///etc/hosts">]>'
++            .'<r>&xxe;</r>'
++        );
++
++        $this->assertSame('', $crawler->text());
++    }
++
+     public function testAddXmlContentCharset()
+     {
+         $crawler = $this->createCrawler();

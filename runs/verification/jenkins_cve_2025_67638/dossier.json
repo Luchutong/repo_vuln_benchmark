@@ -1,0 +1,410 @@
+{
+  "candidate_id": "disc2_a9f074a54ff3f40ecd8e6abc",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T19:45:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-67638",
+    "aliases": [
+      "CVE-2025-67638",
+      "GHSA-hxjg-2jvf-h3rx",
+      "BIT-jenkins-2025-67638"
+    ],
+    "title": "Jenkins job configuration form renders the build authorization token in a plain text box instead of masking it",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.540; LTS <=2.528.2 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.541",
+        "tag": "jenkins-2.541",
+        "release_url": "https://www.jenkins.io/changelog/#v2.541",
+        "verified_content": "The 2.541 release commit ea9c7278 has the SECURITY-783 master commit 4710d653 as an ancestor after the shallow history was deepened (a depth-5 clone initially returned a false negative from git merge-base --is-ancestor), and the 2.528.3 release commit 40e29179 has the LTS commit c3d776a4 as an ancestor. BuildAuthorizationToken/config.jelly is blob 97b16ee0 at both fix commits and at both release tags; in the fixed trees the token is rendered with f:password and the encrypted Secret instead of an f:textbox bound to the plaintext."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "4710d65339251aaf1d1599f19545db99be24d981",
+        "branch": "master",
+        "release": "2.541",
+        "message": "[SECURITY-783]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/4710d65339251aaf1d1599f19545db99be24d981"
+      },
+      {
+        "sha": "c3d776a4d4b5c517ee469a6c0d9b651774eb6a92",
+        "branch": "2.528.x LTS",
+        "release": "2.528.3",
+        "message": "[SECURITY-783]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/c3d776a4d4b5c517ee469a6c0d9b651774eb6a92"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-312"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE, which is the same medium band. The CNA container has no CVSS metric. Every published severity level is medium, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-67638",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "GHSA-hxjg-2jvf-h3rx / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "information_disclosure",
+    "category_l2": "The build authorization token is rendered by the job configuration form through an f:textbox bound to the plaintext String, so the secret is shown in clear text in a normal input instead of a password control",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-783",
+    "published_at": "2025-12-10T16:50:37Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-783",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-67638",
+      "https://github.com/advisories/GHSA-hxjg-2jvf-h3rx",
+      "https://github.com/jenkinsci/jenkins/commit/4710d65339251aaf1d1599f19545db99be24d981"
+    ]
+  },
+  "description": "The job configuration form includes the remote-trigger pseudo-trigger through lib/hudson/project/config-trigger.jelly line 40, which includes /hudson/model/BuildAuthorizationToken/config.jelly. At 2.441 that view renders the authentication token with `<f:textbox name=\"authToken\" value=\"${it.authToken.token}\" />` (lines 37-38). AbstractProject stores the value as a BuildAuthorizationToken (AbstractProject.java:228), and at 2.441 the class keeps it in a plain String field (BuildAuthorizationToken.java:49) returned verbatim by getToken() (94-96), so the expression resolves to the plaintext token and the form displays it in an ordinary text input. Nothing conceals the value: anyone who can see the configuration page, including a shoulder surfer, a screen share or recording, or a browser extension, autofill or credential manager that captures form fields, can read the token, which is the only secret required to trigger builds remotely; the advisory frames the impact as increasing the potential for attackers to observe and capture the tokens. The SECURITY-783 fix (4710d653 master, c3d776a4 LTS) changes the view to `<f:password name=\"authToken\" value=\"${it.authToken.encryptedToken}\" />` and adds a clearfix div. f:password renders a read-only value as \"****\" (lib/form/password.jelly:67) and otherwise resolves the value through h.getPasswordValue with hiding password fields enabled by default (Functions.java:418-421), which masks it for users lacking Item/CONFIGURE and otherwise sends only the Secret's encrypted value (Functions.java:2150-2168), so the plaintext is no longer placed in the configuration page. The same commits also change the field to hudson.util.Secret and the XStream converter to write the encrypted value; that storage half is the separate CVE-2025-67637, and this dossier claims only the unmasked display.",
+  "location": {
+    "location_id": "loc_CVE-2025-67638_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-67638",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+    "function": "BuildAuthorizationToken/config.jelly (Authentication Token entry)",
+    "language": "Jelly",
+    "line": "37-38",
+    "critical_operation": {
+      "file": "core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+      "function": "BuildAuthorizationToken/config.jelly (Authentication Token entry)",
+      "language": "Jelly",
+      "line": "37-38",
+      "code_excerpt": "<f:entry title=\"${%Authentication Token}\">\n  <f:textbox name=\"authToken\" value=\"${it.authToken.token}\" />",
+      "description": "The authentication token is bound to a plain text box and to the token's plaintext value, so the job configuration form shows the build authorization token in clear text; the fix replaces both the control and the value with the password control and the encrypted Secret.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly#L37-L38"
+    },
+    "entry_point": {
+      "description": "The job configuration form (Build Triggers section) served to a user who can configure the job; the token field is part of the rendered HTML.",
+      "file": "core/src/main/resources/lib/hudson/project/config-trigger.jelly",
+      "function": "config-trigger.jelly",
+      "language": "Jelly",
+      "line": "39-40",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/lib/hudson/project/config-trigger.jelly#L39-L40"
+    },
+    "trace": [
+      {
+        "description": "the job configuration form includes the BuildAuthorizationToken view",
+        "file": "core/src/main/resources/lib/hudson/project/config-trigger.jelly",
+        "function": "config-trigger.jelly",
+        "language": "Jelly",
+        "line": "39-40",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/lib/hudson/project/config-trigger.jelly#L39-L40"
+      },
+      {
+        "description": "the view renders the token in a text box bound to the plaintext property",
+        "file": "core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+        "function": "BuildAuthorizationToken/config.jelly",
+        "language": "Jelly",
+        "line": "37-38",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly#L37-L38"
+      },
+      {
+        "description": "the property is a plain String at 2.441, so getToken() returns the clear value",
+        "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+        "function": "BuildAuthorizationToken.getToken",
+        "language": "Java",
+        "line": "49-96",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/BuildAuthorizationToken.java#L49-L96"
+      },
+      {
+        "description": "the fixed view uses the password control fed with the encrypted Secret",
+        "file": "core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+        "function": "BuildAuthorizationToken/config.jelly",
+        "language": "Jelly",
+        "line": "37-39",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/ea9c72788cdd08b4da0b92aef1a64e4e4e50c4f3/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly#L37-L39"
+      },
+      {
+        "description": "the password control masks the value to \"****\" in read-only mode and resolves it through getPasswordValue otherwise",
+        "file": "core/src/main/resources/lib/form/password.jelly",
+        "function": "lib/form/password.jelly",
+        "language": "Jelly",
+        "line": "62-110",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/lib/form/password.jelly#L62-L110"
+      }
+    ],
+    "verification_method": "Static read of BuildAuthorizationToken/config.jelly, config-trigger.jelly, BuildAuthorizationToken.java, lib/form/password.jelly and Functions.java at 2.441 and the fixed views at the release tags, plus the 4710d653 patch; no Jenkins instance, HTTP request or test was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_67638_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/cve_v5_CVE-2025-67638.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-67638",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "eedaed403ef6fd58b4e61cf2e9a0595d374f55d9843059400d353f1130a2e739",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-12-10, assigner Jenkins",
+        "description: Jenkins 2.540 and earlier, LTS 2.528.2 and earlier does not mask build authorization tokens displayed on the job configuration form, increasing the potential for attackers to observe and capture them",
+        "affected versions: weekly unaffected from 2.541, LTS 2.528.* unaffected from 2.528.3; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-12-10/#SECURITY-783"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/nvd_CVE-2025-67638.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-67638",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "b9c975fc736b9ef09b46229ab485dc4ff80c8b41acd715d73f0e754b595e4366",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-12-10, status Analyzed",
+        "one CVSS 3.1 4.3 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+        "there is no Primary metric",
+        "CWE-312 from the same Secondary source"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/osv_CVE-2025-67638.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-67638",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "b386de7cb7c0a9dbeff7d1aa03b491d7701acc7a66773288d8855290dcea2bbe",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "aliases GHSA-hxjg-2jvf-h3rx and BIT-jenkins-2025-67638",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N (4.3 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 40e29179 (2.528.3 release commit) and ea9c7278 (2.541 release commit)"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/osv_GHSA-hxjg-2jvf-h3rx.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-hxjg-2jvf-h3rx",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "5be46d74046f90c753046a3be2295772357f3d5ba9eb799b42f69b5b9d63b931",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N, database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-312]",
+        "Maven ECOSYSTEM ranges: one introduced 0 -> fixed 2.528.3, the other introduced 2.529 -> fixed 2.541, which conflicts with the CNA text and the CVE GIT range for the weekly line"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_jelly_2441",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/config.jelly_2.441",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "710ae5c3786d615d923034d9bd1afe072980442912fb02022e1dfee445ea7cea",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 5603d9d8, 48 lines",
+      "result": "PASS",
+      "supports": [
+        "the Authentication Token entry at 37-38 renders <f:textbox name=\"authToken\" value=\"${it.authToken.token}\" />",
+        "f:textbox is a plain text input; no password control or masking is used"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_trigger_2441",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/config-trigger_2.441.jelly",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/resources/lib/hudson/project/config-trigger.jelly",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "48ab376025c8d78d8d9ea8211c9ac5cd8920dee2e1bbda09ea65a4316310a6f2",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 9d3651d6",
+      "result": "PASS",
+      "supports": [
+        "the Build Triggers section of the job configuration form includes /hudson/model/BuildAuthorizationToken/config.jelly at line 40"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_token_2441",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/BuildAuthorizationToken_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "df1280e072716c785c8ea59e37076d68307cadf79b771f769565110d9752965f",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob f101eb3d, 4216 bytes, 114 lines",
+      "result": "PASS",
+      "supports": [
+        "the token is stored in a plain String field at line 49",
+        "getToken() (94-96) returns that String verbatim, so the view's ${it.authToken.token} is the plaintext token"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_jelly_fixed_master",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/config.jelly_2.541",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/4710d65339251aaf1d1599f19545db99be24d981/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "e362d4fdf83bfc4cbf53c8917409e49c354776ed9c75c76c531268c25c465bed",
+      "verification_method": "file read at tag jenkins-2.541; blob 97b16ee0, identical to the blob at the fix commit 4710d653",
+      "result": "PASS",
+      "supports": [
+        "the fixed entry renders <f:password name=\"authToken\" value=\"${it.authToken.encryptedToken}\" /> and adds a clearfix div"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_jelly_fixed_lts",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/config.jelly_2.528.3",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/c3d776a4d4b5c517ee469a6c0d9b651774eb6a92/core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "e362d4fdf83bfc4cbf53c8917409e49c354776ed9c75c76c531268c25c465bed",
+      "verification_method": "file read at tag jenkins-2.528.3; blob 97b16ee0, identical to the blob at the LTS fix commit c3d776a4",
+      "result": "PASS",
+      "supports": [
+        "the LTS tree carries the same password control fed with the encrypted Secret",
+        "the fixed view content is identical on both lines"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/fix_commit_4710d653.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/4710d65339251aaf1d1599f19545db99be24d981",
+      "retrieved_at": "2026-10-21T19:42:00Z",
+      "sha256_of_observation": "538669f44e247739751cd8ab7760e366e4454dda0d9e2020f85a76fa4908bb07",
+      "verification_method": "git show of the master-branch fix commit, restricted to the view",
+      "result": "PASS",
+      "supports": [
+        "commit 4710d653 '[SECURITY-783]', 2025-12-02, parent 1366fa95",
+        "the view change is exactly the switch from f:textbox with the plaintext token to f:password with the encrypted Secret, plus a clearfix div"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_67638_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_67638/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-21T19:45:00Z",
+      "sha256_of_observation": "2fc783fb55d134611801a3415699bc1ec1e177b4d001e1581cf7a10bd5167bbd",
+      "verification_method": "local git tags, blob comparison and local ancestry (2.541 history deepened before the ancestry check)",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and config.jelly is blob 5603d9d8 there",
+        "master fix 4710d653 is an ancestor of the 2.541 release commit ea9c7278 after deepening the shallow history, and LTS fix c3d776a4 is an ancestor of the 2.528.3 release commit 40e29179",
+        "config.jelly is blob 97b16ee0 at both fix commits and at both release tags",
+        "CNA affected range 2.540 and earlier weekly / 2.528.2 and earlier LTS includes the 2.441 snapshot"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2,
+      3,
+      10
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6,
+      9
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      9,
+      10
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      9,
+      10
+    ],
+    "languages": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      10
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 view, the view inclusion site, the 2.441 token class and the fix patch; the git checks support the commit/release chain.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 4.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (build authorization tokens are not masked on the job configuration form) and on the fixed releases (2.541 weekly, 2.528.3 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 4.3 MEDIUM, which OSV/GHSA repeats as MODERATE, and the CNA has no metric, so all published levels are medium. CWE-312 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA text and the CVE GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. The advisory and both fix commits group this display issue with the clear-text storage issue (CVE-2025-67637); the two entries are kept separate and this dossier claims only the display.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read BuildAuthorizationToken/config.jelly at 2.441 and confirm the token is rendered with f:textbox bound to the plaintext property, and that config-trigger.jelly includes it in the job configuration form.",
+      "An independent reviewer must confirm the property is a plain String at 2.441 so the rendered value is the clear token.",
+      "An independent reviewer must confirm the fix commits 4710d653/c3d776a4 change the control to f:password with the encrypted Secret and are contained in releases 2.541 and 2.528.3.",
+      "An independent reviewer must confirm the affected range (weekly <=2.540, LTS <=2.528.2) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are medium (4.3) and record CWE-312.",
+      "An independent reviewer must confirm this entry is distinct from CVE-2025-67637 (clear-text storage) and from the other Jenkins CVEs in the dataset.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ]
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or test was run.",
+    "The displayed value is visible to users who can already open the job configuration form (CVSS PR:L); the fix reduces exposure to onlookers and capture, and does not restrict who may configure the job.",
+    "Masking depends on the password control's default hiding behavior (Functions.hidingPasswordFields defaults to true); read-only mode shows \"****\". If a deployment disables that property, the control falls back to its other rendering, which this dossier did not enumerate.",
+    "The same fix commit also changes the storage type to Secret (CVE-2025-67637); the entries share fix commits but claim different defects, and this dossier's location is the Jelly view, not the Java field.",
+    "The GHSA ECOSYSTEM weekly range introduced=2.529 conflicts with the CNA and the CVE GIT range; the conflict is documented, not resolved silently."
+  ],
+  "open_questions": [
+    "Whether any supported configuration disables hidingPasswordFields was not enumerated; the default is on."
+  ]
+}

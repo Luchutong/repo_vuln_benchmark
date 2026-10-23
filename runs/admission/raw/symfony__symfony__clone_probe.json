@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/symfony/symfony.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:36.740228+00:00", "elapsed_seconds": 1.445, "response": {"returncode": 0, "stdout": "ad1bfbb2c5eceddca368790aacc545baaa44bf2d\tHEAD\n", "stderr": ""}}

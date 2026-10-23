@@ -1,0 +1,10 @@
+test_aliases_merge_transitively_but_related_stays_separate (test_collection.CollectionBoundaryTests.test_aliases_merge_transitively_but_related_stays_separate) ... ok
+test_cutoff_is_exclusive_and_uses_shanghai_boundary (test_collection.CollectionBoundaryTests.test_cutoff_is_exclusive_and_uses_shanghai_boundary) ... ok
+test_pagination_failure_keeps_partial_leads_and_failed_status (test_collection.CollectionBoundaryTests.test_pagination_failure_keeps_partial_leads_and_failed_status) ... ok
+test_repeated_page_token_cannot_loop_forever (test_collection.CollectionBoundaryTests.test_repeated_page_token_cannot_loop_forever) ... ok
+test_withdrawn_records_retained_and_mixed_cluster_stays_pending (test_collection.CollectionBoundaryTests.test_withdrawn_records_retained_and_mixed_cluster_stays_pending) ... ok
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+OK

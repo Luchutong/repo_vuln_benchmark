@@ -1,0 +1,24 @@
+{
+  "key": "angular_localize",
+  "repository": "angular/angular",
+  "path": "packages/localize/package.json",
+  "retrieved_at": "2026-10-21T10:56:20.887Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/localize\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - library for localizing messages\",\n  \"bin\": {\n    \"localize-translate\": \"./tools/bundles/src/translate/cli.js\",\n    \"localize-extract\": \"./tools/bundles/src/extract/cli.js\",\n    \"localize-migrate\": \"./tools/bundles/src/migrate/cli.js\"\n  },\n  \"exports\": {\n    \"./tools\": {\n      \"types\": \"./tools/index.d.ts\",\n      \"default\": \"./tools/bundles/index.js\"\n    }\n  },\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\"\n  },\n  \"schematics\": \"./schematics/collection.json\",\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"ng-add\": {\n    \"save\": \"devDependencies\"\n  },\n  \"sideEffects\": [\n    \"./fesm2022/init.mjs\"\n  ],\n  \"dependencies\": {\n    \"@babel/core\": \"8.0.7\",\n    \"tinyglobby\": \"^0.2.12\",\n    \"yargs\": \"^18.0.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/compiler\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/compiler-cli\": \"0.0.0-PLACEHOLDER\"\n  }\n}\n",
+      "encoding": "utf-8",
+      "sha": "da5ae3646796ad01a7f089106e8537a17ad70c38",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/localize/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

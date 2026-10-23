@@ -1,0 +1,36 @@
+# CVE-2021-3281 git object checks (django/django)
+## tag -> tag object -> peeled commit -> blob of django/utils/archive.py
+3.0.2	27431091d4c03897526f81701397f22fad10250a	a36974395ebc03a41928db1743074575b143330d	235809f2ad0e27c741ef19572c38da5e3b5cdd0c
+3.0.11	4b8eb57a45fc6593a203981edf4c99ec14031422	f6778c256f7f372b3ae1ee945a562990919ef13e	235809f2ad0e27c741ef19572c38da5e3b5cdd0c
+3.0.12	d1f7478c92b3ff8e7d839b2c525d9356b8c3f1cb	81c99e4eb00b58e3eb33f3d5c1747b6c57e9d649	d5a0cf0446575f5f0f5688bbabbde65415febdc0
+2.2.17	70618b619a0750004ebf9ef5ec94b6efc145e2b7	c769f65c98339b9e769b0d2762d9fdf39a728cd2	5b9998f89cc3d4d1108e0d67ca593fff2f41e0ad
+2.2.18	6dc81f2bb676c3eac4df33754ff462861a0a5078	fc0c8cfa492b2d7b82263e71e486f3829ad7c43a	f2f153a1fc3d0f18bea3078130c950fc1f304810
+3.1	0c95a749ee3325f476cc1ff5ff0a627407fad9d4	ec5bc3a991bf6f2b9afe9b1b4068e4a1e62001c2	235809f2ad0e27c741ef19572c38da5e3b5cdd0c
+3.1.6	32bb1421ae4bf8e3b730be0cb47ee026a72961f7	3235a7b80710e5c90bbb1d25a147c8d0eddc8198	d5a0cf0446575f5f0f5688bbabbde65415febdc0
+3.2	44fc12a29a59704f914d2799db09db1caafabfc9	b6475d7d7940f3ce575e0b0f2d83e517f899b4cf	d5a0cf0446575f5f0f5688bbabbde65415febdc0
+
+## ancestry of vendor-listed changesets
+52e409ed17287e9aabda847b6afe58be2fa9f86a ancestor_of 3.0.12: yes
+52e409ed17287e9aabda847b6afe58be2fa9f86a ancestor_of 3.0.11: no
+02e6592835b4559909aa3aaaf67988fef435f624 ancestor_of 3.1.6: yes
+21e7622dec1f8612c85c2fc37fe8efbfd3311e37 ancestor_of 2.2.18: yes
+f944f79e555c91571192022a6bb9ddf2178db7ed ancestor_of 3.2: yes
+05413afa8c18cdb978fcdf470e09f7a12b234a23 ancestor_of 3.2: no
+05413afa8c18cdb978fcdf470e09f7a12b234a23 ancestor_of 3.0.12: no
+
+## vulnerable/fixed indicator at 3.0.2 (target_filename absent, os.path.join present)
+target_filename: 0 occurrences at 3.0.2
+158:            filename = os.path.join(to_path, name)
+201:            filename = os.path.join(to_path, name)
+## 3.0.12
+138:    def target_filename(self, to_path, name):
+167:            filename = self.target_filename(to_path, name)
+212:            filename = self.target_filename(to_path, name)
+os.path.join(to_path: 0 occurrences at 3.0.12
+
+## commit subjects
+05413afa8c18cdb978fcdf470e09f7a12b234a23 Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract(). | parents 6822aa5c6c3fbec7c5393a05e990865ba59fe167 | author 2021-01-22 12:23:18 +0100 | committed 2021-02-01 09:07:36 +0100
+f944f79e555c91571192022a6bb9ddf2178db7ed [3.2.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract(). | parents 0a3d93ffba6fa7ee39404c692c8874a8fae27ea8 | author 2021-01-22 12:23:18 +0100 | committed 2021-02-01 09:13:37 +0100
+02e6592835b4559909aa3aaaf67988fef435f624 [3.1.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract(). | parents 03a86784d0dbfc5890f5aaba2d2f29c1deb0009d | author 2021-01-22 12:23:18 +0100 | committed 2021-02-01 09:13:58 +0100
+52e409ed17287e9aabda847b6afe58be2fa9f86a [3.0.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract(). | parents 74ca3cac3272b3a9df6a351095fe4117d0cf2608 | author 2021-01-22 12:23:18 +0100 | committed 2021-02-01 09:14:22 +0100
+21e7622dec1f8612c85c2fc37fe8efbfd3311e37 [2.2.x] Fixed CVE-2021-3281 -- Fixed potential directory-traversal via archive.extract(). | parents ee9d623831681b7130565e4d58933861a660a82f | author 2021-01-22 12:23:18 +0100 | committed 2021-02-01 09:14:54 +0100

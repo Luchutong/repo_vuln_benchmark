@@ -1,0 +1,5 @@
+5a9b08e5740af795854b1b639b7d45b9cbfe8819 e39f6a96224fc6cb85920e107c3b4d3874ec5007 Tue Oct 22 10:31:42 2024 +0200 [HttpFoundation] Reject URIs that contain invalid characters
+
+ src/Symfony/Component/HttpFoundation/Request.php   | 17 ++++++++++++
+ .../Component/HttpFoundation/Tests/RequestTest.php | 30 ++++++++++++++++++++--
+ 2 files changed, 45 insertions(+), 2 deletions(-)

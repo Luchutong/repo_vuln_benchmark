@@ -1,0 +1,85 @@
+# openssl CVE-2022-0778 git object checks (collected 2026-10-21)
+
+## refs
+refs/tags/openssl-3.0.1 (annotated tag object) = a50b847c27705d84f4c03828ebfbc1c1f0200f07
+refs/tags/openssl-3.0.1^{} (commit)            = b4e83ed7cd99c12d27e0e220c3afa1745a68f921
+refs/tags/openssl-3.0.2 (annotated tag object) = 0bcfe761050b6f52b33ff9053f3682ee7d85b0b4
+refs/tags/openssl-3.0.2^{} (commit)            = 1bf649b5998ac98511203f54ce954eccfaf75467
+fix commit on the 3.0 branch (in 3.0.2)        = a466912611aa6cbdf550cd10601390e587451246
+master fix commit named by the same advisory   = 3118eb64934499d93db3230748a452351d1d9a65
+
+## fix commit (3.0 branch)
+a466912611aa6cbdf550cd10601390e587451246
+2022-03-15 13:35:56 +0000
+Fix possible infinite loop in BN_mod_sqrt()
+parents=591a2bf08b391955bed512496a20113da26f9f91
+ crypto/bn/bn_sqrt.c | 30 ++++++++++++++++++------------
+ 1 file changed, 18 insertions(+), 12 deletions(-)
+diff --git a/crypto/bn/bn_sqrt.c b/crypto/bn/bn_sqrt.c
+index b663ae5ec..c5ea7ab19 100644
+--- a/crypto/bn/bn_sqrt.c
++++ b/crypto/bn/bn_sqrt.c
+@@ -14,7 +14,8 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx)
+ /*
+  * Returns 'ret' such that ret^2 == a (mod p), using the Tonelli/Shanks
+  * algorithm (cf. Henri Cohen, "A Course in Algebraic Computational Number
+- * Theory", algorithm 1.5.1). 'p' must be prime!
++ * Theory", algorithm 1.5.1). 'p' must be prime, otherwise an error or
++ * an incorrect "result" will be returned.
+  */
+ {
+     BIGNUM *ret = in;
+@@ -303,18 +304,23 @@ BIGNUM *BN_mod_sqrt(BIGNUM *in, const BIGNUM *a, const BIGNUM *p, BN_CTX *ctx)
+             goto vrfy;
+         }
+ 
+-        /* find smallest  i  such that  b^(2^i) = 1 */
+-        i = 1;
+-        if (!BN_mod_sqr(t, b, p, ctx))
+-            goto end;
+-        while (!BN_is_one(t)) {
+-            i++;
+-            if (i == e) {
+-                ERR_raise(ERR_LIB_BN, BN_R_NOT_A_SQUARE);
+-                goto end;
++        /* Find the smallest i, 0 < i < e, such that b^(2^i) = 1. */
++        for (i = 1; i < e; i++) {
++            if (i == 1) {
++                if (!BN_mod_sqr(t, b, p, ctx))
++                    goto end;
++
++            } else {
++                if (!BN_mod_mul(t, t, t, p, ctx))
++                    goto end;
+             }
+-            if (!BN_mod_mul(t, t, t, p, ctx))
+-                goto end;
++            if (BN_is_one(t))
++                break;
++        }
++        /* If not found, a is not a square or p is not prime. */
++        if (i >= e) {
++            ERR_raise(ERR_LIB_BN, BN_R_NOT_A_SQUARE);
++            goto end;
+         }
+ 
+         /* t := y^2^(e - i - 1) */
+
+## ancestry
+a466912 IS ancestor of openssl-3.0.2
+a466912 NOT ancestor of openssl-3.0.1 (expected)
+3118eb6 NOT ancestor of openssl-3.0.2 (master commit; 3.0 branch uses a466912)
+
+## v3.0.1 VERSION.dat
+MAJOR=3
+MINOR=0
+PATCH=1
+PRE_RELEASE_TAG=
+BUILD_METADATA=
+RELEASE_DATE="14 Dec 2021"
+
+## sha256 of extracted files
+239e706dbc1969ce89d2bdc8dafebaef0e22b15f9ac0360f0ac46251bd7fbf81  runs/verification/openssl_cve_2022_0778/sources/bn_sqrt_3.0.1.c
+0db5c857379d9fe18ea75c168f5f169da0045895978b472281835ab31a30144a  runs/verification/openssl_cve_2022_0778/sources/bn_sqrt_3.0.2.c
+e3b7f0b38a07d8db7b77e0e510ba25edbf9444bb09a43867d9544e1c48cef92a  runs/verification/openssl_cve_2022_0778/sources/cve_v5.json
+151cb8295e8bc6de6d5065bbbe80944bdc9f1039767c5a50a92e49bb568bcd73  runs/verification/openssl_cve_2022_0778/sources/nvd_cve.json

@@ -1,0 +1,440 @@
+{
+  "candidate_id": "disc2_1954710f240b06b65dd3d7d2",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T19:25:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "1064563",
+    "full_name": "netty/netty",
+    "canonical_url": "https://github.com/netty/netty",
+    "primary_language": "Java",
+    "project_kind": "asynchronous event-driven network application framework",
+    "snapshot_id": "snap_bb344e672a0544ef"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-29025",
+    "aliases": [
+      "CVE-2024-29025",
+      "GHSA-5jpm-x58v-624v"
+    ],
+    "title": "Netty HttpPostRequestDecoder has no limit on form fields or buffered field bytes, allowing OOM",
+    "repo_id": "1064563",
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "vulnerable_commit": "97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+    "affected_packages": [
+      {
+        "ecosystem": "maven",
+        "package": "io.netty:netty-codec-http",
+        "purl": "pkg:maven/io.netty/netty-codec-http",
+        "affected_range": "<4.1.108.Final"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "maven",
+        "package": "io.netty:netty-codec-http",
+        "version": "4.1.108.Final",
+        "tag": "netty-4.1.108.Final",
+        "release_url": "https://github.com/netty/netty/releases/tag/netty-4.1.108.Final",
+        "verified_content": "At 4.1.108.Final HttpPostRequestDecoder declares DEFAULT_MAX_FIELDS=128 and DEFAULT_MAX_BUFFERED_BYTES=1024 and passes them to both decoders; HttpPostStandardRequestDecoder.addHttpData throws TooManyFormFieldsException when bodyListHttpData.size() >= maxFields and offer throws TooLongFormFieldException when undecodedChunk.readableBytes() > maxBufferedBytes, with the same checks in the multipart decoder. At 4.1.59 none of these limits exist."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "0d0c6ed782d13d423586ad0c71737b2c7d02058c",
+        "branch": "4.1",
+        "release": "4.1.108.Final",
+        "message": "Merge pull request from GHSA-5jpm-x58v-624v",
+        "url": "https://github.com/netty/netty/commit/0d0c6ed782d13d423586ad0c71737b2c7d02058c"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-770"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L",
+      "score": 5.3,
+      "level": "medium",
+      "numeric_level_rationale": "The CNA (GitHub_M) publishes 5.3 Medium, NVD carries the same vector as its only (Secondary) metric, and the GitHub advisory publishes the same vector with database severity MODERATE. All published scores are 5.3 Medium, so the level is consistent.",
+      "source": "CNA / NVD Secondary 5.3 Medium; GitHub advisory (OSV) 5.3 with database severity MODERATE",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-29025",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 5.3,
+          "level": "medium",
+          "source": "CVE List v5 CNA (GitHub_M)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        {
+          "version": "3.1",
+          "score": 5.3,
+          "level": "medium",
+          "source": "NVD Secondary (security-advisories@github.com)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        },
+        {
+          "version": "3.1",
+          "score": 5.3,
+          "level": "medium",
+          "source": "GitHub advisory / OSV (database severity MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+        }
+      ]
+    },
+    "category_l1": "denial_of_service",
+    "category_l2": "Unbounded resource accumulation: the form decoders keep every field in bodyListHttpData and buffer undecoded bytes per field without limits, so a chunked POST of many small fields or one huge field exhausts the heap",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/netty/netty/security/advisories/GHSA-5jpm-x58v-624v",
+    "published_at": "2024-03-25T19:40:50Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/netty/netty/security/advisories/GHSA-5jpm-x58v-624v",
+      "https://github.com/netty/netty/commit/0d0c6ed782d13d423586ad0c71737b2c7d02058c",
+      "https://gist.github.com/vietj/f558b8ea81ec6505f1e9a6ca283c9ae3",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-29025",
+      "https://github.com/netty/netty/releases/tag/netty-4.1.108.Final"
+    ]
+  },
+  "description": "Netty's HttpPostRequestDecoder decodes application/x-www-form-urlencoded and multipart POST bodies. At 4.1.59 neither implementation bounds the decoded state: HttpPostStandardRequestDecoder.addHttpData (lines 381-392) and the multipart addHttpData (443) append every decoded field to bodyMapHttpData and bodyListHttpData without a maximum field count, and both offer() implementations append each incoming chunk to undecodedChunk (standard 289-302, multipart 340) until a field can be decoded, without a maximum buffered size. A remote client that keeps a chunked POST open can therefore send a very large number of tiny fields, or a single field spread over many chunks, while the server keeps all of it on the heap; the decoder only discards already-consumed bytes above DEFAULT_DISCARD_THRESHOLD and applies no cap to the live form state, so the process can exhaust memory. The 4.1.108.Final fix 0d0c6ed7 adds maxFields (default 128) and maxBufferedBytes (default 1024) to both decoders and throws TooManyFormFieldsException / TooLongFormFieldException when a limit is reached.",
+  "location": {
+    "location_id": "loc_CVE-2024-29025_snap_bb344e672a0544ef",
+    "vulnerability_id": "CVE-2024-29025",
+    "snapshot_id": "snap_bb344e672a0544ef",
+    "location_kind": "logic",
+    "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+    "function": "addHttpData",
+    "language": "Java",
+    "line": "385-391",
+    "critical_operation": {
+      "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+      "function": "addHttpData",
+      "language": "Java",
+      "line": "385-391",
+      "code_excerpt": "        List<InterfaceHttpData> datas = bodyMapHttpData.get(data.getName());\n        if (datas == null) {\n            datas = new ArrayList<InterfaceHttpData>(1);\n            bodyMapHttpData.put(data.getName(), datas);\n        }\n        datas.add(data);\n        bodyListHttpData.add(data);",
+      "description": "addHttpData stores every decoded form field in bodyMapHttpData and bodyListHttpData with no count limit. The standard decoder calls it once per parsed key/value pair (parseBodyAttributesStandard at lines 422-431, parseBodyAttributes at 542-551), and the multipart decoder has the identical method at 433-444. Because the collection grows one entry per field for the lifetime of the request, a body with very many small fields exhausts the heap. The 4.1.108 fix inserts a maxFields check at the top of this method (TooManyFormFieldsException) and a maxBufferedBytes check in offer(); the 4.1.59 class has neither limit.",
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L385-L391"
+    },
+    "entry_point": {
+      "description": "InterfaceHttpPostRequestDecoder.offer(HttpContent): the server feeds each HTTP content chunk of a POST body to the decoder, which is where an attacker controls field count and body size.",
+      "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+      "function": "offer",
+      "language": "Java",
+      "line": 281,
+      "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L281"
+    },
+    "trace": [
+      {
+        "description": "offer appends the content to undecodedChunk without any buffered-bytes check",
+        "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+        "function": "offer",
+        "language": "Java",
+        "line": "289-302",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L289-L302"
+      },
+      {
+        "description": "for each parsed key/value pair parseBodyAttributesStandard creates an attribute and calls addHttpData",
+        "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+        "function": "parseBodyAttributesStandard",
+        "language": "Java",
+        "line": "422-431",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L422-L431"
+      },
+      {
+        "description": "addHttpData grows bodyMapHttpData and bodyListHttpData without a maximum field count",
+        "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+        "function": "addHttpData",
+        "language": "Java",
+        "line": "385-391",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L385-L391"
+      },
+      {
+        "description": "the multipart decoder carries the same unbounded addHttpData and undecodedChunk accumulation",
+        "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostMultipartRequestDecoder.java",
+        "function": "addHttpData/offer",
+        "language": "Java",
+        "line": "433-444",
+        "permalink": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostMultipartRequestDecoder.java#L433-L444"
+      },
+      {
+        "description": "the 4.1.108 fixed addHttpData throws TooManyFormFieldsException once bodyListHttpData reaches maxFields",
+        "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+        "function": "addHttpData",
+        "language": "Java",
+        "line": "432-433",
+        "permalink": "https://github.com/netty/netty/blob/3a3f9d13b129555802de5652667ca0af662f554e/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L432-L433"
+      },
+      {
+        "description": "the 4.1.108 fixed offer throws TooLongFormFieldException once undecodedChunk exceeds maxBufferedBytes",
+        "file": "codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java",
+        "function": "offer",
+        "language": "Java",
+        "line": "339-340",
+        "permalink": "https://github.com/netty/netty/blob/3a3f9d13b129555802de5652667ca0af662f554e/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L339-L340"
+      }
+    ],
+    "verification_method": "Static read of the standard, multipart and interface decoders at 4.1.59.Final and 4.1.108.Final, of the 0d0c6ed7 patch, and of local git tags plus the GitHub compare API; no server or decoder was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_netty_29025_cve_v5",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-29025",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "232b035860b82d98d685bb72885aa9f08991c2b5c560ddd260b551409980d60e",
+      "verification_method": "CVE List v5 CNA (GitHub_M) record",
+      "result": "PASS",
+      "supports": [
+        "CVE state PUBLISHED, published 2024-03-25",
+        "description: HttpPostRequestDecoder can be tricked to accumulate data; no limits on the number of fields and undecoded bytes are buffered until a field can be decoded",
+        "affected '< 4.1.108.Final'; CWE-770; CVSS 3.1 5.3 MEDIUM (AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L)",
+        "references the fix commit 0d0c6ed782d13d423586ad0c71737b2c7d02058c and a gist reproducer"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_nvd",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-29025",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "bdac3d53c40bc3b110665aa82f1d503ffae0878e1efdc78a5e5a2c6009c18fca",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "NVD status Analyzed, published 2024-03-25",
+        "the only CVSS metric is a Secondary 5.3 MEDIUM from security-advisories@github.com; there is no NVD Primary metric",
+        "CWE-770"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_osv_cve",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-29025",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "3d87765dd460f5ba980989abdeca40f41352cc750664a002e29baea9026aef4c",
+      "verification_method": "OSV.dev API record generated from cvelistV5",
+      "result": "PASS",
+      "supports": [
+        "OSV CVE-2024-29025 with the GHSA-5jpm-x58v-624v alias",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:L"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_osv_ghsa",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-5jpm-x58v-624v",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "618d477502d8d9317f0bc26597224a1f9adf1c473e735dd35b843f291d04ceca",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "summary: Netty's HttpPostRequestDecoder can OOM",
+        "details name two vectors: many small fields accumulated in bodyListHttpData, and unbounded bytes accumulated in undecodedChunk until a field decodes",
+        "SEMVER range introduced 0, fixed 4.1.108.Final",
+        "CVSS 3.1 5.3 Medium, database severity MODERATE, CWE-770",
+        "references list the fix commit 0d0c6ed7"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_standard_vuln",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/HttpPostStandardRequestDecoder_4.1.59.java",
+      "source_url": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L381-L392",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "8d06ebdf34d4f68f5c9e37d56924746f1e511d678ab2b240b1879efce73ca767",
+      "verification_method": "file read at snapshot commit 97d04481 (netty-4.1.59.Final); blob 37e41fa9 matches the inventory",
+      "result": "PASS",
+      "supports": [
+        "addHttpData (381-392) appends every decoded field to bodyMapHttpData and bodyListHttpData with no count limit (bodyListHttpData.add at 391)",
+        "offer (281-303) writes content into undecodedChunk (289-302) with no buffered-bytes limit",
+        "parseBodyAttributesStandard creates an attribute per form key (422, 429) and calls addHttpData (431)"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_multipart_vuln",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/HttpPostMultipartRequestDecoder_4.1.59.java",
+      "source_url": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostMultipartRequestDecoder.java#L433-L444",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "cea827e2d22e6981998608be5806b840c99eaf1ed7e2fe6321d14502c73a2403",
+      "verification_method": "file read at snapshot commit 97d04481 (netty-4.1.59.Final); blob e67c0103 matches the inventory",
+      "result": "PASS",
+      "supports": [
+        "the multipart decoder has the same unbounded addHttpData (433-444, bodyListHttpData.add at 443)",
+        "offer (319-340) appends to undecodedChunk (writeBytes at 340) without a buffered-bytes limit",
+        "parseBodyMultipart (453-466) loops decodeMultipart/addHttpData until the body ends"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_iface_vuln",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/HttpPostRequestDecoder_4.1.59.java",
+      "source_url": "https://github.com/netty/netty/blob/97d044812dc84288ea2c44c0862c5b1c26cb5b2d/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostRequestDecoder.java#L38",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "8263c9a110241fb9be9d4232c4c84d6a8996cb18ef5e84e11bd3265241b1418c",
+      "verification_method": "file read at snapshot commit 97d04481 (netty-4.1.59.Final); blob eb6bd792 matches the inventory",
+      "result": "PASS",
+      "supports": [
+        "the class declares only DEFAULT_DISCARD_THRESHOLD (line 38); no maxFields or maxBufferedBytes defaults exist in 4.1.59"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_standard_fixed",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/HttpPostStandardRequestDecoder_4.1.108.java",
+      "source_url": "https://github.com/netty/netty/blob/3a3f9d13b129555802de5652667ca0af662f554e/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java#L432-L433",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "1b6d8a683956a26038231aaf28c6410bc73ee66c67c449bb693c7b3eb5b5ba12",
+      "verification_method": "file read at release tag netty-4.1.108.Final (3a3f9d13)",
+      "result": "PASS",
+      "supports": [
+        "addHttpData now throws TooManyFormFieldsException when bodyListHttpData.size() >= maxFields (432-433)",
+        "offer now throws TooLongFormFieldException when undecodedChunk.readableBytes() > maxBufferedBytes (339-340)",
+        "the fields are initialised from the new constructor parameters (187-192)"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_iface_fixed",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/HttpPostRequestDecoder_4.1.108.java",
+      "source_url": "https://github.com/netty/netty/blob/3a3f9d13b129555802de5652667ca0af662f554e/codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostRequestDecoder.java#L40-L42",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "ec4eb832f8a739803e276a1a6490ec176511c4f707e584b0ff4d5d1d9031b584",
+      "verification_method": "file read at release tag netty-4.1.108.Final (3a3f9d13)",
+      "result": "PASS",
+      "supports": [
+        "DEFAULT_MAX_FIELDS = 128 (line 40) and DEFAULT_MAX_BUFFERED_BYTES = 1024 (line 42)",
+        "new constructors pass maxFields/maxBufferedBytes to the multipart and standard decoders",
+        "TooManyFormFieldsException and TooLongFormFieldException are declared as decoder exceptions"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_patch",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/fix_commit.patch",
+      "source_url": "https://github.com/netty/netty/commit/0d0c6ed782d13d423586ad0c71737b2c7d02058c",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "ea5e696314298bbceed46691fef5a532c6fc5d638b6223430543848e861977e9",
+      "verification_method": "downloaded commit patch for the GHSA fix merge",
+      "result": "PASS",
+      "supports": [
+        "commit 0d0c6ed7 'Merge pull request from GHSA-5jpm-x58v-624v' (2024-03-21, parent d4a640d2)",
+        "adds maxFields/maxBufferedBytes to both decoders, throws TooManyFormFieldsException / TooLongFormFieldException, and adds HttpPostRequestDecoderTest cases"
+      ]
+    },
+    {
+      "evidence_id": "ev_netty_29025_git",
+      "artifact_path": "runs/verification/netty_cve_2024_29025/sources/git_object_checks.txt",
+      "source_url": "https://github.com/netty/netty",
+      "retrieved_at": "2026-10-22T19:25:00Z",
+      "sha256_of_observation": "8c488a699ff2b84e71bce217481232ad657dbe30ab75825eae68e5294b40faf3",
+      "verification_method": "local git tags, blob comparison and GitHub compare API",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag netty-4.1.59.Final resolves to 97d04481 and the three decoder blobs match the inventory",
+        "fix commit 0d0c6ed7 is an ancestor of netty-4.1.108.Final (compare status ahead, ahead_by 9, behind_by 0)",
+        "the fixed code and defaults exist at 4.1.108 and are absent at 4.1.59",
+        "CVE and GHSA both bound the affected range at 4.1.108.Final"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      3
+    ],
+    "aliases": [
+      0,
+      3
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      3,
+      9,
+      10
+    ],
+    "fixed_releases": [
+      0,
+      1,
+      3,
+      7,
+      8,
+      9,
+      10
+    ],
+    "languages": [
+      4,
+      5,
+      7
+    ],
+    "severity": [
+      0,
+      1,
+      3
+    ],
+    "vulnerable_commit": [
+      10
+    ]
+  },
+  "field_evidence_note": "Indexes into the evidence array, as in the other netty dossiers.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 CNA (GitHub_M) record",
+      "NVD analysis (Analyzed; Secondary metric only)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and the GitHub compare API"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD and the GitHub advisory agree on the mechanism (unbounded field accumulation in HttpPostRequestDecoder), on CWE-770 and on the 5.3 Medium CVSS 3.1 vector, and all bound the affected range at 4.1.108.Final. NVD is Analyzed but carries only the GitHub-imported Secondary metric and no CPE configuration. The patch touches both the standard and multipart decoders, and the advisory's two vectors match the two missing checks (field count, buffered bytes). This root cause is distinct from the previously promoted netty entries: CVE-2021-37136 (Bzip2 decompression resource use) and CVE-2021-37137 (Snappy frame decoder resource use), CVE-2021-43797 (CRLF injection in header validation) and GHSA-wm47-8v5p-wjpj.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read HttpPostStandardRequestDecoder and HttpPostMultipartRequestDecoder at 4.1.59 and confirm addHttpData and offer have no field-count or buffered-bytes limit.",
+      "An independent reviewer must confirm 0d0c6ed7 is the fix and is contained in 4.1.108.Final.",
+      "An independent reviewer must confirm the affected range <4.1.108.Final.",
+      "An independent reviewer must confirm all published scores are 5.3 Medium and CWE-770.",
+      "An independent reviewer must confirm the mechanism is distinct from CVE-2021-37136, CVE-2021-37137 and CVE-2021-43797.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "deepseek-flash (independent review agent)",
+      "verdict_path": "runs/independent/netty_CVE-2024-29025_round1/verdict.json",
+      "verdict": "vulnerable_commit",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "severity_level": "medium",
+      "location_line": "381-392"
+    },
+    "independent_corrections_accepted": [
+      "A public reproducer does exist: the GHSA body links the Vert.x Reproducer.java gist (https://gist.github.com/vietj/f558b8ea81ec6505f1e9a6ca283c9ae3) and the reporter's fix+tests branch, and NVD SSVC records exploitation as 'poc'. The reproducer is authored by the reporter (vietj), so under the strict rule it is part of the disclosure chain, not an independent third-party reproduction, and the grade stays B.",
+      "Line-range precision: the standard offer() method spans 281-309 (not 281-310), and the multipart offer() method spans 319-357; the cited 289-302 and 340 cover the buffered-accumulation block, and the load-bearing lines (standard writeBytes 302, multipart writeBytes 340, standard addHttpData 385-391, multipart addHttpData 443, fixed checks 339-340 and 432-433) are exact.",
+      "netty-4.1.108.Final is annotated tag object 1363e1bd2b517859f73cf9c12042d47ae9f6e0d1 which dereferences to commit 3a3f9d13b129555802de5652667ca0af662f554e; the recorded 3a3f9d13 is the commit, not the tag object.",
+      "CVE-2021-37137 is the Snappy frame decoder, not Bzip2 (CVE-2021-37136 is Bzip2); the distinctness conclusion is unchanged and the crosscheck wording was corrected.",
+      "In 4.1.108 the multipart checks are at offer 385-386 and addHttpData 482-483; the standard checks at offer 339-340 and addHttpData 432-433; constants at lines 40 and 42."
+    ],
+    "duplicate_check": "The reviewer confirmed this is distinct from the prior netty entries using public records: CVE-2021-37136 (Bzip2 decompression, GHSA-grg4-wf29-r9vv) and CVE-2021-37137 (Snappy frame decoder, GHSA-9vjp-v76f-g363) are decompression resource issues in netty-codec; CVE-2021-43797 (GHSA-wx5j-54mm-rqqq) is header-name control-character request smuggling; GHSA-wm47-8v5p-wjpj (CVE-2021-21295) is HTTP/2 request smuggling. CVE-2024-29025 is an unbounded-allocation (CWE-770) issue in the codec-http form decoder, with no shared fix commit or code path."
+  },
+  "limitations": [
+    "Static verification only; no HTTP server, decoder or test was run and no memory exhaustion was attempted.",
+    "The issue is a resource-exhaustion DoS: it requires the application to decode POST form bodies with HttpPostRequestDecoder and to keep the connection alive while the body accumulates; the CVSS vector assumes network reachability with no privileges.",
+    "The 4.1.59 analysis cites the standard decoder as the primary location; the multipart decoder has the same missing checks and the fix patched both, but only one location row is recorded.",
+    "The default limits introduced in 4.1.108 (128 fields, 1024 buffered bytes) are a behaviour change for existing applications; they are recorded as the fixed-release content, not as a claim about the vulnerability's exploitability.",
+    "The local mirror cannot run merge-base against the depth-1 4.1.108 tag; ancestry of 0d0c6ed7 in 4.1.108.Final comes from the GitHub compare API (status ahead, behind_by 0) and from the fixed source blobs at the tag.",
+    "The reviewer identified a public reproducer (Vert.x Reproducer.java gist linked from the GHSA, plus the reporter's fix+tests branch) and NVD SSVC exploitation='poc'; because the reproducer is reporter-authored it is not treated as an independent reproduction reference and the grade remains B.",
+    "The snapshot analysis cites the standard decoder as the primary location; the multipart decoder has the same missing checks and the fix patches both, but only one location row is recorded. Method bounds per the reviewer: standard offer 281-309, multipart offer 319-357.",
+    "netty-4.1.108.Final is an annotated tag (object 1363e1bd) that dereferences to commit 3a3f9d13; the local mirror is shallow at that tag, so fix ancestry comes from the GitHub compare API."
+  ],
+  "open_questions": [
+    "Whether the netty snapshot's 4.1.59.Final predates the fix is unambiguous; the exact first release that contains 0d0c6ed7 on other branches (4.0.x) was not investigated."
+  ]
+}

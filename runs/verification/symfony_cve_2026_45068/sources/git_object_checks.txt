@@ -1,0 +1,122 @@
+# git object checks for CVE-2026-45068 (collected 2026-10-22, static only)
+## tag peels (bare clone /tmp/symfony_git)
+v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+v5.4.52 -> eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+
+## fix commit c45144862dc289d03952f41f6078174089a3afc6
+c45144862dc289d03952f41f6078174089a3afc6
+2026-05-11 08:39:31 +0200
+[Mailer] Add end-of-options separator before recipients in SendmailTransport; reject addresses starting with a dash
+
+## ancestry
+fix ancestor of v5.4.45: NO
+fix ancestor of v5.4.52: YES
+
+## blob ids for src/Symfony/Component/Mailer/Transport/SendmailTransport.php
+v5.4.45: 712016b5fed2bb3f7de27974fea8d241d36b5fbd
+v5.4.52: e150194a28f691784dafdb384e965b39621d5f9e
+downloaded v5.4.45 blob sha1: 712016b5fed2bb3f7de27974fea8d241d36b5fbd
+downloaded v5.4.52 blob sha1: e150194a28f691784dafdb384e965b39621d5f9e
+patch pre-image 712016b5fed2b; post-image e150194a28f69
+
+## vulnerable code at v5.4.45 (SendmailTransport.php lines 90-112)
+    protected function doSend(SentMessage $message): void
+    {
+        $this->getLogger()->debug(sprintf('Email transport "%s" starting', __CLASS__));
+
+        $command = $this->command;
+
+        if ($recipients = $message->getEnvelope()->getRecipients()) {
+            $command = str_replace(' -t', '', $command);
+        }
+
+        if (!str_contains($command, ' -f')) {
+            $command .= ' -f'.escapeshellarg($message->getEnvelope()->getSender()->getEncodedAddress());
+        }
+
+        $chunks = AbstractStream::replace("\r\n", "\n", $message->toIterable());
+
+        if (!str_contains($command, ' -i') && !str_contains($command, ' -oi')) {
+            $chunks = AbstractStream::replace("\n.", "\n..", $chunks);
+        }
+
+        foreach ($recipients as $recipient) {
+            $command .= ' '.escapeshellarg($recipient->getEncodedAddress());
+        }
+
+## fixed code at v5.4.52 (SendmailTransport.php lines 90-115)
+    protected function doSend(SentMessage $message): void
+    {
+        $this->getLogger()->debug(sprintf('Email transport "%s" starting', __CLASS__));
+
+        $command = $this->command;
+
+        if ($recipients = $message->getEnvelope()->getRecipients()) {
+            $command = str_replace(' -t', '', $command);
+        }
+
+        if (!str_contains($command, ' -f')) {
+            $command .= ' -f'.escapeshellarg($message->getEnvelope()->getSender()->getEncodedAddress());
+        }
+
+        $chunks = AbstractStream::replace("\r\n", "\n", $message->toIterable());
+
+        if (!str_contains($command, ' -i') && !str_contains($command, ' -oi')) {
+            $chunks = AbstractStream::replace("\n.", "\n..", $chunks);
+        }
+
+        if ($recipients) {
+            $command .= ' --';
+        }
+        foreach ($recipients as $recipient) {
+            $command .= ' '.escapeshellarg($recipient->getEncodedAddress());
+        }
+
+## full patch
+From c45144862dc289d03952f41f6078174089a3afc6 Mon Sep 17 00:00:00 2001
+From: Alexandre Daubois <alex.daubois@gmail.com>
+Date: Thu, 16 Apr 2026 16:52:52 +0200
+Subject: [PATCH] [Mailer] Add end-of-options separator before recipients in
+ SendmailTransport; reject addresses starting with a dash
+
+---
+ .../Mailer/Tests/Transport/SendmailTransportTest.php          | 4 ++--
+ src/Symfony/Component/Mailer/Transport/SendmailTransport.php  | 3 +++
+ 2 files changed, 5 insertions(+), 2 deletions(-)
+
+diff --git a/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php b/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php
+index 660d29c37c0f0..fdbe1d7af3999 100644
+--- a/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php
++++ b/src/Symfony/Component/Mailer/Tests/Transport/SendmailTransportTest.php
+@@ -70,7 +70,7 @@ public function testToIsUsedWhenRecipientsAreNotSet()
+         $sendmailTransport = new SendmailTransport(self::FAKE_SENDMAIL);
+         $sendmailTransport->send($mail, $envelope);
+ 
+-        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com to@mail.com');
++        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com -- to@mail.com');
+     }
+ 
+     public function testRecipientsAreUsedWhenSet()
+@@ -82,7 +82,7 @@ public function testRecipientsAreUsedWhenSet()
+         $sendmailTransport = new SendmailTransport(self::FAKE_SENDMAIL);
+         $sendmailTransport->send($mail, $envelope);
+ 
+-        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com recipient@mail.com');
++        $this->assertStringEqualsFile($this->argsPath, __DIR__.'/Fixtures/fake-sendmail.php -ffrom@mail.com -- recipient@mail.com');
+     }
+ 
+     public function testThrowsTransportExceptionOnFailure()
+diff --git a/src/Symfony/Component/Mailer/Transport/SendmailTransport.php b/src/Symfony/Component/Mailer/Transport/SendmailTransport.php
+index 712016b5fed2b..e150194a28f69 100644
+--- a/src/Symfony/Component/Mailer/Transport/SendmailTransport.php
++++ b/src/Symfony/Component/Mailer/Transport/SendmailTransport.php
+@@ -107,6 +107,9 @@ protected function doSend(SentMessage $message): void
+             $chunks = AbstractStream::replace("\n.", "\n..", $chunks);
+         }
+ 
++        if ($recipients) {
++            $command .= ' --';
++        }
+         foreach ($recipients as $recipient) {
+             $command .= ' '.escapeshellarg($recipient->getEncodedAddress());
+         }

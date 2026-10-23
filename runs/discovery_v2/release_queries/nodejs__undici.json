@@ -1,0 +1,31 @@
+{
+  "repo": "nodejs/undici",
+  "query": "official GitHub Releases collection",
+  "observations": [
+    {
+      "path": "runs/discovery_v2/connector/nodejs__undici_releases_1.json",
+      "page": 1,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:21.593Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/nodejs__undici_releases_2.json",
+      "page": 2,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:25.609Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/nodejs__undici_releases_3.json",
+      "page": 3,
+      "records": 68,
+      "retrieved_at": "2026-10-21T11:03:30.745Z",
+      "status": "PASS"
+    }
+  ],
+  "pagination_complete": true,
+  "total_records": 268,
+  "status": "PASS_QUERY_ONLY",
+  "limitation": "GitHub Releases excludes tag-only releases, historical external security advisories, deleted releases and security reports without release text."
+}

@@ -1,0 +1,51 @@
+# vite CVE-2024-23331 git object checks (collected 2026-10-21)
+
+## refs
+refs/tags/v5.0.11 = b44c49302ffbf0c82f984f6219ed6376d1e4552a (lightweight tag)
+refs/tags/v5.0.12 = ee81e196769c102a6b1bf30f8444ccde236e71d5 (lightweight tag)
+fix commit (advisory, 5.x line) = 91641c4da0a011d4c5352e88fc68389d4e1289a5
+
+## fix commit
+91641c4da0a011d4c5352e88fc68389d4e1289a5
+2024-01-19 14:05:17 +0100
+fix: fs deny for case insensitive systems (#15653)
+parents=ef89f8092f0eb1d8fd7d21256e6af8c4e64fe9b2
+
+## fix commit own diff
+ packages/vite/src/node/server/index.ts                   |  5 ++++-
+ playground/fs-serve/__tests__/base/fs-serve-base.spec.ts |  8 +++++++-
+ playground/fs-serve/__tests__/fs-serve.spec.ts           |  8 +++++++-
+ playground/fs-serve/root/src/index.html                  | 16 +++++++++++++++-
+ 4 files changed, 33 insertions(+), 4 deletions(-)
+diff --git a/packages/vite/src/node/server/index.ts b/packages/vite/src/node/server/index.ts
+index bec44da..eb34efa 100644
+--- a/packages/vite/src/node/server/index.ts
++++ b/packages/vite/src/node/server/index.ts
+@@ -617,7 +617,10 @@ export async function _createServer(
+     _importGlobMap: new Map(),
+     _forceOptimizeOnRestart: false,
+     _pendingRequests: new Map(),
+-    _fsDenyGlob: picomatch(config.server.fs.deny, { matchBase: true }),
++    _fsDenyGlob: picomatch(config.server.fs.deny, {
++      matchBase: true,
++      nocase: true,
++    }),
+     _shortcutsOptions: undefined,
+   }
+ 
+
+## ancestry
+91641c4 IS ancestor of v5.0.12
+91641c4 NOT ancestor of v5.0.11 (expected)
+
+## v5.0.11 package version
+  "version": "5.0.11",
+
+## sha256 of extracted files
+16fe553e61e071568c3f8b80f16015a44097233a3253ab00d3ac42aaa66f1a19  runs/verification/vite_cve_2024_23331/sources/index_ts_v5.0.11.ts
+ea6353fc73d7219016dd3af902ae8cd2cddcdf0ce9f35f4c3e85d4cea571763b  runs/verification/vite_cve_2024_23331/sources/index_ts_v5.0.12.ts
+ade37c5b0dc504ddfe6587a414508569dcf4fec13ce73df0ddf1a665b7795a89  runs/verification/vite_cve_2024_23331/sources/static_ts_v5.0.11.ts
+ade37c5b0dc504ddfe6587a414508569dcf4fec13ce73df0ddf1a665b7795a89  runs/verification/vite_cve_2024_23331/sources/static_ts_v5.0.12.ts
+9e8758498ca94034e4b6de41135d32168c867b29224cc20316e4c3ec373fef7c  runs/verification/vite_cve_2024_23331/sources/osv_ghsa.json
+4ea139d8228ee0b0add3e5a8c1f443b3cef7180e5b8fdf2c6a9bfa8082f4428e  runs/verification/vite_cve_2024_23331/sources/cve_v5.json
+13fafe0489ade543245409143a293505e630fc0d09a78f4cf4c37a5543880279  runs/verification/vite_cve_2024_23331/sources/nvd_cve.json

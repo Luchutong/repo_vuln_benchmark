@@ -1,0 +1,78 @@
+Repository: https://github.com/django/django
+Local mirror: /tmp/django_vuln.git (bare; tags 3.0.2 and 3.1.9 fetched with
+--depth=1, then deepened by 300 commits; fix commit 25d84d64 fetched with --depth=2;
+remote named gh)
+
+Dataset snapshot: tag 3.0.2, commit a36974395ebc03a41928db1743074575b143330d.
+  runs/language/snap_ab695ba3db678939/snapshot_proposal.json records
+  snapshot_id=snap_ab695ba3db678939, repo_id=4164482, tag_or_release=3.0.2,
+  vulnerable_commit=a36974395ebc03a41928db1743074575b143330d.
+  runs/language/snap_ab695ba3db678939/file_inventory.json records (commit a3697439):
+    django/core/files/uploadedfile.py bytes=3890 git_oid=48007b86823df08efefbe8f263b485b3a2c4880f
+    django/core/files/storage.py     bytes=14481 git_oid=4c27fce6052ecb9747ea37a98fe58ba8039e16dd
+    django/core/files/utils.py       bytes=1752 git_oid=de896071759bd1593a7f4c32aba0a6d5f6feba38
+    django/http/multipartparser.py   bytes=25008 git_oid=fd8fce8b4d46afd4c5818c679e30fe5b89fab80a
+    django/utils/text.py             bytes=14001 git_oid=03e2d05177cfc34c72fa8c4ea236c06c67c97c78
+  $ git rev-parse 3.0.2^{commit}
+  a36974395ebc03a41928db1743074575b143330d
+  $ git rev-parse 3.0.2:django/core/files/uploadedfile.py
+  48007b86823df08efefbe8f263b485b3a2c4880f
+  $ git rev-parse 3.0.2:django/core/files/utils.py
+  de896071759bd1593a7f4c32aba0a6d5f6feba38
+  All match the snapshot inventory.
+
+Fix commit: 25d84d64122c15050a0ee739e859f22ddab5ac48
+  "[3.1.x] Fixed CVE-2021-31542 -- Tightened path & file name sanitation in file uploads."
+  2021-04-27, parent 6b0c7e6f5081a0dbe8acdbdcba9cfa6e5dff2792.
+  $ git show -s --format='%H %P | %ci | %s' 25d84d64122c15050a0ee739e859f22ddab5ac48
+  25d84d64122c15050a0ee739e859f22ddab5ac48 6b0c7e6f5081a0dbe8acdbdcba9cfa6e5dff2792 | 2021-04-27 19:12:15 +0200 | [3.1.x] Fixed CVE-2021-31542 -- Tightened path & file name sanitation in file uploads.
+  $ git merge-base --is-ancestor 25d84d64 3.1.9^{commit}; echo $?
+  0
+  $ git log --oneline 25d84d64..3.1.9
+  8284fd67 [3.1.x] Bumped version for 3.1.9 release.
+  So the fix is contained in 3.1.9 with one later version-bump commit.
+  (Sibling branch fixes: 04ac1624bd for 2.2.x, c98f446c18 for 3.2.x; not used.)
+
+Fixed release:
+  tag 3.1.9 -> 8284fd67b4310131d7230b8f475b6882787d1d42
+  $ git rev-parse 3.1.9:django/core/files/uploadedfile.py
+  f452bcd9a4a14de9b22ad77a618177dcc3d06300
+  $ git rev-parse 3.1.9:django/core/files/utils.py
+  f83cb1a3cfe024e2594af967c7c9a8b45b7aeed9
+  (3.0.2 uploadedfile blob 48007b86, utils blob de896071.)
+
+Vulnerable code at the snapshot (3.0.2):
+  django/core/files/uploadedfile.py UploadedFile._set_name (lines 38-50):
+    line 42  name = os.path.basename(name)
+  os.path.basename removes directory prefixes but returns '.' and '..'
+  unchanged, and on POSIX does not treat '\' as a separator.  The method has no
+  rejection for empty names or dot segments, and no later check exists in
+  3.0.2: django/core/files/utils.py (blob de896071) contains only
+  FileProxyMixin, there is no validate_file_name.
+  django/http/multipartparser.py in 3.0.2 has no sanitize_file_name; it only has
+  IE_sanitize (lines 300-302) which strips up to the last backslash.
+  django/core/files/storage.py generate_filename (lines 101-108) calls
+  os.path.normpath(os.path.join(dirname, ...)) with no dot-segment check.
+  A multipart part with filename "." or ".." therefore survives as the stored
+  UploadedFile.name and reaches the storage layer as a path segment.
+
+Fixed code at 3.1.9:
+  django/core/files/utils.py validate_file_name (lines 6-14) rejects names that
+  are not their own basename and rejects '', '.', '..'.
+  django/core/files/uploadedfile.py _set_name calls validate_file_name(name) at
+  line 51.
+  django/core/files/storage.py adds pathlib.PurePath(dir_name).parts '..' checks
+  in get_available_name and generate_filename.
+  django/http/multipartparser.py replaces IE_sanitize with sanitize_file_name,
+  which strips both '/' and '\' and returns None for '', '.', '..'.
+  The 3.1.9 release notes state: "MultiPartParser, UploadedFile, and FieldFile
+  allowed directory-traversal via uploaded files with suitably crafted file
+  names ... empty file names and paths with dot segments will be rejected."
+
+Affected range:
+  OSV/GHSA-rxjp-mfm9-w4wr: django 2.2 introduced, fixed 2.2.21; django 3.0
+  introduced, fixed 3.1.9; django 3.2 introduced, fixed 3.2.1.
+  Snapshot 3.0.2 is inside the 3.0<3.1.9 range.
+
+No Django application, upload handler or test was run; all checks are static
+reads of git objects, the fix patch and public records.

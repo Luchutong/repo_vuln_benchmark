@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_kestrel",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Servers/Kestrel/Kestrel/src/Microsoft.AspNetCore.Server.Kestrel.csproj",
+  "retrieved_at": "2026-10-21T10:56:26.159Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core Kestrel cross-platform web server.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;kestrel</PackageTags>\n    <IsPackable>false</IsPackable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Abstractions\\src\\Microsoft.AspNetCore.Hosting.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Hosting\\src\\Microsoft.AspNetCore.Hosting.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Server.Abstractions\\src\\Microsoft.AspNetCore.Hosting.Server.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Servers\\Kestrel\\Core\\src\\Microsoft.AspNetCore.Server.Kestrel.Core.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Servers\\Kestrel\\Transport.NamedPipes\\src\\Microsoft.AspNetCore.Server.Kestrel.Transport.NamedPipes.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Servers\\Kestrel\\Transport.Quic\\src\\Microsoft.AspNetCore.Server.Kestrel.Transport.Quic.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Servers\\Kestrel\\Transport.Sockets\\src\\Microsoft.AspNetCore.Server.Kestrel.Transport.Sockets.csproj\" />\n  </ItemGroup>\n\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "19841f4a990ea84bf2e5232eed911a0793049192",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Servers/Kestrel/Kestrel/src/Microsoft.AspNetCore.Server.Kestrel.csproj",
+      "display_title": "Microsoft.AspNetCore.Server.Kestrel.csproj"
+    },
+    "isError": false
+  }
+}

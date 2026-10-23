@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/rails/rails.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:35.662424+00:00", "elapsed_seconds": 1.438, "response": {"returncode": 0, "stdout": "6e8d3903f85dd948d726bee9495ea77bc8e50aaa\tHEAD\n", "stderr": ""}}

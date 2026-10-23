@@ -1,0 +1,24 @@
+{
+  "key": "angular_core",
+  "repository": "angular/angular",
+  "path": "packages/core/package.json",
+  "retrieved_at": "2026-10-21T10:56:19.842Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/core\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - the core framework\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"exports\": {\n    \"./schematics/*\": {\n      \"default\": \"./schematics/*.js\"\n    },\n    \"./event-dispatch-contract.min.js\": {\n      \"default\": \"./event-dispatch-contract.min.js\"\n    }\n  },\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"devDependencies\": {\n    \"@mcp-b/webmcp-polyfill\": \"^5.0.0\",\n    \"@mcp-b/webmcp-types\": \"^5.0.0\",\n    \"@modelcontextprotocol/server\": \"^2.0.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/compiler\": \"0.0.0-PLACEHOLDER\",\n    \"rxjs\": \"^6.5.3 || ^7.4.0\",\n    \"zone.js\": \"~0.15.0 || ~0.16.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"@angular/compiler\": {\n      \"optional\": true\n    },\n    \"zone.js\": {\n      \"optional\": true\n    }\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/core\"\n  },\n  \"ng-update\": {\n    \"migrations\": \"./schematics/migrations.json\",\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"angular\": {\n    \"bestPractices\": {\n      \"format\": \"markdown\",\n      \"path\": \"./resources/best-practices.md\"\n    }\n  },\n  \"schematics\": \"./schematics/collection.json\",\n  \"sideEffects\": false\n}\n",
+      "encoding": "utf-8",
+      "sha": "3cb9a824baa04fc64c949671ba1f75bb67b0e4de",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/core/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

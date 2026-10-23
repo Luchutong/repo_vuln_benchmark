@@ -1,0 +1,24 @@
+{
+  "key": "tokio-rs__tokio_security",
+  "repository": "tokio-rs/tokio",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:41.843Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "## Report a security issue\n\nThe Tokio project team welcomes security reports and is committed to providing prompt attention to security issues. Security issues should be reported privately via [security@tokio.rs](mailto:security@tokio.rs). Security issues should not be reported via the public GitHub Issue tracker.\n\n## Vulnerability coordination\n\nRemediation of security vulnerabilities is prioritized by the project team. The project team coordinates remediation with third-party project stakeholders via [GitHub Security Advisories](https://help.github.com/en/github/managing-security-vulnerabilities/about-github-security-advisories). Third-party stakeholders may include the reporter of the issue, affected direct or indirect users of Tokio, and maintainers of upstream dependencies if applicable.\n\nDownstream project maintainers and Tokio users can request participation in coordination of applicable security issues by sending your contact email address, GitHub username(s) and any other salient information to [security@tokio.rs](mailto:security@tokio.rs). Participation in security issue coordination processes is at the discretion of the Tokio team.\n\n## Security advisories\n\nThe project team is committed to transparency in the security issue disclosure process. The Tokio team announces security issues via [project GitHub Release notes](https://github.com/tokio-rs/tokio/releases) and the [RustSec advisory database](https://github.com/RustSec/advisory-db) (i.e. `cargo-audit`).\n",
+      "encoding": "utf-8",
+      "sha": "75c2c4d3ce7053f0b37c8d51d605443918676f20",
+      "display_url": "https://github.com/tokio-rs/tokio/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

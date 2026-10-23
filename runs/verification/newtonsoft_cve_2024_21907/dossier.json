@@ -1,0 +1,322 @@
+{
+  "candidate_id": "disc2_6709335cda799285185169df",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/newtonsoft_cve_2024_21907/sources/osv_ghsa.json",
+      "evidence_id": "ev_ns_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:22:00Z",
+      "sha256_of_observation": "06ae067604a13558ef241d5c91b149c566a234f795e218b65449a61e914d9070",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-5crp-9r3c-p9vr",
+      "supports": [
+        "aliases",
+        "affected range <13.0.1",
+        "fixed version 13.0.1",
+        "CVSS vector",
+        "fix commit reference",
+        "upstream issue/PR"
+      ],
+      "verification_method": "OSV API query for NuGet Newtonsoft.Json, response cached"
+    },
+    {
+      "artifact_path": "runs/verification/newtonsoft_cve_2024_21907/sources/cve_v5.json",
+      "evidence_id": "ev_ns_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:22:00Z",
+      "sha256_of_observation": "b45c105f849ee60d23e2c14b88489fd9231f1e943417a5324f5595a82f2932e0",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-21907",
+      "supports": [
+        "title",
+        "affected range <13.0.1",
+        "CWE-755",
+        "published date",
+        "fix commit reference"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner VulnCheck)"
+    },
+    {
+      "artifact_path": "runs/verification/newtonsoft_cve_2024_21907/sources/nvd_cve.json",
+      "evidence_id": "ev_ns_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:22:00Z",
+      "sha256_of_observation": "2feab8ba6368f6cca5de043b3db8ffab49c4c262c435c288a006de9971667c3f",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-21907",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH",
+        "CWE-755",
+        "description (DeserializeObject stack overflow)",
+        "published date"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/newtonsoft_cve_2024_21907/sources/git_object_checks.txt",
+      "evidence_id": "ev_ns_fix_commit",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:23:00Z",
+      "sha256_of_observation": "d756faad162a148c145290b574ec3d080abe2ef90d7fdf0b1a5293d459549657",
+      "source_url": "https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66",
+      "supports": [
+        "fix commit",
+        "fix commit is an ancestor of 13.0.1",
+        "fix introduces a default MaxDepth in JsonReader and JsonSerializerSettings"
+      ],
+      "verification_method": "full-history bare fetch; commit object and diff inspected; merge-base --is-ancestor against tag 13.0.1"
+    },
+    {
+      "artifact_path": "runs/verification/newtonsoft_cve_2024_21907/sources/JsonReader_12.0.3.cs",
+      "evidence_id": "ev_ns_vulnerable_reader",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:23:00Z",
+      "sha256_of_observation": "2a4e23b27f0cf390524c2855389a698f5de25a449067dbc32d46dee8881ae25f",
+      "source_url": "https://github.com/JamesNK/Newtonsoft.Json/blob/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3/Src/Newtonsoft.Json/JsonReader.cs#L324-L357",
+      "supports": [
+        "root-cause region",
+        "constructor does not set a default _maxDepth",
+        "depth guard at 353 is a no-op when _maxDepth is null"
+      ],
+      "verification_method": "file read from the exact 12.0.3 tag commit"
+    },
+    {
+      "artifact_path": "runs/verification/newtonsoft_cve_2024_21907/sources/JsonReader_13.0.1.cs",
+      "evidence_id": "ev_ns_fixed_reader",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:23:00Z",
+      "sha256_of_observation": "7c97c3321c9e015e76097fbe616a517e15a52bcaf48c315895361d66389d8ac4",
+      "source_url": "https://github.com/JamesNK/Newtonsoft.Json/blob/ae9fe44e1323e91bcbd185ca1a14099fba7c021f/Src/Newtonsoft.Json/JsonReader.cs#L332",
+      "supports": [
+        "fixed release content",
+        "constructor sets _maxDepth = 64 in 13.0.1"
+      ],
+      "verification_method": "file read at tag 13.0.1"
+    },
+    {
+      "artifact_path": "runs/verification/newtonsoft_cve_2024_21907/sources/JsonSerializerSettings_12.0.3.cs",
+      "evidence_id": "ev_ns_vulnerable_settings",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:23:00Z",
+      "sha256_of_observation": "bc188d9081e48204efedb1e41f8c1ff349454848814676fd6063e262b00a5d46",
+      "source_url": "https://github.com/JamesNK/Newtonsoft.Json/blob/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3/Src/Newtonsoft.Json/JsonSerializerSettings.cs#L330-L332",
+      "supports": [
+        "serializer settings default MaxDepth is null at 12.0.3",
+        "the getter returns the unset backing field"
+      ],
+      "verification_method": "file read from the exact 12.0.3 tag commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_25561773eac9d84f/snapshot_proposal.json",
+      "evidence_id": "ev_ns_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:24:00Z",
+      "sha256_of_observation": "80dafab3bcd566408fc23662bbd263d2abd2dfc8ecd3a5b008812c8cdc2569cf",
+      "source_url": "https://github.com/JamesNK/Newtonsoft.Json/tree/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3",
+      "supports": [
+        "snapshot_id",
+        "C# first-party share",
+        "tree oid 438650db",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 1139 tracked files, enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4,
+      6
+    ],
+    "cwe": [
+      1,
+      2
+    ],
+    "fix_commits": [
+      0,
+      3
+    ],
+    "fixed_releases": [
+      5,
+      3
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      3
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "Location was established by static reading; no proof-of-concept was executed against 12.0.3.",
+    "The exact stack depth at which the runtime aborts depends on platform, thread stack size and call path; this dossier does not claim a constant.",
+    "The advisory-referenced fix commit sets 128, while the shipped 13.0.1 default is 64 because of a follow-up commit; both are recorded to avoid attributing the wrong content to the fix commit."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "protected JsonReader()\n{\n    _currentState = State.Start;\n    _dateTimeZoneHandling = DateTimeZoneHandling.RoundtripKind;\n    _dateParseHandling = DateParseHandling.DateTime;\n    _floatParseHandling = FloatParseHandling.Double;\n\n    CloseInput = true;\n}\n...\nif (_maxDepth != null && Depth + 1 > _maxDepth && !_hasExceededMaxDepth)\n{\n    _hasExceededMaxDepth = true;\n    throw JsonReaderException.Create(this, \"MaxDepth exceeded\");\n}",
+      "description": "The vulnerable default lives in this region. The protected constructor (324-332) leaves _maxDepth null, and the depth guard in Push (353-357) only throws when _maxDepth != null. With no cap, deeply nested JSON drives unbounded reader/serializer recursion until the process hits StackOverflowException. The fix adds a default max depth in the constructor and in JsonSerializerSettings; 13.0.1 ships 64.",
+      "file": "Src/Newtonsoft.Json/JsonReader.cs",
+      "function": "JsonReader constructor and Push",
+      "language": "C#",
+      "line": "324-357",
+      "permalink": "https://github.com/JamesNK/Newtonsoft.Json/blob/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3/Src/Newtonsoft.Json/JsonReader.cs#L324-L357"
+    },
+    "entry_point": {
+      "description": "Public deserialization entry points pass attacker-controlled JSON into JsonSerializer/JsonTextReader with default settings.",
+      "file": "Src/Newtonsoft.Json/JsonConvert.cs",
+      "function": "DeserializeObject",
+      "language": "C#",
+      "line": 823,
+      "permalink": "https://github.com/JamesNK/Newtonsoft.Json/blob/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3/Src/Newtonsoft.Json/JsonConvert.cs#L823-L839"
+    },
+    "location_id": "loc_GHSA_5crp_9r3c_p9vr_snap_25561773eac9d84f",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_25561773eac9d84f",
+    "trace": [
+      {
+        "description": "protected constructor without a _maxDepth default",
+        "file": "Src/Newtonsoft.Json/JsonReader.cs",
+        "function": "JsonReader",
+        "language": "C#",
+        "line": 324,
+        "permalink": "https://github.com/JamesNK/Newtonsoft.Json/blob/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3/Src/Newtonsoft.Json/JsonReader.cs#L324-L332"
+      },
+      {
+        "description": "depth guard skipped entirely when _maxDepth is null",
+        "file": "Src/Newtonsoft.Json/JsonReader.cs",
+        "function": "Push",
+        "language": "C#",
+        "line": 353,
+        "permalink": "https://github.com/JamesNK/Newtonsoft.Json/blob/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3/Src/Newtonsoft.Json/JsonReader.cs#L353-L357"
+      },
+      {
+        "description": "default serializer settings also expose a null MaxDepth",
+        "file": "Src/Newtonsoft.Json/JsonSerializerSettings.cs",
+        "function": "MaxDepth",
+        "language": "C#",
+        "line": 330,
+        "permalink": "https://github.com/JamesNK/Newtonsoft.Json/blob/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3/Src/Newtonsoft.Json/JsonSerializerSettings.cs#L330-L332"
+      }
+    ],
+    "verification_method": "Static read of JsonReader.cs and JsonSerializerSettings.cs at the exact 12.0.3 commit 7c3d7f8da7e35dde8fa74188b0decff70f8f10e3, compared with the fix commit 7e77bbe1beccceac4fc7b174b53abfefac278b66 and with tag 13.0.1. No code executed.",
+    "vulnerability_id": "GHSA-5crp-9r3c-p9vr"
+  },
+  "open_questions": [
+    "Whether hosts that explicitly set MaxDepth to a large value remain exposed after 13.0.1; the advisory addresses only the default.",
+    "The <13.0.1 range is recorded from the advisory; 12.0.3 was read in full, but other 12.0.x tags were not each inspected.",
+    "CNA/NVD 与 OSV 对“反序列化还是序列化阶段溢出”的描述不一致；本档案按源码记录 reader 使用显式栈，详见独立复核。"
+  ],
+  "prepared_at": "2026-10-21T14:25:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/JamesNK/Newtonsoft.Json",
+    "full_name": "JamesNK/Newtonsoft.Json",
+    "license": "MIT",
+    "primary_language": "C#",
+    "project_kind": "library",
+    "repo_id": "3476845",
+    "snapshot_id": "snap_25561773eac9d84f"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read JsonReader.cs at 12.0.3 and confirm the guard is inert with a null default.",
+      "An independent reviewer must confirm tag 13.0.1 contains an active default and that the fix commit is an ancestor of 13.0.1.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA + OSV)",
+      "CVE List v5 CNA record (assigner VulnCheck)",
+      "NVD analysis"
+    ],
+    "independent_of_primary": true,
+    "notes": "All three families agree on <13.0.1 and CWE-755. CNA publishes no CVSS metric; NVD and the CISA-ADP secondary metric agree on 7.5 with the same vector, and OSV records the same vector. The advisory-referenced fix commit introduced the cap as 128; a later commit b6dc05be lowered the default to 64 before tag 13.0.1, so the fixed-release content is 64 rather than 128. 独立复核指出 CNA/NVD 把栈溢出的触发点描述为反序列化，而源码显示 reader 使用显式栈、序列化深 JToken 时才递归溢出；两种描述都指向同一个“无深度上限”的根因，但触发阶段以源码为准记录。"
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+    "affected_packages": [
+      {
+        "affected_range": "<13.0.1",
+        "ecosystem": "NuGet",
+        "package": "Newtonsoft.Json",
+        "purl": "pkg:nuget/Newtonsoft.Json"
+      }
+    ],
+    "aliases": [
+      "GHSA-5crp-9r3c-p9vr",
+      "CVE-2024-21907"
+    ],
+    "category_l1": "denial_of_service",
+    "category_l2": "unbounded recursion / stack overflow",
+    "cwe_ids": [
+      "CWE-755"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "Change JsonReader and JsonSerializer default max depth to 128 (#2462)",
+        "sha": "7e77bbe1beccceac4fc7b174b53abfefac278b66",
+        "url": "https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66"
+      },
+      {
+        "branch": null,
+        "message": "Change MaxDepth default to 64 (#2473)",
+        "sha": "b6dc05be5a0f4808f06ec430f3bb59b24d3fbc3e",
+        "url": "https://github.com/JamesNK/Newtonsoft.Json/commit/b6dc05be5a0f4808f06ec430f3bb59b24d3fbc3e"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "NuGet",
+        "package": "Newtonsoft.Json",
+        "release_url": "https://github.com/JamesNK/Newtonsoft.Json/releases/tag/13.0.1",
+        "tag": "13.0.1",
+        "verified_content": "At tag 13.0.1 the JsonReader constructor sets _maxDepth = 64 and JsonSerializerSettings.DefaultMaxDepth is 64, so the depth guard is active by default; 12.0.3 has no constructor default and the settings getter returns null",
+        "version": "13.0.1"
+      }
+    ],
+    "published_at": "2024-01-03T15:23:04Z",
+    "references": [
+      "https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "https://github.com/JamesNK/Newtonsoft.Json/commit/7e77bbe1beccceac4fc7b174b53abfefac278b66",
+      "https://github.com/JamesNK/Newtonsoft.Json/issues/2457",
+      "https://github.com/JamesNK/Newtonsoft.Json/pull/2462",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-21907"
+    ],
+    "repo_id": "3476845",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9).",
+      "score": 7.5,
+      "source": "NVD primary and a secondary CISA-ADP metric carry the same vector; the CNA record publishes no numeric metric, and OSV carries the same vector",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21907",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_25561773eac9d84f",
+    "source_type": "upstream_advisory",
+    "title": "Improper Handling of Exceptional Conditions in Newtonsoft.Json",
+    "vulnerability_id": "GHSA-5crp-9r3c-p9vr",
+    "vulnerable_commit": "7c3d7f8da7e35dde8fa74188b0decff70f8f10e3",
+    "vulnerable_commit_basis": "lightweight tag 12.0.3 maps directly to 7c3d7f8d...; 12.0.3 is inside <13.0.1",
+    "vulnerable_version": "12.0.3"
+  }
+}

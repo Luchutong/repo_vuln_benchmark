@@ -1,0 +1,24 @@
+{
+  "key": "guzzle_composer",
+  "repository": "guzzle/guzzle",
+  "path": "composer.json",
+  "retrieved_at": "2026-10-21T10:55:23.698Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n    \"name\": \"guzzlehttp/guzzle\",\n    \"description\": \"Guzzle is a PHP HTTP client library\",\n    \"license\": \"MIT\",\n    \"keywords\": [\n        \"framework\",\n        \"http\",\n        \"rest\",\n        \"web service\",\n        \"curl\",\n        \"client\",\n        \"HTTP client\",\n        \"PSR-7\",\n        \"PSR-18\"\n    ],\n    \"authors\": [\n        {\n            \"name\": \"Graham Campbell\",\n            \"email\": \"hello@gjcampbell.co.uk\",\n            \"homepage\": \"https://github.com/GrahamCampbell\"\n        },\n        {\n            \"name\": \"Michael Dowling\",\n            \"email\": \"mtdowling@gmail.com\",\n            \"homepage\": \"https://github.com/mtdowling\"\n        },\n        {\n            \"name\": \"Jeremy Lindblom\",\n            \"email\": \"jeremeamia@gmail.com\",\n            \"homepage\": \"https://github.com/jeremeamia\"\n        },\n        {\n            \"name\": \"George Mponos\",\n            \"email\": \"gmponos@gmail.com\",\n            \"homepage\": \"https://github.com/gmponos\"\n        },\n        {\n            \"name\": \"Tobias Nyholm\",\n            \"email\": \"tobias.nyholm@gmail.com\",\n            \"homepage\": \"https://github.com/Nyholm\"\n        },\n        {\n            \"name\": \"Márk Sági-Kazár\",\n            \"email\": \"mark.sagikazar@gmail.com\",\n            \"homepage\": \"https://github.com/sagikazarmark\"\n        },\n        {\n            \"name\": \"Tobias Schultze\",\n            \"email\": \"webmaster@tubo-world.de\",\n            \"homepage\": \"https://github.com/Tobion\"\n        }\n    ],\n    \"require\": {\n        \"php\": \"^7.4 || ^8.0\",\n        \"ext-json\": \"*\",\n        \"guzzlehttp/promises\": \"^3.1\",\n        \"guzzlehttp/psr7\": \"^3.2\",\n        \"psr/http-client\": \"^1.0\",\n        \"psr/http-factory\": \"^1.0\",\n        \"symfony/polyfill-php80\": \"^1.25\",\n        \"symfony/polyfill-php82\": \"^1.27\"\n    },\n    \"require-dev\": {\n        \"ext-curl\": \"*\",\n        \"bamarni/composer-bin-plugin\": \"^1.8.2\",\n        \"guzzle/client-integration-tests\": \"4.0.1\",\n        \"guzzlehttp/test-server\": \"^1.1\",\n        \"php-http/message-factory\": \"^1.1\",\n        \"phpunit/phpunit\": \"^9.6.34\",\n        \"psr/log\": \"^1.1 || ^2.0 || ^3.0\"\n    },\n    \"provide\": {\n        \"psr/http-client-implementation\": \"1.0\"\n    },\n    \"suggest\": {\n        \"ext-curl\": \"Required for CURL handler support\",\n        \"ext-intl\": \"Required for Internationalized Domain Name (IDN) support\",\n        \"psr/log\": \"Required for using the Log middleware\"\n    },\n    \"repositories\": [\n        {\n            \"type\": \"package\",\n            \"package\": {\n                \"name\": \"guzzle/client-integration-tests\",\n                \"version\": \"v4.0.1\",\n                \"require\": {\n                    \"guzzlehttp/psr7\": \"^3.2\",\n                    \"php\": \"^7.4 || ^8.0\",\n                    \"php-http/message\": \"^1.0 || ^2.0\",\n                    \"phpunit/phpunit\": \"^9.6.34\",\n                    \"th3n3rd/cartesian-product\": \"^0.3\"\n                },\n                \"autoload\": {\n                    \"psr-4\": {\n                        \"Http\\\\Client\\\\Tests\\\\\": \"src/\"\n                    }\n                },\n                \"bin\": [\n                    \"bin/http_test_server\"\n                ],\n                \"dist\": {\n                    \"type\": \"zip\",\n                    \"url\": \"https://codeload.github.com/guzzle/client-integration-tests/zip/e54cb9d94e3aa5e125dcd7d01bec22db202444ac\"\n                }\n            }\n        }\n    ],\n    \"autoload\": {\n        \"psr-4\": {\n            \"GuzzleHttp\\\\\": \"src/\"\n        }\n    },\n    \"autoload-dev\": {\n        \"psr-4\": {\n            \"GuzzleHttp\\\\Tests\\\\\": \"tests/\"\n        }\n    },\n    \"config\": {\n        \"allow-plugins\": {\n            \"bamarni/composer-bin-plugin\": true\n        },\n        \"preferred-install\": \"dist\",\n        \"sort-packages\": true\n    },\n    \"extra\": {\n        \"bamarni-bin\": {\n            \"bin-links\": true,\n            \"forward-command\": false\n        }\n    }\n}\n",
+      "encoding": "utf-8",
+      "sha": "a3f45936fd9082942a33e18fed33dd331a6cf476",
+      "display_url": "https://github.com/guzzle/guzzle/blob/8.3/composer.json",
+      "display_title": "composer.json"
+    },
+    "isError": false
+  }
+}

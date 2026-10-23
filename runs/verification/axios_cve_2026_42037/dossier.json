@@ -1,0 +1,363 @@
+{
+  "candidate_id": "disc2_b57fed5dd1caf58d511bc321",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T00:46:00Z",
+  "prepared_by": "Claude collecting agent (single reviewer); independent reviewer to be assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/axios/axios",
+    "full_name": "axios/axios",
+    "primary_language": "JavaScript",
+    "project_kind": "Promise based HTTP client for the browser and node.js",
+    "repo_id": "23088740",
+    "snapshot_id": "snap_a64c7ddbbb7030b7"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2026-42037",
+    "aliases": [
+      "GHSA-445q-vr5w-6q77"
+    ],
+    "title": "Axios: CRLF Injection in multipart/form-data body via unsanitized blob.type in formDataToStream",
+    "category_l1": "injection",
+    "category_l2": "CRLF sequences in an attacker-controlled Blob/File .type are interpolated into a multipart part's Content-Type header, injecting per-part headers into the form-data body",
+    "cwe_ids": [
+      "CWE-93"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+      "score": 5.3,
+      "level": "medium",
+      "source": "GitHub (CNA GitHub_M) CVSS 3.1 5.3 MEDIUM; NVD vulnStatus Analyzed with the same 5.3 MEDIUM as a Secondary metric from security-advisories@github.com; OSV GHSA database_specific severity MODERATE with the same CVSS_V3 vector; CISA-ADP SSVC records Exploitation poc, Automatable no, Technical Impact partial",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-42037"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "npm",
+        "package": "axios",
+        "purl": "pkg:npm/axios",
+        "affected_range": ">=1.0.0,<1.15.1"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "v1.x",
+        "sha": "75873270a59bd5d895322eee145738e95fb89258",
+        "message": "fix: strip crlf correctly (#10758)",
+        "url": "https://github.com/axios/axios/commit/75873270a59bd5d895322eee145738e95fb89258"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "axios",
+        "tag": "v1.15.1",
+        "version": "1.15.1",
+        "release_url": "https://github.com/axios/axios/releases/tag/v1.15.1",
+        "verified_content": "Tag v1.15.1 peels to ac42446be51300fe214ba3c6e40cc95f34fd6871; its lib/helpers/formDataToStream.js blob 76127910 equals the post-fix blob of commit 7587327 and contains the CR/LF-stripping construction at lines 27-28. The npm 1.15.1 tarball's package/lib/helpers/formDataToStream.js has sha256 9412131c..., byte-identical to the tag file."
+      }
+    ],
+    "published_at": "2026-04-24T17:58:16.058Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/axios/axios/security/advisories/GHSA-445q-vr5w-6q77",
+    "references": [
+      "https://github.com/axios/axios/security/advisories/GHSA-445q-vr5w-6q77",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-42037",
+      "https://github.com/axios/axios/pull/10758",
+      "https://github.com/axios/axios/commit/75873270a59bd5d895322eee145738e95fb89258",
+      "https://github.com/axios/axios/releases/tag/v1.15.1"
+    ],
+    "vulnerable_commit": "772a4e54ecc4cc2421e2b746daff0aca10f359d7",
+    "vulnerable_commit_basis": "tag v1.15.0 peels to 772a4e54, inside the advisory range >=1.0.0,<1.15.1; its lib/helpers/formDataToStream.js blob f191e8cb interpolates value.type into the Content-Type line (line 27) without removing CR/LF, while the string branch at line 25 replaces CR/LF and escapeName at lines 54-62 percent-encodes them for name and filename.",
+    "vulnerable_version": "1.15.0",
+    "snapshot_id": "snap_a64c7ddbbb7030b7",
+    "repo_id": "23088740",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2026_42037_snap_a64c7ddbbb7030b7",
+    "location_kind": "logic",
+    "snapshot_id": "snap_a64c7ddbbb7030b7",
+    "vulnerability_id": "CVE-2026-42037",
+    "verification_method": "Static read of lib/helpers/formDataToStream.js at tag v1.15.0 and v1.15.1, the fix commit 7587327 patch against its parent, git object identity checks, npm 1.15.0/1.15.1 tarball file comparison, and the saved OSV/CVE/NVD records. No JavaScript was executed and no HTTP request was made by this collector.",
+    "critical_operation": {
+      "file": "lib/helpers/formDataToStream.js",
+      "function": "FormDataPart constructor",
+      "language": "JavaScript",
+      "line": "20-28",
+      "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/helpers/formDataToStream.js#L20-L28",
+      "code_excerpt": "let headers = `Content-Disposition: form-data; name=\"${escapeName(name)}\"${\n  !isStringValue && value.name ? `; filename=\"${escapeName(value.name)}\"` : ''\n}${CRLF}`;\n\nif (isStringValue) {\n  value = textEncoder.encode(String(value).replace(/\\r?\\n|\\r\\n?/g, CRLF));\n} else {\n  headers += `Content-Type: ${value.type || 'application/octet-stream'}${CRLF}`;\n}",
+      "description": "The constructor builds the per-part headers of a multipart body. name and filename pass through escapeName, which percent-encodes CR, LF and double quote, and the string-value branch replaces CR/LF sequences. The Blob/File branch instead interpolates value.type verbatim at line 27, so an attacker-controlled type such as 'image/jpeg\\r\\nX-Injected: 1' terminates the Content-Type header and starts an injected header line inside the part. Line 30 encodes the assembled headers and FormDataPart.encode yields them as the part prefix, so the injected bytes reach the wire inside the multipart body. The fix at 7587327 assigns String(value.type || 'application/octet-stream').replace(/[\\r\\n]/g, '') to safeType before interpolation."
+    },
+    "entry_point": {
+      "file": "lib/adapters/http.js",
+      "function": "httpAdapter",
+      "language": "JavaScript",
+      "line": 512,
+      "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L509-L521",
+      "description": "In the Node.js adapter, when utils.isSpecCompliantForm(data) is true the adapter calls formDataToStream(data, headersHandler, {tag, boundary}) at line 512, forwarding the caller-supplied FormData entries to the vulnerable constructor. Reachable through the public axios.post(url, formData) API with no special configuration."
+    },
+    "trace": [
+      {
+        "file": "lib/adapters/http.js",
+        "function": "httpAdapter",
+        "language": "JavaScript",
+        "line": 509,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js#L509-L521",
+        "description": "a spec-compliant FormData request body is detected and formDataToStream is called at line 512"
+      },
+      {
+        "file": "lib/helpers/formDataToStream.js",
+        "function": "formDataToStream (part construction)",
+        "language": "JavaScript",
+        "line": 27,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/helpers/formDataToStream.js#L27",
+        "description": "value.type is interpolated into the Content-Type header with no CR/LF filtering"
+      },
+      {
+        "file": "lib/helpers/formDataToStream.js",
+        "function": "FormDataPart.escapeName",
+        "language": "JavaScript",
+        "line": 54,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/helpers/formDataToStream.js#L54-L62",
+        "description": "name and filename are percent-encoded for CR, LF and quote, showing the sanitization applied on the neighbouring path"
+      },
+      {
+        "file": "lib/helpers/formDataToStream.js",
+        "function": "FormDataPart constructor (string branch)",
+        "language": "JavaScript",
+        "line": 25,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/helpers/formDataToStream.js#L25",
+        "description": "string values have CR/LF sequences replaced with CRLF, the inconsistency that leaves the Blob/File type unsanitized"
+      },
+      {
+        "file": "lib/helpers/formDataToStream.js",
+        "function": "FormDataPart.encode",
+        "language": "JavaScript",
+        "line": 40,
+        "permalink": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/helpers/formDataToStream.js#L40-L52",
+        "description": "the encoded headers are yielded immediately before the part body, so injected header lines become part of the multipart stream"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_axios_42037_osv_ghsa",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/osv_GHSA-445q-vr5w-6q77.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-445q-vr5w-6q77",
+      "retrieved_at": "2026-10-22T00:43:00Z",
+      "sha256_of_observation": "e14050f4445b861f471b33dbd15eca5a72c91f10864c78dfed33e7ed45e9b425",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases CVE-2026-42037; github_reviewed true; published 2026-05-05T00:40:45Z with nvd_published_at 2026-04-24T18:16:30Z",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N and database_specific severity MODERATE",
+        "database_specific cwe_ids [CWE-93]",
+        "npm range introduced 1.0.0 fixed 1.15.1",
+        "details identify lib/helpers/formDataToStream.js line 27, note that the string path sanitizes CRLF while the Blob path does not, and describe the Node.js proxy/file-relay attack chain through axios.post(url, formData)",
+        "the advisory's suggested fix is to strip CR/LF from value.type before interpolation"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_cve_v5",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/cve_v5_CVE-2026-42037.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-42037",
+      "retrieved_at": "2026-10-22T00:43:00Z",
+      "sha256_of_observation": "8f5d0b9f3d77818253a0c33223b39046b9fde770d99094203c4b32cf9b1da245",
+      "verification_method": "CVE List v5 record (assigner GitHub_M)",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, assigner GitHub_M, dateReserved 2026-04-23, datePublished 2026-04-24T17:58:16.058Z, dateUpdated 2026-04-27T17:37:06.975Z",
+        "CNA CVSS 3.1 5.3 MEDIUM CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:L/A:N",
+        "CNA problemType CWE-93",
+        "CNA affected npm axios '>= 1.0.0, < 1.15.1' with status affected",
+        "CNA description states FormDataPart interpolates value.type without sanitizing CRLF and that the vulnerability is fixed in 1.15.1",
+        "CISA-ADP SSVC Exploitation poc, Automatable no, Technical Impact partial, and an exploit-tagged reference to the GHSA"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_nvd",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/nvd_CVE-2026-42037.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-42037",
+      "retrieved_at": "2026-10-22T00:43:00Z",
+      "sha256_of_observation": "f4e44fc005237071294a83925a433b86ec77e21e6f2bb2c717c30e600fe4344a",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "published 2026-04-24T18:16:30.543, lastModified 2026-06-17, vulnStatus Analyzed",
+        "Secondary CVSS 3.1 5.3 MEDIUM from security-advisories@github.com; no NVD-authored primary metric",
+        "weakness CWE-93 (Secondary, GitHub)",
+        "CPE configuration cpe:2.3:a:axios:axios versionStartIncluding 1.0.0 versionEndExcluding 1.15.1, vulnerable true",
+        "SSVC records Exploitation poc, Automatable no, Technical Impact partial"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_git_checks",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/git_object_checks.txt",
+      "source_url": "https://github.com/axios/axios/commit/75873270a59bd5d895322eee145738e95fb89258",
+      "retrieved_at": "2026-10-22T00:44:00Z",
+      "sha256_of_observation": "f1065d8a4b202397b56b3fbd72275a6e816803eabf8d52cc7da33ee555a789aa",
+      "verification_method": "per-ref shallow fetches in a bare mirror; git ls-remote / cat-file / rev-parse / show",
+      "result": "PASS",
+      "supports": [
+        "tag v1.15.0 peels to 772a4e54 and its formDataToStream.js blob is f191e8cb",
+        "v1.15.0 line 27 interpolates value.type with no CR/LF removal and line 25 sanitizes only string values",
+        "fix commit 7587327 has parent f0b98673; parent blob f191e8cb equals the v1.15.0 blob and result blob 7612791 matches the patch diff header index f191e8c..7612791",
+        "tag v1.15.1 peels to ac42446 and its formDataToStream.js blob is 7612791, the post-fix blob",
+        "fetches are shallow, so ancestry is inferred from exact tag/commit identity and dates rather than merge-base"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_vuln_file",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/formDataToStream_v1.15.0.js",
+      "source_url": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/helpers/formDataToStream.js",
+      "retrieved_at": "2026-10-22T00:44:00Z",
+      "sha256_of_observation": "63b3e70b19aa9c3a3c15ee53aa2d3dc2444aeca3b21e79546b4bf5bb14c11583",
+      "verification_method": "git show 772a4e54ecc4:lib/helpers/formDataToStream.js; equal to the npm 1.15.0 tarball file at package/lib/helpers/formDataToStream.js",
+      "result": "PASS",
+      "supports": [
+        "line 27 is headers += `Content-Type: ${value.type || 'application/octet-stream'}${CRLF}` with no sanitization",
+        "line 25 replaces CR/LF for string values only",
+        "lines 20-22 and 54-62 apply escapeName to name and filename",
+        "line 30 encodes headers and encode() at lines 40-52 yields them before the part body"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_fixed_file",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/formDataToStream_v1.15.1.js",
+      "source_url": "https://github.com/axios/axios/blob/ac42446be51300fe214ba3c6e40cc95f34fd6871/lib/helpers/formDataToStream.js",
+      "retrieved_at": "2026-10-22T00:44:00Z",
+      "sha256_of_observation": "9412131c9fd379abdc267c685b5fd20e738d0d28a237f296e6249eafd1e692a2",
+      "verification_method": "git show v1.15.1:lib/helpers/formDataToStream.js; equal to the npm 1.15.1 tarball file",
+      "result": "PASS",
+      "supports": [
+        "lines 27-28 compute safeType = String(value.type || 'application/octet-stream').replace(/[\\r\\n]/g, '') and interpolate safeType",
+        "the rest of the constructor is unchanged, so the fix is confined to the type interpolation"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_fix_patch",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/fix_commit_7587327.patch",
+      "source_url": "https://github.com/axios/axios/commit/75873270a59bd5d895322eee145738e95fb89258",
+      "retrieved_at": "2026-10-22T00:44:00Z",
+      "sha256_of_observation": "83b2a2f19c9b7dbf59add623472055980d7f718744557052f874c8867d0d197f",
+      "verification_method": "git format-patch output for commit 7587327 (subject 'fix: strip crlf correctly (#10758)')",
+      "result": "PASS",
+      "supports": [
+        "changes lib/helpers/formDataToStream.js and adds tests/unit/helpers/formDataToStream.test.js",
+        "the source hunk replaces the unsanitized Content-Type interpolation with safeType, stripping both \\r and \\n",
+        "new tests are named for GHSA-445q-vr5w-6q77 and assert that injected header lines are absent from the multipart body",
+        "the patch diff header confirms parent blob f191e8c and result blob 7612791"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_snapshot",
+      "artifact_path": "runs/language/snap_a64c7ddbbb7030b7/snapshot_proposal.json",
+      "source_url": "https://github.com/axios/axios/tree/772a4e54ecc4cc2421e2b746daff0aca10f359d7",
+      "retrieved_at": "2026-10-22T00:44:00Z",
+      "sha256_of_observation": "b5c294cf5486fc3e7d9ebd416c7ea1f123c4ae99f8169293d9a88e748033dd5a",
+      "verification_method": "snapshot inventory built with pinned github-linguist 9.7.0",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_a64c7ddbbb7030b7, repo_id 23088740, tag_or_release v1.15.0, vulnerable_commit 772a4e54",
+        "full_scan true; enumeration_matches_git_ls_tree true; JavaScript is the primary first-party language",
+        "the snapshot commit is the vulnerable tag for this advisory range"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_npm_v1150",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/package_v1.15.0.json",
+      "source_url": "https://registry.npmjs.org/axios/1.15.0",
+      "retrieved_at": "2026-10-22T00:44:00Z",
+      "sha256_of_observation": "05dc0477ffc143499f2a727680fbc661a864dacfa341292c068fa06dd0f7e998",
+      "verification_method": "npm registry metadata for version 1.15.0; the tarball's package/lib/helpers/formDataToStream.js (sha256 63b3e70b...) is byte-identical to the v1.15.0 git blob",
+      "result": "PASS",
+      "supports": [
+        "name axios, version 1.15.0, repository git+https://github.com/axios/axios.git",
+        "the published vulnerable version is the analysed source tree",
+        "the tarball file equals the analysed vulnerable file"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_npm_v1151",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/package_v1.15.1.json",
+      "source_url": "https://registry.npmjs.org/axios/1.15.1",
+      "retrieved_at": "2026-10-22T00:44:00Z",
+      "sha256_of_observation": "0480490af31241c4d28282b73239429e27a3e243fe2e0e1b86234a1aa3480f4e",
+      "verification_method": "npm registry metadata for version 1.15.1; the tarball's package/lib/helpers/formDataToStream.js (sha256 9412131c...) is byte-identical to the v1.15.1 git blob",
+      "result": "PASS",
+      "supports": [
+        "name axios, version 1.15.1, repository git+https://github.com/axios/axios.git",
+        "the published fixed release contains the safeType stripping code, so 1.15.1 is confirmed fixed at the package level"
+      ]
+    },
+    {
+      "evidence_id": "ev_axios_42037_entry_file",
+      "artifact_path": "runs/verification/axios_cve_2026_42037/sources/http_js_v1.15.0.js",
+      "source_url": "https://github.com/axios/axios/blob/772a4e54ecc4cc2421e2b746daff0aca10f359d7/lib/adapters/http.js",
+      "retrieved_at": "2026-10-22T00:45:00Z",
+      "sha256_of_observation": "4b773a44804aa8222038acbb3627722f7232a9ec87a9fba53c9e57d3f6c22992",
+      "verification_method": "byte copy of the v1.15.0 http.js snapshot file preserved in the sibling axios CVE-2026-44486 material (git blob b9981159); sha256 re-checked after copy",
+      "result": "PASS",
+      "supports": [
+        "line 22 imports formDataToStream from ../helpers/formDataToStream.js",
+        "lines 509-521 call formDataToStream(data, headersHandler, {tag, boundary}) for spec-compliant FormData",
+        "the vulnerable helper is reachable from the public Node.js request path"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 1, 2],
+    "aliases": [0, 1],
+    "critical_operation": [4, 5, 6],
+    "cwe": [0, 1, 2],
+    "fix_commits": [3, 6],
+    "fixed_releases": [3, 5, 6, 9],
+    "languages": [7],
+    "severity": [0, 1, 2],
+    "vulnerable_commit": [3, 4, 7, 8]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-445q-vr5w-6q77, npm ranges, project-authored advisory text)",
+      "CVE List v5 record from GitHub_M (CNA), including the CISA-ADP container",
+      "NVD record (Analyzed; Secondary CVSS/CWE from GitHub; CPE range 1.0.0 to <1.15.1)",
+      "upstream git history (tags v1.15.0 / v1.15.1, fix commit 7587327) and npm registry artifacts"
+    ],
+    "independent_of_primary": false,
+    "notes": "Severity is consistent: the CNA, OSV and the NVD Secondary metric all give CVSS 3.1 5.3 MEDIUM with the same vector, and OSV's MODERATE is GitHub's qualitative label for that score; no contradictory metric exists. CWE-93 is identical across all three records. The affected range >=1.0.0,<1.15.1 agrees between the CNA, OSV and NVD CPE data. Source independence is weak: the GHSA is the axios project's own advisory, the CNA is GitHub (the same organization publishing the GHSA entry), and NVD carries GitHub's metric as Secondary rather than an independently authored one. The GHSA credits an external reporter (kobi-s), but the technical text and PoC are the project's, and no independent third-party analysis or reproduction was found. Fix and release facts rest on git object identity and npm tarball equality, not on advisory prose.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read lib/helpers/formDataToStream.js at v1.15.0 and confirm that value.type reaches the Content-Type header at line 27 without CR/LF filtering, while name/filename and string values are sanitized.",
+      "An independent reviewer must confirm that v1.15.0 is inside the advisory range and is the exact tag commit 772a4e54, and that the file judged is the snapshot file (blob f191e8cb).",
+      "An independent reviewer must verify fix commit 7587327 and release v1.15.1 from the git objects and the npm 1.15.1 tarball, including that the fixed file strips CR and LF from type.",
+      "An independent reviewer must assess whether the flaw is actually reachable through the public API for spec-compliant FormData, and whether the multipart body injection has plausible impact on a downstream parser.",
+      "An independent reviewer must decide whether the evidence is independent of the primary advisory source; the dossier records independent_of_primary=false because the GHSA, CNA and NVD metric all trace to GitHub, so evidence_independent may fail and keep the entry below promotion.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No JavaScript was executed and no HTTP request was made: the injection path is read from source and the fix tests, not reproduced against a live server.",
+    "Reachability requires the application to build a spec-compliant FormData from attacker-influenced Blob/File objects (for example a file relay or proxy) and post it with axios in Node.js; browser adapters and non-FormData bodies are unaffected.",
+    "Impact depends on the downstream multipart parser treating injected lines as per-part headers; the advisory argues this is common, but no independent parser-level demonstration was reviewed.",
+    "The advisory suggests value.name may have the same issue; at v1.15.0 name and filename already pass through escapeName, which percent-encodes CR, LF and quote, and the fix tests assert that escaping. Only value.type is treated as the promoted flaw.",
+    "The Node.js default require entry is dist/node/axios.cjs, a bundled build; the audit and tarball comparison cover lib/helpers/formDataToStream.js, and the bundle was not inspected.",
+    "Only v1.15.0 was analysed inside the range; earlier 1.x releases and the lower end of the range rest on the advisory and the invariant in the source.",
+    "The shallow git fetch prevents merge-base ancestry checks; v1.15.0 predates the fix commit by date and both objects were read by exact SHA.",
+    "The NVD record has no NVD-authored CVSS; severity and weakness rest on GitHub's Secondary data."
+  ],
+  "open_questions": [
+    "Whether the bundled dist/node/axios.cjs in 1.15.0 contains the same unsanitized interpolation, which would matter for applications using the default require entry; not inspected.",
+    "Which downstream multipart parsers actually accept injected header lines as new part headers, which determines the realistic integrity impact.",
+    "Whether boundary-aware phantom field injection is practical, since the advisory notes it requires knowing the boundary.",
+    "Whether any independent third party analysed or reproduced the flaw; none was found, so evidence independence is expected to fail unless the reviewer finds one."
+  ]
+}

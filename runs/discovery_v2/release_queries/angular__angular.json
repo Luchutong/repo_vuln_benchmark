@@ -1,0 +1,66 @@
+{
+  "repo": "angular/angular",
+  "query": "official GitHub Releases collection",
+  "observations": [
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_1.json",
+      "page": 1,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:21.594Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_2.json",
+      "page": 2,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:26.403Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_3.json",
+      "page": 3,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:30.161Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_4.json",
+      "page": 4,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:35.436Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_5.json",
+      "page": 5,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:37.994Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_6.json",
+      "page": 6,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:39.807Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_7.json",
+      "page": 7,
+      "records": 100,
+      "retrieved_at": "2026-10-21T11:03:43.515Z",
+      "status": "PASS"
+    },
+    {
+      "path": "runs/discovery_v2/connector/angular__angular_releases_8.json",
+      "page": 8,
+      "records": 20,
+      "retrieved_at": "2026-10-21T11:03:45.612Z",
+      "status": "PASS"
+    }
+  ],
+  "pagination_complete": true,
+  "total_records": 720,
+  "status": "PASS_QUERY_ONLY",
+  "limitation": "GitHub Releases excludes tag-only releases, historical external security advisories, deleted releases and security reports without release text."
+}

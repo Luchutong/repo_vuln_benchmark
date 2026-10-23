@@ -1,0 +1,702 @@
+{
+  "promoted_count": 73,
+  "pending_count": 20,
+  "promoted": [
+    {
+      "vulnerability_id": "CVE-2023-50471",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-cjson-CVE-2023-50471-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2023-38545",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-curl-CVE-2023-38545-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2023-46218",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-curl-CVE-2023-46218-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2020-13254",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2020-13254-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2020-13596",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2020-13596-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2020-24583",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2020-24583-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2020-24584",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2020-24584-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2020-7471",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2020-7471-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2020-9402",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2020-9402-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2021-28658",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2021-28658-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2021-3281",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-django-CVE-2021-3281-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-qw6h-vgh9-j6wx",
+      "grade": "B",
+      "independent_reviewer": "independent Claude reviewer, separate context, read-only",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-m2qf-hxjv-5gpq",
+      "grade": "B",
+      "independent_reviewer": "independent Claude reviewer, separate context, read-only",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-6vm3-jj99-7229",
+      "grade": "B",
+      "independent_reviewer": "independent Claude reviewer, separate context, read-only",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-25mq-v84q-4j7r",
+      "grade": "B",
+      "independent_reviewer": "independent Claude reviewer, separate context, read-only",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-31091",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-guzzle-CVE-2022-31091-round1-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-6hfq-h8hq-87mf",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-agent/hyper-cve-2021-21299-round1 (separate context, read-only)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-23897",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-jenkins-CVE-2024-23897-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-23898",
+      "grade": "B",
+      "independent_reviewer": "claude-independent-reviewer-jenkins-CVE-2024-23898-round1",
+      "warnings": [
+        "grade A capped to B: no reproduction_reference in the verdict"
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-27622",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer (Claude Code; model deepseek-flash)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2025-27623",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer (Claude Code; model deepseek-flash)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2025-27624",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer (Claude Code; model deepseek-flash)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2025-27625",
+      "grade": "B",
+      "independent_reviewer": "independent static reviewer (git + CVE/NVD/OSV/vendor-advisory)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-52301",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-laravel-CVE-2024-52301-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2025-5915",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-libarchive-CVE-2025-5915-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-25235",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-context-b-libexpat-cve-2022-25235-round1",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-25236",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-libexpat-CVE-2022-25236-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-25313",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-libexpat-CVE-2022-25313-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-25314",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-libexpat-CVE-2022-25314-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-25315",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-libexpat-CVE-2022-25315-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-40674",
+      "grade": "B",
+      "independent_reviewer": "libexpat-CVE-2022-40674-round1-independent-reviewer-2026-10-22",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-43680",
+      "grade": "B",
+      "independent_reviewer": "libexpat-CVE-2022-43680-round1-independent-reviewer-2026-10-22",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-wm47-8v5p-wjpj",
+      "grade": "B",
+      "independent_reviewer": "independent Claude reviewer, separate context, read-only",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2021-37136",
+      "grade": "B",
+      "independent_reviewer": "claude-code-independent-reviewer-netty-CVE-2021-37136-round1-20261021",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2021-37137",
+      "grade": "B",
+      "independent_reviewer": "netty-CVE-2021-37137-round1-independent-reviewer-2026-10-22",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2021-43797",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-netty-CVE-2021-43797-deepseek-flash",
+      "warnings": [
+        "grade A capped to B: no reproduction_reference in the verdict"
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2023-34462",
+      "grade": "B",
+      "independent_reviewer": "deepseek-flash (independent review agent)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-29025",
+      "grade": "B",
+      "independent_reviewer": "deepseek-flash (independent review agent)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-5crp-9r3c-p9vr",
+      "grade": "B",
+      "independent_reviewer": "independent Claude reviewer, separate context, read-only",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-42975",
+      "grade": "B",
+      "independent_reviewer": "independent-round2-reviewer-deepseek-flash-20261021",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-56811",
+      "grade": "B",
+      "independent_reviewer": "deepseek-flash-independent-reviewer-CVE-2026-56811-round1",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-1941",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-round2-protobuf-CVE-2022-1941",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2022-3509",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-round1-protobuf-2022-3509",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "grade": "B",
+      "independent_reviewer": "Claude (independent vulnerability reviewer)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-wq4h-7r42-5hrr",
+      "grade": "B",
+      "independent_reviewer": "independent Claude reviewer, separate context, read-only",
+      "warnings": [
+        "grade A capped to B: no reproduction_reference in the verdict"
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-27610",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer/deepseek-flash/round1/rack-CVE-2025-27610",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-32650",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-rustls-CVE-2024-32650-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-50340",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2024-50340-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-50342",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2024-50342-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-50345",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2024-50345-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-51996",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2024-51996-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2025-64500",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2025-64500-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45063",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45063-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45065",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45065-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45067",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45067-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45068",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45068-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45071",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45071-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45073",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45073-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45077",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45077-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45133",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45133-deepseek-flash",
+      "warnings": [
+        "grade A capped to B: no reproduction_reference in the verdict"
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2026-45304",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45304-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-45305",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-45305-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-48489",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-48489-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2026-48736",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-48736-deepseek-flash",
+      "warnings": [
+        "grade A capped to B: no reproduction_reference in the verdict"
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2026-48784",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-symfony-CVE-2026-48784-deepseek-flash",
+      "warnings": [
+        "grade A capped to B: no reproduction_reference in the verdict"
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2023-23936",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-undici-CVE-2023-23936-deepseek-flash",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2023-24807",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer:deepseek-flash:round1:undici-CVE-2023-24807",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2023-45143",
+      "grade": "B",
+      "independent_reviewer": "undici-CVE-2023-45143-round1-independent-reviewer-2026-10-22",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "GHSA-c24v-8rfc-w8vw",
+      "grade": "B",
+      "independent_reviewer": "Independent static-review agent, isolated read-only context (round 1)",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-31207",
+      "grade": "B",
+      "independent_reviewer": "vite-CVE-2024-31207-round1-independent-reviewer-2026-10-22",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-45811",
+      "grade": "B",
+      "independent_reviewer": "vite-CVE-2024-45811-round1-independent-reviewer-2026-10-22",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-45812",
+      "grade": "B",
+      "independent_reviewer": "vite-CVE-2024-45812-round1-independent-reviewer-2026-10-22",
+      "warnings": []
+    },
+    {
+      "vulnerability_id": "CVE-2024-34069",
+      "grade": "B",
+      "independent_reviewer": "independent-reviewer-werkzeug-CVE-2024-34069-deepseek-flash",
+      "warnings": []
+    }
+  ],
+  "pending": [
+    {
+      "vulnerability_id": "CVE-2026-42037",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/axios_CVE-2026-42037_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: affected_range, evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2026-44486",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/axios_CVE-2026-44486_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2021-31542",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/django_CVE-2021-31542_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2021-33203",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/django_CVE-2021-33203_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2021-33571",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/django_CVE-2021-33571_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2021-44420",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/django_CVE-2021-44420_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: affected_range, cwe, evidence_independent, severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2026-67339",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/guzzle_CVE-2026-67339_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2024-43045",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2024-43045_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: cvss"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-31720",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2025-31720_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent, severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-31721",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2025-31721_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent, severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-67635",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2025-67635_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-67636",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2025-67636_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-67637",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2025-67637_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-67638",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2025-67638_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2025-67639",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/jenkins_CVE-2025-67639_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2026-56812",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/phoenix_CVE-2026-56812_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2026-22860",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/rack_CVE-2026-22860_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2022-45442",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/sinatra_CVE-2022-45442_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent, severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2024-51736",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/symfony_CVE-2024-51736_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: severity_consistent"
+          ]
+        }
+      ]
+    },
+    {
+      "vulnerability_id": "CVE-2024-49766",
+      "reason": "independent review failed",
+      "failures": [
+        {
+          "verdict": "runs/independent/werkzeug_CVE-2024-49766_round1/verdict.json",
+          "reasons": [
+            "independent review did not verify: evidence_independent"
+          ]
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "Static verification only; no exploit or red/green test was executed.",
+    "Grade A is capped to B when the verdict has no reproduction reference."
+  ]
+}

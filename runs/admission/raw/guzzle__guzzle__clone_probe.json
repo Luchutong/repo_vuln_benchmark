@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/guzzle/guzzle.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:32.040441+00:00", "elapsed_seconds": 1.366, "response": {"returncode": 0, "stdout": "b920e5fcaf81d761b8fabe600ca90999beaefdb7\tHEAD\n", "stderr": ""}}

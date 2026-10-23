@@ -1,0 +1,24 @@
+{
+  "key": "sinatra_gemspec",
+  "repository": "sinatra/sinatra",
+  "path": "sinatra.gemspec",
+  "retrieved_at": "2026-10-21T10:55:22.612Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path('VERSION', __dir__)).strip\n\nGem::Specification.new 'sinatra', version do |s|\n  s.description       = 'Sinatra is a DSL for quickly creating web applications in Ruby with minimal effort.'\n  s.summary           = 'Classy web-development dressed in a DSL'\n  s.authors           = ['Blake Mizerany', 'Ryan Tomayko', 'Simon Rozet', 'Konstantin Haase']\n  s.email             = 'sinatrarb@googlegroups.com'\n  s.homepage          = 'http://sinatrarb.com/'\n  s.license           = 'MIT'\n  s.files             = Dir['README*.md', 'lib/**/*', 'examples/*'] + [\n    '.yardopts',\n    'AUTHORS.md',\n    'CHANGELOG.md',\n    'CONTRIBUTING.md',\n    'Gemfile',\n    'LICENSE',\n    'MAINTENANCE.md',\n    'Rakefile',\n    'SECURITY.md',\n    'sinatra.gemspec',\n    'VERSION'\n  ]\n  s.extra_rdoc_files  = %w[README.md LICENSE]\n  s.rdoc_options      = %w[--line-numbers --title Sinatra --main README.rdoc --encoding=UTF-8]\n\n  unless s.respond_to?(:metadata)\n    raise <<-WARN\nRubyGems 2.0 or newer is required to protect against public gem pushes. You can update your rubygems version by running:\n  gem install rubygems-update\n  update_rubygems:\n  gem update --system\n    WARN\n  end\n\n  s.metadata = {\n    'source_code_uri' => 'https://github.com/sinatra/sinatra',\n    'changelog_uri' => 'https://github.com/sinatra/sinatra/blob/main/CHANGELOG.md',\n    'homepage_uri' => 'http://sinatrarb.com/',\n    'bug_tracker_uri' => 'https://github.com/sinatra/sinatra/issues',\n    'mailing_list_uri' => 'http://groups.google.com/group/sinatrarb',\n    'documentation_uri' => 'https://www.rubydoc.info/gems/sinatra',\n    'rubygems_mfa_required' => 'true',\n  }\n\n  s.required_ruby_version = '>= 2.7.8'\n\n  s.add_dependency 'logger', '>= 1.6.0'\n  s.add_dependency 'mustermann', '~> 3.0'\n  s.add_dependency 'rack', '>= 3.0.0', '< 4'\n  s.add_dependency 'rack-protection', version\n  s.add_dependency 'rack-session', '>= 2.0.0', '< 3'\n  s.add_dependency 'tilt', '~> 2.0'\nend\n",
+      "encoding": "utf-8",
+      "sha": "aa24fed59b366a63af2436c0592fb9992966f57c",
+      "display_url": "https://github.com/sinatra/sinatra/blob/main/sinatra.gemspec",
+      "display_title": "sinatra.gemspec"
+    },
+    "isError": false
+  }
+}

@@ -1,0 +1,108 @@
+From 513948735b799239f3ef8c89397592445e1a0cd5 Mon Sep 17 00:00:00 2001
+From: Simon Charette <charette.s@gmail.com>
+Date: Sun, 5 Apr 2020 15:45:06 -0400
+Subject: [PATCH] Fixed #31426 -- Added proper field validation to
+ QuerySet.order_by().
+
+Resolve the field reference instead of using fragile regex based string
+reference validation.
+---
+ django/db/models/sql/constants.py |  3 ---
+ django/db/models/sql/query.py     | 18 ++++++++++++++----
+ tests/queries/tests.py            | 17 +++++------------
+ 3 files changed, 19 insertions(+), 19 deletions(-)
+
+diff --git a/django/db/models/sql/constants.py b/django/db/models/sql/constants.py
+index 1ff44252c562..a1db61b9ffb6 100644
+--- a/django/db/models/sql/constants.py
++++ b/django/db/models/sql/constants.py
+@@ -2,8 +2,6 @@
+ Constants specific to the SQL storage portion of the ORM.
+ """
+ 
+-from django.utils.regex_helper import _lazy_re_compile
+-
+ # Size of each "chunk" for get_iterator calls.
+ # Larger values are slightly faster at the expense of more storage space.
+ GET_ITERATOR_CHUNK_SIZE = 100
+@@ -16,7 +14,6 @@
+ CURSOR = 'cursor'
+ NO_RESULTS = 'no results'
+ 
+-ORDER_PATTERN = _lazy_re_compile(r'\?|[-+]?[.\w]+$')
+ ORDER_DIR = {
+     'ASC': ('ASC', 'DESC'),
+     'DESC': ('DESC', 'ASC'),
+diff --git a/django/db/models/sql/query.py b/django/db/models/sql/query.py
+index 82ff6bf4ea00..bb230647ebe9 100644
+--- a/django/db/models/sql/query.py
++++ b/django/db/models/sql/query.py
+@@ -30,9 +30,7 @@
+ from django.db.models.query_utils import (
+     Q, check_rel_lookup_compatibility, refs_expression,
+ )
+-from django.db.models.sql.constants import (
+-    INNER, LOUTER, ORDER_DIR, ORDER_PATTERN, SINGLE,
+-)
++from django.db.models.sql.constants import INNER, LOUTER, ORDER_DIR, SINGLE
+ from django.db.models.sql.datastructures import (
+     BaseTable, Empty, Join, MultiJoin,
+ )
+@@ -1895,7 +1893,7 @@ def add_ordering(self, *ordering):
+         """
+         errors = []
+         for item in ordering:
+-            if isinstance(item, str) and ORDER_PATTERN.match(item):
++            if isinstance(item, str):
+                 if '.' in item:
+                     warnings.warn(
+                         'Passing column raw column aliases to order_by() is '
+@@ -1904,6 +1902,18 @@ def add_ordering(self, *ordering):
+                         category=RemovedInDjango40Warning,
+                         stacklevel=3,
+                     )
++                    continue
++                if item == '?':
++                    continue
++                if item.startswith('-'):
++                    item = item[1:]
++                if item in self.annotations:
++                    continue
++                if self.extra and item in self.extra:
++                    continue
++                # names_to_path() validates the lookup. A descriptive
++                # FieldError will be raise if it's not.
++                self.names_to_path(item.split(LOOKUP_SEP), self.model._meta)
+             elif not hasattr(item, 'resolve_expression'):
+                 errors.append(item)
+             if getattr(item, 'contains_aggregate', False):
+diff --git a/tests/queries/tests.py b/tests/queries/tests.py
+index 532aa072706a..e596c38e7611 100644
+--- a/tests/queries/tests.py
++++ b/tests/queries/tests.py
+@@ -3110,20 +3110,13 @@ def test_iter_exceptions(self):
+         with self.assertRaisesMessage(AttributeError, msg):
+             list(qs)
+ 
+-    def test_invalid_qs_list(self):
+-        # Test for #19895 - second iteration over invalid queryset
+-        # raises errors.
+-        qs = Article.objects.order_by('invalid_column')
+-        msg = "Cannot resolve keyword 'invalid_column' into field."
+-        with self.assertRaisesMessage(FieldError, msg):
+-            list(qs)
+-        with self.assertRaisesMessage(FieldError, msg):
+-            list(qs)
+-
+     def test_invalid_order_by(self):
+-        msg = "Invalid order_by arguments: ['*']"
++        msg = (
++            "Cannot resolve keyword '*' into field. Choices are: created, id, "
++            "name"
++        )
+         with self.assertRaisesMessage(FieldError, msg):
+-            list(Article.objects.order_by('*'))
++            Article.objects.order_by('*')
+ 
+     def test_invalid_queryset_model(self):
+         msg = 'Cannot use QuerySet for "Article": Use a QuerySet for "ExtraInfo".'

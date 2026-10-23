@@ -1,0 +1,108 @@
+diff --git a/lodash.js b/lodash.js
+index 1d232ac5e..900cedf3d 100644
+--- a/lodash.js
++++ b/lodash.js
+@@ -4369,10 +4369,49 @@
+      * @returns {boolean} Returns `true` if the property is deleted, else `false`.
+      */
+     function baseUnset(object, path) {
+       path = castPath(path, object);
+-      object = parent(object, path);
+-      return object == null || delete object[toKey(last(path))];
++
++      // Prevent prototype pollution, see: https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
++      var index = -1,
++          length = path.length;
++
++      if (!length) {
++        return true;
++      }
++
++      var isRootPrimitive = object == null || (typeof object !== 'object' && typeof object !== 'function');
++
++      while (++index < length) {
++        var key = path[index];
++
++        // skip non-string keys (e.g., Symbols, numbers)
++        if (typeof key !== 'string') {
++          continue;
++        }
++
++        // Always block "__proto__" anywhere in the path if it's not expected
++        if (key === '__proto__' && !hasOwnProperty.call(object, '__proto__')) {
++          return false;
++        }
++
++        // Block "constructor.prototype" chains
++        if (key === 'constructor' &&
++            (index + 1) < length &&
++            typeof path[index + 1] === 'string' &&
++            path[index + 1] === 'prototype') {
++
++          // Allow ONLY when the path starts at a primitive root, e.g., _.unset(0, 'constructor.prototype.a')
++          if (isRootPrimitive && index === 0) {
++            continue;
++          }
++
++          return false;
++        }
++      }
++
++      var obj = parent(object, path);
++      return obj == null || delete obj[toKey(last(path))];
+     }
+ 
+     /**
+      * The base implementation of `_.update`.
+diff --git a/test/test.js b/test/test.js
+index 0b200185c..2baff3389 100644
+--- a/test/test.js
++++ b/test/test.js
+@@ -16572,8 +16572,23 @@
+         _.omit(object, path);
+         assert.deepEqual(object, { 'a': { 'b': 2 } });
+       });
+     });
++
++    // Prevent regression for https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
++    QUnit.test('Security: _.omit should not allow modifying prototype or constructor properties', function(assert) {
++      assert.expect(3);
++
++      var testObj1 = {};
++      assert.strictEqual(typeof testObj1.toString, 'function', 'Object.toString should work before omit');
++
++      _.omit({}, ['__proto__.toString']);
++      _.omit({}, ['constructor.prototype.toString']);
++
++      var testObj2 = {};
++      assert.strictEqual(typeof testObj2.toString, 'function', 'Object.toString should still work after omit');
++      assert.strictEqual(Object.prototype.toString.call({}), '[object Object]', 'Object.toString should behave as expected');
++    });
+   }());
+ 
+   /*--------------------------------------------------------------------------*/
+ 
+@@ -25238,8 +25253,23 @@
+       else {
+         skipAssert(assert);
+       }
+     });
++
++    // Prevent regression for https://github.com/lodash/lodash/security/advisories/GHSA-xxjr-mmjv-4gpg
++    QUnit.test('Security: _.unset should not allow modifying prototype or constructor properties', function(assert) {
++      assert.expect(3);
++
++      var testStr1 = 'ABC';
++      assert.strictEqual(typeof testStr1.toLowerCase, 'function', 'String.toLowerCase should exist before unset');
++
++      _.unset({ foo: 'bar' }, 'foo.__proto__.toLowerCase');
++      _.unset({ foo: 'bar' }, 'foo.constructor.prototype.toLowerCase');
++
++      var testStr2 = 'ABC';
++      assert.strictEqual(typeof testStr2.toLowerCase, 'function', 'String.toLowerCase should still exist after unset');
++      assert.strictEqual(testStr2.toLowerCase(), 'abc', 'String.toLowerCase should work as expected');
++    });
+   }());
+ 
+   /*--------------------------------------------------------------------------*/
+ 

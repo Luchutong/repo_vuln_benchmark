@@ -1,0 +1,1302 @@
+[
+  {
+    "repo_id": "6181245",
+    "canonical_url": "https://github.com/aaubry/YamlDotNet",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_4d89919118140399",
+        "commit_sha": "4f7e6e346649ec2a402607a3c1ea352c6fb5ecd3",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "105379569",
+    "canonical_url": "https://github.com/actix/actix-web",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_0c276eb0aa870861",
+        "commit_sha": "2db7119a990511e90e234d8ba118234b51bce68a",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "24195339",
+    "canonical_url": "https://github.com/angular/angular",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_55025ac2aa21eca5",
+        "commit_sha": "d0b33ad25f9625a6bce303c2b8b29472cceb62b9",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "2493904",
+    "canonical_url": "https://github.com/apache/tomcat",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_465320befa43dd91",
+        "commit_sha": "ed8d6339035fb93f8628dbff0a1e4ff1df851c2d",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "23088740",
+    "canonical_url": "https://github.com/axios/axios",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_a64c7ddbbb7030b7",
+        "commit_sha": "772a4e54ecc4cc2421e2b746daff0aca10f359d7",
+        "previous_evaluation_target": false,
+        "tag_or_release": "v1.15.0",
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_fe7a5e0c75c9adb3",
+        "commit_sha": "fceeb10997ea71778ad8bc9671ad53e9195a707c",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "29207621",
+    "canonical_url": "https://github.com/caddyserver/caddy",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_5f7d6c5c600a7a23",
+        "commit_sha": "f355b8687d5582ea9fcc99f71598109d1e5b6ced",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "569041",
+    "canonical_url": "https://github.com/curl/curl",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_0ec1c11542393304",
+        "commit_sha": "6fa1d817e5b1a00d7d0c8168091877476b499317",
+        "previous_evaluation_target": true,
+        "tag_or_release": "curl-8_3_0",
+        "full_language_scan": true,
+        "known_positive_rows": 2,
+        "known_positives_with_same_sha_location": 2,
+        "grade_A_count": 0,
+        "grade_B_count": 2,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_fe7abddfd76a6487",
+        "commit_sha": "82be2bbded0c043b2b225ca97922da1ce874c5f3",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "54280778",
+    "canonical_url": "https://github.com/DaveGamble/cJSON",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_236d2ae19214dff7",
+        "commit_sha": "6d9f2443ab071f86e5d9b43025a40929ec41c46c",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_d9525608880dc9e1",
+        "commit_sha": "cb8693b058ba302f4829ec6d03f609ac6f848546",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v1.7.16",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "4164482",
+    "canonical_url": "https://github.com/django/django",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_2210581e6ea448e2",
+        "commit_sha": "3d3d943b7442f1f5278ed876331a06047fa96ea8",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_ab695ba3db678939",
+        "commit_sha": "a36974395ebc03a41928db1743074575b143330d",
+        "previous_evaluation_target": true,
+        "tag_or_release": "3.0.2",
+        "full_language_scan": true,
+        "known_positive_rows": 8,
+        "known_positives_with_same_sha_location": 8,
+        "grade_A_count": 0,
+        "grade_B_count": 8,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "17620347",
+    "canonical_url": "https://github.com/dotnet/aspnetcore",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_80fefe20d65e43c8",
+        "commit_sha": "2d105dd1fd119edff9a797a1b1aeca6d771c6134",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "10649374",
+    "canonical_url": "https://github.com/elixir-ecto/ecto",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_b710ed5084cfdd8b",
+        "commit_sha": "c0c99f51ef1dc71c265162c92623858027122a77",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "14421569",
+    "canonical_url": "https://github.com/elixir-plug/plug",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_026a9d6d2a05c227",
+        "commit_sha": "05bde7066c373cc47390281d0f698029a725521b",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "153667429",
+    "canonical_url": "https://github.com/elixir-plug/plug_cowboy",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_8dbd807d0794116d",
+        "commit_sha": "87740b57291398ef63189270806567e7772fce5e",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "237159",
+    "canonical_url": "https://github.com/expressjs/express",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_3166f788b2c56baa",
+        "commit_sha": "b28db2c12c3bd9cd763316824446f79bf81e0686",
+        "previous_evaluation_target": true,
+        "tag_or_release": "4.19.2",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_87954805d9b994a8",
+        "commit_sha": "0dee2c52c7c873498f8ed7d8ee4ddd0a04d3ada8",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "20904437",
+    "canonical_url": "https://github.com/gin-gonic/gin",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_bf9ec969e60926c7",
+        "commit_sha": "0f09c3a9b4626d9fe9979cf4d0521d6ae32ab646",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_d4899c7054105aea",
+        "commit_sha": "15ced05c5316609bce5b43389f8e3f06102a8b18",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v1.5.0",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "72495579",
+    "canonical_url": "https://github.com/go-gitea/gitea",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_ea22360d9979a561",
+        "commit_sha": "a8e1057f5e75b0f8cf11191acfde161aa9d88bd2",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "27729880",
+    "canonical_url": "https://github.com/grpc/grpc",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_253685caf4acf508",
+        "commit_sha": "8b32af3bf498c2ba9667410eaa8c836e700e97e6",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "1420053",
+    "canonical_url": "https://github.com/guzzle/guzzle",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_45f02758d9bf7b37",
+        "commit_sha": "b920e5fcaf81d761b8fabe600ca90999beaefdb7",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_efe695448113758a",
+        "commit_sha": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+        "previous_evaluation_target": true,
+        "tag_or_release": "7.4.4",
+        "full_language_scan": true,
+        "known_positive_rows": 2,
+        "known_positives_with_same_sha_location": 2,
+        "grade_A_count": 0,
+        "grade_B_count": 2,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "23500865",
+    "canonical_url": "https://github.com/hyperium/hyper",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_735b41cb13177d03",
+        "commit_sha": "8861f9a7867216c81ea14ac6224c11a1303e7761",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v0.14.2",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_91f2c33e009442f7",
+        "commit_sha": "b07337878fe57b34b2065335ae8cae9ce5a780a0",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "3476845",
+    "canonical_url": "https://github.com/JamesNK/Newtonsoft.Json",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_25561773eac9d84f",
+        "commit_sha": "7c3d7f8da7e35dde8fa74188b0decff70f8f10e3",
+        "previous_evaluation_target": true,
+        "tag_or_release": "12.0.3",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_5ee01d837fd6448e",
+        "commit_sha": "52fa3aef1f2cadcd3a3f874251eddc98d3efbbaa",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "33100064",
+    "canonical_url": "https://github.com/jbeder/yaml-cpp",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_1687bd0bf1463a00",
+        "commit_sha": "c5e65360373d1d99d6b6848c991cd4fcee435009",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "1103607",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_3177999b284ea3b0",
+        "commit_sha": "c5f59e8b565d91ba7e9a209337a49e1fbb19f1db",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_d9b0ffa82cd068d0",
+        "commit_sha": "3b0de10df3bedba515e13032104d4d84f83045be",
+        "previous_evaluation_target": true,
+        "tag_or_release": "jenkins-2.441",
+        "full_language_scan": true,
+        "known_positive_rows": 6,
+        "known_positives_with_same_sha_location": 6,
+        "grade_A_count": 0,
+        "grade_B_count": 6,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "31504491",
+    "canonical_url": "https://github.com/labstack/echo",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_402e978e7e168b5b",
+        "commit_sha": "8fd0e184dd390ffdf082f5eda247c3ab41d5d290",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "7548986",
+    "canonical_url": "https://github.com/laravel/framework",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_6e1f42aa46ca4df5",
+        "commit_sha": "dff716442d9c229d716be82ccc9a7de52eb97193",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v11.30.0",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_dec14c00b8a23f13",
+        "commit_sha": "dd4184fd9306b5b09286689cbad256cf4a8abb6c",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "3542607",
+    "canonical_url": "https://github.com/leethomason/tinyxml2",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_e44b1fc3e39243d8",
+        "commit_sha": "8224e427b655b83dae5e2298f1e6919523a78737",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "3219804",
+    "canonical_url": "https://github.com/libarchive/libarchive",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_60ac5e5f0831ffd7",
+        "commit_sha": "03b426003adf12c1eb4c34e72bedb4c2bf1ba8d3",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_a47bcab3f2c97e92",
+        "commit_sha": "b439d586f53911c84be5e380445a8a259e19114c",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v3.7.7",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "80314213",
+    "canonical_url": "https://github.com/libexpat/libexpat",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_d33251dac37c334c",
+        "commit_sha": "81b89678e200820271b72cacdd45fb5868855765",
+        "previous_evaluation_target": true,
+        "tag_or_release": "R_2_4_4",
+        "full_language_scan": true,
+        "known_positive_rows": 7,
+        "known_positives_with_same_sha_location": 7,
+        "grade_A_count": 0,
+        "grade_B_count": 7,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_edb1080cef929f99",
+        "commit_sha": "628f49ba13f789b2f94e678367c8d5da474c12bc",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "3955647",
+    "canonical_url": "https://github.com/lodash/lodash",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_b11ce93a0056bf2e",
+        "commit_sha": "2b5e6f7399a7b48005140b5d5c6bc6c0e62919a8",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "80945428",
+    "canonical_url": "https://github.com/nestjs/nest",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_ed2c874b73247465",
+        "commit_sha": "62647d3ec95e816a4556b3e04106eb4af002b4b8",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "1064563",
+    "canonical_url": "https://github.com/netty/netty",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_17e4a5bc91bc4bb2",
+        "commit_sha": "5776ebc58d19637392d60fe707ee3adcb830c9bf",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_bb344e672a0544ef",
+        "commit_sha": "97d044812dc84288ea2c44c0862c5b1c26cb5b2d",
+        "previous_evaluation_target": true,
+        "tag_or_release": "netty-4.1.59.Final",
+        "full_language_scan": true,
+        "known_positive_rows": 6,
+        "known_positives_with_same_sha_location": 6,
+        "grade_A_count": 0,
+        "grade_B_count": 6,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "11171548",
+    "canonical_url": "https://github.com/nlohmann/json",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_34320676e349f7c8",
+        "commit_sha": "5e13f834c16ddcfa12b10495cf48d6087d665343",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "133092972",
+    "canonical_url": "https://github.com/nodejs/undici",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_14b26960bc55e97f",
+        "commit_sha": "25543f5bd5744ff673016ed89b4bb09455e4875a",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_24c4a191fd049fc3",
+        "commit_sha": "f5c89e5c87c7d702996b152c4ad86302b60c4181",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v5.19.0",
+        "full_language_scan": true,
+        "known_positive_rows": 3,
+        "known_positives_with_same_sha_location": 3,
+        "grade_A_count": 0,
+        "grade_B_count": 3,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "7634677",
+    "canonical_url": "https://github.com/openssl/openssl",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_10d458b485bb6210",
+        "commit_sha": "b4e83ed7cd99c12d27e0e220c3afa1745a68f921",
+        "previous_evaluation_target": false,
+        "tag_or_release": "openssl-3.0.1",
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_e4cbee233ee774b4",
+        "commit_sha": "63bd920445f5339aa0ccaf07475df7abac2c8632",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "596892",
+    "canonical_url": "https://github.com/pallets/flask",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_8ed1cab47a0b7011",
+        "commit_sha": "721abdc3810057269503a72d2db80fb826f3c85c",
+        "previous_evaluation_target": true,
+        "tag_or_release": "2.3.1",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_c6e642a6b3affd44",
+        "commit_sha": "d086db856be187255b8ec61ef409357393020f32",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "997338",
+    "canonical_url": "https://github.com/pallets/werkzeug",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_b57262de7996e8a2",
+        "commit_sha": "d70dcea305bf842c5a3b55265b5ffac2db012e23",
+        "previous_evaluation_target": true,
+        "tag_or_release": "3.0.2",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_e891b426f158d6c2",
+        "commit_sha": "665e760ca6325a348ce03e5cf780b17e4be01848",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "16072585",
+    "canonical_url": "https://github.com/phoenixframework/phoenix",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_8f107ee61f6877b6",
+        "commit_sha": "e5880ef7390d6fb4759d6cf9a957a310cefca7c4",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_ee79f4175242bbee",
+        "commit_sha": "6234b576b94476f285a3397c0a9c5a610d1cdb67",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v1.6.13",
+        "full_language_scan": true,
+        "known_positive_rows": 2,
+        "known_positives_with_same_sha_location": 2,
+        "grade_A_count": 0,
+        "grade_B_count": 2,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "2253830",
+    "canonical_url": "https://github.com/PHPMailer/PHPMailer",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_d2e05d198fd4c8b3",
+        "commit_sha": "c0b5268a626d6ddbe71333cc1c60c5ae37e44e0d",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "23357588",
+    "canonical_url": "https://github.com/protocolbuffers/protobuf",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_1d7aec2129804665",
+        "commit_sha": "0911cfc8a1c15e77db2dd062abdf2af60089bf17",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_6bc3f36eb61ef280",
+        "commit_sha": "21027a27c4c2ec1000859ccbcfff46d83b16e1ed",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v3.20.1",
+        "full_language_scan": true,
+        "known_positive_rows": 3,
+        "known_positives_with_same_sha_location": 3,
+        "grade_A_count": 0,
+        "grade_B_count": 3,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "11939484",
+    "canonical_url": "https://github.com/pyca/cryptography",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_adf275f7449012d1",
+        "commit_sha": "f7295d634f8388edc3625d039513c72e4384431c",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "96071",
+    "canonical_url": "https://github.com/rack/rack",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_78ebc08e6ca7a6f9",
+        "commit_sha": "412b7e5250612e8b23095eee65ee3268addb4776",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_f97687a4e0807cb2",
+        "commit_sha": "1741c580d71cfca8e541e96cc372305c8892ee74",
+        "previous_evaluation_target": true,
+        "tag_or_release": "2.2.3",
+        "full_language_scan": true,
+        "known_positive_rows": 2,
+        "known_positives_with_same_sha_location": 2,
+        "grade_A_count": 0,
+        "grade_B_count": 2,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "8514",
+    "canonical_url": "https://github.com/rails/rails",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_4e01b34117977bd4",
+        "commit_sha": "0f19d01ab94a6a7d8d5021585aaa9a3a9a39e3f5",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "135525225",
+    "canonical_url": "https://github.com/ruby/rexml",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_46e51fa7881b678a",
+        "commit_sha": "0fee9c5bfab3ae311ed5958ec760db19a2c95eeb",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "57920736",
+    "canonical_url": "https://github.com/rustls/rustls",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_89dcf9a499512df5",
+        "commit_sha": "73650cc7f7d8b280932f554c9032a14a8f9b71f5",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_b3a6891886ef2160",
+        "commit_sha": "1dee8b13134d877ade94dda7b68c7bf072e18d62",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v/0.23.4",
+        "full_language_scan": true,
+        "known_positive_rows": 1,
+        "known_positives_with_same_sha_location": 1,
+        "grade_A_count": 0,
+        "grade_B_count": 1,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "106995",
+    "canonical_url": "https://github.com/sinatra/sinatra",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_7787b0b03f0e0a7a",
+        "commit_sha": "cb22afd7902b566b6eaba6c4ea89739494a65d12",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_916afbf76073e831",
+        "commit_sha": "cafaab99db5b644e5fbe2a19bdba168e671ff1f2",
+        "previous_evaluation_target": false,
+        "tag_or_release": "v3.0.3",
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "72174164",
+    "canonical_url": "https://github.com/SixLabors/ImageSharp",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_0c6ea8e26fa18e71",
+        "commit_sha": "a73c43da5a82f151506dd5288c4897b2b885c325",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "1148753",
+    "canonical_url": "https://github.com/spring-projects/spring-framework",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_40eb10dbcf0e3602",
+        "commit_sha": "42c0a9bcc6755d0938f5b4854308c5e62856bfb9",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "458058",
+    "canonical_url": "https://github.com/symfony/symfony",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_39105a8a3ceb9fe4",
+        "commit_sha": "2b66d7d7d8129531229708ef708860844db91944",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v5.4.45",
+        "full_language_scan": true,
+        "known_positive_rows": 18,
+        "known_positives_with_same_sha_location": 18,
+        "grade_A_count": 0,
+        "grade_B_count": 18,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_b554968c2ea83429",
+        "commit_sha": "ad1bfbb2c5eceddca368790aacc545baaa44bf2d",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "67836789",
+    "canonical_url": "https://github.com/tokio-rs/tokio",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_f24ebe150d320916",
+        "commit_sha": "cffdc7601134598cebc45d03af0358dedfcb3ff1",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "70107786",
+    "canonical_url": "https://github.com/vercel/next.js",
+    "current_target_count": 0,
+    "candidates": [
+      {
+        "snapshot_id": "snap_c1ec8929758d53a4",
+        "commit_sha": "a89c0afe5702f604a142f5d185b0b0018b4eefa7",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  },
+  {
+    "repo_id": "257485422",
+    "canonical_url": "https://github.com/vitejs/vite",
+    "current_target_count": 1,
+    "candidates": [
+      {
+        "snapshot_id": "snap_2e50b228f2432623",
+        "commit_sha": "b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+        "previous_evaluation_target": true,
+        "tag_or_release": "v5.0.11",
+        "full_language_scan": true,
+        "known_positive_rows": 4,
+        "known_positives_with_same_sha_location": 4,
+        "grade_A_count": 0,
+        "grade_B_count": 4,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      },
+      {
+        "snapshot_id": "snap_329ac48b4c66dd97",
+        "commit_sha": "6f2730eacae327cc2ce95c87509b7e7779c615e0",
+        "previous_evaluation_target": false,
+        "tag_or_release": null,
+        "full_language_scan": true,
+        "known_positive_rows": 0,
+        "known_positives_with_same_sha_location": 0,
+        "grade_A_count": 0,
+        "grade_B_count": 0,
+        "warning": "Counts are exploratory; candidate is NOT verified suitable for final evaluation."
+      }
+    ],
+    "decision": "MANUAL_REVIEW_REQUIRED"
+  }
+]

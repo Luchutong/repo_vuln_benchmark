@@ -1,0 +1,92 @@
+Repository: https://github.com/sinatra/sinatra
+Local mirror: /tmp/sinatra_git (bare). Tags were fetched one by one with
+`git fetch --depth=1 https://github.com/sinatra/sinatra.git refs/tags/<tag>`;
+because each tag is a separate shallow fetch, ancestry queries between tags are
+NOT meaningful (merge-base reports non-ancestry even for real ancestors). The
+decisive evidence here is file blob identity plus the fix commits' own diffs,
+which name the exact before/after blobs.
+
+Dataset snapshot (new evaluation snapshot created for this cycle):
+  tag v3.0.3
+  $ git rev-parse 'v3.0.3^{commit}'
+  cafaab99db5b644e5fbe2a19bdba168e671ff1f2
+  snapshot_id snap_916afbf76073e831, repo_id 106995, full_scan=true,
+  tag_or_release "v3.0.3" (built with scripts/build_snapshot_at.py).
+  $ git ls-tree v3.0.3 lib/sinatra/base.rb
+  100644 blob d7e2d65ad9817c8255632371f1e3dc099570f9a1  (2024 lines)
+
+Releases examined:
+  v3.0.3 = cafaab99 + subject "3.0.3 release"
+  v3.0.4 = eca7b54a + subject "3.0.4 release"
+  v2.2.2 = a2b82435 + subject "2.2.2 release"
+  v2.2.3 = 0bdb254b + subject "2.2.3 release" (parent 43df7424)
+  base.rb blobs:
+    v2.2.2 = 986fe455d66be20ec0738d577886c669a13a0845
+    v2.2.3 = fb6945c4e51c5d8f4abfec7db3db4bfb70405b39
+    v3.0.3 = d7e2d65ad9817c8255632371f1e3dc099570f9a1
+    v3.0.4 = cbb3f2fd7b9518314e95bf3ea305474e0804d835
+
+Fix commits (subject "escape filename in the Content-Disposition header"):
+  3.0 line: ea8fc9495a350f7551b39e3025bfcd06f49f363b
+    parent c90f203f7a5cc4e5ef5c685e31d9d0bb002f8eab, 2022-11-23
+    `git show ea8fc949 -- lib/sinatra/base.rb` diff header reads
+      index d7e2d65..cbb3f2f
+    i.e. exactly the v3.0.3 blob to the v3.0.4 blob.
+  2.2 line: 1808bcdf3424eab0c659ef2d0e85579aab977a1a
+    parent ee12b185f62e9a265991e400dd5869257c15a974, 2022-11-23
+    `git show 1808bcdf -- lib/sinatra/base.rb` diff header reads
+      index 986fe45..fb6945c
+    i.e. exactly the v2.2.2 blob to the v2.2.3 blob. (The 2.2 patch is larger
+    because the 2.2 code still used the `if filename` form; the 3.0 code had
+    already been refactored to `return unless filename`.)
+
+Vulnerable code at the snapshot (v3.0.3, blob d7e2d65):
+  lib/sinatra/base.rb:401-410  def attachment(filename = nil, disposition = :attachment)
+  ... 402  response['Content-Disposition'] = disposition.to_s.dup
+  ... 403  return unless filename
+  ... 405  params = format('; filename="%s"', File.basename(filename))
+  ... 406  response['Content-Disposition'] << params
+  ... 408  content_type(ext) unless response['Content-Type'] || ext.empty?
+  File.basename only removes directory components; it does not remove or encode
+  `"`, CR or LF. The result is interpolated directly between the quotes of the
+  Content-Disposition filename parameter, so a filename containing a quote and a
+  CRLF sequence closes the quoted string and appends arbitrary header
+  parameters (the fix's own regression test uses
+  "test.xml\";\r\next=.txt"). The same helper is used by send_file when a
+  :filename option is supplied.
+
+Fix at v3.0.4 (blob cbb3f2f):
+  lib/sinatra/base.rb:399-404
+    MULTIPART_FORM_DATA_REPLACEMENT_TABLE = { '"' => '%22', "\r" => '%0D', "\n" => '%0A' }.freeze
+  lib/sinatra/base.rb:412
+    params = format('; filename="%s"', File.basename(filename).gsub(/["\r\n]/, MULTIPART_FORM_DATA_REPLACEMENT_TABLE))
+  (the method starts at line 408; the table hash literal is at 400-404).
+  v2.2.3 has the same fix: table at 385-389, method at 393, gsub at 397.
+
+Regression test:
+  $ git cat-file -p v3.0.4:test/helpers_test.rb | grep -n "escapes filename"
+  784:    it 'escapes filename in the Content-Disposition header according to the
+        multipart form data spec in WHATWG living standard' do
+  The test calls attachment "test.xml\";\r\next=.txt" and asserts
+  'attachment; filename="test.xml%22;%0D%0Aext=.txt"'.
+  At v3.0.3 the same grep returns nothing; the attachment tests only use
+  'test.xml' and 'test' (test/helpers_test.rb:746-780).
+
+Public records:
+  CVE List v5 (sources/cve_v5_CVE-2022-45442.json), assigner GitHub_M,
+  published 2022-11-28: CVSS 3.1 8.8 HIGH
+  CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H, CWE-494, affected
+  ">= 3.0, < 3.0.4" and ">= 2.0, < 2.2.3".
+  NVD (sources/nvd_CVE-2022-45442.json): Primary 8.8 HIGH with the identical
+  vector (nvd@nist.gov), plus a Secondary 8.8 HIGH from
+  security-advisories@github.com; weakness CWE-494 (Secondary); CPE product
+  sinatrarb:sinatra with Debian entries.
+  OSV GHSA-2x8x-jmrp-phxw (sources/osv_GHSA-2x8x-jmrp-phxw.json): same CVSS 3.1
+  vector, database_specific severity HIGH, cwe_ids [CWE-494], github_reviewed
+  true, ranges 3.0 -> 3.0.4 and 2.0.0 -> 2.2.3.
+  All published sources therefore agree on the level HIGH and on the 8.8
+  numeric score/vector; CWE-494 is the only CWE published.
+
+No Ruby program was run, no request was made and no header was emitted; every
+check is a static read of git objects, the two fix patches and the saved
+advisory records.

@@ -1,0 +1,14 @@
+26a5cf834526e291db00385dd33d319b8271fc4c
+c5cfaad2f1f08b31ba04b9534f1a46a6ef1003bf
+2020-02-24 14:46:28 +0100
+[3.0.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.
+
+ django/contrib/gis/db/models/aggregates.py | 14 ++++++++---
+ django/contrib/gis/db/models/functions.py  | 14 ++++++-----
+ docs/releases/1.11.29.txt                  | 13 ++++++++++
+ docs/releases/2.2.11.txt                   | 10 ++++++--
+ docs/releases/3.0.4.txt                    | 10 ++++++--
+ docs/releases/index.txt                    |  1 +
+ tests/gis_tests/distapp/tests.py           | 31 ++++++++++++++++++++++++
+ tests/gis_tests/geoapp/tests.py            | 38 +++++++++++++++++++++++++++++-
+ 8 files changed, 117 insertions(+), 14 deletions(-)

@@ -1,0 +1,33 @@
+Express CVE-2024-43796 / GHSA-qw6h-vgh9-j6wx — git object checks
+Recorded 2026-10-21 (UTC). Read-only; no upstream code executed.
+
+1. npm registry metadata (runs/verification/express_lodash/sources may hold the
+   fetched registry body; the value below was read from it earlier):
+   express@4.19.2 gitHead = b28db2c12c3bd9cd763316824446f79bf81e0686
+   express@4.20.0 gitHead = 21df421ebc7a5249bb31101da666bbf22adc3f18
+
+2. `git ls-remote https://github.com/expressjs/express.git 'refs/tags/4.19.2*'`
+   d36495d7e666f30c06fbb0e039771c5267d7d1d4  refs/tags/4.19.2
+   04bc62787be974874bc1467b23606c36bc9779ba  refs/tags/4.19.2^{}
+   `refs/tags/4.20.0`        -> 21df421ebc7a5249bb31101da666bbf22adc3f18
+   `refs/tags/v5.0.0`        -> 344b022fc7ed95cf07b46e097935e61151fd585f
+
+3. `git cat-file -p` on both 4.19.2 candidates:
+   04bc62787be974874bc1467b23606c36bc9779ba
+     tree f18a74c2f183fd0ab2bd3b411ddd44b792d4481a
+     parent da4d763ff6ba9df6dbd8f1f0b1d05412dda934d5
+     version 4.19.2
+   b28db2c12c3bd9cd763316824446f79bf81e0686   (npm gitHead)
+     tree f18a74c2f183fd0ab2bd3b411ddd44b792d4481a
+     parent 0b746953c4bd8e377123527db11f9cd866e39f94
+     version 4.19.2
+   Same tree: the npm-published commit and the GitHub tag commit are content-
+   identical; the snapshot snap_3166f788b2c56baa records tree
+   f18a74c2f183fd0ab2bd3b411ddd44b792d4481a, matching both.
+
+4. Fixed content check (`git show <tag>:lib/response.js`):
+   4.20.0 (21df421e...) line 972:
+     body = '<p>' + statuses.message[status] + '. Redirecting to ' + u + '</p>'
+   v5.0.0 (344b022f...) line 827:
+     body = '<p>' + statuses.message[status] + '. Redirecting to ' + u + '</p>'
+   The anchor href sink is absent in both fixed releases.

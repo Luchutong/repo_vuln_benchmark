@@ -1,0 +1,265 @@
+{
+  "packet_id": "selrev_23357588_snap_442de86eb5fd3f62",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "23357588",
+    "full_name": "protocolbuffers/protobuf",
+    "canonical_url": "https://github.com/protocolbuffers/protobuf",
+    "primary_language": "C++",
+    "project_kind": "Protocol Buffers - Google's data interchange format"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_442de86eb5fd3f62",
+    "tag_or_release": "v3.25.4",
+    "commit_sha": "e915ce24b3d43c0fffcbf847354288c07dda1de0"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "e915ce24b3d43c0fffcbf847354288c07dda1de0",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "fafd76c831eb7f547d5d7fbae3aee0dbb32e01fc",
+    "tree_file_count": 2708,
+    "exported_file_count": 2708,
+    "symlink_count": 0,
+    "gitlink_count": 3,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/protocolbuffers__protobuf/snap_442de86eb5fd3f62.tar.gz",
+    "archive_sha256": "20e20c1ea1e6dd06878b61183064c4c206e1c64bb9d67727ab0d22db98451a79",
+    "archive_bytes": 5787439,
+    "manifest_path": "exports/protocolbuffers__protobuf/snap_442de86eb5fd3f62.manifest.jsonl",
+    "manifest_sha256": "72dc809605bdd945ccd34784e0153304f8198160d88454e3e2072246fe44fb7e"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "csharp/CHANGES.txt",
+      "php/release.sh"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/BUILD.bazel",
+      ".github/CODEOWNERS",
+      ".github/ISSUE_TEMPLATE/bug_report.md",
+      ".github/ISSUE_TEMPLATE/feature_request.md",
+      ".github/dependabot.yml",
+      ".github/workflows/README.md",
+      ".github/workflows/clear_caches.yml",
+      ".github/workflows/forked_pr_workflow_check.yml",
+      ".github/workflows/janitor.yml",
+      ".github/workflows/scorecard.yml",
+      ".github/workflows/staleness_check.yml",
+      ".github/workflows/staleness_refresh.yml",
+      ".github/workflows/test_cpp.yml",
+      ".github/workflows/test_csharp.yml",
+      ".github/workflows/test_java.yml",
+      ".github/workflows/test_objectivec.yml",
+      ".github/workflows/test_php.yml",
+      ".github/workflows/test_php_ext.yml",
+      ".github/workflows/test_python.yml",
+      ".github/workflows/test_ruby.yml",
+      ".github/workflows/test_runner.yml",
+      ".github/workflows/test_rust.yml",
+      ".github/workflows/test_upb.yml",
+      ".github/workflows/update_php_repo.yml",
+      "SECURITY.md",
+      "csharp/CHANGES.txt",
+      "php/release.sh"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "cmake": [
+        "CMakeLists.txt"
+      ],
+      "dotnet": [
+        "global.json"
+      ],
+      "go": [
+        "go.mod"
+      ],
+      "java_maven": [
+        "pom.xml"
+      ],
+      "make": [
+        "Makefile"
+      ],
+      "php": [
+        "composer.json"
+      ],
+      "python": [
+        "setup.cfg",
+        "setup.py",
+        "tox.ini"
+      ],
+      "ruby": [
+        "Gemfile",
+        "Rakefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "python",
+      "go",
+      "java_maven",
+      "dotnet",
+      "php",
+      "ruby",
+      "cmake",
+      "make"
+    ],
+    "toolchain_available": {
+      "cmake": {
+        "cmake": true,
+        "make": true
+      },
+      "dotnet": {
+        "dotnet": false
+      },
+      "go": {
+        "go": false
+      },
+      "java_maven": {
+        "java": false,
+        "mvn": false
+      },
+      "make": {
+        "make": true
+      },
+      "php": {
+        "composer": false,
+        "php": false
+      },
+      "python": {
+        "python3": true
+      },
+      "ruby": {
+        "ruby": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "aliases": [
+        "CVE-2024-7254",
+        "GHSA-735f-pc8j-v9w8"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<3.25.5; >=4.0.0-RC1,<4.27.5; >=4.28.0-RC1,<4.28.2",
+          "ecosystem": "Maven",
+          "note": "GHSA per-range record lists Maven version 3.25.4 explicitly; CNA and NVD both cap the 3.x line at 3.25.5.",
+          "package": "com.google.protobuf:protobuf-java",
+          "purl": "pkg:maven/com.google.protobuf/protobuf-java"
+        },
+        {
+          "affected_range": "<3.25.5; >=4.0.0-RC1,<4.27.5; >=4.28.0-RC1,<4.28.2",
+          "ecosystem": "Maven",
+          "note": "GHSA per-range record lists Maven version 3.25.4 explicitly.",
+          "package": "com.google.protobuf:protobuf-javalite",
+          "purl": "pkg:maven/com.google.protobuf/protobuf-javalite"
+        },
+        {
+          "affected_range": "<3.25.5; >=4.0.0-RC1,<4.27.5; >=4.28.0-RC1,<4.28.2",
+          "ecosystem": "Maven",
+          "note": "Kotlin runtime delegates to the Java runtime; same three ranges.",
+          "package": "com.google.protobuf:protobuf-kotlin",
+          "purl": "pkg:maven/com.google.protobuf/protobuf-kotlin"
+        },
+        {
+          "affected_range": "<3.25.5; >=4.0.0-RC1,<4.27.5; >=4.28.0-RC1,<4.28.2",
+          "ecosystem": "Maven",
+          "note": "CNA spells this product 'protobuf-kotllin-lite'; the package identity is from GHSA.",
+          "package": "com.google.protobuf:protobuf-kotlin-lite",
+          "purl": "pkg:maven/com.google.protobuf/protobuf-kotlin-lite"
+        },
+        {
+          "affected_range": "<3.25.5; >=4.0.0-RC1,<4.27.5; >=4.28.0-RC1,<4.28.2",
+          "ecosystem": "RubyGems",
+          "note": "JRuby gem only; it embeds the Java runtime. The repository under test is the upstream protobuf repo, not the gem.",
+          "package": "google-protobuf",
+          "purl": "pkg:gem/google-protobuf"
+        }
+      ],
+      "published_at": "2024-09-19T00:18:45Z",
+      "advisory_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-735f-pc8j-v9w8",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "Google CNA (cvelistV5 / cveawg)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "NVD secondary (cve-coordination@google.com)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 8.7,
+            "source": "GHSA-735f-pc8j-v9w8 page",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "NVD primary (nvd@nist.gov)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": 7.5,
+            "source": "GHSA-735f-pc8j-v9w8 (OSV record)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "high",
+            "score": null,
+            "source": "OSV CVE record (vector only)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+            "version": "4.0"
+          }
+        ],
+        "level": "high",
+        "numeric_level_rationale": "Google CNA and the GitHub advisory page publish CVSS 4.0 8.7 HIGH; NVD carries the same 8.7 as a secondary metric but its own primary metric is CVSS 3.1 7.5 HIGH. Both scores are HIGH; the difference is the CVSS version, not the impact. OSV's CVE record exports the 4.0 vector with no numeric score.",
+        "score": 8.7,
+        "source": "Google CNA CVSS 4.0 8.7; NVD secondary 4.0 8.7; GHSA page 4.0 8.7; NVD primary 3.1 7.5; GHSA 3.1 7.5",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-7254",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

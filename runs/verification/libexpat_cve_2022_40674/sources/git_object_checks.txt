@@ -1,0 +1,56 @@
+Repository: https://github.com/libexpat/libexpat
+Local mirror: /tmp/libexpat.git (shallow clone of the R_2_4_4 line; the R_2_4_6/7/8/9
+tags were fetched from https://github.com/libexpat/libexpat.git with --depth=50)
+
+Dataset snapshot: tag R_2_4_4, commit 81b89678e200820271b72cacdd45fb5868855765.
+  runs/language/snap_d33251dac37c334c/snapshot_proposal.json records
+  tag_or_release=R_2_4_4, vulnerable_commit=81b89678e200820271b72cacdd45fb5868855765.
+  runs/language/snap_d33251dac37c334c/file_inventory.json records
+  expat/lib/xmlparse.c bytes=273455, git_oid=4b43e61321691c082721fbeeab59ef53f5f58e73,
+  language=C, which matches the blob at the snapshot commit:
+  $ git rev-parse R_2_4_4:expat/lib/xmlparse.c
+  4b43e61321691c082721fbeeab59ef53f5f58e73
+
+Fix commit: 4a32da87e931ba54393d465bb77c40b5c33d343b
+  "Ensure raw tagnames are safe exiting internalEntityParser", 2022-08-17
+  The commit wraps the doContent call in internalEntityProcessor with a
+  storeRawNames(parser) call after it, returning XML_ERROR_NO_MEMORY on failure.
+  It is the single code change of pull request #629 ("missing-store-raw"),
+  merged by dde178b976934e16526a3277d31d9fa3fab7a6c1.
+
+CVE mapping is stated upstream:
+  721169eeca509ba93be6c73d0abe1caf5d218b9c "Changes: Document heap use-after-free
+  CVE-2022-40674" adds, under Security fixes: "#629 #640 CVE-2022-40674 -- Heap
+  use-after-free vulnerability in function doContent."
+  a7ce80a013f2a08cb1ac4aac368f2250eea03ebf "tests: Cover heap use-after-free issue
+  in doContent" adds the regression test in the same pull request.
+
+Ancestry:
+  $ git merge-base --is-ancestor 4a32da8 R_2_4_4^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor 4a32da8 R_2_4_8^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor 4a32da8 R_2_4_9^{commit} ; echo $?  -> 0
+  $ git tag --contains 4a32da8 | sort -V | head -1                  -> R_2_4_9
+
+Release tags resolve to:
+  R_2_4_4 -> 81b89678e200820271b72cacdd45fb5868855765 (snapshot)
+  R_2_4_8 -> 3bab6c09bbe8bf42d84b81563ddbcf4cca4be838
+  R_2_4_9 -> d77291a4824d78e697c5dc2b8024fd65ab31e209
+
+The target file's blob by release:
+  R_2_4_4 xmlparse.c -> 4b43e61321691c082721fbeeab59ef53f5f58e73 (vulnerable snapshot)
+  R_2_4_8 xmlparse.c -> 7bcabf7...  (pre-fix; the patch's index line)
+  R_2_4_9 xmlparse.c -> d73f419...  (post-fix; the patch's index line)
+  The R_2_4_8..R_2_4_9 diff for expat/lib/xmlparse.c is exactly this patch
+  (12 insertions, 7 deletions across the release's file, with 4a32da8 contributing
+  9 insertions and 4 deletions).
+
+OSV's fixed GIT event for CVE-2022-40674 is d77291a4, which is the 2.4.9 release
+merge, not the code fix; the CVE-tracking commits 721169e/a7ce80a and the PR #629
+merge dde178b place the actual code change at 4a32da8.
+
+Duplicate check in the dataset at this snapshot: the five already-promoted libexpat
+entries (CVE-2022-25235, CVE-2022-25236, CVE-2022-25313, CVE-2022-25314,
+CVE-2022-25315) are the 2.4.4-to-2.4.5 XML parsing fixes. This candidate
+(CVE-2022-40674) is the internalEntityProcessor/doContent raw-name use-after-free
+fixed in 2.4.9; CVE-2022-43680 is a separate XML_ParserFree use-after-free in the
+same 2.4.9 release, with its own fix commit.

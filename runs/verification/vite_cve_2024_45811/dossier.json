@@ -1,0 +1,421 @@
+{
+  "candidate_id": "disc2_2a264309337602506e7d6579",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T18:50:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "257485422",
+    "full_name": "vitejs/vite",
+    "canonical_url": "https://github.com/vitejs/vite",
+    "primary_language": "TypeScript",
+    "project_kind": "frontend build tool and dev server",
+    "snapshot_id": "snap_2e50b228f2432623"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-45811",
+    "aliases": [
+      "CVE-2024-45811",
+      "GHSA-9cwx-2883-4wfx"
+    ],
+    "title": "Vite dev server returns files outside server.fs.allow via ?import&raw because transformMiddleware never calls ensureServingAccess",
+    "repo_id": "257485422",
+    "snapshot_id": "snap_2e50b228f2432623",
+    "vulnerable_commit": "b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+    "affected_packages": [
+      {
+        "ecosystem": "npm",
+        "package": "vite",
+        "purl": "pkg:npm/vite",
+        "affected_range": ">=5.0.0,<5.1.8"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "vite",
+        "version": "5.1.8",
+        "tag": "v5.1.8",
+        "release_url": "https://github.com/vitejs/vite/releases/tag/v5.1.8",
+        "verified_content": "At v5.1.8 transformMiddleware calls ensureServingAccess before serving any url matching rawRE or urlRE (transform.ts lines 162-168), and ensureServingAccess is exported from static.ts; at v5.0.11 the import/JS branch at transform.ts lines 137-142 runs without any fs check and asset.ts reads the ?raw file directly. The change 03f103383 is first contained in v5.1.8 and absent from v5.0.11 and v5.1.7."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "03f103383e17d2beb02d7d12070ae0c1f5b9400d",
+        "branch": "5.1",
+        "release": "5.1.8",
+        "message": "fix: fs raw query (#18112)",
+        "url": "https://github.com/vitejs/vite/commit/03f103383e17d2beb02d7d12070ae0c1f5b9400d"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-200",
+      "CWE-284"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+      "score": 4.8,
+      "level": "medium",
+      "numeric_level_rationale": "The CNA (GitHub_M) publishes 4.8 Medium and NVD carries that metric as its only, Secondary, metric (the record is Deferred with no NVD Primary analysis). The GitHub advisory publishes a different vector, CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N, which is 5.3 Medium, and also a CVSS 4.0 vector; both published CVSS 3.1 scores are Medium, so the level is consistent even though the vectors and scores differ.",
+      "source": "CNA / NVD Secondary security-advisories@github.com 4.8 Medium; GitHub advisory (OSV) 5.3 Medium",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45811",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.8,
+          "level": "medium",
+          "source": "CVE List v5 CNA (GitHub_M)",
+          "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.8,
+          "level": "medium",
+          "source": "NVD Secondary (security-advisories@github.com)",
+          "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 5.3,
+          "level": "medium",
+          "source": "GitHub advisory / OSV (computed base score for its own vector)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "information_disclosure",
+    "category_l2": "Access control: the ?raw/?url import path in transformMiddleware never calls ensureServingAccess, so /@fs paths outside server.fs.allow and paths matched by server.fs.deny are served",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-9cwx-2883-4wfx",
+    "published_at": "2024-09-17T20:08:11Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/vitejs/vite/security/advisories/GHSA-9cwx-2883-4wfx",
+      "https://github.com/vitejs/vite/commit/03f103383e17d2beb02d7d12070ae0c1f5b9400d",
+      "https://github.com/vitejs/vite/pull/18112",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-45811",
+      "https://github.com/vitejs/vite/releases/tag/v5.1.8"
+    ]
+  },
+  "description": "In the Vite dev server, requests whose URL carries ?import&raw (or ?raw, ?url) are handled by transformMiddleware before serveStaticMiddleware/serveRawFsMiddleware. At v5.0.11 transformMiddleware's import/JS request branch (transform.ts lines 137-142) performs removeImportQuery (line 144) and unwrapId (line 147) and calls transformRequest (line 172) with no ensureServingAccess check; the resolver's /@fs branch returns the absolute path unconditionally, and the asset plugin's load hook (asset.ts lines 189-196) matches rawRE and returns await fsp.readFile(file, 'utf-8') at line 194. transformRequest's isFileServingAllowed check at transformRequest.ts line 212 only guards its fallback fs branch, which is not reached because the asset plugin already returns code. The /@fs allow-list and server.fs.deny checks in serveRawFsMiddleware (static.ts lines 181-191) therefore never run, so a client that can reach the dev server can read files outside server.fs.allow and files the deny list is meant to protect. The 5.1.8 fix 03f103383 exports ensureServingAccess and gates the rawRE/urlRE paths on it before the import branch.",
+  "location": {
+    "location_id": "loc_CVE-2024-45811_snap_2e50b228f2432623",
+    "vulnerability_id": "CVE-2024-45811",
+    "snapshot_id": "snap_2e50b228f2432623",
+    "location_kind": "logic",
+    "file": "packages/vite/src/node/server/middlewares/transform.ts",
+    "function": "transformMiddleware",
+    "language": "TypeScript",
+    "line": "137-142",
+    "critical_operation": {
+      "file": "packages/vite/src/node/server/middlewares/transform.ts",
+      "function": "transformMiddleware",
+      "language": "TypeScript",
+      "line": "137-142",
+      "code_excerpt": "      if (\n        isJSRequest(url) ||\n        isImportRequest(url) ||\n        isCSSRequest(url) ||\n        isHTMLProxy(url)\n      ) {",
+      "description": "The import/JS request branch of transformMiddleware. Requests with ?import&raw satisfy isImportRequest/isJSRequest and enter this branch; removeImportQuery (line 144) and unwrapId (line 147) leave a /@fs/<absolute path>?raw id, which transformRequest (line 172) resolves and the asset plugin loads with fsp.readFile (asset.ts line 194). No ensureServingAccess call guards this path; transformRequest's own isFileServingAllowed check (transformRequest.ts line 212) only guards its fallback fs branch, and the asset plugin returns code for the raw query before that fallback is considered, so the fs.allow/fs.deny checks that serveRawFsMiddleware applies to /@fs requests are bypassed. Extensionless targets also reach this branch with a plain ?raw through isJSRequest. The 5.1.8 fix inserts `if ((rawRE.test(url) || urlRE.test(url)) && !ensureServingAccess(url, server, res, next)) return` immediately before this branch.",
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/transform.ts#L137-L142"
+    },
+    "entry_point": {
+      "description": "An HTTP request to the dev server for /@fs/<absolute path>?import&raw; transformMiddleware answers it before the raw-fs middleware can apply the allow-list check.",
+      "file": "packages/vite/src/node/server/middlewares/transform.ts",
+      "function": "transformMiddleware",
+      "language": "TypeScript",
+      "line": 137,
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/transform.ts#L137"
+    },
+    "trace": [
+      {
+        "description": "the request enters the import/JS branch because ?import makes isImportRequest true",
+        "file": "packages/vite/src/node/server/middlewares/transform.ts",
+        "function": "transformMiddleware",
+        "language": "TypeScript",
+        "line": "137-142",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/transform.ts#L137-L142"
+      },
+      {
+        "description": "removeImportQuery and unwrapId reduce the url to /@fs/<path>?raw",
+        "file": "packages/vite/src/node/server/middlewares/transform.ts",
+        "function": "transformMiddleware",
+        "language": "TypeScript",
+        "line": "144-147",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/transform.ts#L144-L147"
+      },
+      {
+        "description": "transformRequest is invoked without an fs access check",
+        "file": "packages/vite/src/node/server/middlewares/transform.ts",
+        "function": "transformMiddleware",
+        "language": "TypeScript",
+        "line": 172,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/transform.ts#L172"
+      },
+      {
+        "description": "the asset plugin's load hook matches rawRE and reads the resolved file from disk",
+        "file": "packages/vite/src/node/plugins/asset.ts",
+        "function": "assetPlugin.load",
+        "language": "TypeScript",
+        "line": "189-196",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/plugins/asset.ts#L189-L196"
+      },
+      {
+        "description": "serveRawFsMiddleware would have called ensureServingAccess for an /@fs path, but the transform middleware answered the request first",
+        "file": "packages/vite/src/node/server/middlewares/static.ts",
+        "function": "serveRawFsMiddleware",
+        "language": "TypeScript",
+        "line": "181-191",
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L181-L191"
+      },
+      {
+        "description": "the fixed 5.1.8 code gates rawRE/urlRE requests on ensureServingAccess before the import branch",
+        "file": "packages/vite/src/node/server/middlewares/transform.ts",
+        "function": "transformMiddleware",
+        "language": "TypeScript",
+        "line": "162-168",
+        "permalink": "https://github.com/vitejs/vite/blob/fe6323127ba74a159b1ae3cd3cf2fe1677087128/packages/vite/src/node/server/middlewares/transform.ts#L162-L168"
+      }
+    ],
+    "verification_method": "Static read of transform.ts, static.ts and asset.ts at v5.0.11 and transform.ts/static.ts at v5.1.8, of the 03f103383 patch, and of local git ancestry; no dev server was started and no request was sent."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_vite_45811_cve_v5",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-45811",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "b173fb5ec7835f4c377acc21e63500ce401b12fdab26bd691d2fe81f42748101",
+      "verification_method": "CVE List v5 CNA (GitHub_M) record",
+      "result": "PASS",
+      "supports": [
+        "CVE state PUBLISHED, CNA published 2024-09-17",
+        "description: @fs denies access to files outside the serving allow list, but adding ?import&raw bypasses the limitation and returns the file content",
+        "patched in 5.4.6, 5.3.6, 5.2.14, 4.5.5 and 3.2.11",
+        "affected ranges include >= 5.0.0, < 5.2.14",
+        "CNA CVSS 3.1 4.8 MEDIUM, CWE-200/CWE-284"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_nvd",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-45811",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "3752e15faa82b24f1082acc941177b7b051323020d3feabe3f1de7ad71eab8d2",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "NVD status Deferred, published 2024-09-17",
+        "the only CVSS metric is a Secondary 4.8 MEDIUM from security-advisories@github.com; there is no NVD Primary metric and no CPE configuration",
+        "weaknesses CWE-200 and CWE-284"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_osv_cve",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-45811",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "c8cc2eafc3b59f85f27784e4e438f1a88019067dddb29388fc11d4b6229172e9",
+      "verification_method": "OSV.dev API record generated from cvelistV5",
+      "result": "PASS",
+      "supports": [
+        "OSV CVE-2024-45811 with GHSA-9cwx-2883-4wfx alias",
+        "references list the per-line fix commits including 6820bb3b and 8339d740"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_osv_ghsa",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-9cwx-2883-4wfx",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "c5d37c44227caffb20e927f44f53a5850f6a236429ac4e5950fcd7417406c9ac",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "summary: Vite's server.fs.deny is bypassed when using ?import&raw",
+        "SEMVER ranges: 5.0.0-<5.1.8, 5.2.0-<5.2.14, 5.3.0-<5.3.6, 5.4.0-<5.4.6, 4.0.0-<4.5.4, <3.2.11",
+        "GHSA-severity CVSS 3.1 AV:N/AC:L/PR:N/UI:N/C:L (5.3 Medium) and a CVSS 4.0 vector; database severity MODERATE",
+        "references list the fix commits for each release line"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_transform_vuln",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/transform_v5.0.11.ts",
+      "source_url": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/transform.ts#L1",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "f471961e599b108f6b2f17a76cf58aa553d37b1c0d72ea5f45cbc81ad4a42b64",
+      "verification_method": "file read at snapshot commit b44c4930 (v5.0.11); blob bf122e0f matches the inventory",
+      "result": "PASS",
+      "supports": [
+        "transformMiddleware opens the import/JS request branch at lines 137-142 with no ensureServingAccess call",
+        "line 144 calls removeImportQuery and line 147 unwrapId, leaving a /@fs/<path>?raw id",
+        "the branch then calls transformRequest at line 172"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_asset_vuln",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/asset_v5.0.11.ts",
+      "source_url": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/plugins/asset.ts#L189",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "d3cf6a9a799436fb5e878b7fdbd832760af11839d10fca473d1723b150fa1446",
+      "verification_method": "file read at snapshot commit b44c4930 (v5.0.11); blob afc0cb8a matches the inventory",
+      "result": "PASS",
+      "supports": [
+        "assetPlugin's load hook matches rawRE at line 189 and returns the file contents with await fsp.readFile(file, 'utf-8') at line 194 (branch 189-196)",
+        "no isFileServingAllowed or ensureServingAccess call is made in that branch"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_static_vuln",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/static_v5.0.11.ts",
+      "source_url": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L164",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "ade37c5b0dc504ddfe6587a414508569dcf4fec13ce73df0ddf1a665b7795a89",
+      "verification_method": "file read at snapshot commit b44c4930 (v5.0.11); blob dde6842a matches the inventory",
+      "result": "PASS",
+      "supports": [
+        "serveRawFsMiddleware (line 164) calls ensureServingAccess in its /@fs branch at lines 181-191 (call 183-188)",
+        "ensureServingAccess is a private function at line 230 in this version, so the transform middleware cannot call it"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_fixed_source",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/transform_v5.1.8.ts",
+      "source_url": "https://github.com/vitejs/vite/blob/fe6323127ba74a159b1ae3cd3cf2fe1677087128/packages/vite/src/node/server/middlewares/transform.ts#L162-L168",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "13281c963bd5fb15ac04a1bf9e1a8a67c89a7d53727af1a633ace2865fa433aa",
+      "verification_method": "file read at release tag v5.1.8 (fe6323127)",
+      "result": "PASS",
+      "supports": [
+        "the fixed transformMiddleware calls ensureServingAccess when rawRE or urlRE matches the url (lines 162-168), before the import/JS request branch"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_patch",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/fix_commit.patch",
+      "source_url": "https://github.com/vitejs/vite/commit/03f103383e17d2beb02d7d12070ae0c1f5b9400d",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "0c6ba2efac866a9c436ca0ab9340189bfaeb79a2952d97eb1e17cc85599f206a",
+      "verification_method": "git show of the 5.1.8 fix commit in the local mirror",
+      "result": "PASS",
+      "supports": [
+        "commit 03f103383 'fix: fs raw query (#18112)' exports ensureServingAccess and adds the rawRE/urlRE gate to transformMiddleware, plus a playground regression test"
+      ]
+    },
+    {
+      "evidence_id": "ev_vite_45811_git",
+      "artifact_path": "runs/verification/vite_cve_2024_45811/sources/git_object_checks.txt",
+      "source_url": "https://github.com/vitejs/vite",
+      "retrieved_at": "2026-10-22T18:50:00Z",
+      "sha256_of_observation": "ae0fb713f466441160f2d837e7e90322549e1296bde3d93b0079b4316c41230a",
+      "verification_method": "local git ancestry, tag resolution and blob comparison in /tmp/vite_vuln.git",
+      "result": "PASS",
+      "supports": [
+        "snapshot v5.0.11 commit b44c4930 has transform.ts blob bf122e0f matching the inventory",
+        "fix 03f103383 is absent from v5.0.11 and v5.1.7 and first contained in v5.1.8",
+        "the 5.0/5.1 advisory range is 5.0.0-<5.1.8"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      3
+    ],
+    "aliases": [
+      0,
+      3
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      3,
+      7,
+      8,
+      9
+    ],
+    "fixed_releases": [
+      1,
+      3,
+      7,
+      9
+    ],
+    "languages": [
+      4,
+      5,
+      6,
+      7
+    ],
+    "severity": [
+      0,
+      1,
+      3
+    ],
+    "vulnerable_commit": [
+      9
+    ]
+  },
+  "field_evidence_note": "Indexes into the evidence array, as in the other vite dossiers.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 CNA (GitHub_M) record",
+      "NVD analysis (Deferred; Secondary metric only)",
+      "GitHub advisory / OSV record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD and the GitHub advisory agree on the mechanism (?import&raw bypasses the @fs allow-list) and on CWE-200/CWE-284. The CNA and NVD Secondary publish 4.8 Medium while the GitHub advisory publishes its own 5.3 Medium vector; both base scores are Medium, so the level is consistent even though the vectors differ. NVD is Deferred and adds no independent analysis or CPE. The CNA lumps the 5.x lines as >=5.0.0,<5.2.14 while the GHSA splits them; for the 5.0.11 snapshot the GHSA's 5.0.0-<5.1.8 range and the v5.1.8 fix (03f103383, the 5.1-branch cherry-pick of #18112) are the operative ones. The prior vite entries CVE-2024-31207 (picomatch matchBase) and CVE-2024-23331 (case-insensitive deny) are different root causes. The reviewer also noted that the public records disagree with each other: the CNA range is >=5.0.0,<5.2.14 and its patched list omits 5.1.8, while GHSA gives >=5.0.0,<=5.1.7 as affected (5.1.8 first patched), and the CNA's 4.x line is <4.5.5 while GHSA/OSV use <4.5.4. This entry records the 5.0/5.1 range and 5.1.8 fix that the reviewer verified in git.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read transform.ts, static.ts and asset.ts at v5.0.11 and confirm the ?import&raw path is served without ensureServingAccess.",
+      "An independent reviewer must confirm 03f103383 is the 5.0/5.1-line fix and is first contained in v5.1.8.",
+      "An independent reviewer must confirm the 5.0.0-<5.1.8 affected range and the 4.8/5.3 Medium metrics both stay at level Medium.",
+      "An independent reviewer must confirm the mechanism is distinct from CVE-2024-31207 and CVE-2024-23331.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "vite-CVE-2024-45811-round1-independent-reviewer-2026-10-22",
+      "verdict_path": "runs/independent/vite_CVE-2024-45811_round1/verdict.json",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "location_line": "137-142"
+    },
+    "independent_corrections_accepted": [
+      "Line numbers corrected: removeImportQuery is line 144 (not 146), unwrapId is line 147 (not 149) and the transformRequest call is line 172 (not 157); the critical location 137-142 was already exact.",
+      "static.ts corrected: serveRawFsMiddleware starts at line 164 and its ensureServingAccess call is lines 181-191 (call 183-188), not 176-190.",
+      "Sibling backports re-labelled: 6820bb3b is the 5.4-line commit (parent v5.4.5) and a6da4508 is the 3.2-line commit (parent v3.2.10, contained in v3.2.11); the earlier git notes had them swapped.",
+      "03f103383 is the 5.1-branch cherry-pick of PR #18112 (parent v5.1.7, main merge 9d2413c8) and is not itself in the GHSA/CVE reference list; it is nevertheless the commit actually released in v5.1.8.",
+      "The statement that no isFileServingAllowed call exists on the path was too absolute: transformRequest.ts line 212 does call it, but only in the loadResult == null fallback branch, which the asset plugin's raw response never reaches.",
+      "asset.ts raw branch is lines 189-196 with readFile at 194 (the record said 189-195); the handler and trace now use 189-196.",
+      "Broader attack surface noted: extensionless targets such as /@fs/etc/passwd?raw also satisfy isJSRequest, so the advisory's ?import&raw is not the only trigger; this is why the fix checks both rawRE and urlRE."
+    ],
+    "duplicate_check": "Reviewer confirmed CVE-2024-31207 (picomatch matchBase), CVE-2024-23331 (case-insensitive deny) and CVE-2024-45812 (DOM clobbering) have different root causes and do not share fix commit 03f103383."
+  },
+  "limitations": [
+    "Static verification only; no dev server was started and no HTTP request was sent.",
+    "The CNA's 5.x range is >=5.0.0,<5.2.14; the GHSA splits it into 5.0.0-<5.1.8, 5.2.0-<5.2.14, etc. This entry records the 5.0/5.1 branch range that contains the v5.0.11 snapshot.",
+    "The affected_range >=5.0.0,<5.1.8 uses the GHSA branch range; the whole 5.0.x line (5.0.0 through 5.0.13) and 5.1.0-5.1.7 are affected by the same code, and 5.1.8 is the first fixed release for this branch.",
+    "NVD is Deferred, has no Primary metric and no CPE configuration; the 4.8 Medium metric in NVD is the CNA's, imported as Secondary.",
+    "The GitHub advisory's own CVSS 3.1 vector differs from the CNA vector (5.3 vs 4.8; AV:N/AC:L vs AV:A/AC:H/UI:R); both are Medium and the record keeps both.",
+    "Public records disagree on the exact 4.x boundary (CNA <4.5.5, GHSA <4.5.4) and the CNA's patched list omits 5.1.8; this snapshot-based entry records the 5.0/5.1 range (5.0.0-<5.1.8) verified from git and the GHSA.",
+    "Extensionless targets can be read with a plain ?raw through isJSRequest, so ?import&raw is not the only trigger; the advisory text names only ?import&raw.",
+    "The reviewer verified the middleware order in server/index.ts (transformMiddleware at 769 before serveRawFsMiddleware at 772 and serveStaticMiddleware at 773), the /@fs resolver branch (resolve.ts 229-236) and transformRequest.ts line 212; nothing was started or executed."
+  ],
+  "open_questions": [
+    "Whether the dev server is reachable by an untrusted client depends on deployment (default host is localhost; --host or server.host exposes it); the advisory and CNA vectors assume network reachability."
+  ]
+}

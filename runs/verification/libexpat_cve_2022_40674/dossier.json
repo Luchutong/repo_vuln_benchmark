@@ -1,0 +1,371 @@
+{
+  "candidate_id": "disc2_71ed2ea54895f3e7bca3e63c",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T16:55:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "80314213",
+    "full_name": "libexpat/libexpat",
+    "canonical_url": "https://github.com/libexpat/libexpat",
+    "primary_language": "C",
+    "project_kind": "XML parser library",
+    "snapshot_id": "snap_d33251dac37c334c"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2022-40674",
+    "aliases": [
+      "CVE-2022-40674",
+      "DEBIAN-CVE-2022-40674"
+    ],
+    "title": "libexpat before 2.4.9 heap use-after-free in doContent when internalEntityProcessor returns unclosed raw tag names pointing into the parse buffer",
+    "repo_id": "80314213",
+    "snapshot_id": "snap_d33251dac37c334c",
+    "vulnerable_commit": "81b89678e200820271b72cacdd45fb5868855765",
+    "affected_packages": [
+      {
+        "ecosystem": "generic",
+        "package": "expat",
+        "purl": "pkg:generic/expat",
+        "affected_range": "<2.4.9"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "generic",
+        "package": "expat",
+        "version": "2.4.9",
+        "tag": "R_2_4_9",
+        "release_url": "https://github.com/libexpat/libexpat/releases/tag/R_2_4_9",
+        "verified_content": "At R_2_4_9 the internalEntityProcessor branch calls storeRawNames(parser) after doContent and returns XML_ERROR_NO_MEMORY if it fails; at the R_2_4_4 snapshot the branch directly returns doContent's result. The change is contained in R_2_4_9 and absent from R_2_4_4 and R_2_4_8."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "4a32da87e931ba54393d465bb77c40b5c33d343b",
+        "branch": "master",
+        "release": "2.4.9",
+        "message": "Ensure raw tagnames are safe exiting internalEntityParser",
+        "url": "https://github.com/libexpat/libexpat/commit/4a32da87e931ba54393d465bb77c40b5c33d343b"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-416"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+      "score": 8.1,
+      "level": "high",
+      "numeric_level_rationale": "NVD publishes the CVSS 3.1 8.1 High vector as its Primary metric; the CISA-ADP metric in the same NVD record and the OSV record carry the identical vector. The CNA record publishes no numeric score. There is no score or level conflict among the published metrics.",
+      "source": "nvd@nist.gov (NVD Primary) and CISA-ADP (NVD Secondary), both CVSS 3.1 8.1 High; OSV carries the same vector",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-40674",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 8.1,
+          "level": "high",
+          "source": "nvd@nist.gov (NVD Primary)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": 8.1,
+          "level": "high",
+          "source": "CISA-ADP (NVD Secondary)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        },
+        {
+          "version": "3.1",
+          "score": null,
+          "level": "high",
+          "source": "OSV.dev (vector only, no numeric base score)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H"
+        }
+      ]
+    },
+    "category_l1": "memory_corruption",
+    "category_l2": "Use-after-free: tag->rawName can still point into a discarded or reallocated XML parse buffer",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/libexpat/libexpat/pull/629",
+    "published_at": "2022-09-14T11:15:54Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/libexpat/libexpat/pull/629",
+      "https://github.com/libexpat/libexpat/pull/640",
+      "https://github.com/libexpat/libexpat/commit/4a32da87e931ba54393d465bb77c40b5c33d343b",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-40674",
+      "https://github.com/libexpat/libexpat/releases/tag/R_2_4_9"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2022-40674_snap_d33251dac37c334c",
+    "vulnerability_id": "CVE-2022-40674",
+    "snapshot_id": "snap_d33251dac37c334c",
+    "location_kind": "memory",
+    "file": "expat/lib/xmlparse.c",
+    "function": "internalEntityProcessor",
+    "language": "C",
+    "line": "5629-5692",
+    "critical_operation": {
+      "code_excerpt": "    parser->m_processor = contentProcessor;\n    /* see externalEntityContentProcessor vs contentProcessor */\n    return doContent(parser, parser->m_parentParser ? 1 : 0, parser->m_encoding,\n                     s, end, nextPtr,\n                     (XML_Bool)! parser->m_parsingStatus.finalBuffer,\n                     XML_ACCOUNT_DIRECT);\n  }",
+      "description": "internalEntityProcessor() is installed as m_processor when an internal entity substitution is suspended mid-buffer (line 5613), so XML_ResumeParser resumes directly into it. In its DTD-off/entity-substitution branch it sets m_processor = contentProcessor and returns doContent(...) directly (line 5688). doContent can return with unclosed tags; those tags' rawName fields still point into the current parse buffer (the storeRawNames comment at lines 2555-2559 says rawName initially always points into the parse buffer, and storeRawNames is what copies it out). Because this path never calls storeRawNames, an application that feeds the parser in chunks and calls XML_GetBuffer between calls can have the buffer reallocated or moved while tag->rawName still references the old allocation; the next name access is a heap use-after-free. The 2.4.9 fix 4a32da8 wraps the doContent result and calls storeRawNames(parser) whenever doContent returned XML_ERROR_NONE. CWE-416.",
+      "file": "expat/lib/xmlparse.c",
+      "function": "internalEntityProcessor",
+      "language": "C",
+      "line": "5686-5692",
+      "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L5686-L5692"
+    },
+    "entry_point": {
+      "description": "An application parses attacker-supplied XML in chunks: an internal entity substitution suspends parsing, XML_ResumeParser re-enters internalEntityProcessor, doContent leaves unclosed tags, and the application reallocates the parse buffer with XML_GetBuffer before continuing.",
+      "file": "expat/lib/xmlparse.c",
+      "function": "XML_ResumeParser",
+      "language": "C",
+      "line": 2191,
+      "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L2191"
+    },
+    "trace": [
+      {
+        "description": "an internal entity substitution is suspended mid-buffer and internalEntityProcessor becomes the parser's processor",
+        "file": "expat/lib/xmlparse.c",
+        "function": "doContent",
+        "language": "C",
+        "line": 5613,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L5613"
+      },
+      {
+        "description": "XML_ResumeParser resumes parsing, which dispatches to internalEntityProcessor",
+        "file": "expat/lib/xmlparse.c",
+        "function": "XML_ResumeParser",
+        "language": "C",
+        "line": 2191,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L2191"
+      },
+      {
+        "description": "internalEntityProcessor returns doContent's result directly, without a storeRawNames pass",
+        "file": "expat/lib/xmlparse.c",
+        "function": "internalEntityProcessor",
+        "language": "C",
+        "line": 5688,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L5688"
+      },
+      {
+        "description": "storeRawNames is the only routine that copies raw tag names out of the parse buffer; its comment states rawName always points into the parse buffer initially",
+        "file": "expat/lib/xmlparse.c",
+        "function": "storeRawNames",
+        "language": "C",
+        "line": 2561,
+        "permalink": "https://github.com/libexpat/libexpat/blob/81b89678e200820271b72cacdd45fb5868855765/expat/lib/xmlparse.c#L2561"
+      },
+      {
+        "description": "the fixed 2.4.9 code calls storeRawNames(parser) right after doContent and returns XML_ERROR_NO_MEMORY on failure",
+        "file": "expat/lib/xmlparse.c",
+        "function": "internalEntityProcessor",
+        "language": "C",
+        "line": 5834,
+        "permalink": "https://github.com/libexpat/libexpat/blob/d77291a4824d78e697c5dc2b8024fd65ab31e209/expat/lib/xmlparse.c#L5834"
+      }
+    ],
+    "verification_method": "Static read of expat/lib/xmlparse.c at R_2_4_4 and R_2_4_9, of the 4a32da8 patch, of the CVE-2022-40674 Changes entry (721169e), of the regression-test commit (a7ce80a) and of local git ancestry; no XML document was parsed and no parser binary was built or run."
+  },
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/libexpat_cve_2022_40674/sources/cve_v5.json",
+      "evidence_id": "ev_expat_40674_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:55:00Z",
+      "sha256_of_observation": "6f3e06456e59cdc71918b272cde8442b55018425fb97bf22a8a79b9dd7f33407",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-40674",
+      "supports": [
+        "CVE state PUBLISHED",
+        "description: libexpat before 2.4.9 has a use-after-free in the doContent function in xmlparse.c",
+        "the CNA record publishes no CVSS metric and no CWE problemType (its affected product/version fields are 'n/a')",
+        "references include libexpat pull requests 629 and 640"
+      ],
+      "verification_method": "CVE List v5 CNA record"
+    },
+    {
+      "artifact_path": "runs/verification/libexpat_cve_2022_40674/sources/nvd_cve.json",
+      "evidence_id": "ev_expat_40674_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:55:00Z",
+      "sha256_of_observation": "7fbca881d72ff21ba6965238e93f11863bd02b9c6247dd77fb5e36b45c796911",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-40674",
+      "supports": [
+        "NVD status Modified, published 2022-09-14",
+        "NVD Primary CVSS 3.1 8.1 HIGH and CISA-ADP Secondary 8.1 HIGH, same vector",
+        "weaknesses CWE-416 from nvd@nist.gov and from the CISA-ADP CNA",
+        "CPE libexpat_project:libexpat with versionEndExcluding 2.4.9",
+        "references include pull/629 and pull/640"
+      ],
+      "verification_method": "NVD CVE API 2.0 record"
+    },
+    {
+      "artifact_path": "runs/verification/libexpat_cve_2022_40674/sources/osv_cve.json",
+      "evidence_id": "ev_expat_40674_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:55:00Z",
+      "sha256_of_observation": "46930f03807629f2a8794d1e1ded9f5e2e69424bc86d3435935dcbb232de1ee1",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2022-40674",
+      "supports": [
+        "OSV record CVE-2022-40674 with details 'libexpat before 2.4.9 has a use-after-free in the doContent function in xmlparse.c'",
+        "CVSS_V3 vector CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "GIT range introduced 0, fixed d77291a4 (the 2.4.9 release merge)",
+        "the enumerated affected versions include R_2_4_4"
+      ],
+      "verification_method": "OSV.dev API record"
+    },
+    {
+      "artifact_path": "runs/verification/libexpat_cve_2022_40674/sources/xmlparse_R_2_4_4.c",
+      "evidence_id": "ev_expat_40674_vuln_source",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:55:00Z",
+      "sha256_of_observation": "28d94ab58b1456053216525fb41274a4da6ad3a640d056074e3166528324e6f1",
+      "source_url": "https://github.com/libexpat/libexpat/blob/R_2_4_4/expat/lib/xmlparse.c",
+      "supports": [
+        "internalEntityProcessor is defined at line 5629 and set as m_processor at line 5613",
+        "line 5688 is a direct return of doContent(...) with no storeRawNames call",
+        "storeRawNames is defined at line 2561; its comment at 2555-2559 states rawName initially points into the parse buffer"
+      ],
+      "verification_method": "file read at snapshot commit 81b89678 (R_2_4_4); blob 4b43e613 matches the inventory (273455 bytes)"
+    },
+    {
+      "artifact_path": "runs/verification/libexpat_cve_2022_40674/sources/xmlparse_R_2_4_9.c",
+      "evidence_id": "ev_expat_40674_fixed_source",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:55:00Z",
+      "sha256_of_observation": "fcf9c0e3f5ceaf34dd09309fc4346e5a547b930e52b79a204fa98f347a17bd01",
+      "source_url": "https://github.com/libexpat/libexpat/blob/R_2_4_9/expat/lib/xmlparse.c",
+      "supports": [
+        "internalEntityProcessor at line 5770 now captures the doContent result",
+        "lines 5833-5836 call storeRawNames(parser) when the result is XML_ERROR_NONE and return XML_ERROR_NO_MEMORY on failure"
+      ],
+      "verification_method": "file read at release tag R_2_4_9 (d77291a4)"
+    },
+    {
+      "artifact_path": "runs/verification/libexpat_cve_2022_40674/sources/fix_commit.patch",
+      "evidence_id": "ev_expat_40674_patch",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:55:00Z",
+      "sha256_of_observation": "dab88e6bfd652bf67caca8dff22a4c9f06e535c84e622f2c04560e09346c4cea",
+      "source_url": "https://github.com/libexpat/libexpat/commit/4a32da87e931ba54393d465bb77c40b5c33d343b",
+      "supports": [
+        "the commit message describes suspended internal-entity parsing, unclosed tags, missing storeRawNames and buffer reallocation",
+        "the diff replaces the direct doContent return with result = doContent(...) followed by storeRawNames",
+        "the commit is the single code change merged as pull request #629 (merge dde178b)"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/libexpat_cve_2022_40674/sources/git_object_checks.txt",
+      "evidence_id": "ev_expat_40674_git",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T16:55:00Z",
+      "sha256_of_observation": "2a01014db8c512a72fb5d285f7319d6ce25a5cfe123733ea3fb4b779196b5213",
+      "source_url": "https://github.com/libexpat/libexpat/commit/4a32da87e931ba54393d465bb77c40b5c33d343b",
+      "supports": [
+        "snapshot R_2_4_4 resolves to 81b89678 and xmlparse.c blob 4b43e613 matches the inventory",
+        "4a32da8 is not an ancestor of R_2_4_4 or R_2_4_8 and is contained in R_2_4_9",
+        "721169e documents CVE-2022-40674 under Security fixes and names #629/#640; a7ce80a adds the regression test in the same PR",
+        "OSV's fixed event d77291a4 is the release merge, not the code fix",
+        "the five already-promoted libexpat entries are the 2.4.5 fixes; CVE-2022-43680 is a separate 2.4.9 UAF"
+      ],
+      "verification_method": "git rev-parse/merge-base/tag/show with local mirror /tmp/libexpat.git"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      3,
+      4,
+      5
+    ],
+    "cwe": [
+      1
+    ],
+    "fix_commits": [
+      2,
+      5,
+      6
+    ],
+    "fixed_releases": [
+      1,
+      2,
+      4,
+      6
+    ],
+    "languages": [
+      3,
+      4
+    ],
+    "severity": [
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      6
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "NVD analysis (with CISA-ADP metric)",
+      "CVE List v5 CNA record",
+      "OSV record",
+      "upstream git history, release tags and Changes file"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD Primary and CISA-ADP Secondary publish the identical 8.1 High vector, and OSV carries the same vector; the CNA publishes no metric, so there is no conflicting score. All records agree the defect is before 2.4.9 and the CVE description names doContent. The upstream Changes entry 721169e explicitly attributes CVE-2022-40674 to PR #629/#640, and 4a32da8 is the only code change of PR #629 (merged as dde178b). OSV's fixed GIT event points at the 2.4.9 release merge d77291a4 rather than the code commit; local ancestry shows 4a32da8 is first contained in R_2_4_9.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read internalEntityProcessor at R_2_4_4 and confirm the direct doContent return leaves raw tag names pointing into the parse buffer.",
+      "An independent reviewer must confirm 4a32da8 is the CVE-2022-40674 code fix (via 721169e/a7ce80a/PR #629) and is first contained in R_2_4_9.",
+      "An independent reviewer must confirm the '<2.4.9' range and the 8.1 High metrics.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "libexpat-CVE-2022-40674-round1-independent-reviewer-2026-10-22",
+      "verdict_path": "runs/independent/libexpat_CVE-2022-40674_round1/verdict.json",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "location_line": "5629-5693"
+    },
+    "independent_corrections_accepted": [
+      "Line-span precision: the claimed whole-function range 5629-5692 is the function body through the critical block's closing brace; internalEntityProcessor's own closing brace is line 5693 and its declarator line is 5628. The claimed critical block 5686-5692 and the direct doContent return 5688-5691 are exact. The record keeps the body range 5629-5692 and records the reviewer's full-function range 5628-5693.",
+      "Attribution nuance: the CNA description and the upstream Changes entry say 'in the doContent function', while the record locates the missing storeRawNames in internalEntityProcessor; the stale pointer is read by doContent's closing-tag memcmp at xmlparse.c:3014-3015. The record's mechanism narrative already splits defect site and read site this way.",
+      "OSV fixed event d77291a is the R_2_4_9 release merge of PR #644, not the code commit 4a32da8; the record already states this and derives the code fix from upstream Changes/PR #629.",
+      "Reachability: attacker XML content is necessary but not sufficient; the embedding application must suspend from a handler during internal-entity substitution, resume, then grow/reallocate the buffer via XML_GetBuffer or a later chunk larger than INIT_BUFFER_SIZE 1024. Consistent with AC:H and SSVC Automatable: no; the record states this precondition.",
+      "Alias semantics: DEBIAN-CVE-2022-40674 is a Debian OSV advisory record whose upstream is CVE-2022-40674 (Debian fix 2.4.8-2), not an alias inside the CVE record; it is kept as a downstream cross-reference."
+    ],
+    "duplicate_check": "Reviewer confirmed CVE-2022-43680 is a distinct shared-DTD destruction use-after-free in XML_ExternalEntityParserCreate (PR #650/#649/#616, through 2.4.9, CVSS 7.5), and that the five 2.4.5 CVEs (25235/25236/25313/25314/25315) are different root causes, including 25315's integer overflow in storeRawNames (eb03628)."
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No XML document was parsed, no parser was built and no sanitizer run was performed; the use-after-free is established statically from the missing storeRawNames call and the buffer-lifetime comment.",
+    "The trigger needs chunked parsing with a buffer reallocation between calls plus an internal entity substitution that suspends parsing; not every libexpat embedding feeds chunks this way.",
+    "Only R_2_4_4 was compared against R_2_4_9; R_2_4_5 through R_2_4_8 were not diffed individually, although the fix is absent from R_2_4_8 by ancestry.",
+    "The CNA record itself carries no CVSS or CWE; severity and weakness come from NVD/CISA-ADP and OSV.",
+    "OSV's fixed GIT event is the release merge d77291a4; the code fix is 4a32da8, established from upstream commits and the Changes file rather than from the OSV event.",
+    "The reviewer verified snapshot blobs against the inventory (R_2_4_4:expat/lib/xmlparse.c = 4b43e613) and read the 4a32da8 patch, the 721169e Changes entry and the a7ce80a regression test, but nothing was built, parsed or executed.",
+    "The whole-function location range is the body 5629-5692; the function's own closing brace is 5693 and its declarator line is 5628. The critical block 5686-5692 and the return 5688-5691 are exact."
+  ],
+  "open_questions": [
+    "Whether the use-after-free is reliably exploitable for code execution (rather than only denial of service) was not assessed; the upstream Changes text says denial of service or potentially arbitrary code execution."
+  ]
+}

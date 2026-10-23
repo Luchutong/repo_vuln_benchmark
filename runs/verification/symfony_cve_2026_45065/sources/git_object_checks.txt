@@ -1,0 +1,75 @@
+# git object checks for CVE-2026-45065 (collected 2026-10-22, static only)
+## tag peels (bare clone /tmp/symfony_git)
+v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+v5.4.52 -> eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+
+## fix commit bcf487c22f3240ba994124e0e0fe8616f3cfc47a
+bcf487c22f3240ba994124e0e0fe8616f3cfc47a
+2026-04-16 16:40:03 +0200
+[Routing] Fix regex alternation anchoring in UrlGenerator requirement validation
+
+## ancestry (git merge-base --is-ancestor)
+fix ancestor of v5.4.45: NO
+fix ancestor of v5.4.52: YES
+
+## blob ids for src/Symfony/Component/Routing/Generator/UrlGenerator.php
+v5.4.45: 4419e9efd3e6c0df10e86a3a7c7730062ad26cbd
+v5.4.52: 97fc8116a030395e5fe99c89a7cc39b318463984
+sha1 of the downloaded v5.4.45 file as a git blob: 4419e9efd3e6c0df10e86a3a7c7730062ad26cbd
+sha1 of the downloaded v5.4.52 file as a git blob: 97fc8116a030395e5fe99c89a7cc39b318463984
+patch pre-image: 4419e9efd3e6c (matches v5.4.45); patch post-image: 97fc8116a0303 (matches v5.4.52)
+
+## GitHub compare API (fetched before the unauthenticated rate limit was reached)
+compare v5.4.45...v5.4.52: status ahead, behind_by 0, ahead_by 188, bcf487c2 present in commit list
+compare v5.4.45...bcf487c2: status ahead, behind_by 0, ahead_by 160, bcf487c2 present in commit list
+
+## vulnerable code at v5.4.45 (UrlGenerator.php line 192)
+                $varName = $token[3];
+                // variable is not important by default
+                $important = $token[5] ?? false;
+
+                if (!$optional || $important || !\array_key_exists($varName, $defaults) || (null !== $mergedParams[$varName] && (string) $mergedParams[$varName] !== (string) $defaults[$varName])) {
+                    // check requirement (while ignoring look-around patterns)
+                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]] ?? '')) {
+                        if ($this->strictRequirements) {
+                            throw new InvalidParameterException(strtr($message, ['{parameter}' => $varName, '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$varName]]));
+                        }
+
+
+## fixed code at v5.4.52 (UrlGenerator.php line 192)
+                $varName = $token[3];
+                // variable is not important by default
+                $important = $token[5] ?? false;
+
+                if (!$optional || $important || !\array_key_exists($varName, $defaults) || (null !== $mergedParams[$varName] && (string) $mergedParams[$varName] !== (string) $defaults[$varName])) {
+                    // check requirement (while ignoring look-around patterns)
+                    if (null !== $this->strictRequirements && !preg_match('#^(?:'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).')$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]] ?? '')) {
+                        if ($this->strictRequirements) {
+                            throw new InvalidParameterException(strtr($message, ['{parameter}' => $varName, '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$varName]]));
+                        }
+
+
+## patch hunk
+-                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]] ?? '')) {
++                    if (null !== $this->strictRequirements && !preg_match('#^(?:'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).')$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]] ?? '')) {
+                         if ($this->strictRequirements) {
+                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $varName, '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$varName]]));
+                         }
+@@ -244,7 +244,7 @@ protected function doGenerate(array $variables, array $defaults, array $requirem
+             foreach ($hostTokens as $token) {
+                 if ('variable' === $token[0]) {
+                     // check requirement (while ignoring look-around patterns)
+-                    if (null !== $this->strictRequirements && !preg_match('#^'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).'$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
++                    if (null !== $this->strictRequirements && !preg_match('#^(?:'.preg_replace('/\(\?(?:=|<=|!|<!)((?:[^()\\\\]+|\\\\.|\((?1)\))*)\)/', '', $token[2]).')$#i'.(empty($token[4]) ? '' : 'u'), $mergedParams[$token[3]])) {
+                         if ($this->strictRequirements) {
+                             throw new InvalidParameterException(strtr($message, ['{parameter}' => $token[3], '{route}' => $name, '{expected}' => $token[2], '{given}' => $mergedParams[$token[3]]]));
+                         }
+diff --git a/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php b/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
+index 7f4cc5cc7da54..0ad2909d913e9 100644
+--- a/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
++++ b/src/Symfony/Component/Routing/Tests/Generator/UrlGeneratorTest.php
+@@ -342,6 +342,14 @@ public function testGenerateForRouteWithInvalidParameter()
+         $this->getGenerator($routes)->generate('test', ['foo' => '0'], UrlGeneratorInterface::ABSOLUTE_URL);
+     }
+ 
++    public function testGenerateForRouteWithAlternationRequirementRejectsSubstringMatch()

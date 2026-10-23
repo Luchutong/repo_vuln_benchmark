@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/netty/netty.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:34.224508+00:00", "elapsed_seconds": 1.446, "response": {"returncode": 0, "stdout": "5776ebc58d19637392d60fe707ee3adcb830c9bf\tHEAD\n", "stderr": ""}}

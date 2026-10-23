@@ -1,0 +1,5 @@
+375657a71c889c588f723469bd868bd1d40c369f
+[2.2.x] Fixed CVE-2020-24583, #31921 -- Fixed permissions on intermediate-level static and storage directories on Python 3.7+.
+Mariusz Felisiak 2020-08-21 11:44:46 +0200
+Mariusz Felisiak 2020-08-25 10:59:42 +0200
+dc39e62e6b652f006a77b91df02e1dc801597396

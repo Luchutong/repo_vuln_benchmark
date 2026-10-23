@@ -1,0 +1,412 @@
+{
+ "candidate_id": "disc2_d52e1cedda7ae490c33181a7",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T09:50:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [],
+ "repository": {
+  "canonical_url": "https://github.com/rack/rack",
+  "full_name": "rack/rack",
+  "primary_language": "Ruby",
+  "project_kind": "modular Ruby web server interface (Rack::Multipart::Parser, Rack::Request)",
+  "repo_id": "96071",
+  "snapshot_id": "snap_f97687a4e0807cb2"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2025-61772",
+  "aliases": [
+   "CVE-2025-61772",
+   "GHSA-wpv5-97wm-hp9c"
+  ],
+  "title": "Rack::Multipart::Parser buffers an unterminated part header block without a size limit, allowing memory exhaustion",
+  "category_l1": "denial_of_service",
+  "category_l2": "unbounded MIME header buffering in Rack::Multipart::Parser#handle_mime_head (no header bytesize cap while waiting for CRLFCRLF)",
+  "cwe_ids": [
+   "CWE-400"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+   "score": 7.5,
+   "level": "high",
+   "source": "CNA (CVE List v5, GitHub_M) publishes CVSS 3.1 7.5 HIGH; NVD carries the identical vector and score from security-advisories@github.com, and the OSV GHSA record carries database severity HIGH",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-61772"
+  },
+  "affected_packages": [
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "purl": "pkg:gem/rack",
+    "affected_range": "< 2.2.19 (also >= 3.1 < 3.1.17, >= 3.2 < 3.2.2)"
+   }
+  ],
+  "fix_commits": [
+   {
+    "branch": "main (3.x)",
+    "sha": "589127f4ac8b5cf11cf88fb0cd116ffed4d2181e",
+    "message": "Fix denial of service vulnerbilties in multipart parsing: adds BOUNDARY_START_LIMIT and MIME_HEADER_BYTESIZE_LIMIT; not an ancestor of the v2.2.19 tag commit",
+    "url": "https://github.com/rack/rack/commit/589127f4ac8b5cf11cf88fb0cd116ffed4d2181e"
+   },
+   {
+    "branch": "2.2 branch (backport; ancestor of the v2.2.19 tag commit)",
+    "sha": "d869fed663b113b95a74ad53e1b5cae6ab31f29e",
+    "message": "Same security series on 2.2; introduces the MIME_HEADER_BYTESIZE_LIMIT check that fixes CVE-2025-61772",
+    "url": "https://github.com/rack/rack/commit/d869fed663b113b95a74ad53e1b5cae6ab31f29e"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "RubyGems",
+    "package": "rack",
+    "tag": "v2.2.19",
+    "version": "2.2.19",
+    "release_url": "https://github.com/rack/rack/releases/tag/v2.2.19",
+    "verified_content": "Annotated tag 77139c9a peels to commit 4c4ea296. lib/rack/multipart/parser.rb at that commit is blob ba7b4794, byte-identical to the saved file, and contains MIME_HEADER_BYTESIZE_LIMIT = 64 * 1024 plus the 'multipart mime part header too large' raise. d869fed6 (the 2.2-line fix) is an ancestor of 4c4ea296; the tag content also includes c370dcd9's later retained-data limit."
+   }
+  ],
+  "published_at": "2025-10-07T00:00:00Z",
+  "source_type": "upstream_advisory",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/rack/rack/security/advisories/GHSA-wpv5-97wm-hp9c",
+  "references": [
+   "https://github.com/rack/rack/security/advisories/GHSA-wpv5-97wm-hp9c",
+   "https://nvd.nist.gov/vuln/detail/CVE-2025-61772",
+   "https://github.com/rack/rack/commit/589127f4ac8b5cf11cf88fb0cd116ffed4d2181e",
+   "https://github.com/rack/rack/commit/d869fed663b113b95a74ad53e1b5cae6ab31f29e"
+  ],
+  "vulnerable_commit": "1741c580d71cfca8e541e96cc372305c8892ee74",
+  "vulnerable_commit_basis": "Annotated tag 2.2.3 (tag object 4d456648) peels to 1741c580, the snapshot commit; the advisory range '< 2.2.19' contains 2.2.3, and neither fix commit is an ancestor of it",
+  "vulnerable_version": "2.2.3",
+  "snapshot_id": "snap_f97687a4e0807cb2",
+  "repo_id": "96071",
+  "discovery_cutoff_date": "2026-10-22"
+ },
+ "location": {
+  "location_id": "loc_CVE-2025-61772_snap_f97687a4e0807cb2",
+  "location_kind": "logic",
+  "snapshot_id": "snap_f97687a4e0807cb2",
+  "vulnerability_id": "CVE-2025-61772",
+  "verification_method": "Static read of lib/rack/multipart/parser.rb at the exact 2.2.3 commit and at tags v2.2.18 and v2.2.19, multipart.rb and request.rb at the snapshot commit, the 2.2-line and main-line fix patches, and git object checks (blob identity, tag peel, merge-base ancestry). No Ruby code was compiled or executed and no multipart request was sent.",
+  "critical_operation": {
+   "file": "lib/rack/multipart/parser.rb",
+   "function": "Rack::Multipart::Parser#handle_mime_head",
+   "language": "Ruby",
+   "line": "239-259",
+   "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/multipart/parser.rb#L239-L259",
+   "code_excerpt": "def handle_mime_head\n  if @sbuf.scan_until(@head_regex)\n    head = @sbuf[1]\n    ...\n    @collector.on_mime_head @mime_index, head, filename, content_type, name\n    @state = :MIME_BODY\n  else\n    :want_read\n  end\nend",
+   "description": "进入 MIME_HEAD 状态后，handle_mime_head 用 @sbuf.scan_until(@head_regex) 等待分片头部的空行终止符（@head_regex = /(.*?\\r\\n)\\r\\n/m，182 行）。找不到终止符时只返回 :want_read，on_read（185-188）随后把下一次读到的数据继续 @sbuf.concat 进来，整个 else 分支没有任何 bytesize 上限。由于 Parser.parse 用 BoundedIO(io, content_length) 只按请求声明的 Content-Length 截断（71 行），攻击者可以声明一个很大的长度，再发送一个永不结束的分片头（例如只有 Content-Disposition 行、始终不出现 CRLFCRLF），解析器就会把整个请求体累积在 @sbuf 中直到 OOM。相邻的 FAST_FORWARD 状态有 @bufsize（1MB）保护（224 行），MIME_HEAD 状态没有，这正是 61772 所描述的缺口。修复 d869fed6/589127f4 增加 MIME_HEADER_BYTESIZE_LIMIT = 64KB，超限抛 EOFError。"
+  },
+  "entry_point": {
+   "file": "lib/rack/request.rb",
+   "function": "Rack::Request#POST -> Rack::Multipart.extract_multipart",
+   "language": "Ruby",
+   "line": "440-457 (POST), 593-595 (parse_multipart)",
+   "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/request.rb#L440-L457",
+   "description": "任何读取 params 的 Rack 应用在处理 multipart/form-data 请求时走 Request#POST：form_data? 为真后调用 parse_multipart（446），后者调用 Rack::Multipart.extract_multipart（request.rb 593-595）。extract_multipart 从 env 取 rack.input 和 CONTENT_LENGTH，调用 Parser.parse（multipart.rb 54）。Content-Type 边界、Content-Length 和请求体全部由客户端控制，因此攻击者可以把解析器停在 MIME_HEAD 状态并持续供数据。"
+  },
+  "trace": [
+   {
+    "file": "lib/rack/request.rb",
+    "function": "Rack::Request#POST",
+    "language": "Ruby",
+    "line": 446,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/request.rb#L446",
+    "description": "set_header(RACK_REQUEST_FORM_HASH, parse_multipart) —— multipart/form-data 请求进入解析器。"
+   },
+   {
+    "file": "lib/rack/multipart.rb",
+    "function": "Rack::Multipart.extract_multipart",
+    "language": "Ruby",
+    "line": 54,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/multipart.rb#L54",
+    "description": "Parser.parse io, content_length, req.get_header('CONTENT_TYPE'), tempfile, bufsize, params —— 请求体和声明的长度原样传入。"
+   },
+   {
+    "file": "lib/rack/multipart/parser.rb",
+    "function": "Rack::Multipart::Parser.parse",
+    "language": "Ruby",
+    "line": "71-79",
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/multipart/parser.rb#L71-L79",
+    "description": "BoundedIO.new(io, content_length) 只按声明的 Content-Length 截断；随后循环 on_read io.read(bufsize)。bufsize 默认 1MB（BUFSIZE，12 行），但 Content-Length 由攻击者声明。"
+   },
+   {
+    "file": "lib/rack/multipart/parser.rb",
+    "function": "Rack::Multipart::Parser#on_read",
+    "language": "Ruby",
+    "line": "185-188",
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/multipart/parser.rb#L185-L188",
+    "description": "handle_empty_content! 之后无条件 @sbuf.concat content，再 run_parser；没有任何「这段数据是否已超限」的检查。"
+   },
+   {
+    "file": "lib/rack/multipart/parser.rb",
+    "function": "Rack::Multipart::Parser#handle_mime_head",
+    "language": "Ruby",
+    "line": 240,
+    "permalink": "https://github.com/rack/rack/blob/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/multipart/parser.rb#L240",
+    "description": "@sbuf.scan_until(@head_regex) 在缺少 CRLFCRLF 时返回 nil，状态机回到 :want_read（258）；下一次 on_read 继续 concat，@sbuf.string 随请求体线性增长，内存无上限。"
+   }
+  ]
+ },
+ "evidence": [
+  {
+   "evidence_id": "ev_rack61772_osv",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/osv_GHSA-wpv5-97wm-hp9c.json",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-wpv5-97wm-hp9c",
+   "retrieved_at": "2026-10-22T01:26:00Z",
+   "sha256_of_observation": "a65cb4f0680b7065ffc7a89fed12ed7c5b8169e0ea54b40c5875c62bce527b13",
+   "verification_method": "OSV API query by GHSA id; response cached",
+   "result": "PASS",
+   "supports": [
+    "GHSA-wpv5-97wm-hp9c aliases CVE-2025-61772; github_reviewed true",
+    "details: Rack::Multipart::Parser accumulates unbounded data when a part's header block never terminates with CRLFCRLF; the parser keeps appending incoming bytes to @sbuf without a size cap, allowing memory exhaustion",
+    "RubyGems rack ECOSYSTEM ranges 0 -> 2.2.19, 3.1 -> 3.1.17, 3.2 -> 3.2.2",
+    "database_specific severity HIGH and cwe_ids [CWE-400]; references name commits 589127f4, d869fed6, e08f78c6"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_cve_v5",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/cve_v5_CVE-2025-61772.json",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-61772",
+   "retrieved_at": "2026-10-22T01:26:00Z",
+   "sha256_of_observation": "f6763d74824a598396f803cf698bc3ec61bee95ac8f0b027560f7b2784873aaf",
+   "verification_method": "CVE List v5 record (CNA GitHub_M)",
+   "result": "PASS",
+   "supports": [
+    "state PUBLISHED; CNA description matches the OSV text: prior to 2.2.19, 3.1.17 and 3.2.2 the multipart parser accumulates data when a header block never terminates with CRLFCRLF",
+    "CNA affected versions: < 2.2.19, >= 3.1 < 3.1.17, >= 3.2 < 3.2.2",
+    "CNA CVSS 3.1 7.5 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "problemTypes CWE-400"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_nvd",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/nvd_CVE-2025-61772.json",
+   "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-61772",
+   "retrieved_at": "2026-10-22T01:27:00Z",
+   "sha256_of_observation": "3541fbf91e445ef137b901357b5c649c6d2275b87d7ebe61adfe3b8731ed990b",
+   "verification_method": "NVD 2.0 API",
+   "result": "PASS",
+   "supports": [
+    "published 2025-10-07T15:16:03.280",
+    "CVSS 3.1 7.5 HIGH, vector identical to the CNA, source security-advisories@github.com",
+    "weaknesses CWE-400",
+    "affected versions repeat the CNA list, including < 2.2.19"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_tags",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/tag_refs_61772.txt",
+   "source_url": "https://github.com/rack/rack",
+   "retrieved_at": "2026-10-22T01:28:00Z",
+   "sha256_of_observation": "b4c7eeabfad9fcaeb1eba31af2c93f7162b2f084c125819381ca8cbec8c69654",
+   "verification_method": "git ls-remote --tags against https://github.com/rack/rack.git (annotated tag peel lines included)",
+   "result": "PASS",
+   "supports": [
+    "tag 2.2.3 is annotated object 4d456648, peeling to commit 1741c580d71cfca8e541e96cc372305c8892ee74 (the snapshot commit)",
+    "tag v2.2.18 peels to 0f76d43c0d5624bd0d325df4f0a63f5e1faa7254",
+    "tag v2.2.19 peels to 4c4ea296fdfd115377912aa7dbcb55b83bf2888e"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_vuln_parser",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/parser_2.2.3.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/multipart/parser.rb",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "89277904f9da3f3d8c27645653b90f08ef1b98f9f5516fc7bac97ea7563993a2",
+   "verification_method": "raw file at the exact snapshot commit; git hash-object compared with git rev-parse 1741c580:lib/rack/multipart/parser.rb",
+   "result": "PASS",
+   "supports": [
+    "364 lines, git blob 2eb38380b0c88a79aae5b4a251748fe7e9d71807 (identical to the blob at the snapshot commit)",
+    "on_read (185-188) unconditionally does @sbuf.concat content before run_parser",
+    "handle_mime_head (239-259) waits for the header terminator via @sbuf.scan_until(@head_regex) (240) where @head_regex = /(.*?\\r\\n)\\r\\n/m (182); when it returns nil the state machine returns :want_read (258) and more data is appended",
+    "the else branch has no bytesize check, so a part whose header block never ends keeps growing @sbuf for the whole declared request body; handle_fast_forward has a bufsize guard (224) but the MIME_HEAD state has none"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_prev_release",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/parser_v2.2.18.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/v2.2.18/lib/rack/multipart/parser.rb",
+   "retrieved_at": "2026-10-22T01:27:00Z",
+   "sha256_of_observation": "ce6a61cd29908bba6c7e7066bea48d9f1c92c105596f910d7d7528e84d6f0619",
+   "verification_method": "raw file at tag v2.2.18; git hash-object compared with git rev-parse 0f76d43c:lib/rack/multipart/parser.rb",
+   "result": "PASS",
+   "supports": [
+    "git blob 3b53832fcf6da7abb281881a888c7384b6f96dd4, matching the v2.2.18 tag",
+    "the release immediately before the fix still has no header-size cap: handle_mime_head returns :want_read on a missing terminator"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_fixed_release",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/parser_v2.2.19.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/v2.2.19/lib/rack/multipart/parser.rb",
+   "retrieved_at": "2026-10-22T01:27:00Z",
+   "sha256_of_observation": "1af6a89deb7d9b0dd91b9e4aaedab8a947e79a18efb6886a7318d124ef9ac988",
+   "verification_method": "raw file at tag v2.2.19; git hash-object compared with git rev-parse 4c4ea296:lib/rack/multipart/parser.rb",
+   "result": "PASS",
+   "supports": [
+    "git blob ba7b4794ae1db872c3004e5fc2e399873db8e2d3 (identical to the file at the v2.2.19 tag commit)",
+    "MIME_HEADER_BYTESIZE_LIMIT = 64 * 1024 (26-27)",
+    "handle_mime_head's else branch raises EOFError 'multipart mime part header too large' when @sbuf.string.bytesize exceeds the limit (317)",
+    "the same file also carries BOUNDARY_START_LIMIT (23-24) and BUFFERED_UPLOAD_BYTESIZE_LIMIT (41-42) from the same security series"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_fix_main",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/fix_589127f4_main.patch",
+   "source_url": "https://github.com/rack/rack/commit/589127f4ac8b5cf11cf88fb0cd116ffed4d2181e",
+   "retrieved_at": "2026-10-22T01:26:00Z",
+   "sha256_of_observation": "5c5ba2412a6b29d153212d04864f4b0e530c946125ffe46a7db14c0c52649182",
+   "verification_method": "commit patch downloaded from github.com/<repo>/commit/<sha>.patch",
+   "result": "PASS",
+   "supports": [
+    "589127f4ac8b5cf11cf88fb0cd116ffed4d2181e, 2025-09-15, 'Fix denial of service vulnerbilties in multipart parsing'",
+    "adds BOUNDARY_START_LIMIT 16KB and MIME_HEADER_BYTESIZE_LIMIT 64KB, and raises from handle_mime_head when the header buffer exceeds the limit",
+    "NOT an ancestor of the v2.2.19 commit (main-line fix; the 2.2 line has its own commit)"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_fix_2_2",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/fix_d869fed_2.2.patch",
+   "source_url": "https://github.com/rack/rack/commit/d869fed663b113b95a74ad53e1b5cae6ab31f29e",
+   "retrieved_at": "2026-10-22T01:26:00Z",
+   "sha256_of_observation": "d18df8d3602362dbf662db673c4d471608ad33472613009706c23e660b660026",
+   "verification_method": "commit patch downloaded from github.com/<repo>/commit/<sha>.patch",
+   "result": "PASS",
+   "supports": [
+    "d869fed663b113b95a74ad53e1b5cae6ab31f29e, 2025-10-07, same subject, is an ancestor of the v2.2.19 tag commit",
+    "it introduces the MIME_HEADER_BYTESIZE_LIMIT check for this CVE; post-image blob 0cb5d347",
+    "the v2.2.19 tag carries ba7b4794 because c370dcd9 ('Limit amount of retained data when parsing multipart requests') lands one commit later"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_ancestry",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/ancestry_2.2.19.txt",
+   "source_url": "https://github.com/rack/rack",
+   "retrieved_at": "2026-10-22T01:29:00Z",
+   "sha256_of_observation": "9b96807940bd4dbec34e8a47f51ea21530d01cf58bb063bf10bdf68344c2ca06",
+   "verification_method": "exact-SHA fetch into a bare repository (filter blob:none); git merge-base --is-ancestor; git log; git rev-parse <commit>:<path>",
+   "result": "PASS",
+   "supports": [
+    "d869fed6 IS an ancestor of 4c4ea296 (v2.2.19); 589127f4 and e08f78c6 are NOT, so main-line ancestry cannot tie the release to the fix",
+    "log: 'Bump patch version.' <- c370dcd9 <- d869fed6 <- 'Bump patch version.' (v2.2.18)",
+    "blob at 2.2.3 is 2eb38380, at v2.2.18 is 3b53832, at v2.2.19 is ba7b4794"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_request",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/request_2.2.3.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/request.rb",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "a18487c4dae8ac56df53895215391104ce8c2eb55662b57dd9dd8b73cfe8227d",
+   "verification_method": "raw file at the exact snapshot commit",
+   "result": "PASS",
+   "supports": [
+    "Rack::Request#POST (440-457) calls parse_multipart (446) for multipart/form-data",
+    "parse_multipart (593-595) calls Rack::Multipart.extract_multipart",
+    "the Content-Type header and body are both attacker-controlled for any endpoint that reads params"
+   ]
+  },
+  {
+   "evidence_id": "ev_rack61772_multipart",
+   "artifact_path": "runs/verification/rack_cve_2025_61772/sources/multipart_2.2.3.rb",
+   "source_url": "https://raw.githubusercontent.com/rack/rack/1741c580d71cfca8e541e96cc372305c8892ee74/lib/rack/multipart.rb",
+   "retrieved_at": "2026-10-22T01:25:00Z",
+   "sha256_of_observation": "d92e6767d1c8ee52dbec28f9625f0d92e106ac9a74b20d550046624dc2a9ecb9",
+   "verification_method": "raw file at the exact snapshot commit",
+   "result": "PASS",
+   "supports": [
+    "extract_multipart (48-58) takes Rack::Request, rewinds rack.input, reads content_length and calls Parser.parse (54) with bufsize taken from RACK_MULTIPART_BUFFER_SIZE or Parser::BUFSIZE (1MB, parser.rb:12)",
+    "Parser.parse wraps the input in BoundedIO(io, content_length) (71), so the declared Content-Length is the only bound on how much data reaches the parser",
+    "the parser accumulates MIME header bytes up to that declared length, which is attacker-chosen"
+   ]
+  }
+ ],
+ "field_evidence": {
+  "aliases": [
+   0,
+   1
+  ],
+  "severity": [
+   0,
+   1,
+   2
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   0,
+   7,
+   8,
+   9
+  ],
+  "fixed_releases": [
+   6,
+   8,
+   9
+  ],
+  "vulnerable_commit": [
+   3,
+   4,
+   9
+  ],
+  "critical_operation": [
+   4,
+   6,
+   8
+  ],
+  "location": [
+   4,
+   5,
+   6
+  ],
+  "languages": [
+   4,
+   10
+  ]
+ },
+ "field_evidence_note": "field_evidence 映射 schema 字段 → evidence 下标（0 起）。每条观测均带 artifact_path 与 sha256_of_observation；代码层结论指向 2.2.3 / v2.2.18 / v2.2.19 的 raw 文件与 git blob 校验，公告文本只用于别名、区间与评分。",
+ "source_crosscheck": {
+  "families": [
+   "OSV GHSA-wpv5-97wm-hp9c (RubyGems rack intervals 2.2.19 / 3.1.17 / 3.2.2)",
+   "CVE List v5 (CNA GitHub_M, CVSS 3.1 7.5, CWE-400)",
+   "NVD 2.0 (7.5 HIGH from security-advisories@github.com, CWE-400)",
+   "upstream git: tags 2.2.3 / v2.2.18 / v2.2.19 and fix commits 589127f4, d869fed6"
+  ],
+  "independent_of_primary": true,
+  "notes": "CNA、NVD 与 OSV 在三个修复版本、CVSS 向量与 CWE 上完全一致；NVD 的 CVSS 也来自 GitHub，因此技术描述同源。唯一的独立材料是上游 git 本身：2.2.3 的 handle_mime_head 无上限、v2.2.19 增加 64KB 上限，且 d869fed6 是 v2.2.19 tag 提交的祖先。同系列公告（61770 前导缓冲、61771 非文件字段内存缓冲）与本条共用修复提交但指向不同的缺失上限，本条只针对 MIME 头部缓冲。",
+  "severity_disagreement": false
+ },
+ "review": {
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read lib/rack/multipart/parser.rb at 2.2.3 (commit 1741c580) and confirm handle_mime_head's else branch has no bytesize cap and that @sbuf keeps growing via on_read.",
+   "An independent reviewer must confirm the entry path Request#POST -> Multipart.extract_multipart -> Parser.parse -> MIME_HEAD with attacker-controlled Content-Type and Content-Length.",
+   "An independent reviewer must confirm v2.2.19 (blob ba7b4794) contains MIME_HEADER_BYTESIZE_LIMIT = 64 * 1024 and that d869fed6 is an ancestor of the v2.2.19 tag commit.",
+   "No formal reviews row may be written until a named independent reviewer returns a verdict."
+  ],
+  "status": "PENDING_INDEPENDENT_REVIEW"
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No Ruby code was executed and no multipart request was sent: the memory-exhaustion impact is read from the code path and the advisory, not measured.",
+  "Only the 2.2 line was mapped. 3.1.x and 3.2.x carry the same parser family and are fixed by 3.1.17 / 3.2.2, but those files were not read here.",
+  "The 2.2 fix is a backport (d869fed6); the main-line commit 589127f4 is NOT an ancestor of the v2.2.19 tag, so fixed content was verified by tag blob plus ancestry of d869fed6.",
+  "v2.2.19's shipped file (ba7b4794) also contains c370dcd9's retained-data limit, so the tag blob differs from d869fed6's post-image (0cb5d347); the 61772 cap is present in both.",
+  "The practical bound is the request size accepted by the front-end server; the advisory lists proxy-level limits as a mitigation, and this dossier makes no claim about any specific deployment.",
+  "The advisory family also covers CVE-2025-61770 (preamble) and CVE-2025-61771 (non-file fields), which share fix commits; those root causes were not mapped here and are not claimed."
+ ],
+ "open_questions": [
+  "Whether 2.2.3's FAST_FORWARD @bufsize guard (1MB) makes CVE-2025-61770 not applicable at this snapshot, since its advisory describes the preamble as unbounded.",
+  "Whether Rack::Multipart's BoundedIO plus a front-end Content-Length cap bounds the attack in common deployments.",
+  "Whether any public non-vendor analysis of this CVE exists; none is saved in sources."
+ ]
+}

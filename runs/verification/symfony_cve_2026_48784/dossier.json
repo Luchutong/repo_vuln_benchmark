@@ -1,0 +1,372 @@
+{
+ "candidate_id": "disc2_bc6000fb5d99eda757a86905",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T03:25:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-48784",
+  "aliases": [
+   "CVE-2026-48784",
+   "GHSA-h5x3-xfc9-m39h"
+  ],
+  "title": "Symfony UrlGenerator dot-segment encoding skips every other chained ../ or ./ segment, so generated URLs collapse off-route under RFC 3986 normalization",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/routing",
+    "purl": "pkg:composer/symfony/routing",
+    "affected_range": "<5.4.53"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": "<5.4.53"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/routing",
+    "version": "5.4.53",
+    "tag": "v5.4.53",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.53",
+    "verified_content": "At v5.4.53 doGenerate() splits the path on / and percent-encodes every \".\" and \"..\" segment individually; the strtr plus trailing fixup is gone"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "4b63c3a3f7af04ecd79c89a594b0b02a01990b1d",
+    "branch": "5.4",
+    "message": "[Routing] Fix dot-segment encoding for chained \"../\" and \"./\" in generated URLs",
+    "url": "https://github.com/symfony/symfony/commit/4b63c3a3f7af04ecd79c89a594b0b02a01990b1d"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-172",
+   "CWE-601"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+   "score": 5.1,
+   "level": "medium",
+   "numeric_level_rationale": "The CNA and NVD Secondary both use CVSS 4.0 5.1 Medium; NVD Primary CVSS 3.1 is 6.1 Medium. GHSA/OSV label Moderate and the OSV vector differs (UI:N, VI:L), but both land in the same Medium band.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD Primary CVSS 3.1 6.1 Medium from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-h5x3-xfc9-m39h",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 5.1,
+     "level": "medium",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 6.1,
+     "level": "medium",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N"
+    }
+   ],
+   "ghsa_label_note": "The OSV CVSS_V4 vector is CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:L/SI:L/SA:N (UI:N and VI:L), unlike the CNA vector (UI:A, VI:N); the OSV label is MODERATE. The difference does not change the Medium band."
+  },
+  "category_l1": "open_redirect",
+  "category_l2": "Dot-segment encoding defect in URL generation; generated URL normalizes to a different path (route confusion / off-route)",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/blog/cve-2026-48784-urlgenerator-encoding-skips-every-other-chained-or-generated-url-collapses-off-route",
+  "published_at": "2026-07-14T19:04:20Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/blog/cve-2026-48784-urlgenerator-encoding-skips-every-other-chained-or-generated-url-collapses-off-route",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-h5x3-xfc9-m39h",
+   "https://github.com/symfony/symfony/commit/4b63c3a3f7af04ecd79c89a594b0b02a01990b1d",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-48784",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.53"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-48784_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-48784",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+  "function": "UrlGenerator::doGenerate",
+  "language": "PHP",
+  "line": 224,
+  "critical_operation": {
+   "code_excerpt": "        $url = strtr($url, ['/../' => '/%2E%2E/', '/./' => '/%2E/']);\n        if (str_ends_with($url, '/..')) {\n            $url = substr($url, 0, -2).'%2E%2E';\n        } elseif (str_ends_with($url, '/.')) {\n            $url = substr($url, 0, -1).'%2E';\n        }",
+   "description": "doGenerate() encodes \".\" and \"..\" path segments so a generated URL still resolves to its route after RFC 3986 §5.2.4 dot-segment removal. The encoding uses two strtr() replacements, \"/../\" -> \"/%2E%2E/\" and \"/./\" -> \"/%2E/\". strtr() consumes the trailing slash of each match, so in a chained sequence such as \"../../..\" the slash that ends one match is the slash that would start the next; every other segment is left as a literal \".\" or \"..\". A URL built from an attacker-controlled route parameter therefore contains unencoded dot segments that strict RFC 3986 consumers (routers, reverse proxies, HTTP clients) remove before percent-decoding, so the URL collapses to a different path than the route intended. The trailing-segment fixup only covers the last segment. The 5.4.53 fix splits the path on / and encodes every dot segment.",
+   "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+   "function": "UrlGenerator::doGenerate",
+   "language": "PHP",
+   "line": 224,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L224"
+  },
+  "entry_point": {
+   "description": "An application generates a URL from a route whose parameter is attacker-influenced, e.g. linking to a user-supplied path or a return URL.",
+   "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+   "function": "UrlGenerator::generate",
+   "language": "PHP",
+   "line": 128,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L128"
+  },
+  "trace": [
+   {
+    "description": "generate() delegates to doGenerate() with merged parameters",
+    "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+    "function": "UrlGenerator::generate",
+    "language": "PHP",
+    "line": 128,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L128"
+   },
+   {
+    "description": "doGenerate() first percent-encodes the assembled path",
+    "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+    "function": "UrlGenerator::doGenerate",
+    "language": "PHP",
+    "line": 219,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L219"
+   },
+   {
+    "description": "the strtr dot-segment encoding skips every other chained segment",
+    "file": "src/Symfony/Component/Routing/Generator/UrlGenerator.php",
+    "function": "UrlGenerator::doGenerate",
+    "language": "PHP",
+    "line": 224,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L224"
+   }
+  ],
+  "verification_method": "Static read of UrlGenerator.php at v5.4.45 and v5.4.53, the fix patch, tag peels and ancestry; no URL was generated and no RFC 3986 normalization was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_48784_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "e918214fa955288fbf2e811d880046b8cbc8e0b81930d7c699ede42f6a491bc5",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-48784",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T19:04:20Z",
+    "affected symfony and routing <5.4.53 with 6.4.41/7.4.13/8.0.13 branch bounds",
+    "CNA CVSS 4.0 5.1 MEDIUM AV:N/AC:L/AT:N/PR:N/UI:A/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+    "problemTypes CWE-172 and CWE-601",
+    "references name fix commit 4b63c3a3 and the release tags"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_48784_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "222503dbc5729a2d6923aac1ec314295e2f7fa83a9d2eed2b09ed1711bfda2fb",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-48784",
+   "supports": [
+    "NVD status Analyzed",
+    "NVD Primary CVSS 3.1 6.1 MEDIUM from nvd@nist.gov (AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N)",
+    "NVD Secondary CVSS 4.0 5.1 MEDIUM from security-advisories@github.com",
+    "weaknesses CWE-172 and CWE-601"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_48784_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "4a53236d4d88db005160305fd54644d1bf6783c22c0122e6bda197822e103354",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-h5x3-xfc9-m39h",
+   "supports": [
+    "GHSA-h5x3-xfc9-m39h aliases CVE-2026-48784, github_reviewed, database severity MODERATE",
+    "cwe_ids CWE-172 and CWE-601",
+    "affected symfony/routing and symfony/symfony introduced 0 fixed 5.4.53 plus the 6.4/7.4/8.0 bounds",
+    "details reproduce the strtr mechanics: strtr advances past the trailing slash so the next chained dot segment is left unescaped",
+    "the OSV CVSS_V4 vector uses UI:N and VI:L, unlike the CNA UI:A/VI:N vector"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_48784_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "c7819dbcc4b4d67fb22e2c00171059d71811de7c74d2f5af2a4e832ae19501a9",
+   "source_url": "https://symfony.com/blog/cve-2026-48784-urlgenerator-encoding-skips-every-other-chained-or-generated-url-collapses-off-route",
+   "supports": [
+    "the blog quotes the vulnerable strtr replacement and the trailing-segment fixup",
+    "it explains that strtr advances past the trailing / so the next dot segment in a chain is left unescaped",
+    "affected <5.4.53 and fixed in 5.4.53, 6.4.41, 7.4.13 and 8.0.13"
+   ],
+   "verification_method": "symfony.com blog text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/ghsa.html",
+   "evidence_id": "ev_symfony_48784_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "102378723cd1ce7e1eef76f9fa3ac868cef343c8c3b0bb6bb71f9ba2594fb885",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-h5x3-xfc9-m39h",
+   "supports": [
+    "the GitHub advisory carries the same description and resolution as the blog",
+    "the advisory page label is Moderate",
+    "it links fix commit 4b63c3a3 and the fixed releases"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/urlgenerator_5.4.45.php",
+   "evidence_id": "ev_symfony_48784_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "184adf79e1cb44838e2bd80a923eaa1cee2de19adabe7032a6cf8da68bae496f",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.45/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L224",
+   "supports": [
+    "doGenerate() starts at line 171 and percent-encodes the path with strtr(rawurlencode($url), $this->decodedChars) at line 219",
+    "line 224 applies strtr with \"/../\" and \"/./\" replacements",
+    "lines 225-229 only fix a terminal \"/..\" or \"/.\" segment with str_ends_with",
+    "no segment-by-segment encoding exists"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 4419e9ef)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/urlgenerator_5.4.53.php",
+   "evidence_id": "ev_symfony_48784_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "fde05de72b8e9e7bb1f29f74ed85ceee96624769d6e4211675b301dcfcd70878",
+   "source_url": "https://github.com/symfony/symfony/blob/v5.4.53/src/Symfony/Component/Routing/Generator/UrlGenerator.php#L224-L233",
+   "supports": [
+    "the strtr replacement and trailing fixup are replaced by a str_contains check for '/.'",
+    "explode('/') plus a per-segment loop encodes each '.' as %2E and each '..' as %2E%2E",
+    "the path is re-joined with implode"
+   ],
+   "verification_method": "file read at v5.4.53 (blob 8179e2bf)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_48784_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "a7b2ad1737587b2a98c5cf36eda0070878153d52e6f800b8a6028703d900038a",
+   "source_url": "https://github.com/symfony/symfony/commit/4b63c3a3f7af04ecd79c89a594b0b02a01990b1d.patch",
+   "supports": [
+    "the patch replaces the two strtr rules and the trailing fixup with a segment loop",
+    "the test testEncodingOfChainedRelativePathSegments covers ../../.., ././. and ../././..",
+    "the expected outputs encode every segment"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_48784/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_48784_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T03:25:00Z",
+   "sha256_of_observation": "61685a096935404f9edfefeec86375c2a43fa600c6c044b0ffead8866e3847a6",
+   "source_url": "https://github.com/symfony/symfony/commit/4b63c3a3f7af04ecd79c89a594b0b02a01990b1d",
+   "supports": [
+    "v5.4.45 peels to 2b66d7d7 and v5.4.53 to 6436e377",
+    "4b63c3a3 is an ancestor of v5.4.53 and not of v5.4.45",
+    "the UrlGenerator blob is 4419e9ef at v5.4.45 and 8179e2bf at v5.4.53",
+    "the fixed file contains the segment loop at lines 224-233"
+   ],
+   "verification_method": "git rev-parse/merge-base and grep"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   5,
+   7
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   2,
+   3,
+   7,
+   8
+  ],
+  "fixed_releases": [
+   3,
+   6,
+   8
+  ],
+  "languages": [
+   3,
+   5
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   8
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security blog",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-172/601, the strtr skip mechanism, the <5.4.53 range and fix 4b63c3a3. Severity agrees on Medium from CNA 4.0 5.1 and NVD Primary 3.1 6.1; the GHSA/OSV Moderate label uses a different vector (UI:N/VI:L).",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read UrlGenerator::doGenerate() at v5.4.45 and confirm the two strtr rules plus terminal fixup, and that chained dot segments are skipped.",
+   "An independent reviewer must confirm 4b63c3a3 is absent from v5.4.45 and present in v5.4.53, and that it encodes every segment.",
+   "An independent reviewer must confirm the affected range and the 5.4.53 fixed release.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No URL was generated and no RFC 3986 normalization was executed; the collapse is established statically from the strtr semantics and the fix tests.",
+  "Only the 5.4 branch was inspected; 6.4.41, 7.4.13 and 8.0.13 were not diffed.",
+  "The CNA and OSV CVSS 4.0 vectors disagree on UI and VI; both remain Medium."
+ ],
+ "open_questions": [
+  "The precise downstream impact depends on the consuming router/proxy; no specific deployment was tested.",
+  "Whether non-path uses of generate() (host/fragment) are affected was not analysed."
+ ]
+}

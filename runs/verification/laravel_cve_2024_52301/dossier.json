@@ -1,0 +1,486 @@
+{
+  "candidate_id": "disc2_226d0cf8e0273d5cbb8b8500",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/osv_ghsa.json",
+      "evidence_id": "ev_laravel_osv_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:40:00Z",
+      "sha256_of_observation": "befb218ea45243d09dd875cbae0ad877a5b021ef63cef2f5d24b33f40146163c",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-gv7v-rgg6-548h",
+      "supports": [
+        "GHSA-gv7v-rgg6-548h aliases CVE-2024-52301 and BIT-laravel-2024-52301",
+        "affected package is Packagist laravel/framework with six branch ranges: <6.20.45, 7.0.0-7.30.7, 8.0.0-8.83.28, 9.0.0-9.52.17, 10.0.0-10.48.23, 11.0.0-11.31.0",
+        "details require register_argc_argv=on and a crafted query string, and state the fix ignores argv on non-CLI SAPIs",
+        "database_specific cwe_ids is CWE-88 and severity is HIGH",
+        "the OSV CVSS_V3 vector AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N implies 0.0, which conflicts with the same record's HIGH rating and with NVD; recorded as a data defect, not used for the canonical score"
+      ],
+      "verification_method": "OSV API query for the GitHub advisory; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/cve_v5.json",
+      "evidence_id": "ev_laravel_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:40:00Z",
+      "sha256_of_observation": "06a926020ef3122f4e291afe60d54d300b631c49147b50420cf7ba74760e43fa",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-52301",
+      "supports": [
+        "CVE state PUBLISHED, assigner GitHub_M, published 2024-11-12T19:32:14Z",
+        "CNA affected versions are the same six branch ranges",
+        "CNA supplies CVSS 4.0 8.7 HIGH AV:N/AC:L/PR:N/UI:N/VC:N/VI:H/VA:N",
+        "CNA problem type is CWE-88 and the description names register_argc_argv and non-cli SAPIs"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/nvd_cve.json",
+      "evidence_id": "ev_laravel_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:40:00Z",
+      "sha256_of_observation": "ffd92bbc0e7a67282f3c434e59a85b5d484a9cc29cab305243f6e39b4a93cd22",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-52301",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "NVD secondary CWE-88 and a secondary CVSS 4.0 8.7 metric",
+        "NVD configuration has the same six laravel/framework branch ranges, plus a downstream debian:debian_linux:11.0 OS CPE derived from the Debian LTS advisory",
+        "NVD status is Analyzed and the description matches the CNA text"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/friends_of_php.yaml",
+      "evidence_id": "ev_laravel_friends_of_php",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:40:00Z",
+      "sha256_of_observation": "01d1acaee50798ee5066f46cc1ef17fef6b2d45cd0e4aa7045239b68cbeb194a",
+      "source_url": "https://github.com/FriendsOfPHP/security-advisories/blob/master/laravel/framework/CVE-2024-52301.yaml",
+      "supports": [
+        "FriendsOfPHP lists the same six branch ranges and fixed versions",
+        "each branch records a fix time on 2024-11-12",
+        "reference is composer://laravel/framework"
+      ],
+      "verification_method": "raw file read from the FriendsOfPHP security-advisories repository"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/git_object_checks.txt",
+      "evidence_id": "ev_laravel_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:47:00Z",
+      "sha256_of_observation": "4adcdab2a3cb0cd52137f7d5a5492b6d4da0e45cccb6ee202f39cde7665b70d5",
+      "source_url": "https://github.com/laravel/framework/commit/18b326d22d831e1fe05e737209e367e30796d5f3",
+      "supports": [
+        "v11.30.0 peels to dff71644 and v11.31.0 peels to 365090ed",
+        "11.x fix 18b326d changes only src/Illuminate/Foundation/Application.php (+3/-1) and removes the unconditional argv read",
+        "18b326d is absent from v11.30.0 and an ancestor of v11.31.0; the env-check branch was merged by 6d53774",
+        "six per-branch fix commits are each absent from the immediately preceding release and present in the named fixed release: 6.x 841d842, 7.x 639b222, 8.x eded6bd, 9.x 695097c, 10.x 8c07b63, 11.x 18b326d",
+        "the 6.x fix is bundled into the v6.20.45 tag commit itself; 7.x is bundled into a version commit",
+        "the immediately preceding releases v6.20.44, v7.30.6, v8.83.27, v9.52.16 and v10.48.22 still contain the unconditional argv read",
+        "all six fixed releases contain the runningInConsole guard",
+        "the fix commits add no test file"
+      ],
+      "verification_method": "exact-tag shallow fetches into a bare repository; git merge-base --is-ancestor in both directions against fixed and immediately preceding tags; git show --stat"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/application_11.30.0.php",
+      "evidence_id": "ev_laravel_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:44:00Z",
+      "sha256_of_observation": "68852fc3a0021bc95d7a974e631f49bba4f67abadf56af39446dddaa89b041fd",
+      "source_url": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/Application.php#L760-L765",
+      "supports": [
+        "Application::detectEnvironment spans lines 760-765 at v11.30.0",
+        "line 762 is exactly: $args = $_SERVER['argv'] ?? null;",
+        "there is no runningInConsole or SAPI check before argv is forwarded",
+        "line 764 passes the argv array to EnvironmentDetector::detect"
+      ],
+      "verification_method": "file read at the v11.30.0 commit"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/application_11.31.0.php",
+      "evidence_id": "ev_laravel_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:44:00Z",
+      "sha256_of_observation": "fffa6e870d38b2a96fe5b31d234712143e951e1558375e7057149f1861a25646",
+      "source_url": "https://github.com/laravel/framework/blob/365090ed2c68244e3141cdb5e247cdf3dfba2c40/src/Illuminate/Foundation/Application.php#L760-L768",
+      "supports": [
+        "v11.31.0 guards argv with $this->runningInConsole() && $_SERVER['argv']",
+        "on a non-CLI SAPI the expression short-circuits to null, so detect() takes the web path",
+        "the rest of detectEnvironment is unchanged"
+      ],
+      "verification_method": "file read at the v11.31.0 commit"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/environment_detector_11.30.0.php",
+      "evidence_id": "ev_laravel_environment_detector",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:44:00Z",
+      "sha256_of_observation": "9d32d84d3c2e488942aed295a69889a8826c80bb310ce40d60b90edddc8bc6cc",
+      "source_url": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/EnvironmentDetector.php#L16-L71",
+      "supports": [
+        "detect() treats any truthy $consoleArgs as console input (lines 18-19)",
+        "detectConsoleEnvironment() returns getEnvironmentArgument() when an --env value is found (lines 48-49)",
+        "getEnvironmentArgument() matches the literal '--env' or the '--env=' prefix (lines 61-71)",
+        "no SAPI or runningInConsole check exists in this class"
+      ],
+      "verification_method": "file read at the v11.30.0 commit"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/load_configuration_11.30.0.php",
+      "evidence_id": "ev_laravel_call_site",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:44:00Z",
+      "sha256_of_observation": "c8cbf910e3d15b31047548829b8c8705469ef34dd7ce86ace82d883f783b1e2b",
+      "source_url": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php#L41-L44",
+      "supports": [
+        "LoadConfiguration::bootstrap calls $app->detectEnvironment(...) at line 44 on every boot",
+        "the callback returns config('app.env', 'production'), which is only used when no --env argument is found",
+        "LoadConfiguration is one of the HTTP kernel bootstrappers, so the call happens during web requests"
+      ],
+      "verification_method": "file read at the v11.30.0 commit"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/fix_diff.txt",
+      "evidence_id": "ev_laravel_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:44:00Z",
+      "sha256_of_observation": "49f3e6bfefb2dce163a9e9e240f8e6cde68abf7b505e2547c20aa05b8b56fded",
+      "source_url": "https://github.com/laravel/framework/commit/18b326d22d831e1fe05e737209e367e30796d5f3",
+      "supports": [
+        "the complete fix replaces the unconditional argv read with a runningInConsole()-gated ternary",
+        "the commit subject is 'only use argv on console'",
+        "only Application.php is touched; no test or documentation change is included"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_6e1f42aa46ca4df5/snapshot_proposal.json",
+      "evidence_id": "ev_laravel_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:43:00Z",
+      "sha256_of_observation": "7edd4371d8ea3f49599c30ff32b43eb82be783af2680af44d1af59ec59d947dc",
+      "source_url": "https://github.com/laravel/framework/tree/dff716442d9c229d716be82ccc9a7de52eb97193",
+      "supports": [
+        "snapshot_id snap_6e1f42aa46ca4df5 and a 2717-file inventory",
+        "PHP first-party 1316 files / 5,852,845 bytes / 42.36% of tracked nonbinary bytes",
+        "PHP tests 999 files / 7,307,675 bytes / 52.88%",
+        "tree oid b5056202 and ls-tree parity",
+        "full_scan=true; 106 ambiguous/bounded files recorded"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    },
+    {
+      "artifact_path": "runs/verification/laravel_cve_2024_52301/sources/debian_lts_announcement.html",
+      "evidence_id": "ev_laravel_debian",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:46:00Z",
+      "sha256_of_observation": "84948768b48a39ac1624c4b0b2b8aa95487af2b7e2455f8f10ca18804fa92711",
+      "source_url": "https://lists.debian.org/debian-lts-announce/2024/12/msg00019.html",
+      "supports": [
+        "DLA-3997-1 assigns CVE-2024-52301 to php-laravel-framework",
+        "Debian 11 bullseye fixes 6.20.14+dfsg-2 in 6.20.14+dfsg-2+deb11u2",
+        "the advisory repeats the register_argc_argv condition and the non-CLI argv fix",
+        "the Debian backport version is lower than upstream 6.20.45 and must not be used as the upstream fixed release"
+      ],
+      "verification_method": "Debian LTS announcement HTML read; text extracted without executing page content"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 1, 2, 3],
+    "aliases": [0, 1],
+    "critical_operation": [5, 6, 7, 8, 9],
+    "cwe": [0, 1, 2],
+    "fix_commits": [4, 9],
+    "fixed_releases": [4, 6],
+    "languages": [10],
+    "severity": [2],
+    "vulnerable_commit": [4, 5]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No PoC, crafted query string, or regression test was executed; the finding is static. No HTTP request was sent against a Laravel application.",
+    "Reachability requires register_argc_argv=On and a non-CLI SAPI that exposes the query string through $_SERVER['argv']. This dossier did not test a specific web server/PHP build combination; the advisory and Debian DLA state the condition but do not enumerate every SAPI.",
+    "The fix commit adds no automated regression test; only Application.php changed. Test coverage for the fixed behavior is not evidenced.",
+    "The GHSA/OSV record carries a CVSS_V3 vector with all impact metrics N (numeric 0.0) while the same record labels the issue HIGH; NVD's own primary CVSS 3.1 is 7.5 and the CNA CVSS 4.0 is 8.7. The canonical severity uses the NVD primary 7.5 and records the inconsistency rather than propagating the zero vector.",
+    "All six per-branch fix commits were verified locally against the named fixed tag and the immediately preceding tag. The 6.x fix is bundled into the v6.20.45 tag commit itself (841d842) and the 7.x fix into a version commit (639b222), so their commit messages do not describe the security change; their diffs still only touch Application.php.",
+    "The independent review described the 6.x fix parent as v6.20.44 (505ebcd); local ancestry shows the actual parent is 7e82e1a, a changelog commit created after v6.20.44. The verdict is unaffected because both 7e82e1a and v6.20.44 still contain the unconditional argv read, but the reviewer's parent hash is not reproduced and is recorded here rather than silently corrected in the review artifact.",
+    "Debian 11 backported the fix into 6.20.14+dfsg-2+deb11u2, whose version number is below upstream 6.20.45; the Debian package version is not interchangeable with the upstream release boundary.",
+    "The vulnerable snapshot is v11.30.0 (11.x). The other five branch ranges are recorded from the advisory families but were not snapshotted; this dossier does not claim a source-level vulnerable snapshot for them.",
+    "The concrete security consequence depends on which environment-specific configuration and services are present (for example a .env.<name> file or environment-conditional providers). No exploit chain beyond the environment override was demonstrated."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "    public function detectEnvironment(Closure $callback)\n    {\n        $args = $_SERVER['argv'] ?? null;\n\n        return $this['env'] = (new EnvironmentDetector)->detect($callback, $args);\n    }",
+      "description": "Application::detectEnvironment() forwards $_SERVER['argv'] to EnvironmentDetector without checking the SAPI. EnvironmentDetector::detect() treats any non-empty argv array as console input and getEnvironmentArgument() extracts a value from '--env' or '--env=...'. On a web SAPI with register_argc_argv enabled, PHP populates argv from the query string, so a crafted request such as ?--env=<name> can override app.env. The v11.31.0 fix only forwards argv when runningInConsole() is true.",
+      "file": "src/Illuminate/Foundation/Application.php",
+      "function": "detectEnvironment",
+      "language": "PHP",
+      "line": "760-765",
+      "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/Application.php#L760-L765"
+    },
+    "entry_point": {
+      "description": "LoadConfiguration::bootstrap() calls detectEnvironment() on every application boot, and LoadConfiguration is in the HTTP kernel's bootstrapper list. The externally controlled input is the request query string, which PHP exposes as $_SERVER['argv'] when register_argc_argv is on. The entry point recorded here is the framework call site; the HTTP server and PHP INI setting are environmental preconditions.",
+      "file": "src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php",
+      "function": "bootstrap",
+      "language": "PHP",
+      "line": 44,
+      "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php#L44"
+    },
+    "location_id": "loc_CVE-2024-52301_snap_6e1f42aa46ca4df5",
+    "location_kind": "logic",
+    "snapshot_id": "snap_6e1f42aa46ca4df5",
+    "trace": [
+      {
+        "description": "LoadConfiguration bootstraps and calls detectEnvironment with the config app.env callback",
+        "file": "src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php",
+        "function": "bootstrap",
+        "language": "PHP",
+        "line": 44,
+        "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/Bootstrap/LoadConfiguration.php#L44"
+      },
+      {
+        "description": "Application forwards $_SERVER['argv'] unconditionally, even for a web SAPI",
+        "file": "src/Illuminate/Foundation/Application.php",
+        "function": "detectEnvironment",
+        "language": "PHP",
+        "line": 762,
+        "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/Application.php#L762"
+      },
+      {
+        "description": "EnvironmentDetector treats a truthy argv array as console input instead of using the web callback",
+        "file": "src/Illuminate/Foundation/EnvironmentDetector.php",
+        "function": "detect",
+        "language": "PHP",
+        "line": 18,
+        "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/EnvironmentDetector.php#L18"
+      },
+      {
+        "description": "getEnvironmentArgument returns the value after '--env=', which becomes app.env",
+        "file": "src/Illuminate/Foundation/EnvironmentDetector.php",
+        "function": "getEnvironmentArgument",
+        "language": "PHP",
+        "line": 68,
+        "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/EnvironmentDetector.php#L68"
+      }
+    ],
+    "verification_method": "Static read of Application.php, EnvironmentDetector.php, LoadConfiguration.php, the fix diff, and every named fixed tag; no code executed.",
+    "vulnerability_id": "CVE-2024-52301"
+  },
+  "open_questions": [
+    "Which common PHP SAPI/INI combinations expose the raw query string through $_SERVER['argv'] was not surveyed; only the advisory's register_argc_argv=On condition is recorded.",
+    "Whether a specific environment name yields a concrete security bypass (debug disclosure, different database, different providers) was not demonstrated.",
+    "The 6.x-10.x backport commits were not identified by SHA; only the fixed release contents were checked."
+  ],
+  "prepared_at": "2026-10-21T14:50:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/laravel/framework",
+    "full_name": "laravel/framework",
+    "primary_language": "PHP",
+    "project_kind": "PHP web application framework",
+    "repo_id": "7548986",
+    "snapshot_id": "snap_6e1f42aa46ca4df5"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read Application.php at v11.30.0 and confirm line 762 forwards argv with no SAPI check.",
+      "An independent reviewer must confirm EnvironmentDetector lines 18-19 and 61-71 turn a query-string argv into the app environment.",
+      "An independent reviewer must confirm 18b326d is absent from v11.30.0, present in v11.31.0, and that all six named fixed tags contain the runningInConsole guard.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV/GHSA-gv7v-rgg6-548h",
+      "CVE List v5 GitHub_M record",
+      "NVD analysis",
+      "FriendsOfPHP security-advisories",
+      "upstream git history and release tags",
+      "Debian LTS DLA-3997-1"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA (GitHub_M), NVD, FriendsOfPHP, GHSA and Debian all agree on the same six branch boundaries and on the register_argc_argv mechanism. Severity is inconsistent: GHSA's CVSS_V3 vector AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:N implies 0.0, yet its database_specific severity is HIGH; NVD's own primary CVSS 3.1 is 7.5, and the CNA's CVSS 4.0 is 8.7. The canonical severity uses NVD's primary 7.5 and the zero-impact vector is retained here as a source defect. Debian 11 fixes the same CVE by backporting to 6.20.14+dfsg-2+deb11u2, a lower version string than upstream 6.20.45; that backport is recorded separately and is not folded into the upstream range. Branch packaging differs: the 6.x fix is bundled into the v6.20.45 tag commit (841d842), the 7.x fix into a version commit (639b222), while 8.x-11.x have dedicated commits whose messages name the console check.",
+    "severity_disagreement": true
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/laravel/framework/security/advisories/GHSA-gv7v-rgg6-548h",
+    "affected_packages": [
+      {
+        "affected_range": "<6.20.45",
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "purl": "pkg:composer/laravel/framework"
+      },
+      {
+        "affected_range": ">=7.0.0,<7.30.7",
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "purl": "pkg:composer/laravel/framework"
+      },
+      {
+        "affected_range": ">=8.0.0,<8.83.28",
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "purl": "pkg:composer/laravel/framework"
+      },
+      {
+        "affected_range": ">=9.0.0,<9.52.17",
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "purl": "pkg:composer/laravel/framework"
+      },
+      {
+        "affected_range": ">=10.0.0,<10.48.23",
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "purl": "pkg:composer/laravel/framework"
+      },
+      {
+        "affected_range": ">=11.0.0,<11.31.0",
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "purl": "pkg:composer/laravel/framework"
+      }
+    ],
+    "aliases": [
+      "CVE-2024-52301",
+      "GHSA-gv7v-rgg6-548h",
+      "BIT-laravel-2024-52301"
+    ],
+    "category_l1": "integrity",
+    "category_l2": "application environment override via query-string argv on non-CLI SAPIs",
+    "cwe_ids": [
+      "CWE-88"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "6.x",
+        "message": "version (security fix bundled into the v6.20.45 tag commit)",
+        "sha": "841d842bbdc8e08c6364a8c06212c7286bbf0b9a",
+        "url": "https://github.com/laravel/framework/commit/841d842bbdc8e08c6364a8c06212c7286bbf0b9a"
+      },
+      {
+        "branch": "7.x",
+        "message": "version (security fix bundled into 639b222)",
+        "sha": "639b22220784a1d6a2b16ea490eac383b0794d46",
+        "url": "https://github.com/laravel/framework/commit/639b22220784a1d6a2b16ea490eac383b0794d46"
+      },
+      {
+        "branch": "8.x",
+        "message": "check if running in console",
+        "sha": "eded6bdfc05af9b5437d107b4d092558fe46292c",
+        "url": "https://github.com/laravel/framework/commit/eded6bdfc05af9b5437d107b4d092558fe46292c"
+      },
+      {
+        "branch": "9.x",
+        "message": "check if running in console",
+        "sha": "695097c9dc11645230b97e13128efa6e2735d6ab",
+        "url": "https://github.com/laravel/framework/commit/695097c9dc11645230b97e13128efa6e2735d6ab"
+      },
+      {
+        "branch": "10.x",
+        "message": "check for running in console",
+        "sha": "8c07b6301b2a177a34ee5fdbca11443e3e541a15",
+        "url": "https://github.com/laravel/framework/commit/8c07b6301b2a177a34ee5fdbca11443e3e541a15"
+      },
+      {
+        "branch": "11.x",
+        "message": "only use argv on console",
+        "sha": "18b326d22d831e1fe05e737209e367e30796d5f3",
+        "url": "https://github.com/laravel/framework/commit/18b326d22d831e1fe05e737209e367e30796d5f3"
+      },
+      {
+        "branch": "11.x",
+        "message": "Merge branch 'env-check' into 11.x (integration merge for 18b326d)",
+        "sha": "6d537742bc3599e87757c1f981e59706dd77021d",
+        "url": "https://github.com/laravel/framework/commit/6d537742bc3599e87757c1f981e59706dd77021d"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "release_url": "https://github.com/laravel/framework/releases/tag/v6.20.45",
+        "tag": "v6.20.45",
+        "verified_content": "The v6.20.45 tag commit 841d842b itself contains the runningInConsole guard; its parent 7e82e1a is a changelog commit that still reads argv unconditionally, and the previous release v6.20.44 is also vulnerable",
+        "version": "6.20.45"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "release_url": "https://github.com/laravel/framework/releases/tag/v7.30.7",
+        "tag": "v7.30.7",
+        "verified_content": "The 7.x fix 639b222 is an ancestor of tag commit 0fe75baf and absent from v7.30.6; the fixed release contains the runningInConsole guard",
+        "version": "7.30.7"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "release_url": "https://github.com/laravel/framework/releases/tag/v8.83.28",
+        "tag": "v8.83.28",
+        "verified_content": "The 8.x fix eded6bd is an ancestor of tag commit 83e64679 and absent from v8.83.27; the fixed release contains the runningInConsole guard",
+        "version": "8.83.28"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "release_url": "https://github.com/laravel/framework/releases/tag/v9.52.17",
+        "tag": "v9.52.17",
+        "verified_content": "The 9.x fix 695097c is an ancestor of tag commit a069cf17 and absent from v9.52.16; the fixed release contains the runningInConsole guard",
+        "version": "9.52.17"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "release_url": "https://github.com/laravel/framework/releases/tag/v10.48.23",
+        "tag": "v10.48.23",
+        "verified_content": "The 10.x fix 8c07b63 is an ancestor of tag commit 625269ca and absent from v10.48.22; the fixed release contains the runningInConsole guard",
+        "version": "10.48.23"
+      },
+      {
+        "ecosystem": "Packagist",
+        "package": "laravel/framework",
+        "release_url": "https://github.com/laravel/framework/releases/tag/v11.31.0",
+        "tag": "v11.31.0",
+        "verified_content": "At tag commit 365090ed, the runningInConsole guard from 18b326d is present; 18b326d is an ancestor of this tag and absent from v11.30.0",
+        "version": "11.31.0"
+      }
+    ],
+    "published_at": "2024-11-12T19:32:14Z",
+    "references": [
+      "https://github.com/laravel/framework/security/advisories/GHSA-gv7v-rgg6-548h",
+      "https://github.com/advisories/GHSA-gv7v-rgg6-548h",
+      "https://github.com/FriendsOfPHP/security-advisories/blob/master/laravel/framework/CVE-2024-52301.yaml",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-52301",
+      "https://github.com/laravel/framework/commit/18b326d22d831e1fe05e737209e367e30796d5f3",
+      "https://github.com/laravel/framework/releases/tag/v11.31.0",
+      "https://lists.debian.org/debian-lts-announce/2024/12/msg00019.html"
+    ],
+    "repo_id": "7548986",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 7.5 falls in High (7.0-8.9). The CNA CVSS 4.0 is 8.7 HIGH; the GHSA CVSS_V3 vector is internally inconsistent (0.0) and is not used.",
+      "score": 7.5,
+      "source": "NVD primary metric nvd@nist.gov; CNA supplies CVSS 4.0 8.7",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-52301",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_6e1f42aa46ca4df5",
+    "source_type": "upstream_advisory",
+    "title": "Laravel framework uses query-string argv to select the environment on non-CLI SAPIs when register_argc_argv is enabled",
+    "vulnerability_id": "CVE-2024-52301",
+    "vulnerable_commit": "dff716442d9c229d716be82ccc9a7de52eb97193",
+    "vulnerable_commit_basis": "lightweight tag v11.30.0 points directly at dff71644..., dated 2024-10-30; the fix commit 18b326d (2024-11-08) is absent from v11.30.0 and present in v11.31.0",
+    "vulnerable_version": "11.30.0"
+  }
+}

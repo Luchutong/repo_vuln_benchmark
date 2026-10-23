@@ -1,0 +1,397 @@
+{
+ "candidate_id": "disc2_4427c3d1de1435b729e435b1",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T01:30:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "458058",
+  "full_name": "symfony/symfony",
+  "canonical_url": "https://github.com/symfony/symfony",
+  "primary_language": "PHP",
+  "project_kind": "PHP application framework",
+  "snapshot_id": "snap_39105a8a3ceb9fe4"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2026-45071",
+  "aliases": [
+   "CVE-2026-45071",
+   "GHSA-x6g4-fwcc-jj8w"
+  ],
+  "title": "Symfony DomCrawler addXmlContent enables validateOnParse, re-enabling XXE file disclosure despite LIBXML_NONET",
+  "repo_id": "458058",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "vulnerable_commit": "2b66d7d7d8129531229708ef708860844db91944",
+  "affected_packages": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/dom-crawler",
+    "purl": "pkg:composer/symfony/dom-crawler",
+    "affected_range": ">=0,<5.4.52"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "purl": "pkg:composer/symfony/symfony",
+    "affected_range": ">=0,<5.4.52"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/dom-crawler",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "At v5.4.52 addXmlContent no longer sets validateOnParse; fix eea5fd74 is an ancestor of the tag and absent from v5.4.45"
+   },
+   {
+    "ecosystem": "Packagist",
+    "package": "symfony/symfony",
+    "version": "5.4.52",
+    "tag": "v5.4.52",
+    "release_url": "https://github.com/symfony/symfony/releases/tag/v5.4.52",
+    "verified_content": "Same tree: tag v5.4.52 peels to eabc5f9e and Crawler.php blob 0f6fb02b matches the patch post-image"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d",
+    "branch": "5.4",
+    "message": "[DomCrawler] Fix XXE in addXmlContent() by not enabling `validateOnParse`",
+    "url": "https://github.com/symfony/symfony/commit/eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-611"
+  ],
+  "severity": {
+   "version": "4.0",
+   "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+   "score": 8.7,
+   "level": "high",
+   "numeric_level_rationale": "CVSS 4.0 base 8.7 and the NVD Primary CVSS 3.1 7.5 both fall in High. The GHSA label LOW disagrees with both scores; the canonical severity keeps the CNA 4.0 vector and records both published scores.",
+   "source": "GitHub_M CNA CVSS 4.0 metric; NVD also has a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-x6g4-fwcc-jj8w",
+   "all_published_scores": [
+    {
+     "version": "4.0",
+     "score": 8.7,
+     "level": "high",
+     "source": "security-advisories@github.com (CNA, Secondary in NVD)",
+     "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N"
+    }
+   ],
+   "ghsa_label_note": "The GitHub advisory page and OSV label GHSA-x6g4-fwcc-jj8w 'Low' with vector CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N/E:U (PR:L, VC:N, VI:L) and no separately stated numeric score; this vector and label diverge materially from the CNA metric recorded above (PR:N, VC:H, VI:N, 8.7) and from the NVD Primary 3.1 7.5."
+  },
+  "category_l1": "information_disclosure",
+  "category_l2": "XML external entity expansion: validateOnParse re-enables DTD processing, so an attacker-supplied XML document can read local files through a file:// entity even when LIBXML_NONET is used",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://symfony.com/cve-2026-45071",
+  "published_at": "2026-07-14T18:58:15Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://symfony.com/cve-2026-45071",
+   "https://github.com/symfony/symfony/security/advisories/GHSA-x6g4-fwcc-jj8w",
+   "https://github.com/symfony/symfony/commit/eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d",
+   "https://nvd.nist.gov/vuln/detail/CVE-2026-45071",
+   "https://github.com/symfony/symfony/releases/tag/v5.4.52"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2026-45071_snap_39105a8a3ceb9fe4",
+  "vulnerability_id": "CVE-2026-45071",
+  "snapshot_id": "snap_39105a8a3ceb9fe4",
+  "location_kind": "logic",
+  "file": "src/Symfony/Component/DomCrawler/Crawler.php",
+  "function": "Crawler::addXmlContent",
+  "language": "PHP",
+  "line": 243,
+  "critical_operation": {
+   "code_excerpt": "        $dom = new \\DOMDocument('1.0', $charset);\n        $dom->validateOnParse = true;\n\n        if ('' !== trim($content)) {\n            @$dom->loadXML($content, $options);\n        }",
+   "description": "addXmlContent() accepts XML from the caller, creates a DOMDocument, sets $dom->validateOnParse = true, and only then calls loadXML($content, $options), where the default options value is LIBXML_NONET. Setting validateOnParse re-enables libxml DTD subset processing, including external entity resolution; LIBXML_NONET prevents network fetches but not file:// entities. XML supplied by an attacker can therefore declare a SYSTEM entity pointing at a local file and have its contents expanded into the parsed document, which the caller can then read through the crawler. The 5.4.52 fix removes the validateOnParse assignment.",
+   "file": "src/Symfony/Component/DomCrawler/Crawler.php",
+   "function": "Crawler::addXmlContent",
+   "language": "PHP",
+   "line": 243,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/DomCrawler/Crawler.php#L243-L246"
+  },
+  "entry_point": {
+   "description": "Application code calls addXmlContent() with XML that comes from a request or another untrusted source, or uses BrowserKit HttpBrowser to parse a fetched XML page through the crawler.",
+   "file": "src/Symfony/Component/DomCrawler/Crawler.php",
+   "function": "Crawler::addXmlContent",
+   "language": "PHP",
+   "line": 230,
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/DomCrawler/Crawler.php#L230"
+  },
+  "trace": [
+   {
+    "description": "the caller supplies untrusted XML to addXmlContent(); the default options argument is LIBXML_NONET",
+    "file": "src/Symfony/Component/DomCrawler/Crawler.php",
+    "function": "Crawler::addXmlContent",
+    "language": "PHP",
+    "line": 230,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/DomCrawler/Crawler.php#L230"
+   },
+   {
+    "description": "validateOnParse is enabled on the DOMDocument, re-enabling DTD and external entity processing",
+    "file": "src/Symfony/Component/DomCrawler/Crawler.php",
+    "function": "Crawler::addXmlContent",
+    "language": "PHP",
+    "line": 243,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/DomCrawler/Crawler.php#L243"
+   },
+   {
+    "description": "loadXML parses the untrusted content with those options, expanding file:// entities",
+    "file": "src/Symfony/Component/DomCrawler/Crawler.php",
+    "function": "Crawler::addXmlContent",
+    "language": "PHP",
+    "line": 246,
+    "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/DomCrawler/Crawler.php#L246"
+   }
+  ],
+  "verification_method": "Static read of Crawler.php at v5.4.45 and v5.4.52, the 5.4 fix diff and regression test, tag peels, blob comparison and ancestry; no PHP/libxml runtime or XML payload was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/nvd_cve.json",
+   "evidence_id": "ev_symfony_45071_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "66c8e55987c052f635ee53dd47be4f51108ed215621c3eb3612230c44c4c2cb5",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-45071",
+   "supports": [
+    "NVD status Analyzed; description states addXmlContent() set DOMDocument::$validateOnParse = true before loadXML(), re-enabling external entity resolution so attacker XML can expand file:// entities",
+    "NVD carries a Primary CVSS 3.1 7.5 HIGH metric from nvd@nist.gov (AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N)",
+    "NVD also carries a Secondary CVSS 4.0 8.7 HIGH metric from security-advisories@github.com"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/cve_v5.json",
+   "evidence_id": "ev_symfony_45071_cve_v5",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "8c2ccd2a9037554d79438c661ab610988cf2c786b6418d1e00a71ace0271806c",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-45071",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M, datePublished 2026-07-14T18:58:15Z",
+    "affected ranges <5.4.52 and 6.4.40/7.4.12/8.0.12 for products symfony and dom-crawler",
+    "CNA CVSS 4.0 8.7 HIGH AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N and CWE-611",
+    "the CNA reference list names fix commit eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d"
+   ],
+   "verification_method": "CVE List v5 GitHub CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/osv_ghsa.json",
+   "evidence_id": "ev_symfony_45071_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "ffa188c47c7b6ef04e09e73f897d8a06f4745e067bb5882dee3a9280e7cc814f",
+   "source_url": "https://api.osv.dev/v1/vulns/GHSA-x6g4-fwcc-jj8w",
+   "supports": [
+    "GHSA-x6g4-fwcc-jj8w aliases CVE-2026-45071, github_reviewed, cwe_ids CWE-611, database severity LOW",
+    "affected symfony/dom-crawler and symfony/symfony: 0..5.4.52, 6.0.0..6.4.40, 7.0.0..7.4.12, 8.0.0..8.0.12",
+    "the GHSA reference list names the same fix commit eea5fd74 as the CVE record",
+    "the database severity LOW disagrees with both published scores (4.0 8.7 High and 3.1 7.5 High)"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/symfony_cve.html",
+   "evidence_id": "ev_symfony_45071_symfony_page",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "7c2515bae77f0f60e45bc54d2ae281eaf01dea0aa2e1cc25175435a715a7d43d",
+   "source_url": "https://symfony.com/cve-2026-45071",
+   "supports": [
+    "the advisory explains that validateOnParse re-enables libxml DTD subset processing including external entity resolution even when LIBXML_NONET is passed; LIBXML_NONET blocks network fetches but not file:// entities",
+    "it gives the example of an XML document with a SYSTEM \"file:///etc/passwd\" entity being expanded",
+    "resolution: addXmlContent no longer sets validateOnParse; affected <5.4.52, 6.4.40, 7.4.12, 8.0.12; credits Claude Mythos Preview (via Project Glasswing)"
+   ],
+   "verification_method": "symfony.com security advisory page text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/ghsa.html",
+   "evidence_id": "ev_symfony_45071_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "cba88f2603e85660a1faa89790b32888b1ebe1f14993ce9717dd8d24c3c21a92",
+   "source_url": "https://github.com/symfony/symfony/security/advisories/GHSA-x6g4-fwcc-jj8w",
+   "supports": [
+    "the GitHub advisory page carries the same description, resolution and ranges as symfony.com",
+    "the page links fix commit eea5fd74, consistent with the CNA reference",
+    "the advisory is labelled Low severity while its CVSS 4.0 vector is 8.7 High and NVD Primary CVSS 3.1 is 7.5 High"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/git_object_checks.txt",
+   "evidence_id": "ev_symfony_45071_git_checks",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "fbc49e21a4ae94b0358df59bc3e30e4385190688c672cf235c9b7ced226bf50a",
+   "source_url": "https://github.com/symfony/symfony/commit/eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d",
+   "supports": [
+    "tag v5.4.45 peels to 2b66d7d7 and v5.4.52 peels to eabc5f9e",
+    "fix commit eea5fd74 is dated 2026-04-17 with subject \"[DomCrawler] Fix XXE in addXmlContent() by not enabling `validateOnParse`\"",
+    "the fix is an ancestor of v5.4.52 and not an ancestor of v5.4.45",
+    "Crawler.php blob is 239ace66 at v5.4.45 (patch pre-image) and 0f6fb02b at v5.4.52 (patch post-image)",
+    "the fixed v5.4.52 file still sets validateOnParse in parseXhtml(), which was not changed by this commit"
+   ],
+   "verification_method": "git rev-parse/merge-base/show; blob comparison; patch read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/crawler_5.4.45.php",
+   "evidence_id": "ev_symfony_45071_vuln_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "80040f93dfc656c8366321f449dfa0a1580e3de7895e35930cf597f2e5c4cd8a",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/DomCrawler/Crawler.php#L230-L248",
+   "supports": [
+    "addXmlContent() has the signature (string $content, string $charset = \"UTF-8\", int $options = LIBXML_NONET)",
+    "it creates a DOMDocument and sets $dom->validateOnParse = true at line 243 before loadXML($content, $options) at line 246",
+    "the default LIBXML_NONET therefore does not prevent file:// entity expansion once validateOnParse re-enables DTD processing"
+   ],
+   "verification_method": "file read at v5.4.45 (blob 239ace66)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/crawler_5.4.52.php",
+   "evidence_id": "ev_symfony_45071_fixed_file",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "ef13b14472deffb02da3ad3793a79c86af375bc422c554f0c55ea38ef407f2e3",
+   "source_url": "https://github.com/symfony/symfony/blob/eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f/src/Symfony/Component/DomCrawler/Crawler.php#L230-L248",
+   "supports": [
+    "at v5.4.52 the addXmlContent() body no longer contains the validateOnParse assignment; loadXML is still called with the caller-supplied options",
+    "the file still contains one validateOnParse assignment at line 1184 inside parseXhtml(), which this fix did not touch"
+   ],
+   "verification_method": "file read at v5.4.52 (blob 0f6fb02b)"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/fix_commit.patch",
+   "evidence_id": "ev_symfony_45071_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "75331f4ee69384fc08b7016b204646b3da343fc1fa2000cd5660120bf9f11ec6",
+   "source_url": "https://github.com/symfony/symfony/commit/eea5fd7488cbdc241da4ce242344b7d9a3ecdf3d.patch",
+   "supports": [
+    "the patch removes exactly one line, $dom->validateOnParse = true, from addXmlContent()",
+    "the patch adds a regression test in AbstractCrawlerTestCase that feeds XML containing a file:// external entity",
+    "the pre-image blob 239ace66 and post-image blob 0f6fb02b match the file contents at v5.4.45 and v5.4.52"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/symfony_cve_2026_45071/sources/crawler_5.4.45.php",
+   "evidence_id": "ev_symfony_45071_language",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T01:30:00Z",
+   "sha256_of_observation": "80040f93dfc656c8366321f449dfa0a1580e3de7895e35930cf597f2e5c4cd8a",
+   "source_url": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/DomCrawler/Crawler.php#L1-L14",
+   "supports": [
+    "the file opens with a PHP open tag and declares namespace Symfony\\Component\\DomCrawler",
+    "the snapshot inventory records the DomCrawler component as PHP"
+   ],
+   "verification_method": "file header read at v5.4.45"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2,
+   3
+  ],
+  "aliases": [
+   2,
+   4
+  ],
+  "critical_operation": [
+   5,
+   6,
+   7,
+   8
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   1,
+   4,
+   5,
+   8
+  ],
+  "fixed_releases": [
+   0,
+   1,
+   2,
+   3,
+   5
+  ],
+  "languages": [
+   9
+  ],
+  "severity": [
+   0,
+   1,
+   2,
+   3,
+   4
+  ],
+  "vulnerable_commit": [
+   5,
+   6
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "symfony.com security advisory",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on CWE-611, the validateOnParse mechanism, the <5.4.52 range and the v5.4.52 release, and both the CNA record and the GHSA name the same fix commit eea5fd74 (no dead reference in this advisory). NVD has a Primary CVSS 3.1 7.5 HIGH metric and a Secondary CVSS 4.0 8.7 HIGH metric; both compute to High. The GHSA label LOW conflicts with both and is recorded as a defect.",
+  "severity_disagreement": true
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read Crawler::addXmlContent at v5.4.45 and confirm validateOnParse is set before loadXML with a LIBXML_NONET default.",
+   "An independent reviewer must confirm eea5fd74 is absent from v5.4.45 and present in v5.4.52, and that the fix removes only that assignment.",
+   "An independent reviewer must confirm the affected range includes 5.4.45 and the fixed release is 5.4.52.",
+   "An independent reviewer must record that parseXhtml still sets validateOnParse in v5.4.52 and assess whether that is in scope of this CVE.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No PHP/libxml runtime or XML payload was executed; the finding is static and the libxml behavior is taken from the advisory and source.",
+  "Exploitability requires application code to pass untrusted XML into addXmlContent(); no specific application was tested.",
+  "parseXhtml() in the fixed v5.4.52 file still sets validateOnParse before loadHTML(); that residual site is outside the advisory scope but is recorded so it is not mistaken for a complete fix surface.",
+  "Only the 5.4 branch was fetched and compared; 6.4.40, 7.4.12 and 8.0.12 were not diffed.",
+  "GHSA label LOW disagrees with the 4.0 8.7 and 3.1 7.5 scores.",
+  "The GHSA page/OSV label is Low with a divergent vector (PR:L/VC:N/VI:L); it is internally consistent with that vector but inconsistent with the CNA and NVD scores."
+ ],
+ "open_questions": [
+  "Whether loadHTML with validateOnParse can expand external entities in the same libxml versions was not tested.",
+  "Which caller-supplied XML paths exist in typical Symfony applications was not surveyed."
+ ]
+}

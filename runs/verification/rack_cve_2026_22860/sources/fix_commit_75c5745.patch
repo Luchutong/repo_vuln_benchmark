@@ -1,0 +1,61 @@
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 35d6e13..30479bd 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -9,6 +9,7 @@ All notable changes to this project will be documented in this file. For info on
+ - [CVE-2025-61780](https://github.com/advisories/GHSA-r657-rxjc-j557) Improper handling of headers in `Rack::Sendfile` may allow proxy bypass.
+ - [CVE-2025-61919](https://github.com/advisories/GHSA-6xw4-3v39-52mm) Unbounded read in `Rack::Request` form parsing can lead to memory exhaustion.
+ - [CVE-2026-25500](https://github.com/advisories/GHSA-whrj-4476-wvmp) XSS injection via malicious filename in `Rack::Directory`.
++- [CVE-2026-22860](https://github.com/advisories/GHSA-mxw3-3hh2-x2mh) Directory traversal via root prefix bypass in `Rack::Directory`.
+ 
+ ### SPEC Changes
+ 
+diff --git a/lib/rack/directory.rb b/lib/rack/directory.rb
+index a0c9c93..ca3c015 100644
+--- a/lib/rack/directory.rb
++++ b/lib/rack/directory.rb
+@@ -87,6 +87,7 @@ table { width:100%%; }
+     # Set the root directory and application for serving files.
+     def initialize(root, app = nil)
+       @root = ::File.expand_path(root)
++      @root_with_separator = @root.end_with?(::File::SEPARATOR) ? @root : "#{@root}#{::File::SEPARATOR}"
+       @app = app || Files.new(@root)
+       @head = Head.new(method(:get))
+     end
+@@ -123,7 +124,9 @@ table { width:100%%; }
+     # Rack response to use for requests with paths outside the root, or nil if path is inside the root.
+     def check_forbidden(path_info)
+       return unless path_info.include? ".."
+-      return if ::File.expand_path(::File.join(@root, path_info)).start_with?(@root)
++
++      expanded_path = ::File.expand_path(::File.join(@root, path_info))
++      return if expanded_path == @root || expanded_path.start_with?(@root_with_separator)
+ 
+       body = "Forbidden\n"
+       [403, { CONTENT_TYPE => "text/plain",
+diff --git a/test/spec_directory.rb b/test/spec_directory.rb
+index 0d4ada6..675f955 100644
+--- a/test/spec_directory.rb
++++ b/test/spec_directory.rb
+@@ -149,6 +149,21 @@ describe Rack::Directory do
+     res.must_be :forbidden?
+   end
+ 
++  it "not allow directory traversal via root prefix bypass" do
++    Dir.mktmpdir do |dir|
++      root = File.join(dir, "root")
++      outside = "#{root}_test"
++      FileUtils.mkdir_p(root)
++      FileUtils.mkdir_p(outside)
++      FileUtils.touch(File.join(outside, "test.txt"))
++
++      app = Rack::Directory.new(root)
++      res = Rack::MockRequest.new(app).get("/../#{File.basename(outside)}/")
++
++      res.must_be :forbidden?
++    end
++  end
++
+   it "not allow dir globs" do
+     Dir.mktmpdir do |dir|
+       weirds = "uploads/.?/.?"

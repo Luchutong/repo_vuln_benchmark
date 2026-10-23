@@ -1,0 +1,180 @@
+{
+  "packet_id": "selrev_7548986_snap_6e1f42aa46ca4df5",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "7548986",
+    "full_name": "laravel/framework",
+    "canonical_url": "https://github.com/laravel/framework",
+    "primary_language": "PHP",
+    "project_kind": "Laravel is a web application framework with expressive, elegant syntax."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_6e1f42aa46ca4df5",
+    "tag_or_release": "v11.30.0",
+    "commit_sha": "dff716442d9c229d716be82ccc9a7de52eb97193"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "dff716442d9c229d716be82ccc9a7de52eb97193",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "b505620270cffcfbb2d3ac43a59a03411711a36e",
+    "tree_file_count": 2717,
+    "exported_file_count": 2717,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/laravel__framework/snap_6e1f42aa46ca4df5.tar.gz",
+    "archive_sha256": "733883cf9ca4d72b243cc78b0f5f9f62675d9435f85aedfc08e80a3457e602e8",
+    "archive_bytes": 6514144,
+    "manifest_path": "exports/laravel__framework/snap_6e1f42aa46ca4df5.manifest.jsonl",
+    "manifest_sha256": "710026e95a9fe0c8ef78ea6d92d223e127ecd67a4b316b9adb3aad349d1770b0"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      ".github/workflows/releases.yml",
+      "CHANGELOG.md",
+      "RELEASE.md",
+      "bin/release.sh"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CODE_OF_CONDUCT.md",
+      ".github/CONTRIBUTING.md",
+      ".github/ISSUE_TEMPLATE/Bug_report.yml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/SECURITY.md",
+      ".github/SUPPORT.md",
+      ".github/workflows/databases-nightly.yml",
+      ".github/workflows/databases.yml",
+      ".github/workflows/facades.yml",
+      ".github/workflows/issues.yml",
+      ".github/workflows/pull-requests.yml",
+      ".github/workflows/queues.yml",
+      ".github/workflows/releases.yml",
+      ".github/workflows/static-analysis.yml",
+      ".github/workflows/tests.yml",
+      "CHANGELOG.md",
+      "RELEASE.md",
+      "bin/release.sh"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "js_bundler": [
+        "vite.config.js"
+      ],
+      "node": [
+        "package-lock.json",
+        "package.json"
+      ],
+      "php": [
+        "composer.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node",
+      "php",
+      "js_bundler"
+    ],
+    "toolchain_available": {
+      "js_bundler": {
+        "node": true,
+        "npm": true
+      },
+      "node": {
+        "node": true,
+        "npm": true
+      },
+      "php": {
+        "composer": false,
+        "php": false
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-52301",
+      "aliases": [
+        "CVE-2024-52301",
+        "GHSA-gv7v-rgg6-548h",
+        "BIT-laravel-2024-52301"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<6.20.45",
+          "ecosystem": "Packagist",
+          "package": "laravel/framework",
+          "purl": "pkg:composer/laravel/framework"
+        },
+        {
+          "affected_range": ">=7.0.0,<7.30.7",
+          "ecosystem": "Packagist",
+          "package": "laravel/framework",
+          "purl": "pkg:composer/laravel/framework"
+        },
+        {
+          "affected_range": ">=8.0.0,<8.83.28",
+          "ecosystem": "Packagist",
+          "package": "laravel/framework",
+          "purl": "pkg:composer/laravel/framework"
+        },
+        {
+          "affected_range": ">=9.0.0,<9.52.17",
+          "ecosystem": "Packagist",
+          "package": "laravel/framework",
+          "purl": "pkg:composer/laravel/framework"
+        },
+        {
+          "affected_range": ">=10.0.0,<10.48.23",
+          "ecosystem": "Packagist",
+          "package": "laravel/framework",
+          "purl": "pkg:composer/laravel/framework"
+        },
+        {
+          "affected_range": ">=11.0.0,<11.31.0",
+          "ecosystem": "Packagist",
+          "package": "laravel/framework",
+          "purl": "pkg:composer/laravel/framework"
+        }
+      ],
+      "published_at": "2024-11-12T19:32:14Z",
+      "advisory_url": "https://github.com/laravel/framework/security/advisories/GHSA-gv7v-rgg6-548h",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 7.5 falls in High (7.0-8.9). The CNA CVSS 4.0 is 8.7 HIGH; the GHSA CVSS_V3 vector is internally inconsistent (0.0) and is not used.",
+        "score": 7.5,
+        "source": "NVD primary metric nvd@nist.gov; CNA supplies CVSS 4.0 8.7",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-52301",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

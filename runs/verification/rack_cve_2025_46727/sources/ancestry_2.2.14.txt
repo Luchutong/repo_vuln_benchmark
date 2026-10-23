@@ -1,0 +1,41 @@
+# rack fix-commit ancestry checks (run 2026-10-22, exact-SHA fetch, --filter=blob:none)
+# remote: https://github.com/rack/rack.git
+# fetched: d0dcf75706d72d7e874ee31934a97881c1a439ce 3f5a4249118d09d199fe480466c8c6717e43b6e3
+#          2bb5263b464b65ba4b648996a579dbd180d2b712 cd6b70a1f2a1016b73dc906f924869f4902c2d74
+
+== ancestry relative to v2.2.14 commit d0dcf75706d72d7e874ee31934a97881c1a439ce ==
+ANCESTOR 3f5a4249118d09d199fe480466c8c6717e43b6e3
+NOT-ANCESTOR cd6b70a1f2a1016b73dc906f924869f4902c2d74
+NOT-ANCESTOR 2bb5263b464b65ba4b648996a579dbd180d2b712
+
+== git log d0dcf75706d72d7e874ee31934a97881c1a439ce -5 ==
+d0dcf75706d72d7e874ee31934a97881c1a439ce 2025-05-07 06:32:55 +0900 Bump patch version.
+fd44bd7259c2df03cdcf0fa33de6fc4f82befc1b 2025-05-07 06:31:39 +0900 Remove 2nd argument to `unescape`.
+3f5a4249118d09d199fe480466c8c6717e43b6e3 2025-05-06 19:43:17 +0900 Merge commit from fork
+c48e52f7c57e99e1e1bf54c8760d4f082cd1c89d 2025-05-06 19:08:57 +0900 Merge commit from fork
+df6c47357f6c6bec2d585f45f417285d813d9b3a 2025-03-11 10:18:07 +1300 Bump patch verison.
+
+== commit dates ==
+1741c580d71cfca8e541e96cc372305c8892ee74 2020-06-15 15:22:19 -0700 bump version
+d0dcf75706d72d7e874ee31934a97881c1a439ce 2025-05-07 06:32:55 +0900 Bump patch version.
+2bb5263b464b65ba4b648996a579dbd180d2b712 2025-05-06 19:48:31 +0900 Merge commit from fork
+
+== blobs lib/rack/query_parser.rb ==
+1741c580 (tag 2.2.3)                             dbbb18e5a250d6977a50d4a53e5f108d354fbdf0
+df6c4735 (tag v2.2.13 peel)                      1c3923c32ff794175c165b3cf2cfc578638ca567
+d0dcf757 (tag v2.2.14 peel)                      d9b1e876fe8fd2ddce7aa463478bed142d5c2b91
+3f5a4249 (2.2 branch fix) pre-image              1c3923c32ff794175c165b3cf2cfc578638ca567
+3f5a4249 (2.2 branch fix) post-image             a6f6d68c2c7334bbb30ce8e3f56b102900155c65
+2bb5263b (main/3.x fix) post-image               3d44db9984ab5deafdd10a7d2ab389a5f4dcacbe
+
+== local file blobs (git hash-object) ==
+dbbb18e5a250d6977a50d4a53e5f108d354fbdf0  query_parser_2.2.3.rb
+1c3923c32ff794175c165b3cf2cfc578638ca567  query_parser_v2.2.13.rb
+d9b1e876fe8fd2ddce7aa463478bed142d5c2b91  query_parser_v2.2.14.rb
+
+== note ==
+Patch 3f5a424 applied to the v2.2.13 blob yields a6f6d68c2, which differs from the
+shipped v2.2.14 blob d9b1e876 only in the `unescape` signature: the fix commit adds
+`def unescape(string, encoding = Encoding::UTF_8)`, and the follow-up commit
+fd44bd7259c2df03cdcf0fa33de6fc4f82befc1b ("Remove 2nd argument to `unescape`.") turns
+it into `def unescape(string)`, which is what the v2.2.14 tag contains.

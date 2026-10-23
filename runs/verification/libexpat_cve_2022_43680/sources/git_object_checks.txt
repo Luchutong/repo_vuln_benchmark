@@ -1,0 +1,63 @@
+Repository: https://github.com/libexpat/libexpat
+Local mirror: /tmp/libexpat.git (shallow fetches of R_2_4_4, R_2_4_8, R_2_4_9 from
+https://github.com/libexpat/libexpat.git, plus R_2_5_0 with --depth=80)
+
+Dataset snapshot: tag R_2_4_4, commit 81b89678e200820271b72cacdd45fb5868855765.
+  runs/language/snap_d33251dac37c334c/snapshot_proposal.json records
+  tag_or_release=R_2_4_4, vulnerable_commit=81b89678e200820271b72cacdd45fb5868855765.
+  runs/language/snap_d33251dac37c334c/file_inventory.json records
+  expat/lib/xmlparse.c bytes=273455, git_oid=4b43e61321691c082721fbeeab59ef53f5f58e73,
+  language=C, which matches the blob at the snapshot commit:
+  $ git rev-parse R_2_4_4:expat/lib/xmlparse.c
+  4b43e61321691c082721fbeeab59ef53f5f58e73
+
+Fix commit: 5290462a7ea1278a8d5c0d5b2860d4e244f997e4
+  "lib: Fix overeager DTD destruction in XML_ExternalEntityParserCreate", 2022-09-20
+  It adds an eight-line guard in parserCreate: when encodingName is set but
+  parser->m_protocolEncodingName is NULL (copyString out of memory), and the
+  caller passed a DTD (dtd != NULL), it sets parser->m_dtd = NULL before
+  XML_ParserFree so the shared parent DTD is not destroyed.
+  It is a commit of pull request #650 ("issue-649-fix-overeager-dtd-destruction"),
+  merged by 56967f83d68d5fc750f9e66a9a76756c94c7c173 (parents 5ac71407 and
+  eedc5f6d, the latter being "Changes: Document #649").
+  The regression test is 43992e4ae25fc3dc0eec0cd3a29313555d56aee2
+  "tests: Cover overeager DTD destruction in XML_ExternalEntityParserCreate"
+  (49 added lines in expat/tests/runtests.c).
+
+CVE mapping is stated upstream:
+  expat/Changes at R_2_5_0, under "Release 2.5.0 ... Security fixes":
+  "#616 #649 #650 CVE-2022-43680 -- Fix heap use-after-free after overeager
+  destruction of a shared DTD in function XML_ExternalEntityParserCreate in
+  out-of-memory situations."
+
+Ancestry:
+  $ git merge-base --is-ancestor 5290462a R_2_4_4^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor 5290462a R_2_4_9^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor 5290462a R_2_5_0^{commit} ; echo $?  -> 0
+  $ git tag --contains 5290462a | sort -V | head -1                  -> R_2_5_0
+
+Release tags resolve to:
+  R_2_4_4 -> annotated tag c637e3b1, commit 81b89678e200820271b72cacdd45fb5868855765 (snapshot)
+  R_2_4_9 -> d77291a4824d78e697c5dc2b8024fd65ab31e209
+  R_2_5_0 -> 654d2de0da85662fcc7644a7acd7c2dd2cfb21f0
+
+The target file's blob by release:
+  R_2_4_4 xmlparse.c -> 4b43e61321691c082721fbeeab59ef53f5f58e73 (vulnerable snapshot)
+  R_2_5_0 xmlparse.c -> b6c2eca97567baa588b1c5df04f4ebabd15e623e (post-fix)
+  The patch's index line is aacd6e7f..57bf103c on the pre-2.5.0 master state,
+  which differs from the R_2_4_4 blob because of the 2.4.5-2.4.9 changes.
+
+OSV's GIT range records introduced 0 and last_affected d77291a4, i.e. through
+the 2.4.9 release merge; the first release containing 5290462a is R_2_5_0.
+The CVE v5 CNA record's references name pull/650, issues/649 and pull/616;
+the NVD record carries the same references.
+
+Duplicate check in the dataset at this snapshot: the seven already-promoted
+libexpat entries are the 2.4.4-to-2.4.5 XML parsing fixes (CVE-2022-25235,
+CVE-2022-25236, CVE-2022-25313, CVE-2022-25314, CVE-2022-25315) and
+CVE-2022-40674, the internalEntityProcessor/doContent raw-name
+use-after-free fixed in 2.4.9. This candidate (CVE-2022-43680) is a distinct
+use-after-free: the shared DTD is destroyed too early when
+XML_ExternalEntityParserCreate's parserCreate fails on out-of-memory, fixed
+in 2.5.0 by 5290462a. It shares the 2.5.0 release window but not the root
+cause or the fix commit with any promoted entry.

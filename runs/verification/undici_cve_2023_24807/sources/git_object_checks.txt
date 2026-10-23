@@ -1,0 +1,25 @@
+Repository: https://github.com/nodejs/undici
+Local blobless bare mirror: /tmp/undici_vuln.git (git clone --bare --filter=blob:none)
+
+Snapshot commit recorded by the dataset: f5c89e5c87c7d702996b152c4ad86302b60c4181
+  $ git rev-parse v5.19.0
+  f5c89e5c87c7d702996b152c4ad86302b60c4181
+  => the evaluation snapshot is exactly tag v5.19.0.
+
+Fix commit in the advisory: f2324e549943f0b0937b09fb1c0c16cc7c93abdf
+  $ git merge-base --is-ancestor f2324e54... v5.19.0 ; echo $?
+  1   (NOT an ancestor of the vulnerable snapshot)
+  $ git merge-base --is-ancestor f2324e54... v5.19.1 ; echo $?
+  0   (contained in v5.19.1)
+  $ git tag --contains f2324e54... | head
+  v5.19.1 v5.20.0 ...
+
+Release tag v5.19.1 = 984d53bad97c98529424a7f3bef6be1d0e76d039 ("Bumped v5.19.1"),
+whose parent chain includes 6c32c0fd ("lint fixes") and f2324e54 ("Merge pull request from GHSA-r6ch-mqf9-qc9w").
+OSV/GHSA list both f2324e54 and 984d53ba as fixed events; only f2324e54 changes the code.
+
+File content check:
+  runs/language/snap_24c4a191fd049fc3/file_inventory.json records lib/fetch/headers.js
+  bytes=15843, git_oid=634b81fc74a4e2c5cd1324b8e968bee8da64db28.
+  The file downloaded at tag v5.19.0 has 15843 bytes and the fix patch's index line reads
+  "index 634b81fc74a..ea3b9a14a43" for the pre-image, so the reviewed file is the snapshot file.

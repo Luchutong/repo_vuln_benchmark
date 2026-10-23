@@ -1,0 +1,1 @@
+{"tool":"github_search_commits","query":{"repository_full_name":"dotnet/aspnetcore","query":"33170","topn":5,"sort":"best-match"},"retrieved_at":"2026-10-21T11:51:24.039Z","is_error":false,"response":{"content":[{"type":"text","text":"Action completed."}],"structuredContent":{"commits":[]},"isError":false}}

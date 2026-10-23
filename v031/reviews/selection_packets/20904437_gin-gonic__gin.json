@@ -1,0 +1,145 @@
+{
+  "packet_id": "selrev_20904437_snap_33d2dbd3f77388df",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "20904437",
+    "full_name": "gin-gonic/gin",
+    "canonical_url": "https://github.com/gin-gonic/gin",
+    "primary_language": "Go",
+    "project_kind": "Gin is a high-performance HTTP web framework written in Go. It provides a Martini-like API but with significantly better performance—up to 40 times faster—thanks to httprouter. Gin is designed for building REST APIs, web applications, and microservices."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_33d2dbd3f77388df",
+    "tag_or_release": "v1.9.0",
+    "commit_sha": "ea03e10384502e1baf6f560a2b0ea32c342ede5b"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "ea03e10384502e1baf6f560a2b0ea32c342ede5b",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "6f69147e1e437ae784e04246b747b6377840f2ae",
+    "tree_file_count": 124,
+    "exported_file_count": 124,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/gin-gonic__gin/snap_33d2dbd3f77388df.tar.gz",
+    "archive_sha256": "3727bad543059a481677bb78cacd695c861dfe487fa26c130ad6d38883dbaa75",
+    "archive_bytes": 162798,
+    "manifest_path": "exports/gin-gonic__gin/snap_33d2dbd3f77388df.manifest.jsonl",
+    "manifest_sha256": "af9462c5b84f9b7efe3290ee02016717a374fc37ca963a7b03e37496fbdbec94"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/workflows/goreleaser.yml",
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 1,
+    "cve_ids_sample": [
+      "CVE-2020-28483"
+    ],
+    "files_with_advisory_ids_count": 1,
+    "files_with_advisory_ids_sample": [
+      "CHANGELOG.md"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/ISSUE_TEMPLATE.md",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/dependabot.yml",
+      ".github/workflows/codeql.yml",
+      ".github/workflows/gin.yml",
+      ".github/workflows/goreleaser.yml",
+      "CHANGELOG.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "go": [
+        "go.mod"
+      ],
+      "make": [
+        "Makefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "go",
+      "make"
+    ],
+    "toolchain_available": {
+      "go": {
+        "go": true
+      },
+      "make": {
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2023-29401",
+      "aliases": [
+        "CVE-2023-29401",
+        "GHSA-2c4m-59x9-fr2g",
+        "GO-2023-1737"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=1.3.1-0.20190301021747-ccb9e902956d, <1.9.1",
+          "ecosystem": "Go",
+          "package": "github.com/gin-gonic/gin",
+          "purl": "pkg:golang/github.com/gin-gonic/gin"
+        }
+      ],
+      "published_at": "2023-05-12T20:19:25Z",
+      "advisory_url": "https://github.com/gin-gonic/gin/security/advisories/GHSA-2c4m-59x9-fr2g",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "NVD primary (nvd@nist.gov)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 4.3,
+            "source": "NVD secondary (CISA-ADP)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "Both NVD metrics are CVSS 3.1 4.3 MEDIUM and the GHSA database severity is MODERATE, so the record is medium across all sources; there is no CVSS 4.0 score for this CVE.",
+        "score": 4.3,
+        "source": "NVD primary metric (nvd@nist.gov) CVSS 3.1 4.3; a second identical 4.3 metric is the CISA-ADP contribution. The GHSA record also publishes the same CVSS 3.1 vector with score 4.3 (GitHub API severity 'medium'; OSV database_specific.severity string 'MODERATE'); GO-2023-1737 carries no severity field. Corrected after independent review.",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-29401",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

@@ -1,0 +1,36 @@
+# CVE-2021-28658 git object checks (django/django)
+## tag -> tag object -> peeled commit -> blob of django/http/multipartparser.py
+3.0.2	27431091d4c03897526f81701397f22fad10250a	a36974395ebc03a41928db1743074575b143330d	fd8fce8b4d46afd4c5818c679e30fe5b89fab80a
+3.0.13	ca9f93c3ab0b56dd700fd55dbfcbd2ab7e95e6c0	04a9b7df3fe627d03547a01330a20dfcbf2e8bd5	fd8fce8b4d46afd4c5818c679e30fe5b89fab80a
+3.0.14	4eedccd6b25c8fd31af2626560eb6c021157611b	f52800243545af658c27f83623b5fc72ae6b8dcf	db1b5ce8b956914f8dcd7a853671cf94be5ebd09
+2.2.19	2e5451cefeb07f46b5e04ee60e846d84afea76c3	21a5547793a24357a985390970b489aeeca06d45	f6f12ca718600b2250c355ebcd793285c21643e7
+2.2.20	8a1c5b73ba51979a273fa683076d1be3a4e12c25	ad9fa56a17bf9691615e9bb6e41d08d51cfe8a5d	5a9cca89e6bb74a87f5a6b1ccafaeb1a2ce216cf
+3.1.7	83094092cda97b622c7aef65b1952c9e6f14d336	56f2cccc01f91918a227a2611331e4ea7e183286	b3472f7be2f747fe935e270f26b2c2f5c17b6eb2
+3.1.8	a2711fd03b6e36ff08b08c9d5b5b9db33fd55951	c4928c9115104d3d88a0ccb57e030f0b5f445ed8	2351055e3ad7df13e12807ad88efa7a01dca17cf
+3.2	44fc12a29a59704f914d2799db09db1caafabfc9	b6475d7d7940f3ce575e0b0f2d83e517f899b4cf	180a533bb6abe237a8c019f55dc80459a8d090fa
+3.2.1	0f168f0958a1bbb0c4c0e17073e69a789fc71fce	8b300f3fabf9d08b4e75a8f2a4cea14cd69d4858	f464caa1b4c5d8bdadf204d4a2c92fafbd6d6281
+
+## ancestry of vendor-listed changesets
+e7fba62248f604c76da4f23dcf1db4a57b0808ea ancestor_of 3.0.14: yes
+e7fba62248f604c76da4f23dcf1db4a57b0808ea ancestor_of 3.0.13: no
+4036d62bda0e9e9f6172943794b744a454ca49c2 ancestor_of 2.2.20: yes
+cca0d98118cccf9ae0c6dcf2d6c57fc50469fbf0 ancestor_of 3.1.8: yes
+2820fd1be5dfccbf1216c3845fad8580502473e1 ancestor_of 3.2: yes
+d4d800ca1addc4141e03c5440a849bb64d1582cd ancestor_of 3.2: no
+
+## indicators
+3.0.2 IE_sanitize/sanitize_file_name occurrences:
+212:                        file_name = self.IE_sanitize(html.unescape(file_name))
+300:    def IE_sanitize(self, filename):
+3.0.14:
+213:                        file_name = self.sanitize_file_name(file_name)
+301:    def sanitize_file_name(self, file_name):
+305:        return os.path.basename(file_name)
+307:    IE_sanitize = sanitize_file_name
+
+## commit subjects
+d4d800ca1addc4141e03c5440a849bb64d1582cd Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files. | parents 78fea27f690028204c03c28d821cb0c0240a7398 | author 2021-03-16 10:19:00 +0100 | committed 2021-04-06 08:15:17 +0200
+2820fd1be5dfccbf1216c3845fad8580502473e1 [3.2.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files. | parents eb7c0a7076568aad5ecfd7c01a09a558623ffc01 | author 2021-03-16 10:19:00 +0100 | committed 2021-04-06 08:24:01 +0200
+cca0d98118cccf9ae0c6dcf2d6c57fc50469fbf0 [3.1.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files. | parents 6eb01cb0521a09003c42a3ab3ad7503ecede36be | author 2021-03-16 10:19:00 +0100 | committed 2021-04-06 08:25:24 +0200
+e7fba62248f604c76da4f23dcf1db4a57b0808ea [3.0.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files. | parents 232d5f61e6afd9cd6f10a47ddb4375f86818717e | author 2021-03-16 10:19:00 +0100 | committed 2021-04-06 08:33:16 +0200
+4036d62bda0e9e9f6172943794b744a454ca49c2 [2.2.x] Fixed CVE-2021-28658 -- Fixed potential directory-traversal via uploaded files. | parents 6e58828f8bcd33dfc91f236a972ae5fd23c9b0bc | author 2021-03-16 10:19:00 +0100 | committed 2021-04-06 08:38:19 +0200

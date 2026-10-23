@@ -1,0 +1,546 @@
+{
+  "candidate_id": "disc2_5f830d395a24dd10efa8dfd2",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/osv_ghsa.json",
+      "evidence_id": "ev_django13254_osv_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "a2d54cfafa03aacd16c6b1e77b00c02a3e63b4227012c2a391e83d39bc3fa3c3",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-wpjr-j57x-wxfw",
+      "supports": [
+        "GHSA-wpjr-j57x-wxfw aliases CVE-2020-13254, BIT-django-2020-13254 and PYSEC-2020-31",
+        "two PyPI ranges: 2.2 through <2.2.13 and 3.0 through <3.0.7",
+        "the details text says a memcached backend that does not perform key validation can collide malformed cache keys and leak data",
+        "database_specific records github_reviewed true, cwe_ids CWE-295 and severity HIGH",
+        "severity carries CVSS 3.1 AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N and CVSS 4.0 AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N",
+        "the references cite fix commits 84b2da55 (3.0) and 07e59caa (2.2)"
+      ],
+      "verification_method": "OSV API query"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/cve_v5.json",
+      "evidence_id": "ev_django13254_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "608540d521107b29eb3716c2b416d2fa166b5b36305755f11fc4c8bb91adfd60",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2020-13254",
+      "supports": [
+        "CVE-2020-13254 is PUBLISHED, assigned by mitre, datePublished 2020-06-03T13:11:57.000Z",
+        "the CNA affected entry is a placeholder with vendor, product and version all n/a",
+        "the CNA problemType is n/a and there is no CNA CVSS metric",
+        "the references include the Django announcement and Debian, Fedora, Ubuntu, NetApp and Oracle advisories"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/nvd_cve.json",
+      "evidence_id": "ev_django13254_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "e43a0d22b92b993859af212ca6cb387c5dbe57cc04b9f65f635c4ae634925e25",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2020-13254",
+      "supports": [
+        "NVD primary CVSS 3.1 5.9 MEDIUM AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "NVD also carries a CVSS 2.0 4.3 MEDIUM AV:N/AC:M/Au:N/C:P/I:N/A:N",
+        "NVD assigns CWE-295",
+        "CPE ranges 2.2 <= v < 2.2.13 and 3.0 <= v < 3.0.7 for djangoproject:django",
+        "NVD status Modified, published 2020-06-03T14:15:12.563 and last modified 2026-06-17"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/djangoproject_security.html",
+      "evidence_id": "ev_django13254_advisory",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "5833a5f9431e3ce2a202e5e86e8a84d166485d60c141deec41d12cdce9480e50",
+      "source_url": "https://www.djangoproject.com/weblog/2020/jun/03/security-releases/",
+      "supports": [
+        "the announcement is titled 'Django security releases issued: 3.0.7 and 2.2.13' and posted by Carlton Gibson on June 3, 2020",
+        "CVE-2020-13254 is described as potential data leakage via malformed memcached cache keys when the backend does not validate keys",
+        "the affected lines are master, 3.1 (alpha), 3.0 and 2.2; the fixed releases are 3.0.7 and 2.2.13",
+        "the announcement links four branch-specific changesets for this CVE: 2c824149 (master), 580bd64c (3.1), 84b2da55 (3.0) and 07e59caa (2.2)",
+        "the reporter and patch author is credited as Dan Palmer",
+        "the same announcement also covers CVE-2020-13596, a separate admin XSS issue"
+      ],
+      "verification_method": "upstream announcement HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/ghsa_page.html",
+      "evidence_id": "ev_django13254_ghsa_page",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "15fb0051779bf1f50120fefdf0b2e16ed421f0e00bfc04e8833ea886e51befbe",
+      "source_url": "https://github.com/advisories/GHSA-wpjr-j57x-wxfw",
+      "supports": [
+        "the rendered GitHub advisory page names weakness CWE-295",
+        "the page lists affected versions up to 2.2.12 and 3.0.6 and patched versions 2.2.13 and 3.0.7",
+        "the page repeats the memcached key-validation description"
+      ],
+      "verification_method": "advisory HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/git_object_checks.txt",
+      "evidence_id": "ev_django13254_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "60446e1208ee6433441fbd2c57459d4f1adf679680facf58e5006bbbb18de541",
+      "source_url": "https://github.com/django/django/commit/84b2da5552e100ae3294f564f6c862fef8d0e693",
+      "supports": [
+        "Django refs/tags/3.0.2 peels to a36974395ebc03a41928db1743074575b143330d",
+        "refs/tags/3.0.6 peels to 24dd73a524c14f066489b64e220ca0ace701cf36 and refs/tags/3.0.7 peels to 44da7abda848f05caaed74f6a749038c87dedfda",
+        "refs/tags/2.2.12 peels to fb4d8bf799df71014ddb7dc1735941eebf3828b0 and refs/tags/2.2.13 peels to 8093aaa8ff9dd7386a069c6eb49fcc1c5980c033",
+        "84b2da55 is the 3.0.x fix with parent 1f2dd37f (the 3.0.x CVE-2020-13596 fix), authored 2020-05-20 and committed 2020-06-03T09:33:20+02:00, subject '[3.0.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.'",
+        "84b2da55 is an ancestor of 3.0.7 and absent from 3.0.2 and 3.0.6",
+        "07e59caa is the 2.2.x fix with parent 6d61860b (the 2.2.x CVE-2020-13596 fix), authored 2020-05-20 and committed 2020-06-03T09:34:29+02:00",
+        "07e59caa is an ancestor of 2.2.13 and absent from 2.2.12",
+        "the master and 3.1 fixes are 2c824149 with parent 2dd4d110 and 580bd64c with parent 49d7cc19, each parent being the corresponding CVE-2020-13596 fix",
+        "the pre-fix blob of django/core/cache/backends/memcached.py at 3.0.2, 3.0.6 and fix parent 1f2dd37f is 48cfb8310bd9dcc4a3943a1306c2d3be802fbf1d; the post-fix blob at 3.0.7 is b763d1d62426447ea5b0afb04a47a4afe61c4037",
+        "the pre-fix blob of django/core/cache/backends/base.py at 3.0.2, 3.0.6 and fix parent 1f2dd37f is b3a65ab40fdf08bf07a19bce63aea6bb321b8523; the post-fix blob at 3.0.7 is 86a7aca5757a23dc18f10df62157068602bd697a",
+        "the 2.2 branch pre-fix blobs at 2.2.12 and fix parent 6d61860b are bb27cb53 (memcached.py) and 0d0b1ddc (base.py); the post-fix blobs at 2.2.13 are 4a6d510d and 70de0a8b"
+      ],
+      "verification_method": "exact-tag shallow fetches into a bare repository; git rev-parse of peeled tags; merge-base --is-ancestor; blob identity checks"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/memcached_3.0.2.py",
+      "evidence_id": "ev_django13254_vuln_memcached",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "856ebffeb2ff458064bd0546474edf750f723c374783e03efeb173dbb7cac678",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/memcached.py#L65-L86",
+      "supports": [
+        "BaseMemcachedCache.add, get, set and delete at lines 65-86 call make_key and pass the result straight to the client library",
+        "none of these methods calls validate_key before the client call",
+        "get_many, incr, decr and set_many have the same missing check, and delete_many at lines 138-139 also lacks it",
+        "the class defines no override of validate_key, so BaseCache.validate_key is never invoked on the memcached path"
+      ],
+      "verification_method": "file read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/memcached_3.0.7.py",
+      "evidence_id": "ev_django13254_fixed_memcached",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "252a09f6ffd34dbd0cb9103541e1ff5ddfb1426c2c586656d6d526ae0abbe076",
+      "source_url": "https://github.com/django/django/blob/44da7abda848f05caaed74f6a749038c87dedfda/django/core/cache/backends/memcached.py#L67-L157",
+      "supports": [
+        "the fixed add, get, set, delete, get_many, incr, decr and set_many each call self.validate_key(key) before the client call",
+        "the fixed class defines validate_key at lines 155-157, iterating memcache_key_warnings and raising InvalidCacheKey",
+        "delete_many at lines 149-150 still does not call validate_key, so the fix is not uniform across every method"
+      ],
+      "verification_method": "file read at the 3.0.7 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/memcached_2.2.12.py",
+      "evidence_id": "ev_django13254_vuln_memcached_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "47c9be625e405722f04b0f5084659b627ff67274f005e5d6c3e857dbdc2c341a",
+      "source_url": "https://github.com/django/django/blob/fb4d8bf799df71014ddb7dc1735941eebf3828b0/django/core/cache/backends/memcached.py#L65-L86",
+      "supports": [
+        "the 2.2.12 memcached backend has the same missing validation as 3.0.2",
+        "the 2.2 branch therefore shares the root cause and the same fix shape"
+      ],
+      "verification_method": "file read at the 2.2.12 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/memcached_2.2.13.py",
+      "evidence_id": "ev_django13254_fixed_memcached_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "fbce2c0f3ad5c44f0430e006cc4fedf239f7a7565b80c7ea3d630ca9479068af",
+      "source_url": "https://github.com/django/django/blob/8093aaa8ff9dd7386a069c6eb49fcc1c5980c033/django/core/cache/backends/memcached.py",
+      "supports": [
+        "the 2.2.13 backend adds self.validate_key calls and the raising validate_key override",
+        "the 2.2.13 fix matches the 3.0.7 fix"
+      ],
+      "verification_method": "file read at the 2.2.13 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/base_3.0.2.py",
+      "evidence_id": "ev_django13254_vuln_base",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "da00d07480befb93d357978be88e0ef8ffed1f8021b38fc33ce2c646840c7210",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/base.py#L89-L100",
+      "supports": [
+        "BaseCache.make_key at lines 89-100 returns key_func(key, key_prefix, version) without validating the key",
+        "BaseCache.validate_key at lines 238-255 exists but only issues CacheKeyWarning; it never raises",
+        "the memcached backend does not call validate_key at all in this version"
+      ],
+      "verification_method": "file read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/base_3.0.7.py",
+      "evidence_id": "ev_django13254_fixed_base",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "30c536cf9bf922113b18d669448e481d3a85f844a354e30e976f8cfeb534d135",
+      "source_url": "https://github.com/django/django/blob/44da7abda848f05caaed74f6a749038c87dedfda/django/core/cache/backends/base.py#L279-L291",
+      "supports": [
+        "the fix adds an InvalidCacheKey exception class to base.py",
+        "the fix extracts memcache_key_warnings as a generator and makes BaseCache.validate_key warn from it",
+        "memcache_key_warnings yields a bare message string for the length check but a (message, CacheKeyWarning) tuple for the character check, an inconsistency in the fix itself",
+        "the raising behaviour is implemented only by the memcached backend override, not by BaseCache"
+      ],
+      "verification_method": "file read at the 3.0.7 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/fix_diff_3.0.x.txt",
+      "evidence_id": "ev_django13254_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "77be8e2dafabbe8d359a659d0124e04586e290e66a9c6e479736e16d51e0250d",
+      "source_url": "https://github.com/django/django/commit/84b2da5552e100ae3294f564f6c862fef8d0e693",
+      "supports": [
+        "the 3.0.x fix adds InvalidCacheKey and memcache_key_warnings to base.py",
+        "the fix inserts self.validate_key(key) into the memcached add, get, set, delete, get_many, incr, decr and set_many methods",
+        "the fix adds a BaseMemcachedCache.validate_key that raises InvalidCacheKey instead of warning",
+        "the code change touches django/core/cache/__init__.py, backends/base.py and backends/memcached.py"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/test_diff_3.0.x.txt",
+      "evidence_id": "ev_django13254_regression_test",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "23e5e575aff3770f9a8da59d4c5a96cb1e51ea79c0593d30bda3278f4229e262",
+      "source_url": "https://github.com/django/django/commit/84b2da5552e100ae3294f564f6c862fef8d0e693",
+      "supports": [
+        "the fix replaces the old memcached test that accepted any exception with _perform_invalid_key_test, which asserts InvalidCacheKey and the exact message",
+        "the test expects the default key prefix ':1:' in the message, so the validated key is the output of make_key",
+        "it removes the pylibmc skip that existed because libmemcached did not verify keys client-side",
+        "the surrounding key fixtures remain 'key with spaces and 清' and a 250-character key plus a multibyte character"
+      ],
+      "verification_method": "git show of the fix commit, test paths only"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/fix_diff_2.2.x.txt",
+      "evidence_id": "ev_django13254_fix_diff_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "982380d037fd1cecbda2fd75cefeb5c943af04280625f6b76ece1d9e30723a91",
+      "source_url": "https://github.com/django/django/commit/07e59caa02831c4569bbebb9eb773bdd9cb4b206",
+      "supports": [
+        "the 2.2.x fix applies the same validation calls and the raising validate_key override",
+        "the 2.2.x commit adds only the 2.2.13 release note"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/fix_commit_stat_3.0.x.txt",
+      "evidence_id": "ev_django13254_fix_stat",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "57b0dd4838284711b1e3c15c2947cf62479a4b63ea2ac14893153a0dbed636c3",
+      "source_url": "https://github.com/django/django/commit/84b2da5552e100ae3294f564f6c862fef8d0e693",
+      "supports": [
+        "commit 84b2da55 has parent 1f2dd37f, author Dan Palmer, authored 2020-05-20 and committed 2020-06-03T09:33:20+02:00",
+        "the commit touches three code files, both release notes and the cache tests",
+        "66 insertions and 45 deletions across six files"
+      ],
+      "verification_method": "git show --stat of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13254/sources/fix_commit_stat_2.2.x.txt",
+      "evidence_id": "ev_django13254_fix_stat_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "9ed45bb5f65c4578d15d8c484b078b6b8076d8cb4cfe36efbbe68d62459edf33",
+      "source_url": "https://github.com/django/django/commit/07e59caa02831c4569bbebb9eb773bdd9cb4b206",
+      "supports": [
+        "commit 07e59caa has parent 6d61860b, author Dan Palmer, authored 2020-05-20 and committed 2020-06-03T09:34:29+02:00",
+        "the commit touches the same three code files, the 2.2.13 release note and the cache tests"
+      ],
+      "verification_method": "git show --stat of the fix commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "evidence_id": "ev_django13254_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:08:00Z",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "supports": [
+        "snapshot snap_ab695ba3db678939 is the django 3.0.2 tree a3697439",
+        "the language inventory is github-linguist 9.7.0 over the full tree",
+        "the inventory lists 6163 tracked files and 67 ambiguous files, so the language job stays NEEDS_REVIEW"
+      ],
+      "verification_method": "snapshot language proposal read"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      2,
+      3
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      5,
+      6,
+      10,
+      12
+    ],
+    "cwe": [
+      0,
+      2,
+      4
+    ],
+    "fix_commits": [
+      0,
+      3,
+      5,
+      15,
+      16
+    ],
+    "fixed_releases": [
+      3,
+      5,
+      7,
+      9
+    ],
+    "languages": [
+      17
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      5,
+      6
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No memcached server, client library or Django test suite was run; the finding is static. The regression test was read, not executed.",
+    "Reachability requires an application to pass externally influenced strings as cache keys. Applications that only cache trusted, generated keys are not exposed.",
+    "The advisories describe the impact generically as a key collision; the precise wire-level collision behaviour depends on the memcached client library and the ASCII protocol's space-delimited key parsing. No client library was exercised to confirm a specific collision payload.",
+    "NVD and GHSA both assign CWE-295 (Improper Certificate Validation), which does not describe a cache-key validation flaw. No source in the collected families assigns a cache-key-specific CWE. The canonical value follows the sources rather than replacing them, and this mismatch is recorded as a source defect.",
+    "GHSA database_specific calls the severity HIGH while its own CVSS 3.1 vector scores 5.9 and NVD rates it 5.9 MEDIUM. The canonical score follows the NVD primary CVSS 3.1 metric.",
+    "The MITRE CVE v5 CNA record is a placeholder (vendor/product/version n/a, problemType n/a, no CVSS).",
+    "The four fix commits are chained on top of the corresponding CVE-2020-13596 fixes: 2c824149's parent is 2dd4d110, 580bd64c's parent is 49d7cc19, 84b2da55's parent is 1f2dd37f and 07e59caa's parent is 6d61860b. Author dates are 2020-05-20 while committer dates are 2020-06-03, the release-preparation day.",
+    "The fix is not uniform: delete_many still calls the client without validate_key, and BaseCache.validate_key remains warn-only. The raising behaviour exists only in BaseMemcachedCache.validate_key.",
+    "memcache_key_warnings yields a bare string for the length branch but a (message, CacheKeyWarning) tuple for the character branch, so InvalidCacheKey receives a tuple in the character case. The exception is still raised, but its argument is not a plain string.",
+    "The canonical vulnerable commit is the 3.0.2 tag; the 2.2 branch has the same vulnerable code at 2.2.12 but the dataset snapshot for this repository is 3.0.2.",
+    "The snapshot inventory has 6163 tracked files and 67 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+    "No downstream distribution backport (Ubuntu USN-4381-1/2, Debian DSA-4705, Fedora, NetApp, Oracle) was verified; only upstream tags and commits are used."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "    def get(self, key, default=None, version=None):\n        key = self.make_key(key, version=version)\n        return self._cache.get(key, default)\n\n    def set(self, key, value, timeout=DEFAULT_TIMEOUT, version=None):\n        key = self.make_key(key, version=version)\n        if not self._cache.set(key, value, self.get_backend_timeout(timeout)):\n            # make sure the key doesn't keep its old value in case of failure to set (memcached's 1MB limit)\n            self._cache.delete(key)",
+      "description": "BaseMemcachedCache.get and BaseMemcachedCache.set take an application-supplied key, convert it with make_key and hand it to the client library without any validation. BaseCache.make_key only applies the key function (prefix and version); BaseCache.validate_key exists but merely emits CacheKeyWarning, and the memcached backend never calls it. The memcached ASCII protocol treats whitespace and control characters as key delimiters, so distinct Django keys that differ only after such a character can reach the server as the same key. A write (set) then overwrites another logical entry, and a later read (get) of either key returns the other entry's value. The 3.0.7/2.2.13 fix adds self.validate_key(key) before every client call and gives BaseMemcachedCache a validate_key that raises InvalidCacheKey.",
+      "file": "django/core/cache/backends/memcached.py",
+      "function": "BaseMemcachedCache.get / BaseMemcachedCache.set",
+      "language": "Python",
+      "line": "69-77",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/memcached.py#L69-L77"
+    },
+    "entry_point": {
+      "description": "An application caches a value under a key it derived from request data. BaseMemcachedCache.set receives the key, and the key reaches the memcached client without validation.",
+      "file": "django/core/cache/backends/memcached.py",
+      "function": "BaseMemcachedCache.set",
+      "language": "Python",
+      "line": 73,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/memcached.py#L73"
+    },
+    "location_id": "loc_CVE-2020-13254_snap_ab695ba3db678939",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "trace": [
+      {
+        "description": "make_key returns the key function output without validating characters or length",
+        "file": "django/core/cache/backends/base.py",
+        "function": "BaseCache.make_key",
+        "language": "Python",
+        "line": 100,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/base.py#L100"
+      },
+      {
+        "description": "BaseCache.validate_key only warns on control characters and is not called by the memcached methods",
+        "file": "django/core/cache/backends/base.py",
+        "function": "BaseCache.validate_key",
+        "language": "Python",
+        "line": 250,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/base.py#L250"
+      },
+      {
+        "description": "set converts the application key and passes it to the client without a validate_key call",
+        "file": "django/core/cache/backends/memcached.py",
+        "function": "BaseMemcachedCache.set",
+        "language": "Python",
+        "line": 74,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/memcached.py#L74"
+      },
+      {
+        "description": "the unvalidated key crosses into the memcached client at line 75; the ASCII protocol then parses it as a space-delimited key",
+        "file": "django/core/cache/backends/memcached.py",
+        "function": "BaseMemcachedCache.set",
+        "language": "Python",
+        "line": 75,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/cache/backends/memcached.py#L75"
+      }
+    ],
+    "verification_method": "Static read of memcached.py and base.py at 3.0.2, 3.0.6, 3.0.7, 2.2.12 and 2.2.13; the fix diffs and the added cache-key tests were read but not executed.",
+    "vulnerability_id": "CVE-2020-13254"
+  },
+  "location_revision": {
+    "original_line": "73-77",
+    "final_line": "69-77",
+    "original_anchor": "BaseMemcachedCache.set (write path)",
+    "reviewer_anchor": "BaseMemcachedCache.get lines 69-71 (read path)",
+    "reason": "The dossier was collected against the write path (set). The independent reviewer, without access to the dossier, anchored the read path (get, 69-71) and separately enumerated set 73-77 as an equally unvalidated call site. The contiguous span 69-77 records both verified paths so the formal location covers the reviewer-verified anchor; no evidence item, severity, range, commit or reviewer value was changed.",
+    "reconciled_at": "2026-10-22T00:00:00Z"
+  },
+  "open_questions": [
+    "The exact collision payload depends on the memcached client library and server version; no client was exercised.",
+    "Whether a particular downstream application derives cache keys from untrusted input was not surveyed.",
+    "The fix's tuple yield in memcache_key_warnings and the unvalidated delete_many were not followed up in later Django releases."
+  ],
+  "prepared_at": "2026-10-22T00:20:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/django/django",
+    "full_name": "django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "repo_id": "4164482",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read BaseMemcachedCache.set and BaseCache.make_key/validate_key at 3.0.2 and confirm the missing enforcement.",
+      "An independent reviewer must confirm 84b2da55 is absent from 3.0.2 and 3.0.6 and an ancestor of 3.0.7, and that the fixed source calls validate_key.",
+      "An independent reviewer must confirm the 2.2.13 fix and the two-release boundary against a second source family.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "Django security release announcement",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "OSV/GHSA record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD, OSV/GHSA, the GitHub advisory page and the Django announcement agree on the affected ranges 2.2 <2.2.13 and 3.0 <3.0.7, the fixed releases 2.2.13 and 3.0.7 and the memcached key-validation root cause. The MITRE CNA record is a placeholder. NVD primary CVSS 3.1 is 5.9 MEDIUM while GHSA labels the issue HIGH; the CVSS vectors agree. NVD and GHSA both carry CWE-295, which is semantically wrong for this issue. Blob identity ties the fix parent 1f2dd37f and the 3.0.2 tag to the same memcached.py and base.py blobs.",
+    "severity_disagreement": true
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2020/jun/03/security-releases/",
+    "affected_packages": [
+      {
+        "affected_range": ">=2.2,<2.2.13",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      },
+      {
+        "affected_range": ">=3.0,<3.0.7",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      }
+    ],
+    "aliases": [
+      "CVE-2020-13254",
+      "GHSA-wpjr-j57x-wxfw",
+      "BIT-django-2020-13254",
+      "PYSEC-2020-31"
+    ],
+    "category_l1": "information_disclosure",
+    "category_l2": "cache key collision and data leakage through unvalidated memcached keys",
+    "cwe_ids": [
+      "CWE-295"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "master",
+        "message": "Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.",
+        "sha": "2c82414914ae6476be5a166be9ff49c24d0d9069",
+        "url": "https://github.com/django/django/commit/2c82414914ae6476be5a166be9ff49c24d0d9069"
+      },
+      {
+        "branch": "3.1.x",
+        "message": "[3.1.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.",
+        "sha": "580bd64c0482ae9b7c05715390e25f4405a12719",
+        "url": "https://github.com/django/django/commit/580bd64c0482ae9b7c05715390e25f4405a12719"
+      },
+      {
+        "branch": "3.0.x",
+        "message": "[3.0.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.",
+        "sha": "84b2da5552e100ae3294f564f6c862fef8d0e693",
+        "url": "https://github.com/django/django/commit/84b2da5552e100ae3294f564f6c862fef8d0e693"
+      },
+      {
+        "branch": "2.2.x",
+        "message": "[2.2.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.",
+        "sha": "07e59caa02831c4569bbebb9eb773bdd9cb4b206",
+        "url": "https://github.com/django/django/commit/07e59caa02831c4569bbebb9eb773bdd9cb4b206"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.7/",
+        "tag": "3.0.7",
+        "verified_content": "At tag 3.0.7 (44da7abd), memcached.py calls validate_key before each client operation and defines a raising override; base.py adds InvalidCacheKey and memcache_key_warnings; fix 84b2da55 is an ancestor of the tag and the post-fix blobs b763d1d6/86a7aca5 match the fix diff post-images.",
+        "version": "3.0.7"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/2.2/releases/2.2.13/",
+        "tag": "2.2.13",
+        "verified_content": "At tag 2.2.13 (8093aaa8), memcached.py contains the same validate_key calls and override; fix 07e59caa is an ancestor of the tag and the post-fix blobs 4a6d510d/70de0a8b match the fix diff post-images.",
+        "version": "2.2.13"
+      }
+    ],
+    "published_at": "2020-06-03T13:11:57Z",
+    "references": [
+      "https://www.djangoproject.com/weblog/2020/jun/03/security-releases/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-13254",
+      "https://github.com/advisories/GHSA-wpjr-j57x-wxfw",
+      "https://docs.djangoproject.com/en/3.0/releases/security/",
+      "https://github.com/django/django/commit/2c82414914ae6476be5a166be9ff49c24d0d9069",
+      "https://github.com/django/django/commit/580bd64c0482ae9b7c05715390e25f4405a12719",
+      "https://github.com/django/django/commit/84b2da5552e100ae3294f564f6c862fef8d0e693",
+      "https://github.com/django/django/commit/07e59caa02831c4569bbebb9eb773bdd9cb4b206"
+    ],
+    "repo_id": "4164482",
+    "severity": {
+      "level": "medium",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 5.9 falls in Medium (4.0-6.9); GHSA's database_specific label says HIGH but its CVSS 3.1 vector scores 5.9",
+      "score": 5.9,
+      "source": "NVD primary metric nvd@nist.gov; GHSA/OSV carry the same CVSS 3.1 vector but a HIGH qualitative label",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2020-13254",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_ab695ba3db678939",
+    "source_type": "upstream_advisory",
+    "title": "Django memcached backends pass malformed cache keys without validation, allowing key collision and data leakage",
+    "vulnerability_id": "CVE-2020-13254",
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_commit_basis": "tag 3.0.2 points directly at a3697439..., released 2020-02-03; 3.0.7 is the first 3.0.x release containing fix 84b2da55, the fix is absent from 3.0.2 and 3.0.6, and the fix parent 1f2dd37f has identical memcached.py and base.py blobs to the 3.0.2 tag",
+    "vulnerable_version": "3.0.2"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "key": "nestjs__nest_security",
+  "repository": "nestjs/nest",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:08.176Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\n## Reporting a Vulnerability\n\nPlease report security issues to `support@nestjs.com`.\n",
+      "encoding": "utf-8",
+      "sha": "e431d00747040c04ff9934bec23e9442ec3a6fb9",
+      "display_url": "https://github.com/nestjs/nest/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

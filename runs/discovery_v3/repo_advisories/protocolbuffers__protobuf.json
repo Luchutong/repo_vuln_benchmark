@@ -1,0 +1,732 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "34selen",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/73600142?v=4",
+            "events_url": "https://api.github.com/users/34selen/events{/privacy}",
+            "followers_url": "https://api.github.com/users/34selen/followers",
+            "following_url": "https://api.github.com/users/34selen/following{/other_user}",
+            "gists_url": "https://api.github.com/users/34selen/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/34selen",
+            "id": 73600142,
+            "login": "34selen",
+            "node_id": "MDQ6VXNlcjczNjAwMTQy",
+            "organizations_url": "https://api.github.com/users/34selen/orgs",
+            "received_events_url": "https://api.github.com/users/34selen/received_events",
+            "repos_url": "https://api.github.com/users/34selen/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/34selen/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/34selen/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/34selen",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2026-6409",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 7.1,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nA Denial of Service (DoS) vulnerability exists in the Protobuf PHP library during the parsing of untrusted input. Maliciously structured messages—specifically those containing negative `varint`s or deep recursion—can be used to crash the application, impacting service availability.\r\n\r\n### Patches\r\nPatches have been released to 5.34.0-RC1 and 4.33.6.\r\n\r\n### References\r\n - Github issues: [issue 1](https://github.com/protocolbuffers/protobuf/issues/24159), [issue 2](https://github.com/protocolbuffers/protobuf/issues/25067)\r\n - Github commits: [commit 1](https://github.com/protocolbuffers/protobuf/commit/60e93d2d104f2af9cd345b1c6f3891d91430244a), [commit 2](https://github.com/protocolbuffers/protobuf/commit/c8e9b27d95c6ab2d0668b5889e7dac2c477b7038)\r\n",
+      "ghsa_id": "GHSA-p2gh-cfq4-4wjc",
+      "html_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-p2gh-cfq4-4wjc",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-p2gh-cfq4-4wjc"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2026-6409"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2026-03-23T15:39:50Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/67387070?v=4",
+        "events_url": "https://api.github.com/users/shaod2/events{/privacy}",
+        "followers_url": "https://api.github.com/users/shaod2/followers",
+        "following_url": "https://api.github.com/users/shaod2/following{/other_user}",
+        "gists_url": "https://api.github.com/users/shaod2/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/shaod2",
+        "id": 67387070,
+        "login": "shaod2",
+        "node_id": "MDQ6VXNlcjY3Mzg3MDcw",
+        "organizations_url": "https://api.github.com/users/shaod2/orgs",
+        "received_events_url": "https://api.github.com/users/shaod2/received_events",
+        "repos_url": "https://api.github.com/users/shaod2/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/shaod2/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/shaod2/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/shaod2",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "A potential Denial of Service issue in protobuf-php",
+      "updated_at": "2026-04-20T17:19:08Z",
+      "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories/GHSA-p2gh-cfq4-4wjc",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pecl",
+            "name": "protobuf"
+          },
+          "patched_versions": "5.34.0-RC1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 5.34.0-RC1"
+        },
+        {
+          "package": {
+            "ecosystem": "pecl",
+            "name": "protobuf"
+          },
+          "patched_versions": "4.33.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.33.6"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2025-4565",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Summary\r\nAny project that uses Protobuf pure-Python backend to parse untrusted Protocol Buffers data containing an arbitrary number of **recursive groups**, **recursive messages** or **a series of [`SGROUP`](https://protobuf.dev/programming-guides/encoding/#groups) tags** can be corrupted by exceeding the Python recursion limit.\r\n\r\nReporter: Alexis Challande, Trail of Bits Ecosystem Security Team\r\n[ecosystem@trailofbits.com](mailto:ecosystem@trailofbits.com)\r\n\r\nAffected versions: This issue only affects the [pure-Python implementation](https://github.com/protocolbuffers/protobuf/tree/main/python#implementation-backends) of protobuf-python backend. This is the implementation when `PROTOCOL_BUFFERS_PYTHON_IMPLEMENTATION=python` environment variable is set or the default when protobuf is used from Bazel or pure-Python PyPi wheels. CPython PyPi wheels do not use pure-Python by default.\r\n\r\nThis is a Python variant of a [previous issue affecting protobuf-java](https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-735f-pc8j-v9w8).\r\n\r\n### Severity\r\n[CVE-2025-4565](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2025-4565) **High** CVSS4.0 Score 8.2 (NOTE: there may be a delay in publication)\r\nThis is a potential Denial of Service. Parsing nested protobuf data creates unbounded recursions that can be abused by an attacker.\r\n\r\n### Proof of Concept\r\nFor reproduction details, please refer to the unit tests [decoder_test.py](https://github.com/protocolbuffers/protobuf/blob/main/python/google/protobuf/internal/decoder_test.py#L87-L98) and [message_test](https://github.com/protocolbuffers/protobuf/blob/main/python/google/protobuf/internal/message_test.py#L1436-L1478)\r\n\r\n### Remediation and Mitigation\r\nWe have been working diligently to address this issue and have released a mitigation that is available now. Please update to the latest available versions of the following packages:\r\n* protobuf-python(4.25.8, 5.29.5, 6.31.1)\r\n\r\n",
+      "ghsa_id": "GHSA-8qvm-5x2c-j2w7",
+      "html_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-8qvm-5x2c-j2w7",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-8qvm-5x2c-j2w7"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-4565"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-06-16T14:52:13Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/89936743?v=4",
+        "events_url": "https://api.github.com/users/zhangskz/events{/privacy}",
+        "followers_url": "https://api.github.com/users/zhangskz/followers",
+        "following_url": "https://api.github.com/users/zhangskz/following{/other_user}",
+        "gists_url": "https://api.github.com/users/zhangskz/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/zhangskz",
+        "id": 89936743,
+        "login": "zhangskz",
+        "node_id": "MDQ6VXNlcjg5OTM2NzQz",
+        "organizations_url": "https://api.github.com/users/zhangskz/orgs",
+        "received_events_url": "https://api.github.com/users/zhangskz/received_events",
+        "repos_url": "https://api.github.com/users/zhangskz/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/zhangskz/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/zhangskz/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/zhangskz",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "A potential Denial of Service issue in protobuf-python",
+      "updated_at": "2025-06-16T14:52:13Z",
+      "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories/GHSA-8qvm-5x2c-j2w7",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "protobuf"
+          },
+          "patched_versions": "4.25.8, 5.29.5, 6.31.1",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<4.25.8, <5.29.5, <6.31.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-7254",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": 8.7,
+          "vector_string": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:H/SC:N/SI:N/SA:N"
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Summary\r\nWhen parsing unknown fields in the Protobuf Java Lite and Full library, a maliciously crafted message can cause a StackOverflow error and lead to a program crash.\r\n\r\nReporter: Alexis Challande, Trail of Bits Ecosystem Security Team <ecosystem@trailofbits.com>\r\n\r\nAffected versions: This issue affects all versions of both the Java full and lite Protobuf runtimes, as well as Protobuf for Kotlin and JRuby, which themselves use the Java Protobuf runtime.\r\n\r\n### Severity\r\n[CVE-2024-7254](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2024-7254) **High** CVSS4.0 Score 8.7 (NOTE: there may be a delay in publication)\r\nThis is a potential Denial of Service. Parsing nested groups as unknown fields with DiscardUnknownFieldsParser or Java Protobuf Lite parser, or against Protobuf map fields, creates unbounded recursions that can be abused by an attacker.\r\n\r\n### Proof of Concept\r\nFor reproduction details, please refer to the unit tests (Protobuf Java [LiteTest](https://github.com/protocolbuffers/protobuf/blob/a037f28ff81ee45ebe008c64ab632bf5372242ce/java/lite/src/test/java/com/google/protobuf/LiteTest.java) and [CodedInputStreamTest](https://github.com/protocolbuffers/protobuf/blob/a037f28ff81ee45ebe008c64ab632bf5372242ce/java/core/src/test/java/com/google/protobuf/CodedInputStreamTest.java)) that identify the specific inputs that exercise this parsing weakness.\r\n\r\n### Remediation and Mitigation\r\nWe have been working diligently to address this issue and have released a mitigation that is available now. Please update to the latest available versions of the following packages:\r\n* protobuf-java (3.25.5, 4.27.5, 4.28.2)\r\n* protobuf-javalite (3.25.5, 4.27.5, 4.28.2)\r\n* protobuf-kotlin (3.25.5, 4.27.5, 4.28.2)\r\n* protobuf-kotlin-lite (3.25.5, 4.27.5, 4.28.2)\r\n* com-protobuf [JRuby gem only] (3.25.5, 4.27.5, 4.28.2)\r\n\r\n",
+      "ghsa_id": "GHSA-735f-pc8j-v9w8",
+      "html_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-735f-pc8j-v9w8",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-735f-pc8j-v9w8"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-7254"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-09-18T23:52:57Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/89936743?v=4",
+        "events_url": "https://api.github.com/users/zhangskz/events{/privacy}",
+        "followers_url": "https://api.github.com/users/zhangskz/followers",
+        "following_url": "https://api.github.com/users/zhangskz/following{/other_user}",
+        "gists_url": "https://api.github.com/users/zhangskz/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/zhangskz",
+        "id": 89936743,
+        "login": "zhangskz",
+        "node_id": "MDQ6VXNlcjg5OTM2NzQz",
+        "organizations_url": "https://api.github.com/users/zhangskz/orgs",
+        "received_events_url": "https://api.github.com/users/zhangskz/received_events",
+        "repos_url": "https://api.github.com/users/zhangskz/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/zhangskz/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/zhangskz/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/zhangskz",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "A potential Denial of Service issue in protobuf-java",
+      "updated_at": "2024-09-18T23:52:57Z",
+      "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories/GHSA-735f-pc8j-v9w8",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-java"
+          },
+          "patched_versions": "3.25.5, 4.27.5, 4.28.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<4.28.2"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-javalite"
+          },
+          "patched_versions": "3.25.5, 4.27.5, 4.28.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<4.28.2"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-javalite"
+          },
+          "patched_versions": "3.25.5, 4.27.5, 4.28.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<4.28.2"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-kotlin"
+          },
+          "patched_versions": "3.25.5, 4.27.5, 4.28.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<4.28.2"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-kotlin-lite"
+          },
+          "patched_versions": "3.25.5, 4.27.5, 4.28.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<4.28.2"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "com-protobuf"
+          },
+          "patched_versions": "3.25.5, 4.27.5, 4.28.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<4.28.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-2410",
+      "cvss": {
+        "score": 7.6,
+        "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:L"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 7.6,
+          "vector_string": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:L"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\nIn certain situations, a malicious JSON input could cause the C++ JSON parser to copy data that has already been freed into an error message. This can only happen if the code is parsing from a stream with separate chunks rather than a contiguous array. The bug was introduced in 4.22.0 and was fixed with https://github.com/protocolbuffers/protobuf/commit/b955165ebdcc5a8ba9c267230d6305f4e3d9c118 in 4.25.0.\r\n\r\n### Patches\r\nUsers should upgrade to at least protobuf C++ 4.25.0 (tag `v25.0`).\r\n",
+      "ghsa_id": "GHSA-h5g9-ghrj-76p5",
+      "html_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-h5g9-ghrj-76p5",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-h5g9-ghrj-76p5"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-2410"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-05-03T20:31:09Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/1115459?v=4",
+        "events_url": "https://api.github.com/users/acozzette/events{/privacy}",
+        "followers_url": "https://api.github.com/users/acozzette/followers",
+        "following_url": "https://api.github.com/users/acozzette/following{/other_user}",
+        "gists_url": "https://api.github.com/users/acozzette/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/acozzette",
+        "id": 1115459,
+        "login": "acozzette",
+        "node_id": "MDQ6VXNlcjExMTU0NTk=",
+        "organizations_url": "https://api.github.com/users/acozzette/orgs",
+        "received_events_url": "https://api.github.com/users/acozzette/received_events",
+        "repos_url": "https://api.github.com/users/acozzette/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/acozzette/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/acozzette/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/acozzette",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "Use-after-free issue in C++ JSON parser",
+      "updated_at": "2024-05-03T20:31:09Z",
+      "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories/GHSA-h5g9-ghrj-76p5",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "c++",
+            "name": "Protobuf"
+          },
+          "patched_versions": "4.25.0",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 4.25.0"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2022-3171",
+      "cvss": {
+        "score": 5.7,
+        "vector_string": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": 5.7,
+          "vector_string": "CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H"
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "## Summary\r\nA potential Denial of Service issue in `protobuf-java` core and lite was discovered in the parsing procedure for binary and text format data. Input streams containing multiple instances of non-repeated [embedded messages](http://developers.google.com/protocol-buffers/docs/encoding#embedded) with repeated or unknown fields causes objects to be converted back-n-forth between mutable and immutable forms, resulting in potentially long garbage collection pauses. \r\n\r\nReporter: [OSS Fuzz](https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=48771)\r\n\r\nAffected versions: This issue affects both the Java full and lite Protobuf runtimes, as well as Protobuf for Kotlin and JRuby, which themselves use the Java Protobuf runtime.\r\n\r\n## Severity\r\n\r\n[CVE-2022-3171](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2022-3171) Medium - CVSS Score: 5.7 (NOTE: there may be a delay in publication)\r\n\r\n## Remediation and Mitigation\r\n\r\nPlease update to the latest available versions of the following packages:\r\n\r\nprotobuf-java (3.21.7, 3.20.3, 3.19.6, 3.16.3)\r\nprotobuf-javalite (3.21.7, 3.20.3, 3.19.6, 3.16.3)\r\nprotobuf-kotlin (3.21.7, 3.20.3, 3.19.6, 3.16.3)\r\nprotobuf-kotlin-lite (3.21.7, 3.20.3, 3.19.6, 3.16.3)\r\ngoogle-protobuf [JRuby gem only] (3.21.7, 3.20.3, 3.19.6)\r\n\r\nNote: The fix affects both the Java runtime (full and lite) and the generated code. So if you have generated code checked in somewhere, you'll need to regenerate it using the new version.",
+      "ghsa_id": "GHSA-h4h5-3hr4-j3g2",
+      "html_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-h4h5-3hr4-j3g2",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-h4h5-3hr4-j3g2"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2022-3171"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2022-10-04T19:35:06Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/9447643?v=4",
+        "events_url": "https://api.github.com/users/devjgm/events{/privacy}",
+        "followers_url": "https://api.github.com/users/devjgm/followers",
+        "following_url": "https://api.github.com/users/devjgm/following{/other_user}",
+        "gists_url": "https://api.github.com/users/devjgm/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/devjgm",
+        "id": 9447643,
+        "login": "devjgm",
+        "node_id": "MDQ6VXNlcjk0NDc2NDM=",
+        "organizations_url": "https://api.github.com/users/devjgm/orgs",
+        "received_events_url": "https://api.github.com/users/devjgm/received_events",
+        "repos_url": "https://api.github.com/users/devjgm/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/devjgm/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/devjgm/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/devjgm",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "A potential Denial of Service issue in protobuf-java",
+      "updated_at": "2022-10-04T22:55:25Z",
+      "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories/GHSA-h4h5-3hr4-j3g2",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-java"
+          },
+          "patched_versions": "3.21.7, 3.20.3, 3.19.6, 3.16.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.21.7"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-kotlin"
+          },
+          "patched_versions": "3.21.7, 3.20.3, 3.19.6, 3.16.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.21.7"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "google-protobuf"
+          },
+          "patched_versions": "3.21.7, 3.20.3, 3.19.6, 3.16.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.21.7"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-javalite"
+          },
+          "patched_versions": "3.21.7, 3.20.3, 3.19.6, 3.16.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.21.7"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-kotlin-lite"
+          },
+          "patched_versions": "3.21.7, 3.20.3, 3.19.6, 3.16.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.21.7"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2022-1941",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [
+        "CWE-1286"
+      ],
+      "cwes": [
+        {
+          "cwe_id": "CWE-1286",
+          "name": "Improper Validation of Syntactic Correctness of Input"
+        }
+      ],
+      "description": "### Summary\r\n\r\nA message parsing and memory management vulnerability in ProtocolBuffer’s C++ and Python implementations can trigger an out of memory (OOM) failure when processing a specially crafted message, which could lead to a denial of service (DoS) on services using the libraries.\r\n\r\nReporter: [ClusterFuzz](https://google.github.io/clusterfuzz/)\r\n\r\nAffected versions: All versions of C++ Protobufs (including Python) prior to the versions listed below.\r\n\r\n### Severity & Impact\r\n\r\n**Medium 5.7** - [CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H](https://www.first.org/cvss/calculator/3.1#CVSS:3.1/AV:A/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H)\r\n\r\nA small (~500 KB) malicious payload can be constructed which causes the running service to allocate more than 3GB of RAM.\r\n\r\n### Proof of Concept\r\n\r\nFor reproduction details, please refer to the unit test that identifies the specific inputs that exercise this parsing weakness.\r\n\r\n### Mitigation / Patching\r\n\r\nPlease update to the latest available versions of the following packages:\r\n- protobuf-cpp (3.18.3, 3.19.5, 3.20.2, 3.21.6)\r\n- protobuf-python (3.18.3, 3.19.5, 3.20.2, 4.21.6)",
+      "ghsa_id": "GHSA-8gq9-2x98-w8hf",
+      "html_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-8gq9-2x98-w8hf",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-8gq9-2x98-w8hf"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2022-1941"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2022-09-22T15:07:17Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/14094653?v=4",
+        "events_url": "https://api.github.com/users/sbenzaquen/events{/privacy}",
+        "followers_url": "https://api.github.com/users/sbenzaquen/followers",
+        "following_url": "https://api.github.com/users/sbenzaquen/following{/other_user}",
+        "gists_url": "https://api.github.com/users/sbenzaquen/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/sbenzaquen",
+        "id": 14094653,
+        "login": "sbenzaquen",
+        "node_id": "MDQ6VXNlcjE0MDk0NjUz",
+        "organizations_url": "https://api.github.com/users/sbenzaquen/orgs",
+        "received_events_url": "https://api.github.com/users/sbenzaquen/received_events",
+        "repos_url": "https://api.github.com/users/sbenzaquen/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/sbenzaquen/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/sbenzaquen/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/sbenzaquen",
+        "user_view_type": "public"
+      },
+      "severity": "medium",
+      "state": "published",
+      "submission": null,
+      "summary": "A potential Denial of Service issue in protobuf-cpp and protobuf-python",
+      "updated_at": "2022-09-22T16:47:29Z",
+      "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories/GHSA-8gq9-2x98-w8hf",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "c++",
+            "name": "protobuf-cpp"
+          },
+          "patched_versions": "3.18.3, 3.19.5, 3.20.2, 3.21.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<=3.16.1, <=3.17.3, <=3.18.2, <=3.19.4, <=3.20.1, <=3.21.5"
+        },
+        {
+          "package": {
+            "ecosystem": "pip",
+            "name": "protobuf-python"
+          },
+          "patched_versions": "3.18.3, 3.19.5, 3.20.2, 4.21.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<=3.16.1, <=3.17.3, <=3.18.2, <=3.19.4, <=3.20.1, <=4.21.5"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 0,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2021-22569",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "## Summary\r\n\r\nA potential Denial of Service issue in protobuf-java was discovered in the parsing procedure for binary data.\r\n\r\nReporter: [OSS-Fuzz](https://github.com/google/oss-fuzz)\r\n\r\nAffected versions: All versions of Java Protobufs (including Kotlin and JRuby) prior to the versions listed below. Protobuf \"javalite\" users (typically Android) are not affected.\r\n\r\n## Severity\r\n\r\n[CVE-2021-22569](https://cve.mitre.org/cgi-bin/cvename.cgi?name=CVE-2021-22569) **High** - CVSS Score: 7.5,  An implementation weakness in how unknown fields are parsed in Java. A small (~800 KB) malicious payload can occupy the parser for several minutes by creating large numbers of short-lived objects that cause frequent, repeated GC pauses.\r\n\r\n## Proof of Concept\r\n\r\nFor reproduction details, please refer to the oss-fuzz issue that identifies the specific inputs that exercise this parsing weakness.\r\n\r\n## Remediation and Mitigation\r\n\r\nPlease update to the latest available versions of the following packages:\r\n\r\n- protobuf-java (3.16.1, 3.18.2, 3.19.2) \r\n- protobuf-kotlin (3.18.2, 3.19.2)\r\n- google-protobuf [JRuby  gem only] (3.19.2) \r\n",
+      "ghsa_id": "GHSA-wrvw-hg22-4m67",
+      "html_url": "https://github.com/protocolbuffers/protobuf/security/advisories/GHSA-wrvw-hg22-4m67",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-wrvw-hg22-4m67"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2021-22569"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2022-01-06T17:04:12Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/20598?v=4",
+        "events_url": "https://api.github.com/users/perezd/events{/privacy}",
+        "followers_url": "https://api.github.com/users/perezd/followers",
+        "following_url": "https://api.github.com/users/perezd/following{/other_user}",
+        "gists_url": "https://api.github.com/users/perezd/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/perezd",
+        "id": 20598,
+        "login": "perezd",
+        "node_id": "MDQ6VXNlcjIwNTk4",
+        "organizations_url": "https://api.github.com/users/perezd/orgs",
+        "received_events_url": "https://api.github.com/users/perezd/received_events",
+        "repos_url": "https://api.github.com/users/perezd/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/perezd/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/perezd/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/perezd",
+        "user_view_type": "public"
+      },
+      "severity": "high",
+      "state": "published",
+      "submission": null,
+      "summary": "A potential Denial of Service issue in protobuf-java",
+      "updated_at": "2022-01-06T17:04:12Z",
+      "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories/GHSA-wrvw-hg22-4m67",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-java"
+          },
+          "patched_versions": "3.16.1, 3.18.2, 3.19.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.19.2"
+        },
+        {
+          "package": {
+            "ecosystem": "maven",
+            "name": "com.google.protobuf:protobuf-kotlin"
+          },
+          "patched_versions": "3.18.2, 3.19.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.19.2"
+        },
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "google-protobuf"
+          },
+          "patched_versions": "3.19.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.19.2"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "protocolbuffers/protobuf",
+    "url": "https://api.github.com/repos/protocolbuffers/protobuf/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:36.633860+00:00",
+  "tool": "github_rest_readonly"
+}

@@ -1,0 +1,160 @@
+Repository: https://github.com/django/django
+Local upstream mirror: /tmp/django_git (bare). Snapshot tag 3.0.2 (annotated tag
+object 27431091) peels to a3697439. Release tags 3.0.14, 3.1.12 and 3.2.4 were
+fetched (annotated objects 4eedccd6, 8f924197, 0300a095); fix commits 20c67a06,
+dfaba12c, 053cc953 were fetched by SHA. Those fix commits were fetched at depth
+1, so they are listed in .git/shallow and `git show --format=%P` reports an empty
+parent list for them; `git cat-file -p` still prints the real parent field and is
+what is used below. No ancestry query crosses a commit boundary that is not
+present locally.
+
+Dataset snapshot: tag 3.0.2, commit a36974395ebc03a41928db1743074575b143330d
+(snapshot_id snap_ab695ba3db678939, repo_id 4164482).
+  $ git rev-parse '3.0.2^{commit}'
+  a36974395ebc03a41928db1743074575b143330d
+  $ git ls-tree 3.0.2 django/contrib/admindocs/views.py
+  100644 blob 0474c38fd4d45d26c8aaebf37d59155be0b05d99     (414 lines)
+  $ git ls-tree 3.0.2 django/contrib/admindocs/urls.py
+  100644 blob bc9c3df7cf93584213109c3fc0868620c64da2bd     (50 lines)
+  $ git ls-tree 3.0.2 django/contrib/admindocs/templates/admin_doc/template_detail.html
+  100644 blob 1b95b25d398bb5aee9eed0fdbefa08450391fa70
+
+Vulnerable code at 3.0.2 (views.py, blob 0474c38f):
+   317  class TemplateDetailView(BaseAdminDocsView):
+   318      template_name = 'admin_doc/template_detail.html'
+   319
+   320      def get_context_data(self, **kwargs):
+   321          template = self.kwargs['template']
+   ...
+   327          else:
+   328              # This doesn't account for template loaders (#24128).
+   329              for index, directory in enumerate(default_engine.dirs):
+   331                  template_file = Path(directory) / template
+   332                  if template_file.exists():
+   333                      with template_file.open() as f:
+   334                          template_contents = f.read()
+   335                  else:
+   336                      template_contents = ''
+   ...
+   338                  templates.append({
+   339                      'file': template_file,
+   340                      'exists': template_file.exists(),
+   341                      'contents': template_contents,
+  `template` comes straight from the URL (see the route below) and is passed to
+  the pathlib `/` operator without any sanitation. If it is an absolute path
+  such as "/etc/passwd", pathlib discards `directory` and yields the absolute
+  path; if it is "../passwd" the joined path escapes the template directory.
+  `template_file.exists()` then tells the staff user whether that file exists,
+  and `template_contents` is placed in the context. The stock
+  template_detail.html only renders `template.file` and the exists flag, but
+  the advisory notes that a customized admindocs template that also renders
+  `template.contents` exposes the file contents as well.
+
+Entry point at 3.0.2 (admindocs/urls.py, blob bc9c3df7):
+    45      path(
+    46          'templates/<path:template>/',
+    47          views.TemplateDetailView.as_view(),
+    48          name='django-admindocs-templates',
+    49      ),
+  The `<path:...>` converter matches any non-empty string including slashes and
+  a leading slash, so `/admin/doc/templates//etc/passwd/` passes
+  template="/etc/passwd". BaseAdminDocsView.dispatch is decorated with
+  staff_member_required (line 33), so a staff account is required; the
+  admindocs app is optional and only present when the project installs
+  django.contrib.admindocs and includes its urls.
+
+Fix commits (subject "[3.1.x] Fixed CVE-2021-33203 -- Fixed potential
+path-traversal via admindocs' TemplateDetailView." and the 3.2.x/2.2.x
+equivalents):
+  $ git cat-file -p 20c67a06
+  parent aa8781c0a671610d5327d0a14d45df3b1f29640d  | 2021-06-02 10:38:07 +0200
+  20c67a0693c4ede2b09af02574823485e82e4c8f  | subject [3.1.x]
+  $ git cat-file -p dfaba12c
+  parent aed140955809bc850e3b73628800727a5eaf1a33  | 2021-06-02 10:44:39 +0200
+  dfaba12cda060b8b292ae1d271b44bf810b1c5b9  | subject [3.2.x]
+  $ git cat-file -p 053cc953
+  parent 6229d8794ff7d3f471e29811857d72e67f24b608  | 2021-06-02 10:26:22 +0200
+  053cc9534d174dc89daba36724ed2dcb36755b90  | subject [2.2.x]
+  Diffs are computed against the parents above (fix_commit_20c67a06_3.1.patch,
+  fix_commit_dfaba12c_3.2.patch). Each changes:
+    - django/contrib/admindocs/views.py: adds `from django.utils._os import
+      safe_join` and replaces `template_file = Path(directory) / template`
+      with `template_file = Path(safe_join(directory, template))`. safe_join
+      raises SuspiciousFileOperation when the joined path leaves `directory`,
+      which Django's exception handling turns into HTTP 400;
+    - docs/releases/2.2.24.txt, 3.1.12.txt and 3.2.4.txt gain the
+      "CVE-2021-33203: Potential directory traversal via admindocs" section,
+      stating that path sanitation is now applied and only files within the
+      template root directories can be loaded;
+    - tests/admin_docs/test_views.py gains
+      AdminDocViewDefaultEngineOnly.test_template_detail_path_traversal with
+      cases ['/etc/passwd', '../passwd'], each asserting status 400.
+
+Fixed releases and their content:
+  $ git rev-parse '3.1.12^{commit}' -> 625d3c1c643b0eb5c84339415ca0ba9f1728efa2
+  $ git show -s --format='%H %P | %s' 625d3c1c
+  625d3c1c... 203d4ab9... | [3.1.x] Bumped version for 3.1.12 release.
+  $ git rev-parse '3.2.4^{commit}'  -> 843c34b3ab921c1acf77ee2014a97bc7975595b8
+  $ git show -s --format='%H %P | %s' 843c34b3
+  843c34b3... 9f75e2e5... | [3.2.x] Bumped version for 3.2.4 release.
+  $ git merge-base --is-ancestor 20c67a06 625d3c1c -> exit 0
+  $ git merge-base --is-ancestor dfaba12c 843c34b3 -> exit 0
+  (203d4ab9 and 9f75e2e5 are the CVE-2021-33571 fixes that were applied after
+  this one on the same branches, which is why they are the release commits'
+  direct parents rather than the 33203 fixes.)
+  admindocs/views.py blobs: 3.0.2 = 0474c38f, 3.0.14 = 0474c38f (identical),
+  3.1.12 = 60b357e9, 3.2.4 = 60b357e9 (the two fixed files are byte-identical,
+  sha256 4b24b9799939caff8c0ed1e287dea65cf0b59aec5cb224569410bfbb45a38186).
+  In both fixed files safe_join is imported at line 19 and the sanitized join
+  is at line 333. The 3.0.2 file differs from the 3.1 pre-fix file in a few
+  unrelated refactors (inspect.cleandoc, utils.trim_docstring, opts.label and
+  read_text instead of open()/read()); the traversal line is unchanged in all
+  of 3.0.x and in the 3.1/3.2 pre-fix trees (all 0474c38f or bd566cde).
+  3.0.14 is the last 3.0.x release (2021-04-06) and is still unfixed, so the
+  3.0.x line never received a fix; the first fixed releases are 3.1.12 and
+  3.2.4 (and 2.2.24 on the 2.2 LTS line).
+
+Regression test content (3.1.12 / 3.2.4):
+    @unittest.skipUnless(utils.docutils_is_available, 'no docutils installed.')
+    class AdminDocViewDefaultEngineOnly(TestDataMixin, AdminDocsTestCase):
+        def setUp(self):
+            self.client.force_login(self.superuser)
+        def test_template_detail_path_traversal(self):
+            cases = ['/etc/passwd', '../passwd']
+            for fpath in cases:
+                with self.subTest(path=fpath):
+                    response = self.client.get(
+                        reverse('django-admindocs-templates', args=[fpath]),
+                    )
+                    self.assertEqual(response.status_code, 400)
+  At 3.0.2 the test file has no path-traversal test (grep for
+  path_traversal and template_detail returns only test_template_detail).
+
+Affected range:
+  MITRE CNA text: Django before 2.2.24, 3.x before 3.1.12, and 3.2.x before
+  3.2.4. OSV PyPI ECOSYSTEM ranges: introduced 0, fixed 2.2.24; introduced 3.0,
+  fixed 3.1.12; introduced 3.2, fixed 3.2.4. NVD CPE ranges: <2.2.24;
+  >=3.0.0,<3.1.12; >=3.2.0,<3.2.4. Snapshot 3.0.2 is inside >=3.0,<3.1.12, so
+  it is affected.
+
+Public records:
+  CVE List v5 CVE-2021-33203, state PUBLISHED, assigner mitre, published
+  2021-06-08T17:52:20. The CNA has no CVSS metric and no CWE (problemTypes is
+  "n/a"). The description matches the advisory text quoted above and adds
+  "In other words, there is directory traversal outside of the template root
+  directories."
+  NVD: status Modified, published 2021-06-08T18:15:08, Primary CVSS 3.1 4.9
+  MEDIUM CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:H/I:N/A:N from nvd@nist.gov, a
+  legacy CVSS 2.0 4.0, CWE-22 from the NVD Primary source, and the CPE ranges
+  above.
+  OSV GHSA-68w8-qjq3-2gfm: aliases BIT-django-2021-33203, CVE-2021-33203,
+  PYSEC-2021-98; CVSS_V3 the same 4.9 vector and CVSS_V4
+  CVSS:4.0/AV:N/AC:L/AT:N/PR:H/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N;
+  database_specific severity MODERATE, cwe_ids [CWE-22], github_reviewed true;
+  the same three PyPI ranges and the three fix commits as references.
+  All published severity levels are MEDIUM (NVD) / MODERATE (GHSA); no level
+  conflict.
+
+No Django project was run, no view or test was executed and no HTTP request was
+made; every check above is a static read of git objects, the fix diffs and
+public vulnerability records.

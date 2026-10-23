@@ -1,0 +1,83 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; LTS fix 81983c6a and master fix bf32018b (both
+"[SECURITY-3512]"), the follow-on SECURITY-3513 commits acc9120f/b3651b47, and the
+release commits a5462bf4 (2.492.3) and 5309fce4 (2.504) were fetched with --depth=5.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/ComputerSet.java'
+  5cb798978dea4ce6198b86f294cced5f2dd06b49     (17134 bytes; matches file_inventory.json)
+
+Vulnerable code at 2.441 (ComputerSet.java, blob 5cb79897):
+  doCreateItem at 247-287, annotated @RequirePOST at 246. It checks only
+  Agent/Create:
+    251  app.checkPermission(Computer.CREATE);
+    253  if (mode != null && mode.equals("copy")) {
+    256      Node src = app.getNode(from);
+    266      String xml = Jenkins.XSTREAM.toXML(src);
+    267      Node result = (Node) Jenkins.XSTREAM.fromXML(xml);
+    271      app.addNode(result);
+    274      rsp.sendRedirect2(result.getNodeName() + "/configure");
+  The copy branch serializes the source node and re-creates it as a new agent
+  without ever checking Computer.EXTENDED_READ on the source node. Reading the same
+  agent's configuration through its own config.xml page does require Extended Read
+  (the extended-read permission is disabled by default at 2.441 but, when it is
+  enabled, the copy endpoint bypasses it).
+
+Fix commits:
+  $ git show -s --format='%H %P | %ci | %s' 81983c6a bf32018b
+  81983c6a64d1e533b17f92a826af02125126f539 bb4a1db62911d29e6aee4d19ba044d2075d41080 | 2025-03-20 07:27:19 +0000 | [SECURITY-3512]
+  bf32018bf075c06e5df649583557c82d42d8bb5c dddb4598df25527220a1e0f46d1a0d25217dd4c8 | 2025-03-25 21:02:02 +0000 | [SECURITY-3512]
+  Master-branch patch bf32018b adds exactly one production line to the copy branch:
+    +  src.checkPermission(Computer.EXTENDED_READ);
+  immediately after the source node lookup and before the XStream serialization,
+  plus a new test test/src/test/java/jenkins/security/Security3512Test.java whose
+  copyAgentTest enables Computer.EXTENDED_READ, grants one user Agent/Create+Extended
+  Read and another only Agent/Create, and asserts the copy is 200 for the former and
+  403 for the latter.
+  File blobs: at bf32018b ComputerSet.java is 7ee8fd5b (fix only); the later
+  SECURITY-3513 commit b3651b47 turns it into 384b3092. On the LTS branch the
+  corresponding files are 81983c6a -> acc9120f (blob 8fcfdd9a).
+
+Fixed releases:
+  Jenkins 2.492.3 (LTS): release commit a5462bf4, whose only parent is the LTS fix
+    acc9120f (which has 81983c6a as its only parent).
+  Jenkins 2.504 (weekly): release commit 5309fce4, whose only parent is the master
+    fix b3651b47 (which has bf32018b as its only parent).
+  $ git merge-base --is-ancestor 81983c6a a5462bf4  -> exit 0
+  $ git merge-base --is-ancestor bf32018b 5309fce4  -> exit 0
+
+Related sibling (kept separate, see advisory):
+  SECURITY-3513 / CVE-2025-31721 (incomplete fix of SECURITY-3495) adds the
+  Configure/redaction guard in the same branch; it is a different advisory item and
+  is not claimed here. SECURITY-3495 (CVE-2025-27622) is the earlier agent
+  config.xml redaction work.
+
+Affected range:
+  CNA record: Jenkins 2.503 and earlier, LTS 2.492.2 and earlier; unaffected from
+  2.492.3 (LTS) and 2.504 (weekly), defaultStatus affected.
+  OSV CVE GIT range: introduced 0 -> fixed a5462bf4 (2.492.3) and 5309fce4 (2.504).
+  The GHSA ECOSYSTEM ranges encode the weekly line as introduced 2.500 -> fixed
+  2.504, which conflicts with the CNA text and with the CVE GIT range; the LTS range
+  is 0 -> 2.492.3. Snapshot 2.441 is inside the CNA/GIT affected range.
+
+Public records:
+  CVE List v5 CVE-2025-31720, state PUBLISHED, datePublished 2025-04-02,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE. Description:
+  a missing permission check in Jenkins 2.503 and earlier, LTS 2.492.2 and earlier
+  allows attackers with Computer/Create permission but without Computer/Extended
+  Read permission to copy an agent, gaining access to its configuration.
+  CISA-ADP (Secondary) metrics: CVSS 3.1 4.3 MEDIUM
+  CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N and CWE-862.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), CWE-862 from the same source; no Primary metric.
+  OSV/GHSA-565r-pf5q-45v6: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-862].
+  Jenkins advisory 2025-04-02: https://www.jenkins.io/security/advisory/2025-04-02/
+  #SECURITY-3512.
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

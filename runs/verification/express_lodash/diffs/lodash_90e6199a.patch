@@ -1,0 +1,83 @@
+diff --git a/lodash.js b/lodash.js
+index cd8df6fe6..c7081ddef 100644
+--- a/lodash.js
++++ b/lodash.js
+@@ -1223,22 +1223,8 @@
+     }
+     return result;
+   }
+ 
+-  /**
+-   * Gets the value at `key`, unless `key` is "__proto__".
+-   *
+-   * @private
+-   * @param {Object} object The object to query.
+-   * @param {string} key The key of the property to get.
+-   * @returns {*} Returns the property value.
+-   */
+-  function safeGet(object, key) {
+-    return key == '__proto__'
+-      ? undefined
+-      : object[key];
+-  }
+-
+   /**
+    * Converts `set` to an array of its values.
+    *
+    * @private
+@@ -6617,8 +6603,31 @@
+       }
+       return array;
+     }
+ 
++    /**
++     * Gets the value at `key`, unless `key` is "__proto__" or "prototype".
++     *
++     * @private
++     * @param {Object} object The object to query.
++     * @param {string} key The key of the property to get.
++     * @returns {*} Returns the property value.
++     */
++    function safeGet(object, key) {
++      if (key == '__proto__') {
++        return;
++      }
++
++      var value = object[key];
++
++      if (key == 'prototype' &&
++          value === objectProto) {
++        return;
++      }
++
++      return value;
++    }
++
+     /**
+      * Sets metadata for `func`.
+      *
+      * **Note:** If this function becomes hot, i.e. is invoked a lot in a short
+diff --git a/test/test.js b/test/test.js
+index c88e0fda9..822d229e0 100644
+--- a/test/test.js
++++ b/test/test.js
+@@ -7553,8 +7553,19 @@
+       } else {
+         skipAssert(assert);
+       }
+     });
++
++    QUnit.test('should not merge `Object.prototype` properties', function(assert) {
++      assert.expect(1);
++
++      _.merge({}, { 'constructor': { 'prototype': { 'a': 1 } } });
++
++      var actual = 'a' in objectProto;
++      delete objectProto.a;
++
++      assert.notOk(actual);
++    });
+   }());
+ 
+   /*--------------------------------------------------------------------------*/
+ 

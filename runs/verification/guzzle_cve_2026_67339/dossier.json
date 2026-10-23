@@ -1,0 +1,337 @@
+{
+  "candidate_id": "disc2_ae43b8a8a54c7173346dabea",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T04:35:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/guzzle/guzzle",
+    "full_name": "guzzle/guzzle",
+    "primary_language": "PHP",
+    "project_kind": "HTTP client library",
+    "repo_id": "1420053",
+    "snapshot_id": "snap_efe695448113758a"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2026-67339",
+    "aliases": [
+      "CVE-2026-67339",
+      "GHSA-94pj-82f3-465w"
+    ],
+    "title": "Guzzle's cURL handlers leave a first-class Proxy-Authorization header in CURLOPT_HTTPHEADER before 7.14.2, disclosing the proxy credential to origin servers",
+    "category_l1": "credential_exposure",
+    "category_l2": "proxy credential placed in the origin header list and sent to the origin server",
+    "cwe_ids": [
+      "CWE-200",
+      "CWE-201",
+      "CWE-522"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+      "score": 5.3,
+      "level": "medium",
+      "source": "VulnCheck (CNA) publishes CVSS 4.0 6.9 MEDIUM; NVD carries the same VulnCheck CVSS 3.1 5.3 MEDIUM and CVSS 4.0 6.9 MEDIUM as Secondary metrics; OSV GHSA database_specific severity MODERATE — every source rates it medium/moderate",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-67339"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "Packagist",
+        "package": "guzzlehttp/guzzle",
+        "purl": "pkg:composer/guzzlehttp/guzzle",
+        "affected_range": "<7.14.2"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "master (7.x)",
+        "sha": "9e4580d4b9981e903dc6323fe37f50a96e85b05e",
+        "message": "Never send first-class `Proxy-Authorization` headers to origins (#3876)",
+        "url": "https://github.com/guzzle/guzzle/commit/9e4580d4b9981e903dc6323fe37f50a96e85b05e"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Packagist",
+        "package": "guzzlehttp/guzzle",
+        "tag": "7.14.2",
+        "version": "7.14.2",
+        "release_url": "https://github.com/guzzle/guzzle/releases/tag/7.14.2",
+        "verified_content": "Tag 7.14.2 peels to fa88c578. src/Handler/CurlFactory.php blob 4ee3377 is byte-identical to the post-fix blob in commit 9e4580d4 (its diff header reads index b7bc930..4ee3377). In 7.14.2 applyHeaders() skips a Proxy-Authorization header before serialising (lines 1980-1986), applyManagedProxyAuthorization() routes managed values to CURLOPT_PROXYHEADER with CURLHEADER_SEPARATE, and StreamHandler.php removes the field before route selection."
+      }
+    ],
+    "published_at": "2026-08-01T12:22:17.139Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/guzzle/guzzle/security/advisories/GHSA-94pj-82f3-465w",
+    "references": [
+      "https://github.com/guzzle/guzzle/security/advisories/GHSA-94pj-82f3-465w",
+      "https://nvd.nist.gov/vuln/detail/CVE-2026-67339",
+      "https://github.com/guzzle/guzzle/pull/3876",
+      "https://github.com/guzzle/guzzle/commit/9e4580d4b9981e903dc6323fe37f50a96e85b05e",
+      "https://github.com/guzzle/guzzle/releases/tag/7.14.2",
+      "https://www.vulncheck.com/advisories/guzzlehttp-guzzle-before-proxy-authorization-header-disclosure"
+    ],
+    "vulnerable_commit": "e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+    "vulnerable_commit_basis": "tag 7.4.4 peels to e3ff079b, inside the advisory range <7.14.2; its src/Handler/CurlFactory.php blob 0c45089f serialises every request header, Proxy-Authorization included, into CURLOPT_HTTPHEADER and contains no CURLOPT_PROXYHEADER/CURLHEADER_SEPARATE handling anywhere in src/",
+    "vulnerable_version": "7.4.4",
+    "snapshot_id": "snap_efe695448113758a",
+    "repo_id": "1420053",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2026_67339_snap_efe695448113758a",
+    "location_kind": "logic",
+    "snapshot_id": "snap_efe695448113758a",
+    "vulnerability_id": "CVE-2026-67339",
+    "verification_method": "Static read of src/Handler/CurlFactory.php and src/Handler/StreamHandler.php at tag 7.4.4 and 7.14.2, the fix commit's diff against its parent, the 7.14.2 test file, and the saved advisory records. No PHP code was run and no request was made.",
+    "critical_operation": {
+      "file": "src/Handler/CurlFactory.php",
+      "function": "CurlFactory::applyHeaders",
+      "language": "PHP",
+      "line": "314-322",
+      "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php#L314-L322",
+      "code_excerpt": "        foreach ($conf['_headers'] as $name => $values) {\n            foreach ($values as $value) {\n                $value = (string) $value;\n                if ($value === '') {\n                    $conf[\\CURLOPT_HTTPHEADER][] = \"$name;\";\n                } else {\n                    $conf[\\CURLOPT_HTTPHEADER][] = \"$name: $value\";\n                }\n            }\n        }",
+      "description": "applyHeaders copies every header of the PSR-7 request into libcurl's origin header list (CURLOPT_HTTPHEADER) with no awareness of Proxy-Authorization. At 7.4.4 the file contains no CURLOPT_PROXYHEADER, CURLOPT_HEADEROPT or CURLHEADER_SEPARATE reference at all, so a first-class Proxy-Authorization value can only reach libcurl through CURLOPT_HTTPHEADER; libcurl's default CURLHEADER_UNIFIED then sends it to the origin server as well as to any proxy. The credential is therefore disclosed to a party it was never meant for, including an attacker-controlled origin that can log request headers."
+    },
+    "entry_point": {
+      "file": "src/Handler/CurlFactory.php",
+      "function": "CurlFactory::getDefaultConf",
+      "language": "PHP",
+      "line": 222,
+      "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php#L222",
+      "description": "'_headers' => $easy->request->getHeaders() — the request's first-class headers, including any Proxy-Authorization set on the PSR-7 request, through client defaults, the headers option or middleware, are what applyHeaders later serialises. The advisory states this is a documented configuration, not misuse."
+    },
+    "trace": [
+      {
+        "file": "src/Handler/CurlFactory.php",
+        "function": "CurlFactory::getDefaultConf",
+        "language": "PHP",
+        "line": 222,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php#L222",
+        "description": "all request headers are captured into the configuration array"
+      },
+      {
+        "file": "src/Handler/CurlFactory.php",
+        "function": "CurlFactory::applyHeaders",
+        "language": "PHP",
+        "line": 322,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php#L322",
+        "description": "each header, including Proxy-Authorization, is appended to $conf[CURLOPT_HTTPHEADER] with no special case"
+      },
+      {
+        "file": "src/Handler/CurlFactory.php",
+        "function": "CurlFactory (cURL option application)",
+        "language": "PHP",
+        "line": 441,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php#L441-L447",
+        "description": "CURLOPT_PROXY may be set from the proxy option, but no proxy header channel is configured, so the header list remains origin-bound under libcurl's default CURLHEADER_UNIFIED"
+      },
+      {
+        "file": "src/Handler/StreamHandler.php",
+        "function": "StreamHandler (proxy option handling)",
+        "language": "PHP",
+        "line": 433,
+        "permalink": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/StreamHandler.php#L433",
+        "description": "the stream handler only appends a Proxy-Authorization line derived from proxy URL userinfo; it never removes a first-class Proxy-Authorization from the origin-bound header list"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_guzzle_osv_ghsa",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/osv_GHSA-94pj-82f3-465w.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-94pj-82f3-465w",
+      "retrieved_at": "2026-10-22T04:09:00Z",
+      "sha256_of_observation": "e38710f8a209ca65de58edbd9151680c1187b140b56f99974c5d53b2560eb344",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases CVE-2026-67339; github_reviewed true; published 2026-07-20",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N (5.3) and database_specific severity MODERATE",
+        "database_specific cwe_ids [CWE-200, CWE-201, CWE-522]",
+        "details state that the cURL handlers put every first-class request header in CURLOPT_HTTPHEADER, move Proxy-Authorization only on a predicted proxy, and that on builds without the proxy-only channel cURL left the header in the origin list for every route",
+        "Packagist range 0 -> 7.14.2; references PR 3876, commit 9e4580d4 and release 7.14.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_cve_v5",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/cve_v5_CVE-2026-67339.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2026-67339",
+      "retrieved_at": "2026-10-22T04:09:00Z",
+      "sha256_of_observation": "fd906e6adb27b5a640d949caa8de546e3a7d1bd2ab80b58a9fa2eb6475f4ccdb",
+      "verification_method": "CVE List v5 record (assigner VulnCheck)",
+      "result": "PASS",
+      "supports": [
+        "published 2026-08-01 by VulnCheck",
+        "CNA CVSS 4.0 6.9 MEDIUM CVSS:4.0/AV:N/AC:L/PR:N/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+        "CNA problemType CWE-200",
+        "CNA affected: packageURL pkg:composer/guzzlehttp/guzzle, version 0 affected, lessThan 7.14.2",
+        "references the Guzzle advisory and the VulnCheck advisory"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_nvd",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/nvd_CVE-2026-67339.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2026-67339",
+      "retrieved_at": "2026-10-22T04:09:00Z",
+      "sha256_of_observation": "f0021877cc61514a9d71e949d77464737f4998465ee0fe014ea2290b93562445",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "published 2026-08-01, status Awaiting Analysis",
+        "Secondary CVSS 3.1 5.3 MEDIUM CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N and CVSS 4.0 6.9 MEDIUM, both from disclosure@vulncheck.com",
+        "weakness CWE-200",
+        "no CPE configurations recorded yet, so NVD has not independently mapped affected products"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_git_checks",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/git_object_checks.txt",
+      "source_url": "https://github.com/guzzle/guzzle/commit/9e4580d4b9981e903dc6323fe37f50a96e85b05e",
+      "retrieved_at": "2026-10-22T04:30:00Z",
+      "sha256_of_observation": "fc3f8cf1a946cafc3cd6d3dd058b0a2ce89630ee12c4971c7b31138e9415ea1d",
+      "verification_method": "per-ref shallow fetches in a bare mirror; git rev-parse / ls-tree / show and the fix commit's diff against its parent",
+      "result": "PASS",
+      "supports": [
+        "tag 7.4.4 peels to e3ff079b and its CurlFactory.php blob 0c45089f equals the blob recorded in the snapshot inventory",
+        "7.4.4 src/ contains no Proxy-Authorization, CURLOPT_PROXYHEADER or CURLHEADER_SEPARATE reference",
+        "tag 7.14.2 peels to fa88c578 and its CurlFactory.php blob 4ee3377 equals the post-fix blob of commit 9e4580d4 (diff index b7bc930..4ee3377)",
+        "7.14.2 applyHeaders skips Proxy-Authorization and applyManagedProxyAuthorization routes it to CURLOPT_PROXYHEADER with CURLHEADER_SEPARATE",
+        "tests/Handler/CurlFactoryTest.php mentions Proxy-Authorization 0 times at 7.4.4 and 70 times at 7.14.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_vuln_file",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/CurlFactory_7.4.4.php",
+      "source_url": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/CurlFactory.php#L312-L330",
+      "retrieved_at": "2026-10-22T04:25:00Z",
+      "sha256_of_observation": "3d8f73ee6b1566b0c5de5ab089d547c604bf5c8c9d39f71f8266803149cdf08c",
+      "verification_method": "git show 7.4.4:src/Handler/CurlFactory.php (595 lines)",
+      "result": "PASS",
+      "supports": [
+        "getDefaultConf line 222 sets '_headers' from $easy->request->getHeaders()",
+        "applyHeaders is defined at line 312; lines 314-323 append every header to CURLOPT_HTTPHEADER with only an empty-value special case",
+        "the proxy option is applied at lines 441-447 through CURLOPT_PROXY only",
+        "no PROXYHEADER/HEADEROPT handling exists in this file"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_fixed_file",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/CurlFactory_7.14.2.php",
+      "source_url": "https://github.com/guzzle/guzzle/blob/fa88c57803501ad0770f5cddb1e60525d49da9a1/src/Handler/CurlFactory.php#L1977-L1990",
+      "retrieved_at": "2026-10-22T04:25:00Z",
+      "sha256_of_observation": "280fc084f840a74c691d474bc9ad1d5d7158db123dd5329f01ed114806819afe",
+      "verification_method": "git show 7.14.2:src/Handler/CurlFactory.php (2473 lines)",
+      "result": "PASS",
+      "supports": [
+        "applyHeaders at line 1977 skips a header whose lower-cased name is proxy-authorization (lines 1980-1986) before the origin-list loop",
+        "applyManagedProxyAuthorization appends managed values through appendCurlProxyHeaders and sets CURLOPT_HEADEROPT = CURLHEADER_SEPARATE",
+        "when proxy header separation is unavailable it throws before network I/O for routes that may use an HTTP(S) proxy"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_stream_vuln",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/StreamHandler_7.4.4.php",
+      "source_url": "https://github.com/guzzle/guzzle/blob/e3ff079b22820c2029d4c2a87796b6a0b8716ad8/src/Handler/StreamHandler.php#L425-L436",
+      "retrieved_at": "2026-10-22T04:25:00Z",
+      "sha256_of_observation": "b8b311c8100db911a75c91d9dfbbdb2e02b5276758ee1dd1971b4067137a0e39",
+      "verification_method": "git show 7.4.4:src/Handler/StreamHandler.php (593 lines)",
+      "result": "PASS",
+      "supports": [
+        "the only Proxy-Authorization code is at line 433, which appends a value derived from proxy URL userinfo",
+        "there is no removal of a first-class Proxy-Authorization header from the origin-bound header list"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_stream_fixed",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/StreamHandler_7.14.2.php",
+      "source_url": "https://github.com/guzzle/guzzle/blob/fa88c57803501ad0770f5cddb1e60525d49da9a1/src/Handler/StreamHandler.php",
+      "retrieved_at": "2026-10-22T04:25:00Z",
+      "sha256_of_observation": "708638bd98aeef75bba2fd7d1261e1ac7becbf30a3f6c22ebe226cae9835a537",
+      "verification_method": "git show 7.14.2:src/Handler/StreamHandler.php (1158 lines)",
+      "result": "PASS",
+      "supports": [
+        "the fixed stream handler removes the first-class Proxy-Authorization field before choosing a route",
+        "if a proxy is selected it writes one validated proxy header and gives it precedence over proxy URL userinfo; multiple values or line breaks fail before connection"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_fix_patch",
+      "artifact_path": "runs/verification/guzzle_cve_2026_67339/sources/fix_commit_9e4580d4.patch",
+      "source_url": "https://github.com/guzzle/guzzle/commit/9e4580d4b9981e903dc6323fe37f50a96e85b05e",
+      "retrieved_at": "2026-10-22T04:27:00Z",
+      "sha256_of_observation": "72e57dc4682095198b2483ad3483e73eedacc948a7cef3f35e337419c34a3b45",
+      "verification_method": "git diff 6b1d2429 9e4580d4 (parent to fix commit)",
+      "result": "PASS",
+      "supports": [
+        "touches src/Handler/CurlFactory.php, src/Handler/StreamHandler.php, tests and docs",
+        "adds managedProxyAuthorizationHeaderLines, applyManagedProxyAuthorization and the applyHeaders skip",
+        "adds extensive CurlFactoryTest/StreamHandlerTest coverage for Proxy-Authorization routing"
+      ]
+    },
+    {
+      "evidence_id": "ev_guzzle_snapshot",
+      "artifact_path": "runs/language/snap_efe695448113758a/snapshot_proposal.json",
+      "source_url": "https://github.com/guzzle/guzzle/tree/e3ff079b22820c2029d4c2a87796b6a0b8716ad8",
+      "retrieved_at": "2026-10-22T04:31:00Z",
+      "sha256_of_observation": "afc78de65c0bf32d4e4c030c556c4fc9f04027596dfce5d3a55477a6ced8f518",
+      "verification_method": "existing snapshot inventory (github-linguist 9.7.0)",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_efe695448113758a, repo_id 1420053, tag_or_release 7.4.4, vulnerable_commit e3ff079b",
+        "117 tracked files scanned; PHP first-party 42 files / 220,430 bytes / 30.10% share",
+        "full_scan true; the snapshot already existed before this vulnerability cycle, so no new snapshot was built"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 1, 2],
+    "aliases": [0, 1],
+    "critical_operation": [4, 8],
+    "cwe": [0, 1, 2],
+    "fix_commits": [3, 8],
+    "fixed_releases": [3, 5],
+    "languages": [9],
+    "severity": [0, 1, 2],
+    "vulnerable_commit": [3, 4, 9]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-94pj-82f3-465w, Packagist range)",
+      "CVE List v5 record from VulnCheck (CNA, third party)",
+      "NVD analysis (Awaiting Analysis; VulnCheck secondary metrics only, no CPE yet)",
+      "upstream git history (tags 7.4.4 / 7.14.2, fix commit 9e4580d4)"
+    ],
+    "independent_of_primary": true,
+    "notes": "Every published level is medium/moderate: GHSA MODERATE (CVSS 3.1 5.3), CNA VulnCheck CVSS 4.0 6.9 MEDIUM, NVD Secondary 5.3 and 6.9 MEDIUM. CWE-200 is published by the CNA, NVD and OSV; OSV additionally lists CWE-201 and CWE-522, which are refinements rather than contradictions. The affected range is <7.14.2 in both the CNA record and OSV, and 7.4.4 is inside it. The fix is content-verified by blob identity between commit 9e4580d4 and tag 7.14.2. The CNA is VulnCheck, not the Guzzle vendor, and NVD has not yet analysed the record (no CPE), so the fix/range confidence comes from the git objects rather than from NVD mapping.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read src/Handler/CurlFactory.php at tag 7.4.4 and confirm that applyHeaders serialises every request header into CURLOPT_HTTPHEADER and that nothing in src/ routes Proxy-Authorization to CURLOPT_PROXYHEADER.",
+      "An independent reviewer must confirm 7.14.2 is the first fixed release and that its CurlFactory.php blob matches the fix commit 9e4580d4.",
+      "An independent reviewer must assess whether the flawed behaviour at 7.4.4 matches the advisory's description (the advisory is written against later 7.x code where a prediction-based migration exists) and whether the disclosure to the origin is real at this version.",
+      "An independent reviewer must decide whether the VulnCheck CNA/advisory counts as independent analysis; if not, evidence_independent is false and the entry stays below grade A.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No PHP code was executed and no request was made: the origin-bound header list is read from the cURL option assembly, not reproduced against a live proxy.",
+    "Applications that never set a first-class Proxy-Authorization header are unaffected; the advisory states this explicitly, so the flaw requires that documented configuration.",
+    "The advisory's narrative describes a later code shape (a migration that runs only when Guzzle predicts a proxy). At 7.4.4 that migration does not exist at all, so the vulnerable state is simpler but the exact mechanism differs from the advisory wording; the reviewer must judge whether it is the same root cause.",
+    "NVD status is Awaiting Analysis with no CPE configurations, so the affected-product mapping rests on the CNA record, OSV and the git tags.",
+    "The fix commit also hardens the stream handler and adds extensive tests; only the cURL handler path is analysed in depth here.",
+    "Whether a real origin actually logs or exposes request headers depends on the deployment; the entry claims disclosure, not exploitation of the credential."
+  ],
+  "open_questions": [
+    "Whether libcurl's default CURLHEADER_UNIFIED really forwards CURLOPT_HTTPHEADER lines to an HTTP proxy as well as the origin in every supported libcurl version, which affects the precise disclosure path.",
+    "Whether Guzzle 7.4.4 ever sets CURLOPT_PROXYHEADER through CurlVersion options in a way the grep for CURLOPT_PROXYHEADER would have missed (no match was found in src/).",
+    "Whether other 7.x branches (for example 7.9.x) received an earlier partial fix that would make the first-affected version later than 0."
+  ]
+}

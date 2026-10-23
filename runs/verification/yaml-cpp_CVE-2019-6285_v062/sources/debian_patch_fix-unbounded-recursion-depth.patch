@@ -1,0 +1,164 @@
+Description: Fix unbounded recursion CVEs
+Origin: https://github.com/jbeder/yaml-cpp/pull/807
+Forwarded: yes
+Bug: https://github.com/jbeder/yaml-cpp/issues/459
+Bug: https://github.com/jbeder/yaml-cpp/issues/655
+Bug: https://github.com/jbeder/yaml-cpp/issues/654
+Bug: https://github.com/jbeder/yaml-cpp/issues/660
+
+This cherry-picks the (so-far-unmerged) upstream pull request.
+The final 5 commits of that PR are not included; they only add tests
+to a file not present in the 0.6.2 (or 0.6.3) release.
+
+From d540476e31b080aa1f903ad20ec0426dd3838be7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Antoine=20Beaupr=C3=A9?= <anarcat@debian.org>
+Date: Tue, 25 Apr 2017 20:10:20 -0400
+Subject: [PATCH 1/9] fix stack overflow in HandleNode() (CVE-2017-5950)
+
+simply set a hardcoded recursion limit to 2000 (inspired by Python's)
+to avoid infinitely recursing into arbitrary data structures
+
+assert() the depth. unsure if this is the right approach, but given
+that HandleNode() is "void", I am not sure how else to return an
+error. the problem with this approach of course is that it will still
+crash the caller, unless they have proper exception handling in place.
+
+Closes: #459
+---
+ src/singledocparser.cpp | 2 ++
+ src/singledocparser.h   | 2 ++
+ 2 files changed, 4 insertions(+)
+
+--- a/src/singledocparser.cpp
++++ b/src/singledocparser.cpp
+@@ -7,6 +7,7 @@
+ #include "singledocparser.h"
+ #include "tag.h"
+ #include "token.h"
++#include "yaml-cpp/depthguard.h"
+ #include "yaml-cpp/emitterstyle.h"
+ #include "yaml-cpp/eventhandler.h"
+ #include "yaml-cpp/exceptions.h"  // IWYU pragma: keep
+@@ -47,6 +48,8 @@
+ }
+ 
+ void SingleDocParser::HandleNode(EventHandler& eventHandler) {
++  DepthGuard depthguard(depth, m_scanner.mark(), ErrorMsg::BAD_FILE);
++
+   // an empty node *is* a possibility
+   if (m_scanner.empty()) {
+     eventHandler.OnNull(m_scanner.mark(), NullAnchor);
+--- a/src/singledocparser.h
++++ b/src/singledocparser.h
+@@ -15,6 +15,8 @@
+ 
+ namespace YAML {
+ class CollectionStack;
++template <int> class DepthGuard; // depthguard.h
++class DeepRecursion; // an exception which may be thrown from excessive call stack recursion, see depthguard.h
+ class EventHandler;
+ class Node;
+ class Scanner;
+@@ -55,6 +57,8 @@
+   anchor_t LookupAnchor(const Mark& mark, const std::string& name) const;
+ 
+  private:
++  using DepthGuard = YAML::DepthGuard<2000>;
++  int depth = 0;
+   Scanner& m_scanner;
+   const Directives& m_directives;
+   std::unique_ptr<CollectionStack> m_pCollectionStack;
+--- /dev/null
++++ b/include/yaml-cpp/depthguard.h
+@@ -0,0 +1,74 @@
++#ifndef DEPTH_GUARD_H_00000000000000000000000000000000000000000000000000000000
++#define DEPTH_GUARD_H_00000000000000000000000000000000000000000000000000000000
++
++#if defined(_MSC_VER) ||                                            \
++    (defined(__GNUC__) && (__GNUC__ == 3 && __GNUC_MINOR__ >= 4) || \
++     (__GNUC__ >= 4))  // GCC supports "pragma once" correctly since 3.4
++#pragma once
++#endif
++
++#include "exceptions.h"
++
++namespace YAML {
++
++/**
++ * @brief The DeepRecursion class
++ *  An exception class which is thrown by DepthGuard. Ideally it should be
++ * a member of DepthGuard. However, DepthGuard is a templated class which means
++ * that any catch points would then need to know the template parameters. It is
++ * simpler for clients to not have to know at the catch point what was the
++ * maximum depth.
++ */
++class DeepRecursion : public ParserException {
++  int m_atDepth = 0;
++public:
++  // no custom dtor needed, but virtual dtor necessary to prevent slicing
++  virtual ~DeepRecursion() = default;
++
++  // construct an exception explaining how deep you were
++  DeepRecursion(int at_depth, const Mark& mark_, const std::string& msg_);
++
++  // query how deep you were when the exception was thrown
++  int AtDepth() const;
++};
++
++/**
++ * @brief The DepthGuard class
++ *  DepthGuard takes a reference to an integer. It increments the integer upon
++ * construction of DepthGuard and decrements the integer upon destruction.
++ *
++ * If the integer would be incremented past max_depth, then an exception is
++ * thrown. This is ideally geared toward guarding against deep recursion.
++ *
++ * @param max_depth
++ *  compile-time configurable maximum depth.
++ */
++template <int max_depth = 2000>
++class DepthGuard final /* final because non-virtual dtor */ {
++  int & m_depth;
++public:
++  DepthGuard(int & depth_, const Mark& mark_, const std::string& msg_) : m_depth(depth_) {
++    ++m_depth;
++    if ( max_depth <= m_depth ) {
++        throw DeepRecursion{m_depth, mark_, msg_};
++    }
++  }
++
++  // DepthGuard is neither copyable nor moveable.
++  DepthGuard(const DepthGuard & copy_ctor) = delete;
++  DepthGuard(DepthGuard && move_ctor) = delete;
++  DepthGuard & operator=(const DepthGuard & copy_assign) = delete;
++  DepthGuard & operator=(DepthGuard && move_assign) = delete;
++
++  ~DepthGuard() {
++    --m_depth;
++  }
++
++  int current_depth() const {
++    return m_depth;
++  }
++};
++
++} // namespace YAML
++
++#endif // DEPTH_GUARD_H_00000000000000000000000000000000000000000000000000000000
+--- /dev/null
++++ b/src/depthguard.cpp
+@@ -0,0 +1,14 @@
++#include "yaml-cpp/depthguard.h"
++
++namespace YAML {
++
++DeepRecursion::DeepRecursion(int at_depth, const Mark& mark_, const std::string& msg_)
++    : ParserException(mark_, msg_),
++      m_atDepth(at_depth) {
++}
++
++int DeepRecursion::AtDepth() const {
++  return m_atDepth;
++}
++
++} // namespace YAML

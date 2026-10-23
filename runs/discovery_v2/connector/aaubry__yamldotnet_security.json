@@ -1,0 +1,24 @@
+{
+  "key": "aaubry__yamldotnet_security",
+  "repository": "aaubry/YamlDotNet",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:02:08.494Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Reporting\n\nPlease submit reports of security vulnerabilities and, if possible, code to reproduce the vulnerability.\n\nThat code will be the basis for the fix.\n\nPlease send reports to <edward@frakkingsweet.com> and <antoine@aaubry.net> instead of directly opening an issue detailing the finding.\n\nWe will reach out and let you know when it's appropriate to open that issue and post that information.\n\nThough, likely the reproduction will be in the unit test and details included in the PR around the vulnerability.\n\nReports will promptly be investigated and responded to.\n",
+      "encoding": "utf-8",
+      "sha": "89ecc04640bd505d05929be7e311375ffe70d112",
+      "display_url": "https://github.com/aaubry/YamlDotNet/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

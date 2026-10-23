@@ -1,0 +1,7 @@
+# git ls-remote --tags https://github.com/rack/rack.git  (run 2026-10-22)
+4d456648c521ad1392afcd8ae35e332c83a09849	refs/tags/2.2.3
+1741c580d71cfca8e541e96cc372305c8892ee74	refs/tags/2.2.3^{}
+a653d51ba9f238801a63f2708715eb6f312bf60a	refs/tags/v2.2.18
+0f76d43c0d5624bd0d325df4f0a63f5e1faa7254	refs/tags/v2.2.18^{}
+77139c9ae646f79141afeb4dfae99a8b7eafd13d	refs/tags/v2.2.19
+4c4ea296fdfd115377912aa7dbcb55b83bf2888e	refs/tags/v2.2.19^{}

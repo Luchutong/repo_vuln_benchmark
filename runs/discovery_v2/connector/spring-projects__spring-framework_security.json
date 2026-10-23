@@ -1,0 +1,24 @@
+{
+  "key": "spring-projects__spring-framework_security",
+  "repository": "spring-projects/spring-framework",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:41.843Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Reporting a Vulnerability\n\nPlease, [open a draft security advisory](https://github.com/spring-projects/security-advisories/security/advisories/new) if you need to disclose and discuss a security issue in private with the Spring Framework team. Note that we only accept reports against [supported versions](https://spring.io/projects/spring-framework#support).\n\nFor more details, check out our [security policy](https://spring.io/security-policy).\n\n## JAR signing\n\nSpring Framework JARs released on Maven Central are signed.\nYou'll find more information about the key here: https://spring.io/GPG-KEY-spring.txt\n",
+      "encoding": "utf-8",
+      "sha": "d92c8fa94f4211806fc546a01e3914c17f307347",
+      "display_url": "https://github.com/spring-projects/spring-framework/blob/main/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

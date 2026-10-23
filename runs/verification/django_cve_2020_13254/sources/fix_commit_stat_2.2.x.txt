@@ -1,0 +1,13 @@
+07e59caa02831c4569bbebb9eb773bdd9cb4b206
+Dan Palmer <dan@danpalmer.me>
+2020-05-20 11:45:31 +0200
+2020-06-03 09:34:29 +0200
+[2.2.x] Fixed CVE-2020-13254 -- Enforced cache key validation in memcached backends.
+
+
+ django/core/cache/__init__.py           |  4 ++--
+ django/core/cache/backends/base.py      | 33 ++++++++++++++++----------
+ django/core/cache/backends/memcached.py | 17 +++++++++++++-
+ docs/releases/2.2.13.txt                |  8 +++++++
+ tests/cache/tests.py                    | 41 +++++++++------------------------
+ 5 files changed, 58 insertions(+), 45 deletions(-)

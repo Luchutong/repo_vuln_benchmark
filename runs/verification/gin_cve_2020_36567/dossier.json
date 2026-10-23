@@ -1,0 +1,349 @@
+{
+  "candidate_id": "disc2_e2f6ef25df9ed35676e86f1c",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/raw/osv/96cb3376ad594296a3b2a1ddd41dbaae26492b7a8fb85c38b49704d50ecb8c1e.json",
+      "evidence_id": "ev_gin_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:45:29Z",
+      "sha256_of_observation": "96cb3376ad594296a3b2a1ddd41dbaae26492b7a8fb85c38b49704d50ecb8c1e",
+      "source_url": "https://osv.dev/vulnerability/GHSA-6vm3-jj99-7229",
+      "supports": [
+        "aliases",
+        "affected ranges",
+        "fixed versions",
+        "CWE",
+        "CVSS vector",
+        "fix commit reference"
+      ],
+      "verification_method": "OSV API query for Go:github.com/gin-gonic/gin, cached response body"
+    },
+    {
+      "artifact_path": "runs/verification/gin_cve_2020_36567/cve_v5.json",
+      "evidence_id": "ev_gin_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:31:00Z",
+      "sha256_of_observation": "4b4ddb4ac63502991e7d8793120fa44b4cc359a8c5b2b10aa96155eacb9b5f88",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2020-36567",
+      "supports": [
+        "title",
+        "aliases",
+        "CWE-117",
+        "affected range",
+        "published_at",
+        "fix commit reference"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner Go)"
+    },
+    {
+      "artifact_path": "runs/verification/gin_cve_2020_36567/nvd_cve.json",
+      "evidence_id": "ev_gin_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:31:00Z",
+      "sha256_of_observation": "051d44933d4e27dc3977594795371b09b9c740c8850f6a844ee0e361058615cf",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2020-36567",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH",
+        "CWE-116",
+        "affected versions",
+        "program routines"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/gin_cve_2020_36567/osv_ghsa.json",
+      "evidence_id": "ev_gin_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:31:00Z",
+      "sha256_of_observation": "d096192ed5bab7a518fe56420cfacb3c485b0b625b81e81514fca885351e6f8a",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-6vm3-jj99-7229",
+      "supports": [
+        "advisory title",
+        "CWE-116/CWE-117",
+        "aliases",
+        "published",
+        "affected range"
+      ],
+      "verification_method": "GHSA record via OSV (github_reviewed true)"
+    },
+    {
+      "artifact_path": "runs/verification/gin_cve_2020_36567/fix.patch",
+      "evidence_id": "ev_gin_fix_patch",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:32:00Z",
+      "sha256_of_observation": "f6b93557a4048d59b8aaa607194ad7c736bf4d53ab57d5d0a0102c9c74fe5e97",
+      "source_url": "https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d",
+      "supports": [
+        "fix commit",
+        "root-cause file logger.go",
+        "sink change %s to %#v",
+        "regression test update"
+      ],
+      "verification_method": "commit patch fetched from a bare shallow clone; diff read: logger.go %s -> %#v and logger_test.go expectations"
+    },
+    {
+      "artifact_path": "runs/verification/gin_cve_2020_36567/logger_v1.5.0.go",
+      "evidence_id": "ev_gin_vulnerable_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:32:00Z",
+      "sha256_of_observation": "784be3d8b20a836cd78ec4ee1f6da49f8959917f79a678e54e56d9489c399ad3",
+      "source_url": "https://github.com/gin-gonic/gin/blob/15ced05c5316609bce5b43389f8e3f06102a8b18/logger.go#L144-L151",
+      "supports": [
+        "root-cause location lines 144-151",
+        "defaultLogFormatter",
+        "param.Path written with %s",
+        "entry path := c.Request.URL.Path line 237"
+      ],
+      "verification_method": "file read from a bare shallow fetch at the exact tag commit; lines 144-151 inspected"
+    },
+    {
+      "artifact_path": "runs/verification/gin_cve_2020_36567/logger_v1.6.0.go",
+      "evidence_id": "ev_gin_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:32:00Z",
+      "sha256_of_observation": "407fee3628f1efbd32005cc30814151da96d336493948f81b0e612f8b0f3eef2",
+      "source_url": "https://github.com/gin-gonic/gin/releases/tag/v1.6.0",
+      "supports": [
+        "fixed release content",
+        "logger.go:144 uses %#v for param.Path"
+      ],
+      "verification_method": "file read at tag v1.6.0 commit c4fd2489ced13e86c6e9328e7d66cd3bb2957f00"
+    },
+    {
+      "artifact_path": "runs/verification/gin_cve_2020_36567/git_object_checks.txt",
+      "evidence_id": "ev_gin_git_objects",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:32:00Z",
+      "sha256_of_observation": "ef560636a5976ce0115fba709234cb4ef6caaea55d757b00034fb54dbc8c59f1",
+      "source_url": "https://github.com/gin-gonic/gin",
+      "supports": [
+        "lightweight tag v1.5.0 maps to 15ced05c5316609bce5b43389f8e3f06102a8b18",
+        "tag v1.6.0 maps to c4fd2489",
+        "fix commit is ancestor of v1.6.0"
+      ],
+      "verification_method": "git ls-remote tags + bare shallow fetch; merge-base --is-ancestor fix v1.6.0"
+    },
+    {
+      "artifact_path": "runs/language/snap_d4899c7054105aea/snapshot_proposal.json",
+      "evidence_id": "ev_gin_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:30:00Z",
+      "sha256_of_observation": "803d0ba15bd8207ffc7e935e2c9da7dd5d37a41cb4eae71cde78876a90ca9042",
+      "source_url": "https://github.com/gin-gonic/gin/tree/15ced05c5316609bce5b43389f8e3f06102a8b18",
+      "supports": [
+        "snapshot_id",
+        "language composition",
+        "Go first-party 45 files / 27.29%",
+        "tree oid 39428ed1"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 99 tracked files, full_scan true"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1,
+      3
+    ],
+    "critical_operation": [
+      5
+    ],
+    "cwe": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "fix_commits": [
+      0,
+      4
+    ],
+    "fixed_releases": [
+      6,
+      7
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      7
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "Location was established by static reading; no proof-of-concept was executed against gin v1.5.0.",
+    "Only the default formatter and default logger are covered; custom formatters are user code and out of scope.",
+    "Query-string injection depends on the Go server accepting raw newlines in the request target; path-based injection through decoded %0a is the primary case."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "return fmt.Sprintf(\"[GIN] %v |%s %3d %s| %13v | %15s |%s %-7s %s %s\\n%s\", ... param.Path, param.ErrorMessage)",
+      "description": "param.Path is interpolated into the log format with %s. A decoded newline or carriage return in the request path becomes a real line break in the emitted log, letting a remote client forge additional log lines. The fix switches the verb to %#v, which emits a Go-quoted string.",
+      "file": "logger.go",
+      "function": "defaultLogFormatter",
+      "language": "Go",
+      "line": "144-151",
+      "permalink": "https://github.com/gin-gonic/gin/blob/15ced05c5316609bce5b43389f8e3f06102a8b18/logger.go#L144-L151"
+    },
+    "entry_point": {
+      "description": "The middleware reads c.Request.URL.Path and c.Request.URL.RawQuery, both attacker-controlled.",
+      "file": "logger.go",
+      "function": "LoggerWithConfig",
+      "language": "Go",
+      "line": 237,
+      "permalink": "https://github.com/gin-gonic/gin/blob/15ced05c5316609bce5b43389f8e3f06102a8b18/logger.go#L237-L238"
+    },
+    "location_id": "loc_GHSA_6vm3_jj99_7229_snap_d4899c7054105aea",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_d4899c7054105aea",
+    "trace": [
+      {
+        "description": "path := c.Request.URL.Path",
+        "file": "logger.go",
+        "function": "LoggerWithConfig",
+        "language": "Go",
+        "line": 237,
+        "permalink": "https://github.com/gin-gonic/gin/blob/15ced05c5316609bce5b43389f8e3f06102a8b18/logger.go#L237"
+      },
+      {
+        "description": "raw := c.Request.URL.RawQuery",
+        "file": "logger.go",
+        "function": "LoggerWithConfig",
+        "language": "Go",
+        "line": 238,
+        "permalink": "https://github.com/gin-gonic/gin/blob/15ced05c5316609bce5b43389f8e3f06102a8b18/logger.go#L238"
+      },
+      {
+        "description": "param.Path = path (query appended if non-empty)",
+        "file": "logger.go",
+        "function": "LoggerWithConfig",
+        "language": "Go",
+        "line": 266,
+        "permalink": "https://github.com/gin-gonic/gin/blob/15ced05c5316609bce5b43389f8e3f06102a8b18/logger.go#L266"
+      },
+      {
+        "description": "fmt.Fprint(out, formatter(param)) writes the unquoted value to the log writer",
+        "file": "logger.go",
+        "function": "LoggerWithConfig",
+        "language": "Go",
+        "line": 268,
+        "permalink": "https://github.com/gin-gonic/gin/blob/15ced05c5316609bce5b43389f8e3f06102a8b18/logger.go#L268"
+      }
+    ],
+    "verification_method": "Static read of logger.go at the exact v1.5.0 commit 15ced05c5316609bce5b43389f8e3f06102a8b18, compared with fix commit a71af9c144f9579f6dbe945341c1df37aaf09c0d and with logger.go at v1.6.0. No code executed.",
+    "vulnerability_id": "GHSA-6vm3-jj99-7229"
+  },
+  "open_questions": [
+    "The advisory range is <1.6.0; versions before 1.5.0 are assumed affected by the range but were not each read.",
+    "go.mod module path and tag name (v1.5.0/v1.6.0) are recorded as published; the Go module proxy was not re-queried."
+  ],
+  "prepared_at": "2026-10-21T13:33:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required",
+    "evaluation_target_snapshot_not_yet_designated"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/gin-gonic/gin",
+    "full_name": "gin-gonic/gin",
+    "license": "MIT",
+    "primary_language": "Go",
+    "project_kind": "library",
+    "repo_id": "20904437",
+    "snapshot_id": "snap_d4899c7054105aea"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must re-read logger.go at the vulnerable SHA.",
+      "An independent reviewer must confirm the fix commit is in v1.6.0 and that v1.5.0 lacks it.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA + OSV)",
+      "CVE List v5 CNA record (assigner Go)",
+      "NVD analysis"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA (Go) record and NVD agree on the <1.6.0 range and the fix commit. NVD adds CWE-116 while the CNA uses CWE-117; both are recorded. NVD supplies the only numeric CVSS, and GHSA/OSV records the same vector."
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/gin-gonic/gin/security/advisories/GHSA-6vm3-jj99-7229",
+    "affected_packages": [
+      {
+        "affected_range": "<1.6.0",
+        "ecosystem": "Go",
+        "package": "github.com/gin-gonic/gin",
+        "purl": "pkg:golang/github.com/gin-gonic/gin"
+      }
+    ],
+    "aliases": [
+      "GHSA-6vm3-jj99-7229",
+      "CVE-2020-36567",
+      "GO-2020-0001"
+    ],
+    "category_l1": "injection",
+    "category_l2": "log injection",
+    "cwe_ids": [
+      "CWE-116",
+      "CWE-117"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "removing log injection (#2277)",
+        "sha": "a71af9c144f9579f6dbe945341c1df37aaf09c0d",
+        "url": "https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Go",
+        "package": "github.com/gin-gonic/gin",
+        "release_url": "https://github.com/gin-gonic/gin/releases/tag/v1.6.0",
+        "tag": "v1.6.0",
+        "verified_content": "logger.go line 144 quotes param.Path with %#v; the fix commit is an ancestor of tag v1.6.0",
+        "version": "1.6.0"
+      }
+    ],
+    "published_at": "2022-12-27T20:58:14Z",
+    "references": [
+      "https://github.com/gin-gonic/gin/security/advisories/GHSA-6vm3-jj99-7229",
+      "https://github.com/gin-gonic/gin/commit/a71af9c144f9579f6dbe945341c1df37aaf09c0d",
+      "https://github.com/gin-gonic/gin/pull/2237",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-36567",
+      "https://pkg.go.dev/vuln/GO-2020-0001"
+    ],
+    "repo_id": "20904437",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); NVD and GHSA/OSV agree on the vector.",
+      "score": 7.5,
+      "source": "nvd@nist.gov primary; the Go CNA record has no CVSS metrics and the GHSA/OSV severity is the same vector",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2020-36567",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_d4899c7054105aea",
+    "source_type": "upstream_advisory",
+    "title": "Arbitrary log line injection in github.com/gin-gonic/gin",
+    "vulnerability_id": "GHSA-6vm3-jj99-7229",
+    "vulnerable_commit": "15ced05c5316609bce5b43389f8e3f06102a8b18",
+    "vulnerable_commit_basis": "lightweight tag v1.5.0 maps directly to 15ced05c... (git ls-remote, no annotated tag object); tag commit is within <1.6.0",
+    "vulnerable_version": "1.5.0"
+  }
+}

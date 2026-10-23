@@ -1,0 +1,79 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; fix commit 4a9a3ecd and release commit cb753134 (2.500) fetched
+with --depth=20/--depth=20.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/Util.java'
+  24b04ce3085d084510968602b93ccfa84d139c32     (77956 bytes; matches file_inventory.json)
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/DirectoryBrowserSupport.java'
+  6f8bf2e6ee77f5cd4061a9329e2c6762e3f38616     (35029 bytes; matches file_inventory.json)
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/jenkins/security/AuthenticationSuccessHandler.java'
+  a5c7cffceeb8f216ed17a563f1aae6ceed036b2e     (2521 bytes; matches file_inventory.json)
+
+Vulnerable code at 2.441 (Util.java, blob 24b04ce3):
+  isSafeToRedirectTo at 1658-1660 is
+    return !isAbsoluteUri(uri) && !uri.startsWith("//");
+  It treats a value starting with a backslash (single or double) as safe.
+  isAbsoluteUri (1646-1652) only rejects strings with a ':' before '#', '?' or '/',
+  so "\example.org" and "\\example.org" pass both checks.
+  Callers that send redirects based on this predicate:
+  - DirectoryBrowserSupport.serveFile (blob 6f8bf2e6), lines 205-209:
+      String pattern = req.getParameter("pattern");                  (205)
+      pattern = req.getParameter("path");  // legacy                (207)
+      if (pattern != null && Util.isSafeToRedirectTo(pattern)) {      (208)
+          rsp.sendRedirect2(pattern);                                 (209)
+    where pattern comes from the request.
+  - AuthenticationSuccessHandler.determineTargetUrl (blob a5c7cffc), lines 42-55:
+    returns originalTargetUrl at 52-53 when isSafeToRedirectTo(originalTargetUrl), i.e. a
+    login "from"/original target starting with a backslash is accepted.
+  - ParametersDefinitionProperty line 180 (redirectTo form field) uses the same
+    predicate to decide whether to redirect.
+
+Fix commit: 4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e
+  Subject "[SECURITY-3501]", 2025-02-25 16:17:32 +0000,
+  parent 84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c.
+  $ git show -s --format='%H %P | %ci | %s' 4a9a3ecd
+  4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e 84ef1a4d4db17d0ce66522d0141f6e52e2a4c97c | 2025-02-25 16:17:32 +0000 | [SECURITY-3501]
+  The patch changes the predicate to
+    return !isAbsoluteUri(uri) && !uri.startsWith("\\") && !uri.replace('\\', '/').startsWith("//");
+  so any leading backslash is rejected and backslash-slash mixes are normalised
+  before the "//" check. It adds core/src/test/java/hudson/UtilTest.java cases
+  ("\\\\google.com", "\\/google.com", "/\\google.com", "\\google.com") and the new
+  test/src/test/java/jenkins/security/Security3501Test.java, which drives
+  userContent?path=<encoded backslash variants> and expects a redirect to the
+  local userContent/ directory instead of the attacker host.
+
+Fixed release:
+  Jenkins 2.500 (weekly): release commit
+  cb753134b40dde5feeb228f5f2c90d03184fe063
+  ("[maven-release-plugin] prepare release jenkins-2.500"), whose only parent is
+  923cdbc1 (SECURITY-3495/3496). 4a9a3ecd is the parent of 923cdbc1, and
+  $ git merge-base --is-ancestor 4a9a3ecd cb753134  -> exit 0.
+  At cb753134 Util.java is blob 4783535b and the predicate is at 1653-1655.
+  The CNA record also lists LTS 2.492.2 as unaffected; the LTS branch was not
+  fetched into the local mirror, so only the weekly ancestry is asserted here.
+
+Affected range:
+  CNA record: Jenkins 2.499 and earlier, LTS 2.492.1 and earlier; unaffected from
+  2.492.2 (LTS) and 2.500 (weekly), defaultStatus affected.
+  NVD/OSV CPE ranges: * up to 2.500 (weekly) and LTS <2.492.2. The GHSA ECOSYSTEM
+  ranges again list one range as introduced 2.493 -> fixed 2.500, which conflicts
+  with the CNA text; the OSV CVE GIT range is introduced 0. Snapshot 2.441 is
+  inside the CNA affected range.
+
+Public records:
+  CVE List v5 CVE-2025-27625, state PUBLISHED, datePublished 2025-03-05,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), vector CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N;
+  CWE-601 from the same Secondary source; no Primary metric.
+  OSV/GHSA-8hmv-92wm-39ch: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-601].
+  Jenkins advisory: https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3501
+
+No Jenkins instance, HTTP request or test was run; all checks are static reads of
+git objects, the fix patch and public records.

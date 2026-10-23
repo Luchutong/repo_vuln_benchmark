@@ -1,0 +1,86 @@
+Axios CVE-2026-44486 / GHSA-j5f8-grm9-p9fc — git object checks
+Collected 2026-10-22 (Asia/Shanghai). Bare mirror:
+scratch/snapshots/axios__axios__772a4e54ecc4.git
+
+Tag and vulnerable tree
+-----------------------
+$ git ls-remote https://github.com/axios/axios refs/tags/v1.15.0
+772a4e54ecc4cc2421e2b746daff0aca10f359d7	refs/tags/v1.15.0
+$ git cat-file -p 772a4e54ecc4cc2421e2b746daff0aca10f359d7
+tree 0feb97e3101d77ac1244216d37454f0d6af5da84
+parent 4b071371be2f810b4bc7797a13838e0f806ebb22
+author github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com> 1775577831 +0200
+$ git rev-parse 772a4e54ecc4cc2421e2b746daff0aca10f359d7:lib/adapters/http.js
+b99811597a78a5c22f65128a3f5cbe53a263ba8d
+Note: this blob equals the downloaded package file http_js_v1.15.0.js
+(sha256 4b773a44804aa8222038acbb3627722f7232a9ec87a9fba53c9e57d3f6c22992).
+
+$ git show 772a4e54ecc4cc2421e2b746daff0aca10f359d7:lib/adapters/http.js | nl -ba
+  191  function setProxy(options, configProxy, location) {
+  219        options.headers['Proxy-Authorization'] = 'Basic ' + base64;
+  234    options.beforeRedirects.proxy = function beforeRedirect(redirectOptions) {
+  237      setProxy(redirectOptions, configProxy, redirectOptions.href);
+No occurrence of isRedirect, removeProxyAuthorization, or a header deletion exists
+in this file at v1.15.0.
+
+v1 fix commit
+-------------
+Fetch: git fetch --depth=2 --no-tags https://github.com/axios/axios.git \
+  afca61a070728e717203c2bc21e7b589b59b858b
+$ git cat-file -p afca61a070728e717203c2bc21e7b589b59b858b
+tree b16443a4fb3e2ff42d6f5254d793db48586b2f92
+parent d8165e9f2c4a73176a372d5d84f43c5fd166026b
+author Jay <jasonsaayman@gmail.com> 1776884020 +0200
+$ git rev-parse afca61a070728e717203c2bc21e7b589b59b858b^:lib/adapters/http.js
+cf3d164f14508b7cd6797bae1aa1d41b77b259cf
+$ git rev-parse afca61a070728e717203c2bc21e7b589b59b858b:lib/adapters/http.js
+7d67997a007c3b50c9f6c144d38d09d38816c179
+These match the fix patch's diff header: index cf3d164f14..7d67997a00.
+The patch adds an isRedirect argument, deletes every case variant of
+Proxy-Authorization before re-applying proxy settings, and passes true from the
+beforeRedirects.proxy hook. Commit date 2026-04-22, after v1.15.0 (2026-04-07).
+
+Fixed release v1.16.0
+---------------------
+$ git ls-remote https://github.com/axios/axios refs/tags/v1.16.0
+df53d7dd99b202fb194217abd127ae6a630e70dc	refs/tags/v1.16.0
+$ git cat-file -p df53d7dd99b202fb194217abd127ae6a630e70dc
+tree 2adffe83ba8ddbe02b7958753897855bd32bb957
+parent 9d92bcd32639d1eea5b89f03ae45f248d3bb058e
+author github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com> 1777722569 +0200
+$ git rev-parse df53d7dd99b202fb194217abd127ae6a630e70dc:lib/adapters/http.js
+252c7d87b908a0bef3adf5a4f7ce4174d7e800e8
+This blob equals the downloaded package file http_js_v1.16.0.js
+(sha256 b6622b047d6b95c0dda81729e4452927a097f5e8ffb69bf5a4d4e5723b0815b2).
+At v1.16.0 the fixed code is present:
+  227  function setProxy(options, configProxy, location, isRedirect) {
+  237  // On redirect re-invocation, strip any stale Proxy-Authorization header carried
+  241  if (isRedirect && options.headers) {
+  243      if (name.toLowerCase() === 'proxy-authorization') {
+
+0.x backport and release v0.32.0
+--------------------------------
+Fetch: git fetch --depth=2 --no-tags https://github.com/axios/axios.git \
+  2af6116a957b1dd1b32056181326da8a5540d3bc
+$ git cat-file -p 2af6116a957b1dd1b32056181326da8a5540d3bc
+tree edc23c3bc6ccf27f97f621fd2acac7b5c9216c37
+parent a589dc525af12e0fabef7d6e5be028ad433eee31
+author Jay <jasonsaayman@gmail.com> 1777826946 +0200
+$ git rev-parse 2af6116a957b1dd1b32056181326da8a5540d3bc^:lib/adapters/http.js
+161e9c9038731125a253e44f555d0be498e1c2ce
+$ git rev-parse 2af6116a957b1dd1b32056181326da8a5540d3bc:lib/adapters/http.js
+2e9f2b755de36c6c51c9959cfa5cd1b79511a9b6
+$ git ls-remote https://github.com/axios/axios refs/tags/v0.32.0
+8db2d44896849a21ed9721185b1034df24e1ba7b	refs/tags/v0.32.0
+$ git rev-parse 8db2d44896849a21ed9721185b1034df24e1ba7b:lib/adapters/http.js
+2e9f2b755de36c6c51c9959cfa5cd1b79511a9b6
+The v0.32.0 blob equals the post-backport blob, and v0.32.0 contains
+removeProxyAuthorization(headers) at lines 40-44, called before applying proxy
+authorization at lines 147 and 170.
+
+Ancestry note
+-------------
+The fetches are shallow, so merge-base --is-ancestor cannot prove ancestry.
+The tags and commit dates are consistent with the advisory ranges:
+v1.15.0 (2026-04-07) predates the v1 fix (2026-04-22), and both the v1.15.0
+tree and its blob were read directly from the requested commit.

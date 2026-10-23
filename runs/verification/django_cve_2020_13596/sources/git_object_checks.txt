@@ -1,0 +1,62 @@
+# Django CVE-2020-13596 git object checks
+# repo: https://github.com/django/django (shallow bare clone, fetched by tag/commit)
+# local: /tmp/django_git
+
+## tag -> commit
+tag 3.0.2 -> a36974395ebc03a41928db1743074575b143330d
+tag 3.0.6 -> 24dd73a524c14f066489b64e220ca0ace701cf36
+tag 3.0.7 -> 44da7abda848f05caaed74f6a749038c87dedfda
+tag 2.2.12 -> fb4d8bf799df71014ddb7dc1735941eebf3828b0
+tag 2.2.13 -> 8093aaa8ff9dd7386a069c6eb49fcc1c5980c033
+
+## fix commits
+commit 1f2dd37f6fcefdd10ed44cb233b2e62b520afb38
+  author: Jon Dufresne <jon.dufresne@gmail.com>
+  date: Tue May 26 09:51:02 2020 +0200
+  subject: [3.0.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.
+  parents: 256d29710193f7a2f1e92abe96c94d036f73edc6
+
+commit 6d61860b22875f358fac83d903dc629897934815
+  author: Jon Dufresne <jon.dufresne@gmail.com>
+  date: Tue May 26 09:51:02 2020 +0200
+  subject: [2.0.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.
+  parents: 7e1084ead07b10e36d391f5366f411c58fbcc4c2
+
+commit 2dd4d110c159d0c81dff42eaead2c378a0998735
+  author: Jon Dufresne <jon.dufresne@gmail.com>
+  date: Tue May 26 09:51:02 2020 +0200
+  subject: Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.
+  parents: 81dc710571b773557170cce9764fff83b6dfd8ae
+
+commit 49d7cc19e33a104bb23f7ae1dbb1240b4f6c40f9
+  author: Jon Dufresne <jon.dufresne@gmail.com>
+  date: Tue May 26 09:51:02 2020 +0200
+  subject: [3.1.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.
+  parents: 0186b43073d4507162572faf6db82314f1883697
+
+## ancestry (merge-base --is-ancestor; 0=yes 1=no)
+  1f2dd37f6fcefdd10ed44cb233b2e62b520afb38 ancestor-of refs/tags/3.0.2 -> 1
+  1f2dd37f6fcefdd10ed44cb233b2e62b520afb38 ancestor-of refs/tags/3.0.6 -> 1
+  1f2dd37f6fcefdd10ed44cb233b2e62b520afb38 ancestor-of refs/tags/3.0.7 -> 0
+  6d61860b22875f358fac83d903dc629897934815 ancestor-of refs/tags/2.2.12 -> 1
+  6d61860b22875f358fac83d903dc629897934815 ancestor-of refs/tags/2.2.13 -> 0
+
+## blob identity django/contrib/admin/widgets.py
+  refs/tags/3.0.2                            7db57f40980e4af35671dac69d00052cf105bba9
+  refs/tags/3.0.6                            7db57f40980e4af35671dac69d00052cf105bba9
+  refs/tags/3.0.7                            816f848ff0f76dad82fa70c7f8be7f7e27c40446
+  256d29710193f7a2f1e92abe96c94d036f73edc6   7db57f40980e4af35671dac69d00052cf105bba9
+  1f2dd37f6fcefdd10ed44cb233b2e62b520afb38   816f848ff0f76dad82fa70c7f8be7f7e27c40446
+  refs/tags/2.2.12                           aa4b6138945545156f85240050f91625d2a229ec
+  refs/tags/2.2.13                           a56baee42779581ad8a53e5d412ebe7362baf136
+  7e1084ead07b10e36d391f5366f411c58fbcc4c2   aa4b6138945545156f85240050f91625d2a229ec
+  6d61860b22875f358fac83d903dc629897934815   a56baee42779581ad8a53e5d412ebe7362baf136
+
+## fix commit diffstat (text)
+  1f2dd37f6 [3.0.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.
+   django/contrib/admin/widgets.py |  6 +++---
+   docs/releases/2.2.13.txt        |  7 +++++++
+   docs/releases/3.0.7.txt         |  7 +++++++
+   tests/admin_widgets/models.py   |  8 ++++++++
+   tests/admin_widgets/tests.py    | 11 +++++++++++
+   5 files changed, 36 insertions(+), 3 deletions(-)

@@ -1,0 +1,363 @@
+From 3ee7380c5e167fab865f58b52a81ef01c24b9eb2 Mon Sep 17 00:00:00 2001
+From: Kevin-CB <kguerroudj@cloudbees.com>
+Date: Tue, 2 Dec 2025 13:46:07 +0000
+Subject: [PATCH] [SECURITY-1809]
+
+---
+ core/src/main/java/hudson/Functions.java      |  45 +++-
+ .../jenkins/security/Security1809Test.java    | 245 ++++++++++++++++++
+ .../PasswordAction/index.jelly                |  11 +
+ .../PasswordView/password.jelly               |  11 +
+ 4 files changed, 305 insertions(+), 7 deletions(-)
+ create mode 100644 test/src/test/java/jenkins/security/Security1809Test.java
+ create mode 100644 test/src/test/resources/jenkins/security/Security1809Test/PasswordAction/index.jelly
+ create mode 100644 test/src/test/resources/jenkins/security/Security1809Test/PasswordView/password.jelly
+
+diff --git a/core/src/main/java/hudson/Functions.java b/core/src/main/java/hudson/Functions.java
+index e0f9338bed22..fbd5e8a64d94 100644
+--- a/core/src/main/java/hudson/Functions.java
++++ b/core/src/main/java/hudson/Functions.java
+@@ -203,6 +203,12 @@ public class Functions {
+     private static final AtomicLong iota = new AtomicLong();
+     private static Logger LOGGER = Logger.getLogger(Functions.class.getName());
+ 
++    /**
++     * Escape hatch to use the non-recursive f:password masking.
++     */
++    private static /* non-final */ boolean NON_RECURSIVE_PASSWORD_MASKING_PERMISSION_CHECK = SystemProperties.getBoolean(Functions.class.getName() + ".nonRecursivePasswordMaskingPermissionCheck");
++
++
+     public Functions() {
+     }
+ 
+@@ -2252,13 +2258,38 @@ public String getPasswordValue(Object o) {
+         StaplerRequest2 req = Stapler.getCurrentRequest2();
+         if (o instanceof Secret || Secret.BLANK_NONSECRET_PASSWORD_FIELDS_WITHOUT_ITEM_CONFIGURE) {
+             if (req != null) {
+-                Item item = req.findAncestorObject(Item.class);
+-                if (item != null && !item.hasPermission(Item.CONFIGURE)) {
+-                    return "********";
+-                }
+-                Computer computer = req.findAncestorObject(Computer.class);
+-                if (computer != null && !computer.hasPermission(Computer.CONFIGURE)) {
+-                    return "********";
++                if (NON_RECURSIVE_PASSWORD_MASKING_PERMISSION_CHECK) {
++                    Item item = req.findAncestorObject(Item.class);
++                    if (item != null && !item.hasPermission(Item.CONFIGURE)) {
++                        return "********";
++                    }
++                    Computer computer = req.findAncestorObject(Computer.class);
++                    if (computer != null && !computer.hasPermission(Computer.CONFIGURE)) {
++                        return "********";
++                    }
++                } else {
++                    List<Ancestor> ancestors = req.getAncestors();
++                    for (Ancestor ancestor : Iterators.reverse(ancestors)) {
++                        Object type = ancestor.getObject();
++                        if (type instanceof Item item) {
++                            if (!item.hasPermission(Item.CONFIGURE)) {
++                                return "********";
++                            }
++                            break;
++                        }
++                        if (type instanceof Computer computer) {
++                            if (!computer.hasPermission(Computer.CONFIGURE)) {
++                                return "********";
++                            }
++                            break;
++                        }
++                        if (type instanceof View view) {
++                            if (!view.hasPermission(View.CONFIGURE)) {
++                                return "********";
++                            }
++                            break;
++                        }
++                    }
+                 }
+             }
+         }
+diff --git a/test/src/test/java/jenkins/security/Security1809Test.java b/test/src/test/java/jenkins/security/Security1809Test.java
+new file mode 100644
+index 000000000000..766268ab8e9c
+--- /dev/null
++++ b/test/src/test/java/jenkins/security/Security1809Test.java
+@@ -0,0 +1,245 @@
++package jenkins.security;
++
++import static org.hamcrest.MatcherAssert.assertThat;
++import static org.hamcrest.Matchers.containsString;
++import static org.hamcrest.Matchers.not;
++
++import com.cloudbees.hudson.plugins.folder.Folder;
++import hudson.model.Action;
++import hudson.model.Computer;
++import hudson.model.FreeStyleBuild;
++import hudson.model.FreeStyleProject;
++import hudson.model.Item;
++import hudson.model.ListView;
++import hudson.model.View;
++import hudson.slaves.DumbSlave;
++import hudson.util.Secret;
++import jenkins.model.Jenkins;
++import org.htmlunit.Page;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++import org.jvnet.hudson.test.Issue;
++import org.jvnet.hudson.test.JenkinsRule;
++import org.jvnet.hudson.test.MockAuthorizationStrategy;
++import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
++
++@WithJenkins
++class Security1809Test {
++
++    private JenkinsRule j;
++
++    private final String password = "p4ssw0rd";
++
++    private final Secret secretPassword = Secret.fromString(password);
++
++    @BeforeEach
++    void setUp(JenkinsRule rule) {
++        j = rule;
++    }
++
++    @Test
++    @Issue("SECURITY-1809")
++    void passwordIsMaskedForView() throws Exception {
++        final PasswordView view = new PasswordView("view1", secretPassword);
++        j.jenkins.addView(view);
++
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy()
++                .grant(Jenkins.READ, View.READ).everywhere().to("readUser")
++                .grant(Jenkins.READ, View.READ, View.CONFIGURE).everywhere().to("configureUser"));
++
++        String url = view.getUrl() + "password";
++
++        // configure permission allow to see encrypted value
++        assertContainsOnlyEncryptedSecret("configureUser", url);
++
++        // read permission get only redacted value
++        assertContainsOnlyMaskedSecret("readUser", url);
++    }
++
++    @Test
++    @Issue("SECURITY-1809")
++    void passwordIsMaskedForPrimaryView() throws Exception {
++        final PasswordView view = new PasswordView("view1", secretPassword);
++        j.jenkins.addView(view);
++        j.jenkins.setPrimaryView(view);
++
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy()
++                .grant(Jenkins.READ).everywhere().to("readUser")
++                .grant(Jenkins.READ, View.READ, View.CONFIGURE).everywhere().to("configureUser"));
++
++        String url = "password";
++
++        // configure permission allow to see encrypted value
++        assertContainsOnlyEncryptedSecret("configureUser", url);
++
++        // read permission get only redacted value
++        assertContainsOnlyMaskedSecret("readUser", url);
++    }
++
++    @Test
++    void passwordIsMaskedForAgent() throws Exception {
++        final DumbSlave agent = j.createSlave("agent1", "", null);
++
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy()
++                .grant(Jenkins.READ, Computer.CONFIGURE).everywhere().to("configureUser")
++                .grant(Jenkins.READ).everywhere().to("readUser"));
++
++        agent.toComputer().addAction(new PasswordAction(secretPassword));
++
++        String url = agent.toComputer().getUrl() + "password";
++
++        // configure permission allow to see encrypted value
++        assertContainsOnlyEncryptedSecret("configureUser", url);
++
++        // read permission get only redacted value
++        assertContainsOnlyMaskedSecret("readUser", url);
++    }
++
++    @Test
++    void passwordIsMaskedForJob() throws Exception {
++        final FreeStyleProject job = j.createFreeStyleProject();
++        FreeStyleBuild build = j.buildAndAssertSuccess(job);
++        build.addAction(new PasswordAction(secretPassword));
++
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy()
++                .grant(Jenkins.READ, Item.READ, Item.CONFIGURE).everywhere().to("configureUser")
++                .grant(Jenkins.READ, Item.READ).everywhere().to("readUser"));
++
++        String url = build.getUrl() + "password";
++
++        // configure permission allow to see encrypted value
++        assertContainsOnlyEncryptedSecret("configureUser", url);
++
++        // read permission get only redacted value
++        assertContainsOnlyMaskedSecret("readUser", url);
++    }
++
++    @Test
++    void permissionIsCheckedOnClosestAncestor() throws Exception {
++        final PasswordView view = new PasswordView("view1", secretPassword);
++        j.jenkins.addView(view);
++
++        final FreeStyleProject job = j.createFreeStyleProject("job1");
++        FreeStyleBuild build = j.buildAndAssertSuccess(job);
++        build.addAction(new ActionWithView(view));
++
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy()
++                .grant(Jenkins.READ, Item.READ, View.READ, Item.CONFIGURE).everywhere().to("itemConfigureUser")
++                .grant(Jenkins.READ, Item.READ, View.READ, View.CONFIGURE).everywhere().to("viewConfigureUser"));
++
++        String url = build.getUrl() + "myAction/view/password";
++
++        // View/Configure permission allow to see encrypted value
++        assertContainsOnlyEncryptedSecret("viewConfigureUser", url);
++
++        // Item/Configure permission get only redacted value
++        assertContainsOnlyMaskedSecret("itemConfigureUser", url);
++    }
++
++    @Test
++    @Issue("SECURITY-1809")
++    void permissionIsCorrectlyCheckedOnNestedObject() throws Exception {
++        final Folder folder = j.jenkins.createProject(Folder.class, "folder1");
++        final FreeStyleProject job = folder.createProject(FreeStyleProject.class, "job1");
++        FreeStyleBuild build = j.buildAndAssertSuccess(job);
++        build.addAction(new PasswordAction(secretPassword));
++
++        j.jenkins.setSecurityRealm(j.createDummySecurityRealm());
++        j.jenkins.setAuthorizationStrategy(new MockAuthorizationStrategy()
++                // Item.CONFIGURE on job1 but NOT on folder1
++                .grant(Jenkins.READ, Item.READ).everywhere().to("jobConfigureUser")
++                .grant(Item.CONFIGURE).onItems(job).to("jobConfigureUser")
++                // Item.CONFIGURE on folder1 but NOT on job1
++                .grant(Jenkins.READ, Item.READ).everywhere().to("folderConfigureUser")
++                .grant(Item.CONFIGURE).onItems(folder).to("folderConfigureUser"));
++
++        String url = build.getUrl() + "password";
++
++        // Item/Configure permission on job1 allow to see encrypted value
++        assertContainsOnlyEncryptedSecret("jobConfigureUser", url);
++
++        // Item/Configure permission only on folder1 get only redacted value
++        assertContainsOnlyMaskedSecret("folderConfigureUser", url);
++    }
++
++    private void assertContainsOnlyEncryptedSecret(String user, String url) throws Exception {
++        try (JenkinsRule.WebClient wc = j.createWebClient().login(user)) {
++            Page page = wc.goTo(url);
++            String content = page.getWebResponse().getContentAsString();
++
++            assertThat(content, not(containsString(password)));
++            assertThat(content, containsString(secretPassword.getEncryptedValue()));
++        }
++    }
++
++    private void assertContainsOnlyMaskedSecret(String user, String url) throws Exception {
++        try (JenkinsRule.WebClient wc = j.createWebClient().login(user)) {
++            Page page = wc.goTo(url);
++            String content = page.getWebResponse().getContentAsString();
++
++            assertThat(content, containsString("********"));
++            assertThat(content, not(containsString(password)));
++            assertThat(content, not(containsString(secretPassword.getEncryptedValue())));
++        }
++    }
++
++    public static class PasswordView extends ListView {
++        private final Secret secret;
++
++        PasswordView(String name, Secret secret) {
++            super(name);
++            this.secret = secret;
++        }
++
++        public Secret getSecret() {
++            return secret;
++        }
++    }
++
++    public static class PasswordAction implements Action {
++        private final Secret secret;
++
++        PasswordAction(Secret secret) {
++            this.secret = secret;
++        }
++
++        public Secret getSecret() {
++            return secret;
++        }
++
++        @Override
++        public String getIconFileName() { return null; }
++
++        @Override
++        public String getDisplayName() { return null; }
++
++        @Override
++        public String getUrlName() { return "password"; }
++    }
++
++    public static class ActionWithView implements Action {
++        private final PasswordView view;
++
++        ActionWithView(PasswordView view) {
++            this.view = view;
++        }
++
++        public PasswordView getView() {
++            return view;
++        }
++
++        @Override
++        public String getIconFileName() { return null; }
++
++        @Override
++        public String getDisplayName() { return null; }
++
++        @Override
++        public String getUrlName() { return "myAction"; }
++    }
++}
+diff --git a/test/src/test/resources/jenkins/security/Security1809Test/PasswordAction/index.jelly b/test/src/test/resources/jenkins/security/Security1809Test/PasswordAction/index.jelly
+new file mode 100644
+index 000000000000..eaf69712af5f
+--- /dev/null
++++ b/test/src/test/resources/jenkins/security/Security1809Test/PasswordAction/index.jelly
+@@ -0,0 +1,11 @@
++<?jelly escape-by-default='true'?>
++<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:l="/lib/layout">
++  <l:layout title="Test Password">
++    <l:main-panel>
++        <j:set var="instance" value="${it}" />
++        <f:entry title="Password" field="secret">
++          <f:password />
++        </f:entry>
++    </l:main-panel>
++  </l:layout>
++</j:jelly>
+diff --git a/test/src/test/resources/jenkins/security/Security1809Test/PasswordView/password.jelly b/test/src/test/resources/jenkins/security/Security1809Test/PasswordView/password.jelly
+new file mode 100644
+index 000000000000..88391f142b3c
+--- /dev/null
++++ b/test/src/test/resources/jenkins/security/Security1809Test/PasswordView/password.jelly
+@@ -0,0 +1,11 @@
++<?jelly escape-by-default='true'?>
++<j:jelly xmlns:j="jelly:core" xmlns:f="/lib/form" xmlns:l="/lib/layout">
++  <l:layout title="Test Password - View">
++    <l:main-panel>
++        <j:set var="instance" value="${it}" />
++        <f:entry title="Password" field="secret">
++          <f:password />
++        </f:entry>
++    </l:main-panel>
++  </l:layout>
++</j:jelly>

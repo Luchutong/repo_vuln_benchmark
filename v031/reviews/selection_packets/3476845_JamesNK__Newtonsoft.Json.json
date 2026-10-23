@@ -1,0 +1,106 @@
+{
+  "packet_id": "selrev_3476845_snap_25561773eac9d84f",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "3476845",
+    "full_name": "JamesNK/Newtonsoft.Json",
+    "canonical_url": "https://github.com/JamesNK/Newtonsoft.Json",
+    "primary_language": "C#",
+    "project_kind": "Json.NET is a popular high-performance JSON framework for .NET"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_25561773eac9d84f",
+    "tag_or_release": "12.0.3",
+    "commit_sha": "7c3d7f8da7e35dde8fa74188b0decff70f8f10e3"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "7c3d7f8da7e35dde8fa74188b0decff70f8f10e3",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "438650db0e6f8e69dbbd22f19a0f3b4077b3b6e4",
+    "tree_file_count": 1139,
+    "exported_file_count": 1139,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/JamesNK__Newtonsoft.Json/snap_25561773eac9d84f.tar.gz",
+    "archive_sha256": "164c8d1b08ba37b4d3024f433c4883da6ae45ad20cc0d0c64643bd1b6d516d9b",
+    "archive_bytes": 2736471,
+    "manifest_path": "exports/JamesNK__Newtonsoft.Json/snap_25561773eac9d84f.manifest.jsonl",
+    "manifest_sha256": "8708c92e496328ee292b423465ad389d1169917014fb5c5e74b997934f4d1d95"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": []
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "dotnet": [
+        "global.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_missing_in_probe_environment",
+    "systems": [
+      "dotnet"
+    ],
+    "toolchain_available": {
+      "dotnet": {
+        "dotnet": false
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "GHSA-5crp-9r3c-p9vr",
+      "aliases": [
+        "GHSA-5crp-9r3c-p9vr",
+        "CVE-2024-21907"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<13.0.1",
+          "ecosystem": "NuGet",
+          "package": "Newtonsoft.Json",
+          "purl": "pkg:nuget/Newtonsoft.Json"
+        }
+      ],
+      "published_at": "2024-01-03T15:23:04Z",
+      "advisory_url": "https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9).",
+        "score": 7.5,
+        "source": "NVD primary and a secondary CISA-ADP metric carry the same vector; the CNA record publishes no numeric metric, and OSV carries the same vector",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-21907",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

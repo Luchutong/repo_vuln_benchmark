@@ -1,0 +1,13 @@
+tags:
+2b66d7d7d8129531229708ef708860844db91944
+6436e377f7a82a1e7b120da519c7c96a154ece2a
+blobs:
+4419e9efd3e6c0df10e86a3a7c7730062ad26cbd
+8179e2bfafe33371ddc1ace9697b30e3bd57abdd
+fix 4b63c3a3 ancestry:
+v5.4.53 YES
+v5.4.45 NO
+v5.4.45 site:
+v5.4.53 site:
+225:            $segments = explode('/', $url);
+230:                    $segments[$i] = '%2E%2E';

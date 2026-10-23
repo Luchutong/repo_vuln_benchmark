@@ -1,0 +1,76 @@
+== tag peel
+tag 3.0.2 -> a36974395ebc03a41928db1743074575b143330d
+tag 3.0.3 -> c459a4661b2e96b53d3784c76e1fd5651b8cdc4a
+tag 3.0.4 -> c2250cfb80e27cdf8d098428824da2800a18cadf
+tag 2.2.11 -> 167699278806b21757104acf0ff0570f673d44c7
+tag 1.11.29 -> f1e3017aeaeddc590dcf2cf88511f3a726da73ca
+== fix commits (branch, sha, parent, date, subject)
+ | 6695d29b1c1ce979725816295a26ecc64ae0e927 | parent 65ab4f9f03e70733df6afd9d8454ec3700155111 | 2020-02-24 14:46:28 +0100 | Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.
+ | 26a5cf834526e291db00385dd33d319b8271fc4c | parent c5cfaad2f1f08b31ba04b9534f1a46a6ef1003bf | 2020-02-24 14:46:28 +0100 | [3.0.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.
+ | fe886a3b58a93cfbe8864b485f93cb6d426cd1f2 | parent 7deb87c93e5f45ded3ccd1e6162bed6a30000af8 | 2020-02-24 14:46:28 +0100 | [2.2.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.
+ | 02d97f3c9a88adc890047996e5606180bd1c6166 | parent e6438335626cb7e662dd015485a23cfc5721ad72 | 2020-02-24 14:46:28 +0100 | [1.11.x] Fixed CVE-2020-9402 -- Properly escaped tolerance parameter in GIS functions and aggregates on Oracle.
+== ancestry of 3.0.x fix 26a5cf83
+3.0.2 not-ancestor
+3.0.3 not-ancestor
+3.0.4 ancestor
+== ancestry of master fix 6695d29b (negative controls on 3.0 tags)
+3.0.2 not-ancestor
+3.0.4 not-ancestor
+== blobs
+-- django/contrib/gis/db/models/functions.py
+refs/tags/3.0.2 a79067a45ad8bb6c4dce3ce19e0a9be80454f525
+refs/tags/3.0.3 a79067a45ad8bb6c4dce3ce19e0a9be80454f525
+c5cfaad2f1f08b31ba04b9534f1a46a6ef1003bf a79067a45ad8bb6c4dce3ce19e0a9be80454f525
+refs/tags/3.0.4 1b0a2a427ba5c6e62e11c14286d59c64fc7e1a25
+-- django/contrib/gis/db/models/aggregates.py
+refs/tags/3.0.2 993d9f91fcb37be42e86c9d60d85da2df4f9ec7e
+refs/tags/3.0.3 993d9f91fcb37be42e86c9d60d85da2df4f9ec7e
+c5cfaad2f1f08b31ba04b9534f1a46a6ef1003bf 993d9f91fcb37be42e86c9d60d85da2df4f9ec7e
+refs/tags/3.0.4 9d169275c59b2db71f1dad81591fab418f61aa33
+== tracked file counts
+3.0.2 6163
+3.0.4 6173
+== fixed file import/handler evidence
+10:from django.db.models.expressions import Func, Value
+15:NUMERIC_TYPES = (int, float, Decimal)
+28:            if not isinstance(expr, Value):
+38:                raise ValueError("SRID is required for all geometries.")
+40:                self.source_expressions[pos] = Value(geom, output_field=GeometryField(srid=geom.srid))
+78:    def _handle_param(self, value, param_name='', check_types=None):
+114:        tolerance = Value(self._handle_param(
+117:            NUMERIC_TYPES,
+155:            expressions.append(self._handle_param(precision, 'precision', int))
+175:            expressions.append(self._handle_param(precision, 'precision', int))
+4:from django.db.models import Value
+36:                Value(tolerance),
+38:            template = '%(function)s(SDOAGGRTYPE(%(expressions)s))'
+46:                raise ValueError('Geospatial aggregates only allowed on geometry fields.')
+== vulnerable template line at 3.0.2
+    def as_oracle(self, compiler, connection, **extra_context):
+        tol = self.extra.get('tolerance', self.tolerance)
+        return self.as_sql(
+            compiler, connection,
+            template="%%(function)s(%%(expressions)s, %s)" % tol,
+            **extra_context
+        )
+== ancestry of 2.2.x/1.11.x fixes
+2.2.11 ancestor
+1.11.29 ancestor
+== fixed source markers in 2.2.11 and 1.11.29
+2.2.11 functions:
+116:        tolerance = Value(self._handle_param(
+2.2.11 aggregates:
+36:                Value(tolerance),
+1.11.29 functions:
+    tolerance = 0.05
+
+    def as_oracle(self, compiler, connection):
+        tol = self._handle_param(
+            self.extra.get('tolerance', self.tolerance),
+            'tolerance',
+            NUMERIC_TYPES,
+        )
+        self.template = "%%(function)s(%%(expressions)s, %s)" % tol
+        return super(OracleToleranceMixin, self).as_sql(compiler, connection)
+1.11.29 aggregates:
+24:            expressions.append(Value(tolerance))

@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_staticfiles",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/Middleware/StaticFiles/src/Microsoft.AspNetCore.StaticFiles.csproj",
+  "retrieved_at": "2026-10-21T10:56:27.552Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core static files middleware. Includes middleware for serving static files, directory browsing, and default files.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;staticfiles</PackageTags>\n    <IsPackable>false</IsPackable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SharedSourceRoot)RangeHelper\\**\\*.cs\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Hosting\\Abstractions\\src\\Microsoft.AspNetCore.Hosting.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Extensions\\src\\Microsoft.AspNetCore.Http.Extensions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Features\\src\\Microsoft.AspNetCore.Http.Features.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Routing.Abstractions\\src\\Microsoft.AspNetCore.Routing.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Routing\\src\\Microsoft.AspNetCore.Routing.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\WebEncoders\\src\\Microsoft.Extensions.WebEncoders.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.StaticFiles.Tests\" />\n  </ItemGroup>\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "e598407d93999bdc5385abd617f0575dc41673da",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/Middleware/StaticFiles/src/Microsoft.AspNetCore.StaticFiles.csproj",
+      "display_title": "Microsoft.AspNetCore.StaticFiles.csproj"
+    },
+    "isError": false
+  }
+}

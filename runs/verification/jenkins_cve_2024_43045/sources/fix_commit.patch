@@ -1,0 +1,171 @@
+From 3752f406bfef764e4954238acf44343169ae5799 Mon Sep 17 00:00:00 2001
+From: Yaroslav Afenkin <yaroslavafenkin@users.noreply.github.com>
+Date: Tue, 30 Jul 2024 18:37:07 +0000
+Subject: [PATCH] [SECURITY-3349]
+
+---
+ .../java/hudson/model/MyViewsProperty.java    | 25 +++++-
+ .../java/hudson/model/Security3349Test.java   | 80 +++++++++++++++++++
+ 2 files changed, 103 insertions(+), 2 deletions(-)
+ create mode 100644 test/src/test/java/hudson/model/Security3349Test.java
+
+diff --git a/core/src/main/java/hudson/model/MyViewsProperty.java b/core/src/main/java/hudson/model/MyViewsProperty.java
+index 71809d78..49fdfac4 100644
+--- a/core/src/main/java/hudson/model/MyViewsProperty.java
++++ b/core/src/main/java/hudson/model/MyViewsProperty.java
+@@ -26,6 +26,7 @@ package hudson.model;
+ 
+ import edu.umd.cs.findbugs.annotations.CheckForNull;
+ import edu.umd.cs.findbugs.annotations.NonNull;
++import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+ import hudson.Extension;
+ import hudson.Util;
+ import hudson.model.Descriptor.FormException;
+@@ -42,6 +43,7 @@ import java.util.List;
+ import java.util.concurrent.CopyOnWriteArrayList;
+ import javax.servlet.ServletException;
+ import jenkins.model.Jenkins;
++import jenkins.util.SystemProperties;
+ import net.sf.json.JSONObject;
+ import org.jenkinsci.Symbol;
+ import org.kohsuke.accmod.Restricted;
+@@ -51,6 +53,7 @@ import org.kohsuke.stapler.HttpRedirect;
+ import org.kohsuke.stapler.HttpResponse;
+ import org.kohsuke.stapler.QueryParameter;
+ import org.kohsuke.stapler.StaplerFallback;
++import org.kohsuke.stapler.StaplerProxy;
+ import org.kohsuke.stapler.StaplerRequest;
+ import org.kohsuke.stapler.StaplerResponse;
+ import org.kohsuke.stapler.verb.POST;
+@@ -60,7 +63,14 @@ import org.kohsuke.stapler.verb.POST;
+  *
+  * @author Tom Huybrechts
+  */
+-public class MyViewsProperty extends UserProperty implements ModifiableViewGroup, Action, StaplerFallback {
++public class MyViewsProperty extends UserProperty implements ModifiableViewGroup, Action, StaplerFallback, StaplerProxy {
++
++    /**
++     * Escape hatch for StaplerProxy-based access control
++     */
++    @Restricted(NoExternalUse.class)
++    @SuppressFBWarnings(value = "MS_SHOULD_BE_FINAL", justification = "for script console")
++    public static /* non-final */ boolean SKIP_PERMISSION_CHECK = SystemProperties.getBoolean(MyViewsProperty.class.getName() + ".skipPermissionCheck");
+ 
+     /**
+      * Name of the primary view defined by the user.
+@@ -226,7 +236,10 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
+ 
+     @Override
+     public String getIconFileName() {
+-        return "symbol-browsers";
++        if (SKIP_PERMISSION_CHECK || getACL().hasPermission(Jenkins.ADMINISTER))
++            return "symbol-browsers";
++        else
++            return null;
+     }
+ 
+     @Override
+@@ -234,6 +247,14 @@ public class MyViewsProperty extends UserProperty implements ModifiableViewGroup
+         return "my-views";
+     }
+ 
++    @Override
++    public Object getTarget() {
++        if (!SKIP_PERMISSION_CHECK) {
++            checkPermission(Jenkins.ADMINISTER);
++        }
++        return this;
++    }
++
+     @Extension @Symbol("myView")
+     public static class DescriptorImpl extends UserPropertyDescriptor {
+ 
+diff --git a/test/src/test/java/hudson/model/Security3349Test.java b/test/src/test/java/hudson/model/Security3349Test.java
+new file mode 100644
+index 00000000..6de55eb6
+--- /dev/null
++++ b/test/src/test/java/hudson/model/Security3349Test.java
+@@ -0,0 +1,80 @@
++package hudson.model;
++
++import static org.junit.Assert.assertEquals;
++import static org.junit.Assert.assertFalse;
++import static org.junit.Assert.assertTrue;
++
++import jenkins.model.Jenkins;
++import org.htmlunit.html.HtmlPage;
++import org.junit.Rule;
++import org.junit.Test;
++import org.jvnet.hudson.test.FlagRule;
++import org.jvnet.hudson.test.Issue;
++import org.jvnet.hudson.test.JenkinsRule;
++import org.jvnet.hudson.test.MockAuthorizationStrategy;
++
++public class Security3349Test {
++
++    @Rule
++    public JenkinsRule rule = new JenkinsRule();
++
++    @Rule public FlagRule<Boolean> skipPermissionCheck = new FlagRule<>(() -> MyViewsProperty.SKIP_PERMISSION_CHECK, x -> MyViewsProperty.SKIP_PERMISSION_CHECK = x);
++
++    @Test
++    @Issue("SECURITY-3349")
++    public void usersCannotAccessOtherUsersViews() throws Exception {
++        User user = User.getOrCreateByIdOrFullName("user");
++        User admin = User.getOrCreateByIdOrFullName("admin");
++
++        rule.jenkins.setSecurityRealm(rule.createDummySecurityRealm());
++        MockAuthorizationStrategy mockAuthorizationStrategy = new MockAuthorizationStrategy();
++        mockAuthorizationStrategy.grant(Jenkins.READ, View.READ).everywhere().to("user");
++        mockAuthorizationStrategy.grant(Jenkins.ADMINISTER).everywhere().to("admin");
++        rule.jenkins.setAuthorizationStrategy(mockAuthorizationStrategy);
++
++        MyViewsProperty prop1 = new MyViewsProperty(null);
++        MyView usersView = new MyView("User's view", prop1);
++        user.addProperty(prop1);
++        prop1.setUser(user);
++        prop1.addView(usersView);
++
++        MyViewsProperty prop2 = new MyViewsProperty(null);
++        MyView adminsView = new MyView("Admin's view", prop2);
++        admin.addProperty(prop2);
++        prop2.setUser(admin);
++        prop2.addView(adminsView);
++
++        try (JenkinsRule.WebClient wc = rule.createWebClient()) {
++            wc.setThrowExceptionOnFailingStatusCode(false);
++            wc.login("user");
++
++            HtmlPage adminViews = wc.goTo("user/admin/my-views/view/all/");
++            assertEquals(403, adminViews.getWebResponse().getStatusCode());
++
++            HtmlPage adminUserPage = wc.goTo("user/admin/");
++            assertFalse(adminUserPage.getWebResponse().getContentAsString().contains("My Views"));
++
++            HtmlPage userViews = wc.goTo("user/user/my-views/view/all/");
++            assertEquals(200, userViews.getWebResponse().getStatusCode());
++
++            HtmlPage userUserPage = wc.goTo("user/user/");
++            assertTrue(userUserPage.getWebResponse().getContentAsString().contains("My Views"));
++
++            wc.login("admin");
++
++            adminViews = wc.goTo("user/admin/my-views/view/all/");
++            assertEquals(200, adminViews.getWebResponse().getStatusCode());
++            userViews = wc.goTo("user/user/my-views/view/all/");
++            assertEquals(200, userViews.getWebResponse().getStatusCode());
++
++            MyViewsProperty.SKIP_PERMISSION_CHECK = true;
++
++            wc.login("user");
++            adminViews = wc.goTo("user/admin/my-views/view/all/");
++            assertEquals(200, adminViews.getWebResponse().getStatusCode());
++            adminUserPage = wc.goTo("user/admin/");
++            assertTrue(adminUserPage.getWebResponse().getContentAsString().contains("My Views"));
++
++        }
++    }
++}
+-- 
+2.43.0
+

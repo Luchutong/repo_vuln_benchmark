@@ -1,0 +1,188 @@
+{
+  "packet_id": "selrev_80314213_snap_67132f0363b8bc23",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "80314213",
+    "full_name": "libexpat/libexpat",
+    "canonical_url": "https://github.com/libexpat/libexpat",
+    "primary_language": "C",
+    "project_kind": ":herb: Fast streaming XML parser written in C99 with >90% test coverage; moved from SourceForge to GitHub"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_67132f0363b8bc23",
+    "tag_or_release": "R_2_6_2",
+    "commit_sha": "fa75b96546c069d17b8f80d91e0f4ef0cde3790d"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "fa75b96546c069d17b8f80d91e0f4ef0cde3790d",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "6487ac6af34dd9943f8d49d822ea127fde5ef77c",
+    "tree_file_count": 199,
+    "exported_file_count": 198,
+    "symlink_count": 1,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/libexpat__libexpat/snap_67132f0363b8bc23.tar.gz",
+    "archive_sha256": "2bedc8c8efeeddf718afeefda34e433eb01ef2d5a82c6efa34d7eaabf430c0ae",
+    "archive_bytes": 7961165,
+    "manifest_path": "exports/libexpat__libexpat/snap_67132f0363b8bc23.manifest.jsonl",
+    "manifest_sha256": "21b82c60c3184baa2bb9b2146313e1744e062211c39a7e11d06b14fbb01a24bb"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      "expat/Changes"
+    ],
+    "cve_id_count": 37,
+    "cve_ids_sample": [
+      "CVE-2009-3560",
+      "CVE-2009-3720",
+      "CVE-2012-0876",
+      "CVE-2012-1147",
+      "CVE-2012-1148",
+      "CVE-2012-6702",
+      "CVE-2013-0340",
+      "CVE-2015-1283",
+      "CVE-2015-2716",
+      "CVE-2016-0718",
+      "CVE-2016-4472",
+      "CVE-2016-5300",
+      "CVE-2016-9063",
+      "CVE-2017-11742",
+      "CVE-2017-9233",
+      "CVE-2018-20843",
+      "CVE-2019-15903",
+      "CVE-2021-45960",
+      "CVE-2021-46143",
+      "CVE-2022-22822",
+      "CVE-2022-22823",
+      "CVE-2022-22824",
+      "CVE-2022-22825",
+      "CVE-2022-22826",
+      "CVE-2022-22827",
+      "CVE-2022-23852",
+      "CVE-2022-23990",
+      "CVE-2022-25235",
+      "CVE-2022-25236",
+      "CVE-2022-25313",
+      "CVE-2022-25314",
+      "CVE-2022-25315",
+      "CVE-2022-40674",
+      "CVE-2022-43680",
+      "CVE-2023-52425",
+      "CVE-2023-52426",
+      "CVE-2024-28757"
+    ],
+    "files_with_advisory_ids_count": 2,
+    "files_with_advisory_ids_sample": [
+      "expat/Changes",
+      "expat/tests/basic_tests.c"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/dependabot.yml",
+      ".github/workflows/autotools-cmake.yml",
+      ".github/workflows/clang-format.yml",
+      ".github/workflows/clang-tidy.yml",
+      ".github/workflows/cmake-required-version.yml",
+      ".github/workflows/codespell.yml",
+      ".github/workflows/coverage.yml",
+      ".github/workflows/cppcheck.yml",
+      ".github/workflows/data/expat_config_h_cmake__expected.txt",
+      ".github/workflows/data/expat_config_h_in__expected.txt",
+      ".github/workflows/data/exported-symbols.txt",
+      ".github/workflows/expat_config_h.yml",
+      ".github/workflows/fuzzing.yml",
+      ".github/workflows/linux.yml",
+      ".github/workflows/macos.yml",
+      ".github/workflows/scripts/list-shared-library-symbols.sh",
+      ".github/workflows/scripts/list_exported_macros.sh",
+      ".github/workflows/scripts/mass-cppcheck.sh",
+      ".github/workflows/valid-xml.yml",
+      "SECURITY.md",
+      "expat/Changes"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "cmake": [
+        "CMakeLists.txt"
+      ],
+      "configure": [
+        "Makefile.am",
+        "configure.ac"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "cmake",
+      "configure"
+    ],
+    "toolchain_available": {
+      "cmake": {
+        "cmake": true,
+        "make": true
+      },
+      "configure": {
+        "gcc": true,
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-45490",
+      "aliases": [
+        "CVE-2024-45490",
+        "DEBIAN-CVE-2024-45490"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "introduced 0 to fixed R_2_6_3 (88b3ed553d8ad335559254863a33360d55b9f1d6); description says before 2.6.3",
+          "ecosystem": "GIT",
+          "package": "libexpat",
+          "purl": "pkg:generic/libexpat"
+        }
+      ],
+      "published_at": "2024-08-30T03:15:03.757Z",
+      "advisory_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45490",
+      "severity": {
+        "level": "high",
+        "score": 7.5,
+        "secondary": {
+          "level": "critical",
+          "score": 9.8,
+          "source": "CISA-ADP via NVD secondary metric and OSV severity CVSS_V3; the MITRE CNA container carries no metrics",
+          "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-45490",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+          "version": "3.1"
+        },
+        "source": "NVD Primary (nvd@nist.gov) rates 7.5 availability-only; the CISA-ADP Secondary record (134c704f-9b21-4f2e-91b3-4a467353bcc0) and the OSV record publish 9.8 with C/I/A all High. The disagreement is recorded, not averaged.",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45490",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

@@ -1,0 +1,44 @@
+Repository: https://github.com/rack/rack
+Local blobless bare mirror: /tmp/rack_vuln.git (git clone --bare --filter=blob:none)
+
+Dataset snapshot: snap_f97687a4e0807cb2, tag_or_release 2.2.3, commit 1741c580d71cfca8e541e96cc372305c8892ee74.
+  $ git log -1 1741c580
+  1741c580 (tag: 2.2.3) bump version
+  runs/language/snap_f97687a4e0807cb2/file_inventory.json records lib/rack/static.rb
+  bytes=6217, git_oid=8cb58b2fd7342fe530ff7e4508cf132fb2abdf00, which equals
+  `git rev-parse 1741c580:lib/rack/static.rb`.
+
+2.2-branch fix commit: 873d39e6d673a91fbdeb2ec75d42184d35908bb4
+  "Use a fully resolved file path when confirming if a file can be served by `Rack::Static`."
+  $ git merge-base --is-ancestor 873d39e6 1741c580 ; echo $?
+  1   (NOT an ancestor of the vulnerable snapshot)
+  $ git merge-base --is-ancestor 873d39e6 v2.2.13 ; echo $?
+  0   (contained in v2.2.13)
+  $ git tag --contains 873d39e6 | grep 2.2
+  v2.2.13 v2.2.14 v2.2.15 ...
+
+Release tag v2.2.13 resolves to commit df6c47357f6c6bec2d585f45f417285d813d9b3a
+("Bump patch verison."), whose history contains 873d39e6.
+
+Advisory reference commits 50caab74fa01ee8f5dbdee7bb2782126d20c6583,
+340cd1f11f9d6c16c0c50bba2be0062aa661baf0 and e8f47608668d507e0f231a932fa37c9ca551c0a5
+are NOT ancestors of v2.2.13 (they belong to the 3.x branches). OSV/GHSA list only
+50caab74 as FIX and additionally record df6c4735 (a version bump) as a fixed event;
+the 2.2-branch code fix 873d39e6 is not referenced by the advisory.
+
+Fixed file blob: git rev-parse v2.2.13:lib/rack/static.rb = 0ea78a1d9b998b9b35cf63a30ce178c1c6d3eb49,
+which matches the post-image index line of 873d39e6.
+
+Backport verification (independent reviewer correction):
+  $ git merge-base --is-ancestor 61f83f6336d3e59d1fa694c354c1ff17e80cefad v3.0.14 ; echo $?
+  0   (3.0 backport, contained in v3.0.14)
+  $ git merge-base --is-ancestor 70cb3228c755c2d066c108a9c59fbe67aff8e889 v3.1.12 ; echo $?
+  0   (3.1 backport, contained in v3.1.12)
+  $ git merge-base --is-ancestor 50caab74fa01ee8f5dbdee7bb2782126d20c6583 v3.0.14 ; echo $?
+  1   (advisory-listed commit is NOT the 3.0 backport)
+  $ git tag --contains 50caab74 | head -5
+  v3.2.0
+  v3.2.1
+  v3.2.2
+  v3.2.3
+  v3.2.4   (main-line commit, first release 3.2.0)

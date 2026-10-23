@@ -1,0 +1,24 @@
+{
+  "key": "angular_compiler-cli",
+  "repository": "angular/angular",
+  "path": "packages/compiler-cli/package.json",
+  "retrieved_at": "2026-10-21T10:56:19.842Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/compiler-cli\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - the compiler CLI for Node.js\",\n  \"typings\": \"index.d.ts\",\n  \"bin\": {\n    \"ngc\": \"./bundles/src/bin/ngc.js\",\n    \"ng-xi18n\": \"./bundles/src/bin/ng_xi18n.js\"\n  },\n  \"type\": \"module\",\n  \"exports\": {\n    \".\": {\n      \"types\": \"./index.d.ts\",\n      \"default\": \"./bundles/index.js\"\n    },\n    \"./package.json\": {\n      \"default\": \"./package.json\"\n    },\n    \"./linker\": {\n      \"types\": \"./linker/index.d.ts\",\n      \"default\": \"./bundles/linker/index.js\"\n    },\n    \"./linker/babel\": {\n      \"types\": \"./linker/babel/index.d.ts\",\n      \"default\": \"./bundles/linker/babel/index.js\"\n    },\n    \"./private/*\": {\n      \"types\": \"./private/*.d.ts\",\n      \"default\": \"./bundles/private/*.js\"\n    }\n  },\n  \"dependencies\": {\n    \"@babel/core\": \"8.0.7\",\n    \"@jridgewell/sourcemap-codec\": \"^1.6.0\",\n    \"reflect-metadata\": \"^0.2.0\",\n    \"chokidar\": \"^5.0.0\",\n    \"convert-source-map\": \"^1.5.1\",\n    \"semver\": \"^7.0.0\",\n    \"tslib\": \"^2.3.0\",\n    \"yargs\": \"^18.0.0\"\n  },\n  \"devDependencies\": {\n    \"typescript\": \"6.0.3\",\n    \"@types/convert-source-map\": \"^2.0.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/compiler\": \"0.0.0-PLACEHOLDER\",\n    \"typescript\": \">=6.0 <6.1\"\n  },\n  \"peerDependenciesMeta\": {\n    \"typescript\": {\n      \"optional\": true\n    }\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/compiler-cli\"\n  },\n  \"keywords\": [\n    \"angular\",\n    \"compiler\"\n  ],\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/angular/angular/issues\"\n  },\n  \"homepage\": \"https://github.com/angular/angular/tree/main/packages/compiler-cli\",\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  }\n}\n",
+      "encoding": "utf-8",
+      "sha": "8c1935678c152919b68d406e34f969913ad5bb84",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/compiler-cli/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

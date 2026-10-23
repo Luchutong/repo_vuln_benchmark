@@ -1,0 +1,431 @@
+{
+  "candidate_id": "disc2_f176c28b4e34d3573ef191e3",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-21T19:14:56Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2025-27625",
+    "aliases": [
+      "CVE-2025-27625",
+      "GHSA-8hmv-92wm-39ch",
+      "BIT-jenkins-2025-27625"
+    ],
+    "title": "Jenkins treats backslash-prefixed redirect targets as safe, allowing open redirect",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.499; LTS <=2.492.1 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.500",
+        "tag": "jenkins-2.500",
+        "release_url": "https://www.jenkins.io/changelog/#v2.500",
+        "verified_content": "The 2.500 release commit cb753134 has 923cdbc1 as its only parent, and the SECURITY-3501 fix 4a9a3ecd is the parent of 923cdbc1 (merge-base --is-ancestor exits 0). In the 2.500 tree Util.isSafeToRedirectTo rejects any leading backslash and normalises backslashes before the // check, and the new Security3501Test asserts that userContent?path= backslash variants stay on the local userContent/ URL. The CNA record also lists LTS 2.492.2 as unaffected; that backport was not fetched or asserted."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e",
+        "branch": "master",
+        "release": "2.500",
+        "message": "[SECURITY-3501]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e"
+      },
+      {
+        "sha": "02d4db379ac965641bb1382515c834cf4966ec5a",
+        "branch": "2.492.x LTS release commit (backport not fetched, ancestry not asserted)",
+        "release": "2.492.2",
+        "message": "[maven-release-plugin] prepare release jenkins-2.492.2",
+        "url": "https://github.com/jenkinsci/jenkins/commit/02d4db379ac965641bb1382515c834cf4966ec5a"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-601"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+      "score": 4.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes a single CVSS 3.1 metric, 4.3 MEDIUM, from the Secondary source (CISA-ADP); there is no Primary metric. OSV/GHSA repeats the same 4.3 vector and records MODERATE. The CNA container has no CVSS metric. Every published severity level is MEDIUM, so the level is consistent and the score is not averaged.",
+      "source": "NVD Secondary 4.3 MEDIUM; GHSA/OSV 4.3 MEDIUM",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-27625",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 4.3,
+          "level": "medium",
+          "source": "GHSA-8hmv-92wm-39ch / OSV (database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N"
+        }
+      ]
+    },
+    "category_l1": "open_redirect",
+    "category_l2": "Redirect targets beginning with a backslash pass isSafeToRedirectTo and are sent to the client, which browsers interpret as a scheme-relative URL",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3501",
+    "published_at": "2025-03-05T22:33:36Z",
+    "discovery_cutoff_date": "2026-10-22",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3501",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-27625",
+      "https://github.com/advisories/GHSA-8hmv-92wm-39ch",
+      "https://github.com/jenkinsci/jenkins/commit/4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e"
+    ]
+  },
+  "description": "Jenkins guards redirects with Util.isSafeToRedirectTo, which at 2.441 is !isAbsoluteUri(uri) && !uri.startsWith(\"//\"). isAbsoluteUri only rejects a value whose ':' precedes '#', '?' or '/', so a target such as \\example.org or \\\\example.org contains no colon and no leading \"//\" and is classified as safe. DirectoryBrowserSupport.serveFile uses that predicate on the pattern/path request parameter and calls sendRedirect2 with the accepted value (lines 208-209); AuthenticationSuccessHandler and ParametersDefinitionProperty apply the same predicate to their redirect targets. Browsers normalise backslashes to forward slashes for special schemes, so a redirect to \\\\example.org sends the user to https://example.org: the helper meant to block scheme-relative redirects lets a phishing target through. The 2.500 fix 4a9a3ecd rejects any leading backslash and normalises backslashes before the // check, and the new Security3501Test drives userContent?path= with five backslash variants and asserts the Location stays on the local userContent/ URL.",
+  "location": {
+    "location_id": "loc_CVE-2025-27625_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2025-27625",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/hudson/Util.java",
+    "function": "isSafeToRedirectTo",
+    "language": "Java",
+    "line": "1658-1660",
+    "critical_operation": {
+      "file": "core/src/main/java/hudson/Util.java",
+      "function": "isSafeToRedirectTo",
+      "language": "Java",
+      "line": "1658-1660",
+      "code_excerpt": "    /**\n     * Return true iff the parameter does not denote an absolute URI and not a scheme-relative URI.\n     * @since 2.3 / 1.651.2\n     */\n    public static boolean isSafeToRedirectTo(@NonNull String uri) {\n        return !isAbsoluteUri(uri) && !uri.startsWith(\"//\");\n    }",
+      "description": "The predicate rejects absolute URIs and values starting with \"//\" but accepts any value starting with a backslash. Since isAbsoluteUri only treats a ':' before '#', '?' or '/' as absolute, \\example.org and \\\\example.org pass. Callers use the accepted value for sendRedirect, so the browser resolves it as a scheme-relative URL to an external host.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Util.java#L1658-L1660"
+    },
+    "entry_point": {
+      "description": "Example HTTP GET of /userContent?path=\\\\example.org (URL-encoded %5C%5Cexample.org); DirectoryBrowserSupport.serveFile passes the parameter to isSafeToRedirectTo and then sendRedirect2.",
+      "file": "core/src/main/java/hudson/model/DirectoryBrowserSupport.java",
+      "function": "serveFile",
+      "language": "Java",
+      "line": "205-209",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/DirectoryBrowserSupport.java#L205-L209"
+    },
+    "trace": [
+      {
+        "description": "predicate rejects absolute URIs and \"//\" but not a leading backslash",
+        "file": "core/src/main/java/hudson/Util.java",
+        "function": "isSafeToRedirectTo",
+        "language": "Java",
+        "line": "1658-1660",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Util.java#L1658-L1660"
+      },
+      {
+        "description": "isAbsoluteUri only rejects a ':' before '#', '?' or '/'",
+        "file": "core/src/main/java/hudson/Util.java",
+        "function": "isAbsoluteUri",
+        "language": "Java",
+        "line": "1646-1652",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Util.java#L1646-L1652"
+      },
+      {
+        "description": "userContent pattern/path parameter is accepted by the predicate and passed to sendRedirect2",
+        "file": "core/src/main/java/hudson/model/DirectoryBrowserSupport.java",
+        "function": "serveFile",
+        "language": "Java",
+        "line": "205-209",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/DirectoryBrowserSupport.java#L205-L209"
+      },
+      {
+        "description": "post-login redirect uses the same predicate on the original target URL",
+        "file": "core/src/main/java/jenkins/security/AuthenticationSuccessHandler.java",
+        "function": "determineTargetUrl",
+        "language": "Java",
+        "line": "42-55",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/security/AuthenticationSuccessHandler.java#L42-L55"
+      },
+      {
+        "description": "the fix rejects a leading backslash and normalises backslashes before the // check",
+        "file": "core/src/main/java/hudson/Util.java",
+        "function": "isSafeToRedirectTo",
+        "language": "Java",
+        "line": "1653-1655",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/Util.java#L1653-L1655"
+      }
+    ],
+    "verification_method": "Static read of Util.java, DirectoryBrowserSupport.java and AuthenticationSuccessHandler.java at 2.441 and of Util.java at the 2.500 release commit, plus the 4a9a3ecd patch and the new Security3501Test; no Jenkins instance, HTTP request or browser was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_27625_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-27625",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "3c7231e9ab056e32e599c6c3b7e98da17cbdd391603f2c9bf505659befbd7677",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2025-03-05, assigner Jenkins",
+        "description: in Jenkins 2.499 and earlier, LTS 2.492.1 and earlier, redirects starting with backslash characters are considered safe, allowing phishing because browsers interpret these characters as part of scheme-relative redirects",
+        "affected versions: 2.492.* unaffected from 2.492.2, weekly unaffected from 2.500; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3501"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-27625",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "57c55c9ee719d83949e00f2edf7bec416a5843edfcb3c2901c7672dac7430edd",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2025-03-05, status Analyzed",
+        "one CVSS 3.1 4.3 MEDIUM metric, from the Secondary source 134c704f-9b21-4f2e-91b3-4a467353bcc0 (CISA-ADP), vector CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N",
+        "there is no Primary metric",
+        "CWE-601 from the same Secondary source"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-27625",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "f4f372c7c2a1ab041a86ea1349e20987d7dbcb70971eee3d9baef81c4fe7fa59",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "alias GHSA-8hmv-92wm-39ch",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N (4.3 MEDIUM)",
+        "affected jenkinsci/jenkins GIT range introduced at 0 with fixed events 02d4db37 (2.492.2 release commit) and cb753134 (2.500 release commit)",
+        "OSV's extracted CPE ranges are weekly <2.500 and LTS <2.492.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-8hmv-92wm-39ch",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "e5d2dda89d51d1d2711926c7158a1c7d2f87e917e7f6ef5da05f664d9736f1d8",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:L/A:N (4.3 MEDIUM), database_specific severity MODERATE",
+        "database_specific cwe_ids is [CWE-601]",
+        "one ECOSYSTEM range is introduced 0 -> fixed 2.492.2; the other is introduced 2.493 -> fixed 2.500, which conflicts with the CNA text for the weekly line"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_vuln_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/Util_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/Util.java#L1658-L1660",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "a300c4850673b2b9ffa001f81bad53b49ab42c142cd674735e32839624dc4b43",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 24b04ce3 matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "isSafeToRedirectTo at 1658-1660 returns !isAbsoluteUri(uri) && !uri.startsWith(\"//\")",
+        "isAbsoluteUri at 1646-1652 only rejects a ':' that appears before '#', '?' or '/', so a value such as \\example.org or \\\\example.org has no ':' and passes",
+        "the predicate therefore declares backslash-prefixed network-path references safe"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_caller_dbs",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/DirectoryBrowserSupport_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/DirectoryBrowserSupport.java#L205-L209",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "fa2f867634b81d84fc97ae792f0b583165568f632ccab9e55d998824ca6f2ba1",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 6f8bf2e6 matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "serveFile reads pattern from req.getParameter(\"pattern\") at 205 or the legacy \"path\" parameter at 207",
+        "line 208 tests Util.isSafeToRedirectTo(pattern) and line 209 calls rsp.sendRedirect2(pattern), so an attacker-chosen backslash value is emitted as a redirect",
+        "this is the call site the upstream regression test Security3501Test drives through userContent?path="
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_caller_auth",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/AuthenticationSuccessHandler_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/jenkins/security/AuthenticationSuccessHandler.java#L42-L55",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "0b59e5720d24e40546f6e1fab2aa01cda9393715687873c537aff7119f740148",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob a5c7cffc matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "determineTargetUrl (42-55) returns the original target URL at 52-53 when Util.isSafeToRedirectTo(originalTargetUrl) is true",
+        "the original target comes from the login redirect handling, so a backslash-prefixed value is accepted as a local target and used for the post-login redirect"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_fixed_src",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/Util_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/core/src/main/java/hudson/Util.java#L1653-L1655",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "8e741ec51befef5b71f96ff332a4916767d153bfd51d8c705a4b2981cd991394",
+      "verification_method": "file read at the 2.500 release commit cb753134; blob 4783535b",
+      "result": "PASS",
+      "supports": [
+        "isSafeToRedirectTo at 1653-1655 is !isAbsoluteUri(uri) && !uri.startsWith(\"\\\\\") && !uri.replace('\\\\', '/').startsWith(\"//\")",
+        "any leading backslash is now rejected and backslash-slash mixtures are normalised before the scheme-relative check"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_test",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/Security3501Test_2.500.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/cb753134b40dde5feeb228f5f2c90d03184fe063/test/src/test/java/jenkins/security/Security3501Test.java",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "72943086deba042119e436a4002a4716faee5c1912873582dfc4f768fc15c460",
+      "verification_method": "file read at the 2.500 release commit cb753134; new test file added by the fix",
+      "result": "PASS",
+      "supports": [
+        "the regression test lists prohibited paths %5C%5Cexample.org, %5C/example.org, /%5Cexample.org, //example.org, https://example.org and \\example.org",
+        "for each it requests userContent?path=<encoded value> with redirects disabled and asserts the response is a 302 whose Location is the local userContent/ directory, i.e. the backslash variants no longer redirect off-site"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "9128c3f631b2065ae0d05abe35fba5d03051952278eeeef48b030b6351e17dc7",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 4a9a3ecd '[SECURITY-3501]', 2025-02-25, parent 84ef1a4d",
+        "the patch changes the one-line predicate in hudson/Util.java and adds UtilTest cases for backslash-prefixed values",
+        "it also adds test/src/test/java/jenkins/security/Security3501Test.java, which exercises the userContent redirect"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_27625_git",
+      "artifact_path": "runs/verification/jenkins_cve_2025_27625/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-21T19:14:56Z",
+      "sha256_of_observation": "9a9fafc57f5a6a68e61ffb537bd21a6efb324fcbaebe1010b320dd002ba78ff8",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and the Util.java blob 24b04ce3 matches the inventory (77956 bytes)",
+        "fix commit 4a9a3ecd is the parent of 923cdbc1, which is the only parent of the 2.500 release commit cb753134; git merge-base --is-ancestor 4a9a3ecd cb753134 exits 0",
+        "CNA affected range 2.499 and earlier weekly / 2.492.1 and earlier LTS includes the 2.441 snapshot",
+        "the 2.492.2 LTS release commit 02d4db37 and its backport were not fetched, so no LTS ancestry is asserted"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      9
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      9,
+      10
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      9,
+      10
+    ],
+    "languages": [
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      10
+    ]
+  },
+  "field_evidence_note": "Indices refer to the evidence array. critical_operation uses the 2.441 predicate source and the fix patch; the caller rows support languages and the entry point.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Secondary 4.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (backslash-prefixed redirect targets are treated as safe) and on the fixed releases (2.500 weekly, 2.492.2 LTS). NVD publishes no Primary metric; its only metric is the CISA-ADP Secondary 4.3 MEDIUM, which OSV/GHSA repeats, and the CNA has no metric, so all published levels are MEDIUM. CWE-601 is recorded by NVD's Secondary source and by GHSA; the CNA lists none. The GHSA ECOSYSTEM range introduced=2.493 conflicts with the CNA text and the OSV GIT range (introduced 0); this dataset follows the CNA and GIT range and records the conflict. This root cause is distinct from the previously promoted jenkins entries: CVE-2024-23897 (CLI arbitrary file read), CVE-2024-23898 (CLI WebSocket hijacking), CVE-2024-43045 (My Views permission check), CVE-2025-27622 (agent config.xml redaction) and the sibling CVE-2025-27623 (view config.xml redaction); it is a URL-safety predicate in hudson.Util.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read Util.isSafeToRedirectTo and isAbsoluteUri at 2.441 and confirm a leading backslash passes.",
+      "An independent reviewer must confirm a reachable caller turns the accepted value into a redirect.",
+      "An independent reviewer must confirm 4a9a3ecd is the fix and is contained in the 2.500 release.",
+      "An independent reviewer must confirm the affected range (weekly <=2.499, LTS <=2.492.1) and that 2.441 is inside it.",
+      "An independent reviewer must confirm all published severity levels are MEDIUM (4.3) and record CWE-601.",
+      "An independent reviewer must confirm the mechanism is distinct from the promoted jenkins entries.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "independent static reviewer (git + CVE/NVD/OSV/vendor-advisory)",
+      "verdict_path": "runs/independent/jenkins_CVE-2025-27625_round1/verdict.json",
+      "verdict": "confirmed",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "fields_false": [],
+      "severity_level": "medium",
+      "location_file": "core/src/main/java/hudson/Util.java",
+      "location_line": "1658-1660"
+    },
+    "independent_corrections_accepted": [
+      "The reviewer confirmed every claimed field and supplied the exact call sites: DirectoryBrowserSupport.serveFile 205-209, AuthenticationSuccessHandler.determineTargetUrl 42-56 (predicate call at 52) and ParametersDefinitionProperty line 180.",
+      "Reporter credit: the vendor advisory credits XBOW, a third-party firm, for SECURITY-3501 rather than CloudBees. This does not change the grade, because no independent non-reporter reproduction was found; grade A still requires one.",
+      "The reviewer noted that GitHub's REST API was rate-limited and that the GHSA fields were read through OSV's mirrored GHSA record; the values agree with the OSV data already collected."
+    ],
+    "duplicate_check": "The reviewer checked CVE-2024-23897 (CLI '@' file read), CVE-2024-23898 (CLI WebSocket origin validation), CVE-2024-43045 (My Views permission check), CVE-2025-27622 (agent config.xml redaction) and CVE-2025-27623 (view config.xml redaction) and found no duplicate: none is a backslash open redirect in the URL-safety predicate."
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance, HTTP request or browser was run.",
+    "The redirect requires a victim to follow a crafted Jenkins URL; the attacker does not need credentials for the userContent path, but the victim must click the link (UI:R).",
+    "Browser interpretation of backslash as a path separator is what turns the accepted value into an external redirect; that behaviour is asserted by the upstream test and the advisory, not executed here.",
+    "Only one location row is recorded (Util.isSafeToRedirectTo). The call sites in DirectoryBrowserSupport, AuthenticationSuccessHandler and ParametersDefinitionProperty are recorded as the entry point unless a separate CVE covers them.",
+    "The LTS backport and the 2.492.2 branch were not fetched into the local mirror; LTS ancestry is recorded from OSV and the CNA record, not asserted locally.",
+    "The GHSA ECOSYSTEM range introduced=2.493 conflicts with the CNA and the OSV GIT range; the conflict is documented, not resolved silently."
+  ],
+  "open_questions": [
+    "The full set of Jenkins features that call isSafeToRedirectTo was not enumerated beyond the three found in core; the upstream test exercises the userContent path.",
+    "Whether any caller URL-encodes or normalises backslashes before the predicate was not checked for every call site."
+  ]
+}

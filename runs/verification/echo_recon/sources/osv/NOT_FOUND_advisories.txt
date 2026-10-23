@@ -1,0 +1,9 @@
+The following GHSA IDs returned OSV {"code":5,"message":"Vulnerability not found"}
+and HTTP 404 from github/advisory-database raw JSON (github-reviewed/2026/09/):
+GHSA-23wf-92cp-8pcj, GHSA-246p-cpwv-v3jq, GHSA-2ffq-g2xg-c22p,
+GHSA-375p-5qhx-8wq4, GHSA-3pmx-cf9f-34xr, GHSA-xwq5-6cqp-vx96,
+GHSA-v753-g4cw-jm48, GHSA-h9g5-28mm-hx3g, GHSA-r7w9-592q-9vg4,
+GHSA-99jh-6h7p-pp36.
+These appear only in discovery_v3 GitHubRepositoryAdvisory rows (adv3_* candidates);
+no public OSV / advisory-database / NVD record exists for them as of 2026-10-23.
+Treat as unverifiable / likely synthetic.

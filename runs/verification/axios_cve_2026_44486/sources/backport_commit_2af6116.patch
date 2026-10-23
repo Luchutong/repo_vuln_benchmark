@@ -1,0 +1,3177 @@
+From 2af6116a957b1dd1b32056181326da8a5540d3bc Mon Sep 17 00:00:00 2001
+From: Jay <jasonsaayman@gmail.com>
+Date: Sun, 3 May 2026 18:49:06 +0200
+Subject: [PATCH] chore: backport fixes from the v1x branch (#10838)
+
+* chore: some AI improvements, PR and issue templates updated and adjusted
+
+* chore: backport fixes
+
+* chore: fix eslint issues
+
+* fix: test run issues
+
+* fix: readme issue
+
+Co-authored-by: cubic-dev-ai[bot] <191113872+cubic-dev-ai[bot]@users.noreply.github.com>
+
+* fix: tests in v12.x node
+
+* chore: update agents.md
+
+* chore: fix tests
+
+* fix: final reviews
+
+---------
+
+Co-authored-by: cubic-dev-ai[bot] <191113872+cubic-dev-ai[bot]@users.noreply.github.com>
+---
+ .github/ISSUE_TEMPLATE.md                 |  36 +-
+ .github/PULL_REQUEST_TEMPLATE.md          |  17 +-
+ .gitignore                                |   3 +-
+ AGENTS.md                                 |  38 ++
+ CHANGELOG.md                              |  10 +
+ CLAUDE.md                                 |   1 +
+ README.md                                 |  28 +-
+ index.d.ts                                |   3 +
+ lib/adapters/http.js                      | 373 +++++++++---
+ lib/adapters/xhr.js                       | 136 +++--
+ lib/core/AxiosError.js                    |  83 ++-
+ lib/core/dispatchRequest.js               |  15 +-
+ lib/core/mergeConfig.js                   |   1 +
+ lib/defaults/index.js                     |   3 +
+ lib/helpers/AxiosURLSearchParams.js       |  29 +-
+ lib/helpers/cookies.js                    |  17 +-
+ lib/helpers/defaultRedactKeys.js          |   3 +
+ lib/helpers/shouldBypassProxy.js          |  56 +-
+ lib/utils.js                              |  67 ++-
+ test/specs/core/AxiosError.spec.js        | 165 ++++++
+ test/specs/helpers/cookies.spec.js        |  21 +
+ test/specs/xsrf.spec.js                   |  13 +
+ test/typescript/axios.ts                  |  12 +
+ test/unit/adapters/http.js                | 669 +++++++++++++++++++++-
+ test/unit/core/prototypePollution.js      | 160 +++++-
+ test/unit/helpers/AxiosURLSearchParams.js |  25 +-
+ test/unit/helpers/shouldBypassProxy.js    |  35 ++
+ test/unit/helpers/toFormData.js           |  29 +-
+ test/unit/utils/isFormData.js             |  58 +-
+ 29 files changed, 1840 insertions(+), 266 deletions(-)
+ create mode 100644 AGENTS.md
+ create mode 100644 CLAUDE.md
+ create mode 100644 lib/helpers/defaultRedactKeys.js
+
+diff --git a/.github/ISSUE_TEMPLATE.md b/.github/ISSUE_TEMPLATE.md
+index 29d0d660da..f87f3fa6b5 100644
+--- a/.github/ISSUE_TEMPLATE.md
++++ b/.github/ISSUE_TEMPLATE.md
+@@ -1,31 +1,23 @@
+-<!-- Click "Preview" for a more readable version --
++<!--
++Thanks for opening an issue. Before submitting, please search existing issues and make sure you are using a supported Axios version.
+ 
+-Please read and follow the instructions before submitting an issue:
+-
+-- Read all our documentation, especially the [README](https://github.com/axios/axios/blob/main/README.md). It may contain information that helps you solve your issue.
+-- Ensure your issue isn't already [reported](https://github.com/axios/axios/issues?utf8=%E2%9C%93&q=is%3Aissue).
+-- Please, ensure your issue is not related to CORS or Mixed Content Issue (only relevant for browsers)
+-- If you aren't sure that the issue is caused by axios or you just need help, please use [Stack Overflow](https://stackoverflow.com/questions/tagged/axios) or [our chat](https://gitter.im/mzabriskie/axios).
+-- If you're reporting a bug, ensure it isn't already fixed in the latest Axios version.
+-- If you need a new feature there's a chance it's already implemented in a [library](https://github.com/axios/axios/blob/main/ECOSYSTEM.md) or you can implement it using [interceptors](https://github.com/axios/axios#interceptors).
+-- Don't remove any title of the issue template, or it will be treated as invalid by the bot.
++If this is a usage question rather than a bug or feature request, Stack Overflow may be a better place to ask: https://stackoverflow.com/questions/tagged/axios
++-->
+ 
+-**⚠️👆 Delete the instructions before submitting the issue 👆⚠️**
++### What happened?
+ 
+--->
++<!-- Describe the bug, feature request, or documentation issue. What did you expect instead? -->
+ 
+-#### Summary
++### Reproduction
+ 
+-Describe your issue here, including as much detail as necessary.
++<!-- Share a minimal code example, repository, sandbox, or clear steps to reproduce. Remove any private information. -->
+ 
+-If you're reporting a bug, include the relevant code and stack traces to debug it (removing any private information).
++### Environment
+ 
+-If you're requesting a feature, include some context and examples of code using it.
++- Axios version:
++- Runtime/platform: <!-- Node, browser, React Native, etc. -->
++- Adapter: <!-- http, xhr, fetch, or unknown -->
+ 
+-#### Environment
++### Additional context
+ 
+-- **Axios Version [e.g. 1.7.0]**
+-- **Target platform [e.g Node / Browser / React Native version where Axios is running]**
+-- **Adapter [e.g. FETCH / XHR / HTTP]**
+-- Additional Library/Framework Versions [e.g. React 16.7]
+-- OS: [e.g. iOS 12.1.0, OSX 10.13.4]
++<!-- Anything else that would help us understand or prioritize this issue. -->
+diff --git a/.github/PULL_REQUEST_TEMPLATE.md b/.github/PULL_REQUEST_TEMPLATE.md
+index 791c8dc1e7..f9a98fe2e4 100644
+--- a/.github/PULL_REQUEST_TEMPLATE.md
++++ b/.github/PULL_REQUEST_TEMPLATE.md
+@@ -1,14 +1,13 @@
+-<!-- Instructions
++<!-- Thanks for contributing. Keep this brief and remove anything that does not apply. -->
+ 
+-If you would like to add a PR description you may do so or let our AI agent create one, after the creation
+-you may then edit the file if the AI agent got it wrong.
++### Summary
+ 
+-Please read and follow the instructions before creating and submitting a pull request:
++<!-- What changed and why? -->
+ 
+-- Create an issue explaining the feature. It could save you some effort in case we don't consider it should be included in axios.
+-- If you're fixing a bug, try to commit the failing test/s and the code fixing it in different commits.
+-- Ensure you're following our [contributing guide](https://github.com/axios/axios/blob/main/CONTRIBUTING.md).
++### Related issue
+ 
+-**⚠️👆 Delete the instructions before submitting the pull request 👆⚠️**
++<!-- Link an issue or write N/A. -->
+ 
+-Describe your pull request here. -->
++### Testing
++
++<!-- What did you run to verify this change? If not tested, please say why. -->
+diff --git a/.gitignore b/.gitignore
+index b528722d6f..39b6a41cd5 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -10,4 +10,5 @@ sauce_connect.log
+ .vscode/
+ .claude/
+ openspec/
+-dist/
+\ No newline at end of file
++.opencode/
++dist/
+diff --git a/AGENTS.md b/AGENTS.md
+new file mode 100644
+index 0000000000..d4d57f2fb6
+--- /dev/null
++++ b/AGENTS.md
+@@ -0,0 +1,38 @@
++# AGENTS.md
++
++## Setup
++- Use npm here; `package-lock.json` is committed and CI installs with `npm ci --ignore-scripts`.
++- `mise.toml` pins local Node 20, but CI runs Node 12, 14, 16, 18, 20, 22, and 24; keep `lib/` source compatible with old CommonJS-era syntax and runtime assumptions.
++- CI order is `npm ci --ignore-scripts`, `npm run build`, then `npm test`.
++
++## Commands
++- `npm run build`: runs `grunt build`, which cleans `dist/` and uses Rollup from `lib/axios.js` to create `dist/axios*.js` and `dist/esm/axios*.js`.
++- `npm test`: runs JS tests and declaration tests through `bin/ssl_hotfix.js`; use this full command on Node >16 so old tooling gets `NODE_OPTIONS=--openssl-legacy-provider`.
++- `node bin/ssl_hotfix.js ./node_modules/.bin/grunt test`: JS-only verification, running ESLint on `lib/**/*.js`, Mocha on `test/unit/**/*.js`, and Karma on `test/specs/**/*.spec.js`.
++- `./node_modules/.bin/mocha --timeout 30000 test/unit/<path>.js`: run one Node/Mocha unit test file without Karma or dtslint.
++- `node bin/ssl_hotfix.js ./node_modules/.bin/grunt karma:single`: run the browser suite only.
++- `node bin/ssl_hotfix.js ./node_modules/.bin/dtslint --localTs node_modules/typescript/lib`: run the declaration tests in `test/typescript/axios.ts`.
++- `npm run fix`: ESLint autofix for `lib/**/*.js` only.
++
++## Structure
++- Package entry is `index.js` -> `lib/axios.js`; the TypeScript surface is the root `index.d.ts`.
++- `lib/defaults/index.js` chooses the runtime adapter: `lib/adapters/xhr.js` for browsers and `lib/adapters/http.js` for Node.
++- Browser bundlers also rely on `package.json` `browser` mappings from `./lib/adapters/http.js` to `./lib/adapters/xhr.js` and from `./lib/platform/node/index.js` to `./lib/platform/browser/index.js`.
++- `lib/env/data.js` stores the package version and is generated by `grunt version` or `npm run preversion`; do not edit it except as part of a version bump.
++- `grunt build` uses `rollup.config.js`; `webpack.config.js` is not the package build path, while Karma has its own webpack config inside `karma.conf.js`.
++
++## Tests
++- Node tests live in `test/unit/**/*.js` and use Mocha plus Node `assert`.
++- Browser tests live in `test/specs/**/*.spec.js` and use Jasmine/Jasmine-Ajax; globals such as `axios` and `getAjaxRequest` come from `test/specs/__helpers.js`.
++- Karma defaults to `FirefoxHeadless` and `ChromeHeadless` whenever `process.env.GITHUB_ACTIONS !== 'false'`, including when the variable is unset; set `GITHUB_ACTIONS=false` only if you need non-headless local browsers.
++- There is no committed single-browser-spec target; do not leave `fdescribe`, `fit`, or `.only` in tests.
++- Declaration changes should update both `index.d.ts` and `test/typescript/axios.ts`, then run the dtslint command above.
++
++## Source Conventions
++- `lib/` is CommonJS with `'use strict'`, `var`, semicolons, 2-space indentation, and no trailing commas; ESLint only checks `lib/**/*.js`.
++- Public API behavior usually needs README docs, TypeScript declarations, and declaration tests updated together.
++- Adapter or platform changes usually need both Node and browser paths considered, including Mocha coverage for `http.js` behavior and Karma coverage for `xhr.js` behavior.
++
++## Node 12+ Compatibility
++- All shipped code AND test code must run on Node 12 through Node 24. CI runs the full matrix, so a test that only works on Node 16+ will break the build. Avoid `??`, `?.`, top-level `await`, private class fields, `Array.prototype.at`, `structuredClone`, etc. in both `lib/` and `test/`.
++- Be wary of `Object.prototype` pollution tests on Node 12/14: setting `Object.prototype.get` (or `set`) before any code that calls `Object.defineProperty` with a value-only descriptor will throw `TypeError: Getter must be a function`, because the descriptor inherits the polluted property. Construct servers/clients first, pre-load any lazy-required Node internals (e.g. `require('dns')`), then apply the pollution.
+diff --git a/CHANGELOG.md b/CHANGELOG.md
+index 133355c21c..45ea4c3ecf 100644
+--- a/CHANGELOG.md
++++ b/CHANGELOG.md
+@@ -1,5 +1,15 @@
+ # Changelog
+ 
++## Unreleased
++
++### Notable behavior changes
++
++- `utils.merge` (used internally by `mergeConfig` and to merge request headers) now returns objects with a `null` prototype to harden against prototype-pollution gadgets. As a result, `error.config`, `error.config.headers`, and any merged header bucket no longer inherit from `Object.prototype`. Two consequences:
++  - `obj.hasOwnProperty(key)` on a merged config or header object throws `TypeError: obj.hasOwnProperty is not a function`. Use `Object.prototype.hasOwnProperty.call(obj, key)` or `key in obj` instead.
++  - Implicit string coercion (e.g. `String(obj)`, `'' + obj`, or any path that calls `ToPrimitive`) throws `TypeError: Cannot convert object to primitive value` because there is no inherited `toString`. Coerce explicitly via `JSON.stringify(obj)` or by reading individual properties.
++
++  Property access (`obj[key]`), enumeration, and `JSON.stringify` are unaffected.
++
+ ## [0.30.0](https://github.com/axios/axios/compare/v0.29.0...v0.30.0) (2025-03-26)
+ 
+ ## Release notes:
+diff --git a/CLAUDE.md b/CLAUDE.md
+new file mode 100644
+index 0000000000..43c994c2d3
+--- /dev/null
++++ b/CLAUDE.md
+@@ -0,0 +1 @@
++@AGENTS.md
+diff --git a/README.md b/README.md
+index deb4bb8e05..bd199374ad 100755
+--- a/README.md
++++ b/README.md
+@@ -331,14 +331,14 @@ These are the available config options for making requests. Only the `url` is re
+   // `params` are the URL parameters to be sent with the request
+   // Must be a plain object or a URLSearchParams object
+   // Null bytes in param values stay percent-encoded as `%00` in the resulting query string
+-  // (GHSA-xhjh-pmcv-23jw) — Axios does not reverse `encodeURIComponent` output for `%00`,
++  // Axios does not reverse `encodeURIComponent` output for `%00`,
+   // so null-byte injection cannot be smuggled through the serializer.
+   params: {
+     ID: 12345
+   },
+ 
+   // `paramsSerializer` is an optional config in charge of serializing `params`
+-  // Nested objects are walked with a bounded recursion depth (GHSA-62hf-57xw-28j9):
++  // Nested objects are walked with a bounded recursion depth:
+   // once `maxDepth` is exceeded the serializer throws `ERR_FORM_DATA_DEPTH_EXCEEDED`
+   // instead of overflowing the call stack. The same cap applies to `toFormData` when
+   // `Content-Type: multipart/form-data` triggers automatic FormData serialization.
+@@ -404,7 +404,7 @@ These are the available config options for making requests. Only the `url` is re
+   // `undefined` (default) - set XSRF header only for the same origin requests
+   // Only an explicit `true` (own property on the config) will add the XSRF header for
+   // cross-origin requests. Values inherited from `Object.prototype` are ignored
+-  // (GHSA-xx6v-rp6x-q39c), so a polluted prototype cannot silently enable the token.
++  // so a polluted prototype cannot silently enable the token.
+   withXSRFToken: boolean | undefined | ((config: AxiosRequestConfig) => boolean | undefined),
+ 
+   // `onUploadProgress` allows handling of progress events for uploads
+@@ -421,7 +421,7 @@ These are the available config options for making requests. Only the `url` is re
+ 
+   // `maxContentLength` defines the max size of the http response content in bytes allowed in node.js
+   // Also enforced on streamed responses (`responseType: 'stream'`): bytes are counted as they
+-  // arrive and the stream is aborted with an error once the cap is exceeded (GHSA-vf2m-468p-8v99).
++  // arrive and the stream is aborted with an error once the cap is exceeded.
+   maxContentLength: 2000,
+ 
+   // `maxBodyLength` (Node only option) defines the max size of the http request content in bytes allowed
+@@ -429,6 +429,18 @@ These are the available config options for making requests. Only the `url` is re
+   // once the cap is exceeded, even when the native http transport is used directly.
+   maxBodyLength: 2000,
+ 
++  // `formDataHeaderPolicy` controls which headers the Node adapter copies from
++  // FormData `getHeaders()`.
++  // 'legacy' (default) copies all returned headers for v1 compatibility.
++  // 'content-only' copies only Content-Type and Content-Length.
++  formDataHeaderPolicy: 'legacy',
++
++  // `redact` masks matching config keys when AxiosError#toJSON() is called.
++  // Matching is case-insensitive and recursive. It does not change the request.
++  // An empty array is treated as "no override" and falls back to the defaults so
++  // an accidental `redact: []` cannot silently disable redaction.
++  redact: ['authorization', 'password'],
++
+   // `validateStatus` defines whether to resolve or reject the promise for a given
+   // HTTP response status code. If `validateStatus` returns `true` (or is set to `null`
+   // or `undefined`), the promise will be resolved; otherwise, the promise will be
+@@ -454,10 +466,18 @@ These are the available config options for making requests. Only the `url` is re
+ 
+   // `socketPath` defines a UNIX Socket to be used in node.js.
+   // e.g. '/var/run/docker.sock' to send requests to the docker daemon.
++  // Avoid passing user-controlled values because socket paths bypass host,
++  // port, DNS, and proxy controls.
+   // Only either `socketPath` or `proxy` can be specified.
+   // If both are specified, `socketPath` is used.
+   socketPath: null, // default
+ 
++  // `allowedSocketPaths` constrains `socketPath` to known-safe Unix sockets.
++  // Use this when config can include partially user-controlled input.
++  // Set to a string or array of strings. An empty array denies all socket paths.
++  // Set to `null` on a request to clear an instance-level allowlist.
++  allowedSocketPaths: null, // default
++
+   // `httpAgent` and `httpsAgent` define a custom agent to be used when performing http
+   // and https requests, respectively, in node.js. This allows options to be added like
+   // `keepAlive` that are not enabled by default.
+diff --git a/index.d.ts b/index.d.ts
+index 34bc02adf1..ac6b9f5f95 100644
+--- a/index.d.ts
++++ b/index.d.ts
+@@ -154,11 +154,14 @@ export interface AxiosRequestConfig<D = any> {
+   onUploadProgress?: (progressEvent: ProgressEvent) => void;
+   onDownloadProgress?: (progressEvent: ProgressEvent) => void;
+   maxContentLength?: number;
++  formDataHeaderPolicy?: 'legacy' | 'content-only';
++  redact?: string[];
+   validateStatus?: ((status: number) => boolean) | null;
+   maxBodyLength?: number;
+   maxRedirects?: number;
+   beforeRedirect?: (options: Record<string, any>, responseDetails: {headers: Record<string, string>}) => void;
+   socketPath?: string | null;
++  allowedSocketPaths?: string | string[] | null;
+   httpAgent?: any;
+   httpsAgent?: any;
+   proxy?: AxiosProxyConfig | false;
+diff --git a/lib/adapters/http.js b/lib/adapters/http.js
+index 161e9c9038..2e9f2b755d 100755
+--- a/lib/adapters/http.js
++++ b/lib/adapters/http.js
+@@ -10,6 +10,7 @@ var https = require('https');
+ var httpFollow = require('follow-redirects/http');
+ var httpsFollow = require('follow-redirects/https');
+ var url = require('url');
++var path = require('path');
+ var zlib = require('zlib');
+ var VERSION = require('./../env/data').version;
+ var transitionalDefaults = require('../defaults/transitional');
+@@ -36,6 +37,94 @@ function dispatchBeforeRedirect(options) {
+   }
+ }
+ 
++function removeProxyAuthorization(headers) {
++  Object.keys(headers).forEach(function removeHeader(header) {
++    if (header.toLowerCase() === 'proxy-authorization') {
++      delete headers[header];
++    }
++  });
++}
++
++function normalizeSocketPath(socketPath) {
++  if (/^\\\\[.?]\\pipe\\/i.test(socketPath)) {
++    return socketPath;
++  }
++
++  return path.resolve(socketPath);
++}
++
++function getAllowedSocketPaths(config) {
++  var allowedSocketPaths = config.allowedSocketPaths;
++
++  if (
++    allowedSocketPaths === null ||
++    typeof allowedSocketPaths === 'undefined'
++  ) {
++    return null;
++  }
++
++  if (utils.isString(allowedSocketPaths)) {
++    return [allowedSocketPaths];
++  }
++
++  if (utils.isArray(allowedSocketPaths)) {
++    for (var i = 0; i < allowedSocketPaths.length; i++) {
++      if (!utils.isString(allowedSocketPaths[i])) {
++        return false;
++      }
++    }
++
++    return allowedSocketPaths;
++  }
++
++  return false;
++}
++
++function checkSocketPath(config) {
++  var socketPath = config.socketPath;
++
++  if (!socketPath) {
++    return null;
++  }
++
++  if (!utils.isString(socketPath)) {
++    return new AxiosError(
++      'config.socketPath must be a string',
++      AxiosError.ERR_BAD_OPTION_VALUE,
++      config
++    );
++  }
++
++  var allowedSocketPaths = getAllowedSocketPaths(config);
++
++  if (allowedSocketPaths === false) {
++    return new AxiosError(
++      'config.allowedSocketPaths must be a string, an array of strings, or null',
++      AxiosError.ERR_BAD_OPTION_VALUE,
++      config
++    );
++  }
++
++  if (allowedSocketPaths) {
++    var normalizedSocketPath = normalizeSocketPath(socketPath);
++    var allowed = allowedSocketPaths.some(
++      function isAllowed(allowedSocketPath) {
++        return normalizeSocketPath(allowedSocketPath) === normalizedSocketPath;
++      }
++    );
++
++    if (!allowed) {
++      return new AxiosError(
++        'config.socketPath is not allowed by config.allowedSocketPaths',
++        AxiosError.ERR_BAD_OPTION_VALUE,
++        config
++      );
++    }
++  }
++
++  return null;
++}
++
+ /**
+  *
+  * @param {http.ClientRequestArgs} options
+@@ -54,20 +143,37 @@ function setProxy(options, configProxy, location) {
+       }
+     }
+   }
++  if (!proxy) {
++    removeProxyAuthorization(options.headers);
++  }
+   if (proxy) {
+     // Basic proxy authorization
+-    if (proxy.auth) {
++    var proxyAuth = utils.hasOwnProperty(proxy, 'auth')
++      ? proxy.auth
++      : undefined;
++    if (proxyAuth) {
+       // Support proxy auth object form
+-      if (proxy.auth.username || proxy.auth.password) {
+-        proxy.auth = (proxy.auth.username || '') + ':' + (proxy.auth.password || '');
++      if (utils.isObject(proxyAuth)) {
++        var proxyUsername = utils.hasOwnProperty(proxyAuth, 'username')
++          ? proxyAuth.username
++          : '';
++        var proxyPassword = utils.hasOwnProperty(proxyAuth, 'password')
++          ? proxyAuth.password
++          : '';
++        proxyAuth =
++          proxyUsername || proxyPassword
++            ? proxyUsername + ':' + proxyPassword
++            : undefined;
++      }
++      if (proxyAuth) {
++        var base64 = Buffer.from(proxyAuth, 'utf8').toString('base64');
++        removeProxyAuthorization(options.headers);
++        options.headers['Proxy-Authorization'] = 'Basic ' + base64;
+       }
+-      var base64 = Buffer
+-        .from(proxy.auth, 'utf8')
+-        .toString('base64');
+-      options.headers['Proxy-Authorization'] = 'Basic ' + base64;
+     }
+ 
+-    options.headers.host = options.hostname + (options.port ? ':' + options.port : '');
++    options.headers.host =
++      options.hostname + (options.port ? ':' + options.port : '');
+     options.hostname = proxy.host;
+     options.host = proxy.host;
+     options.port = proxy.port;
+@@ -86,7 +192,10 @@ function setProxy(options, configProxy, location) {
+ 
+ /*eslint consistent-return:0*/
+ module.exports = function httpAdapter(config) {
+-  return new Promise(function dispatchHttpRequest(resolvePromise, rejectPromise) {
++  return new Promise(function dispatchHttpRequest(
++    resolvePromise,
++    rejectPromise
++  ) {
+     var onCanceled;
+     function done() {
+       if (config.cancelToken) {
+@@ -113,7 +222,11 @@ module.exports = function httpAdapter(config) {
+     var method = config.method.toUpperCase();
+ 
+     // Parse url
+-    var fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
++    var fullPath = buildFullPath(
++      config.baseURL,
++      config.url,
++      config.allowAbsoluteUrls
++    );
+     var parsed = url.parse(fullPath);
+     var protocol = parsed.protocol || supportedProtocols[0];
+ 
+@@ -125,11 +238,15 @@ module.exports = function httpAdapter(config) {
+         var estimated = estimateDataURLDecodedBytes(dataUrl);
+ 
+         if (estimated > config.maxContentLength) {
+-          return reject(new AxiosError(
+-            'maxContentLength size of ' + config.maxContentLength + ' exceeded',
+-            AxiosError.ERR_BAD_RESPONSE,
+-            config
+-          ));
++          return reject(
++            new AxiosError(
++              'maxContentLength size of ' +
++                config.maxContentLength +
++              ' exceeded',
++              AxiosError.ERR_BAD_RESPONSE,
++              config
++            )
++          );
+         }
+       }
+ 
+@@ -145,7 +262,9 @@ module.exports = function httpAdapter(config) {
+       }
+ 
+       try {
+-        var envOption = utils.hasOwnProperty(config, 'env') ? config.env : undefined;
++        var envOption = utils.hasOwnProperty(config, 'env')
++          ? config.env
++          : undefined;
+         convertedData = fromDataURI(config.url, responseType === 'blob', {
+           Blob: envOption && envOption.Blob
+         });
+@@ -173,11 +292,13 @@ module.exports = function httpAdapter(config) {
+     }
+ 
+     if (supportedProtocols.indexOf(protocol) === -1) {
+-      return reject(new AxiosError(
+-        'Unsupported protocol ' + protocol,
+-        AxiosError.ERR_BAD_REQUEST,
+-        config
+-      ));
++      return reject(
++        new AxiosError(
++          'Unsupported protocol ' + protocol,
++          AxiosError.ERR_BAD_REQUEST,
++          config
++        )
++      );
+     }
+ 
+     var headers = config.headers;
+@@ -201,9 +322,22 @@ module.exports = function httpAdapter(config) {
+     }
+ 
+     // support for https://www.npmjs.com/package/form-data api
+-    if (utils.isFormData(data) && utils.isFunction(data.getHeaders) &&
+-        data.getHeaders !== Object.prototype.getHeaders) {
+-      Object.assign(headers, data.getHeaders());
++    if (
++      utils.isFormData(data) &&
++      utils.isFunction(data.getHeaders) &&
++      data.getHeaders !== Object.prototype.getHeaders
++    ) {
++      var formHeaders = data.getHeaders();
++      if (config.formDataHeaderPolicy === 'content-only') {
++        Object.keys(formHeaders).forEach(function copyContentHeader(name) {
++          var lowerName = name.toLowerCase();
++          if (lowerName === 'content-type' || lowerName === 'content-length') {
++            headers[name] = formHeaders[name];
++          }
++        });
++      } else {
++        Object.assign(headers, formHeaders);
++      }
+     } else if (data && !utils.isStream(data)) {
+       if (Buffer.isBuffer(data)) {
+         // Nothing to do...
+@@ -212,19 +346,23 @@ module.exports = function httpAdapter(config) {
+       } else if (utils.isString(data)) {
+         data = Buffer.from(data, 'utf-8');
+       } else {
+-        return reject(new AxiosError(
+-          'Data after transformation must be a string, an ArrayBuffer, a Buffer, or a Stream',
+-          AxiosError.ERR_BAD_REQUEST,
+-          config
+-        ));
++        return reject(
++          new AxiosError(
++            'Data after transformation must be a string, an ArrayBuffer, a Buffer, or a Stream',
++            AxiosError.ERR_BAD_REQUEST,
++            config
++          )
++        );
+       }
+ 
+       if (config.maxBodyLength > -1 && data.length > config.maxBodyLength) {
+-        return reject(new AxiosError(
+-          'Request body larger than maxBodyLength limit',
+-          AxiosError.ERR_BAD_REQUEST,
+-          config
+-        ));
++        return reject(
++          new AxiosError(
++            'Request body larger than maxBodyLength limit',
++            AxiosError.ERR_BAD_REQUEST,
++            config
++          )
++        );
+       }
+ 
+       // Add Content-Length header if data exists
+@@ -253,7 +391,10 @@ module.exports = function httpAdapter(config) {
+     }
+ 
+     try {
+-      buildURL(parsed.path, config.params, config.paramsSerializer).replace(/^\?/, '');
++      buildURL(parsed.path, config.params, config.paramsSerializer).replace(
++        /^\?/,
++        ''
++      );
+     } catch (err) {
+       var customErr = new Error(err.message);
+       customErr.config = config;
+@@ -263,7 +404,11 @@ module.exports = function httpAdapter(config) {
+     }
+ 
+     var options = {
+-      path: buildURL(parsed.path, config.params, config.paramsSerializer).replace(/^\?/, ''),
++      path: buildURL(
++        parsed.path,
++        config.params,
++        config.paramsSerializer
++      ).replace(/^\?/, ''),
+       method: method,
+       headers: headers,
+       agents: { http: config.httpAgent, https: config.httpsAgent },
+@@ -273,12 +418,21 @@ module.exports = function httpAdapter(config) {
+       beforeRedirects: {}
+     };
+ 
++    var socketPathError = checkSocketPath(config);
++    if (socketPathError) {
++      return reject(socketPathError);
++    }
++
+     if (config.socketPath) {
+       options.socketPath = config.socketPath;
+     } else {
+       options.hostname = parsed.hostname;
+       options.port = parsed.port;
+-      setProxy(options, config.proxy, protocol + '//' + parsed.host + options.path);
++      setProxy(
++        options,
++        config.proxy,
++        protocol + '//' + parsed.host + options.path
++      );
+     }
+ 
+     var transport;
+@@ -350,7 +504,7 @@ module.exports = function httpAdapter(config) {
+       };
+ 
+       if (responseType === 'stream') {
+-        // Enforce maxContentLength on streamed responses too (GHSA-vf2m-468p-8v99).
++        // Enforce maxContentLength on streamed responses too.
+         // Previously the stream path bypassed the size guard because the check only
+         // ran on the buffering branch.
+         if (config.maxContentLength > -1) {
+@@ -360,12 +514,16 @@ module.exports = function httpAdapter(config) {
+             transform: function transformChunk(chunk, encoding, callback) {
+               streamedBytes += chunk.length;
+               if (streamedBytes > maxContentLength) {
+-                callback(new AxiosError(
+-                  'maxContentLength size of ' + maxContentLength + ' exceeded',
+-                  AxiosError.ERR_BAD_RESPONSE,
+-                  config,
+-                  lastRequest
+-                ));
++                callback(
++                  new AxiosError(
++                    'maxContentLength size of ' +
++                      maxContentLength +
++                    ' exceeded',
++                    AxiosError.ERR_BAD_RESPONSE,
++                    config,
++                    lastRequest
++                  )
++                );
+                 return;
+               }
+               callback(null, chunk);
+@@ -399,12 +557,23 @@ module.exports = function httpAdapter(config) {
+           totalResponseBytes += chunk.length;
+ 
+           // make sure the content length is not over the maxContentLength if specified
+-          if (config.maxContentLength > -1 && totalResponseBytes > config.maxContentLength) {
++          if (
++            config.maxContentLength > -1 &&
++            totalResponseBytes > config.maxContentLength
++          ) {
+             // stream.destroy() emit aborted event before calling reject() on Node.js v16
+             rejected = true;
+             responseStream.destroy();
+-            reject(new AxiosError('maxContentLength size of ' + config.maxContentLength + ' exceeded',
+-              AxiosError.ERR_BAD_RESPONSE, config, lastRequest));
++            reject(
++              new AxiosError(
++                'maxContentLength size of ' +
++                  config.maxContentLength +
++                  ' exceeded',
++                AxiosError.ERR_BAD_RESPONSE,
++                config,
++                lastRequest
++              )
++            );
+           }
+         });
+ 
+@@ -413,12 +582,14 @@ module.exports = function httpAdapter(config) {
+             return;
+           }
+           responseStream.destroy();
+-          reject(new AxiosError(
+-            'response stream aborted',
+-            AxiosError.ECONNABORTED,
+-            config,
+-            lastRequest
+-          ));
++          reject(
++            new AxiosError(
++              'response stream aborted',
++              AxiosError.ECONNABORTED,
++              config,
++              lastRequest
++            )
++          );
+         });
+ 
+         responseStream.on('error', function handleStreamError(err) {
+@@ -428,7 +599,10 @@ module.exports = function httpAdapter(config) {
+ 
+         responseStream.on('end', function handleStreamEnd() {
+           try {
+-            var responseData = responseBuffer.length === 1 ? responseBuffer[0] : Buffer.concat(responseBuffer);
++            var responseData =
++              responseBuffer.length === 1
++                ? responseBuffer[0]
++                : Buffer.concat(responseBuffer);
+             if (responseType !== 'arraybuffer') {
+               responseData = responseData.toString(responseEncoding);
+               if (!responseEncoding || responseEncoding === 'utf8') {
+@@ -437,7 +611,9 @@ module.exports = function httpAdapter(config) {
+             }
+             response.data = responseData;
+           } catch (err) {
+-            reject(AxiosError.from(err, null, config, response.request, response));
++            reject(
++              AxiosError.from(err, null, config, response.request, response)
++            );
+           }
+           settle(resolve, reject, response);
+         });
+@@ -459,16 +635,28 @@ module.exports = function httpAdapter(config) {
+ 
+     // Handle request timeout
+     if (config.timeout) {
+-      // This is forcing a int timeout to avoid problems if the `req` interface doesn't handle other types.
+-      var timeout = parseInt(config.timeout, 10);
++      // Force an int timeout so the `req` interface gets a clean number.
++      // The try/catch is required: merged config values have a null prototype,
++      // and parseInt on a null-prototype object throws "Cannot convert object
++      // to primitive value" because there is no inherited toString. Treating
++      // that as NaN routes to the same ERR_BAD_OPTION_VALUE rejection as any
++      // other unparsable value.
++      var timeout;
++      try {
++        timeout = parseInt(config.timeout, 10);
++      } catch (err) {
++        timeout = NaN;
++      }
+ 
+       if (isNaN(timeout)) {
+-        reject(new AxiosError(
+-          'error trying to parse `config.timeout` to int',
+-          AxiosError.ERR_BAD_OPTION_VALUE,
+-          config,
+-          req
+-        ));
++        reject(
++          new AxiosError(
++            'error trying to parse `config.timeout` to int',
++            AxiosError.ERR_BAD_OPTION_VALUE,
++            config,
++            req
++          )
++        );
+ 
+         return;
+       }
+@@ -480,17 +668,23 @@ module.exports = function httpAdapter(config) {
+       // ClientRequest.setTimeout will be fired on the specify milliseconds, and can make sure that abort() will be fired after connect.
+       req.setTimeout(timeout, function handleRequestTimeout() {
+         req.abort();
+-        var timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
++        var timeoutErrorMessage = config.timeout
++          ? 'timeout of ' + config.timeout + 'ms exceeded'
++          : 'timeout exceeded';
+         var transitional = config.transitional || transitionalDefaults;
+         if (config.timeoutErrorMessage) {
+           timeoutErrorMessage = config.timeoutErrorMessage;
+         }
+-        reject(new AxiosError(
+-          timeoutErrorMessage,
+-          transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
+-          config,
+-          req
+-        ));
++        reject(
++          new AxiosError(
++            timeoutErrorMessage,
++            transitional.clarifyTimeoutError
++              ? AxiosError.ETIMEDOUT
++              : AxiosError.ECONNABORTED,
++            config,
++            req
++          )
++        );
+       });
+     }
+ 
+@@ -501,16 +695,21 @@ module.exports = function httpAdapter(config) {
+         if (req.aborted) return;
+ 
+         req.abort();
+-        reject(!cancel || cancel.type ? new CanceledError(null, config, req) : cancel);
++        reject(
++          !cancel || cancel.type
++            ? new CanceledError(null, config, req)
++            : cancel
++        );
+       };
+ 
+       config.cancelToken && config.cancelToken.subscribe(onCanceled);
+       if (config.signal) {
+-        config.signal.aborted ? onCanceled() : config.signal.addEventListener('abort', onCanceled);
++        config.signal.aborted
++          ? onCanceled()
++          : config.signal.addEventListener('abort', onCanceled);
+       }
+     }
+ 
+-
+     // Send the request
+     if (utils.isStream(data)) {
+       data.on('error', function handleStreamError(err) {
+@@ -519,7 +718,7 @@ module.exports = function httpAdapter(config) {
+ 
+       // follow-redirects enforces options.maxBodyLength for stream uploads, but the
+       // native http/https transport (used when maxRedirects === 0) does not.
+-      // Count bytes ourselves so the limit is always honored (GHSA-5c9x-8gcm-mpgx).
++      // Count bytes ourselves so the limit is always honored.
+       var nativeTransport = transport === http || transport === https;
+       if (nativeTransport && config.maxBodyLength > -1) {
+         var maxBodyLength = config.maxBodyLength;
+@@ -528,12 +727,14 @@ module.exports = function httpAdapter(config) {
+           transform: function transformChunk(chunk, encoding, callback) {
+             uploadedBytes += chunk.length;
+             if (uploadedBytes > maxBodyLength) {
+-              callback(new AxiosError(
+-                'Request body larger than maxBodyLength limit',
+-                AxiosError.ERR_BAD_REQUEST,
+-                config,
+-                req
+-              ));
++              callback(
++                new AxiosError(
++                  'Request body larger than maxBodyLength limit',
++                  AxiosError.ERR_BAD_REQUEST,
++                  config,
++                  req
++                )
++              );
+               return;
+             }
+             callback(null, chunk);
+@@ -542,8 +743,16 @@ module.exports = function httpAdapter(config) {
+         bodyLimiter.on('error', function handleLimiterError(err) {
+           if (rejected) return;
+           rejected = true;
+-          try { data.unpipe(bodyLimiter); } catch (e) { /* noop */ }
+-          try { bodyLimiter.unpipe(req); } catch (e) { /* noop */ }
++          try {
++            data.unpipe(bodyLimiter);
++          } catch (e) {
++            /* noop */
++          }
++          try {
++            bodyLimiter.unpipe(req);
++          } catch (e) {
++            /* noop */
++          }
+           req.destroy();
+           reject(err);
+         });
+diff --git a/lib/adapters/xhr.js b/lib/adapters/xhr.js
+index e21a3f0b4c..9faa28a9ec 100644
+--- a/lib/adapters/xhr.js
++++ b/lib/adapters/xhr.js
+@@ -18,8 +18,10 @@ module.exports = function xhrAdapter(config) {
+     var requestData = config.data;
+     var requestHeaders = config.headers;
+     var responseType = config.responseType;
+-    // Guard against prototype pollution (GHSA-xx6v-rp6x-q39c): only honor own properties.
+-    var withXSRFToken = utils.hasOwnProperty(config, 'withXSRFToken') ? config.withXSRFToken : undefined;
++    // Guard against prototype pollution: only honor own properties.
++    var withXSRFToken = utils.hasOwnProperty(config, 'withXSRFToken')
++      ? config.withXSRFToken
++      : undefined;
+     var onCanceled;
+     function done() {
+       if (config.cancelToken) {
+@@ -40,13 +42,23 @@ module.exports = function xhrAdapter(config) {
+     // HTTP basic authentication
+     if (config.auth) {
+       var username = config.auth.username || '';
+-      var password = config.auth.password ? unescape(encodeURIComponent(config.auth.password)) : '';
++      var password = config.auth.password
++        ? unescape(encodeURIComponent(config.auth.password))
++        : '';
+       requestHeaders.Authorization = 'Basic ' + btoa(username + ':' + password);
+     }
+ 
+-    var fullPath = buildFullPath(config.baseURL, config.url, config.allowAbsoluteUrls);
++    var fullPath = buildFullPath(
++      config.baseURL,
++      config.url,
++      config.allowAbsoluteUrls
++    );
+ 
+-    request.open(config.method.toUpperCase(), buildURL(fullPath, config.params, config.paramsSerializer), true);
++    request.open(
++      config.method.toUpperCase(),
++      buildURL(fullPath, config.params, config.paramsSerializer),
++      true
++    );
+ 
+     // Set the request timeout in MS
+     request.timeout = config.timeout;
+@@ -56,9 +68,14 @@ module.exports = function xhrAdapter(config) {
+         return;
+       }
+       // Prepare the response
+-      var responseHeaders = 'getAllResponseHeaders' in request ? parseHeaders(request.getAllResponseHeaders()) : null;
+-      var responseData = !responseType || responseType === 'text' ||  responseType === 'json' ?
+-        request.responseText : request.response;
++      var responseHeaders =
++        'getAllResponseHeaders' in request
++          ? parseHeaders(request.getAllResponseHeaders())
++          : null;
++      var responseData =
++        !responseType || responseType === 'text' || responseType === 'json'
++          ? request.responseText
++          : request.response;
+       var response = {
+         data: responseData,
+         status: request.status,
+@@ -68,13 +85,17 @@ module.exports = function xhrAdapter(config) {
+         request: request
+       };
+ 
+-      settle(function _resolve(value) {
+-        resolve(value);
+-        done();
+-      }, function _reject(err) {
+-        reject(err);
+-        done();
+-      }, response);
++      settle(
++        function _resolve(value) {
++          resolve(value);
++          done();
++        },
++        function _reject(err) {
++          reject(err);
++          done();
++        },
++        response
++      );
+ 
+       // Clean up request
+       request = null;
+@@ -94,7 +115,10 @@ module.exports = function xhrAdapter(config) {
+         // handled by onerror instead
+         // With one exception: request that using file: protocol, most browsers
+         // will return status as 0 even though it's a successful request
+-        if (request.status === 0 && !(request.responseURL && request.responseURL.indexOf('file:') === 0)) {
++        if (
++          request.status === 0 &&
++          !(request.responseURL && request.responseURL.indexOf('file:') === 0)
++        ) {
+           return;
+         }
+         // readystate handler is calling before onerror or ontimeout handlers,
+@@ -109,7 +133,14 @@ module.exports = function xhrAdapter(config) {
+         return;
+       }
+ 
+-      reject(new AxiosError('Request aborted', AxiosError.ECONNABORTED, config, request));
++      reject(
++        new AxiosError(
++          'Request aborted',
++          AxiosError.ECONNABORTED,
++          config,
++          request
++        )
++      );
+ 
+       // Clean up request
+       request = null;
+@@ -119,7 +150,14 @@ module.exports = function xhrAdapter(config) {
+     request.onerror = function handleError() {
+       // Real errors are hidden from us by the browser
+       // onerror should only fire if it's a network error
+-      reject(new AxiosError('Network Error', AxiosError.ERR_NETWORK, config, request));
++      reject(
++        new AxiosError(
++          'Network Error',
++          AxiosError.ERR_NETWORK,
++          config,
++          request
++        )
++      );
+ 
+       // Clean up request
+       request = null;
+@@ -127,16 +165,23 @@ module.exports = function xhrAdapter(config) {
+ 
+     // Handle timeout
+     request.ontimeout = function handleTimeout() {
+-      var timeoutErrorMessage = config.timeout ? 'timeout of ' + config.timeout + 'ms exceeded' : 'timeout exceeded';
++      var timeoutErrorMessage = config.timeout
++        ? 'timeout of ' + config.timeout + 'ms exceeded'
++        : 'timeout exceeded';
+       var transitional = config.transitional || transitionalDefaults;
+       if (config.timeoutErrorMessage) {
+         timeoutErrorMessage = config.timeoutErrorMessage;
+       }
+-      reject(new AxiosError(
+-        timeoutErrorMessage,
+-        transitional.clarifyTimeoutError ? AxiosError.ETIMEDOUT : AxiosError.ECONNABORTED,
+-        config,
+-        request));
++      reject(
++        new AxiosError(
++          timeoutErrorMessage,
++          transitional.clarifyTimeoutError
++            ? AxiosError.ETIMEDOUT
++            : AxiosError.ECONNABORTED,
++          config,
++          request
++        )
++      );
+ 
+       // Clean up request
+       request = null;
+@@ -150,10 +195,16 @@ module.exports = function xhrAdapter(config) {
+       if (utils.isFunction(withXSRFToken)) {
+         withXSRFToken = withXSRFToken(config);
+       }
+-      // Strict boolean check (GHSA-xx6v-rp6x-q39c): only `true` short-circuits the same-origin guard.
+-      if (withXSRFToken === true || (withXSRFToken !== false && isURLSameOrigin(fullPath))) {
++      // Strict boolean check: only `true` short-circuits the same-origin guard.
++      if (
++        withXSRFToken === true ||
++        (withXSRFToken !== false && isURLSameOrigin(fullPath))
++      ) {
+         // Add xsrf header
+-        var xsrfValue = config.xsrfHeaderName && config.xsrfCookieName && cookies.read(config.xsrfCookieName);
++        var xsrfValue =
++          config.xsrfHeaderName &&
++          config.xsrfCookieName &&
++          cookies.read(config.xsrfCookieName);
+         if (xsrfValue) {
+           requestHeaders[config.xsrfHeaderName] = xsrfValue;
+         }
+@@ -163,7 +214,10 @@ module.exports = function xhrAdapter(config) {
+     // Add headers to the request
+     if ('setRequestHeader' in request) {
+       utils.forEach(requestHeaders, function setRequestHeader(val, key) {
+-        if (typeof requestData === 'undefined' && key.toLowerCase() === 'content-type') {
++        if (
++          typeof requestData === 'undefined' &&
++          key.toLowerCase() === 'content-type'
++        ) {
+           // Remove Content-Type if data is undefined
+           delete requestHeaders[key];
+         } else {
+@@ -200,30 +254,46 @@ module.exports = function xhrAdapter(config) {
+         if (!request) {
+           return;
+         }
+-        reject(!cancel || cancel.type ? new CanceledError(null, config, request) : cancel);
++        reject(
++          !cancel || cancel.type
++            ? new CanceledError(null, config, request)
++            : cancel
++        );
+         request.abort();
+         request = null;
+       };
+ 
+       config.cancelToken && config.cancelToken.subscribe(onCanceled);
+       if (config.signal) {
+-        config.signal.aborted ? onCanceled() : config.signal.addEventListener('abort', onCanceled);
++        config.signal.aborted
++          ? onCanceled()
++          : config.signal.addEventListener('abort', onCanceled);
+       }
+     }
+ 
+     // false, 0 (zero number), and '' (empty string) are valid JSON values
+-    if (!requestData && requestData !== false && requestData !== 0 && requestData !== '') {
++    if (
++      !requestData &&
++      requestData !== false &&
++      requestData !== 0 &&
++      requestData !== ''
++    ) {
+       requestData = null;
+     }
+ 
+     var protocol = parseProtocol(fullPath);
+ 
+     if (protocol && platform.protocols.indexOf(protocol) === -1) {
+-      reject(new AxiosError('Unsupported protocol ' + protocol + ':', AxiosError.ERR_BAD_REQUEST, config));
++      reject(
++        new AxiosError(
++          'Unsupported protocol ' + protocol + ':',
++          AxiosError.ERR_BAD_REQUEST,
++          config
++        )
++      );
+       return;
+     }
+ 
+-
+     // Send the request
+     request.send(requestData);
+   });
+diff --git a/lib/core/AxiosError.js b/lib/core/AxiosError.js
+index 1099bfc3ef..3c04e6c7ea 100644
+--- a/lib/core/AxiosError.js
++++ b/lib/core/AxiosError.js
+@@ -1,6 +1,81 @@
+ 'use strict';
+ 
+ var utils = require('../utils');
++var DEFAULT_REDACT_KEYS = require('../helpers/defaultRedactKeys');
++
++var REDACTED_VALUE = '[REDACTED ****]';
++
++function makeValueDescriptor(value) {
++  var descriptor = Object.create(null);
++  descriptor.value = value;
++  return descriptor;
++}
++
++function getRedactKeys(config) {
++  // An empty array is treated as "no override" so an upstream `redact: []` cannot
++  // silently disable redaction. To opt out, pass non-string values or unset keys.
++  var override = config && utils.isArray(config.redact) && config.redact.length ? config.redact : null;
++  var redact = override || DEFAULT_REDACT_KEYS;
++  var keys = {};
++
++  utils.forEach(redact, function eachRedactKey(key) {
++    if (typeof key === 'string') {
++      keys[key.toLowerCase()] = true;
++    }
++  });
++
++  return keys;
++}
++
++function shouldRedact(key, keys) {
++  return typeof key === 'string' && keys[key.toLowerCase()];
++}
++
++var CIRCULAR_VALUE = '[Circular]';
++
++function serializeConfigValue(value, keys, key, seen) {
++  var result;
++
++  if (shouldRedact(key, keys)) {
++    return REDACTED_VALUE;
++  }
++
++  if (utils.isArray(value)) {
++    if (seen.indexOf(value) !== -1) {
++      return CIRCULAR_VALUE;
++    }
++    seen.push(value);
++    result = [];
++    utils.forEach(value, function eachArrayValue(item, index) {
++      result[index] = serializeConfigValue(item, keys, index, seen);
++    });
++    seen.pop();
++    return result;
++  }
++
++  if (utils.isPlainObject(value)) {
++    if (seen.indexOf(value) !== -1) {
++      return CIRCULAR_VALUE;
++    }
++    seen.push(value);
++    result = {};
++    utils.forEach(value, function eachObjectValue(item, itemKey) {
++      result[itemKey] = serializeConfigValue(item, keys, itemKey, seen);
++    });
++    seen.pop();
++    return result;
++  }
++
++  return value;
++}
++
++function serializeConfig(config) {
++  if (!config) {
++    return config;
++  }
++
++  return serializeConfigValue(config, getRedactKeys(config), undefined, []);
++}
+ 
+ /**
+  * Create an Error with the specified message, config, error code, request and response.
+@@ -44,7 +119,7 @@ utils.inherits(AxiosError, Error, {
+       columnNumber: this.columnNumber,
+       stack: this.stack,
+       // Axios
+-      config: this.config,
++      config: serializeConfig(this.config),
+       code: this.code,
+       status: this.response && this.response.status ? this.response.status : null
+     };
+@@ -52,7 +127,7 @@ utils.inherits(AxiosError, Error, {
+ });
+ 
+ var prototype = AxiosError.prototype;
+-var descriptors = {};
++var descriptors = Object.create(null);
+ 
+ [
+   'ERR_BAD_OPTION_VALUE',
+@@ -70,11 +145,11 @@ var descriptors = {};
+   'ERR_FORM_DATA_DEPTH_EXCEEDED'
+ // eslint-disable-next-line func-names
+ ].forEach(function(code) {
+-  descriptors[code] = {value: code};
++  descriptors[code] = makeValueDescriptor(code);
+ });
+ 
+ Object.defineProperties(AxiosError, descriptors);
+-Object.defineProperty(prototype, 'isAxiosError', {value: true});
++Object.defineProperty(prototype, 'isAxiosError', makeValueDescriptor(true));
+ 
+ // eslint-disable-next-line func-names
+ AxiosError.from = function(error, code, config, request, response, customProps) {
+diff --git a/lib/core/dispatchRequest.js b/lib/core/dispatchRequest.js
+index 3713031239..a9d1499234 100644
+--- a/lib/core/dispatchRequest.js
++++ b/lib/core/dispatchRequest.js
+@@ -46,11 +46,16 @@ module.exports = function dispatchRequest(config) {
+   normalizeHeaderName(config.headers, 'Content-Type');
+ 
+   // Flatten headers
+-  config.headers = utils.merge(
+-    config.headers.common || {},
+-    config.headers[config.method] || {},
+-    config.headers
+-  );
++  var commonHeaders = utils.hasOwnProperty(config.headers, 'common') && config.headers.common
++    ? config.headers.common
++    : {};
++  var methodHeaders = config.method &&
++    utils.hasOwnProperty(config.headers, config.method) &&
++    config.headers[config.method]
++    ? config.headers[config.method]
++    : {};
++
++  config.headers = utils.merge(commonHeaders, methodHeaders, config.headers);
+ 
+   utils.forEach(
+     ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
+diff --git a/lib/core/mergeConfig.js b/lib/core/mergeConfig.js
+index 75e9deb866..e6d855d02d 100644
+--- a/lib/core/mergeConfig.js
++++ b/lib/core/mergeConfig.js
+@@ -99,6 +99,7 @@ module.exports = function mergeConfig(config1, config2) {
+     'httpsAgent': defaultToConfig2,
+     'cancelToken': defaultToConfig2,
+     'socketPath': defaultToConfig2,
++    'allowedSocketPaths': defaultToConfig2,
+     'responseEncoding': defaultToConfig2,
+     'validateStatus': mergeDirectKeys
+   };
+diff --git a/lib/defaults/index.js b/lib/defaults/index.js
+index 379236af61..24d876a975 100644
+--- a/lib/defaults/index.js
++++ b/lib/defaults/index.js
+@@ -8,6 +8,7 @@ var toFormData = require('../helpers/toFormData');
+ var toURLEncodedForm = require('../helpers/toURLEncodedForm');
+ var platform = require('../platform');
+ var formDataToJSON = require('../helpers/formDataToJSON');
++var defaultRedactKeys = require('../helpers/defaultRedactKeys');
+ 
+ var DEFAULT_CONTENT_TYPE = {
+   'Content-Type': 'application/x-www-form-urlencoded'
+@@ -151,6 +152,8 @@ var defaults = {
+   maxContentLength: -1,
+   maxBodyLength: -1,
+ 
++  redact: defaultRedactKeys.slice(),
++
+   env: {
+     FormData: platform.classes.FormData,
+     Blob: platform.classes.Blob
+diff --git a/lib/helpers/AxiosURLSearchParams.js b/lib/helpers/AxiosURLSearchParams.js
+index 0af9281c60..99633bf525 100644
+--- a/lib/helpers/AxiosURLSearchParams.js
++++ b/lib/helpers/AxiosURLSearchParams.js
+@@ -3,7 +3,7 @@
+ var toFormData = require('./toFormData');
+ 
+ function encode(str) {
+-  // Do not map `%00` back to a raw null byte (GHSA-xhjh-pmcv-23jw): that reversed
++  // Do not map `%00` back to a raw null byte: that reversed
+   // the safe percent-encoding from encodeURIComponent and enabled null byte injection.
+   var charMap = {
+     '!': '%21',
+@@ -13,9 +13,12 @@ function encode(str) {
+     '~': '%7E',
+     '%20': '+'
+   };
+-  return encodeURIComponent(str).replace(/[!'\(\)~]|%20/g, function replacer(match) {
+-    return charMap[match];
+-  });
++  return encodeURIComponent(str).replace(
++    /[!'\(\)~]|%20/g,
++    function replacer(match) {
++      return charMap[match];
++    }
++  );
+ }
+ 
+ function AxiosURLSearchParams(params, options) {
+@@ -31,13 +34,17 @@ prototype.append = function append(name, value) {
+ };
+ 
+ prototype.toString = function toString(encoder) {
+-  var _encode = encoder ? function(value) {
+-    return encoder.call(this, value, encode);
+-  } : encode;
+-
+-  return this._pairs.map(function each(pair) {
+-    return _encode(pair[0]) + '=' + _encode(pair[1]);
+-  }, '').join('&');
++  var _encode = encoder
++    ? function(value) {
++      return encoder.call(this, value, encode);
++    }
++    : encode;
++
++  return this._pairs
++    .map(function each(pair) {
++      return _encode(pair[0]) + '=' + _encode(pair[1]);
++    }, '')
++    .join('&');
+ };
+ 
+ module.exports = AxiosURLSearchParams;
+diff --git a/lib/helpers/cookies.js b/lib/helpers/cookies.js
+index 5a8a66661c..61f97e10af 100644
+--- a/lib/helpers/cookies.js
++++ b/lib/helpers/cookies.js
+@@ -32,8 +32,21 @@ module.exports = (
+         },
+ 
+         read: function read(name) {
+-          var match = document.cookie.match(new RegExp('(^|;\\s*)(' + name + ')=([^;]*)'));
+-          return (match ? decodeURIComponent(match[3]) : null);
++          var nameEQ = name + '=';
++          var cookies = document.cookie.split(';');
++          var cookie;
++
++          for (var i = 0; i < cookies.length; i++) {
++            cookie = cookies[i];
++            while (cookie.charAt(0) === ' ') {
++              cookie = cookie.substring(1);
++            }
++            if (cookie.indexOf(nameEQ) === 0) {
++              return decodeURIComponent(cookie.substring(nameEQ.length));
++            }
++          }
++
++          return null;
+         },
+ 
+         remove: function remove(name) {
+diff --git a/lib/helpers/defaultRedactKeys.js b/lib/helpers/defaultRedactKeys.js
+new file mode 100644
+index 0000000000..6395b26374
+--- /dev/null
++++ b/lib/helpers/defaultRedactKeys.js
+@@ -0,0 +1,3 @@
++'use strict';
++
++module.exports = ['authorization', 'proxy-authorization', 'cookie', 'set-cookie', 'x-api-key', 'password'];
+diff --git a/lib/helpers/shouldBypassProxy.js b/lib/helpers/shouldBypassProxy.js
+index 0f2ad7f0da..878dc364e1 100644
+--- a/lib/helpers/shouldBypassProxy.js
++++ b/lib/helpers/shouldBypassProxy.js
+@@ -40,6 +40,58 @@ function parseNoProxyEntry(entry) {
+   return [entryHost, entryPort];
+ }
+ 
++function parseIPv4Octets(hostname) {
++  var octets = hostname.split('.');
++
++  if (octets.length !== 4) {
++    return null;
++  }
++
++  for (var i = 0; i < octets.length; i++) {
++    if (!/^\d+$/.test(octets[i]) || Number(octets[i]) > 255) {
++      return null;
++    }
++  }
++
++  return octets;
++}
++
++// Recognises the canonical IPv4-mapped IPv6 forms the Node URL parser produces:
++//   ::ffff:127.0.0.1   (dotted-quad tail)
++//   ::ffff:7f00:1      (compressed two-group hex tail)
++// Fully-expanded forms like 0:0:0:0:0:ffff:7f00:1 or single-group tails like
++// ::ffff:1 are not normalised here. URL inputs are canonicalised by the parser
++// before reaching this helper, but hand-crafted no_proxy entries in those
++// shapes will not match an IPv4 listing.
++function normalizeIPv4MappedIPv6(hostname) {
++  // Match against the lowercased form so a hand-crafted no_proxy entry like
++  // `[::FFFF:7F00:1]` still resolves to its IPv4 alias. Callers that route via
++  // URL parsing already lowercase, but the helper stays robust on its own.
++  var lower = hostname.toLowerCase();
++  var dottedMatch = /^::ffff:(\d+\.\d+\.\d+\.\d+)$/.exec(lower);
++
++  if (dottedMatch) {
++    var octets = parseIPv4Octets(dottedMatch[1]);
++    return octets ? octets.join('.') : hostname;
++  }
++
++  var hexMatch = /^::ffff:([0-9a-f]{1,4}):([0-9a-f]{1,4})$/.exec(lower);
++
++  if (hexMatch) {
++    var high = parseInt(hexMatch[1], 16);
++    var low = parseInt(hexMatch[2], 16);
++
++    return [
++      (high >> 8) & 0xff,
++      high & 0xff,
++      (low >> 8) & 0xff,
++      low & 0xff
++    ].join('.');
++  }
++
++  return hostname;
++}
++
+ function normalizeNoProxyHost(hostname) {
+   if (!hostname) {
+     return hostname;
+@@ -49,7 +101,9 @@ function normalizeNoProxyHost(hostname) {
+     hostname = hostname.slice(1, -1);
+   }
+ 
+-  return hostname.replace(/\.+$/, '');
++  hostname = hostname.replace(/\.+$/, '');
++
++  return normalizeIPv4MappedIPv6(hostname);
+ }
+ 
+ function isLoopbackIPv4(hostname) {
+diff --git a/lib/utils.js b/lib/utils.js
+index b2e330fe9f..d1fb1399d0 100644
+--- a/lib/utils.js
++++ b/lib/utils.js
+@@ -49,8 +49,14 @@ function isUndefined(val) {
+  * @returns {boolean} True if value is a Buffer, otherwise false
+  */
+ function isBuffer(val) {
+-  return val !== null && !isUndefined(val) && val.constructor !== null && !isUndefined(val.constructor)
+-    && typeof val.constructor.isBuffer === 'function' && val.constructor.isBuffer(val);
++  return (
++    val !== null &&
++    !isUndefined(val) &&
++    val.constructor !== null &&
++    !isUndefined(val.constructor) &&
++    typeof val.constructor.isBuffer === 'function' &&
++    val.constructor.isBuffer(val)
++  );
+ }
+ 
+ /**
+@@ -62,7 +68,6 @@ function isBuffer(val) {
+  */
+ var isArrayBuffer = kindOfTest('ArrayBuffer');
+ 
+-
+ /**
+  * Determine if a value is a view on an ArrayBuffer
+  *
+@@ -71,10 +76,10 @@ var isArrayBuffer = kindOfTest('ArrayBuffer');
+  */
+ function isArrayBufferView(val) {
+   var result;
+-  if ((typeof ArrayBuffer !== 'undefined') && (ArrayBuffer.isView)) {
++  if (typeof ArrayBuffer !== 'undefined' && ArrayBuffer.isView) {
+     result = ArrayBuffer.isView(val);
+   } else {
+-    result = (val) && (val.buffer) && (isArrayBuffer(val.buffer));
++    result = val && val.buffer && isArrayBuffer(val.buffer);
+   }
+   return result;
+ }
+@@ -211,12 +216,14 @@ function isFormData(thing) {
+   // Reject non-objects (strings, numbers, booleans) up front — Object.getPrototypeOf
+   // throws a TypeError on primitives in ES5 environments.
+   if (!isObject(thing)) return false;
+-  // Reject plain objects inheriting directly from Object.prototype so prototype-pollution gadgets can't spoof FormData (GHSA-6chq-wfr3-2hj9).
++  // Reject plain objects inheriting directly from Object.prototype so prototype-pollution gadgets can't spoof FormData.
+   var proto = Object.getPrototypeOf(thing);
+   if (!proto || proto === Object.prototype) return false;
+   if (!isFunction(thing.append)) return false;
+-  return toString.call(thing) === pattern ||
+-    (isFunction(thing.toString) && thing.toString() === pattern);
++  return (
++    toString.call(thing) === pattern ||
++    (isFunction(thing.toString) && thing.toString() === pattern)
++  );
+ }
+ 
+ /**
+@@ -234,7 +241,9 @@ var isURLSearchParams = kindOfTest('URLSearchParams');
+  * @returns {String} The String freed of excess whitespace
+  */
+ function trim(str) {
+-  return str.trim ? str.trim() : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
++  return str.trim
++    ? str.trim()
++    : str.replace(/^[\s\uFEFF\xA0]+|[\s\uFEFF\xA0]+$/g, '');
+ }
+ 
+ /**
+@@ -254,10 +263,11 @@ function trim(str) {
+  */
+ function isStandardBrowserEnv() {
+   var product;
+-  if (typeof navigator !== 'undefined' && (
+-    (product = navigator.product) === 'ReactNative' ||
+-    product === 'NativeScript' ||
+-    product === 'NS')
++  if (
++    typeof navigator !== 'undefined' &&
++    ((product = navigator.product) === 'ReactNative' ||
++      product === 'NativeScript' ||
++      product === 'NS')
+   ) {
+     return false;
+   }
+@@ -322,14 +332,20 @@ function forEach(obj, fn) {
+  * @returns {Object} Result of all merge properties
+  */
+ function merge(/* obj1, obj2, obj3, ... */) {
+-  var result = {};
++  var result = Object.create(null);
+   function assignValue(val, key) {
++    var target;
++
+     if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+       return;
+     }
+ 
+-    if (isPlainObject(result[key]) && isPlainObject(val)) {
+-      result[key] = merge(result[key], val);
++    target = Object.prototype.hasOwnProperty.call(result, key)
++      ? result[key]
++      : undefined;
++
++    if (isPlainObject(target) && isPlainObject(val)) {
++      result[key] = merge(target, val);
+     } else if (isPlainObject(val)) {
+       result[key] = merge({}, val);
+     } else if (isArray(val)) {
+@@ -371,7 +387,7 @@ function extend(a, b, thisArg) {
+  * @return {string} content value without BOM
+  */
+ function stripBOM(content) {
+-  if (content.charCodeAt(0) === 0xFEFF) {
++  if (content.charCodeAt(0) === 0xfeff) {
+     content = content.slice(1);
+   }
+   return content;
+@@ -386,7 +402,10 @@ function stripBOM(content) {
+  */
+ 
+ function inherits(constructor, superConstructor, props, descriptors) {
+-  constructor.prototype = Object.create(superConstructor.prototype, descriptors);
++  constructor.prototype = Object.create(
++    superConstructor.prototype,
++    descriptors
++  );
+   constructor.prototype.constructor = constructor;
+   props && Object.assign(constructor.prototype, props);
+ }
+@@ -415,13 +434,20 @@ function toFlatObject(sourceObj, destObj, filter, propFilter) {
+     i = props.length;
+     while (i-- > 0) {
+       prop = props[i];
+-      if ((!propFilter || propFilter(prop, sourceObj, destObj)) && !merged[prop]) {
++      if (
++        (!propFilter || propFilter(prop, sourceObj, destObj)) &&
++        !merged[prop]
++      ) {
+         destObj[prop] = sourceObj[prop];
+         merged[prop] = true;
+       }
+     }
+     sourceObj = filter !== false && Object.getPrototypeOf(sourceObj);
+-  } while (sourceObj && (!filter || filter(sourceObj, destObj)) && sourceObj !== Object.prototype);
++  } while (
++    sourceObj &&
++    (!filter || filter(sourceObj, destObj)) &&
++    sourceObj !== Object.prototype
++  );
+ 
+   return destObj;
+ }
+@@ -443,7 +469,6 @@ function endsWith(str, searchString, position) {
+   return lastIndex !== -1 && lastIndex === position;
+ }
+ 
+-
+ /**
+  * Returns new array from array like object or null if failed
+  * @param {*} [thing]
+diff --git a/test/specs/core/AxiosError.spec.js b/test/specs/core/AxiosError.spec.js
+index b6023f287a..6625a81159 100644
+--- a/test/specs/core/AxiosError.spec.js
++++ b/test/specs/core/AxiosError.spec.js
+@@ -29,6 +29,171 @@ describe('core::AxiosError', function() {
+     expect(json.response).toBe(undefined);
+   });
+ 
++  it('should redact default sensitive config keys when serialized to JSON', function() {
++    var config = {
++      url: '/foo',
++      headers: {
++        Authorization: 'Bearer secret-token',
++        'Proxy-Authorization': 'Basic proxy-secret',
++        Cookie: 'sid=secret-cookie',
++        'Set-Cookie': 'sid=set-cookie-secret',
++        'X-API-Key': 'secret-api-key',
++        Accept: 'application/json'
++      },
++      auth: {
++        username: 'janedoe',
++        password: 's00pers3cret'
++      },
++      params: {
++        page: 1
++      }
++    };
++    var error = new AxiosError('Boom!', 'ESOMETHING', config);
++    var json = error.toJSON();
++
++    expect(json.config.headers.Authorization).toBe('[REDACTED ****]');
++    expect(json.config.headers['Proxy-Authorization']).toBe('[REDACTED ****]');
++    expect(json.config.headers.Cookie).toBe('[REDACTED ****]');
++    expect(json.config.headers['Set-Cookie']).toBe('[REDACTED ****]');
++    expect(json.config.headers['X-API-Key']).toBe('[REDACTED ****]');
++    expect(json.config.auth.password).toBe('[REDACTED ****]');
++    expect(json.config.url).toBe('/foo');
++    expect(json.config.headers.Accept).toBe('application/json');
++    expect(json.config.auth.username).toBe('janedoe');
++    expect(json.config.params.page).toBe(1);
++  });
++
++  it('should omit redacted plaintext values from JSON.stringify output', function() {
++    var error = new AxiosError('Boom!', 'ESOMETHING', {
++      headers: {
++        Authorization: 'Bearer stringify-token',
++        'Proxy-Authorization': 'Basic stringify-proxy',
++        Cookie: 'sid=stringify-cookie',
++        'Set-Cookie': 'sid=stringify-set-cookie',
++        'X-API-Key': 'stringify-api-key'
++      },
++      auth: {
++        password: 'stringify-password'
++      }
++    });
++    var serialized = JSON.stringify(error);
++
++    expect(serialized).not.toContain('Bearer stringify-token');
++    expect(serialized).not.toContain('Basic stringify-proxy');
++    expect(serialized).not.toContain('sid=stringify-cookie');
++    expect(serialized).not.toContain('sid=stringify-set-cookie');
++    expect(serialized).not.toContain('stringify-api-key');
++    expect(serialized).not.toContain('stringify-password');
++    expect(serialized).toContain('[REDACTED ****]');
++  });
++
++  it('should redact matching config keys recursively and case-insensitively', function() {
++    var error = new AxiosError('Boom!', 'ESOMETHING', {
++      headers: {
++        Authorization: 'Bearer token',
++        cOoKiE: 'mixed-case-cookie',
++        common: {
++          authorization: 'Common token',
++          'x-api-key': 'Common API key',
++          Accept: 'application/json'
++        },
++        get: {
++          'Proxy-Authorization': 'GET proxy token',
++          'Content-Type': 'application/json'
++        }
++      },
++      auth: {
++        Password: 'Secret password'
++      }
++    });
++    var json = error.toJSON();
++
++    expect(json.config.headers.Authorization).toBe('[REDACTED ****]');
++    expect(json.config.headers.cOoKiE).toBe('[REDACTED ****]');
++    expect(json.config.headers.common.authorization).toBe('[REDACTED ****]');
++    expect(json.config.headers.common['x-api-key']).toBe('[REDACTED ****]');
++    expect(json.config.headers.common.Accept).toBe('application/json');
++    expect(json.config.headers.get['Proxy-Authorization']).toBe('[REDACTED ****]');
++    expect(json.config.headers.get['Content-Type']).toBe('application/json');
++    expect(json.config.auth.Password).toBe('[REDACTED ****]');
++  });
++
++  it('should use custom config redact keys with exact key matching', function() {
++    var error = new AxiosError('Boom!', 'ESOMETHING', {
++      redact: ['apiKey'],
++      apiKey: 'secret-api-key',
++      password: 'not-redacted-by-custom-list',
++      passwordHint: 'first pet'
++    });
++    var json = error.toJSON();
++
++    expect(json.config.apiKey).toBe('[REDACTED ****]');
++    expect(json.config.password).toBe('not-redacted-by-custom-list');
++    expect(json.config.passwordHint).toBe('first pet');
++  });
++
++  it('should not mutate error config while redacting serialized output', function() {
++    var config = {
++      headers: {
++        Authorization: 'Bearer original-token',
++        Cookie: 'sid=original-cookie',
++        common: {
++          'X-API-Key': 'original-api-key'
++        }
++      },
++      auth: {
++        password: 'original-password'
++      }
++    };
++    var error = new AxiosError('Boom!', 'ESOMETHING', config);
++
++    error.toJSON();
++    JSON.stringify(error);
++
++    expect(error.config).toBe(config);
++    expect(error.config.headers.Authorization).toBe('Bearer original-token');
++    expect(error.config.headers.Cookie).toBe('sid=original-cookie');
++    expect(error.config.headers.common['X-API-Key']).toBe('original-api-key');
++    expect(error.config.auth.password).toBe('original-password');
++  });
++
++  it('should not infinite-loop when the config contains a cycle', function() {
++    var config = {
++      url: '/foo',
++      headers: {
++        Authorization: 'Bearer secret-token'
++      }
++    };
++    config.self = config;
++    config.headers.parent = config;
++
++    var error = new AxiosError('Boom!', 'ESOMETHING', config);
++    var json;
++
++    expect(function() {
++      json = error.toJSON();
++    }).not.toThrow();
++
++    expect(json.config.url).toBe('/foo');
++    expect(json.config.headers.Authorization).toBe('[REDACTED ****]');
++    expect(json.config.self).toBe('[Circular]');
++    expect(json.config.headers.parent).toBe('[Circular]');
++  });
++
++  it('should not flag shared-but-acyclic config branches as circular', function() {
++    var shared = { kind: 'shared' };
++    var error = new AxiosError('Boom!', 'ESOMETHING', {
++      first: shared,
++      second: shared
++    });
++    var json = error.toJSON();
++
++    expect(json.config.first).toEqual({ kind: 'shared' });
++    expect(json.config.second).toEqual({ kind: 'shared' });
++    expect(json.config.first).not.toBe(shared);
++    expect(json.config.second).not.toBe(shared);
++  });
++
+   describe('core::createError.from', function() {
+     it('should add config, config, request and response to error', function() {
+       var error = new Error('Boom!');
+diff --git a/test/specs/helpers/cookies.spec.js b/test/specs/helpers/cookies.spec.js
+index 9c3880d72b..d5b32e6635 100644
+--- a/test/specs/helpers/cookies.spec.js
++++ b/test/specs/helpers/cookies.spec.js
+@@ -23,6 +23,27 @@ describe('helpers::cookies', function () {
+     expect(cookies.read('bar')).toEqual('def');
+   });
+ 
++  it('should read cookie names containing regex metacharacters literally', function () {
++    cookies.write('foo.*', 'abc');
++    cookies.write('foo-value', 'def');
++
++    expect(cookies.read('foo.*')).toEqual('abc');
++  });
++
++  it('should not treat regex-like cookie names as patterns', function () {
++    cookies.write('foo-value', 'def');
++
++    expect(cookies.read('foo.*')).toEqual(null);
++  });
++
++  it('should not throw when reading an invalid regex string as a cookie name', function () {
++    cookies.write('foo', 'abc');
++
++    expect(function () {
++      expect(cookies.read('[')).toEqual(null);
++    }).not.toThrow();
++  });
++
+   it('should remove cookies', function () {
+     cookies.write('foo', 'bar');
+     cookies.remove('foo');
+diff --git a/test/specs/xsrf.spec.js b/test/specs/xsrf.spec.js
+index 3b81683788..27a56566f5 100644
+--- a/test/specs/xsrf.spec.js
++++ b/test/specs/xsrf.spec.js
+@@ -58,6 +58,19 @@ describe('xsrf', function() {
+     });
+   });
+ 
++  it('should not treat regex-like xsrfCookieName as a pattern', function(done) {
++    document.cookie = axios.defaults.xsrfCookieName + '=12345';
++
++    axios('/foo', {
++      xsrfCookieName: 'XSRF.*'
++    });
++
++    getAjaxRequest().then(function(request) {
++      expect(request.requestHeaders[axios.defaults.xsrfHeaderName]).toEqual(undefined);
++      done();
++    });
++  });
++
+   it('should not set xsrf header for cross origin', function(done) {
+     document.cookie = axios.defaults.xsrfCookieName + '=12345';
+ 
+diff --git a/test/typescript/axios.ts b/test/typescript/axios.ts
+index 60873d89a3..2cb115e247 100644
+--- a/test/typescript/axios.ts
++++ b/test/typescript/axios.ts
+@@ -38,9 +38,13 @@ const config: AxiosRequestConfig = {
+   onUploadProgress: (progressEvent: ProgressEvent) => {},
+   onDownloadProgress: (progressEvent: ProgressEvent) => {},
+   maxContentLength: 2000,
++  formDataHeaderPolicy: 'content-only',
++  redact: ['authorization', 'password', 'apiKey'],
+   maxBodyLength: 2000,
+   validateStatus: (status: number) => status >= 200 && status < 300,
+   maxRedirects: 5,
++  socketPath: '/var/run/docker.sock',
++  allowedSocketPaths: '/var/run/docker.sock',
+   proxy: {
+     host: '127.0.0.1',
+     port: 9000
+@@ -56,6 +60,14 @@ const undefinedValidateStatusConfig: AxiosRequestConfig = {
+   validateStatus: undefined
+ };
+ 
++const socketPathArrayConfig: AxiosRequestConfig = {
++  allowedSocketPaths: ['/var/run/docker.sock', '/var/run/app.sock']
++};
++
++const clearedSocketPathConfig: AxiosRequestConfig = {
++  allowedSocketPaths: null
++};
++
+ const handleResponse = (response: AxiosResponse) => {
+   console.log(response.data);
+   console.log(response.status);
+diff --git a/test/unit/adapters/http.js b/test/unit/adapters/http.js
+index 1d9c40cd32..57871c213c 100644
+--- a/test/unit/adapters/http.js
++++ b/test/unit/adapters/http.js
+@@ -2,6 +2,11 @@ var axios = require("../../../index");
+ var http = require("http");
+ var https = require("https");
+ var net = require("net");
++// Pre-load `dns` so it isn't lazy-required from inside an http request
++// after a test pollutes `Object.prototype.get` — on older Node versions
++// the lazy `Object.defineProperty` call in dns.js inherits the polluted
++// getter and throws "Getter must be a function".
++require("dns");
+ var url = require("url");
+ var zlib = require("zlib");
+ var assert = require("assert");
+@@ -20,6 +25,18 @@ var isBlobSupported = typeof Blob !== "undefined";
+ var noop = () => {};
+ 
+ describe("supports http with nodejs", function () {
++  function clearPrototypePollution() {
++    delete Object.prototype.auth;
++    delete Object.prototype.username;
++    delete Object.prototype.password;
++    delete Object.prototype.common;
++    delete Object.prototype.get;
++    delete Object.prototype.post;
++  }
++
++  // Defensive: clear before each test in case another suite left pollution.
++  beforeEach(clearPrototypePollution);
++
+   afterEach(function () {
+     if (server) {
+       server.close();
+@@ -34,6 +51,7 @@ describe("supports http with nodejs", function () {
+     delete process.env.https_proxy;
+     delete process.env.no_proxy;
+     delete process.env.NO_PROXY;
++    clearPrototypePollution();
+   });
+ 
+   it("should sanitize request headers containing invalid characters", function (done) {
+@@ -384,11 +402,11 @@ describe("supports http with nodejs", function () {
+           .createServer(function (request, response) {
+             proxyUseCount += 1;
+             var parsed = url.parse(request.url);
+-            var opts = {
+-              host: parsed.hostname,
+-              port: parsed.port,
+-              path: parsed.path,
+-            };
++            var opts = Object.create(null);
++            opts.host = parsed.hostname;
++            opts.port = parsed.port;
++            opts.path = parsed.path;
++            opts.auth = undefined;
+ 
+             http.get(opts, function (res) {
+               response.writeHead(res.statusCode, res.headers);
+@@ -431,6 +449,163 @@ describe("supports http with nodejs", function () {
+       });
+   });
+ 
++  it("should remove proxy authorization when redirect switches from authenticated HTTP proxy to direct HTTPS", function (done) {
++    var proxyAuth =
++      "Basic " + Buffer.from("user:pass", "utf8").toString("base64");
++    var proxyRequestAuth;
++
++    proxy = http
++      .createServer(function (request, response) {
++        proxyRequestAuth = request.headers["proxy-authorization"];
++        response.setHeader("Location", "https://localhost:1/");
++        response.statusCode = 302;
++        response.end();
++      })
++      .listen(4000, function () {
++        process.env.HTTP_PROXY = "http://user:pass@localhost:4000/";
++
++        axios
++          .get("http://example.com/", {
++            headers: {
++              "proxy-authorization": "Basic stale",
++            },
++            maxRedirects: 1,
++            beforeRedirect: function (options) {
++              assert.equal(proxyRequestAuth, proxyAuth);
++              assert.equal(options.headers["Proxy-Authorization"], undefined);
++              assert.equal(options.headers["proxy-authorization"], undefined);
++              throw new Error("stop before direct redirect");
++            },
++          })
++          .then(function () {
++            done(new Error("request should not succeed"));
++          })
++          .catch(function (error) {
++            assert.equal(
++              error.message,
++              "Redirected request failed: stop before direct redirect",
++            );
++            done();
++          });
++      });
++  });
++
++  it("should remove proxy authorization when redirected target is excluded by no_proxy", function (done) {
++    proxy = http
++      .createServer(function (request, response) {
++        response.setHeader("Location", "http://localhost:1/");
++        response.statusCode = 302;
++        response.end();
++      })
++      .listen(4000, function () {
++        process.env.HTTP_PROXY = "http://user:pass@localhost:4000/";
++        process.env.NO_PROXY = "localhost";
++
++        axios
++          .get("http://example.com/", {
++            maxRedirects: 1,
++            beforeRedirect: function (options) {
++              assert.equal(options.headers["Proxy-Authorization"], undefined);
++              assert.equal(options.headers["proxy-authorization"], undefined);
++              throw new Error("stop before no_proxy redirect");
++            },
++          })
++          .then(function () {
++            done(new Error("request should not succeed"));
++          })
++          .catch(function (error) {
++            assert.equal(
++              error.message,
++              "Redirected request failed: stop before no_proxy redirect",
++            );
++            done();
++          });
++      });
++  });
++
++  it("should remove proxy authorization case-insensitively when no proxy applies", function (done) {
++    server = http
++      .createServer(function (req, res) {
++        assert.equal(req.headers["proxy-authorization"], undefined);
++        res.end("ok");
++      })
++      .listen(4444, function () {
++        process.env.HTTP_PROXY = "http://localhost:4000/";
++        process.env.NO_PROXY = "localhost";
++
++        axios
++          .get("http://localhost:4444/", {
++            headers: {
++              "pRoXy-AuThOrIzAtIoN": "Basic stale",
++            },
++          })
++          .then(function (res) {
++            assert.equal(res.data, "ok");
++            done();
++          })
++          .catch(done);
++      });
++  });
++
++  it("should keep proxy authorization when redirected request still uses authenticated proxy", function (done) {
++    var requestCount = 0;
++    var proxyAuth =
++      "Basic " + Buffer.from("user:pass", "utf8").toString("base64");
++
++    server = http
++      .createServer(function (req, res) {
++        requestCount += 1;
++        if (requestCount === 1) {
++          res.setHeader("Location", "http://localhost:4444/final");
++          res.statusCode = 302;
++        }
++        res.end("ok");
++      })
++      .listen(4444, function () {
++        var proxyUseCount = 0;
++
++        proxy = http
++          .createServer(function (request, response) {
++            proxyUseCount += 1;
++            assert.equal(request.headers["proxy-authorization"], proxyAuth);
++
++            var parsed = url.parse(request.url);
++            var opts = {
++              host: parsed.hostname,
++              port: parsed.port,
++              path: parsed.path,
++            };
++
++            http.get(opts, function (res) {
++              response.writeHead(res.statusCode, res.headers);
++              res.on("data", function (data) {
++                response.write(data);
++              });
++              res.on("end", function () {
++                response.end();
++              });
++            });
++          })
++          .listen(4000, function () {
++            axios
++              .get("http://localhost:4444/", {
++                proxy: {
++                  host: "localhost",
++                  port: 4000,
++                  auth: "user:pass",
++                },
++                maxRedirects: 1,
++              })
++              .then(function (res) {
++                assert.equal(res.data, "ok");
++                assert.equal(proxyUseCount, 2);
++                done();
++              })
++              .catch(done);
++          });
++      });
++  });
++
+   it("should preserve the HTTP verb on redirect", function (done) {
+     server = http
+       .createServer(function (req, res) {
+@@ -817,6 +992,35 @@ describe("supports http with nodejs", function () {
+       socketName = "\\\\.\\pipe\\libuv-test";
+     }
+ 
++    server = net
++      .createServer(function (socket) {
++        socket.on("data", function () {
++          socket.end("HTTP/1.1 200 OK\r\n\r\n");
++        });
++      })
++      .listen(socketName, function () {
++        axios({
++          socketPath: socketName,
++          allowedSocketPaths: socketName,
++          url: "/",
++        })
++          .then(function (resp) {
++            assert.equal(resp.status, 200);
++            assert.equal(resp.statusText, "OK");
++            done();
++          })
++          .catch(done);
++      });
++  });
++
++  it("should support sockets without an allowlist", function (done) {
++    // Different sockets for win32 vs darwin/linux
++    var socketName = "./test.sock";
++
++    if (process.platform === "win32") {
++      socketName = "\\\\.\\pipe\\libuv-test";
++    }
++
+     server = net
+       .createServer(function (socket) {
+         socket.on("data", function () {
+@@ -837,6 +1041,146 @@ describe("supports http with nodejs", function () {
+       });
+   });
+ 
++  it("should reject disallowed socket paths before opening the socket", function (done) {
++    var socketName = "./test.sock";
++    var openedSocket = false;
++
++    if (process.platform === "win32") {
++      socketName = "\\\\.\\pipe\\libuv-test";
++    }
++
++    server = net
++      .createServer(function (socket) {
++        openedSocket = true;
++        socket.end("HTTP/1.1 200 OK\r\n\r\n");
++      })
++      .listen(socketName, function () {
++        axios({
++          socketPath: socketName,
++          allowedSocketPaths: "./other.sock",
++          url: "/",
++        })
++          .then(function () {
++            done(new Error("request should not succeed"));
++          })
++          .catch(function (err) {
++            assert.equal(err.code, AxiosError.ERR_BAD_OPTION_VALUE);
++            assert.equal(openedSocket, false);
++            done();
++          });
++      });
++  });
++
++  it("should reject socket paths when allowlist is empty", function (done) {
++    var socketName = "./test.sock";
++    var openedSocket = false;
++
++    if (process.platform === "win32") {
++      socketName = "\\\\.\\pipe\\libuv-test";
++    }
++
++    server = net
++      .createServer(function (socket) {
++        openedSocket = true;
++        socket.end("HTTP/1.1 200 OK\r\n\r\n");
++      })
++      .listen(socketName, function () {
++        axios({
++          socketPath: socketName,
++          allowedSocketPaths: [],
++          url: "/",
++        })
++          .then(function () {
++            done(new Error("request should not succeed"));
++          })
++          .catch(function (err) {
++            assert.equal(err.code, AxiosError.ERR_BAD_OPTION_VALUE);
++            assert.equal(openedSocket, false);
++            done();
++          });
++      });
++  });
++
++  it("should inherit and clear socket path allowlists", function (done) {
++    var socketName = "./test.sock";
++    var instance;
++
++    if (process.platform === "win32") {
++      socketName = "\\\\.\\pipe\\libuv-test";
++    }
++
++    server = net
++      .createServer(function (socket) {
++        socket.on("data", function () {
++          socket.end("HTTP/1.1 200 OK\r\n\r\n");
++        });
++      })
++      .listen(socketName, function () {
++        instance = axios.create({
++          allowedSocketPaths: socketName,
++        });
++
++        instance({
++          socketPath: socketName,
++          url: "/",
++        })
++          .then(function (resp) {
++            assert.equal(resp.status, 200);
++
++            return axios.create({
++              allowedSocketPaths: [],
++            })({
++              socketPath: socketName,
++              allowedSocketPaths: null,
++              url: "/",
++            });
++          })
++          .then(function (resp) {
++            assert.equal(resp.status, 200);
++            done();
++          })
++          .catch(done);
++      });
++  });
++
++  it("should reject invalid socket path options", function (done) {
++    axios({
++      socketPath: {},
++      url: "/",
++    })
++      .then(function () {
++        done(new Error("request should not succeed"));
++      })
++      .catch(function (err) {
++        assert.equal(err.code, AxiosError.ERR_BAD_OPTION_VALUE);
++
++        return axios({
++          socketPath: "./test.sock",
++          allowedSocketPaths: {},
++          url: "/",
++        });
++      })
++      .then(function () {
++        done(new Error("request should not succeed"));
++      })
++      .catch(function (err) {
++        assert.equal(err.code, AxiosError.ERR_BAD_OPTION_VALUE);
++
++        return axios({
++          socketPath: "./test.sock",
++          allowedSocketPaths: ["./test.sock", {}],
++          url: "/",
++        });
++      })
++      .then(function () {
++        done(new Error("request should not succeed"));
++      })
++      .catch(function (err) {
++        assert.equal(err.code, AxiosError.ERR_BAD_OPTION_VALUE);
++        done();
++      });
++  });
++
+   it("should support streams", function (done) {
+     server = http
+       .createServer(function (req, res) {
+@@ -1380,6 +1724,38 @@ describe("supports http with nodejs", function () {
+       });
+   });
+ 
++  it("should not use proxy for IPv4-mapped IPv6 when no_proxy lists IPv4", function (done) {
++    var proxyRequests = 0;
++
++    proxy = http
++      .createServer(function (request, response) {
++        proxyRequests += 1;
++        response.end("proxied");
++      })
++      .listen(4000, function () {
++        process.env.http_proxy = "http://localhost:4000/";
++        process.env.HTTP_PROXY = "http://localhost:4000/";
++        process.env.no_proxy = "127.0.0.1";
++        process.env.NO_PROXY = "127.0.0.1";
++
++        axios
++          .get("http://[::ffff:7f00:1]:1/", {
++            timeout: 100,
++          })
++          .then(function () {
++            done(new Error("request should not succeed"));
++          })
++          .catch(function () {
++            assert.equal(
++              proxyRequests,
++              0,
++              "should not use proxy for IPv4-mapped IPv6 alias",
++            );
++            done();
++          });
++      });
++  });
++
+   it("should use proxy for domains not in no_proxy", function (done) {
+     server = http
+       .createServer(function (req, res) {
+@@ -1436,11 +1812,11 @@ describe("supports http with nodejs", function () {
+         proxy = http
+           .createServer(function (request, response) {
+             var parsed = url.parse(request.url);
+-            var opts = {
+-              host: parsed.hostname,
+-              port: parsed.port,
+-              path: parsed.path,
+-            };
++            var opts = Object.create(null);
++            opts.host = parsed.hostname;
++            opts.port = parsed.port;
++            opts.path = parsed.path;
++            opts.auth = undefined;
+             var proxyAuth = request.headers["proxy-authorization"];
+ 
+             http.get(opts, function (res) {
+@@ -1530,6 +1906,119 @@ describe("supports http with nodejs", function () {
+       });
+   });
+ 
++  it("should not use inherited proxy auth credentials", function (done) {
++    Object.prototype.auth = {};
++    Object.prototype.username = "polluted-user";
++    Object.prototype.password = "polluted-pass";
++
++    server = http
++      .createServer(function (req, res) {
++        res.end();
++      })
++      .listen(4444, function () {
++        proxy = http
++          .createServer(function (request, response) {
++            var parsed = url.parse(request.url);
++            var opts = Object.create(null);
++            opts.host = parsed.hostname;
++            opts.port = parsed.port;
++            opts.path = parsed.path;
++            opts.auth = undefined;
++            var proxyAuth = request.headers["proxy-authorization"];
++
++            http.get(opts, function (res) {
++              res.on("data", function () {});
++              res.on("end", function () {
++                response.setHeader("Content-Type", "text/html; charset=UTF-8");
++                response.end(proxyAuth || "");
++              });
++            });
++          })
++          .listen(4000, function () {
++            axios
++              .get("http://localhost:4444/", {
++                proxy: {
++                  host: "localhost",
++                  port: 4000,
++                },
++              })
++              .then(function (res) {
++                assert.equal(res.data, "");
++                done();
++              })
++              .catch(done);
++          });
++      });
++  });
++
++  it("should not send inherited header buckets on GET requests", function (done) {
++    var inheritedHeaderBuckets = Object.create(null);
++    inheritedHeaderBuckets.common = { "x-polluted-common": "yes" };
++    inheritedHeaderBuckets.get = { "x-polluted-get": "yes" };
++
++    server = http
++      .createServer(function (req, res) {
++        assert.strictEqual(req.headers["x-polluted-common"], undefined);
++        assert.strictEqual(req.headers["x-polluted-get"], undefined);
++        assert.strictEqual(req.headers["x-request"], "request");
++        res.end("ok");
++      })
++      .listen(4444, function () {
++        var requestHeaders = Object.create(inheritedHeaderBuckets);
++        requestHeaders["x-request"] = "request";
++
++        axios
++          .get("http://localhost:4444/", {
++            headers: requestHeaders,
++          })
++          .then(function () {
++            done();
++          })
++          .catch(done);
++      });
++  });
++
++  it("should not send inherited header buckets on requests with a body", function (done) {
++    server = http
++      .createServer(function (req, res) {
++        assert.strictEqual(req.headers["x-polluted-common"], undefined);
++        assert.strictEqual(req.headers["x-polluted-post"], undefined);
++        assert.strictEqual(req.headers["x-own-common"], "default");
++        assert.strictEqual(req.headers["x-own-post"], "method");
++        assert.strictEqual(req.headers["x-request"], "request");
++        req.on("data", function () {});
++        req.on("end", function () {
++          res.end("ok");
++        });
++      })
++      .listen(4444, function () {
++        Object.prototype.common = { "x-polluted-common": "yes" };
++        Object.prototype.post = { "x-polluted-post": "yes" };
++
++        var instance = axios.create({
++          headers: {
++            common: {
++              "x-own-common": "default",
++            },
++            post: {
++              "x-own-post": "method",
++            },
++          },
++        });
++
++        instance
++          .post("http://localhost:4444/", "body", {
++            headers: {
++              "x-request": "request",
++            },
++          })
++          .then(function () {
++            done();
++          })
++          .catch(done);
++      });
++  });
++
+   it("should support proxy auth with header", function (done) {
+     server = http
+       .createServer(function (req, res) {
+@@ -1831,6 +2320,160 @@ describe("supports http with nodejs", function () {
+   });
+ 
+   describe("FormData", function () {
++    function createFormDataLikeStream(headers) {
++      var Readable = require("stream").Readable;
++      var form = Readable.from(["abc"]);
++
++      form.append = function () {};
++      form.getHeaders = function () {
++        return headers;
++      };
++      form.toString = function () {
++        return "[object FormData]";
++      };
++
++      return form;
++    }
++
++    function postFormDataLike(headers, config) {
++      config = config || {};
++      config.maxRedirects = 0;
++
++      return axios.post(
++        "http://localhost:4444/",
++        createFormDataLikeStream(headers),
++        config,
++      );
++    }
++
++    it("should preserve FormData getHeaders headers by default", function (done) {
++      server = http
++        .createServer(function (req, res) {
++          res.end(JSON.stringify(req.headers));
++        })
++        .listen(4444, function () {
++          postFormDataLike({
++            "content-type": "multipart/form-data; boundary=test",
++            "content-length": "3",
++            host: "evil.example",
++            authorization: "Bearer ATTACKER_TOKEN",
++            "x-forwarded-for": "127.0.0.2",
++            "x-injected": "yes",
++          })
++            .then(function (res) {
++              assert.strictEqual(
++                res.data["content-type"],
++                "multipart/form-data; boundary=test",
++              );
++              assert.strictEqual(res.data["content-length"], "3");
++              assert.strictEqual(res.data.host, "evil.example");
++              assert.strictEqual(
++                res.data.authorization,
++                "Bearer ATTACKER_TOKEN",
++              );
++              assert.strictEqual(res.data["x-forwarded-for"], "127.0.0.2");
++              assert.strictEqual(res.data["x-injected"], "yes");
++              done();
++            })
++            .catch(done);
++        });
++    });
++
++    it("should preserve FormData getHeaders headers for legacy policy", function (done) {
++      server = http
++        .createServer(function (req, res) {
++          res.end(JSON.stringify(req.headers));
++        })
++        .listen(4444, function () {
++          postFormDataLike(
++            {
++              "content-type": "multipart/form-data; boundary=test",
++              "content-length": "3",
++              host: "evil.example",
++              authorization: "Bearer ATTACKER_TOKEN",
++              "x-forwarded-for": "127.0.0.2",
++              "x-injected": "yes",
++            },
++            { formDataHeaderPolicy: "legacy" },
++          )
++            .then(function (res) {
++              assert.strictEqual(res.data.host, "evil.example");
++              assert.strictEqual(
++                res.data.authorization,
++                "Bearer ATTACKER_TOKEN",
++              );
++              assert.strictEqual(res.data["x-forwarded-for"], "127.0.0.2");
++              assert.strictEqual(res.data["x-injected"], "yes");
++              done();
++            })
++            .catch(done);
++        });
++    });
++
++    it("should constrain FormData getHeaders headers for content-only policy", function (done) {
++      server = http
++        .createServer(function (req, res) {
++          res.end(JSON.stringify(req.headers));
++        })
++        .listen(4444, function () {
++          postFormDataLike(
++            {
++              "Content-Type": "multipart/form-data; boundary=test",
++              "Content-Length": "3",
++              host: "evil.example",
++              authorization: "Bearer ATTACKER_TOKEN",
++              "x-forwarded-for": "127.0.0.2",
++              "x-injected": "yes",
++            },
++            { formDataHeaderPolicy: "content-only" },
++          )
++            .then(function (res) {
++              assert.strictEqual(
++                res.data["content-type"],
++                "multipart/form-data; boundary=test",
++              );
++              assert.strictEqual(res.data["content-length"], "3");
++              assert.notStrictEqual(res.data.host, "evil.example");
++              assert.notStrictEqual(
++                res.data.authorization,
++                "Bearer ATTACKER_TOKEN",
++              );
++              assert.strictEqual(res.data["x-forwarded-for"], undefined);
++              assert.strictEqual(res.data["x-injected"], undefined);
++              done();
++            })
++            .catch(done);
++        });
++    });
++
++    it("should keep explicit request headers with content-only policy", function (done) {
++      server = http
++        .createServer(function (req, res) {
++          res.end(JSON.stringify(req.headers));
++        })
++        .listen(4444, function () {
++          postFormDataLike(
++            {
++              "content-type": "multipart/form-data; boundary=test",
++              "content-length": "3",
++              "x-injected": "yes",
++            },
++            {
++              formDataHeaderPolicy: "content-only",
++              headers: {
++                "x-caller-header": "allowed",
++              },
++            },
++          )
++            .then(function (res) {
++              assert.strictEqual(res.data["x-caller-header"], "allowed");
++              assert.strictEqual(res.data["x-injected"], undefined);
++              done();
++            })
++            .catch(done);
++        });
++    });
++
+     it("should allow passing FormData", function (done) {
+       var form = new FormData();
+       var file1 = Buffer.from("foo", "utf8");
+@@ -2104,7 +2747,7 @@ describe("supports http with nodejs", function () {
+       });
+   });
+ 
+-  describe("maxContentLength with responseType stream (GHSA-vf2m-468p-8v99)", function () {
++  describe("maxContentLength with responseType stream", function () {
+     it("should reject when streamed response exceeds maxContentLength", function (done) {
+       var payload = Buffer.alloc(2048, "a");
+       server = http
+@@ -2176,7 +2819,7 @@ describe("supports http with nodejs", function () {
+     });
+   });
+ 
+-  describe("maxBodyLength with streamed upload and maxRedirects=0 (GHSA-5c9x-8gcm-mpgx)", function () {
++  describe("maxBodyLength with streamed upload and maxRedirects=0", function () {
+     it("should reject streamed upload exceeding maxBodyLength with native transport", function (done) {
+       var received = 0;
+       server = http
+@@ -2227,7 +2870,7 @@ describe("supports http with nodejs", function () {
+     });
+   });
+ 
+-  describe("prototype pollution (GHSA-6chq-wfr3-2hj9)", function () {
++  describe("prototype pollution", function () {
+     var pollutedKeys = ["getHeaders", "append", "pipe", "on", "once"];
+     var toStringTagSym = Symbol.toStringTag;
+ 
+diff --git a/test/unit/core/prototypePollution.js b/test/unit/core/prototypePollution.js
+index 62d86e52a1..cd41c1a7f9 100644
+--- a/test/unit/core/prototypePollution.js
++++ b/test/unit/core/prototypePollution.js
+@@ -5,8 +5,7 @@ var utils = require('../../../lib/utils');
+ var mergeConfig = require('../../../lib/core/mergeConfig');
+ 
+ describe("Prototype Pollution Protection", function () {
+-  afterEach(function () {
+-    // Clean up any pollution that might have occurred
++  function clearPollution() {
+     delete Object.prototype.polluted;
+     delete Object.prototype.transport;
+     delete Object.prototype.transformRequest;
+@@ -14,7 +13,20 @@ describe("Prototype Pollution Protection", function () {
+     delete Object.prototype.formSerializer;
+     delete Object.prototype.env;
+     delete Object.prototype.parseReviver;
+-  });
++    delete Object.prototype.auth;
++    delete Object.prototype.username;
++    delete Object.prototype.password;
++    delete Object.prototype.common;
++    delete Object.prototype.get;
++    delete Object.prototype.post;
++    delete Object.prototype.set;
++  }
++
++  // Defensive: clear before and after each test so pollution leaking from
++  // another suite cannot poison the first test here, and a failure mid-test
++  // cannot poison the next one.
++  beforeEach(clearPollution);
++  afterEach(clearPollution);
+ 
+   describe("utils.merge", function () {
+     it("should filter __proto__ key at top level", function () {
+@@ -25,7 +37,7 @@ describe("Prototype Pollution Protection", function () {
+ 
+       assert.strictEqual(Object.prototype.polluted, undefined);
+       assert.strictEqual(result.safe, "value");
+-      assert.strictEqual(result.hasOwnProperty("__proto__"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result, "__proto__"), false);
+     });
+ 
+     it("should filter constructor key at top level", function () {
+@@ -35,7 +47,7 @@ describe("Prototype Pollution Protection", function () {
+       );
+ 
+       assert.strictEqual(result.safe, "value");
+-      assert.strictEqual(result.hasOwnProperty("constructor"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result, "constructor"), false);
+     });
+ 
+     it("should filter prototype key at top level", function () {
+@@ -45,7 +57,7 @@ describe("Prototype Pollution Protection", function () {
+       );
+ 
+       assert.strictEqual(result.safe, "value");
+-      assert.strictEqual(result.hasOwnProperty("prototype"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result, "prototype"), false);
+     });
+ 
+     it("should filter __proto__ key in nested objects", function () {
+@@ -61,7 +73,7 @@ describe("Prototype Pollution Protection", function () {
+ 
+       assert.strictEqual(Object.prototype.polluted, undefined);
+       assert.strictEqual(result.headers["Content-Type"], "application/json");
+-      assert.strictEqual(result.headers.hasOwnProperty("__proto__"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result.headers, "__proto__"), false);
+     });
+ 
+     it("should filter constructor key in nested objects", function () {
+@@ -77,7 +89,7 @@ describe("Prototype Pollution Protection", function () {
+ 
+       assert.strictEqual(Object.prototype.polluted, undefined);
+       assert.strictEqual(result.headers["Content-Type"], "application/json");
+-      assert.strictEqual(result.headers.hasOwnProperty("constructor"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result.headers, "constructor"), false);
+     });
+ 
+     it("should filter prototype key in nested objects", function () {
+@@ -92,7 +104,7 @@ describe("Prototype Pollution Protection", function () {
+       );
+ 
+       assert.strictEqual(result.headers["Content-Type"], "application/json");
+-      assert.strictEqual(result.headers.hasOwnProperty("prototype"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result.headers, "prototype"), false);
+     });
+ 
+     it("should filter dangerous keys in deeply nested objects", function () {
+@@ -112,7 +124,7 @@ describe("Prototype Pollution Protection", function () {
+       assert.strictEqual(Object.prototype.polluted, undefined);
+       assert.strictEqual(result.level1.level2.safe, "value");
+       assert.strictEqual(
+-        result.level1.level2.hasOwnProperty("__proto__"),
++        Object.prototype.hasOwnProperty.call(result.level1.level2, "__proto__"),
+         false,
+       );
+     });
+@@ -131,7 +143,7 @@ describe("Prototype Pollution Protection", function () {
+       const result = utils.merge({}, malicious);
+ 
+       assert.strictEqual(Object.prototype.polluted, undefined);
+-      assert.strictEqual(result.hasOwnProperty("__proto__"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result, "__proto__"), false);
+     });
+ 
+     it("should handle nested JSON.parse payloads safely", function () {
+@@ -141,7 +153,53 @@ describe("Prototype Pollution Protection", function () {
+       const result = utils.merge({}, malicious);
+ 
+       assert.strictEqual(Object.prototype.polluted, undefined);
+-      assert.strictEqual(result.headers.hasOwnProperty("constructor"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result.headers, "constructor"), false);
++    });
++
++    it("should create nested plain objects that do not inherit proxy credentials", function () {
++      Object.prototype.auth = "polluted";
++      Object.prototype.username = "polluted-user";
++      Object.prototype.password = "polluted-pass";
++
++      const result = utils.merge({}, {
++        proxy: {
++          host: "localhost",
++          nested: {
++            enabled: true,
++          },
++        },
++      });
++
++      assert.strictEqual(Object.getPrototypeOf(result.proxy), null);
++      assert.strictEqual(Object.getPrototypeOf(result.proxy.nested), null);
++      assert.strictEqual(result.proxy.auth, undefined);
++      assert.strictEqual(result.proxy.username, undefined);
++      assert.strictEqual(result.proxy.password, undefined);
++      assert.strictEqual(result.proxy.nested.auth, undefined);
++    });
++
++    it("should not copy polluted inherited header buckets into nested headers", function () {
++      Object.prototype.common = { "x-polluted-common": "yes" };
++      Object.prototype.get = { "x-polluted-get": "yes" };
++
++      const result = utils.merge({}, {
++        headers: {
++          common: {
++            Accept: "application/json",
++          },
++          get: {
++            "x-own-get": "yes",
++          },
++        },
++      });
++
++      assert.strictEqual(result.headers.common.Accept, "application/json");
++      assert.strictEqual(result.headers.get["x-own-get"], "yes");
++      assert.strictEqual(result.headers.common["x-polluted-common"], undefined);
++      assert.strictEqual(result.headers.get["x-polluted-get"], undefined);
++      assert.strictEqual(Object.getPrototypeOf(result.headers), null);
++      assert.strictEqual(Object.getPrototypeOf(result.headers.common), null);
++      assert.strictEqual(Object.getPrototypeOf(result.headers.get), null);
+     });
+   });
+ 
+@@ -178,7 +236,7 @@ describe("Prototype Pollution Protection", function () {
+ 
+       assert.strictEqual(Object.prototype.polluted, undefined);
+       assert.strictEqual(result.headers["Content-Type"], "application/json");
+-      assert.strictEqual(result.headers.hasOwnProperty("__proto__"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result.headers, "__proto__"), false);
+     });
+ 
+     it("should filter dangerous keys in custom config properties", function () {
+@@ -194,7 +252,25 @@ describe("Prototype Pollution Protection", function () {
+ 
+       assert.strictEqual(Object.prototype.polluted, undefined);
+       assert.strictEqual(result.customProp.safe, "value");
+-      assert.strictEqual(result.customProp.hasOwnProperty("__proto__"), false);
++      assert.strictEqual(Object.prototype.hasOwnProperty.call(result.customProp, "__proto__"), false);
++    });
++
++    it("should create nested plain config objects that do not inherit proxy credentials", function () {
++      Object.prototype.auth = "polluted";
++      Object.prototype.username = "polluted-user";
++      Object.prototype.password = "polluted-pass";
++
++      const result = mergeConfig({}, {
++        proxy: {
++          host: "localhost",
++          port: 4000,
++        },
++      });
++
++      assert.strictEqual(Object.getPrototypeOf(result.proxy), null);
++      assert.strictEqual(result.proxy.auth, undefined);
++      assert.strictEqual(result.proxy.username, undefined);
++      assert.strictEqual(result.proxy.password, undefined);
+     });
+ 
+     it("should not inherit transport from Object.prototype", function () {
+@@ -292,5 +368,61 @@ describe("Prototype Pollution Protection", function () {
+         "application/json",
+       );
+     });
++
++    it("should not throw when Object.prototype get and set are polluted", function () {
++      Object.prototype.get = function () {};
++      Object.prototype.set = function () {};
++
++      assert.doesNotThrow(function () {
++        mergeConfig({}, {
++          url: "/users",
++          headers: {
++            common: {
++              Accept: "application/json",
++            },
++          },
++        });
++      });
++    });
++
++    it("should prepare request headers without descriptor errors when get and set are polluted", function (done) {
++      var axios = require("../../../index");
++
++      Object.prototype.get = function () {};
++      Object.prototype.set = function () {};
++
++      var instance = axios.create({
++        adapter: function adapter(config) {
++          assert.strictEqual(config.headers.Accept, "application/json");
++          return Promise.resolve({
++            data: null,
++            status: 200,
++            statusText: "OK",
++            headers: {},
++            config: config,
++          });
++        },
++        headers: {
++          common: {
++            Accept: "application/json",
++          },
++        },
++      });
++
++      instance.get("/users").then(function () {
++        done();
++      }).catch(done);
++    });
++
++    it("should define AxiosError descriptors without inherited getter or setter keys", function () {
++      Object.prototype.get = function () {};
++      Object.prototype.set = function () {};
++
++      assert.doesNotThrow(function () {
++        var axiosErrorPath = require.resolve("../../../lib/core/AxiosError");
++        delete require.cache[axiosErrorPath];
++        require("../../../lib/core/AxiosError");
++      });
++    });
+   });
+ });
+diff --git a/test/unit/helpers/AxiosURLSearchParams.js b/test/unit/helpers/AxiosURLSearchParams.js
+index acd2b175b3..f1deee68e3 100644
+--- a/test/unit/helpers/AxiosURLSearchParams.js
++++ b/test/unit/helpers/AxiosURLSearchParams.js
+@@ -1,16 +1,23 @@
+-'use strict';
++"use strict";
+ 
+-var assert = require('assert');
+-var AxiosURLSearchParams = require('../../../lib/helpers/AxiosURLSearchParams');
++var assert = require("assert");
++var AxiosURLSearchParams = require("../../../lib/helpers/AxiosURLSearchParams");
+ 
+-describe('helpers::AxiosURLSearchParams', function () {
+-  describe('null byte encoding (GHSA-xhjh-pmcv-23jw)', function () {
+-    it('should not reverse the safe percent-encoding of null bytes', function () {
+-      var params = new AxiosURLSearchParams({ name: 'foo\x00.jpg' });
++describe("helpers::AxiosURLSearchParams", function () {
++  describe("null byte encoding", function () {
++    it("should not reverse the safe percent-encoding of null bytes", function () {
++      var params = new AxiosURLSearchParams({ name: "foo\x00.jpg" });
+       var serialized = params.toString();
+ 
+-      assert.strictEqual(serialized.indexOf('\x00'), -1, 'serialized string must not contain a raw null byte');
+-      assert.ok(/%00/.test(serialized), 'null byte must remain percent-encoded as %00');
++      assert.strictEqual(
++        serialized.indexOf("\x00"),
++        -1,
++        "serialized string must not contain a raw null byte",
++      );
++      assert.ok(
++        /%00/.test(serialized),
++        "null byte must remain percent-encoded as %00",
++      );
+     });
+   });
+ });
+diff --git a/test/unit/helpers/shouldBypassProxy.js b/test/unit/helpers/shouldBypassProxy.js
+index 40e2839e26..377df81b5e 100644
+--- a/test/unit/helpers/shouldBypassProxy.js
++++ b/test/unit/helpers/shouldBypassProxy.js
+@@ -71,4 +71,39 @@ describe('helpers::shouldBypassProxy', function () {
+     assert.strictEqual(shouldBypassProxy('http://[::1]:8080/'), true);
+     assert.strictEqual(shouldBypassProxy('http://127.0.0.1:8081/'), false);
+   });
++
++  it('should bypass proxy for IPv4-mapped IPv6 loopback when IPv4 is listed', function () {
++    setNoProxy('127.0.0.1');
++
++    assert.strictEqual(shouldBypassProxy('http://[::ffff:127.0.0.1]/'), true);
++    assert.strictEqual(shouldBypassProxy('http://[::ffff:7f00:1]/'), true);
++  });
++
++  it('should bypass proxy for IPv4-mapped IPv6 metadata address when IPv4 is listed', function () {
++    setNoProxy('169.254.169.254');
++
++    assert.strictEqual(shouldBypassProxy('http://[::ffff:a9fe:a9fe]/latest/meta-data/'), true);
++  });
++
++  it('should support IPv4-mapped IPv6 entries in no_proxy', function () {
++    setNoProxy('[::ffff:7f00:1]');
++
++    assert.strictEqual(shouldBypassProxy('http://127.0.0.1:8080/'), true);
++    assert.strictEqual(shouldBypassProxy('http://[::ffff:127.0.0.1]:8080/'), true);
++  });
++
++  it('should keep IPv4-mapped IPv6 no_proxy entries port-aware', function () {
++    setNoProxy('[::ffff:7f00:1]:8080');
++
++    assert.strictEqual(shouldBypassProxy('http://127.0.0.1:8080/'), true);
++    assert.strictEqual(shouldBypassProxy('http://[::ffff:7f00:1]:8080/'), true);
++    assert.strictEqual(shouldBypassProxy('http://[::ffff:7f00:1]:8081/'), false);
++  });
++
++  it('should normalise IPv4-mapped IPv6 no_proxy entries regardless of hex case', function () {
++    setNoProxy('[::FFFF:7F00:1]');
++
++    assert.strictEqual(shouldBypassProxy('http://127.0.0.1:8080/'), true);
++    assert.strictEqual(shouldBypassProxy('http://[::ffff:7f00:1]:8080/'), true);
++  });
+ });
+diff --git a/test/unit/helpers/toFormData.js b/test/unit/helpers/toFormData.js
+index 38904fa9c8..ab5f606a40 100644
+--- a/test/unit/helpers/toFormData.js
++++ b/test/unit/helpers/toFormData.js
+@@ -1,25 +1,28 @@
+-'use strict';
++"use strict";
+ 
+-var assert = require('assert');
+-var FormData = require('form-data');
+-var toFormData = require('../../../lib/helpers/toFormData');
++var assert = require("assert");
++var FormData = require("form-data");
++var toFormData = require("../../../lib/helpers/toFormData");
+ 
+-describe('helpers::toFormData', function () {
+-  describe('depth limit (GHSA-62hf-57xw-28j9)', function () {
+-    it('should throw a bounded error for deeply nested payloads instead of overflowing the stack', function () {
++describe("helpers::toFormData", function () {
++  describe("depth limit", function () {
++    it("should throw a bounded error for deeply nested payloads instead of overflowing the stack", function () {
+       var payload = { leaf: 1 };
+       for (var i = 0; i < 2500; i++) {
+         payload = { a: payload };
+       }
+ 
+-      assert.throws(function () {
+-        toFormData(payload, new FormData());
+-      }, function (err) {
+-        return err && /Maximum object depth/.test(err.message);
+-      });
++      assert.throws(
++        function () {
++          toFormData(payload, new FormData());
++        },
++        function (err) {
++          return err && /Maximum object depth/.test(err.message);
++        },
++      );
+     });
+ 
+-    it('should accept payloads well under the depth cap', function () {
++    it("should accept payloads well under the depth cap", function () {
+       var payload = { leaf: 1 };
+       for (var i = 0; i < 50; i++) {
+         payload = { a: payload };
+diff --git a/test/unit/utils/isFormData.js b/test/unit/utils/isFormData.js
+index 1915e3bdc4..9df00f7398 100644
+--- a/test/unit/utils/isFormData.js
++++ b/test/unit/utils/isFormData.js
+@@ -1,22 +1,25 @@
+-var assert = require('assert');
+-var isFormData = require('../../../lib/utils').isFormData;
+-var FormData = require('form-data');
++var assert = require("assert");
++var isFormData = require("../../../lib/utils").isFormData;
++var FormData = require("form-data");
+ 
+-describe('utils::isFormData', function () {
+-  it('should detect the FormData instance provided by the `form-data` package', function () {
+-    [1, 'str', {}, new RegExp()].forEach(function (thing) {
++describe("utils::isFormData", function () {
++  it("should detect the FormData instance provided by the `form-data` package", function () {
++    [1, "str", {}, new RegExp()].forEach(function (thing) {
+       assert.equal(isFormData(thing), false);
+     });
+     assert.equal(isFormData(new FormData()), true);
+   });
+ 
+-  describe('prototype-pollution spoofing (GHSA-6chq-wfr3-2hj9)', function () {
+-    var originalToString = Object.getOwnPropertyDescriptor(Object.prototype, 'toString');
++  describe("prototype-pollution spoofing", function () {
++    var originalToString = Object.getOwnPropertyDescriptor(
++      Object.prototype,
++      "toString",
++    );
+ 
+     afterEach(function () {
+       delete Object.prototype.append;
+       if (originalToString) {
+-        Object.defineProperty(Object.prototype, 'toString', originalToString);
++        Object.defineProperty(Object.prototype, "toString", originalToString);
+       } else {
+         delete Object.prototype.toString;
+       }
+@@ -25,38 +28,49 @@ describe('utils::isFormData', function () {
+     it('should reject a plain object spoofing toString === "[object FormData]"', function () {
+       var spoof = {
+         append: function () {},
+-        toString: function () { return '[object FormData]'; }
++        toString: function () {
++          return "[object FormData]";
++        },
+       };
+       assert.strictEqual(isFormData(spoof), false);
+     });
+ 
+-    it('should reject a plain object with an append function', function () {
++    it("should reject a plain object with an append function", function () {
+       assert.strictEqual(isFormData({ append: function () {} }), false);
+     });
+ 
+-    it('should reject a plain object with toString and append pulled from a polluted Object.prototype', function () {
++    it("should reject a plain object with toString and append pulled from a polluted Object.prototype", function () {
+       Object.prototype.append = function () {};
+-      Object.prototype.toString = function () { return '[object FormData]'; };
++      Object.prototype.toString = function () {
++        return "[object FormData]";
++      };
+       assert.strictEqual(isFormData({}), false);
+     });
+ 
+-    it('should reject an object with a null prototype even when it has an append function', function () {
++    it("should reject an object with a null prototype even when it has an append function", function () {
+       var nullProto = Object.create(null);
+       nullProto.append = function () {};
+       assert.strictEqual(isFormData(nullProto), false);
+     });
+   });
+ 
+-  describe('non-object inputs', function () {
+-    it('should reject primitives without throwing (ES5 Object.getPrototypeOf guard)', function () {
+-      [undefined, null, false, true, 0, 1, '', 'body', NaN].forEach(function (thing) {
+-        assert.doesNotThrow(function () { isFormData(thing); });
+-        assert.strictEqual(isFormData(thing), false);
+-      });
++  describe("non-object inputs", function () {
++    it("should reject primitives without throwing (ES5 Object.getPrototypeOf guard)", function () {
++      [undefined, null, false, true, 0, 1, "", "body", NaN].forEach(
++        function (thing) {
++          assert.doesNotThrow(function () {
++            isFormData(thing);
++          });
++          assert.strictEqual(isFormData(thing), false);
++        },
++      );
+     });
+ 
+-    it('should reject functions', function () {
+-      assert.strictEqual(isFormData(function () {}), false);
++    it("should reject functions", function () {
++      assert.strictEqual(
++        isFormData(function () {}),
++        false,
++      );
+     });
+   });
+ });

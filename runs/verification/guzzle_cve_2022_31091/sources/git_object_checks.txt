@@ -1,0 +1,33 @@
+# git checks run 2026-10-21T17:32:58Z
+
+$ git log -1 --format='%H %ad %s' e3ff079b22820c2029d4c2a87796b6a0b8716ad8
+e3ff079b22820c2029d4c2a87796b6a0b8716ad8 Thu Jun 9 22:39:15 2022 +0100 Release 7.4.4 (#3023)
+
+$ git log -1 --format='%H %ad %s' 1dd98b0564cb3f6bd16ce683cb755f94c10fbd82
+1dd98b0564cb3f6bd16ce683cb755f94c10fbd82 Mon Jun 20 23:16:13 2022 +0100 Release 7.4.5 (#3043)
+
+$ git rev-parse 7.4.5^{commit}
+1dd98b0564cb3f6bd16ce683cb755f94c10fbd82
+
+$ git merge-base --is-ancestor 1dd98b05 e3ff079b  # fix in 7.4.4?
+exit=1 (1 = not an ancestor)
+
+$ git merge-base --is-ancestor 1dd98b05 7.4.5
+exit=0
+
+$ git tag --contains 1dd98b05 | head -3
+7.4.5
+
+$ git show e3ff079b:src/RedirectMiddleware.php | grep -n 'shouldStripSensitiveHeaders\|getHost\|getScheme'
+92:        if ($request->getUri()->getHost() !== $nextRequest->getUri()->getHost()
+193:            && $modify['uri']->getScheme() === $request->getUri()->getScheme()
+202:        if (self::shouldStripSensitiveHeaders($request->getUri(), $modify['uri'])) {
+218:    private static function shouldStripSensitiveHeaders(
+222:        if (\strcasecmp($originalUri->getHost(), $modifiedUri->getHost()) !== 0) {
+226:        if ($originalUri->getScheme() !== $modifiedUri->getScheme() && 'https' !== $modifiedUri->getScheme()) {
+247:        if (!\in_array($location->getScheme(), $protocols)) {
+
+$ git show 7.4.5:src/RedirectMiddleware.php | grep -n 'isCrossOrigin\|CURLOPT_HTTPAUTH'
+92:        if (Psr7\UriComparator::isCrossOrigin($request->getUri(), $nextRequest->getUri()) && defined('\CURLOPT_HTTPAUTH')) {
+94:                $options['curl'][\CURLOPT_HTTPAUTH],
+200:        if (Psr7\UriComparator::isCrossOrigin($request->getUri(), $modify['uri'])) {

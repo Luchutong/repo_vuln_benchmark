@@ -1,0 +1,2121 @@
+{
+  "tool_version": "propose_missing_snapshots/1.0",
+  "generated_at": "2026-10-22T16:03:09Z",
+  "repos_considered": 28,
+  "repos_with_candidates": 26,
+  "repos_without_candidates": 2,
+  "total_proposed_tags": 125,
+  "per_repo": [
+    {
+      "full_name": "PHPMailer/PHPMailer",
+      "advisory_count": 14,
+      "tag_count": 94,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v6.4.1",
+        "version": "6.4.1",
+        "commit_sha": "9256f12d8fb0cd0500f93b19e18c356906cbed3d",
+        "in_range_advisory_count": 2,
+        "explicit_affected_version_count": 2,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-77mr-wc79-m8j3",
+            "aliases": [
+              "BIT-phpmailer-2021-3603",
+              "CVE-2021-3603"
+            ],
+            "summary": "PHPMailer untrusted code may be run from an overridden address validator",
+            "published_at": "2021-06-22T15:18:02Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-77mr-wc79-m8j3",
+            "affected_ranges": [
+              ">=0, <6.5.0",
+              "<6.5.0"
+            ],
+            "fix_refs": [
+              "https://github.com/PHPMailer/PHPMailer/commit/45f3c18dc6a2de1cb1bf49b9b249a9ee36a5f7f3"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-7q44-r25x-wm4q",
+            "aliases": [
+              "BIT-phpmailer-2021-34551",
+              "CVE-2021-34551"
+            ],
+            "summary": "Remote Code Execution vulnerability in PHPMailer 6.4.1 running on Windows",
+            "published_at": "2021-06-22T15:17:51Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-7q44-r25x-wm4q",
+            "affected_ranges": [
+              ">=0, <6.5.0",
+              "<6.5.0"
+            ],
+            "fix_refs": [
+              "https://github.com/PHPMailer/PHPMailer/commit/acd264bf17ff4ac5c915f0d4226dce8a9ea70bc3"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "SixLabors/ImageSharp",
+      "advisory_count": 16,
+      "tag_count": 52,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v4.1.1",
+        "version": "4.1.1",
+        "commit_sha": "0815358f9202a78bc7f3b83e19282dc3654b500f",
+        "in_range_advisory_count": 7,
+        "explicit_affected_version_count": 7,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-jjfr-hcj7-qf5w",
+            "aliases": [
+              "CVE-2026-106115"
+            ],
+            "summary": "ImageSharp: TIFF CCITT T6 encoder writes beyond an undersized output buffer",
+            "published_at": "2026-10-07T20:24:46Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-jjfr-hcj7-qf5w",
+            "affected_ranges": [
+              ">=2.1.0, <4.1.2",
+              ">= 2.1.0, < 3.2.0",
+              ">= 4.0.0, < 4.1.2"
+            ],
+            "fix_refs": [
+              "https://github.com/SixLabors/ImageSharp/pull/3187",
+              "https://github.com/SixLabors/ImageSharp/commit/a9498c6db3642ef92c712ebc81e706914ac16a95"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-4q3p-rj5x-xv7p",
+            "aliases": [
+              "CVE-2026-106111"
+            ],
+            "summary": "ImageSharp: EXR ZIP decoder can expose stale allocator data after a short inflate",
+            "published_at": "2026-10-07T20:24:42Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-4q3p-rj5x-xv7p",
+            "affected_ranges": [
+              ">=4.0.0, <4.1.2",
+              ">= 4.0.0, <= 4.1.1"
+            ],
+            "fix_refs": [
+              "https://github.com/SixLabors/ImageSharp/pull/3187",
+              "https://github.com/SixLabors/ImageSharp/commit/3c43cf583fdd98eff0f451397affaa31c6a2e6b1",
+              "https://github.com/SixLabors/ImageSharp/commit/6ed2a275217d39301e76df42acec2a9533b39d2b"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-ffp7-56pq-64mr",
+            "aliases": [
+              "CVE-2026-106112"
+            ],
+            "summary": "ImageSharp: ICC LUT16 output channel count can write beyond Vector4",
+            "published_at": "2026-10-07T20:24:37Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-ffp7-56pq-64mr",
+            "affected_ranges": [
+              ">=4.0.0, <4.1.2",
+              ">= 4.0.0, <= 4.1.1"
+            ],
+            "fix_refs": [
+              "https://github.com/SixLabors/ImageSharp/pull/3187",
+              "https://github.com/SixLabors/ImageSharp/commit/b03f0ed7e5be760eecc740fa53dd166b18ae9b23"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-wmxv-xphr-5c9g",
+            "aliases": [
+              "CVE-2026-106116"
+            ],
+            "summary": "ImageSharp: BigTIFF IFD count can keep a decoder thread in a non-progressing loop",
+            "published_at": "2026-10-07T20:24:32Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-wmxv-xphr-5c9g",
+            "affected_ranges": [
+              ">=2.0.0, <4.1.2",
+              ">= 2.0.0, < 3.2.0",
+              ">= 4.0.0, < 4.1.2"
+            ],
+            "fix_refs": [
+              "https://github.com/SixLabors/ImageSharp/pull/3187",
+              "https://github.com/SixLabors/ImageSharp/commit/92b12d72550ebb6be5b1e22e559c361fd863a6ec"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-j9gm-c75j-xc9q",
+            "aliases": [
+              "CVE-2026-106110"
+            ],
+            "summary": "ImageSharp: TIFF CCITT T4 encoder can write past its compressed output buffer",
+            "published_at": "2026-10-07T20:24:28Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-j9gm-c75j-xc9q",
+            "affected_ranges": [
+              ">=2.0.0, <4.1.2",
+              ">= 2.0.0, < 3.2.0",
+              ">= 4.0.0, < 4.1.2"
+            ],
+            "fix_refs": [
+              "https://github.com/SixLabors/ImageSharp/pull/3187",
+              "https://github.com/SixLabors/ImageSharp/commit/a9498c6db3642ef92c712ebc81e706914ac16a95"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-j3p4-wp97-rph4",
+            "aliases": [
+              "CVE-2026-106113"
+            ],
+            "summary": "ImageSharp: HistogramEqualization uses an unvalidated luminance as an unchecked histogram index",
+            "published_at": "2026-10-07T20:24:23Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-j3p4-wp97-rph4",
+            "affected_ranges": [
+              ">=2.0.0, <4.1.2",
+              ">= 2.0.0, < 3.2.0",
+              ">= 4.0.0, < 4.1.2"
+            ],
+            "fix_refs": [
+              "https://github.com/SixLabors/ImageSharp/pull/3187",
+              "https://github.com/SixLabors/ImageSharp/commit/c4c4bf292298c026df470db1a17ff826515fd95d"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-gwg2-r3hj-4w44",
+            "aliases": [
+              "CVE-2026-106114"
+            ],
+            "summary": "ImageSharp: ICC CLUT parsing allocates from unvalidated channel and grid dimensions",
+            "published_at": "2026-10-07T20:24:19Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-gwg2-r3hj-4w44",
+            "affected_ranges": [
+              ">=1.0.0-beta0001, <4.1.2",
+              ">= 1.0.0-beta0001, < 3.2.0",
+              ">= 4.0.0, < 4.1.2"
+            ],
+            "fix_refs": [
+              "https://github.com/SixLabors/ImageSharp/pull/3187",
+              "https://github.com/SixLabors/ImageSharp/commit/8de892a7623aa8a09ba2333b624c8d2eb98325df"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "aaubry/YamlDotNet",
+      "advisory_count": 1,
+      "tag_count": 99,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v4.3.2",
+        "version": "4.3.2",
+        "commit_sha": "8f20a18bb8a8c026bef7ce5ad66e7d8e198426df",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 1,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-rpch-cqj9-h65r",
+            "aliases": [
+              "CVE-2018-1000210"
+            ],
+            "summary": "High severity vulnerability that affects YamlDotNet and YamlDotNet.Signed",
+            "published_at": "2018-10-16T17:01:10Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-rpch-cqj9-h65r",
+            "affected_ranges": [
+              ">=0, <5.0.0"
+            ],
+            "fix_refs": [
+              "https://github.com/aaubry/YamlDotNet/blob/f96b7cc40a0498f8bafdeb49df3aa23aa2c60993/YamlDotNet/Serialization/NodeTypeResolvers/TypeNameInTagNodeTypeResolver.cs#L35"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "actix/actix-web",
+      "advisory_count": 6,
+      "tag_count": 545,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v0.7.19",
+        "version": "0.7.19",
+        "commit_sha": "cc6e0c6d04e868e284c45b9ec38f1cc1fe98ac39",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-7x36-h62w-vw65",
+            "aliases": [
+              "CVE-2018-25024",
+              "CVE-2018-25025",
+              "CVE-2018-25026",
+              "GHSA-9qj6-4rfq-vm84",
+              "GHSA-fgfm-hqjw-3265",
+              "GHSA-w65j-g6c7-g3m4",
+              "RUSTSEC-2018-0019"
+            ],
+            "summary": "Out-of-bounds Write in actix-web",
+            "published_at": "2022-01-06T22:18:58Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-7x36-h62w-vw65",
+            "affected_ranges": [
+              ">=0, <0.7.19",
+              ">=0.0.0-0, <0.7.20-0"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "angular/angular",
+      "advisory_count": 40,
+      "tag_count": 1338,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v22.2.0",
+        "version": "22.2.0",
+        "commit_sha": "fc187d4aec254b52a0cff7a16a390a4b0c3e57d8",
+        "in_range_advisory_count": 3,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-57xq-rjx2-v5xh",
+            "aliases": [
+              "CVE-2026-111751"
+            ],
+            "summary": "@angular/router: Denial of Service via RouterLink Query Parameter Retention in Server-Side Rendering (SSR)",
+            "published_at": "2026-10-20T17:52:32Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-57xq-rjx2-v5xh",
+            "affected_ranges": [
+              ">=22.0.0, <22.2.1",
+              ">=21.2.0, <21.2.25",
+              ">= 22.0.0, < 22.2.1",
+              ">= 21.2.0, < 21.2.25"
+            ],
+            "fix_refs": [
+              "https://github.com/angular/angular/pull/70953",
+              "https://github.com/angular/angular/commit/319a3c4f3268f4f96ac4acdbb118737d2261e0be"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-62vg-58rm-qff7",
+            "aliases": [
+              "CVE-2026-111752"
+            ],
+            "summary": "@angular/router: Denial of Service via Unmatched Empty-Path Outlet Route Matching in Server-Side Rendering (SSR)",
+            "published_at": "2026-10-20T14:36:39Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-62vg-58rm-qff7",
+            "affected_ranges": [
+              ">=22.0.0, <22.2.1",
+              ">=21.0.0, <21.2.25",
+              ">=20.0.0, <20.3.33",
+              ">=0, <unbounded",
+              ">= 22.0.0, < 22.2.1",
+              ">= 21.0.0, < 21.2.25",
+              ">= 20.0.0, < 20.3.33",
+              "<= 19.2.25"
+            ],
+            "fix_refs": [
+              "https://github.com/angular/angular/pull/71055",
+              "https://github.com/angular/angular/commit/a83f8119acd466b524ae0113096ed188358d6d6c",
+              "https://github.com/angular/angular/commit/b0d2ba0f54e21cb57ea5a0ca0d8e6065f28e23a0",
+              "https://github.com/angular/angular/commit/b6bf6504adab1a78cc62ad8402f6bed229e620bd",
+              "https://github.com/angular/angular/commit/e9bf52aa03a3b9b302c33ffbc967ef0e1de5fb79"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-w739-gvwx-grc3",
+            "aliases": [
+              "CVE-2026-111754"
+            ],
+            "summary": "@angular/platform-server: Open Redirect via Protocol-Relative URLs in Server-Side Rendering (SSR)",
+            "published_at": "2026-10-20T14:35:49Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-w739-gvwx-grc3",
+            "affected_ranges": [
+              ">=22.0.0, <22.2.1",
+              ">=21.0.0, <21.2.25",
+              ">=20.0.0, <20.3.33",
+              ">=0, <unbounded",
+              ">= 22.0.0, < 22.2.1",
+              ">= 21.0.0, < 21.2.25",
+              ">= 20.0.0, < 20.3.33",
+              "<= 19.2.25"
+            ],
+            "fix_refs": [
+              "https://github.com/angular/angular/pull/71077",
+              "https://github.com/angular/angular/pull/71078",
+              "https://github.com/angular/angular/pull/71079",
+              "https://github.com/angular/angular/commit/450af9c813c7660b9bd91e5635f705ee3ed7b32a",
+              "https://github.com/angular/angular/commit/83944fc8c50e86be90e8ec4184cd15002b5af262",
+              "https://github.com/angular/angular/commit/928dcfd2582152655b5559509d057bf6a5a19521",
+              "https://github.com/angular/angular/commit/d7d81e189d227108c3b9d39178dbb7389f6f970d"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "apache/tomcat",
+      "advisory_count": 41,
+      "tag_count": 540,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "11.0.24",
+        "version": "11.0.24",
+        "commit_sha": "4f33a9eca48c5cbf5963dd213b74866e629154ad",
+        "in_range_advisory_count": 3,
+        "explicit_affected_version_count": 3,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-9xv2-5v5q-p794",
+            "aliases": [
+              "BIT-tomcat-2026-65905",
+              "CVE-2026-65905"
+            ],
+            "summary": "Apache Tomcat's DIGEST authenticator has an Authentication Bypass by Capture-replay vulnerability",
+            "published_at": "2026-08-26T00:30:52Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-9xv2-5v5q-p794",
+            "affected_ranges": [
+              ">=11.0.0-M1, <11.0.25",
+              ">=10.1.0-M1, <10.1.58",
+              ">=9.0.0.M1, <9.0.121",
+              ">=8.5.0, <unbounded",
+              ">=7.0.30, <unbounded"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-gcx9-497g-6cp6",
+            "aliases": [
+              "BIT-tomcat-2026-65182",
+              "CVE-2026-65182"
+            ],
+            "summary": "Apache Tomcat has an Improper Access Control, Incorrect Authorization vulnerability",
+            "published_at": "2026-08-26T00:30:52Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-gcx9-497g-6cp6",
+            "affected_ranges": [
+              ">=11.0.0-M1, <11.0.25",
+              ">=10.1.0-M1, <10.1.58",
+              ">=9.0.0-M1, <9.0.121",
+              ">=8.5.0, <unbounded",
+              ">=7.0.0, <unbounded"
+            ],
+            "fix_refs": [
+              "https://github.com/apache/tomcat/commit/8bafd79a3b54684e80e9cb1bafd4746aede7d3f5",
+              "https://github.com/apache/tomcat/commit/b2c56ec8f20c66773a1a813034ffcdb60841f1cf",
+              "https://github.com/apache/tomcat/commit/b79752d2a8578d94743e2a95c50af297f780c0df"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-h3x4-894j-xpx5",
+            "aliases": [
+              "BIT-tomcat-2026-68525",
+              "CVE-2026-68525"
+            ],
+            "summary": "Apache Tomcat's FORM authentication process has an Incorrect Authorization vulnerability",
+            "published_at": "2026-08-26T00:30:52Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-h3x4-894j-xpx5",
+            "affected_ranges": [
+              ">=11.0.0-M1, <11.0.25",
+              ">=10.1.0-M1, <10.1.58",
+              ">=9.0.0-M1, <9.0.121",
+              ">=8.5.0, <unbounded",
+              ">=7.0.0, <unbounded"
+            ],
+            "fix_refs": [
+              "https://github.com/apache/tomcat/commit/10d048e16034ddf12055e0cede0da05b15c823b8",
+              "https://github.com/apache/tomcat/commit/32f0c38526b4e655ff0c17cd97afedefc624fe43",
+              "https://github.com/apache/tomcat/commit/58123aa468a20e2a079b7e0c68a4009e2475c098"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "axios/axios",
+      "advisory_count": 57,
+      "tag_count": 147,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v1.19.0",
+        "version": "1.19.0",
+        "commit_sha": "311fcc5c8d989b7248f05d390bb83bfbfb009977",
+        "in_range_advisory_count": 12,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-j8rh-479h-cp32",
+            "aliases": [
+              "CVE-2026-101904"
+            ],
+            "summary": "Axios: Header Injection via Inherited headers After Minimal Interceptor",
+            "published_at": "2026-09-30T15:35:14Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-j8rh-479h-cp32",
+            "affected_ranges": [
+              ">=1.0.0, <1.20.0",
+              ">=1.0.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-4hqw-qxg8-jxx2",
+            "aliases": [
+              "CVE-2026-101900"
+            ],
+            "summary": "Axios: Fetch Adapter Header Injection via Inherited FormData getHeaders",
+            "published_at": "2026-09-30T15:34:46Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-4hqw-qxg8-jxx2",
+            "affected_ranges": [
+              ">=1.12.0, <1.20.0",
+              ">=1.12.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-m8m8-qj5v-23w3",
+            "aliases": [
+              "CVE-2026-101905"
+            ],
+            "summary": "Axios: Node HTTP adapter prototype-pollution gadget allows request socket hijack via inherited createConnection",
+            "published_at": "2026-09-30T15:32:51Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-m8m8-qj5v-23w3",
+            "affected_ranges": [
+              ">=1.15.2, <1.20.0",
+              ">=1.15.2"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-44g4-m2mj-wpvx",
+            "aliases": [
+              "CVE-2026-101899"
+            ],
+            "summary": "Axios: CIDR-form NO_PROXY entries are ignored, causing proxy exclusion bypass for internal IP ranges",
+            "published_at": "2026-09-30T15:32:30Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-44g4-m2mj-wpvx",
+            "affected_ranges": [
+              ">=1.15.0, <1.20.0",
+              ">=1.15.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-r4gj-5m52-g5wh",
+            "aliases": [
+              "CVE-2026-101907"
+            ],
+            "summary": "Axios: maxRedirects: 0 is not enforced by the fetch adapter, allowing redirect-based SSRF",
+            "published_at": "2026-09-30T15:31:58Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-r4gj-5m52-g5wh",
+            "affected_ranges": [
+              ">=1.17.0, <1.20.0",
+              "1.17.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-vh66-26gq-q6x8",
+            "aliases": [
+              "CVE-2026-101908"
+            ],
+            "summary": "Axios: Prototype pollution gadget in fetch adapter can alter outbound requests",
+            "published_at": "2026-09-30T15:13:16Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-vh66-26gq-q6x8",
+            "affected_ranges": [
+              ">=1.7.0, <1.20.0",
+              ">=1.7.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-9fr6-4gfg-395g",
+            "aliases": [
+              "CVE-2026-101902"
+            ],
+            "summary": "Axios: Prototype-Pollution Gadget in the Default Instance Allows Inherited Object.prototype.method to Override HTTP Method",
+            "published_at": "2026-09-30T15:12:49Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-9fr6-4gfg-395g",
+            "affected_ranges": [
+              ">=0.27.2, <0.34.0",
+              ">=1.0.0, <1.20.0",
+              ">=0.27.2",
+              ">=1.0.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-c29m-xwm3-cm6r",
+            "aliases": [
+              "CVE-2026-101903"
+            ],
+            "summary": "Axios: ReDoS in fromDataURI data: URL parser freezes the Node event loop (DoS)",
+            "published_at": "2026-09-30T15:03:21Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-c29m-xwm3-cm6r",
+            "affected_ranges": [
+              ">=1.16.1, <1.20.0",
+              ">=1.16.1"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-mghh-pgcx-3jjj",
+            "aliases": [
+              "CVE-2026-101906"
+            ],
+            "summary": "Axios: ReDoS (O(N²)) in shouldBypassProxy host normalization, reachable via untrusted redirect Location",
+            "published_at": "2026-09-30T15:03:02Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-mghh-pgcx-3jjj",
+            "affected_ranges": [
+              ">=1.15.0, <1.20.0",
+              ">=1.15.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-x97p-jq2g-jp4f",
+            "aliases": [
+              "CVE-2026-101909"
+            ],
+            "summary": "Axios: Prototype Pollution Gadget in axios toFormData Options",
+            "published_at": "2026-09-30T15:02:45Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-x97p-jq2g-jp4f",
+            "affected_ranges": [
+              ">=0.28.0, <0.34.0",
+              ">=1.15.1, <1.20.0",
+              ">=0.28.0",
+              ">=1.15.1"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a",
+              "https://github.com/axios/axios/commit/d29be181f85f6fe93397a07b1f69606d9622637b"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-3pq3-5fj3-cg6v",
+            "aliases": [
+              "CVE-2026-101898"
+            ],
+            "summary": "Axios: HTTP/2 adapter bypasses configured DNS lookup and proxy controls",
+            "published_at": "2026-09-30T15:02:14Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-3pq3-5fj3-cg6v",
+            "affected_ranges": [
+              ">=1.13.0, <1.20.0",
+              ">= 1.13.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-542g-h47m-68v8",
+            "aliases": [
+              "CVE-2026-101901"
+            ],
+            "summary": "Axios: Denial of Service via Unhandled 'error' Event in HTTP/2 ClientHttp2Session Initialization",
+            "published_at": "2026-09-30T15:01:07Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-542g-h47m-68v8",
+            "affected_ranges": [
+              ">=1.13.0, <1.20.0",
+              ">=1.13.0"
+            ],
+            "fix_refs": [
+              "https://github.com/axios/axios/pull/11141",
+              "https://github.com/axios/axios/commit/d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "caddyserver/caddy",
+      "advisory_count": 21,
+      "tag_count": 157,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v2.11.4",
+        "version": "2.11.4",
+        "commit_sha": "e2eee6a7fce366321294c9c2a79f3146891dcbdf",
+        "in_range_advisory_count": 2,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-8qx7-j2v2-x6q5",
+            "aliases": [
+              "CVE-2026-55458"
+            ],
+            "summary": "RFC 7230 §6.1 compliance issue / Hop-by-hop headers that leak through",
+            "published_at": "2026-10-13T16:27:12Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-8qx7-j2v2-x6q5",
+            "affected_ranges": [
+              "<=v2.11.4"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-6365-7ppr-5r92",
+            "aliases": [],
+            "summary": "Connection created for the wrong upstream for forward_auth + reverse_proxy",
+            "published_at": "2026-07-10T17:08:10Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/caddyserver/caddy/security/advisories/GHSA-6365-7ppr-5r92",
+            "affected_ranges": [
+              "< v2.11.5"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "dotnet/aspnetcore",
+      "advisory_count": 62,
+      "tag_count": 359,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v10.0.12",
+        "version": "10.0.12",
+        "commit_sha": "cb21a42eafcd44cc35fad48d99dc82ff7512ce2f",
+        "in_range_advisory_count": 13,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-f4g7-52wc-p8x7",
+            "aliases": [
+              "CVE-2026-96236"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-96236 - ASP.NET Core Denial of Service Vulnerability",
+            "published_at": "2026-10-13T18:23:07Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-f4g7-52wc-p8x7",
+            "affected_ranges": [
+              ">= 8.0.0, <= 8.0.31",
+              ">= 11.0.0-preview.1, <= 11.0.0-rc.1",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-qjpx-jqm5-h2c4",
+            "aliases": [
+              "CVE-2026-96230"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-96230 - ASP.NET Core Remote Code Execution Vulnerability",
+            "published_at": "2026-10-13T18:23:06Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-qjpx-jqm5-h2c4",
+            "affected_ranges": [
+              ">= 10.0.0, <= 10.0.12",
+              ">= 11.0.0-preview.1, <= 11.0.0-rc.1",
+              ">= 8.0.0, <= 8.0.31",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-86xp-94pg-8r6r",
+            "aliases": [
+              "CVE-2026-92707"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-92707 - ASP.NET Core Denial of Service Vulnerability",
+            "published_at": "2026-10-13T18:23:05Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-86xp-94pg-8r6r",
+            "affected_ranges": [
+              ">= 10.0.0, <= 10.0.12",
+              ">= 11.0.0-preview.5, <= 11.0.0-rc.1",
+              ">= 8.0.0, <= 8.0.31",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-rv87-ccxw-8ggf",
+            "aliases": [
+              "CVE-2026-88092"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-88092 - ASP.NET Core Security Feature Bypass Vulnerability",
+            "published_at": "2026-10-13T18:23:04Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-rv87-ccxw-8ggf",
+            "affected_ranges": [
+              ">= 8.0.0, <= 8.0.31",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 11.0.0-preview.1, <= 11.0.0-rc.1",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-57xr-hfxx-jw5x",
+            "aliases": [
+              "CVE-2026-70196"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70196 - ASP.NET Core Denial of Service Vulnerability",
+            "published_at": "2026-10-13T18:23:04Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-57xr-hfxx-jw5x",
+            "affected_ranges": [
+              ">= 8.0.0, <= 8.0.31",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-fpq8-4vhr-rcxx",
+            "aliases": [
+              "CVE-2026-70188"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70188 - ASP.NET Core Security Feature Bypass Vulnerability",
+            "published_at": "2026-10-13T18:23:03Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-fpq8-4vhr-rcxx",
+            "affected_ranges": [
+              ">= 11.0.0-preview.1, <= 11.0.0-rc.1",
+              ">= 8.0.0, <= 8.0.31",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-mf4x-w4gh-4656",
+            "aliases": [
+              "CVE-2026-70186"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70186 - ASP.NET Core Denial of Service Vulnerability",
+            "published_at": "2026-10-13T18:23:02Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-mf4x-w4gh-4656",
+            "affected_ranges": [
+              ">= 8.0.0, <= 8.0.31",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-494h-xx7x-5frh",
+            "aliases": [
+              "CVE-2026-70183"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70183 - ASP.NET Core Security Feature Bypass Vulnerability",
+            "published_at": "2026-10-13T18:23:01Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-494h-xx7x-5frh",
+            "affected_ranges": [
+              ">= 8.0.0, <= 8.0.31",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 9.0.0, <= 9.0.20",
+              ">= 11.0.0-preview.1, <= 11.0.0-rc.1"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-w5qq-qrpp-rf4c",
+            "aliases": [
+              "CVE-2026-70181"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70181 - ASP.NET Core Denial of Service Vulnerability",
+            "published_at": "2026-10-13T18:23:00Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-w5qq-qrpp-rf4c",
+            "affected_ranges": [
+              ">= 9.0.0, <= 9.0.20",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 8.0.0, <= 8.0.31"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-vrrp-6v32-2p8g",
+            "aliases": [
+              "CVE-2026-70179"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70179 - ASP.NET Core Elevation of Privilege Vulnerability",
+            "published_at": "2026-10-13T18:22:59Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-vrrp-6v32-2p8g",
+            "affected_ranges": [
+              ">= 10.0.0, <= 10.0.12",
+              ">= 8.0.0, <= 8.0.31",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-x3vp-85cm-q97r",
+            "aliases": [
+              "CVE-2026-70175"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70175 - ASP.NET Core Elevation of Privilege Vulnerability",
+            "published_at": "2026-10-13T18:22:58Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-x3vp-85cm-q97r",
+            "affected_ranges": [
+              ">= 9.0.0, <= 9.0.20",
+              ">= 10.0.0, <= 10.0.12",
+              ">= 8.0.0, <= 8.0.31"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-334f-vvp4-7g6p",
+            "aliases": [
+              "CVE-2026-70159"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-70159 - ASP.NET Core Denial of Service Vulnerability",
+            "published_at": "2026-10-13T18:22:57Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-334f-vvp4-7g6p",
+            "affected_ranges": [
+              ">= 10.0.0, <= 10.0.12",
+              ">= 11.0.0-preview.5, <= 11.0.0-rc.1",
+              ">= 8.0.0, <= 8.0.31",
+              ">= 9.0.0, <= 9.0.20"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-g27p-qf6j-c96c",
+            "aliases": [
+              "CVE-2026-102870"
+            ],
+            "summary": "Microsoft Security Advisory CVE-2026-102870 - ASP.NET Core Remote Code Execution Vulnerability",
+            "published_at": "2026-10-13T18:22:57Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/dotnet/aspnetcore/security/advisories/GHSA-g27p-qf6j-c96c",
+            "affected_ranges": [
+              ">= 10.0.0, <= 10.0.12",
+              ">= 11.0.0-preview.1, <= 11.0.0-rc.1"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "elixir-ecto/ecto",
+      "advisory_count": 4,
+      "tag_count": 191,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v2.2.0",
+        "version": "2.2.0",
+        "commit_sha": "4f84ddfbc89f83d6eed8362bf24e77bec5dcf81e",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 1,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-2xxx-fhc8-9qvq",
+            "aliases": [
+              "CVE-2017-20166"
+            ],
+            "summary": "Ecto missing `is_nil` requirement",
+            "published_at": "2022-04-12T19:42:45Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-2xxx-fhc8-9qvq",
+            "affected_ranges": [
+              ">=2.2.0, <2.2.1"
+            ],
+            "fix_refs": [
+              "https://github.com/elixir-ecto/ecto/pull/2125",
+              "https://github.com/elixir-ecto/ecto/commit/db55b0cba6525c24ebddc88ef9ae0c1c00620250"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "elixir-plug/plug",
+      "advisory_count": 7,
+      "tag_count": 139,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v1.20.1",
+        "version": "1.20.1",
+        "commit_sha": "1fea083ea9a5bc1917fde321cd561debeee8f45a",
+        "in_range_advisory_count": 2,
+        "explicit_affected_version_count": 2,
+        "advisories": [
+          {
+            "advisory_id": "EEF-CVE-2026-56813",
+            "aliases": [
+              "CVE-2026-56813",
+              "GHSA-wpmj-jh88-rpgm"
+            ],
+            "summary": "Cookie attribute injection in Plug.Conn.Cookies.encode/2",
+            "published_at": "2026-07-10T12:51:08.758Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/EEF-CVE-2026-56813",
+            "affected_ranges": [
+              ">=0.1.0, <1.16.6",
+              ">=1.17.0, <1.17.4",
+              ">=1.18.0, <1.18.5",
+              ">=1.19.1, <1.19.5",
+              ">=1.20.0, <1.20.3",
+              ">=f26876aa67aaeb38e616638aa3efbcc2fe2906a5, <eceb8315ce9a31ef784943a95a8624ebd1bc7e06",
+              ">= 0.1.0 and < 1.16.6",
+              ">= 1.17.0 and < 1.17.4",
+              ">= 1.18.0 and < 1.18.5",
+              ">= 1.19.0 and < 1.19.5",
+              ">= 1.20.0 and < 1.20.3"
+            ],
+            "fix_refs": [
+              "https://github.com/elixir-plug/plug/commit/f26876aa67aaeb38e616638aa3efbcc2fe2906a5",
+              "https://github.com/elixir-plug/plug/commit/3f00dfad4e20ba88472e315c90a25742bf178f8e",
+              "https://github.com/elixir-plug/plug/commit/a6d1248659022749869963fd302687165ecf8c8b",
+              "https://github.com/elixir-plug/plug/commit/4167981747fe9ce75f374b94a28861ae950ea992",
+              "https://github.com/elixir-plug/plug/commit/149d9ed68fee0b4f77efd1e835ce5d785856697b",
+              "https://github.com/elixir-plug/plug/commit/eceb8315ce9a31ef784943a95a8624ebd1bc7e06"
+            ]
+          },
+          {
+            "advisory_id": "EEF-CVE-2026-56814",
+            "aliases": [
+              "CVE-2026-56814",
+              "GHSA-95qv-c9g9-rm63"
+            ],
+            "summary": "Plug: multipart :length limit is not charged for part headers, enabling unbounded temp-file creation (denial of service)",
+            "published_at": "2026-07-10T11:14:35.574Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/EEF-CVE-2026-56814",
+            "affected_ranges": [
+              ">=1.4.0-rc.0, <1.16.6",
+              ">=1.17.0, <1.17.4",
+              ">=1.18.0, <1.18.5",
+              ">=1.19.1, <1.19.5",
+              ">=1.20.0, <1.20.3",
+              ">=c52b2f32c90bccd718202bafccb5f95594e30183, <df97d3f17f808a9916a7700a701fb85314559d56",
+              ">= 1.4.0 and < 1.16.6",
+              ">= 1.17.0 and < 1.17.4",
+              ">= 1.18.0 and < 1.18.5",
+              ">= 1.19.0 and < 1.19.5",
+              ">= 1.20.0 and < 1.20.3"
+            ],
+            "fix_refs": [
+              "https://github.com/elixir-plug/plug/commit/c52b2f32c90bccd718202bafccb5f95594e30183",
+              "https://github.com/elixir-plug/plug/commit/981597d3a4271ede64373c7a731702a42c500dd6",
+              "https://github.com/elixir-plug/plug/commit/56edca2ce35fe5589cd581644d8a4493fa5f484e",
+              "https://github.com/elixir-plug/plug/commit/0ee8afcc61466dc5f7a8f048d0632c899165b81f",
+              "https://github.com/elixir-plug/plug/commit/cae36053350e5215a4e0ca33cd130af9c5fc6364",
+              "https://github.com/elixir-plug/plug/commit/f7effaed811c00b5f5bf817936bfd9c5df27b7dc",
+              "https://github.com/elixir-plug/plug/commit/df97d3f17f808a9916a7700a701fb85314559d56"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "elixir-plug/plug_cowboy",
+      "advisory_count": 1,
+      "tag_count": 29,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v2.8.0",
+        "version": "2.8.0",
+        "commit_sha": "5a4771c4b5deba2b0ec3e44d2afc96ca874d95d3",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 1,
+        "advisories": [
+          {
+            "advisory_id": "EEF-CVE-2026-32688",
+            "aliases": [
+              "CVE-2026-32688",
+              "GHSA-q8x4-x7mp-5vg2"
+            ],
+            "summary": "Atom table exhaustion via HTTP/2 :scheme pseudo-header in plug_cowboy",
+            "published_at": "2026-04-27T13:45:35.160Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/EEF-CVE-2026-32688",
+            "affected_ranges": [
+              ">=2.0.0, <2.8.1",
+              ">=12ecfd024bb179d48b018fecf074e43fe6a19c83, <bfb34cb45eb354e56437f7023fb306de1bf9c19b",
+              ">= 2.0.0 and < 2.8.1"
+            ],
+            "fix_refs": [
+              "https://github.com/elixir-plug/plug_cowboy/commit/bfb34cb45eb354e56437f7023fb306de1bf9c19b"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "go-gitea/gitea",
+      "advisory_count": 221,
+      "tag_count": 263,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v28.1.0",
+        "version": "28.1.0",
+        "commit_sha": "4ebd5e319b6a9e629bfd7a04292a6fe85b08dee9",
+        "in_range_advisory_count": 9,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-4jmf-h2cm-hg7w",
+            "aliases": [
+              "CVE-2026-107618"
+            ],
+            "summary": "Cross-Site Request Forgery on `POST /{owner}/{repo}/topics`",
+            "published_at": "2026-10-18T18:44:44Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-4jmf-h2cm-hg7w",
+            "affected_ranges": [
+              "<= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-fxq4-gr55-7x5g",
+            "aliases": [
+              "CVE-2026-97204"
+            ],
+            "summary": "DeleteLabel compares one untyped id against whichever namespace the label uses, letting a repo collaborator delete an ID-colliding organisation's labels",
+            "published_at": "2026-10-18T18:44:44Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-fxq4-gr55-7x5g",
+            "affected_ranges": [
+              "<= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-6f9g-7jgm-m5ph",
+            "aliases": [
+              "CVE-2026-105964"
+            ],
+            "summary": "Gitea Actions Artifact V4 API: unbounded request body read in parseProtobufBody enables memory-exhaustion DoS",
+            "published_at": "2026-10-18T18:44:40Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-6f9g-7jgm-m5ph",
+            "affected_ranges": [
+              ">= 1.22.0, <= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-8j56-f865-gqq2",
+            "aliases": [
+              "CVE-2026-110311"
+            ],
+            "summary": "Draft releases include attachment metadata from other repositories",
+            "published_at": "2026-10-18T18:44:39Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-8j56-f865-gqq2",
+            "affected_ranges": [
+              ">= 1.22.0, <= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-c3cr-qq9g-666c",
+            "aliases": [
+              "CVE-2026-105661"
+            ],
+            "summary": "Unauthenticated nil-pointer panic on /{username}/-/repositories for individual users",
+            "published_at": "2026-10-18T18:44:38Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-c3cr-qq9g-666c",
+            "affected_ranges": [
+              "<= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-cwq7-782w-pxcc",
+            "aliases": [
+              "CVE-2026-110494"
+            ],
+            "summary": "Gitea AddReleaseAttachments missing IssueID check allows issue attachment metadata exposure and deletion via releases",
+            "published_at": "2026-10-18T18:44:37Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-cwq7-782w-pxcc",
+            "affected_ranges": [
+              "<= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-wx44-9m3m-rjqx",
+            "aliases": [
+              "CVE-2026-107686"
+            ],
+            "summary": "Locked issues and comments still accept reactions through the web UI",
+            "published_at": "2026-10-18T18:44:36Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-wx44-9m3m-rjqx",
+            "affected_ranges": [
+              "<= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-mf69-7pqq-86vx",
+            "aliases": [
+              "CVE-2026-104627"
+            ],
+            "summary": "Cross-Session OpenID Credential Linking Enables Account Takeover",
+            "published_at": "2026-10-18T18:44:35Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-mf69-7pqq-86vx",
+            "affected_ranges": [
+              "<= 28.1.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-vcp6-2qc6-gvq3",
+            "aliases": [
+              "CVE-2026-109553"
+            ],
+            "summary": "VerifyCert maps SSH certificate principals onto other users' SSH public keys",
+            "published_at": "2026-10-18T18:44:34Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/go-gitea/gitea/security/advisories/GHSA-vcp6-2qc6-gvq3",
+            "affected_ranges": [
+              "<= 28.1.0"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "grpc/grpc",
+      "advisory_count": 8,
+      "tag_count": 429,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v1.83.0",
+        "version": "1.83.0",
+        "commit_sha": "c876f4da50f7da2f331888b88b2a7243514139fe",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-hf3w-6hpw-qp67",
+            "aliases": [],
+            "summary": "Multiple heap memory exhaustion (OOM) bug fixes in gRPC-C++",
+            "published_at": "2026-08-28T04:41:49Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/grpc/grpc/security/advisories/GHSA-hf3w-6hpw-qp67",
+            "affected_ranges": [
+              "<= 1.83.0"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "jbeder/yaml-cpp",
+      "advisory_count": 7,
+      "tag_count": 21,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "yaml-cpp-0.6.2",
+        "version": "0.6.2",
+        "commit_sha": "562aefc114938e388457e6a531ed7b54d9dc1b62",
+        "in_range_advisory_count": 6,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "DEBIAN-CVE-2019-6292",
+            "aliases": [],
+            "summary": "An issue was discovered in singledocparser.cpp in yaml-cpp (aka LibYaml-C++) 0.6.2. Stack Exhaustion occurs in YAML::SingleDocParser, and there is a stack consumption problem caused by recursive stack",
+            "published_at": "2019-01-15T00:29:00.477Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/DEBIAN-CVE-2019-6292",
+            "affected_ranges": [
+              ">=0, <0.6.3-1"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "DEBIAN-CVE-2019-6285",
+            "aliases": [],
+            "summary": "The SingleDocParser::HandleFlowSequence function in yaml-cpp (aka LibYaml-C++) 0.6.2 allows remote attackers to cause a denial of service (stack consumption and application crash) via a crafted YAML f",
+            "published_at": "2019-01-14T22:29:00.390Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/DEBIAN-CVE-2019-6285",
+            "affected_ranges": [
+              ">=0, <0.6.3-1"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "DEBIAN-CVE-2018-20574",
+            "aliases": [],
+            "summary": "The SingleDocParser::HandleFlowMap function in yaml-cpp (aka LibYaml-C++) 0.6.2 allows remote attackers to cause a denial of service (stack consumption and application crash) via a crafted YAML file.",
+            "published_at": "2018-12-28T16:29:05.847Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/DEBIAN-CVE-2018-20574",
+            "affected_ranges": [
+              ">=0, <0.6.3-1"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "DEBIAN-CVE-2018-20573",
+            "aliases": [],
+            "summary": "The Scanner::EnsureTokensInQueue function in yaml-cpp (aka LibYaml-C++) 0.6.2 allows remote attackers to cause a denial of service (stack consumption and application crash) via a crafted YAML file.",
+            "published_at": "2018-12-28T16:29:05.800Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/DEBIAN-CVE-2018-20573",
+            "affected_ranges": [
+              ">=0, <0.6.3-1"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "DEBIAN-CVE-2017-11692",
+            "aliases": [],
+            "summary": "The function \"Token& Scanner::peek\" in scanner.cpp in yaml-cpp 0.5.3 and earlier allows remote attackers to cause a denial of service (assertion failure and application exit) via a '!2' string.",
+            "published_at": "2017-07-30T17:29:00.240Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/DEBIAN-CVE-2017-11692",
+            "affected_ranges": [
+              ">=0, <0.6.3-1"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "DEBIAN-CVE-2017-5950",
+            "aliases": [],
+            "summary": "The SingleDocParser::HandleNode function in yaml-cpp (aka LibYaml-C++) 0.5.3 allows remote attackers to cause a denial of service (stack consumption and application crash) via a crafted YAML file.",
+            "published_at": "2017-04-03T05:59:00.800Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/DEBIAN-CVE-2017-5950",
+            "affected_ranges": [
+              ">=0, <0.6.3-1"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "labstack/echo",
+      "advisory_count": 14,
+      "tag_count": 145,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v5.3.1",
+        "version": "5.3.1",
+        "commit_sha": "ed8bbe4b6cbf519766c99e492b9cc427404b3719",
+        "in_range_advisory_count": 7,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-3pmx-cf9f-34xr",
+            "aliases": [],
+            "summary": "Echo static file middleware route protection bypass via encoded dot-dot traversal",
+            "published_at": "2026-09-27T23:04:11Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/labstack/echo/security/advisories/GHSA-3pmx-cf9f-34xr",
+            "affected_ranges": [
+              "< 5.4.0",
+              "< 4.16.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-375p-5qhx-8wq4",
+            "aliases": [],
+            "summary": "middleware.Static: `%2F`-encoded path bypasses route/group middleware guarding a statically-served path (incomplete fix of CVE-2026-55677); `EnablePathUnescaping` docstring over-promises",
+            "published_at": "2026-09-27T23:04:09Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/labstack/echo/security/advisories/GHSA-375p-5qhx-8wq4",
+            "affected_ranges": [
+              "< 5.4.0",
+              "< 4.16.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-v753-g4cw-jm48",
+            "aliases": [],
+            "summary": "Open Redirect via Control-Character Prefix Defeating sanitizeURI",
+            "published_at": "2026-09-27T23:04:08Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/labstack/echo/security/advisories/GHSA-v753-g4cw-jm48",
+            "affected_ranges": [
+              "< 5.4.0",
+              "< 4.16.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-r7w9-592q-9vg4",
+            "aliases": [],
+            "summary": "CSRF Protection Bypass via MethodOverride Rewriting POST to Safe Method",
+            "published_at": "2026-09-27T23:04:07Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/labstack/echo/security/advisories/GHSA-r7w9-592q-9vg4",
+            "affected_ranges": [
+              "< 5.4.0",
+              "< 4.16.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-h9g5-28mm-hx3g",
+            "aliases": [],
+            "summary": "Reflected Cross-Site Scripting (XSS) via unsanitized JSONP callback in Context.JSONP / Context.JSONPBlob",
+            "published_at": "2026-09-27T23:04:05Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/labstack/echo/security/advisories/GHSA-h9g5-28mm-hx3g",
+            "affected_ranges": [
+              "< 5.4.0",
+              "< 4.16.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-99jh-6h7p-pp36",
+            "aliases": [],
+            "summary": "Reverse Proxy Forwards Attacker-Supplied X-Real-IP to Upstream by Default",
+            "published_at": "2026-09-27T23:04:02Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/labstack/echo/security/advisories/GHSA-99jh-6h7p-pp36",
+            "affected_ranges": [
+              "< 5.4.0",
+              ">= 4.0.0"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-2ffq-g2xg-c22p",
+            "aliases": [],
+            "summary": "HTTPS Redirect and HSTS Bypass via Unconditional Trust of Forwarded Scheme Headers",
+            "published_at": "2026-09-27T23:04:00Z",
+            "source": "GitHubRepositoryAdvisory",
+            "url": "https://github.com/labstack/echo/security/advisories/GHSA-2ffq-g2xg-c22p",
+            "affected_ranges": [
+              "< 5.4.0",
+              "< 4.16.0"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "leethomason/tinyxml2",
+      "advisory_count": 3,
+      "tag_count": 20,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "10.0.0",
+        "version": "10.0.0",
+        "commit_sha": "321ea883b7190d4e85cae5512a12e5eaa8f8731f",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "DEBIAN-CVE-2024-50615",
+            "aliases": [],
+            "summary": "TinyXML2 through 10.0.0 has a reachable assertion for UINT_MAX/digit, that may lead to application exit, in tinyxml2.cpp XMLUtil::GetCharacterRef.",
+            "published_at": "2024-10-27T22:15:03.760Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/DEBIAN-CVE-2024-50615",
+            "affected_ranges": [
+              ">=0, <unbounded",
+              ">=0, <10.1.0+dfsg-1"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "lodash/lodash",
+      "advisory_count": 10,
+      "tag_count": 440,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "4.18.0",
+        "version": "4.18.0",
+        "commit_sha": "59be2de61f8aa9461c7856533b51d31b7d8babc4",
+        "in_range_advisory_count": 2,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-r5fr-rjxr-66jc",
+            "aliases": [
+              "CVE-2026-4800"
+            ],
+            "summary": "lodash vulnerable to Code Injection via `_.template` imports key names",
+            "published_at": "2026-04-01T23:51:12Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-r5fr-rjxr-66jc",
+            "affected_ranges": [
+              ">=4.0.0, <4.18.0",
+              ">=4.0.0, <4.18.1"
+            ],
+            "fix_refs": [
+              "https://github.com/lodash/lodash/commit/3469357cff396a26c363f8c1b5a91dde28ba4b1c"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-f23m-r3pf-42rh",
+            "aliases": [
+              "CVE-2026-2950"
+            ],
+            "summary": "lodash vulnerable to Prototype Pollution via array path bypass in `_.unset` and `_.omit`",
+            "published_at": "2026-04-01T23:50:27Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-f23m-r3pf-42rh",
+            "affected_ranges": [
+              ">=0, <4.18.0",
+              ">=4.0.0, <4.18.0",
+              ">=4.17.23, <4.18.1",
+              "<4.18.0"
+            ],
+            "fix_refs": []
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "nestjs/nest",
+      "advisory_count": 12,
+      "tag_count": 387,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v12.0.2",
+        "version": "12.0.2",
+        "commit_sha": "ee168a569d30e600d301ed38abb14d2171a6f315",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-96h4-vgxj-gvm2",
+            "aliases": [],
+            "summary": "Nest: Unbounded memory growth in the NestJS TCP microservice transport",
+            "published_at": "2026-09-30T14:44:21Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-96h4-vgxj-gvm2",
+            "affected_ranges": [
+              ">=0, <11.2.5",
+              ">=12.0.0, <12.0.3",
+              "< 12.0.3 || < 11.2.5"
+            ],
+            "fix_refs": [
+              "https://github.com/nestjs/nest/pull/17746",
+              "https://github.com/nestjs/nest/pull/17749",
+              "https://github.com/nestjs/nest/commit/6ca2dd894a6ff964d318724f363061652e822920",
+              "https://github.com/nestjs/nest/commit/781843ac98d429fe1d541c52c7126850be5989a7",
+              "https://github.com/nestjs/nest/commit/dee4ed4dbc2e18e1e722619927647f5441dfe812"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "nlohmann/json",
+      "advisory_count": 3,
+      "tag_count": 57,
+      "status": "no_proposal",
+      "top_candidate": null,
+      "blockers": [
+        "no_stable_tag_falls_inside_cached_advisory_ranges"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "openssl/openssl",
+      "advisory_count": 10,
+      "tag_count": 450,
+      "status": "no_proposal",
+      "top_candidate": null,
+      "blockers": [
+        "no_stable_tag_falls_inside_cached_advisory_ranges"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "pyca/cryptography",
+      "advisory_count": 24,
+      "tag_count": 161,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "50.0.2",
+        "version": "50.0.2",
+        "commit_sha": "4dda5c7fe4ae71b8925f2551910a0ef959df9c7a",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-x4qr-2fvf-3mr5",
+            "aliases": [
+              "CVE-2023-0286",
+              "PYSEC-2026-800",
+              "RUSTSEC-2023-0006"
+            ],
+            "summary": "Vulnerable OpenSSL included in cryptography wheels",
+            "published_at": "2023-02-08T22:17:06Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-x4qr-2fvf-3mr5",
+            "affected_ranges": [
+              ">=0.8.1, <39.0.1",
+              ">=0, <111.25.0",
+              ">=300.0.0, <300.0.12",
+              ">=0.8.1"
+            ],
+            "fix_refs": [
+              "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2c6c9d439b484e1ba9830d8454a34fa4f80fdfe9",
+              "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=2f7530077e0ef79d98718138716bc51ca0cad658",
+              "https://git.openssl.org/gitweb/?p=openssl.git;a=commitdiff;h=fd2af07dc083a350c959147097003a14a5e8ac4d"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "rails/rails",
+      "advisory_count": 138,
+      "tag_count": 554,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v8.1.3",
+        "version": "8.1.3",
+        "commit_sha": "fa8f0812160665bff083a089d2bb2fc1817ea03e",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 1,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-xr9x-r78c-5hrm",
+            "aliases": [
+              "CVE-2026-66066"
+            ],
+            "summary": "Active Storage has possible arbitrary file read and remote code execution in Active Storage variant processing",
+            "published_at": "2026-07-30T18:23:33Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-xr9x-r78c-5hrm",
+            "affected_ranges": [
+              ">=0, <7.2.3.2",
+              ">=8.0.0.beta1, <8.0.5.1",
+              ">=8.1.0.beta1, <8.1.3.1",
+              "< 7.2.3.2",
+              ">= 8.0, < 8.0.5.1",
+              ">= 8.1, < 8.1.3.1"
+            ],
+            "fix_refs": [
+              "https://github.com/rails/rails/commit/1c01bb587206ee6eb0e1179c2cef96a6a47acb1e",
+              "https://github.com/rails/rails/commit/349e7a5d5b4b715af1e416db824f3c078a7d59e5",
+              "https://github.com/rails/rails/commit/d79b7f4aa17dec8ce4960fef05733c8c0c7ef49a"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "ruby/rexml",
+      "advisory_count": 8,
+      "tag_count": 28,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v3.4.1",
+        "version": "3.4.1",
+        "commit_sha": "bfb37e9ca4cb974c9bb2dc2f06e1202719d1bc4d",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 1,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-c2f4-jgmc-q2r5",
+            "aliases": [
+              "CVE-2025-58767"
+            ],
+            "summary": "REXML has DoS condition when parsing malformed XML file",
+            "published_at": "2025-09-17T18:26:48Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-c2f4-jgmc-q2r5",
+            "affected_ranges": [
+              ">=3.3.3, <3.4.2",
+              ">= 3.3.3, <= 3.4.1"
+            ],
+            "fix_refs": [
+              "https://github.com/ruby/rexml/commit/5859bdeac792687eaf93d8e8f0b7e3c1e2ed5c23"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "sinatra/sinatra",
+      "advisory_count": 6,
+      "tag_count": 158,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v4.1.1",
+        "version": "4.1.1",
+        "commit_sha": "7b50a1bbb5324838908dfaa00ec53ad322673a29",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 1,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-mr3q-g2mv-mr4q",
+            "aliases": [
+              "CVE-2025-61921"
+            ],
+            "summary": "Sinatra is vulnerable to ReDoS through ETag header value generation",
+            "published_at": "2025-10-10T20:28:47Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-mr3q-g2mv-mr4q",
+            "affected_ranges": [
+              ">=0, <4.2.0",
+              "< 4.2.0"
+            ],
+            "fix_refs": [
+              "https://github.com/sinatra/sinatra/pull/1823",
+              "https://github.com/sinatra/sinatra/pull/2121",
+              "https://github.com/sinatra/sinatra/commit/3fe8c38dc405586f7ad8f2ac748aa53e9c3615bd",
+              "https://github.com/sinatra/sinatra/commit/8ff496bd4877520599e1479d6efead39304edceb"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "spring-projects/spring-framework",
+      "advisory_count": 84,
+      "tag_count": 369,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v7.0.8",
+        "version": "7.0.8",
+        "commit_sha": "9e8cea3ef8ae02efb7956b071cd7bbef7c22cb82",
+        "in_range_advisory_count": 3,
+        "explicit_affected_version_count": 3,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-9qf2-26p9-2q2q",
+            "aliases": [
+              "CVE-2026-47892"
+            ],
+            "summary": "Spring Framework Header Predicate Bypass in WebFlux Functional Endpoints",
+            "published_at": "2026-08-27T06:31:34Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-9qf2-26p9-2q2q",
+            "affected_ranges": [
+              ">=5.2.5.RELEASE, <unbounded",
+              ">=5.3.0, <unbounded",
+              ">=6.0.0, <unbounded",
+              ">=6.1.0, <unbounded",
+              ">=6.2.0, <unbounded",
+              ">=7.0.0, <7.0.9"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-j9f9-w8pj-32f8",
+            "aliases": [
+              "CVE-2026-47890"
+            ],
+            "summary": "Spring Framework Server Sent Event stream corruption while rendering fragments",
+            "published_at": "2026-08-27T06:31:34Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-j9f9-w8pj-32f8",
+            "affected_ranges": [
+              ">=6.2.0, <unbounded",
+              ">=7.0.0, <7.0.9"
+            ],
+            "fix_refs": []
+          },
+          {
+            "advisory_id": "GHSA-pc63-qcmh-9cmg",
+            "aliases": [
+              "CVE-2026-47884"
+            ],
+            "summary": "Spring Framework Improper Path Limitation in XsltView",
+            "published_at": "2026-08-27T06:31:34Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-pc63-qcmh-9cmg",
+            "affected_ranges": [
+              ">=0, <unbounded",
+              ">=5.3.0, <unbounded",
+              ">=6.0.0, <unbounded",
+              ">=6.1.0, <unbounded",
+              ">=6.2.0, <unbounded",
+              ">=7.0.0, <7.0.9"
+            ],
+            "fix_refs": [
+              "https://github.com/spring-projects/spring-framework/commit/692dbc9160de3b5de50ccedeee014716d0cedb7b"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "tokio-rs/tokio",
+      "advisory_count": 5,
+      "tag_count": 403,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "tokio-1.44.1",
+        "version": "1.44.1",
+        "commit_sha": "d413c9c02af8f2b4fea14b769b86484b12f46595",
+        "in_range_advisory_count": 1,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-rr8g-9fpq-6wmg",
+            "aliases": [
+              "RUSTSEC-2025-0023"
+            ],
+            "summary": "Tokio broadcast channel calls clone in parallel, but does not require `Sync`",
+            "published_at": "2025-04-07T21:12:50Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-rr8g-9fpq-6wmg",
+            "affected_ranges": [
+              ">=1.44.0, <1.44.2",
+              ">=0.2.5, <1.38.2",
+              ">=1.39.0, <1.43.1",
+              ">=1.39.0, <1.42.1",
+              ">=1.43.0, <1.43.1"
+            ],
+            "fix_refs": [
+              "https://github.com/tokio-rs/tokio/pull/7232"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    },
+    {
+      "full_name": "vercel/next.js",
+      "advisory_count": 77,
+      "tag_count": 4116,
+      "status": "candidates_proposed_pending_source_verification",
+      "top_candidate": {
+        "tag_or_release": "v16.3.7",
+        "version": "16.3.7",
+        "commit_sha": "4c20699e29178d444994cf5a31b8a617ca3a2c80",
+        "in_range_advisory_count": 6,
+        "explicit_affected_version_count": 0,
+        "advisories": [
+          {
+            "advisory_id": "GHSA-3w37-wq28-93x7",
+            "aliases": [
+              "CVE-2026-94544"
+            ],
+            "summary": "Next.js: Pending `use cache` fill can leak Draft Mode content into regular responses and persisted pages",
+            "published_at": "2026-10-07T20:32:13Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-3w37-wq28-93x7",
+            "affected_ranges": [
+              ">=16.3.0, <16.3.8",
+              "16.3.0"
+            ],
+            "fix_refs": [
+              "https://github.com/vercel/next.js/commit/bd9214f9a32854a011bf5fe58e481dffe1bbf598"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-4jqv-mc3x-m676",
+            "aliases": [
+              "CVE-2026-94543"
+            ],
+            "summary": "Next.js has cache poisoning of SSG and ISR pages in self-hosted applications",
+            "published_at": "2026-10-07T20:32:06Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-4jqv-mc3x-m676",
+            "affected_ranges": [
+              ">=15.0.0, <15.5.27",
+              ">=16.0.0, <16.3.8",
+              ">= 15.0.0",
+              ">= 16.0.0"
+            ],
+            "fix_refs": [
+              "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+              "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-39w2-rjm5-chcv",
+            "aliases": [
+              "CVE-2026-94486"
+            ],
+            "summary": "Next.js has information disclosure in development server's Model Context Protocol endpoint",
+            "published_at": "2026-10-07T20:31:51Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-39w2-rjm5-chcv",
+            "affected_ranges": [
+              ">=16.0.0, <16.3.8",
+              ">= 16.0.0"
+            ],
+            "fix_refs": [
+              "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-f87g-xv8r-7p7x",
+            "aliases": [
+              "CVE-2026-94485"
+            ],
+            "summary": "Next.js has information disclosure in App Router metadata image routes via dynamicParams bypass",
+            "published_at": "2026-10-07T20:31:33Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-f87g-xv8r-7p7x",
+            "affected_ranges": [
+              ">=16.0.0, <16.3.8",
+              ">= 16.0.0"
+            ],
+            "fix_refs": [
+              "https://github.com/vercel/next.js/commit/2d9f50a409312696145b82b3157aadb6b1fef476"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-mcj8-r9mp-w47p",
+            "aliases": [
+              "CVE-2026-94484"
+            ],
+            "summary": "Next.js has cache poisoning in SSG/ISR rendering that leads to cross-user content substitution and persistent denial of service",
+            "published_at": "2026-10-07T20:31:13Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-mcj8-r9mp-w47p",
+            "affected_ranges": [
+              ">=16.0.0, <16.3.8",
+              ">=15.0.0, <15.5.27",
+              ">= 16.0.0",
+              ">= 15.0.0"
+            ],
+            "fix_refs": [
+              "https://github.com/vercel/next.js/commit/52c94abdd2ea5f416f5e8353ea8a2edd3fe311b8",
+              "https://github.com/vercel/next.js/commit/719e4c67d6e92df60246f95e1d96e2dd60789a52"
+            ]
+          },
+          {
+            "advisory_id": "GHSA-cjq9-62q9-8jv4",
+            "aliases": [
+              "CVE-2026-94483"
+            ],
+            "summary": "Next.js has Server-Side Request Forgery in Image Optimization",
+            "published_at": "2026-10-07T20:30:55Z",
+            "source": "OSV",
+            "url": "https://osv.dev/vulnerability/GHSA-cjq9-62q9-8jv4",
+            "affected_ranges": [
+              ">=16.0.0, <16.3.8",
+              ">= 16.0.0 < 16.3.?"
+            ],
+            "fix_refs": [
+              "https://github.com/vercel/next.js/commit/e002ad68bd676bb0ed0c87bb22e3590304763e0b"
+            ]
+          }
+        ]
+      },
+      "blockers": [
+        "source_level_confirmation_at_tag_commit_pending",
+        "independent_selection_review_pending",
+        "known_positive_oracle_review_pending"
+      ],
+      "errors": []
+    }
+  ],
+  "note": "Proposals are advisory-range matches, not confirmed positives and not selections. Open-ended ranges and commit-hash OSV bounds are not used to choose versions; no_proposal means the cached ranges cannot discriminate among release tags, not that the repository is free of vulnerabilities. Source-level verification and independent review are required before any evaluation target is frozen."
+}

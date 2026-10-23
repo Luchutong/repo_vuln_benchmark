@@ -1,0 +1,126 @@
+Repository: https://github.com/django/django
+Local upstream mirror: /tmp/django_git (bare, no configured remote; objects are
+fetched by explicit URL). Snapshot tag 3.0.2 (annotated tag object 27431091)
+peels to a3697439. Release tags 3.0.14, 3.1.13, 3.1.14, 3.2.10 and 2.2.25 were
+fetched by URL; the 3.1.x/3.2.x/2.2.x backport commits and the mainline fix
+d4dcd5b9 were fetched by SHA at a small depth. Where a commit is a shallow root,
+`git show --format=%P` can report an empty parent list; `git cat-file -p` is
+used for parent fields, and ancestry is only queried between commits fetched
+together.
+
+Dataset snapshot: tag 3.0.2, commit a36974395ebc03a41928db1743074575b143330d
+(snapshot_id snap_ab695ba3db678939, repo_id 4164482).
+  $ git rev-parse '3.0.2^{commit}'
+  a36974395ebc03a41928db1743074575b143330d
+  $ git ls-tree 3.0.2 django/urls/resolvers.py
+  100644 blob 19d0d989868e575d6911db7d8ba452e1d29fdd56     (677 lines)
+  $ git ls-tree 3.0.14 django/urls/resolvers.py
+  100644 blob 19d0d989868e575d6911db7d8ba452e1d29fdd56     (identical)
+
+Vulnerable code at 3.0.2 (urls/resolvers.py, blob 19d0d989):
+   153  class RegexPattern(CheckURLMixin):
+   ...
+   155      def match(self, path):
+   156          match = self.regex.search(path)
+   157          if match:
+   ...
+   165              return path[match.end():], args, kwargs
+   ...
+   239      for parameter, converter in converters.items():
+   240          parts.append('(?P<' + parameter + '>' + converter.regex + ')')
+   242      if is_endpoint:
+   243          parts.append('$')
+  `_route_to_regex` builds every endpoint regex with a trailing `$` (line 243)
+  and RegexPattern.match applies it with `re.search` (line 156). In Python's re
+  module `$` matches at the end of the string *or just before a trailing
+  newline*, while `search` accepts a match that does not consume the whole
+  string. Therefore the path '/articles/2003/\n' matches the endpoint pattern
+  '^articles/(?P<year>[0-9]{4})/$' and Django resolves it, returning the
+  unconsumed '\n' as the remaining path. A request fronted by an access-control
+  layer that treats the trailing-newline path as different (or rejects it)
+  reaches a view the layer meant to block. The same applies to developer
+  patterns passed to re_path() that end in '$'.
+  The fix (below) both applies fullmatch for endpoint patterns ending in '$'
+  and emits \Z instead of $ from _route_to_regex. fullmatch alone is sufficient
+  to reject the trailing newline, because it requires the match to consume the
+  whole string.
+
+Fix commits (subject "Fixed #30530, CVE-2021-44420 -- Fixed potential bypass of
+an upstream access control based on URL paths."):
+  mainline (4.0.x): d4dcd5b9dd9e462fec8220e33e3e6c822b7e88a6
+    $ git cat-file -p d4dcd5b9
+    parent 628b6a686974698cbf820bad72f10dad133174ec  | 2021-11-29 12:12:03 +0100
+    committer date 2021-12-07; the attached patch
+    (fix_commit_d4dcd5b9.patch) changes django/urls/resolvers.py, release notes
+    for 2.2.25/3.1.14/3.2.10 and tests/urlpatterns/tests.py
+  3.1.x backport: 22bd17488159601bf0741b70ae7932bffea8eced
+    $ git cat-file -p 22bd1748
+    parent cfb780dafe29e2243d9b48d0783b729b315341bb
+    subject [3.1.x] Fixed #30530, CVE-2021-44420 -- ...
+  3.2.x backport: 333c65603032c377e682cdbd7388657a5463a05a
+    $ git cat-file -p 333c6560
+    parent 6014b812e2608eae1b0950eed8a5891cadc6ca77
+    subject [3.2.x] Fixed #30530, CVE-2021-44420 -- ...
+  2.2.x backport: 7cf7d74e8a754446eeb85cacf2fef1247e0cb6d7
+    $ git cat-file -p 7cf7d74e
+    parent 0007a5f9fa21bf6fda5e0a701511b95edefdb0ac
+    subject [2.2.x] Fixed #30530, CVE-2021-44420 -- ...
+  Each fix changes exactly the two hunks shown in the attached patch:
+    - RegexPattern.match: use self.regex.fullmatch(path) when
+      self._is_endpoint and the pattern ends with '$', else search;
+    - _route_to_regex: append r'\Z' instead of '$' for endpoints;
+    - tests/urlpatterns/tests.py: add test_path_trailing_newlines, which
+      resolves '/articles/2003/\n', '/articles/2010/\n', '/en/foo/\n',
+      '/included_urls/extra/\n', '/regex/1/\n' and '/users/1/\n' and asserts
+      Resolver404 for each.
+
+Fixed releases and their content:
+  $ git show -s --format='%H %P | %s' 840bebf1eef1c2a373158262cdfec611dc535658
+  840bebf1... 22bd1748... | [3.1.x] Bumped version for 3.1.14 release.
+  $ git show -s --format='%H %P | %s' 0153a63a674937e4a56d9d5e4ca2d629b011fbde
+  0153a63a... 333c6560... | [3.2.x] Bumped version for 3.2.10 release.
+  $ git show -s --format='%H %P | %s' 79d8dcefb2739176839fa76f8780aca5aa9b7101
+  79d8dcef... 7cf7d74e... | [2.2.x] Bumped version for 2.2.25 release.
+  Each release commit is a direct child of its branch's fix commit.
+  resolvers.py blobs: 3.0.2 = 19d0d989, 3.0.14 = 19d0d989 (identical, so the
+  3.0.x line never received the fix); 3.1.13 = e565d34b (pre-fix), 3.1.14 =
+  abf0a115 (fullmatch at line 157, \Z at line 247); 3.2.10 = f8e608c7
+  (fullmatch 158, \Z 251); 2.2.25 = 3f8f6c00 (fullmatch 151, \Z 237).
+  $ git diff 3.1.13 3.1.14 -- django/urls/resolvers.py
+  shows only the two hunks above.
+  At 3.0.2, tests/urlpatterns/tests.py has no test_path_trailing_newlines
+  (grep returns nothing); at 3.1.14 the test is at line 150.
+
+Affected range (sources disagree on the lower bound of the 3.x range):
+  MITRE CNA text and NVD CPE: 2.2 before 2.2.25, 3.1 before 3.1.14, 3.2 before
+  3.2.10. Neither lists a 3.0.x range, and the fix has no 3.0.x release note
+  (3.0 was end-of-life by 2021-12).
+  OSV PyPI ECOSYSTEM ranges: introduced 2.2a1 fixed 2.2.25; introduced 3.0a1
+  fixed 3.1.14; introduced 3.2a1 fixed 3.2.10. The 3.0a1-3.1.14 range covers
+  the 3.0.2 snapshot.
+  Code check: the vulnerable RegexPattern.match and the `parts.append('$')` in
+  _route_to_regex are byte-identical at 3.0.2 and 3.1.13, and 3.0.14 still
+  carries blob 19d0d989, so the flaw is present at 3.0.2 even though only OSV
+  states the 3.0 range and no 3.0.x fix exists. The snapshot is therefore
+  affected at the code level; the published range text and NVD CPE omit 3.0.x.
+
+Public records:
+  CVE List v5 CVE-2021-44420, published 2021-12-08 (NVD published
+  2021-12-08T00:15:00), assigner mitre; CNA has no CVSS and no CWE.
+  NVD: status Analyzed/Modified, Primary CVSS 3.1 7.3 HIGH
+  CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L from nvd@nist.gov, legacy CVSS
+  2.0 7.5, weakness NVD-CWE-Other (no specific CWE). The NVD description is
+  the CNA text quoted above.
+  OSV GHSA-v6rh-hp5x-86rv: aliases BIT-django-2021-44420, CVE-2021-44420,
+  PYSEC-2021-439; the same CVSS 3.1 vector as NVD and CVSS_V4
+  CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N;
+  database_specific severity MODERATE and cwe_ids [CWE-287] (an access-control
+  weakness, not the NVD-CWE-Other); github_reviewed true.
+  Django's own release notes for 2.2.25/3.1.14/3.2.10 (in the fix patch) say
+  the releases fix "a security issue with severity 'low'".
+  Published severity levels therefore disagree: NVD HIGH (7.3), GHSA MODERATE,
+  upstream Django "low".
+
+No Django project was run, no URL was resolved and no HTTP request was made;
+every check above is a static read of git objects, the fix diff and public
+vulnerability records.

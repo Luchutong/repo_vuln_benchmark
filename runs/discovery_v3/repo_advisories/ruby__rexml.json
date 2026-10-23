@@ -1,0 +1,639 @@
+{
+  "advisories": [
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 6,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "sofiaaberegg",
+          "type": "reporter"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "reporter",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/31450814?v=4",
+            "events_url": "https://api.github.com/users/sofiaaberegg/events{/privacy}",
+            "followers_url": "https://api.github.com/users/sofiaaberegg/followers",
+            "following_url": "https://api.github.com/users/sofiaaberegg/following{/other_user}",
+            "gists_url": "https://api.github.com/users/sofiaaberegg/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/sofiaaberegg",
+            "id": 31450814,
+            "login": "sofiaaberegg",
+            "node_id": "MDQ6VXNlcjMxNDUwODE0",
+            "organizations_url": "https://api.github.com/users/sofiaaberegg/orgs",
+            "received_events_url": "https://api.github.com/users/sofiaaberegg/received_events",
+            "repos_url": "https://api.github.com/users/sofiaaberegg/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/sofiaaberegg/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/sofiaaberegg/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/sofiaaberegg",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2025-58767",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThe REXML gems from 3.3.3 to 3.4.1 has a DoS vulnerability when parsing XML containing multiple XML declarations.\r\nIf you need to parse untrusted XMLs, you may be impacted to these vulnerabilities.\r\n\r\n### Patches\r\n\r\nThe REXML gem 3.4.2 or later include the patches to fix these vulnerabilities.\r\n\r\n### Workarounds\r\n\r\nDon't parse untrusted XMLs.\r\n\r\n### References\r\n\r\n* https://www.ruby-lang.org/en/news/2025/09/18/dos-rexml-cve-2025-58767/ : An announce on www.ruby-lang.org\r\n",
+      "ghsa_id": "GHSA-c2f4-jgmc-q2r5",
+      "html_url": "https://github.com/ruby/rexml/security/advisories/GHSA-c2f4-jgmc-q2r5",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-c2f4-jgmc-q2r5"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2025-58767"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2025-09-17T06:18:26Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/706220?v=4",
+        "events_url": "https://api.github.com/users/naitoh/events{/privacy}",
+        "followers_url": "https://api.github.com/users/naitoh/followers",
+        "following_url": "https://api.github.com/users/naitoh/following{/other_user}",
+        "gists_url": "https://api.github.com/users/naitoh/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/naitoh",
+        "id": 706220,
+        "login": "naitoh",
+        "node_id": "MDQ6VXNlcjcwNjIyMA==",
+        "organizations_url": "https://api.github.com/users/naitoh/orgs",
+        "received_events_url": "https://api.github.com/users/naitoh/received_events",
+        "repos_url": "https://api.github.com/users/naitoh/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/naitoh/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/naitoh/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/naitoh",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "DoS condition when parsing malformed XML file",
+      "updated_at": "2025-09-17T06:18:26Z",
+      "url": "https://api.github.com/repos/ruby/rexml/security-advisories/GHSA-c2f4-jgmc-q2r5",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rexml"
+          },
+          "patched_versions": "3.4.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": ">= 3.3.3, <= 3.4.1"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-49761",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThe REXML gem before 3.3.9 has a ReDoS vulnerability when it parses an XML that has many digits between `&#` and `x...;` in a hex numeric character reference (`&#x...;`).\r\n\r\nThis doesn not happen with Ruby 3.2 or later. Ruby 3.1 is the only affected maintained Ruby. Note that Ruby 3.1 will reach EOL on 2025-03.\r\n\r\n### Patches\r\n\r\nThe REXML gem 3.3.9 or later include the patch to fix the vulnerability.\r\n\r\n### Workarounds\r\n\r\nUse Ruby 3.2 or later instead of Ruby 3.1.\r\n\r\n### References\r\n\r\n* https://www.ruby-lang.org/en/news/2024/10/28/redos-rexml-cve-2024-49761/: An announce on www.ruby-lang.org\r\n",
+      "ghsa_id": "GHSA-2rxp-v6pw-ch6m",
+      "html_url": "https://github.com/ruby/rexml/security/advisories/GHSA-2rxp-v6pw-ch6m",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-2rxp-v6pw-ch6m"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-49761"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-10-28T02:46:31Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/27350?v=4",
+        "events_url": "https://api.github.com/users/kou/events{/privacy}",
+        "followers_url": "https://api.github.com/users/kou/followers",
+        "following_url": "https://api.github.com/users/kou/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kou/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/kou",
+        "id": 27350,
+        "login": "kou",
+        "node_id": "MDQ6VXNlcjI3MzUw",
+        "organizations_url": "https://api.github.com/users/kou/orgs",
+        "received_events_url": "https://api.github.com/users/kou/received_events",
+        "repos_url": "https://api.github.com/users/kou/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/kou/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kou/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/kou",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "ReDoS vulnerability in REXML",
+      "updated_at": "2024-10-28T03:09:35Z",
+      "url": "https://api.github.com/repos/ruby/rexml/security-advisories/GHSA-2rxp-v6pw-ch6m",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": ""
+          },
+          "patched_versions": "3.3.9",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "<3.3.9"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-43398",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThe REXML gem before 3.3.6 has a DoS vulnerability when it parses an XML that has many deep elements that have same local name attributes.\r\n\r\nIf you need to parse untrusted XMLs with tree parser API like `REXML::Document.new`, you may be impacted to this vulnerability. If you use other parser APIs such as stream parser API and SAX2 parser API, this vulnerability is not affected.\r\n\r\n### Patches\r\n\r\nThe REXML gem 3.3.6 or later include the patch to fix the vulnerability.\r\n\r\n### Workarounds\r\n\r\nDon't parse untrusted XMLs with tree parser API.\r\n\r\n### References\r\n\r\n* https://www.ruby-lang.org/en/news/2024/08/22/dos-rexml-cve-2024-43398/ : An announce on www.ruby-lang.org\r\n",
+      "ghsa_id": "GHSA-vmwr-mc7x-5vc3",
+      "html_url": "https://github.com/ruby/rexml/security/advisories/GHSA-vmwr-mc7x-5vc3",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-vmwr-mc7x-5vc3"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-43398"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-08-22T01:06:58Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/27350?v=4",
+        "events_url": "https://api.github.com/users/kou/events{/privacy}",
+        "followers_url": "https://api.github.com/users/kou/followers",
+        "following_url": "https://api.github.com/users/kou/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kou/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/kou",
+        "id": 27350,
+        "login": "kou",
+        "node_id": "MDQ6VXNlcjI3MzUw",
+        "organizations_url": "https://api.github.com/users/kou/orgs",
+        "received_events_url": "https://api.github.com/users/kou/received_events",
+        "repos_url": "https://api.github.com/users/kou/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/kou/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kou/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/kou",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "DoS vulnerability in REXML ",
+      "updated_at": "2024-08-28T00:49:55Z",
+      "url": "https://api.github.com/repos/ruby/rexml/security-advisories/GHSA-vmwr-mc7x-5vc3",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": ""
+          },
+          "patched_versions": "3.3.6",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.3.6"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [
+        {
+          "login": "naitoh",
+          "type": "finder"
+        }
+      ],
+      "credits_detailed": [
+        {
+          "state": "accepted",
+          "type": "finder",
+          "user": {
+            "avatar_url": "https://avatars.githubusercontent.com/u/706220?v=4",
+            "events_url": "https://api.github.com/users/naitoh/events{/privacy}",
+            "followers_url": "https://api.github.com/users/naitoh/followers",
+            "following_url": "https://api.github.com/users/naitoh/following{/other_user}",
+            "gists_url": "https://api.github.com/users/naitoh/gists{/gist_id}",
+            "gravatar_id": "",
+            "html_url": "https://github.com/naitoh",
+            "id": 706220,
+            "login": "naitoh",
+            "node_id": "MDQ6VXNlcjcwNjIyMA==",
+            "organizations_url": "https://api.github.com/users/naitoh/orgs",
+            "received_events_url": "https://api.github.com/users/naitoh/received_events",
+            "repos_url": "https://api.github.com/users/naitoh/repos",
+            "site_admin": false,
+            "starred_url": "https://api.github.com/users/naitoh/starred{/owner}{/repo}",
+            "subscriptions_url": "https://api.github.com/users/naitoh/subscriptions",
+            "type": "User",
+            "url": "https://api.github.com/users/naitoh",
+            "user_view_type": "public"
+          }
+        }
+      ],
+      "cve_id": "CVE-2024-41946",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThe REXML gem before 3.3.2 has a DoS vulnerability when it parses an XML that has many entity expansions with SAX2 or pull parser API.\r\n\r\nIf you need to parse untrusted XMLs with SAX2 or pull parser API, you may be impacted to this vulnerability.\r\n\r\n### Patches\r\n\r\nThe REXML gem 3.3.3 or later include the patch to fix the vulnerability.\r\n\r\n### Workarounds\r\n\r\nDon't parse untrusted XMLs with SAX2 or pull parser API.\r\n\r\n### References\r\n\r\n* https://www.ruby-lang.org/en/news/2008/08/23/dos-vulnerability-in-rexml/ : This is a similar vulnerability\r\n* https://www.ruby-lang.org/en/news/2024/08/01/dos-rexml-cve-2024-41946/: An announce on www.ruby-lang.org",
+      "ghsa_id": "GHSA-5866-49gr-22v4",
+      "html_url": "https://github.com/ruby/rexml/security/advisories/GHSA-5866-49gr-22v4",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-5866-49gr-22v4"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-41946"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-08-01T02:55:50Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/27350?v=4",
+        "events_url": "https://api.github.com/users/kou/events{/privacy}",
+        "followers_url": "https://api.github.com/users/kou/followers",
+        "following_url": "https://api.github.com/users/kou/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kou/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/kou",
+        "id": 27350,
+        "login": "kou",
+        "node_id": "MDQ6VXNlcjI3MzUw",
+        "organizations_url": "https://api.github.com/users/kou/orgs",
+        "received_events_url": "https://api.github.com/users/kou/received_events",
+        "repos_url": "https://api.github.com/users/kou/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/kou/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kou/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/kou",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "DoS vulnerability in REXML",
+      "updated_at": "2024-08-01T03:10:08Z",
+      "url": "https://api.github.com/repos/ruby/rexml/security-advisories/GHSA-5866-49gr-22v4",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rexml"
+          },
+          "patched_versions": "3.3.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.3.3"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-41123",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThe REXML gem before 3.3.2 has some DoS vulnerabilities when it parses an XML that has many specific characters such as whitespace character, `>]` and `]>`.\r\n\r\nIf you need to parse untrusted XMLs, you may be impacted to these vulnerabilities.\r\n\r\n### Patches\r\n\r\nThe REXML gem 3.3.3 or later include the patches to fix these vulnerabilities.\r\n\r\n### Workarounds\r\n\r\nDon't parse untrusted XMLs.\r\n\r\n### References\r\n\r\n* https://github.com/ruby/rexml/security/advisories/GHSA-vg3r-rm7w-2xgh : This is a similar vulnerability\r\n* https://github.com/ruby/rexml/security/advisories/GHSA-4xqq-m2hx-25v8 : This is a similar vulnerability\r\n* https://www.ruby-lang.org/en/news/2024/08/01/dos-rexml-cve-2024-41123/: An announce on www.ruby-lang.org",
+      "ghsa_id": "GHSA-r55c-59qm-vjw6",
+      "html_url": "https://github.com/ruby/rexml/security/advisories/GHSA-r55c-59qm-vjw6",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-r55c-59qm-vjw6"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-41123"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-08-01T02:55:41Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/27350?v=4",
+        "events_url": "https://api.github.com/users/kou/events{/privacy}",
+        "followers_url": "https://api.github.com/users/kou/followers",
+        "following_url": "https://api.github.com/users/kou/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kou/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/kou",
+        "id": 27350,
+        "login": "kou",
+        "node_id": "MDQ6VXNlcjI3MzUw",
+        "organizations_url": "https://api.github.com/users/kou/orgs",
+        "received_events_url": "https://api.github.com/users/kou/received_events",
+        "repos_url": "https://api.github.com/users/kou/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/kou/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kou/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/kou",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "DoS vulnerabilities in REXML",
+      "updated_at": "2024-08-01T03:10:28Z",
+      "url": "https://api.github.com/repos/ruby/rexml/security-advisories/GHSA-r55c-59qm-vjw6",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rexml"
+          },
+          "patched_versions": "3.3.3",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.3.3"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-39908",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThe REXML gem before 3.3.1 has some DoS vulnerabilities when it parses an XML that has many specific characters such as `<`, `0` and `%>`.\r\n\r\nIf you need to parse untrusted XMLs, you may be impacted to these vulnerabilities.\r\n\r\n### Patches\r\n\r\nThe REXML gem 3.3.2 or later include the patches to fix these vulnerabilities.\r\n\r\n### Workarounds\r\n\r\nDon't parse untrusted XMLs.\r\n\r\n### References\r\n\r\n* https://github.com/ruby/rexml/security/advisories/GHSA-vg3r-rm7w-2xgh : This is a similar vulnerability\r\n* https://www.ruby-lang.org/en/news/2024/07/16/dos-rexml-cve-2024-39908/",
+      "ghsa_id": "GHSA-4xqq-m2hx-25v8",
+      "html_url": "https://github.com/ruby/rexml/security/advisories/GHSA-4xqq-m2hx-25v8",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-4xqq-m2hx-25v8"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-39908"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-07-16T02:43:57Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/27350?v=4",
+        "events_url": "https://api.github.com/users/kou/events{/privacy}",
+        "followers_url": "https://api.github.com/users/kou/followers",
+        "following_url": "https://api.github.com/users/kou/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kou/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/kou",
+        "id": 27350,
+        "login": "kou",
+        "node_id": "MDQ6VXNlcjI3MzUw",
+        "organizations_url": "https://api.github.com/users/kou/orgs",
+        "received_events_url": "https://api.github.com/users/kou/received_events",
+        "repos_url": "https://api.github.com/users/kou/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/kou/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kou/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/kou",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "DoS vulnerability in REXML",
+      "updated_at": "2024-07-16T05:36:31Z",
+      "url": "https://api.github.com/repos/ruby/rexml/security-advisories/GHSA-4xqq-m2hx-25v8",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rexml"
+          },
+          "patched_versions": "3.3.2",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.3.2"
+        }
+      ],
+      "withdrawn_at": null
+    },
+    {
+      "author": null,
+      "closed_at": null,
+      "collaborating_teams": null,
+      "collaborating_users": null,
+      "comments": 1,
+      "created_at": null,
+      "credits": [],
+      "credits_detailed": [],
+      "cve_id": "CVE-2024-35176",
+      "cvss": {
+        "score": null,
+        "vector_string": null
+      },
+      "cvss_severities": {
+        "cvss_v3": {
+          "score": null,
+          "vector_string": null
+        },
+        "cvss_v4": {
+          "score": null,
+          "vector_string": null
+        }
+      },
+      "cwe_ids": [],
+      "cwes": [],
+      "description": "### Impact\r\n\r\nThe REXML gem before 3.2.6 has a DoS vulnerability when it parses an XML that has many `>`s in an attribute value.\r\n\r\nIf you need to parse untrusted XMLs, you may be impacted to this vulnerability.\r\n\r\n### Patches\r\n\r\nThe REXML gem 3.2.7 or later include the patch to fix this vulnerability.\r\n\r\n### Workarounds\r\n\r\nDon't parse untrusted XMLs.\r\n\r\n### References\r\n\r\n* https://www.ruby-lang.org/en/news/2024/05/16/dos-rexml-cve-2024-35176/",
+      "ghsa_id": "GHSA-vg3r-rm7w-2xgh",
+      "html_url": "https://github.com/ruby/rexml/security/advisories/GHSA-vg3r-rm7w-2xgh",
+      "identifiers": [
+        {
+          "type": "GHSA",
+          "value": "GHSA-vg3r-rm7w-2xgh"
+        },
+        {
+          "type": "CVE",
+          "value": "CVE-2024-35176"
+        }
+      ],
+      "private_fork": null,
+      "published_at": "2024-05-16T02:20:42Z",
+      "publisher": {
+        "avatar_url": "https://avatars.githubusercontent.com/u/27350?v=4",
+        "events_url": "https://api.github.com/users/kou/events{/privacy}",
+        "followers_url": "https://api.github.com/users/kou/followers",
+        "following_url": "https://api.github.com/users/kou/following{/other_user}",
+        "gists_url": "https://api.github.com/users/kou/gists{/gist_id}",
+        "gravatar_id": "",
+        "html_url": "https://github.com/kou",
+        "id": 27350,
+        "login": "kou",
+        "node_id": "MDQ6VXNlcjI3MzUw",
+        "organizations_url": "https://api.github.com/users/kou/orgs",
+        "received_events_url": "https://api.github.com/users/kou/received_events",
+        "repos_url": "https://api.github.com/users/kou/repos",
+        "site_admin": false,
+        "starred_url": "https://api.github.com/users/kou/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/kou/subscriptions",
+        "type": "User",
+        "url": "https://api.github.com/users/kou",
+        "user_view_type": "public"
+      },
+      "severity": "low",
+      "state": "published",
+      "submission": null,
+      "summary": "DoS vulnerability in REXML",
+      "updated_at": "2025-09-17T14:50:00Z",
+      "url": "https://api.github.com/repos/ruby/rexml/security-advisories/GHSA-vg3r-rm7w-2xgh",
+      "vulnerabilities": [
+        {
+          "package": {
+            "ecosystem": "rubygems",
+            "name": "rexml"
+          },
+          "patched_versions": "3.2.7",
+          "vulnerable_functions": [],
+          "vulnerable_version_range": "< 3.2.7"
+        }
+      ],
+      "withdrawn_at": null
+    }
+  ],
+  "query": {
+    "repository_full_name": "ruby/rexml",
+    "url": "https://api.github.com/repos/ruby/rexml/security-advisories?per_page=100&page=1"
+  },
+  "retrieved_at": "2026-10-21T13:24:41.115417+00:00",
+  "tool": "github_rest_readonly"
+}

@@ -1,0 +1,34 @@
+# Ancestry checks for lodash triage at 4.17.23 — generated 2026-10-22T19:34:09Z
+# repo: /tmp/lodash_recon (upstream git clone), command: git merge-base --is-ancestor <ref> <rev>
+
+commit 90e6199a161b6445b01454517b40ef65ebecd2ad (CVE-2018-16487) type=commit ancestor_of_4.17.23=yes ancestor_of_4.18.0=yes
+  90e6199a161b6445b01454517b40ef65ebecd2ad 2018-08-30 Ensure Object.prototype is not augmented by _.merge.
+commit d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a (CVE-2018-3721) type=commit ancestor_of_4.17.23=yes ancestor_of_4.18.0=yes
+  d8e069cc3410082e44eb18fcf8e7f3d08ebe1d4a 2018-01-30 Avoid merging properties on to __proto__ objects.
+commit 5c08f18d365b64063bfbfa686cbb97cdd6267347 (CVE-2019-1010266) type=commit ancestor_of_4.17.23=yes ancestor_of_4.18.0=yes
+  5c08f18d365b64063bfbfa686cbb97cdd6267347 2018-08-28 Prevent ReDoS
+commit c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a (CVE-2020-28500) type=commit ancestor_of_4.17.23=yes ancestor_of_4.18.0=yes
+  c4847ebe7d14540bb28a8b932a9ce1b9ecbfee1a 2021-01-26 Improve performance of `toNumber`, `trim` and `trimEnd` on large input strings
+commit c84fe82760fb2d3e03a63379b297a1cc1a2fce12 (CVE-2020-8203) type=commit ancestor_of_4.17.23=yes ancestor_of_4.18.0=yes
+  c84fe82760fb2d3e03a63379b297a1cc1a2fce12 2020-07-02 fix(zipObjectDeep): prototype pollution (#4759)
+commit 3469357cff396a26c363f8c1b5a91dde28ba4b1c (CVE-2021-23337) type=commit ancestor_of_4.17.23=yes ancestor_of_4.18.0=yes
+  3469357cff396a26c363f8c1b5a91dde28ba4b1c 2021-02-17 Prevent command injection through `_.template`'s `variable` option
+commit edadd452146f7e4bad4ea684e955708931d84d81 (CVE-2025-13465) type=commit ancestor_of_4.17.23=yes ancestor_of_4.18.0=yes
+  edadd452146f7e4bad4ea684e955708931d84d81 2025-12-05 Prevent prototype pollution on baseUnset function
+commit 516085f3327b583123618b91ed39a72b22e1d0ce (CVE-2025-13465) type=commit ancestor_of_4.17.23=no ancestor_of_4.18.0=no
+  516085f3327b583123618b91ed39a72b22e1d0ce 2025-12-10 Fix prototype pollution in _.unset and _.omit (#6063)
+commit daec92cf0cea7efa949dea62ee864fb387bc7871 (CVE-2025-13465) type=commit ancestor_of_4.17.23=no ancestor_of_4.18.0=no
+  daec92cf0cea7efa949dea62ee864fb387bc7871 2025-12-17 land the fix from edadd45214 into main entrypoint and minified lodash
+commit 879aaa93132d78c2f8d20c60279da9f8b21576d6 (CVE-2026-4800) type=commit ancestor_of_4.17.23=no ancestor_of_4.18.0=yes
+  879aaa93132d78c2f8d20c60279da9f8b21576d6 2026-03-30 fix: validate imports keys in _.template
+
+tag 4.17.5 commit=97e9edc53d2cc55df7adf765a003c800c54a6bda ancestor_of_4.17.23=yes
+tag 4.17.11 commit=0843bd46ef805dd03c0c8d804630804f3ba0ca3c ancestor_of_4.17.23=yes
+tag 4.17.12 commit=fd9a062d57646450b61f74029315abd4cc834b08 ancestor_of_4.17.23=yes
+tag 4.17.13 commit=e37182845f16715a0d1c391c8662d83c55609cee ancestor_of_4.17.23=yes
+tag 4.17.19 commit=d7fbc52ee0466a6d248f047b5d5c3e6d1e099056 ancestor_of_4.17.23=yes
+tag 4.17.20 commit=ded9bc66583ed0b4e3b7dc906206d40757b4a90a ancestor_of_4.17.23=yes
+tag 4.17.21 commit=f299b52f39486275a9e6483b60a410e06520c538 ancestor_of_4.17.23=yes
+tag 4.17.23 commit=dec55b7a3b382da075e2eac90089b4cd00a26cbb ancestor_of_4.17.23=yes
+tag 4.18.0 commit=59be2de61f8aa9461c7856533b51d31b7d8babc4 ancestor_of_4.17.23=no
+tag 4.18.1 commit=cb0b9b9212521c08e3eafe7c8cb0af1b42b6649e ancestor_of_4.17.23=no

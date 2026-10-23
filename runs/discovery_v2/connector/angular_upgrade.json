@@ -1,0 +1,24 @@
+{
+  "key": "angular_upgrade",
+  "repository": "angular/angular",
+  "path": "packages/upgrade/package.json",
+  "retrieved_at": "2026-10-21T10:56:20.887Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/upgrade\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - the library for easing update from v1 to v2\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/core\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/compiler\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/platform-browser\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/platform-browser-dynamic\": \"0.0.0-PLACEHOLDER\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/upgrade\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": false\n}\n",
+      "encoding": "utf-8",
+      "sha": "7a1ca28dd5c643cb8d06c78b8dcf70bc49d33349",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/upgrade/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

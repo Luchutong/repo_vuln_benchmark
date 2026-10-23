@@ -1,0 +1,24 @@
+{
+  "key": "nest_common",
+  "repository": "nestjs/nest",
+  "path": "packages/common/package.json",
+  "retrieved_at": "2026-10-21T10:56:22.245Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@nestjs/common\",\n  \"version\": \"12.2.0\",\n  \"description\": \"Nest - modern, fast, powerful node.js web framework (@common)\",\n  \"author\": \"Kamil Mysliwiec\",\n  \"homepage\": \"https://nestjs.com\",\n  \"funding\": {\n    \"type\": \"opencollective\",\n    \"url\": \"https://opencollective.com/nest\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/nestjs/nest.git\",\n    \"directory\": \"packages/common\"\n  },\n  \"publishConfig\": {\n    \"access\": \"public\"\n  },\n  \"license\": \"MIT\",\n  \"type\": \"module\",\n  \"main\": \"./index.js\",\n  \"exports\": {\n    \".\": \"./index.js\",\n    \"./package.json\": \"./package.json\",\n    \"./internal\": \"./internal.js\",\n    \"./*.js\": \"./*.js\",\n    \"./*\": \"./*.js\"\n  },\n  \"dependencies\": {\n    \"@standard-schema/spec\": \"1.1.0\",\n    \"file-type\": \"22.1.1\",\n    \"iterare\": \"1.2.1\",\n    \"load-esm\": \"1.0.3\",\n    \"tslib\": \"2.8.1\",\n    \"uid\": \"2.0.2\"\n  },\n  \"peerDependencies\": {\n    \"class-transformer\": \">=0.4.1\",\n    \"class-validator\": \">=0.13.2\",\n    \"reflect-metadata\": \"^0.1.12 || ^0.2.0\",\n    \"rxjs\": \"^7.1.0\"\n  },\n  \"peerDependenciesMeta\": {\n    \"class-validator\": {\n      \"optional\": true\n    },\n    \"class-transformer\": {\n      \"optional\": true\n    }\n  },\n  \"gitHead\": \"ab3fb3d5ca7d51d078835e44a8db1b354f8b651b\"\n}\n",
+      "encoding": "utf-8",
+      "sha": "ab56ec08a2497df3ccaf7bfb518b0e4fec339c9a",
+      "display_url": "https://github.com/nestjs/nest/blob/master/packages/common/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

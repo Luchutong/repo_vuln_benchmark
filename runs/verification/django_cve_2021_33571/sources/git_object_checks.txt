@@ -1,0 +1,121 @@
+Repository: https://github.com/django/django
+Local upstream mirror: /tmp/django_git (bare). Snapshot tag 3.0.2 (annotated tag
+object 27431091) peels to a3697439. Release tags 3.0.14, 3.1.12 and 3.2.4 were
+fetched (annotated objects 4eedccd6, 8f924197, 0300a095); fix commits 203d4ab9,
+9f75e2e5, f27c38ab and their first parents 20c67a06, dfaba12c, 053cc953 were
+fetched by SHA. No cross-branch ancestry across commit boundaries that are not
+present locally is used here; the direct parent fields and tag trees are.
+
+Dataset snapshot: tag 3.0.2, commit a36974395ebc03a41928db1743074575b143330d
+(snapshot_id snap_ab695ba3db678939, repo_id 4164482).
+  $ git rev-parse '3.0.2^{commit}'
+  a36974395ebc03a41928db1743074575b143330d
+  $ git rev-parse '3.0.2:django/core/validators.py'
+  2e00ca3ff38679482ab38eecb455a894010f8afd     (540 lines)
+  $ git rev-parse '3.0.2:tests/validators/tests.py'
+  36d0b2a520b3f6ad35d82f3809f4c3437cce3e7c     (508 lines)
+
+Vulnerable code at 3.0.2 (validators.py, blob 2e00ca3f):
+    64  class URLValidator(RegexValidator):
+    ...
+    78      # IP patterns
+    79      ipv4_re = r'(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)(?:\.(?:25[0-5]|2[0-4]\d|[0-1]?\d?\d)){3}'
+    80      ipv6_re = r'\[[0-9a-f:\.]+\]'
+  The octet alternative `[0-1]?\d?\d` matches one to three digits and therefore
+  accepts octets with leading zeros such as 000, 016, 01, 002. A URL such as
+  http://016.016.016.016/ is therefore a valid URL under URLValidator, even
+  though many resolvers interpret a leading-zero octet as octal (016 -> 14),
+  so an access-control decision taken by parsing the dotted string can
+  disagree with the address the client actually connects to. That mismatch is
+  what the CVE calls "indeterminate SSRF, RFI, and LFI".
+  The same missing restriction exists in the standalone validators:
+   252  def validate_ipv4_address(value):
+   253      try:
+   254          ipaddress.IPv4Address(value)
+   255      except ValueError:
+   256          raise ValidationError(_('Enter a valid IPv4 address.'), code='invalid')
+  On Python < 3.9.5 ipaddress.IPv4Address also accepts leading-zero octets; the
+  fix adds an explicit octet check (lines 252-... below). validate_ipv46_address
+  at 264-269 calls validate_ipv4_address and inherits the same behaviour.
+  This dossier's location is the URLValidator.ipv4_re line 79, the pattern that
+  admits leading-zero octets into URLs; the two functions are named in the same
+  fix and are described here for completeness.
+
+Fix commits (all "[... ] Fixed CVE-2021-33571 -- Prevented leading zeros in IPv4 addresses."):
+  $ git cat-file -p 203d4ab9
+  parent 20c67a0693c4ede2b09af02574823485e82e4c8f  | 2021-06-02 10:38:07 +0200
+  203d4ab9ebcd72fc4d6eb7398e66ed9e474e118e  | subject [3.1.x]
+  $ git cat-file -p 9f75e2e5
+  parent dfaba12cda060b8b292ae1d271b44bf810b1c5b9  | 2021-06-02 10:44:39 +0200
+  9f75e2e562fa0c0482f3dde6fc7399a9070b4a3d  | subject [3.2.x]
+  $ git cat-file -p f27c38ab
+  parent 053cc9534d174dc89daba36724ed2dcb36755b90  | 2021-06-02 10:26:22 +0200
+  f27c38ab5d90f68c9dd60cabef248a570c0be8fc  | subject [2.2.x]
+  Diffs are computed against the first parent (fix_commit_203d4ab9_3.1.patch,
+  fix_commit_9f75e2e5_3.2.patch, 148 and 173 lines). Each changes:
+    - django/core/validators.py: URLValidator.ipv4_re becomes
+      r'(?:0|25[0-5]|2[0-4]\d|1\d?\d?|[1-9]\d?)'
+      r'(?:\.(?:0|25[0-5]|2[0-4]\d|1\d?\d?|[1-9]\d?)){3}'
+      i.e. an octet is either "0" or starts with 1-9; this rejects every
+      leading-zero form;
+    - django/core/validators.py: validate_ipv4_address gains an else branch
+      rejecting any octet that is not "0" and starts with "0" (comment:
+      "Leading zeros are forbidden to avoid ambiguity with the octal notation.
+      This restriction is included in Python 3.9.5+.");
+    - docs/releases/2.2.24.txt, 3.1.12.txt and 3.2.4.txt gain the
+      "CVE-2021-33571: Possible indeterminate SSRF, RFI, and LFI attacks since
+      validators accepted leading zeros in IPv4 addresses" section;
+    - tests/validators/tests.py gains leading-zero cases for
+      validate_ipv4_address and validate_ipv46_address (000.000.000.000,
+      016.016.016.016, 192.168.000.001, 01.2.3.4, 1.02.3.4, 1.2.03.4,
+      1.2.3.04), and tests/validators/invalid_urls.txt gains the same URLs.
+  At 3.0.2 no such else branch or tests exist (grep for "octet != '0'" and
+  "016.016.016.016" in the 3.0.2 test file returns nothing).
+
+Fixed releases and their content:
+  $ git rev-parse '3.1.12^{commit}' -> 625d3c1c643b0eb5c84339415ca0ba9f1728efa2
+  $ git show -s --format='%H %P | %s' 625d3c1c
+  625d3c1c... 203d4ab9... | [3.1.x] Bumped version for 3.1.12 release.
+  $ git rev-parse '3.2.4^{commit}'  -> 843c34b3ab921c1acf77ee2014a97bc7975595b8
+  $ git show -s --format='%H %P | %s' 843c34b3
+  843c34b3... 9f75e2e5... | [3.2.x] Bumped version for 3.2.4 release.
+  $ git merge-base --is-ancestor 203d4ab9 625d3c1c -> exit 0
+  $ git merge-base --is-ancestor 9f75e2e5 843c34b3 -> exit 0
+  validators.py blobs: 3.0.2 = 2e00ca3f, 3.0.14 = 2e00ca3f (identical),
+  3.1.12 = 1d0e6a94, 3.2.4 = 731ccf2d. The 3.1.12 file has the new ipv4_re at
+  line 67 and the octet check at 255; the 3.2.4 file has them at 69 and 284.
+  Both release files contain the full fixed predicate.
+  3.0.14 is the last 3.0.x release (2021-04-06). Its validators.py is
+  byte-identical to the 3.0.2 blob, so the 3.0.x line contains no fix; the
+  first fixed releases are 3.1.12 and 3.2.4 (and 2.2.24 on the 2.2 LTS line).
+  $ git merge-base --is-ancestor f27c38ab 3.0.14 -> exit 1 (the 2.2.x fix is
+  not in the 3.0 line); this is consistent with 3.0 having reached EOL.
+
+Affected range:
+  MITRE CNA text: Django 2.2 before 2.2.24, 3.x before 3.1.12, and 3.2 before
+  3.2.4. OSV PyPI ECOSYSTEM ranges: introduced 2.2a1 fixed 2.2.24; introduced
+  3.0a1 fixed 3.1.12; introduced 3.2a1 fixed 3.2.4. NVD CPE ranges:
+  >=2.2,<2.2.24; >=3.0,<3.1.12; >=3.2,<3.2.4. Snapshot 3.0.2 is inside
+  >=3.0,<3.1.12, so it is affected.
+
+Public records:
+  CVE List v5 CVE-2021-33571, state PUBLISHED, assigner mitre, published
+  2021-06-08. The CNA has no CVSS metric and no CWE (problemTypes is "n/a").
+  Description says URLValidator, validate_ipv4_address and validate_ipv46_address
+  do not prohibit leading zero characters, allowing bypass of IP-based access
+  control; the two functions are unaffected on Python 3.9.5+. CNA references
+  the three fix commits and the Django security releases page.
+  NVD: status Modified, published 2021-06-08T18:15:08, Primary CVSS 3.1 7.5
+  HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N from nvd@nist.gov, and a
+  legacy CVSS 2.0 5.0; CWE-918 (SSRF) from the NVD Primary source; the CPE
+  ranges above.
+  OSV GHSA-p99v-5w3c-jqq9: aliases BIT-django-2021-33571, CVE-2021-33571,
+  PYSEC-2021-99; CVSS_V3 7.5 and CVSS_V4
+  CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N;
+  database_specific severity HIGH, cwe_ids [CWE-918], github_reviewed true;
+  same three PyPI ranges and the three fix commits as FIX references.
+  All published severity levels are HIGH.
+
+No Django project was run, no validator was executed and no request was made;
+every check above is a static read of git objects, the fix diffs and public
+vulnerability records.

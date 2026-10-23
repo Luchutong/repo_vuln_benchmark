@@ -1,0 +1,72 @@
+{
+  "branch": "snapshot/data-progress-20261023-090849",
+  "source_directory": "/home/luchitong/work/repo-vuln-50-v031",
+  "capture_started_at": "2026-10-23T09:09:46+08:00",
+  "capture_completed_at": "2026-10-23T09:09:56+08:00",
+  "base_commit": "76bd6d274f038cd7bcd82dba1b2d857da762f132",
+  "dataset_status": "draft",
+  "included_directories": [
+    "data",
+    "runs",
+    "exports",
+    "v031/reports",
+    "v031/reviews",
+    "v031/ledger",
+    "v03/reports",
+    "migration_backup_v02/data",
+    "docs"
+  ],
+  "included_root_files": [
+    ".gitignore",
+    "CANDIDATE_FUNNEL_V031.md",
+    "CATALOG_COVERAGE_REPORT.md",
+    "CHECKSUMS.sha256",
+    "HANDOFF_V031.md",
+    "LIMITATIONS.md",
+    "LIMITATIONS_V031.md",
+    "MIGRATION_AND_VALIDATION_V031.md",
+    "MIGRATION_REPORT.json",
+    "ORACLE_REPORT.md",
+    "README_V03.md",
+    "README_V031.md",
+    "SELECTION_REPORT.md",
+    "SELECTION_REPORT_V031.md",
+    "UPGRADE_REPORT.json",
+    "VALIDATION_REPORT.json",
+    "WORK_LOG.md",
+    "manifest.json"
+  ],
+  "excluded_directories": [
+    "scratch",
+    ".venv",
+    "tools/gems",
+    "__pycache__"
+  ],
+  "source_file_count": 5766,
+  "source_bytes": 1147208353,
+  "data_row_counts": {
+    "repositories": 50,
+    "snapshots": 94,
+    "evaluation_selection": 32,
+    "vulnerabilities": 90,
+    "reviews": 90,
+    "evidence": 2951,
+    "snapshot_candidate_triage": 1723,
+    "snapshot_proposals": 18
+  },
+  "validation": {
+    "mode": "draft",
+    "errors": 0,
+    "warnings": 49,
+    "report": "snapshot/VALIDATION_DRAFT.json"
+  },
+  "credential_review": {
+    "report": "snapshot/CREDENTIAL_SCAN_REVIEW.json",
+    "reviewed_matches": 34,
+    "unresolved_findings": 0,
+    "public_advisory_examples": 18,
+    "upstream_test_fixtures": 5,
+    "environment_variable_templates": 2,
+    "json_boundary_false_positives": 9
+  }
+}

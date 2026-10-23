@@ -1,0 +1,91 @@
+Repository: https://github.com/jenkinsci/jenkins
+Local upstream mirror: /tmp/jenkins_git/jenkins.git (bare, remote `gh`). Snapshot tag
+jenkins-2.441 present; fix commit 923cdbc1 and release commit cb753134 (2.500) were
+fetched with --depth=20.
+
+Dataset snapshot: tag jenkins-2.441, commit 3b0de10df3bedba515e13032104d4d84f83045be
+(snapshot_id snap_d9b0ffa82cd068d0, repo_id 1103607).
+  $ git rev-parse 'jenkins-2.441^{commit}'
+  3b0de10df3bedba515e13032104d4d84f83045be
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/model/View.java'
+  6bd923cd026859b593c2230591af7d1004ac7dae     (53254 bytes; matches file_inventory.json)
+  $ git rev-parse 'jenkins-2.441:core/src/main/java/hudson/cli/GetViewCommand.java'
+  e94bb7947a8125599b2f8ae9b698a8365ff58d29     (1727 bytes; matches file_inventory.json)
+
+Vulnerable code at 2.441:
+  View.doConfigDotXml (View.java, blob 6bd923cd) at 1198-1221, annotated
+  @WebMethod(name = "config.xml"). The GET branch checks only READ:
+    1198  public HttpResponse doConfigDotXml(StaplerRequest req) throws IOException {
+    1199      if (req.getMethod().equals("GET")) {
+    1201          checkPermission(READ);
+    1206          View.this.writeXml(rsp.getOutputStream());
+  writeXml (1223-1230) marshals the whole View with XStream2 (omitting owner), so
+  ViewProperty fields are serialized; Secret.ConverterImpl.marshal writes the
+  encrypted value, which is enough to decrypt/use the secret. The POST branch calls
+  updateByXml, which requires CONFIGURE (1237). There is no redaction at this
+  version: jenkins.security.ExtendedReadRedaction was introduced in 2.479 and does
+  not exist in the 2.441 tree.
+  $ git ls-tree jenkins-2.441 core/src/main/java/jenkins/security/ | grep -i redact
+  100644 blob ... RedactSecretJsonInErrorMessageSanitizer.java   (only this; no ExtendedRead* file)
+  $ git ls-tree cb753134 core/src/main/java/jenkins/security/ | grep -i redact
+  ... ExtendedReadRedaction.java (7baec196), ExtendedReadSecretRedaction.java (91a79f35),
+  ... RedactSecretJsonInErrorMessageSanitizer.java
+  GetViewCommand.run (blob e94bb794) at 48-54 checks only view.checkPermission(View.READ)
+  at line 50 and then calls view.writeXml(stdout) at line 51: a CLI caller with View/Read
+  receives the unredacted view config.xml.
+
+Fix commit: 923cdbc165e8b8523ae960dfee5f7354878532d5
+  Subject "[SECURITY-3495][SECURITY-3496]", 2025-02-25 16:17:38 +0000,
+  parent 4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e.
+  $ git show -s --format='%H %P | %ci | %s' 923cdbc1
+  923cdbc165e8b8523ae960dfee5f7354878532d5 4a9a3ecd08fc00d2f1c1125be789d8be24f02c9e | 2025-02-25 16:17:38 +0000 | [SECURITY-3495][SECURITY-3496]
+  For the view path the patch replaces the direct View.this.writeXml(rsp.getOutputStream())
+  with a CONFIGURE check: callers with CONFIGURE get the unredacted XML, everyone else
+  has it serialized to a ByteArrayOutputStream and passed through
+  ExtendedReadRedaction.applyAll(xml) before being written. GetViewCommand gets the same
+  branch around view.writeXml. The patch also adds PasswordTest.testViewSecrets
+  (@Issue("SECURITY-3496")), which asserts that a ViewPropertySecret is redacted to
+  <secret>********</secret> for a user with View/Read but not CONFIGURE, over both the
+  REST config.xml URL and the get-view CLI command.
+  $ git show -s --format='%H %P | %ci | %s' 4a9a3ecd 84ef1a4d cb753134
+  4a9a3ecd... parent 84ef1a4d  (SECURITY-3501)
+  84ef1a4d... parent 68425e2c  (SECURITY-3498)
+  cb753134... parent 923cdbc1  ([maven-release-plugin] prepare release jenkins-2.500)
+  $ git merge-base --is-ancestor 923cdbc1 cb753134 -> exit 0.
+
+Fixed release:
+  Jenkins 2.500 (weekly): release commit
+  cb753134b40dde5feeb228f5f2c90d03184fe063, whose only parent is 923cdbc1.
+  At cb753134 View.java is blob 56aa4274 and doConfigDotXmlImpl is at 980-1007: the GET
+  branch checks READ at 983 and branches on hasPermission(CONFIGURE) at 988, with
+  ExtendedReadRedaction.applyAll at 995. GetViewCommand.java is blob 020b55f7 with the
+  CONFIGURE branch at 55-64. ExtendedReadRedaction.java is blob 7baec196 (@since 2.479)
+  and ExtendedReadSecretRedaction.java is blob 91a79f35; the latter replaces element
+  bodies matching ">" + Secret.ENCRYPTED_VALUE_PATTERN + "<" with "********" when
+  Secret.decrypt succeeds.
+  The CNA record also lists LTS 2.492.2 as unaffected; the LTS branch was not fetched
+  into the local mirror, so only the weekly ancestry is asserted here.
+
+Affected range:
+  CNA record: Jenkins 2.499 and earlier, LTS 2.492.1 and earlier; unaffected from
+  2.492.2 (LTS) and 2.500 (weekly), defaultStatus affected.
+  NVD/OSV CPE ranges: * up to 2.500 (weekly) and LTS <2.492.2. The GHSA ECOSYSTEM
+  ranges again encode one range as introduced 2.493 -> fixed 2.500, which conflicts
+  with the CNA text; the OSV CVE GIT range is introduced 0. Snapshot 2.441 is inside
+  the CNA affected range.
+
+Public records:
+  CVE List v5 CVE-2025-27623, state PUBLISHED, datePublished 2025-03-05,
+  assigner Jenkins; the CNA container has no CVSS metric and no CWE. Description:
+  Jenkins 2.499 and earlier, LTS 2.492.1 and earlier does not redact encrypted values
+  of secrets when accessing config.xml of views via REST API or CLI, allowing
+  attackers with View/Read permission to view encrypted values of secrets.
+  NVD: status Analyzed, one CVSS 3.1 4.3 MEDIUM metric from the Secondary source
+  (CISA-ADP, 134c704f-...), vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N;
+  CWE-312 from the same Secondary source; no Primary metric.
+  OSV/GHSA-rfh6-9r2q-98vf: same CVSS 3.1 vector, database_specific severity
+  MODERATE and cwe_ids [CWE-312].
+  Jenkins advisory: https://www.jenkins.io/security/advisory/2025-03-05/#SECURITY-3496
+
+No Jenkins instance, HTTP request or CLI invocation was run; all checks are static
+reads of git objects, the fix patch and public records.

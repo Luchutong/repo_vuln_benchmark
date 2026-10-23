@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/apache/tomcat.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:29.589679+00:00", "elapsed_seconds": 1.306, "response": {"returncode": 0, "stdout": "4b494c19d4c1254957373266231b8433ba9c33ce\tHEAD\n", "stderr": ""}}

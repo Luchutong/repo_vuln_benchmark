@@ -1,0 +1,32 @@
+=== label=v2115_conn bin=/tmp/recon_build/caddy_v2115 client=ws upstream=101conn proxy=:18164 upstream=:18165
+=== Caddyfile ===
+{
+	auto_https off
+	admin off
+	log default {
+		level ERROR
+	}
+}
+
+:18164 {
+	reverse_proxy 127.0.0.1:18165
+}
+adapt_exit=0 adapt_bytes=264
+=== client exit=0 ===
+{
+ "status_line": "HTTP/1.1 101 Switching Protocols",
+ "headers": [
+  "Connection: Upgrade",
+  "Sec-WebSocket-Accept: s3pPLMBiTxaQ9kYGzzhZRbK+xOo=",
+  "Server: Caddy",
+  "Upgrade: websocket",
+  "Date: Thu, 22 Oct 2026 19:10:32 GMT"
+ ],
+ "raw_head_len": 177
+}
+=== upstream log ===
+{"upstream": "listening", "port": 18165, "mode": "101conn"}
+{"upstream": "request_line", "line": "GET /ws HTTP/1.1"}
+{"upstream": "request_headers", "headers": ["Host: localhost", "Connection: Upgrade", "Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==", "Sec-WebSocket-Version: 13", "Upgrade: websocket", "Via: 1.1 Caddy", "X-Forwarded-For: 127.0.0.1", "X-Forwarded-Host: localhost", "X-Forwarded-Proto: http", "Accept-Encoding: gzip"]}
+{"upstream": "done", "mode": "101conn"}
+=== caddy log (tail) ===

@@ -1,0 +1,366 @@
+{
+ "candidate_id": "disc2_7d5dfcba49f9545e30e0a939",
+ "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+ "status": "awaiting_independent_review",
+ "prepared_at": "2026-10-22T07:05:00Z",
+ "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+ "promotion_blocked_by": [
+  "independent_reviewer_required"
+ ],
+ "repository": {
+  "repo_id": "133092972",
+  "full_name": "nodejs/undici",
+  "canonical_url": "https://github.com/nodejs/undici",
+  "primary_language": "JavaScript",
+  "project_kind": "HTTP/1.1 client for Node.js",
+  "snapshot_id": "snap_24c4a191fd049fc3"
+ },
+ "vulnerability": {
+  "vulnerability_id": "CVE-2023-24807",
+  "aliases": [
+   "CVE-2023-24807",
+   "GHSA-r6ch-mqf9-qc9w"
+  ],
+  "title": "Undici header normalization is quadratic on long internal whitespace runs, giving Headers.set()/append() a ReDoS",
+  "repo_id": "133092972",
+  "snapshot_id": "snap_24c4a191fd049fc3",
+  "vulnerable_commit": "f5c89e5c87c7d702996b152c4ad86302b60c4181",
+  "affected_packages": [
+   {
+    "ecosystem": "npm",
+    "package": "undici",
+    "purl": "pkg:npm/undici",
+    "affected_range": ">=0,<5.19.1"
+   }
+  ],
+  "fixed_releases": [
+   {
+    "ecosystem": "npm",
+    "package": "undici",
+    "version": "5.19.1",
+    "tag": "v5.19.1",
+    "release_url": "https://github.com/nodejs/undici/releases/tag/v5.19.1",
+    "verified_content": "At v5.19.1 (984d53ba) headerValueNormalize() no longer applies a trailing regex; it trims with an explicit charAt loop and only the anchored leading regex remains"
+   }
+  ],
+  "fix_commits": [
+   {
+    "sha": "f2324e549943f0b0937b09fb1c0c16cc7c93abdf",
+    "branch": "main",
+    "message": "Merge pull request from GHSA-r6ch-mqf9-qc9w",
+    "url": "https://github.com/nodejs/undici/commit/f2324e549943f0b0937b09fb1c0c16cc7c93abdf"
+   },
+   {
+    "sha": "984d53bad97c98529424a7f3bef6be1d0e76d039",
+    "branch": "main",
+    "message": "Bumped v5.19.1",
+    "url": "https://github.com/nodejs/undici/commit/984d53bad97c98529424a7f3bef6be1d0e76d039"
+   }
+  ],
+  "cwe_ids": [
+   "CWE-20",
+   "CWE-1333"
+  ],
+  "severity": {
+   "version": "3.1",
+   "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+   "score": 7.5,
+   "level": "high",
+   "numeric_level_rationale": "CNA, NVD Primary, NVD Secondary and GHSA/OSV all publish CVSS 3.1 7.5 High with the same vector; the CWE differs but the score does not. For classification, CWE-1333 (Inefficient Regular Expression Complexity) is the precise class; the CNA record and OSV carry CWE-20 instead.",
+   "source": "GitHub_M CNA and nvd@nist.gov (NVD Primary), both CVSS 3.1 7.5 High",
+   "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-r6ch-mqf9-qc9w",
+   "all_published_scores": [
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "GitHub_M CNA",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    },
+    {
+     "version": "3.1",
+     "score": 7.5,
+     "level": "high",
+     "source": "nvd@nist.gov (NVD Primary) and security-advisories@github.com (NVD Secondary)",
+     "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+    }
+   ],
+   "ghsa_label_note": "GHSA/OSV labels the issue HIGH and publishes the same CVSS 3.1 vector."
+  },
+  "category_l1": "denial_of_service",
+  "category_l2": "Inefficient regular expression: header value normalization rescans trailing/embedded whitespace at every offset",
+  "advisory_status": "official_upstream",
+  "advisory_url": "https://github.com/nodejs/undici/security/advisories/GHSA-r6ch-mqf9-qc9w",
+  "published_at": "2023-02-16T18:15:12Z",
+  "discovery_cutoff_date": "2026-10-21",
+  "source_type": "upstream_advisory",
+  "references": [
+   "https://github.com/nodejs/undici/security/advisories/GHSA-r6ch-mqf9-qc9w",
+   "https://github.com/nodejs/undici/commit/f2324e549943f0b0937b09fb1c0c16cc7c93abdf",
+   "https://nvd.nist.gov/vuln/detail/CVE-2023-24807",
+   "https://github.com/nodejs/undici/releases/tag/v5.19.1"
+  ]
+ },
+ "location": {
+  "location_id": "loc_CVE-2023-24807_snap_24c4a191fd049fc3",
+  "vulnerability_id": "CVE-2023-24807",
+  "snapshot_id": "snap_24c4a191fd049fc3",
+  "location_kind": "logic",
+  "file": "lib/fetch/headers.js",
+  "function": "headerValueNormalize",
+  "language": "JavaScript",
+  "line": 27,
+  "critical_operation": {
+   "code_excerpt": "function headerValueNormalize (potentialValue) {\n  //  To normalize a byte sequence potentialValue, remove\n  //  any leading and trailing HTTP whitespace bytes from\n  //  potentialValue.\n  return potentialValue.replace(\n    /^[\\r\\n\\t ]+|[\\r\\n\\t ]+$/g,\n    ''\n  )\n}",
+   "description": "headerValueNormalize() trims a header value with a global regular expression whose second alternative is anchored only at the end. For a value that contains a long run of tabs/CR/LF followed by a non-whitespace byte, the engine retries that alternative at every starting offset and scans to the end each time, so the cost is quadratic in the length of the run. Headers.append() (line 211) and Headers.set() (line 348) call this function on the caller-supplied ByteString before any validation and without a length bound, so a server or client that copies an untrusted header value into a Headers object can be stalled by a value such as \"a\" + N tabs + \"\\ta\". The 5.19.1 fix removes the trailing regex and trims with an explicit character loop (CWE-1333; the CNA record labels it CWE-20).",
+   "file": "lib/fetch/headers.js",
+   "function": "headerValueNormalize",
+   "language": "JavaScript",
+   "line": 27,
+   "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L27"
+  },
+  "entry_point": {
+   "description": "An attacker-supplied header value reaches a Headers object through Headers.append() or Headers.set() (directly or via fetch()/Request/Response header conversion). The surface is wider than \"application passes untrusted input\": undici's own fetch implementation feeds server-controlled header values into Headers.append from lib/fetch/index.js onHeaders (~1980-1996) and onUpgrade (~2080-2087), so a malicious origin can trigger the ReDoS in the client process without the application forwarding anything.",
+   "file": "lib/fetch/headers.js",
+   "function": "Headers.append",
+   "language": "JavaScript",
+   "line": 211,
+   "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L211"
+  },
+  "trace": [
+   {
+    "description": "Headers.append() converts the value to a ByteString",
+    "file": "lib/fetch/headers.js",
+    "function": "Headers.append",
+    "language": "JavaScript",
+    "line": 207,
+    "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L207"
+   },
+   {
+    "description": "append() calls headerValueNormalize() before validating the value",
+    "file": "lib/fetch/headers.js",
+    "function": "Headers.append",
+    "language": "JavaScript",
+    "line": 211,
+    "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L211"
+   },
+   {
+    "description": "Headers.set() has the same call at line 348",
+    "file": "lib/fetch/headers.js",
+    "function": "Headers.set",
+    "language": "JavaScript",
+    "line": 348,
+    "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L348"
+   },
+   {
+    "description": "the trailing alternative of the regex is retried at every offset",
+    "file": "lib/fetch/headers.js",
+    "function": "headerValueNormalize",
+    "language": "JavaScript",
+    "line": 28,
+    "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L28"
+   }
+  ],
+  "verification_method": "Static read of lib/fetch/headers.js at v5.19.0 and v5.19.1, the security patch, and git ancestry; no JavaScript or HTTP workload was executed."
+ },
+ "evidence": [
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/cve_v5.json",
+   "evidence_id": "ev_undici_24807_cve",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "7fc3a28345af0b0ec76896ad5fc10dae2001b3f8730f34a74d17e3e6fb4ec463",
+   "source_url": "https://cveawg.mitre.org/api/cve/CVE-2023-24807",
+   "supports": [
+    "CVE state PUBLISHED, assigner GitHub_M",
+    "description: Headers.set() and Headers.append() are vulnerable to ReDoS when untrusted values reach the inefficient regex in headerValueNormalize(), prior to 5.19.1",
+    "CNA CVSS 3.1 7.5 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "CNA problemTypes CWE-20",
+    "affected nodejs/undici < 5.19.1"
+   ],
+   "verification_method": "CVE List v5 CNA record"
+  },
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/nvd_cve.json",
+   "evidence_id": "ev_undici_24807_nvd",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "6f4b44536b1da56ae521a0d4365a316c9b54508814bbdab1b417757d8e3df4ea",
+   "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-24807",
+   "supports": [
+    "NVD Primary CVSS 3.1 7.5 HIGH from nvd@nist.gov, vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "NVD Secondary CVSS 3.1 7.5 HIGH from security-advisories@github.com with the same vector",
+    "NVD Primary weakness is CWE-1333 while the Secondary weakness is CWE-20",
+    "published 2023-02-16"
+   ],
+   "verification_method": "NVD CVE API 2.0 record"
+  },
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/osv_ghsa.json",
+   "evidence_id": "ev_undici_24807_osv",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "041da28b7c50ed1b96e273f0aa3270a5bb718d9d12314e09fcc4af209af36368",
+   "source_url": "https://api.osv.dev/v1/vulns/CVE-2023-24807",
+   "supports": [
+    "CVE-2023-24807 aliases GHSA-r6ch-mqf9-qc9w",
+    "affected range fixed event 5.19.1 with git fixed commits 984d53ba and f2324e54",
+    "severity CVSS 3.1 7.5 HIGH with the same vector, cwe_ids CWE-20",
+    "FIX reference https://github.com/nodejs/undici/commit/f2324e549943f0b0937b09fb1c0c16cc7c93abdf"
+   ],
+   "verification_method": "OSV.dev API record"
+  },
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/ghsa.html",
+   "evidence_id": "ev_undici_24807_ghsa",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "8a7a72c1e4138fae8e9b6c1897b969598f7196f64784ba3f362cd8ef87912133",
+   "source_url": "https://github.com/nodejs/undici/security/advisories/GHSA-r6ch-mqf9-qc9w",
+   "supports": [
+    "upstream advisory: prior to 5.19.1 Headers.set()/append() are vulnerable to ReDoS through headerValueNormalize()",
+    "patched in v5.19.1, no known workarounds"
+   ],
+   "verification_method": "GitHub advisory HTML text read"
+  },
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/Headers_5.19.0.js",
+   "evidence_id": "ev_undici_24807_vuln_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "2863ae7424069d32e0ab463cb6208f692dfa7b1db8370437792e62c7da9535ed",
+   "source_url": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/fetch/headers.js#L27",
+   "supports": [
+    "lines 27-30 implement headerValueNormalize() as potentialValue.replace(/^[\\r\\n\\t ]+|[\\r\\n\\t ]+$/g, \"\")",
+    "the trailing branch is unanchored in its starting position and rescans the remaining string at every offset, so a long internal run of tabs/CR/LF costs quadratic time despite the \"g\" flag and \"$\" anchor",
+    "line 211 in append() and line 348 in set() call headerValueNormalize() on attacker-supplied ByteString values before validation",
+    "there is no length bound and no timeout on the normalization step"
+   ],
+   "verification_method": "file read at snapshot commit f5c89e5c (v5.19.0), bytes and git_oid cross-checked against the snapshot inventory"
+  },
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/Headers_5.19.1.js",
+   "evidence_id": "ev_undici_24807_fixed_source",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "832c9fc15b85b7690ed389e5431fa23363a98d62c8e5be9acd68d468a8f6539a",
+   "source_url": "https://github.com/nodejs/undici/blob/984d53bad97c98529424a7f3bef6be1d0e76d039/lib/fetch/headers.js#L30",
+   "supports": [
+    "the fixed headerValueNormalize() at lines 30-32 trims the tail with an explicit charAt loop and only applies the anchored /^[\\r\\n\\t ]+/ regex to the head",
+    "the comment states that trimming the end with .replace() and a RegExp is typically subject to ReDoS",
+    "append() and set() call sites are unchanged"
+   ],
+   "verification_method": "file read at release tag v5.19.1 (984d53ba)"
+  },
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/fix_commit_main.patch",
+   "evidence_id": "ev_undici_24807_patch",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "9c29f648104dbe45bd60b6b91a2feeef3e853050dacff6dc1febc2e6b267a2f3",
+   "source_url": "https://github.com/nodejs/undici/commit/f2324e549943f0b0937b09fb1c0c16cc7c93abdf",
+   "supports": [
+    "the security fix f2324e54 replaces the vulnerable regex with the charAt loop plus anchored head regex",
+    "the pre-image index 634b81fc74a matches the snapshot git_oid of lib/fetch/headers.js",
+    "it adds a regression test that appends \"a\" + 500000 tabs + \"\\ta\" and asserts no timeout"
+   ],
+   "verification_method": "unified diff read"
+  },
+  {
+   "artifact_path": "runs/verification/undici_cve_2023_24807/sources/git_object_checks.txt",
+   "evidence_id": "ev_undici_24807_git",
+   "result": "PASS",
+   "retrieved_at": "2026-10-22T07:05:00Z",
+   "sha256_of_observation": "bc136bd0eeb1487f37f4eba292356bcf2b581f021dd54b8c8b30eba765696b02",
+   "source_url": "https://github.com/nodejs/undici/commit/f2324e549943f0b0937b09fb1c0c16cc7c93abdf",
+   "supports": [
+    "v5.19.0 resolves to the dataset snapshot commit f5c89e5c87c7d702996b152c4ad86302b60c4181",
+    "fix f2324e54 is NOT an ancestor of v5.19.0 (merge-base exit 1)",
+    "fix f2324e54 IS an ancestor of v5.19.1 (exit 0) and is contained in tag v5.19.1",
+    "v5.19.1 is the version-bump commit 984d53ba whose parent chain contains f2324e54"
+   ],
+   "verification_method": "git rev-parse/merge-base/tag/log with a blobless bare mirror"
+  }
+ ],
+ "field_evidence": {
+  "affected_ranges": [
+   0,
+   1,
+   2
+  ],
+  "aliases": [
+   2
+  ],
+  "critical_operation": [
+   4,
+   6
+  ],
+  "cwe": [
+   0,
+   1,
+   2
+  ],
+  "fix_commits": [
+   2,
+   6,
+   7
+  ],
+  "fixed_releases": [
+   2,
+   3,
+   5,
+   6,
+   7
+  ],
+  "languages": [
+   4,
+   5
+  ],
+  "severity": [
+   0,
+   1,
+   2
+  ],
+  "vulnerable_commit": [
+   7
+  ]
+ },
+ "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+ "source_crosscheck": {
+  "families": [
+   "NVD analysis",
+   "CVE List v5 GitHub CNA record",
+   "GitHub advisory / OSV record",
+   "upstream git history and release tags"
+  ],
+  "independent_of_primary": true,
+  "notes": "All sources agree on the defect, the <5.19.1 range and CVSS 3.1 7.5 High. They disagree on the weakness class: the CNA record and OSV use CWE-20 while NVD Primary uses CWE-1333 (Inefficient Regular Expression Complexity); both are recorded in cwe_ids.",
+  "severity_disagreement": false
+ },
+ "review": {
+  "status": "PENDING_INDEPENDENT_REVIEW",
+  "independent_reviews": 0,
+  "required_before_promotion": [
+   "An independent reviewer must read headerValueNormalize() at v5.19.0 and confirm the trailing regex alternative is the quadratic part and that append()/set() reach it before validation.",
+   "An independent reviewer must confirm f2324e54 is not an ancestor of v5.19.0 and is contained in v5.19.1.",
+   "An independent reviewer must confirm the affected range and record the CWE-20 vs CWE-1333 split.",
+   "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+  ],
+  "independent_corrections_accepted": [
+   "Line precision: line 27 is the vulnerable `replace(` statement and line 28 carries the regex literal; the dataset keeps line 27 as the statement line.",
+   "CWE: CNA/OSV use CWE-20 while NVD Primary and GHSA use CWE-1333; CWE-1333 is the precise class and both are retained in cwe_ids.",
+   "Attacker surface: undici fetch itself routes response and upgrade headers into Headers.append, so the issue is reachable in a client without application forwarding; recorded in the entry point.",
+   "Duplicate check: the same v5.19.1 also fixes GHSA-5r9g-qh6m-jxff (CRLF injection in lib/core/request.js, a2eff054) — a different root cause, not a duplicate."
+  ]
+ },
+ "limitations": [
+  "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+  "No JavaScript runtime or HTTP workload was executed; the complexity argument is static and no measured stall time is claimed.",
+  "The vulnerable path requires an application that copies untrusted header values into a Headers object; plain use of undici with trusted request headers is not affected.",
+  "The 5.19.1 fix still applies one anchored regex to the head of the string; the dossier does not claim that path is vulnerable.",
+  "The upstream advisory says \"when untrusted values are passed into the functions\"; the independent reviewer found a stronger direct path (undici fetch response/upgrade headers). This widens the attack surface but does not change the root cause."
+ ],
+ "open_questions": [
+  "Whether every fetch()/Request/Response header path funnels through append()/set() without an earlier length check was not exhaustively audited."
+ ]
+}

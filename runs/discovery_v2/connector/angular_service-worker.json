@@ -1,0 +1,24 @@
+{
+  "key": "angular_service-worker",
+  "repository": "angular/angular",
+  "path": "packages/service-worker/package.json",
+  "retrieved_at": "2026-10-21T10:56:20.887Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/service-worker\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - service worker tooling!\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"exports\": {\n    \"./ngsw-worker.js\": {\n      \"default\": \"./ngsw-worker.js\"\n    },\n    \"./safety-worker.js\": {\n      \"default\": \"./safety-worker.js\"\n    },\n    \"./config/schema.json\": {\n      \"default\": \"./config/schema.json\"\n    }\n  },\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"peerDependencies\": {\n    \"@angular/core\": \"0.0.0-PLACEHOLDER\",\n    \"rxjs\": \"^6.5.3 || ^7.4.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/service-worker\"\n  },\n  \"bin\": {\n    \"ngsw-config\": \"./ngsw-config.js\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": false\n}\n",
+      "encoding": "utf-8",
+      "sha": "ec608841fe2b785af49577f51a9f43215313e393",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/service-worker/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

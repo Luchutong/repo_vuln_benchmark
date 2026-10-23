@@ -1,0 +1,39 @@
+CVE-2026-45077 -- static git object checks (symfony/symfony, local bare mirror /tmp/symfony_git)
+Generated 2026-10-22
+
+tag peels
+  v5.4.45 -> 2b66d7d7d8129531229708ef708860844db91944
+  v5.4.52 -> eabc5f9ed7831fe6de8d609c5ebc29aed1f8ef8f
+
+fix commit
+  0891b2f293896c488e26943dc034334364b77fc4
+  author date 2026-05-07 15:36:24 +0200
+  subject "[MonologBridge] Bind server:log to localhost by default"
+
+ancestry
+  git merge-base --is-ancestor 0891b2f2 v5.4.52  -> YES
+  git merge-base --is-ancestor 0891b2f2 v5.4.45  -> NO
+
+blob ids for src/Symfony/Bridge/Monolog/Command/ServerLogCommand.php
+  v5.4.45: 03811ab1571c74417e63cde55fd394726ffea913
+  v5.4.52: db0a072ea57b868dba86bbc0fccfefd9c907f8b0
+  patch pre-image 03811ab1571c7, post-image db0a072ea57b8 -- matches
+
+vulnerable behaviour at v5.4.45 (ServerLogCommand.php)
+  line 60:  ->addOption('host', null, InputOption::VALUE_REQUIRED, 'The server host', '0.0.0.0:9911')
+  line 104: stream_socket_server($host, ...) -- listens on all interfaces with the default host
+  line 109: $record = unserialize(base64_decode($message));
+  line 112: if (false === $record) { continue; }   (only rejects unserialize failure)
+  line 120: $this->displayLog($output, $clientId, $record);   (requires array $record, line 149)
+  getLogs() yields one line per frame from stream_socket_accept()/fgets() with no authentication (lines 126-146)
+
+fixed behaviour at v5.4.52 (ServerLogCommand.php)
+  default --host is 127.0.0.1:9911
+  line 111-113: $record = @unserialize(base64_decode($message), ['allowed_classes' => [Data::class, Stub::class]]);
+  line 115: if (!\is_array($record)) { continue; }
+  a string datetime is converted back to DateTimeImmutable before displayLog()
+
+patch contents (0891b2f2)
+  ServerLogCommand.php: default host changed, allowed_classes allowlist added, is_array gate added
+  ServerLogHandler.php: datetime serialized as a string so records no longer need a DateTime object
+  tests: ServerLogHandlerTest / ConsoleFormatterTest updated

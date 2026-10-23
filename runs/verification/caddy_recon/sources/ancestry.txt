@@ -1,0 +1,32 @@
+# exit codes from: git merge-base --is-ancestor <commit> <tag> ; 0=ancestor(yes), 1=not
+25b3eab6dbd8d2d2670711f26b774e0fd43e1179 in v2.11.0 -> 1
+25b3eab6dbd8d2d2670711f26b774e0fd43e1179 in v2.11.3 -> 1
+25b3eab6dbd8d2d2670711f26b774e0fd43e1179 in v2.11.4 -> 1
+25b3eab6dbd8d2d2670711f26b774e0fd43e1179 in v2.11.5 -> 0
+25b3eab6dbd8d2d2670711f26b774e0fd43e1179 in v2.11.6 -> 0
+25b3eab6dbd8d2d2670711f26b774e0fd43e1179 in v2.11.7 -> 0
+1830809afe8c95c6c554740f8719e023415f85cb in v2.11.0 -> 1
+1830809afe8c95c6c554740f8719e023415f85cb in v2.11.3 -> 1
+1830809afe8c95c6c554740f8719e023415f85cb in v2.11.4 -> 1
+1830809afe8c95c6c554740f8719e023415f85cb in v2.11.5 -> 0
+1830809afe8c95c6c554740f8719e023415f85cb in v2.11.6 -> 0
+1830809afe8c95c6c554740f8719e023415f85cb in v2.11.7 -> 0
+8aca108d2c9d9e9ff3a39ff00684ea58df1338f6 in v2.11.0 -> 0
+8aca108d2c9d9e9ff3a39ff00684ea58df1338f6 in v2.11.3 -> 0
+8aca108d2c9d9e9ff3a39ff00684ea58df1338f6 in v2.11.4 -> 0
+8aca108d2c9d9e9ff3a39ff00684ea58df1338f6 in v2.11.5 -> 0
+8aca108d2c9d9e9ff3a39ff00684ea58df1338f6 in v2.11.6 -> 0
+8aca108d2c9d9e9ff3a39ff00684ea58df1338f6 in v2.11.7 -> 0
+156ce99d3a46be8cefe8502b2c30b757e4deb79f in v2.11.0 -> 0
+156ce99d3a46be8cefe8502b2c30b757e4deb79f in v2.11.3 -> 0
+156ce99d3a46be8cefe8502b2c30b757e4deb79f in v2.11.4 -> 0
+156ce99d3a46be8cefe8502b2c30b757e4deb79f in v2.11.5 -> 0
+156ce99d3a46be8cefe8502b2c30b757e4deb79f in v2.11.6 -> 0
+156ce99d3a46be8cefe8502b2c30b757e4deb79f in v2.11.7 -> 0
+
+# is the fix present in the recorded dataset snapshot commit?
+25b3eab6 in f355b868 -> 0
+# additional checks (GHSA-6365 introducing commit vs earlier tags)
+8aca108d in v2.10.2 -> 1
+8aca108d in v2.11.1 -> 0
+8aca108d in v2.11.2 -> 0

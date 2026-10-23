@@ -1,0 +1,75 @@
+repository: https://github.com/symfony/symfony
+checks run: 2026-10-21T16:56:42Z
+
+$ git rev-parse v5.4.45^{}
+2b66d7d7d8129531229708ef708860844db91944
+$ git rev-parse v5.4.50^{}
+4b031a7937fcfde214a18b16c18fd670f2fc5e2f
+$ git log -1 --format='%H %ci %s' 9962b91b12bb791322fa73836b350836b6db7cac
+9962b91b12bb791322fa73836b350836b6db7cac 2025-11-03 13:58:48 +0100 [HttpFoundation] Fix parsing pathinfo with no leading slash
+
+$ git merge-base --is-ancestor 9962b91b... v5.4.45^{}  -> exit 1 (1 = not an ancestor)
+$ git merge-base --is-ancestor 9962b91b... v5.4.50^{}  -> exit 0 (0 = ancestor)
+
+$ git rev-parse v5.4.45:src/Symfony/Component/HttpFoundation/Request.php
+561cb887fc453eb98bc04f28dcbe56854c45d896
+$ git rev-parse v5.4.50:src/Symfony/Component/HttpFoundation/Request.php
+393b5472cdd216a67010017353b78c98685ca5ab
+
+patch pre-image blob (from fix_commit.txt): d1103cf8a0a57
+patch post-image blob (from fix_commit.txt): 393b5472cdd21
+
+v5.4.45 preparePathInfo (lines 1955-1980):
+    protected function preparePathInfo()
+    {
+        if (null === ($requestUri = $this->getRequestUri())) {
+            return '/';
+        }
+
+        // Remove the query string from REQUEST_URI
+        if (false !== $pos = strpos($requestUri, '?')) {
+            $requestUri = substr($requestUri, 0, $pos);
+        }
+        if ('' !== $requestUri && '/' !== $requestUri[0]) {
+            $requestUri = '/'.$requestUri;
+        }
+
+        if (null === ($baseUrl = $this->getBaseUrlReal())) {
+            return $requestUri;
+        }
+
+        $pathInfo = substr($requestUri, \strlen($baseUrl));
+        if (false === $pathInfo || '' === $pathInfo) {
+            // If substr() returns false then PATH_INFO is set to an empty string
+            return '/';
+        }
+
+        return $pathInfo;
+    }
+
+v5.4.50 preparePathInfo (lines 1967-1991):
+    protected function preparePathInfo()
+    {
+        if (null === ($requestUri = $this->getRequestUri())) {
+            return '/';
+        }
+
+        // Remove the query string from REQUEST_URI
+        if (false !== $pos = strpos($requestUri, '?')) {
+            $requestUri = substr($requestUri, 0, $pos);
+        }
+        if ('' !== $requestUri && '/' !== $requestUri[0]) {
+            $requestUri = '/'.$requestUri;
+        }
+
+        if (null === ($baseUrl = $this->getBaseUrlReal())) {
+            return $requestUri;
+        }
+
+        $pathInfo = substr($requestUri, \strlen($baseUrl));
+        if (false === $pathInfo || '' === $pathInfo || '/' !== $pathInfo[0]) {
+            return '/'.$pathInfo;
+        }
+
+        return $pathInfo;
+    }

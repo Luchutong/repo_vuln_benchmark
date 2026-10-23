@@ -1,0 +1,57 @@
+# commands and output
+$ git rev-parse jenkins-2.441^{}
+3b0de10df3bedba515e13032104d4d84f83045be
+$ git rev-parse jenkins-2.442^{}
+10b1b883319ff21bfe742bd0abe225dd12f10c2b
+$ git rev-parse jenkins-2.426.2^{}
+3eb70099423f93c9de29fca3c6b5b6efd2847ad0
+$ git rev-parse jenkins-2.426.3^{}
+9ed5f66f62ac5b116357d2f58cb37ca3161c5b60
+== a74865391d697f171cdfa977a956e8b96e0b0336
+a74865391d697f171cdfa977a956e8b96e0b0336 6b2e962047d6a240313286ee8580a5010383aea0 2024-01-16 17:10:25 +0000 [SECURITY-3314]
+jenkins-2.441=not-ancestor
+jenkins-2.442=not-ancestor
+jenkins-2.426.2=not-ancestor
+jenkins-2.426.3=ancestor
+== 554f03782057c499c49bbb06575f0d28b5200edb
+554f03782057c499c49bbb06575f0d28b5200edb de450967f38398169650b55c002f1229a3fcdb1b 2024-01-16 17:07:43 +0000 [SECURITY-3314]
+jenkins-2.441=not-ancestor
+jenkins-2.442=ancestor
+jenkins-2.426.2=not-ancestor
+jenkins-2.426.3=not-ancestor
+== 9ed5f66f62ac5b116357d2f58cb37ca3161c5b60
+9ed5f66f62ac5b116357d2f58cb37ca3161c5b60 a74865391d697f171cdfa977a956e8b96e0b0336 2024-01-22 16:48:14 +0000 [maven-release-plugin] prepare release jenkins-2.426.3
+jenkins-2.441=not-ancestor
+jenkins-2.442=not-ancestor
+jenkins-2.426.2=not-ancestor
+jenkins-2.426.3=ancestor
+== 10b1b883319ff21bfe742bd0abe225dd12f10c2b
+10b1b883319ff21bfe742bd0abe225dd12f10c2b 554f03782057c499c49bbb06575f0d28b5200edb 2024-01-22 21:35:22 +0000 [maven-release-plugin] prepare release jenkins-2.442
+jenkins-2.441=not-ancestor
+jenkins-2.442=ancestor
+jenkins-2.426.2=not-ancestor
+jenkins-2.426.3=not-ancestor
+$ git log --oneline 2.426.2..2.426.3 | head
+9ed5f66f [maven-release-plugin] prepare release jenkins-2.426.3
+a7486539 [SECURITY-3314]
+6b2e9620 [SECURITY-3315]
+96dc95a5 Merge pull request #8843 from krisstern/feat/stable-2.426/backporting-2.426.3-1
+$ git log --oneline 2.441..2.442 | head
+10b1b883 [maven-release-plugin] prepare release jenkins-2.442
+554f0378 [SECURITY-3314]
+de450967 [SECURITY-3315]
+86d39dd2 [maven-release-plugin] prepare for next development iteration
+
+# 2.440.1 LTS cherry-pick check
+$ git rev-parse jenkins-2.440.1^{}
+02f2a4cc586630e6637ff9bc4e0eb611a79efb05
+$ git show -s 3e876d4c
+3e876d4c0c14b1a421799a9c69ced6124ad21af4 77c2115fa87457d6f744695b27a397a353c27a06 2024-01-16 17:07:43 +0000 [SECURITY-3314]
+$ git merge-base --is-ancestor 3e876d4c jenkins-2.440.1^{}
+yes
+$ git log --oneline jenkins-2.440.1^{} | grep SECURITY-3314
+3e876d4c [SECURITY-3314]
+$ grep withAtSyntax at 2.440.1
+121:    public static boolean ALLOW_AT_SYNTAX = SystemProperties.getBoolean(CLICommand.class.getName() + ".allowAtSyntax");
+323:        ParserProperties properties = ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX);
+135:                            ParserProperties properties = ParserProperties.defaults().withAtSyntax(ALLOW_AT_SYNTAX);

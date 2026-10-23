@@ -1,0 +1,98 @@
+diff --git a/lodash.js b/lodash.js
+index cddd6df0d..2509e0f00 100644
+--- a/lodash.js
++++ b/lodash.js
+@@ -19,9 +19,10 @@
+ 
+   /** Error message constants. */
+   var CORE_ERROR_TEXT = 'Unsupported core-js use. Try https://npms.io/search?q=ponyfill.',
+       FUNC_ERROR_TEXT = 'Expected a function',
+-      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`';
++      INVALID_TEMPL_VAR_ERROR_TEXT = 'Invalid `variable` option passed into `_.template`',
++      INVALID_TEMPL_IMPORTS_ERROR_TEXT = 'Invalid `imports` option passed into `_.template`';
+ 
+   /** Used to stand-in for `undefined` hash values. */
+   var HASH_UNDEFINED = '__lodash_hash_undefined__';
+ 
+@@ -14888,14 +14889,20 @@
+       if (guard && isIterateeCall(string, options, guard)) {
+         options = undefined;
+       }
+       string = toString(string);
+-      options = assignInWith({}, options, settings, customDefaultsAssignIn);
++      options = assignWith({}, options, settings, customDefaultsAssignIn);
+ 
+-      var imports = assignInWith({}, options.imports, settings.imports, customDefaultsAssignIn),
++      var imports = assignWith({}, options.imports, settings.imports, customDefaultsAssignIn),
+           importsKeys = keys(imports),
+           importsValues = baseValues(imports, importsKeys);
+ 
++      arrayEach(importsKeys, function(key) {
++        if (reForbiddenIdentifierChars.test(key)) {
++          throw new Error(INVALID_TEMPL_IMPORTS_ERROR_TEXT);
++        }
++      });
++
+       var isEscaping,
+           isEvaluating,
+           index = 0,
+           interpolate = options.interpolate || reNoMatch,
+diff --git a/test/test.js b/test/test.js
+index 0e3be2aef..ddac85870 100644
+--- a/test/test.js
++++ b/test/test.js
+@@ -22692,8 +22692,54 @@
+       });
+ 
+       assert.deepEqual(actual, ['one', '&quot;two&quot;', 'three']);
+     });
++
++    // Related to https://github.com/lodash/lodash/security/advisories/GHSA-xj2r-5m88-79m3
++    QUnit.test('should not execute code via malicious imports key names', function(assert) {
++      assert.expect(2);
++
++      // Default-parameter injection via imports key
++      var executed = false;
++      var key = 'a = (global.templateTest1 = true, 1)';
++      var imports = {};
++      imports[key] = undefined;
++
++      try { _.template('hello', { 'imports': imports }); } catch (e) {}
++      executed = global.templateTest1 === true;
++      delete global.templateTest1;
++
++      assert.strictEqual(executed, false, 'should not execute default-parameter expression in imports key');
++
++      // Same without spaces
++      var executed2 = false;
++      var key2 = 'a=(global.templateTest2=true,1)';
++      var imports2 = {};
++      imports2[key2] = undefined;
++
++      try { _.template('hello', { 'imports': imports2 }); } catch (e) {}
++      executed2 = global.templateTest2 === true;
++      delete global.templateTest2;
++
++      assert.strictEqual(executed2, false, 'should not execute compact default-parameter expression in imports key');
++    });
++
++    // Related to https://github.com/lodash/lodash/security/advisories/GHSA-xj2r-5m88-79m3
++    QUnit.test('should not enumerate inherited keys from imports sources', function(assert) {
++      assert.expect(1);
++
++      // Simulate prototype pollution: inherited key with code injection
++      var executed = false;
++      var payload = 'a = (global.templateTest3 = true, 1)';
++      var polluted = Object.create({ [payload]: undefined });
++      polluted._ = _;
++
++      try { _.template('hello', { 'imports': polluted }); } catch (e) {}
++      executed = global.templateTest3 === true;
++      delete global.templateTest3;
++
++      assert.strictEqual(executed, false, 'should not execute code from inherited imports keys');
++    });
+   }());
+ 
+   /*--------------------------------------------------------------------------*/
+ 

@@ -1,0 +1,455 @@
+{
+  "candidate_id": "disc2_a643fc1e90812b7c3652cf03",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T04:40:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [],
+  "repository": {
+    "canonical_url": "https://github.com/django/django",
+    "full_name": "django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "repo_id": "4164482",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2021-44420",
+    "aliases": [
+      "CVE-2021-44420",
+      "GHSA-v6rh-hp5x-86rv",
+      "PYSEC-2021-439",
+      "BIT-django-2021-44420"
+    ],
+    "title": "Django URL resolver accepts endpoint paths with a trailing newline because '$' matches before a final newline, allowing a bypass of upstream path-based access control",
+    "category_l1": "authorization_bypass",
+    "category_l2": "trailing-newline URL path bypass of an upstream path-based access control due to dollar-anchored endpoints applied with re.search",
+    "cwe_ids": [
+      "CWE-287"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+      "score": 7.3,
+      "level": "high",
+      "source": "NVD Primary metric nvd@nist.gov (7.3 HIGH); OSV GHSA repeats the same CVSS 3.1 vector but its database severity is MODERATE, and Django's own release notes call the issue severity 'low' - the published levels disagree",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-44420"
+    },
+    "affected_packages": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=2.2a1,<2.2.25"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.0a1,<3.1.14"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django",
+        "affected_range": ">=3.2a1,<3.2.10"
+      }
+    ],
+    "fix_commits": [
+      {
+        "branch": "main (4.0.x)",
+        "sha": "d4dcd5b9dd9e462fec8220e33e3e6c822b7e88a6",
+        "message": "Fixed #30530, CVE-2021-44420 -- Fixed potential bypass of an upstream access control based on URL paths.",
+        "url": "https://github.com/django/django/commit/d4dcd5b9dd9e462fec8220e33e3e6c822b7e88a6"
+      },
+      {
+        "branch": "3.1.x",
+        "sha": "22bd17488159601bf0741b70ae7932bffea8eced",
+        "message": "[3.1.x] Fixed #30530, CVE-2021-44420 -- Fixed potential bypass of an upstream access control based on URL paths.",
+        "url": "https://github.com/django/django/commit/22bd17488159601bf0741b70ae7932bffea8eced"
+      },
+      {
+        "branch": "3.2.x",
+        "sha": "333c65603032c377e682cdbd7388657a5463a05a",
+        "message": "[3.2.x] Fixed #30530, CVE-2021-44420 -- Fixed potential bypass of an upstream access control based on URL paths.",
+        "url": "https://github.com/django/django/commit/333c65603032c377e682cdbd7388657a5463a05a"
+      },
+      {
+        "branch": "2.2.x",
+        "sha": "7cf7d74e8a754446eeb85cacf2fef1247e0cb6d7",
+        "message": "[2.2.x] Fixed #30530, CVE-2021-44420 -- Fixed potential bypass of an upstream access control based on URL paths.",
+        "url": "https://github.com/django/django/commit/7cf7d74e8a754446eeb85cacf2fef1247e0cb6d7"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "tag": "3.1.14",
+        "version": "3.1.14",
+        "release_url": "https://github.com/django/django/releases/tag/3.1.14",
+        "verified_content": "Release commit 840bebf1 has backport fix 22bd1748 as its direct parent. django/urls/resolvers.py blob abf0a115 at this tag uses self.regex.fullmatch(path) for endpoint patterns ending in '$' (line 157) and appends r'\\Z' in _route_to_regex (line 247); 3.1.13 blob e565d34b has the pre-fix search() and '$'."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "tag": "3.2.10",
+        "version": "3.2.10",
+        "release_url": "https://github.com/django/django/releases/tag/3.2.10",
+        "verified_content": "Release commit 0153a63a has backport fix 333c6560 as its direct parent. resolvers.py blob f8e608c7 has fullmatch at line 158 and \\Z at line 251."
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "tag": "2.2.25",
+        "version": "2.2.25",
+        "release_url": "https://github.com/django/django/releases/tag/2.2.25",
+        "verified_content": "Release commit 79d8dcef has backport fix 7cf7d74e as its direct parent. resolvers.py blob 3f8f6c00 has fullmatch at line 151 and \\Z at line 237."
+      }
+    ],
+    "published_at": "2021-12-07T22:55:40.000Z",
+    "source_type": "upstream_advisory",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2021/dec/07/security-releases/",
+    "references": [
+      "https://docs.djangoproject.com/en/3.2/releases/security/",
+      "https://www.djangoproject.com/weblog/2021/dec/07/security-releases/",
+      "https://www.openwall.com/lists/oss-security/2021/12/07/1",
+      "https://groups.google.com/g/django-announce",
+      "https://github.com/django/django/commit/d4dcd5b9dd9e462fec8220e33e3e6c822b7e88a6",
+      "https://github.com/django/django/commit/22bd17488159601bf0741b70ae7932bffea8eced",
+      "https://github.com/django/django/commit/333c65603032c377e682cdbd7388657a5463a05a",
+      "https://github.com/django/django/commit/7cf7d74e8a754446eeb85cacf2fef1247e0cb6d7",
+      "https://security.netapp.com/advisory/ntap-20211229-0006/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2021-44420",
+      "https://osv.dev/vulnerability/GHSA-v6rh-hp5x-86rv"
+    ],
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_commit_basis": "annotated tag 3.0.2 (tag object 27431091) peels to a3697439; its urls/resolvers.py blob 19d0d989 applies endpoint regexes with re.search (line 156) and builds them with a trailing '$' (line 243); OSV's 3.0a1-3.1.14 range covers 3.0.2, and the same code is present unfixed at 3.0.14 (identical blob)",
+    "vulnerable_version": "3.0.2",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "repo_id": "4164482",
+    "discovery_cutoff_date": "2026-10-22"
+  },
+  "location": {
+    "location_id": "loc_CVE_2021_44420_snap_ab695ba3db678939",
+    "location_kind": "logic",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "vulnerability_id": "CVE-2021-44420",
+    "verification_method": "Static read of django/urls/resolvers.py at 3.0.2, 3.0.14, 3.1.13, 3.1.14, 3.2.10 and 2.2.25, the urlpatterns tests at 3.0.2/3.1.14, and the fix diffs. No code executed.",
+    "critical_operation": {
+      "file": "django/urls/resolvers.py",
+      "function": "RegexPattern.match",
+      "language": "Python",
+      "line": "156-156",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/urls/resolvers.py#L156",
+      "code_excerpt": "        match = self.regex.search(path)\n        if match:\n            kwargs = match.groupdict()\n            args = () if kwargs else match.groups()\n            kwargs = {k: v for k, v in kwargs.items() if v is not None}\n            return path[match.end():], args, kwargs",
+      "description": "RegexPattern.match applies the endpoint regex with re.search (line 156). Endpoint patterns are generated by _route_to_regex with a trailing '$' (line 243 of the 3.0.2 file, inside _route_to_regex), and re_path() patterns written by applications commonly end in '$' too. In Python's re module '$' matches at the end of the string or immediately before a newline at the end, so '/articles/2003/\\n' matches '^articles/(?P<year>[0-9]{4})/$' and is resolved; the unresolved '\\n' is returned as the remaining path at line 165 and discarded by an endpoint. A request carrying a percent-encoded trailing newline in PATH_INFO therefore reaches a view that an upstream proxy or access-control layer matching the raw URL path would not have allowed through. The fix makes endpoint patterns ending in '$' use self.regex.fullmatch(path) (3.1.14 line 157) and emits r'\\Z' instead of '$' from _route_to_regex (3.1.14 line 247); fullmatch alone rejects the trailing newline because it requires the whole string to be consumed."
+    },
+    "entry_point": {
+      "file": "django/core/handlers/base.py",
+      "function": "BaseHandler._get_response",
+      "language": "Python",
+      "line": 100,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/handlers/base.py#L100",
+      "description": "BaseHandler._get_response passes request.path_info to resolver.resolve(). path_info derives from the WSGI PATH_INFO, in which a percent-encoded newline is decoded to '\\n', so an HTTP client can place a trailing newline in the path that the URL resolver sees."
+    },
+    "trace": [
+      {
+        "file": "django/core/handlers/base.py",
+        "function": "BaseHandler._get_response",
+        "language": "Python",
+        "line": 100,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/core/handlers/base.py#L100",
+        "description": "resolver_match = resolver.resolve(request.path_info) hands the decoded path, potentially ending in a newline, to the URL resolver"
+      },
+      {
+        "file": "django/urls/resolvers.py",
+        "function": "URLResolver.resolve",
+        "language": "Python",
+        "line": 538,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/urls/resolvers.py#L538-L541",
+        "description": "URLResolver.resolve delegates to self.pattern.match(path) for each URLPattern"
+      },
+      {
+        "file": "django/urls/resolvers.py",
+        "function": "RegexPattern.match",
+        "language": "Python",
+        "line": 156,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/urls/resolvers.py#L156",
+        "description": "re.search accepts a '$'-anchored endpoint match that stops before a trailing newline, so the URL resolves"
+      },
+      {
+        "file": "django/urls/resolvers.py",
+        "function": "_route_to_regex",
+        "language": "Python",
+        "line": 243,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/urls/resolvers.py#L243",
+        "description": "endpoint patterns are generated with a trailing '$', which is the anchor that re.search lets match before a final newline"
+      },
+      {
+        "file": "django/urls/resolvers.py",
+        "function": "RegexPattern.match",
+        "language": "Python",
+        "line": 165,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/urls/resolvers.py#L165",
+        "description": "the unconsumed '\\n' is returned as the remaining path; an endpoint pattern ignores it and reports a successful match"
+      }
+    ]
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_django_cve_v5",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/cve_v5_CVE-2021-44420.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2021-44420",
+      "retrieved_at": "2026-10-22T03:52:00Z",
+      "sha256_of_observation": "9cfc3b4ca487f875c3ec7b93d25d5c7ad546a2a55de6fe76094db22f887842a6",
+      "verification_method": "CVE List v5 MITRE record",
+      "result": "PASS",
+      "supports": [
+        "CVE published 2021-12-07T22:55:40, state PUBLISHED, assigner mitre",
+        "CNA description: in Django 2.2 before 2.2.25, 3.1 before 3.1.14 and 3.2 before 3.2.10, HTTP requests for URLs with trailing newlines could bypass upstream access control based on URL paths",
+        "CNA has no CVSS metric and no CWE",
+        "references include the Django security releases page and the oss-security post"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_nvd",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/nvd_CVE-2021-44420.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2021-44420",
+      "retrieved_at": "2026-10-22T03:52:00Z",
+      "sha256_of_observation": "abc4a18c965a26884d26a0076a8c0157c33e7d21613931af4e994dec3b44a836",
+      "verification_method": "NVD 2.0 API",
+      "result": "PASS",
+      "supports": [
+        "NVD status Modified, published 2021-12-08T00:15:07",
+        "NVD Primary CVSS 3.1 7.3 HIGH CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:L/A:L",
+        "legacy CVSS 2.0 7.5",
+        "weakness NVD-CWE-Other (no specific CWE assigned)",
+        "CPE ranges >=2.2,<2.2.25; >=3.1,<3.1.14; >=3.2,<3.2.10 (no 3.0.x range)"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_osv_ghsa",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/osv_GHSA-v6rh-hp5x-86rv.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-v6rh-hp5x-86rv",
+      "retrieved_at": "2026-10-22T03:52:00Z",
+      "sha256_of_observation": "2c37da9e121a7ccfe13d8196c4869808436fca880f31e8b97d3f633611969570",
+      "verification_method": "OSV API query by GHSA id; response cached",
+      "result": "PASS",
+      "supports": [
+        "GHSA aliases BIT-django-2021-44420, CVE-2021-44420, PYSEC-2021-439",
+        "PyPI ranges: introduced 2.2a1 fixed 2.2.25; introduced 3.0a1 fixed 3.1.14; introduced 3.2a1 fixed 3.2.10",
+        "the 3.0a1-3.1.14 range covers snapshot 3.0.2",
+        "CVSS 3.1 vector identical to NVD and CVSS_V4 AV:N/AC:L/AT:N/PR:N/UI:N/VC:L/VI:L/VA:L",
+        "database_specific severity MODERATE and cwe_ids [CWE-287]"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_git_checks",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/git_object_checks.txt",
+      "source_url": "https://github.com/django/django/commit/22bd17488159601bf0741b70ae7932bffea8eced",
+      "retrieved_at": "2026-10-22T04:35:00Z",
+      "sha256_of_observation": "d8b529e0dfb85ebd5429721d16c59f9b15f1436e6cca856375fe2b8997314102",
+      "verification_method": "tag reads and exact-SHA fetches in a bare mirror; git ls-tree / cat-file / diff; blob ids compared across 3.0.2, 3.0.14, 3.1.13, 3.1.14, 3.2.10, 2.2.25",
+      "result": "PASS",
+      "supports": [
+        "annotated tag 3.0.2 peels to a3697439",
+        "3.0.2 resolvers.py blob is 19d0d989 (677 lines) with re.search at line 156 and parts.append('$') at line 243",
+        "3.0.14 resolvers.py blob is identical to 3.0.2, so the 3.0.x line received no fix",
+        "3.1.13 blob e565d34b is pre-fix; 3.1.14 blob abf0a115 has fullmatch at line 157 and \\Z at line 247",
+        "backports 22bd1748 (3.1.x), 333c6560 (3.2.x), 7cf7d74e (2.2.x) and mainline d4dcd5b9 carry the same two hunks",
+        "release commits 840bebf1 (3.1.14), 0153a63a (3.2.10), 79d8dcef (2.2.25) are direct children of their branch fixes",
+        "the 3.0.2 test file has no test_path_trailing_newlines; 3.1.14 adds it at line 150",
+        "published ranges disagree on 3.0.x: CNA/NVD start at 3.1, OSV starts at 3.0a1"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_vuln_file",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/resolvers_3.0.2.py",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/urls/resolvers.py#L156",
+      "retrieved_at": "2026-10-22T04:20:00Z",
+      "sha256_of_observation": "f4583e6568fe5d306b6d0ac32676692d67b34ab3c337a82f21a0deafcae21ff2",
+      "verification_method": "file read at the 3.0.2 commit (git show 3.0.2:django/urls/resolvers.py)",
+      "result": "PASS",
+      "supports": [
+        "vulnerable root-cause line 156: match = self.regex.search(path) in RegexPattern.match",
+        "line 165 returns path[match.end():], i.e. the unconsumed trailing newline",
+        "_route_to_regex appends '$' for endpoints at line 243",
+        "URLResolver.resolve delegates to self.pattern.match(path) at line 541"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_prefix_3_1_13",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/resolvers_3.1.13.py",
+      "source_url": "https://github.com/django/django/blob/43873b9c92cfe68a082c7feda86f6fb95a3e902c/django/urls/resolvers.py#L156",
+      "retrieved_at": "2026-10-22T04:20:00Z",
+      "sha256_of_observation": "cb38b568c29066da710653aa0a5e9a1acfa6e08d3bad476003f93fdb0ad538ee",
+      "verification_method": "file read at the 3.1.13 commit",
+      "result": "PASS",
+      "supports": [
+        "3.1.13, the release immediately before the 3.1.14 fix, still uses re.search at line 156",
+        "it still appends '$' at line 243",
+        "the match method is identical to 3.0.2, which is the basis for treating the snapshot as affected"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fixed_3_1_14",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/resolvers_3.1.14.py",
+      "source_url": "https://github.com/django/django/blob/840bebf1eef1c2a373158262cdfec611dc535658/django/urls/resolvers.py#L157",
+      "retrieved_at": "2026-10-22T04:20:00Z",
+      "sha256_of_observation": "41adff62808cc8db49ef7c48d75ddc1883a972aebde3286993c75b6ab8c8b9af",
+      "verification_method": "file read at the 3.1.14 commit",
+      "result": "PASS",
+      "supports": [
+        "RegexPattern.match uses self.regex.fullmatch(path) when _is_endpoint and the pattern ends with '$' (line 157)",
+        "_route_to_regex appends r'\\Z' instead of '$' (line 247)",
+        "otherwise the method is unchanged"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fixed_3_2_10",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/resolvers_3.2.10.py",
+      "source_url": "https://github.com/django/django/blob/0153a63a674937e4a56d9d5e4ca2d629b011fbde/django/urls/resolvers.py#L158",
+      "retrieved_at": "2026-10-22T04:20:00Z",
+      "sha256_of_observation": "e4d1357bda9b3190c03b97fed9d7e7ccd20f41839694e3e24d7a11e617c96d5f",
+      "verification_method": "file read at the 3.2.10 commit",
+      "result": "PASS",
+      "supports": [
+        "fullmatch at line 158 and r'\\Z' at line 251",
+        "the same fix is present on the 3.2 branch"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fixed_2_2_25",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/resolvers_2.2.25.py",
+      "source_url": "https://github.com/django/django/blob/79d8dcefb2739176839fa76f8780aca5aa9b7101/django/urls/resolvers.py#L151",
+      "retrieved_at": "2026-10-22T04:20:00Z",
+      "sha256_of_observation": "b30bf267feaa58edb18c072dfa3431d156469e0b99bd2d0f59928a0ecf8ca96c",
+      "verification_method": "file read at the 2.2.25 commit",
+      "result": "PASS",
+      "supports": [
+        "fullmatch at line 151 and r'\\Z' at line 237",
+        "the same fix is present on the 2.2 LTS branch"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_regression_test",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/test_urlpatterns_3.1.14.py",
+      "source_url": "https://github.com/django/django/blob/840bebf1eef1c2a373158262cdfec611dc535658/tests/urlpatterns/tests.py#L150-L162",
+      "retrieved_at": "2026-10-22T04:20:00Z",
+      "sha256_of_observation": "f9645cc3bdab9bd154c9c312ae8f83804f5126fc30ce5d17f515a38a25a59f8f",
+      "verification_method": "file read at the 3.1.14 commit",
+      "result": "PASS",
+      "supports": [
+        "test_path_trailing_newlines at line 150 resolves '/articles/2003/\\n', '/articles/2010/\\n', '/en/foo/\\n', '/included_urls/extra/\\n', '/regex/1/\\n' and '/users/1/\\n'",
+        "each case asserts Resolver404, i.e. the trailing-newline path must no longer resolve"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_test_3_0_2",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/test_urlpatterns_3.0.2.py",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/tests/urlpatterns/tests.py",
+      "retrieved_at": "2026-10-22T04:20:00Z",
+      "sha256_of_observation": "adfdacb19bc4f9bda282998bc366d90f8298c5ac8f5344997b87cf2fee976206",
+      "verification_method": "file read at the 3.0.2 commit",
+      "result": "PASS",
+      "supports": [
+        "the 3.0.2 urlpatterns tests contain no test_path_trailing_newlines",
+        "no test asserts Resolver404 for a trailing-newline path at 3.0.2"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_fix_patch",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/fix_commit_d4dcd5b9.patch",
+      "source_url": "https://github.com/django/django/commit/d4dcd5b9dd9e462fec8220e33e3e6c822b7e88a6",
+      "retrieved_at": "2026-10-22T03:53:00Z",
+      "sha256_of_observation": "695a37977287c1e7de376dd88f70fe74e3c012e7707e0de56ba7356cf5037356",
+      "verification_method": "GitHub commit .patch download",
+      "result": "PASS",
+      "supports": [
+        "the mainline fix changes RegexPattern.match to fullmatch for '$'-ending endpoints",
+        "it changes _route_to_regex to append \\Z",
+        "it adds the regression test and release-note sections for 2.2.25/3.1.14/3.2.10",
+        "the release notes call the issue severity 'low'"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_unfixed_3_0_14",
+      "artifact_path": "runs/verification/django_cve_2021_44420/sources/resolvers_3.0.14.py",
+      "source_url": "https://github.com/django/django/blob/f52800243545af658c27f83623b5fc72ae6b8dcf/django/urls/resolvers.py#L156",
+      "retrieved_at": "2026-10-22T04:30:00Z",
+      "sha256_of_observation": "f4583e6568fe5d306b6d0ac32676692d67b34ab3c337a82f21a0deafcae21ff2",
+      "verification_method": "file read at the 3.0.14 commit",
+      "result": "PASS",
+      "supports": [
+        "3.0.14 (last 3.0.x release, 2021-04-06) resolvers.py is byte-identical to 3.0.2",
+        "re.search is still at line 156 and the '$' anchor at line 243",
+        "the 3.0.x line never received a fix because it was end-of-life; the first fixed releases are 3.1.14, 3.2.10 and 2.2.25"
+      ]
+    },
+    {
+      "evidence_id": "ev_django_snapshot",
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "retrieved_at": "2026-10-21T14:17:32Z",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree",
+      "result": "PASS",
+      "supports": [
+        "snapshot_id snap_ab695ba3db678939, tag_or_release 3.0.2, vulnerable_commit a3697439",
+        "6163 tracked files scanned, git tree oid ec5992e4",
+        "Python first-party 815 files / 4,480,847 bytes / 15.24% share"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [2, 0, 1],
+    "aliases": [0, 2],
+    "critical_operation": [4, 5],
+    "cwe": [2],
+    "fix_commits": [3, 11],
+    "fixed_releases": [3, 6, 7, 8],
+    "languages": [13],
+    "severity": [1, 2],
+    "vulnerable_commit": [3, 4, 13]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-v6rh-hp5x-86rv and CVE-2021-44420, PyPI ranges)",
+      "CVE List v5 MITRE record",
+      "NVD analysis (Primary CVSS 3.1, NVD-CWE-Other)",
+      "upstream git history and Django release notes (fixes d4dcd5b9/22bd1748/333c6560/7cf7d74e, releases 3.1.14/3.2.10/2.2.25)"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA (mitre) gives the affected versions and description but no CVSS and no CWE. NVD supplies its own Primary CVSS 3.1 7.3 HIGH and NVD-CWE-Other, so it is an independent assessment. OSV repeats the same CVSS 3.1 vector and adds a CVSS 4.0 vector, but sets its database severity to MODERATE and assigns CWE-287; Django's own release notes call the issue 'low'. The published severity levels therefore do not agree (HIGH vs MODERATE vs low), and the affected-range lower bound for the 3.x line differs: the CNA text and NVD CPE start at 3.1, while OSV starts at 3.0a1. The git evidence shows the same vulnerable code at 3.0.2, 3.0.14 and 3.1.13, and the fix only on the branches that received a release, so the snapshot is affected at the code level even though 3.0.x is absent from the CNA/NVD range text and had no fixed release.",
+    "severity_disagreement": true
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read django/urls/resolvers.py at 3.0.2 and confirm RegexPattern.match applies the endpoint regex with re.search and that _route_to_regex appends '$'.",
+      "An independent reviewer must confirm that request.path_info can carry a trailing newline and that the resolved view is reached while an upstream path-based control would not allow it.",
+      "An independent reviewer must confirm the backports 22bd1748/333c6560/7cf7d74e are the fixes, that 3.1.14/3.2.10/2.2.25 contain them, and that 3.0.14 is still unfixed.",
+      "An independent reviewer must resolve the published severity conflict (NVD HIGH 7.3 vs GHSA MODERATE vs Django 'low') and the 3.0.x affected-range difference; severity_consistent must be false if the levels are not reconciled.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No code was executed and no HTTP request was made: the trailing-newline acceptance is read from the regex semantics, the resolver code and the regression test, not reproduced.",
+    "The CNA text and NVD CPE do not list a 3.0.x range; only OSV does (introduced 3.0a1). The snapshot is treated as affected because the vulnerable code is identical at 3.0.2 and 3.1.13 and 3.0.14 is still unfixed, but the published range text disagrees.",
+    "The published severity levels conflict: NVD HIGH 7.3, GHSA MODERATE, Django release notes 'low'. No level was chosen by coercion; the dossier records the NVD level and the conflict.",
+    "Exploitability depends on a deployment that puts a path-based access control in front of Django and on that layer disagreeing about the trailing-newline path; the library-level defect is that the resolver accepts such a path.",
+    "The 3.0.x line never received a fixed release (3.0.14 still carries blob 19d0d989), so users of this snapshot must upgrade to 3.1.14/3.2.10 or later; the dataset records the flaw at 3.0.2 without a same-line fixed release.",
+    "The mainline fix commit d4dcd5b9 is used only for the diff and release notes; the 4.0.1 release tag was not fetched, so the 4.0 fix is not content-verified here.",
+    "The advisory gives no reporter or reproduction reference beyond the oss-security post, so no independent reproduction is available and grade A is not attainable."
+  ],
+  "open_questions": [
+    "Which WSGI servers and proxies normalize or reject percent-encoded newlines in PATH_INFO differently was not surveyed; the advisory's bypass premise depends on that difference.",
+    "Whether the CNA intentionally omitted 3.0.x because it was end-of-life, rather than because the code was unaffected, is not stated; OSV's range and the code identity point to affected but unsupported.",
+    "Whether any 3.0.x downstream backport added the same fix without an upstream tag was not checked."
+  ]
+}

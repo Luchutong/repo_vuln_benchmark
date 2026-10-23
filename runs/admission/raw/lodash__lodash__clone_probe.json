@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/lodash/lodash.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:33.530944+00:00", "elapsed_seconds": 1.177, "response": {"returncode": 0, "stdout": "2b5e6f7399a7b48005140b5d5c6bc6c0e62919a8\tHEAD\n", "stderr": ""}}

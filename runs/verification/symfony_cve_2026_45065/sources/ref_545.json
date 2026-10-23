@@ -1,0 +1,10 @@
+{
+  "ref": "refs/tags/v5.4.45",
+  "node_id": "MDM6UmVmNDU4MDU4OnJlZnMvdGFncy92NS40LjQ1",
+  "url": "https://api.github.com/repos/symfony/symfony/git/refs/tags/v5.4.45",
+  "object": {
+    "sha": "a19172db79078b67b622f5872a65cb6b6a5bbab1",
+    "type": "tag",
+    "url": "https://api.github.com/repos/symfony/symfony/git/tags/a19172db79078b67b622f5872a65cb6b6a5bbab1"
+  }
+}

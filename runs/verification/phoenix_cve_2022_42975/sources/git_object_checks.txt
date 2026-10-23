@@ -1,0 +1,44 @@
+Repository: https://github.com/phoenixframework/phoenix
+Bare fetch: git init --bare /tmp/phoenix.git; exact-SHA fetches + refs/tags/v1.6.13,v1.6.14
+Proxy: http://172.21.96.1:7890
+
+vulnerable release
+  tag refs/tags/v1.6.13 is annotated (tag object f0425c1210848f3d8c051298965ec013818c26b5)
+  peels to commit 6234b576b94476f285a3397c0a9c5a610d1cdb67
+  date 2022-09-29T15:40:23-04:00 "Release 1.6.13"
+  tree 0070a4e590184be0cbb8eb9b12b4ebd652fda947
+  tracked files: 429 (matches snapshot enumeration)
+
+fixed release
+  tag refs/tags/v1.6.14 is annotated (tag object 86bbcbf10b54bf4aba0b731232e33b62513a4df8)
+  peels to commit 50b4854124fc52cfa4666b2e555f984532d372e9
+  date 2022-10-10T10:35:46-04:00 "Release 1.6.14"
+
+advisory-referenced fix commit
+  6e7185b33a59e0b1d1c0b4223adf340a73e963ae 2022-10-10T11:13:01-04:00
+  "Fix wildcard check_origin vulnerability."
+  parent f103409c06974b1f4ad8e0eb2923f43aa638c324
+  git merge-base --is-ancestor 6e7185b 50b4854 (v1.6.14) -> exit 1 (NO)
+  This is the mainline fix shape; it is NOT in the 1.6.14 release tag history.
+
+release-line fix commit (used as canonical fix commit)
+  b2fc631f00267cd58255cffd5b12f8206e3cabae 2022-10-10T09:52:04-04:00
+  "Fix wildcard check_origin vulnerability."
+  tree of parent release: lib/phoenix/socket/transport.ex blob 646e6d1 (same blob as v1.6.13)
+  git merge-base --is-ancestor b2fc631 50b4854 (v1.6.14) -> exit 0 (YES)
+  git merge-base --is-ancestor b2fc631 6234b57 (v1.6.13) -> exit 1 (NO)
+  diff is identical to 6e7185b in the affected hunk:
+    - do: String.ends_with?(request_host, allowed_host)
+    + do: request_host == allowed_host or String.ends_with?(request_host, "." <> allowed_host)
+  and adds regression tests in test/phoenix/socket/transport_test.exs.
+
+history between v1.6.13 and v1.6.14
+  50b4854 Release 1.6.14
+  b2fc631 Fix wildcard check_origin vulnerability.
+
+interpretation
+  The advisory (GHSA-p8f7-22gq-m7j9 / CVE-2022-42975) cites only the mainline commit
+  6e7185b, which is not an ancestor of the fixed 1.6.14 tag. The release was cut from the
+  1.6 branch and contains an equivalent commit b2fc631. Both facts are recorded; the
+  dossier declares b2fc631 as the fix commit for the verified 1.6.14 release and keeps
+  6e7185b as the advisory-cited mainline equivalent.

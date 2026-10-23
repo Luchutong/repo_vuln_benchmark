@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/elixir-plug/plug.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:30.750943+00:00", "elapsed_seconds": 1.083, "response": {"returncode": 0, "stdout": "05bde7066c373cc47390281d0f698029a725521b\tHEAD\n", "stderr": ""}}

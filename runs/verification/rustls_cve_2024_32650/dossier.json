@@ -1,0 +1,354 @@
+{
+  "candidate_id": "adv3_941597405a14df2a",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/rustls_cve_2024_32650/sources/osv_ghsa.json",
+      "evidence_id": "ev_rustls_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:40:00Z",
+      "sha256_of_observation": "c5ba27c1c34166855e2775ba19429a85d1ad6fe270c4814c732e85abe693d598",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-6g7w-8wpp-frhj",
+      "supports": [
+        "GHSA aliases CVE-2024-32650 and RUSTSEC-2024-0336",
+        "crates.io rustls ranges 0.23.0<0.23.5, 0.22.0<0.22.4, 0.21.0<0.21.11",
+        "CVSS 3.1 7.5 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "CWE-835 in database_specific",
+        "advisory references commits 2123576, 6e938bc and f45664f"
+      ],
+      "verification_method": "OSV API query by GHSA id; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/rustls_cve_2024_32650/sources/cve_v5.json",
+      "evidence_id": "ev_rustls_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:40:00Z",
+      "sha256_of_observation": "e3084d51dc3a05d79009d2ef5f5e309f53b883d5ac68fb237f878e1329b73d4b",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-32650",
+      "supports": [
+        "CVE published 2024-04-19, state PUBLISHED, assigner GitHub_M",
+        "CNA CVSS 3.1 7.5 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+        "CNA CWE-835",
+        "CNA references the advisory and the three 0.23-line commits"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/rustls_cve_2024_32650/sources/nvd_cve.json",
+      "evidence_id": "ev_rustls_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:40:00Z",
+      "sha256_of_observation": "719054d035081fe486b862fb6baa7f5a9bb09377c4de900cfe567b11e5dda16f",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-32650",
+      "supports": [
+        "NVD holds only a Secondary (GitHub) CVSS 3.1 7.5 HIGH metric",
+        "CWE-835 from the GitHub secondary source",
+        "no independent NVD analyst assessment is present"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/rustls_cve_2024_32650/sources/git_object_checks.txt",
+      "evidence_id": "ev_rustls_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:44:00Z",
+      "sha256_of_observation": "9d57ee6471ae6eb05b22c7f5071b31a43314b7dfa17e7319662e24ce70cc3278",
+      "source_url": "https://github.com/rustls/rustls/commit/6e938bcfe82a9da7a2e1cbf10b928c7eca26426e",
+      "supports": [
+        "tags v/0.23.4 and v/0.23.5 are lightweight and point at 1dee8b13 and 14cb5d2e",
+        "6e938bc, 2123576 and f45664f are ancestors of v/0.23.5",
+        "6e938bc and 2123576 are absent from v/0.23.4",
+        "5374108 is the 0.22-line fix and is not an ancestor of 0.23.5",
+        "ebcb478 is neither in 0.22.4 nor in 0.23.5"
+      ],
+      "verification_method": "exact-SHA and tag fetch into a bare repository; git merge-base --is-ancestor in both directions; git log"
+    },
+    {
+      "artifact_path": "runs/verification/rustls_cve_2024_32650/sources/conn_0.23.4.rs",
+      "evidence_id": "ev_rustls_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:38:00Z",
+      "sha256_of_observation": "1db73957c70540fc7dd71c408a1b5f1ec0bf722120658599f46561f568292cfa",
+      "source_url": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L544-L610",
+      "supports": [
+        "vulnerable root-cause region",
+        "complete_io loops without a no-progress guard",
+        "the final match has a catch-all (..) => {} arm that loops again",
+        "a state with wants_read=false, wants_write=false, eof=false and is_handshaking=true never exits"
+      ],
+      "verification_method": "file read at the 0.23.4 commit"
+    },
+    {
+      "artifact_path": "runs/verification/rustls_cve_2024_32650/sources/conn_0.23.5.rs",
+      "evidence_id": "ev_rustls_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:38:00Z",
+      "sha256_of_observation": "f172a4a07fab2a8cd3e45e7530d731f55dae54fc40fd432bee1d35fb9c98dc2c",
+      "source_url": "https://github.com/rustls/rustls/blob/14cb5d2eac709f6c9bd46c697f090bb1f1543db1/rustls/src/conn.rs#L553-L562",
+      "supports": [
+        "fixed release content",
+        "complete_io returns Ok((rdlen, wrlen)) when neither read nor write is possible",
+        "the guard is inserted at the top of the loop, before any IO"
+      ],
+      "verification_method": "file read at the 0.23.5 commit"
+    },
+    {
+      "artifact_path": "runs/verification/rustls_cve_2024_32650/sources/regression_test_2123576.diff",
+      "evidence_id": "ev_rustls_tests",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:44:00Z",
+      "sha256_of_observation": "aba90df7f6eba482d5d5626344b7cd36b0635d7e7c823f4cb83bca7a82601267",
+      "source_url": "https://github.com/rustls/rustls/commit/2123576840aa31043a31b0770e6572136fbe0c2d",
+      "supports": [
+        "upstream regression test test_complete_io_errors_if_close_notify_received_too_early",
+        "input is a ClientHello immediately followed by a close_notify alert",
+        "expected result is io::ErrorKind::UnexpectedEof"
+      ],
+      "verification_method": "diff read at commit 2123576; the test was not executed"
+    },
+    {
+      "artifact_path": "runs/language/snap_b3a6891886ef2160/snapshot_proposal.json",
+      "evidence_id": "ev_rustls_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T15:37:00Z",
+      "sha256_of_observation": "94edbc8248e13e56f80cfb80ebfb4a51b6b1757c535ba209799d00667d0bff95",
+      "source_url": "https://github.com/rustls/rustls/tree/1dee8b13134d877ade94dda7b68c7bf072e18d62",
+      "supports": [
+        "snapshot_id and 890-file inventory",
+        "Rust first-party 117 files / 1,297,723 bytes / 16.08% of first-party text",
+        "tree oid a5b44897",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "fix_commits": [
+      3
+    ],
+    "fixed_releases": [
+      3,
+      5
+    ],
+    "languages": [
+      7
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      3,
+      4
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "The advisory includes a Python PoC; it was not executed, and no connection to a rustls server was made. The finding is static.",
+    "Only the 0.23 release line is verified here. OSV also lists 0.22.0<0.22.4 and 0.21.0<0.21.11; the 0.22 fix 5374108 was checked for ancestry but the 0.21 commit ebcb478 could not be tied to a fetched tag.",
+    "f45664f is listed as a fix commit because the advisory cites it, but the primary infinite-loop fix is 6e938bc; the exact contribution of f45664f to the tested input was not separately demonstrated.",
+    "NVD carries no independent analysis: CVSS and CWE come from the GitHub secondary source.",
+    "The regression test was read but not executed; no dynamic red/green result is claimed."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "        loop {\n            let until_handshaked = self.is_handshaking();\n\n            while self.wants_write() {\n                wrlen += self.write_tls(io)?;\n            }\n            io.flush()?;\n\n            if !until_handshaked && wrlen > 0 {\n                return Ok((rdlen, wrlen));\n            }\n\n            while !eof && self.wants_read() {",
+      "description": "complete_io loops until the handshake completes or an error occurs. When the peer sends a ClientHello followed immediately by a close_notify alert, process_new_packets() consumes the alert, leaving is_handshaking() true while wants_read() and wants_write() are both false and eof is still false. None of the return arms at the bottom of the loop match: `(_, true, false)` needs the handshake to be finished, `(true, true, true)` needs eof, so `(..) => {}` falls through and the loop repeats forever, pinning a thread at 100% CPU. The 0.23.5 fix adds `if !self.wants_write() && !self.wants_read() { return Ok((rdlen, wrlen)); }` at the top of the loop, so a state that cannot progress returns instead of spinning. The upstream regression test feeds exactly this ClientHello+close_notify byte sequence and expects io::ErrorKind::UnexpectedEof.",
+      "file": "rustls/src/conn.rs",
+      "function": "ConnectionCommon::complete_io",
+      "language": "Rust",
+      "line": "544-610",
+      "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L544-L610"
+    },
+    "entry_point": {
+      "description": "complete_io is the public blocking-IO driver used by rustls::Stream and rustls::StreamOwned. It is called after a blocking read or write and is responsible for driving the handshake; it is the first-and-only entry point for the affected path, and the advisory states that tokio-rustls and rustls-ffi do not call it and are not affected.",
+      "file": "rustls/src/conn.rs",
+      "function": "ConnectionCommon::complete_io",
+      "language": "Rust",
+      "line": 544,
+      "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L544"
+    },
+    "location_id": "loc_CVE_2024_32650_snap_b3a6891886ef2160",
+    "location_kind": "logic",
+    "snapshot_id": "snap_b3a6891886ef2160",
+    "trace": [
+      {
+        "description": "Handshake state is captured at the top of each iteration",
+        "file": "rustls/src/conn.rs",
+        "function": "ConnectionCommon::complete_io",
+        "language": "Rust",
+        "line": 554,
+        "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L554"
+      },
+      {
+        "description": "Read loop is skipped because wants_read() is false after the alert",
+        "file": "rustls/src/conn.rs",
+        "function": "ConnectionCommon::complete_io",
+        "language": "Rust",
+        "line": 565,
+        "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L565"
+      },
+      {
+        "description": "process_new_packets consumes the close_notify and returns Ok",
+        "file": "rustls/src/conn.rs",
+        "function": "ConnectionCommon::complete_io",
+        "language": "Rust",
+        "line": 583,
+        "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L583"
+      },
+      {
+        "description": "State tuple (false, true, true) matches no return arm",
+        "file": "rustls/src/conn.rs",
+        "function": "ConnectionCommon::complete_io",
+        "language": "Rust",
+        "line": 603,
+        "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L603"
+      },
+      {
+        "description": "Catch-all arm falls through and the loop restarts without progress",
+        "file": "rustls/src/conn.rs",
+        "function": "ConnectionCommon::complete_io",
+        "language": "Rust",
+        "line": 607,
+        "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/conn.rs#L607"
+      }
+    ],
+    "verification_method": "Static read of conn.rs at 0.23.4 and 0.23.5, plus the fix diff and regression-test diff. No code executed.",
+    "vulnerability_id": "CVE-2024-32650"
+  },
+  "open_questions": [
+    "Whether a client that sends a complete ClientHello (not the truncated test vector) followed by close_notify reaches the same state was not traced byte by byte.",
+    "The 0.21-line commit ebcb478 could not be tied to a fetched release tag.",
+    "Whether non-blocking users can hit the loop through Stream/Split wrappers was not evaluated."
+  ],
+  "prepared_at": "2026-10-21T15:46:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/rustls/rustls",
+    "full_name": "rustls/rustls",
+    "primary_language": "Rust",
+    "project_kind": "TLS implementation library",
+    "repo_id": "57920736",
+    "snapshot_id": "snap_b3a6891886ef2160"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read conn.rs at 0.23.4 and confirm complete_io can loop without progress.",
+      "An independent reviewer must confirm 6e938bc is in 0.23.5 and not in 0.23.4.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-6g7w-8wpp-frhj, crates.io ranges)",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "upstream git history"
+    ],
+    "independent_of_primary": true,
+    "notes": "CVE v5 (assigner GitHub_M) supplies CVSS 3.1 7.5 and CWE-835, and references the advisory plus 2123576, 6e938bc and f45664f. NVD has only a Secondary metric copied from security-advisories@github.com and the same CWE, so it is a mirror, not an independent corroboration. OSV metadata matches the CNA and adds RUSTSEC-2024-0336; its crates.io ranges cover 0.21, 0.22 and 0.23, but this dossier only verifies the 0.23.0<0.23.5 range because that fix commit could be tied to tag v/0.23.5.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/rustls/rustls/security/advisories/GHSA-6g7w-8wpp-frhj",
+    "affected_packages": [
+      {
+        "affected_range": ">=0.23.0,<0.23.5",
+        "ecosystem": "crates.io",
+        "package": "rustls",
+        "purl": "pkg:cargo/rustls"
+      }
+    ],
+    "aliases": [
+      "CVE-2024-32650",
+      "GHSA-6g7w-8wpp-frhj",
+      "RUSTSEC-2024-0336"
+    ],
+    "category_l1": "availability",
+    "category_l2": "infinite loop on early close_notify",
+    "cwe_ids": [
+      "CWE-835"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "0.23",
+        "message": "complete_io: bail out if progress is impossible",
+        "sha": "6e938bcfe82a9da7a2e1cbf10b928c7eca26426e",
+        "url": "https://github.com/rustls/rustls/commit/6e938bcfe82a9da7a2e1cbf10b928c7eca26426e"
+      },
+      {
+        "branch": "0.23",
+        "message": "Regression test for `complete_io` infinite loop bug",
+        "sha": "2123576840aa31043a31b0770e6572136fbe0c2d",
+        "url": "https://github.com/rustls/rustls/commit/2123576840aa31043a31b0770e6572136fbe0c2d"
+      },
+      {
+        "branch": "0.23",
+        "message": "Don't specially handle unauthenticated close_notify alerts",
+        "sha": "f45664fbded03d833dffd806503d3c8becd1b71e",
+        "url": "https://github.com/rustls/rustls/commit/f45664fbded03d833dffd806503d3c8becd1b71e"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "crates.io",
+        "package": "rustls",
+        "release_url": "https://github.com/rustls/rustls/releases/tag/v/0.23.5",
+        "tag": "v/0.23.5",
+        "verified_content": "At the v/0.23.5 commit complete_io returns Ok((rdlen, wrlen)) when neither wants_read nor wants_write is true; the v/0.23.4 version has no such guard and falls through the catch-all match arm.",
+        "version": "0.23.5"
+      }
+    ],
+    "published_at": "2024-04-19T16:05:44Z",
+    "references": [
+      "https://github.com/rustls/rustls/security/advisories/GHSA-6g7w-8wpp-frhj",
+      "https://github.com/rustls/rustls/commit/6e938bcfe82a9da7a2e1cbf10b928c7eca26426e",
+      "https://github.com/rustls/rustls/commit/2123576840aa31043a31b0770e6572136fbe0c2d",
+      "https://github.com/rustls/rustls/commit/f45664fbded03d833dffd806503d3c8becd1b71e",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-32650",
+      "https://rustsec.org/advisories/RUSTSEC-2024-0336.html"
+    ],
+    "repo_id": "57920736",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9); CNA and the NVD secondary metric agree.",
+      "score": 7.5,
+      "source": "CVE v5 CNA metric, mirrored by NVD secondary metric from security-advisories@github.com",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-32650",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_b3a6891886ef2160",
+    "source_type": "upstream_advisory",
+    "title": "rustls complete_io loops forever when a close_notify follows the ClientHello before 0.23.5",
+    "vulnerability_id": "CVE-2024-32650",
+    "vulnerable_commit": "1dee8b13134d877ade94dda7b68c7bf072e18d62",
+    "vulnerable_commit_basis": "lightweight tag v/0.23.4 points directly at 1dee8b13...; 0.23.4 is the last release before the advisory's fixed version 0.23.5",
+    "vulnerable_version": "0.23.4"
+  }
+}

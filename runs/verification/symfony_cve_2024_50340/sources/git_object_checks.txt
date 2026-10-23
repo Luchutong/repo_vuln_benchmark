@@ -1,0 +1,30 @@
+# commands and output
+$ git rev-parse v5.4.45^{}
+2b66d7d7d8129531229708ef708860844db91944
+$ git rev-parse v5.4.46^{}
+057d88bef2d18a10d3b0b8fb093332131dc58e2f
+$ git show -s a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa
+a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa 5ebc4c3c26afa1dec00578c0d86703b04f4a2b2f Tue Oct 15 10:18:46 2024 +0200 Do not read from argv on non-CLI SAPIs
+$ git merge-base --is-ancestor a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa v5.4.45^{}
+no
+$ git merge-base --is-ancestor a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa v5.4.46^{}
+yes
+$ git merge-base --is-ancestor a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa v6.4.13^{}
+no
+$ git merge-base --is-ancestor a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa v6.4.14^{}
+yes
+$ git merge-base --is-ancestor a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa v7.1.6^{}
+no
+$ git merge-base --is-ancestor a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa v7.1.7^{}
+yes
+$ git show -s 30810edc3f
+30810edc3fca986a72c4698c7eafe911771da4e9 99ef39e658dcbbef22b487f68b293fce7f8f66f7 a77b308c3f179ed7c8a8bc295f82b2d6ee3493fa Tue Nov 5 16:47:27 2024 +0100 security #cve-2024-50340 [Runtime] Do not read from argv on non-CLI SAPIs (wouterj)
+$ git log --oneline --grep=cve-2024-50340 v5.4.46
+30810edc3f security #cve-2024-50340 [Runtime] Do not read from argv on non-CLI SAPIs (wouterj)
+$ git diff --stat v5.4.45 v5.4.46 -- src/Symfony/Component/Runtime/
+ src/Symfony/Component/Runtime/SymfonyRuntime.php       |  6 +++++-
+ .../Component/Runtime/Tests/phpt/kernel-loop.phpt      |  4 ++--
+ src/Symfony/Component/Runtime/Tests/phpt/kernel.php    |  8 +++++---
+ src/Symfony/Component/Runtime/Tests/phpt/kernel.phpt   |  2 +-
+ .../Runtime/Tests/phpt/kernel_register_argc_argv.phpt  | 18 ++++++++++++++++++
+ 5 files changed, 31 insertions(+), 7 deletions(-)

@@ -1,0 +1,24 @@
+{
+  "key": "rails_activestorage",
+  "repository": "rails/rails",
+  "path": "activestorage/activestorage.gemspec",
+  "retrieved_at": "2026-10-21T10:56:18.874Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# frozen_string_literal: true\n\nversion = File.read(File.expand_path(\"../RAILS_VERSION\", __dir__)).strip\n\nGem::Specification.new do |s|\n  s.platform    = Gem::Platform::RUBY\n  s.name        = \"activestorage\"\n  s.version     = version\n  s.summary     = \"Local and cloud file storage framework.\"\n  s.description = \"Attach cloud and local files in Rails applications.\"\n\n  s.required_ruby_version = \">= 3.3.5\"\n\n  s.license = \"MIT\"\n\n  s.author   = \"David Heinemeier Hansson\"\n  s.email    = \"david@loudthinking.com\"\n  s.homepage = \"https://rubyonrails.org\"\n\n  s.files        = Dir[\"CHANGELOG.md\", \"MIT-LICENSE\", \"README.md\", \"lib/**/*\", \"app/**/*\", \"config/**/*\", \"db/**/*\"]\n  s.require_path = \"lib\"\n\n  s.metadata = {\n    \"bug_tracker_uri\"   => \"https://github.com/rails/rails/issues\",\n    \"changelog_uri\"     => \"https://github.com/rails/rails/blob/v#{version}/activestorage/CHANGELOG.md\",\n    \"documentation_uri\" => \"https://api.rubyonrails.org/v#{version}/\",\n    \"mailing_list_uri\"  => \"https://discuss.rubyonrails.org/c/rubyonrails-talk\",\n    \"source_code_uri\"   => \"https://github.com/rails/rails/tree/v#{version}/activestorage\",\n    \"rubygems_mfa_required\" => \"true\",\n  }\n\n  # NOTE: Please read our dependency guidelines before updating versions:\n  # https://edgeguides.rubyonrails.org/security.html#dependency-management-and-cves\n\n  s.add_dependency \"activesupport\", version\n  s.add_dependency \"actionpack\",    version\n  s.add_dependency \"activejob\",     version\n  s.add_dependency \"activerecord\",  version\n\n  s.add_dependency \"marcel\",    \"~> 2.0\"\nend\n",
+      "encoding": "utf-8",
+      "sha": "2916c334f55f0d19906a74ffbcf892bc5434779f",
+      "display_url": "https://github.com/rails/rails/blob/main/activestorage/activestorage.gemspec",
+      "display_title": "activestorage.gemspec"
+    },
+    "isError": false
+  }
+}

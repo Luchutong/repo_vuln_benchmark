@@ -1,0 +1,24 @@
+{
+  "key": "angular_common",
+  "repository": "angular/angular",
+  "path": "packages/common/package.json",
+  "retrieved_at": "2026-10-21T10:56:19.842Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/common\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - commonly needed directives and services\",\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"locales\": \"locales\",\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"exports\": {\n    \"./locales/global/*\": {\n      \"default\": \"./locales/global/*.js\"\n    },\n    \"./locales/*\": {\n      \"types\": \"./locales/*.d.ts\",\n      \"default\": \"./locales/*.js\"\n    }\n  },\n  \"peerDependencies\": {\n    \"@angular/core\": \"0.0.0-PLACEHOLDER\",\n    \"rxjs\": \"^6.5.3 || ^7.4.0\"\n  },\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"https://github.com/angular/angular.git\",\n    \"directory\": \"packages/common\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": [\n    \"**/global/*.js\",\n    \"**/closure-locale.*\"\n  ]\n}\n",
+      "encoding": "utf-8",
+      "sha": "6f9ea73f93ac7880d91407eb226d115cb3945283",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/common/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

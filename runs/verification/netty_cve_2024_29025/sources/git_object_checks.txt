@@ -1,0 +1,72 @@
+Repository: https://github.com/netty/netty
+Local mirror: /tmp/netty_vuln.git (partial mirror; tag netty-4.1.59.Final present,
+tag netty-4.1.108.Final fetched with --depth=1, fix commit 0d0c6ed fetched with --depth=2)
+
+Dataset snapshot: tag netty-4.1.59.Final, commit 97d044812dc84288ea2c44c0862c5b1c26cb5b2d.
+  runs/language/snap_bb344e672a0544ef/snapshot_proposal.json records
+  snapshot_id=snap_bb344e672a0544ef, repo_id=1064563,
+  tag_or_release=netty-4.1.59.Final, vulnerable_commit=97d044812dc84288ea2c44c0862c5b1c26cb5b2d.
+  runs/language/snap_bb344e672a0544ef/file_inventory.json records (commit 97d04481, 3117 entries):
+    codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostMultipartRequestDecoder.java
+      bytes=62393 git_oid=e67c0103d8e427b0c10722585bd2d6be570c7514 language=Java
+    codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java
+      bytes=28612 git_oid=37e41fa91763d28cff1051b2a8adb7cf713092e5 language=Java
+    codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostRequestDecoder.java
+      bytes=11908 git_oid=eb6bd792de4c6e1261c11c3c0eefe4109123a74e language=Java
+  $ git rev-parse netty-4.1.59.Final^{commit}
+  97d044812dc84288ea2c44c0862c5b1c26cb5b2d
+  $ git rev-parse netty-4.1.59.Final:codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostMultipartRequestDecoder.java
+  e67c0103d8e427b0c10722585bd2d6be570c7514
+  $ git rev-parse netty-4.1.59.Final:codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostStandardRequestDecoder.java
+  37e41fa91763d28cff1051b2a8adb7cf713092e5
+  $ git rev-parse netty-4.1.59.Final:codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostRequestDecoder.java
+  eb6bd792de4c6e1261c11c3c0eefe4109123a74e
+  All three match the snapshot inventory.
+
+Fix commit: 0d0c6ed782d13d423586ad0c71737b2c7d02058c
+  "Merge pull request from GHSA-5jpm-x58v-624v", 2024-03-21, parent d4a640d2.
+  $ git show -s --format='%H %P | %ci | %s' 0d0c6ed782d13d423586ad0c71737b2c7d02058c
+  0d0c6ed782d13d423586ad0c71737b2c7d02058c d4a640d23f228fde5b6d14dadaee05da33ca86cb | 2024-03-21 10:34:49 +0100 | Merge pull request from GHSA-5jpm-x58v-624v
+  The commit adds maxFields/maxBufferedBytes constructors and checks to
+  HttpPostMultipartRequestDecoder, HttpPostStandardRequestDecoder and
+  HttpPostRequestDecoder, plus HttpPostRequestDecoderTest cases.
+
+Fixed release:
+  tag netty-4.1.108.Final -> 3a3f9d13b129555802de5652667ca0af662f554e
+  GitHub compare API (https://api.github.com/repos/netty/netty/compare/
+  0d0c6ed782d13d423586ad0c71737b2c7d02058c...netty-4.1.108.Final) returns
+  status "ahead", ahead_by 9, behind_by 0, i.e. the fix commit is an ancestor of
+  the 4.1.108.Final tag. The local mirror cannot run merge-base across the
+  depth-1 tag, so this ancestry comes from the compare API and from the fixed
+  source blobs at the tag.
+  $ git rev-parse netty-4.1.108.Final:codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostRequestDecoder.java
+  b776d6dc25f2b3c37a0ced55589782e39ce5e2c7
+  (4.1.59 blob of the same file is eb6bd792de4...)
+  $ git rev-parse netty-4.1.59.Final:codec-http/src/main/java/io/netty/handler/codec/http/multipart/HttpPostRequestDecoder.java
+  eb6bd792de4c6e1261c11c3c0eefe4109123a74e
+
+Vulnerable code at the snapshot (4.1.59.Final):
+  HttpPostStandardRequestDecoder.addHttpData (lines 381-392) appends every parsed
+  field to bodyMapHttpData and bodyListHttpData with no count limit
+  (bodyListHttpData.add at line 391). offer (line 281) appends content to
+  undecodedChunk (289-302) with no buffered-bytes limit; parseBodyAttributes
+  creates a new attribute per form key (422, 429) and calls addHttpData (431).
+  HttpPostMultipartRequestDecoder has the same gaps: addHttpData (433-444,
+  bodyListHttpData.add at 443) and offer (319-340, undecodedChunk.writeBytes at
+  340). HttpPostRequestDecoder at 4.1.59 declares only
+  DEFAULT_DISCARD_THRESHOLD (line 38), no field/buffer maximum.
+
+Fixed code at 4.1.108.Final:
+  HttpPostRequestDecoder declares DEFAULT_MAX_FIELDS = 128 (line 40) and
+  DEFAULT_MAX_BUFFERED_BYTES = 1024 (line 42), and passes them to both decoders.
+  HttpPostStandardRequestDecoder.addHttpData throws TooManyFormFieldsException
+  when bodyListHttpData.size() >= maxFields (lines 432-433); offer throws
+  TooLongFormFieldException when undecodedChunk.readableBytes() >
+  maxBufferedBytes (lines 339-340). The multipart decoder carries the same two
+  checks.
+
+Affected range: CVE v5 CNA "< 4.1.108.Final"; GHSA-5jpm-x58v-624v SEMVER
+introduced 0, fixed 4.1.108.Final.
+
+No server, decoder or test was run; all checks are static reads of git objects,
+the fix patch and public records.

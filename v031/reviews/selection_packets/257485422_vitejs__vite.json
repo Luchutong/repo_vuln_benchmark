@@ -1,0 +1,297 @@
+{
+  "packet_id": "selrev_257485422_snap_2e50b228f2432623",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "257485422",
+    "full_name": "vitejs/vite",
+    "canonical_url": "https://github.com/vitejs/vite",
+    "primary_language": "TypeScript",
+    "project_kind": "Next generation frontend tooling. It's fast!"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_2e50b228f2432623",
+    "tag_or_release": "v5.0.11",
+    "commit_sha": "b44c49302ffbf0c82f984f6219ed6376d1e4552a"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "9340a33a2c31f63c9bebfd048f6061e1c03126f5",
+    "tree_file_count": 1780,
+    "exported_file_count": 1779,
+    "symlink_count": 1,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/vitejs__vite/snap_2e50b228f2432623.tar.gz",
+    "archive_sha256": "829b65288d58f8e66d67291f910e4c53e8dc5fae54ca5606843ef46d17386d63",
+    "archive_bytes": 10037263,
+    "manifest_path": "exports/vitejs__vite/snap_2e50b228f2432623.manifest.jsonl",
+    "manifest_sha256": "c5e147b6b48eabd1b54040b5b82709d2f941bef25a00acda2c71c4b841cea7a1"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/workflows/release-tag.yml",
+      "docs/releases.md",
+      "packages/create-vite/CHANGELOG.md",
+      "packages/plugin-legacy/CHANGELOG.md",
+      "packages/vite/CHANGELOG.md",
+      "scripts/release.ts",
+      "scripts/releaseUtils.ts"
+    ],
+    "cve_id_count": 1,
+    "cve_ids_sample": [
+      "CVE-2018-12121"
+    ],
+    "files_with_advisory_ids_count": 1,
+    "files_with_advisory_ids_sample": [
+      "docs/guide/troubleshooting.md"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/ISSUE_TEMPLATE/bug_report.yml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/ISSUE_TEMPLATE/docs.yml",
+      ".github/ISSUE_TEMPLATE/feature_request.yml",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/commit-convention.md",
+      ".github/issue-workflow-dark.png",
+      ".github/issue-workflow.excalidraw",
+      ".github/issue-workflow.png",
+      ".github/pr-workflow-dark.png",
+      ".github/pr-workflow.excalidraw",
+      ".github/pr-workflow.png",
+      ".github/renovate.json5",
+      ".github/workflows/ci.yml",
+      ".github/workflows/ecosystem-ci-trigger.yml",
+      ".github/workflows/issue-close-require.yml",
+      ".github/workflows/issue-labeled.yml",
+      ".github/workflows/lock-closed-issues.yml",
+      ".github/workflows/publish.yml",
+      ".github/workflows/release-tag.yml",
+      ".github/workflows/semantic-pull-request.yml",
+      "docs/releases.md",
+      "packages/create-vite/CHANGELOG.md",
+      "packages/plugin-legacy/CHANGELOG.md",
+      "packages/vite/CHANGELOG.md",
+      "scripts/release.ts",
+      "scripts/releaseUtils.ts"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "js_bundler": [
+        "vite.config.js",
+        "vite.config.ts"
+      ],
+      "node": [
+        "package.json",
+        "pnpm-workspace.yaml"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node",
+      "js_bundler"
+    ],
+    "toolchain_available": {
+      "js_bundler": {
+        "node": true,
+        "npm": true
+      },
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2024-31207",
+      "aliases": [
+        "CVE-2024-31207",
+        "GHSA-8jhw-289h-jh2g"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=5.0.0,<5.0.13",
+          "ecosystem": "npm",
+          "package": "vite",
+          "purl": "pkg:npm/vite"
+        }
+      ],
+      "published_at": "2024-04-04T15:51:54Z",
+      "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-8jhw-289h-jh2g",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 5.9,
+            "source": "GitHub_M CNA",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.9,
+            "source": "nvd@nist.gov (NVD Secondary, from security-advisories@github.com)",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "The GitHub_M CNA publishes CVSS 3.1 5.9 Medium and NVD's only metric is the same 5.9 Medium vector from security-advisories@github.com; the OSV/GHSA label is MODERATE with the same vector. No score conflict.",
+        "score": 5.9,
+        "source": "GitHub_M CNA and nvd@nist.gov (NVD Secondary), both CVSS 3.1 5.9 Medium",
+        "source_url": "https://github.com/vitejs/vite/security/advisories/GHSA-8jhw-289h-jh2g",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2024-45811",
+      "aliases": [
+        "CVE-2024-45811",
+        "GHSA-9cwx-2883-4wfx"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=5.0.0,<5.1.8",
+          "ecosystem": "npm",
+          "package": "vite",
+          "purl": "pkg:npm/vite"
+        }
+      ],
+      "published_at": "2024-09-17T20:08:11Z",
+      "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-9cwx-2883-4wfx",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 4.8,
+            "source": "CVE List v5 CNA (GitHub_M)",
+            "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 4.8,
+            "source": "NVD Secondary (security-advisories@github.com)",
+            "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 5.3,
+            "source": "GitHub advisory / OSV (computed base score for its own vector)",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "The CNA (GitHub_M) publishes 4.8 Medium and NVD carries that metric as its only, Secondary, metric (the record is Deferred with no NVD Primary analysis). The GitHub advisory publishes a different vector, CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N, which is 5.3 Medium, and also a CVSS 4.0 vector; both published CVSS 3.1 scores are Medium, so the level is consistent even though the vectors and scores differ.",
+        "score": 4.8,
+        "source": "CNA / NVD Secondary security-advisories@github.com 4.8 Medium; GitHub advisory (OSV) 5.3 Medium",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45811",
+        "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "CVE-2024-45812",
+      "aliases": [
+        "CVE-2024-45812",
+        "GHSA-64vr-g452-qvp3"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=5.0.0,<5.1.8",
+          "ecosystem": "npm",
+          "package": "vite",
+          "purl": "pkg:npm/vite"
+        }
+      ],
+      "published_at": "2024-09-17T19:28:01Z",
+      "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-64vr-g452-qvp3",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "medium",
+            "score": 6.4,
+            "source": "CVE List v5 CNA (GitHub_M)",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 6.4,
+            "source": "NVD Secondary (security-advisories@github.com)",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H",
+            "version": "3.1"
+          },
+          {
+            "level": "medium",
+            "score": 6.4,
+            "source": "GitHub advisory / OSV (same vector; database severity MODERATE)",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H",
+            "version": "3.1"
+          }
+        ],
+        "level": "medium",
+        "numeric_level_rationale": "The CNA (GitHub_M) publishes 6.4 Medium, NVD carries that same vector as its only (Secondary) metric, and the GitHub advisory publishes the same CVSS 3.1 vector (6.4) with database severity MODERATE; the advisory additionally lists a CVSS 4.0 vector. All published CVSS 3.1 scores are the same 6.4 Medium, so the level is consistent.",
+        "score": 6.4,
+        "source": "CNA / NVD Secondary 6.4 Medium; GitHub advisory (OSV) 6.4 with database severity MODERATE",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-45812",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:L/I:L/A:H",
+        "version": "3.1"
+      }
+    },
+    {
+      "vulnerability_id": "GHSA-c24v-8rfc-w8vw",
+      "aliases": [
+        "GHSA-c24v-8rfc-w8vw",
+        "CVE-2024-23331"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=5.0.0, <5.0.12",
+          "ecosystem": "npm",
+          "package": "vite",
+          "purl": "pkg:npm/vite"
+        }
+      ],
+      "published_at": "2024-01-19T19:43:17Z",
+      "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-c24v-8rfc-w8vw",
+      "severity": {
+        "level": "high",
+        "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9).",
+        "score": 7.5,
+        "source": "GitHub_M CNA metric; NVD primary carries the identical vector and score",
+        "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-23331",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

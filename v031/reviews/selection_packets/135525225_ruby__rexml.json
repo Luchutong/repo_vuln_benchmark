@@ -1,0 +1,120 @@
+{
+  "packet_id": "selrev_135525225_snap_23dff8507560a593",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "135525225",
+    "full_name": "ruby/rexml",
+    "canonical_url": "https://github.com/ruby/rexml",
+    "primary_language": "Ruby",
+    "project_kind": "REXML is an XML toolkit for Ruby"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_23dff8507560a593",
+    "tag_or_release": "v3.4.1",
+    "commit_sha": "bfb37e9ca4cb974c9bb2dc2f06e1202719d1bc4d"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "bfb37e9ca4cb974c9bb2dc2f06e1202719d1bc4d",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "5447f5cfb1d4a7a535effe53e32b052c95c4828a",
+    "tree_file_count": 196,
+    "exported_file_count": 196,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/ruby__rexml/snap_23dff8507560a593.tar.gz",
+    "archive_sha256": "e95bc2a56aa956abfdcfe60130f48dacf08270707a4e019908ee2c69241de203",
+    "archive_bytes": 462453,
+    "manifest_path": "exports/ruby__rexml/snap_23dff8507560a593.manifest.jsonl",
+    "manifest_sha256": "3b1ea2f3462b0f4afc35b947a19d828d9635dde516711977f2c86e2d57bef7d6"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/workflows/release.yml",
+      "NEWS.md"
+    ],
+    "cve_id_count": 1,
+    "cve_ids_sample": [
+      "CVE-2021-28965"
+    ],
+    "files_with_advisory_ids_count": 1,
+    "files_with_advisory_ids_sample": [
+      "NEWS.md"
+    ],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/dependabot.yml",
+      ".github/workflows/benchmark.yml",
+      ".github/workflows/release.yml",
+      ".github/workflows/test.yml",
+      "NEWS.md",
+      "lib/rexml/security.rb"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "ruby": [
+        "Gemfile",
+        "Rakefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "ruby"
+    ],
+    "toolchain_available": {
+      "ruby": {
+        "ruby": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2025-58767",
+      "aliases": [
+        "CVE-2025-58767",
+        "GHSA-c2f4-jgmc-q2r5"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">= 3.3.3, < 3.4.2",
+          "ecosystem": "RubyGems",
+          "package": "rexml",
+          "purl": "pkg:gem/rexml"
+        }
+      ],
+      "published_at": "2025-09-17T18:26:48Z",
+      "advisory_url": "https://github.com/ruby/rexml/security/advisories/GHSA-c2f4-jgmc-q2r5",
+      "severity": {
+        "level": "low",
+        "score": 1.2,
+        "source": "GitHub security advisory GHSA-c2f4-jgmc-q2r5 (CVSS v4.0); NVD records the same vector as a Secondary metric",
+        "source_url": "https://github.com/ruby/rexml/security/advisories/GHSA-c2f4-jgmc-q2r5",
+        "vector": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:N/VA:L/SC:N/SI:N/SA:N/E:U",
+        "version": "4.0"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

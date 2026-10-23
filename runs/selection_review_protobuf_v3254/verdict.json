@@ -1,0 +1,136 @@
+{
+  "review_id": "selrev_23357588_snap_442de86eb5fd3f62_2026-10-23",
+  "snapshot_id": "snap_442de86eb5fd3f62",
+  "repo_id": "23357588",
+  "full_name": "protocolbuffers/protobuf",
+  "reviewed_by": "selrev-independent-protobuf-v3254-2026-10-23",
+  "reviewed_at": "2026-10-22T18:44:07Z",
+  "verdict": "accept",
+  "tag_resolution": {
+    "tag": "v3.25.4",
+    "peeled_commit": "e915ce24b3d43c0fffcbf847354288c07dda1de0",
+    "matches": true,
+    "tag_type": "annotated",
+    "tag_object_sha": "54932116954e3a46fa8934f66478a3ca54ce730c",
+    "tagger": "Protobuf Release <protobuf-team@google.com> 1721841006 +0000 (2024-07-24T17:10:06Z)",
+    "tag_message": "Tag release v3.25.4",
+    "commit_date": "2024-07-24T15:17:14Z",
+    "commit_subject": "Updating version.json and repo version numbers to: 25.4",
+    "commit_tree_sha": "fafd76c831eb7f547d5d7fbae3aee0dbb32e01fc",
+    "tracked_file_count": 2708,
+    "tree_entry_count": 2711,
+    "gitlink_count": 3,
+    "is_stable_release": true,
+    "method": "git ls-remote --tags https://github.com/protocolbuffers/protobuf.git (annotated tag 5493211... -> peeled e915ce2...), shallow clone --branch v3.25.4, git cat-file -p on tag and commit, git ls-tree -r HEAD; version.json in tree declares protoc_version 25.4 with java 3.25.4. No branch named v3.25.4 exists (git ls-remote --heads). GitHub repository HTML meta tag reports repository_id 23357588."
+  },
+  "export_checks": {
+    "archive_sha256_matches": true,
+    "manifest_sha256_matches": true,
+    "no_git_metadata": true,
+    "counts_reconcile": true,
+    "archive_sha256_recomputed": "20e20c1ea1e6dd06878b61183064c4c206e1c64bb9d67727ab0d22db98451a79",
+    "archive_sha256_expected": "20e20c1ea1e6dd06878b61183064c4c206e1c64bb9d67727ab0d22db98451a79",
+    "manifest_sha256_recomputed": "72dc809605bdd945ccd34784e0153304f8198160d88454e3e2072246fe44fb7e",
+    "manifest_sha256_expected": "72dc809605bdd945ccd34784e0153304f8198160d88454e3e2072246fe44fb7e",
+    "archive_bytes": 5787439,
+    "manifest_bytes": 532072,
+    "archive_entries": 2708,
+    "tree_file_count": 2708,
+    "exported_file_count": 2708,
+    "symlink_count": 0,
+    "gitlink_count": 3,
+    "count_equation": "2708 blobs + 0 symlinks + 3 gitlinks = 2711 tree entries; recorded tree_file_count=2708 = exported_file_count=2708 + symlink_count=0 (the exporter defines tree_file_count as non-commit entries, with gitlinks counted separately in gitlink_count). Manifest has exactly 2708 entries, all type=file, all target=null; archive has exactly 2708 regular-file entries. All 2708 manifest sha256/size pairs match git blobs of commit e915ce2 byte-for-byte, and all 2708 extracted files match their manifest sha256. No manifest-only or archive-only paths; gitlinks absent from manifest and archive as intended. NOTE: the CLAIM's literal equation tree_file_count = exported_file_count + symlink_count + gitlink_count does not hold as written (2708 != 2711); this is a claim/definition wording error, not an integrity failure."
+  },
+  "build_ok": true,
+  "build_attempt": {
+    "commands": [
+      "export JAVA_HOME=/home/luchitong/.local/toolchain/jdk-17.0.20.1+1; export PATH=$JAVA_HOME/bin:$PATH",
+      "export https_proxy=http://172.21.96.1:7890 http_proxy=http://172.21.96.1:7890",
+      "export MAVEN_OPTS='-Dhttps.proxyHost=172.21.96.1 -Dhttps.proxyPort=7890 -Dhttp.proxyHost=172.21.96.1 -Dhttp.proxyPort=7890 -Xmx1g'",
+      "cp /tmp/pbrev/protoc-25.4/bin/protoc /tmp/selrev-pb/build/protoc && chmod +x /tmp/selrev-pb/build/protoc",
+      "cd /tmp/selrev-pb/build/java && /home/luchitong/.local/toolchain/apache-maven-3.9.16/bin/mvn -B -Dmaven.repo.local=/tmp/selrev-pb/m2 install -Dmaven.test.skip=true"
+    ],
+    "versions": "OpenJDK 17.0.20.1 (Temurin-17.0.20.1+1); Apache Maven 3.9.16 (2bdd9fddda4b155ebf8000e807eb73fd829a51d5); protoc libprotoc 25.4 (official protoc-25.4-linux-x86_64 release binary, sha256 22a39a40e542bf5c32429e157bcbde38a6a67a419191a5fd84c950abb46ba5da, identical to the local binary at /tmp/pbrev/protoc-25.4/bin/protoc)",
+    "exit_codes": "mvn exit code 0; reactor BUILD SUCCESS; 7/7 modules SUCCESS; 0 [ERROR] lines",
+    "observed": "Started 2026-10-22T18:41:42Z, finished 2026-10-22T18:43:13Z (Total time 01:30 min) using a fresh empty local repository and the tag's own java/pom.xml. Modules: BOM 1.282s, Parent 6.796s, Lite 16.284s, Core 11.332s, Util 2.420s, Kotlin-Core 20.704s, Kotlin-Lite 3.380s, all SUCCESS. An ant-run target invoked 'Running protoc ...' for source generation; /tmp/selrev-pb/m2/com/google/protobuf/protobuf-java/3.25.4/protobuf-java-3.25.4.jar (1831626 bytes) contains com/google/protobuf/CodedInputStream.class and com/google/protobuf/UnknownFieldSchema.class compiled from the exported tree."
+  },
+  "anchors_checked": [
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "url": "https://api.osv.dev/v1/vulns/GHSA-735f-pc8j-v9w8",
+      "range_text": "Maven com.google.protobuf:protobuf-java, ECOSYSTEM ranges: introduced 0 -> fixed 3.25.5; introduced 4.0.0-RC1 -> fixed 4.27.5; introduced 4.28.0-RC1 -> fixed 4.28.2; versions[] explicitly contains 3.25.4 (147 versions listed)",
+      "fixed": "3.25.5, 4.27.5, 4.28.2",
+      "affected": true,
+      "note": "3.25.4 is explicitly enumerated in versions[] for the [0, 3.25.5) range; also affected packages protobuf-javalite, protobuf-kotlin, protobuf-kotlin-lite and npm google-protobuf."
+    },
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "url": "https://github.com/advisories/GHSA-735f-pc8j-v9w8",
+      "range_text": "Affected versions: < 3.25.5; >= 4.0.0-RC1, < 4.27.5; >= 4.28.0-RC1, < 4.28.2. Patched versions: 3.25.5, 4.27.5, 4.28.2 (Maven/protobuf-java)",
+      "fixed": "3.25.5, 4.27.5, 4.28.2",
+      "affected": true,
+      "note": "GitHub advisory page matches the claimed ranges exactly; page has no Pre-release marker for the advisory."
+    },
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "url": "https://api.osv.dev/v1/vulns/CVE-2024-7254",
+      "range_text": "Single GIT affected entry for https://github.com/protocolbuffers/protobuf: introduced 0 -> fixed 9d0ec0f92b5b5fdeeda11f9dcecc1872ff378014 and cc8b3483a5584b3301e3d43d17eb59704857ffaa; database_specific.extracted_events contains CPE_RANGE for cpe:2.3:a:google:protobuf-java [introduced 0, fixed 3.25.5]. No Maven ECOSYSTEM range is present in this CVE-only record.",
+      "fixed": "9d0ec0f92b5b5fdeeda11f9dcecc1872ff378014 (v3.25.5 release commit), cc8b3483a5584b3301e3d43d17eb59704857ffaa",
+      "affected": true,
+      "note": "3.25.4 falls inside [0, 3.25.5) via the CPE-derived range; this record's versions[] is a GIT-tag list (16 entries) and does not enumerate 3.25.4 directly, which is a representation difference from GHSA, not a contradiction."
+    },
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "url": "https://cveawg.mitre.org/api/cve/CVE-2024-7254",
+      "range_text": "CNA (Google) record, state PUBLISHED, title 'Stack overflow in Protocol Buffers Java Lite'; protobuf-java versions: {version 0, lessThan 3.25.5, status affected}, {0, lessThan 4.27.5, affected}, {0, lessThan 4.28.2, affected}",
+      "fixed": "3.25.5, 4.27.5, 4.28.2",
+      "affected": true,
+      "note": "3.25.4 < 3.25.5, affected. Minor representational disagreement: CNA starts every 4.x range at 0, whereas GHSA/OSV specify introduced 4.0.0-RC1 / 4.28.0-RC1."
+    },
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-7254",
+      "range_text": "CPE cpe:2.3:a:google:protobuf-java:*:*:*:*:*:*:*:* vulnerable=true versionEndExcluding 3.25.5 (additional entries versionEndExcluding 4.27.5 and 4.28.2); status Analyzed; CVSS v3.1 7.5 AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H, CVSS v4.0 8.7",
+      "fixed": "3.25.5, 4.27.5, 4.28.2",
+      "affected": true,
+      "note": "3.25.4 < 3.25.5, affected. NVD quirk: the protobuf-kotlin-lite CPE uses versionEndIncluding 4.28.2 while sibling CPEs use versionEndExcluding; irrelevant to 3.25.4."
+    },
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "url": "https://api.osv.dev/v1/query (package Maven com.google.protobuf:protobuf-java, version 3.25.4)",
+      "range_text": "Version query for 3.25.4 returns vulnerability GHSA-735f-pc8j-v9w8 (aliases CVE-2024-7254)",
+      "fixed": "3.25.5",
+      "affected": true,
+      "note": "Direct ecosystem-version query confirms the exact proposed version is affected."
+    },
+    {
+      "vulnerability_id": "CVE-2024-7254",
+      "url": "local export tree: java/core/src/main/java/com/google/protobuf/{CodedInputStream,UnknownFieldSchema,ArrayDecoders}.java",
+      "range_text": "v3.25.4 CodedInputStream.skipMessage() overrides (lines 703/713, 1415/1425, 2180/2190, 3311/3321) loop on skipField with no checkRecursionLimit/recursionDepth; UnknownFieldSchema.mergeOneFieldFrom(WIRETYPE_START_GROUP) calls mergeFrom(subFields, reader) recursively with no depth guard; ArrayDecoders.skipField(START_GROUP) recurses into skipField with no depth guard. v3.25.5 (commit 9d0ec0f92b5b...) adds checkRecursionLimit()/recursionDepth to skipMessage and recursion limits to UnknownFieldSchema/ArrayDecoders (DEFAULT_RECURSION_LIMIT=100, InvalidProtocolBufferException.recursionLimitExceeded).",
+      "fixed": "3.25.5 / 4.27.5 / 4.28.2; GIT fix commits 9d0ec0f9..., cc8b3483..., 4728531c..., 850fcce9..., 9a5f5fe7..., ac9fb5b4..., d6c82fc5...",
+      "affected": true,
+      "note": "Runtime confirmation using the exported tree's own build: a lite-generated message parsing 100000 nested unknown START_GROUP tags threw java.lang.StackOverflowError on protobuf-java-3.25.4 built here; the same input against the official protobuf-java-3.25.5 from Maven Central threw InvalidProtocolBufferException: 'Protocol message had too many levels of nesting'."
+    }
+  ],
+  "leakage_check": {
+    "assessment": "pass - no advisory identifiers, advisory URLs, fix patches, benchmark labels or VCS metadata in the export or audit export",
+    "advisory_id_hits": 0,
+    "notes": "data/snapshot_exports.jsonl: status=exported, commit_sha=e915ce24b3d43c0fffcbf847354288c07dda1de0, tree_sha=fafd76c831eb7f547d5d7fbae3aee0dbb32e01fc, archive_sha256 and manifest_sha256 match disk. data/snapshot_audit_exports.jsonl: status=exported, remaining_advisory_id_count=0, remaining_advisory_id_paths=[], redacted_count=0, excluded_count=0, source_export_id=exp_snap_442de86eb5fd3f62, source_archive_sha256 equals the source export archive sha. The audit archive and audit manifest are byte-identical to the source archive/manifest (cmp clean), so the audit tree is the same 2708 files. Independent scan of the extracted tree (python3 -I scripts outside the tree / grep): 0 occurrences of CVE-[0-9]{4}-[0-9]{4,}; 0 occurrences of GHSA-xxxx-xxxx-xxxx; 0 advisory URLs (only generic links to securityscorecards.dev, Google security-bug intake and awakesecurity GitHub repos); no .patch/.diff files; no .git/.hg/.svn/CVS metadata (only normal tracked .gitignore/.gitmodules files); no snapshot id, repo-vuln/selection/benchmark labels; only benign mentions of 'vulnerable' in SECURITY.md, ExtensionRegistry.java comments and test_runner.yml."
+  },
+  "discrepancies": [
+    "CLAIM's count formula 'tree_file_count = exported_file_count + symlink_count + gitlink_count' is not numerically true as written (2708 != 2708 + 0 + 3). The exporter defines tree_file_count as non-commit tree entries (2708 blobs) and reports gitlinks separately (3); the true identity is 2711 tree entries = 2708 blobs + 3 gitlinks, and 2708 = 2708 + 0. All substantive counts reconcile and no file is missing.",
+    "data/snapshot_exports.jsonl records build_attempted=false and toolchain_available.java_maven={java:false, mvn:false} (PATH-based probe), whereas the proposal's environment facts are correct: an explicit JDK 17 + Maven 3.9.16 build succeeded. The metadata is stale/limited, not contradictory.",
+    "data/snapshots.jsonl has a row for snap_442de86eb5fd3f62 with repo_id 23357588 and tag v3.25.4 but null full_name/commit_sha/tree_sha; tag/commit/tree identity was therefore resolved independently from the public git remote and the export record.",
+    "OSV CVE-2024-7254 (CVE-only record) expresses affectedness only through GIT ranges plus CPE-derived ranges in database_specific, unlike the GHSA record's explicit Maven ranges and versions[]. This is a representation difference, not a conflicting range.",
+    "NVD's protobuf-kotlin-lite CPE uses versionEndIncluding 4.28.2 while the other protobuf CPEs use versionEndExcluding; a minor NVD data inconsistency with no bearing on 3.25.4."
+  ],
+  "limitations": [
+    "GitHub REST API returned HTTP 403 (unauthenticated rate limit) for repository and release metadata. repository_id 23357588 was instead confirmed from the github.com repository page HTML meta tag, and the tag/commit from git ls-remote and a shallow clone; the release's prerelease flag could not be read via API, but the release page shows no Pre-release marker and version.json declares 25.4/3.25.4.",
+    "Tag identity was resolved from a shallow clone at v3.25.4 (annotated tag object and commit present); full branch history was not walked. All 2708 blobs of the commit tree were compared byte-for-byte against the export.",
+    "The Java build was run with -Dmaven.test.skip=true as documented, so the test suite was not executed. A fresh empty local Maven repository and the HTTP proxy were used; network access to Maven Central was required.",
+    "The runtime demonstration used a protoc-25.4-lite-generated message and direct byte input; it demonstrates the unguarded unknown-group recursion, not a full end-to-end exploit.",
+    "The extraction/build tree lives under /tmp/selrev-pb/ (export in /tmp/selrev-pb/export, build copy with supplied protoc at /tmp/selrev-pb/build); the protoc binary supplied at /tmp/pbrev was verified byte-identical to the official protoc-25.4-linux-x86_64 release before use.",
+    "Isolation disclosure: while locating the exporter's definition of tree_file_count, one broad grep also matched a few lines of v031/reviews/selection_packets/*.json and v031/reviews/SELECTION_REVIEW_2026-10-22.md before those forbidden paths were recognized. The exposed text was limited to per-repository tree_file_count/gitlink numbers and one generic count-check sentence; it contained nothing about this snapshot's verification, and no finding or verdict relies on it — every count in this review was independently recomputed from the export artifacts and the public git tree. No other forbidden path was read."
+  ],
+  "notes": "All seven required checks were independently performed. Tag v3.25.4 is an annotated stable release (tag object 54932116954e3a46fa8934f66478a3ca54ce730c) peeling to commit e915ce24b3d43c0fffcbf847354288c07dda1de0, tree fafd76c831eb7f547d5d7fbae3aee0dbb32e01fc, dated 2024-07-24, squarely inside the dataset window (opens 2022-10-23) and predating the advisory (published 2024-09-19). The export is complete and exact (2708/2708 blobs match, 0 symlinks, 3 gitlinks correctly excluded, no .git). Every public advisory source places 3.25.4 inside the affected range for com.google.protobuf:protobuf-java, the vulnerable unguarded recursion is present in the v3.25.4 tree, v3.25.5 adds the recursion guard, and both a static diff and a runtime reproduction confirm it. The Java reactor builds successfully with JDK 17 + Maven 3.9.16 (7/7 modules, exit 0). The audit export references the same source export with zero remaining advisory ids and the tree is clean of identifiers. Newer affected stable tags exist in the 4.x/27.x-28.x lines (e.g. v27.4 = 4.27.4, v28.1 = 4.28.1; fixes at v27.5/v28.2), and v3.25.4 is the newest affected 3.25.x tag; this does not invalidate the frozen target, which has a verified positive at the exact commit. Verdict: accept."
+}

@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/django/django.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:30.627253+00:00", "elapsed_seconds": 1.346, "response": {"returncode": 0, "stdout": "3d3d943b7442f1f5278ed876331a06047fa96ea8\tHEAD\n", "stderr": ""}}

@@ -1,0 +1,341 @@
+{
+  "candidate_id": "adv3_b9ad8de9f8340fa5",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/osv_cve.json",
+      "evidence_id": "ev_libarchive_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:50:00Z",
+      "sha256_of_observation": "9c4c396ae966edaf8ab6a37f0b05af3cb5fcc887580dc04a817e42cca170bcce",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2025-5915",
+      "supports": [
+        "OSV summary names copy_from_lzss_window at archive_read_support_format_rar.c",
+        "GIT range introduced 0, fixed at v3.8.0 commit 70ff28fc",
+        "CVSS 3.1 AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:N/A:H",
+        "FIX reference is pull request 2599 and the v3.8.0 release"
+      ],
+      "verification_method": "OSV API query by CVE id; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/cve_v5.json",
+      "evidence_id": "ev_libarchive_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:50:00Z",
+      "sha256_of_observation": "e62f3b8267079b3eecac8a9e07384faf268471bb8316d3cdee28656c8e1f4295",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2025-5915",
+      "supports": [
+        "CVE state PUBLISHED, assigner Red Hat, published 2025-06-09",
+        "CNA range is version 0 up to (excluding) 3.8.0",
+        "CNA CWE-122 (Heap-based Buffer Overflow)",
+        "CNA CVSS 3.1 AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:N/A:H",
+        "CNA references bugzilla 2370865, PR 2599 and v3.8.0"
+      ],
+      "verification_method": "CVE List v5 Red Hat record"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/nvd_cve.json",
+      "evidence_id": "ev_libarchive_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:50:00Z",
+      "sha256_of_observation": "cd4f1d22638f210932f9435bd0060f8325b6dd695a9114514da91adb999ee963",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2025-5915",
+      "supports": [
+        "NVD CPE range versionEndExcluding 3.8.0",
+        "NVD carries only Secondary metrics: Red Hat 6.6 and nvd@nist.gov 6.6, both AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:N/A:H",
+        "NVD weakness CWE-122 sourced from Red Hat",
+        "NVD SSVC records exploitation none, automatable no"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/git_object_checks.txt",
+      "evidence_id": "ev_libarchive_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:48:00Z",
+      "sha256_of_observation": "d9557af803bfad08b2028cdc923c5424cb5a501d45377e2d5ae8fb52ceb45bdd",
+      "source_url": "https://github.com/libarchive/libarchive/commit/a612bf62f86a6faa47bd57c52b94849f0a404d8c",
+      "supports": [
+        "v3.7.7 is an annotated tag (7ce42547) peeling to b439d586",
+        "v3.8.0 is an annotated tag (2ed9bd7b) peeling to 70ff28fc",
+        "fix a612bf62 is an ancestor of v3.8.0 and absent from v3.7.7",
+        "fix a612bf62 changes rar.c (+10/-7), adds a regression test and test archive"
+      ],
+      "verification_method": "exact-SHA shallow fetch into a bare repository, deepened before ancestry checks; git merge-base --is-ancestor in both directions"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/rar_3.7.7.c",
+      "evidence_id": "ev_libarchive_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:47:00Z",
+      "sha256_of_observation": "7fdb9c439c565d3584142b80d61a2911a7bcfc9452415fc1fbb8a443bae54b84",
+      "source_url": "https://github.com/libarchive/libarchive/blob/b439d586f53911c84be5e380445a8a259e19114c/libarchive/archive_read_support_format_rar.c#L3099-L3119",
+      "supports": [
+        "copy_from_lzss_window spans lines 3099-3119",
+        "line 3114 performs memcpy(buffer, &window[0], length - firstpart) when firstpart < length",
+        "length is filter->blocklength supplied by parse_filter",
+        "parse_filter accepts blocklength at lines 3264-3267 with no dictionary_size bound",
+        "run_filters passes blocklength at line 3435 after only a VM_MEMORY_SIZE check at 3429"
+      ],
+      "verification_method": "file read at the v3.7.7 peeled commit"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/rar_3.8.0.c",
+      "evidence_id": "ev_libarchive_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:48:00Z",
+      "sha256_of_observation": "0869369f310210045c6728dccf9f3d9190afb49228a5028d2340741675118e92",
+      "source_url": "https://github.com/libarchive/libarchive/blob/70ff28fcf04ec129a1d064f96e49aa57fcc90e37/libarchive/archive_read_support_format_rar.c#L3320-L3324",
+      "supports": [
+        "fixed release rejects blocklength > rar->dictionary_size in parse_filter",
+        "fixed release writes the second memcpy chunk to buffer + firstpart",
+        "the fixed release still allows blocklength up to VM_MEMORY_SIZE only after this guard"
+      ],
+      "verification_method": "file read at the v3.8.0 peeled commit"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/fix_diff.txt",
+      "evidence_id": "ev_libarchive_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:48:00Z",
+      "sha256_of_observation": "8cb7d01c728dc14552440ca6214f6a2b734174cdeefae4b6c8810d338412b064",
+      "source_url": "https://github.com/libarchive/libarchive/commit/a612bf62f86a6faa47bd57c52b94849f0a404d8c",
+      "supports": [
+        "commit message states a filter block size must not be larger than the lzss window",
+        "the fix adds `if (blocklength > rar->dictionary_size) return 0;` in parse_filter",
+        "the fix corrects the second memcpy destination to buffer + firstpart",
+        "the fix changes error returns to goto bad_data and tightens window wrap handling"
+      ],
+      "verification_method": "git show of the fix commit, rar.c only"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/regression_test.c",
+      "evidence_id": "ev_libarchive_tests",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:48:00Z",
+      "sha256_of_observation": "74a026b56514aa1e68525e2e84bd70349a380f1f3941b5fbf3a8fbbf7b07cfd8",
+      "source_url": "https://github.com/libarchive/libarchive/blob/a612bf62f86a6faa47bd57c52b94849f0a404d8c/libarchive/test/test_read_format_rar_overflow.c",
+      "supports": [
+        "upstream regression test added with the fix",
+        "test reads a crafted RAR archive and expects ARCHIVE_OK/EOF or a clean failure",
+        "the test was read but not executed"
+      ],
+      "verification_method": "file read at the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/libarchive_cve_2025_5915/sources/issue_2565.txt",
+      "evidence_id": "ev_libarchive_issue",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:49:00Z",
+      "sha256_of_observation": "c61fe57995b93d06ac506c73ed28bd638117fc7a1f0465e745c06d10506967b5",
+      "source_url": "https://github.com/libarchive/libarchive/issues/2565",
+      "supports": [
+        "issue title reports a heap-buffer-overflow at rar.c:3114:5",
+        "the report was produced with an OSS-Fuzz harness",
+        "line 3114 in v3.7.7 is the second memcpy in copy_from_lzss_window"
+      ],
+      "verification_method": "GitHub issue HTML metadata (API was rate-limited) cross-checked against the source file"
+    },
+    {
+      "artifact_path": "runs/language/snap_a47bcab3f2c97e92/snapshot_proposal.json",
+      "evidence_id": "ev_libarchive_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:47:00Z",
+      "sha256_of_observation": "433c82fb4d150a1cfcf6b5f2e1a13f093c53fdc24b88954dcc158ce11116c036",
+      "source_url": "https://github.com/libarchive/libarchive/tree/b439d586f53911c84be5e380445a8a259e19114c",
+      "supports": [
+        "snapshot_id snap_a47bcab3f2c97e92 and 1,240-file inventory",
+        "C first-party 219 files / 4,045,103 bytes / 25.63% of tracked nonbinary bytes",
+        "tree oid c400e416",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 1, 2],
+    "aliases": [0, 1],
+    "critical_operation": [4, 5, 6, 8],
+    "cwe": [1, 2],
+    "fix_commits": [3, 6, 7],
+    "fixed_releases": [0, 3, 5],
+    "languages": [9],
+    "severity": [0, 1, 2],
+    "vulnerable_commit": [3, 4]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No crafted RAR archive, OSS-Fuzz harness, or upstream regression test was executed; the finding is static.",
+    "The amount of adjacent memory disclosed by the over-read depends on allocator layout and was not measured.",
+    "The same fix commit also corrects the second memcpy destination from buffer to buffer + firstpart, which is a distinct write-side bug at the same line; this dossier's canonical description follows the CVE's over-read wording but records both changes.",
+    "NVD has no Primary metric for this CVE: both entries (Red Hat and nvd@nist.gov) are marked Secondary and carry the same 6.6 vector; the canonical severity therefore has only one numeric value, not two independent assessments.",
+    "Only the upstream 3.8.0 fix was verified; the Red Hat errata backports (RHSA-2025:21885 and later) were not diffed.",
+    "The independent reviewer classified the defect technically as CWE-125 (out-of-bounds read) because the ASan report is a READ and CVSS integrity impact is N; the CNA and NVD records assign CWE-122. The formal cwe_ids keep CWE-122 as the authoritative assignment and record the CWE-125 analysis here rather than overriding the CNA.",
+    "Red Hat's own severity rating is Low while its CVSS vector computes 6.6 Medium; the formal severity uses the numeric vector as published and does not reinterpret the rating.",
+    "v3.7.7 is on the 3.7.x maintenance branch and is not an ancestor of v3.8.0. The OSV linear GIT range (introduced 0, fixed at the v3.8.0 release commit) therefore does not cover v3.7.6-v3.7.9; the version-based CNA/CPE range <3.8.0 does, and all four 3.7.x tags were confirmed to lack the fix."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "  windowoffs = lzss_offset_for_position(&rar->lzss, startpos);\n  firstpart = lzss_size(&rar->lzss) - windowoffs;\n  if (firstpart < 0) {\n    archive_set_error(&a->archive, ARCHIVE_ERRNO_FILE_FORMAT,\n                      \"Bad RAR file data\");\n    return (ARCHIVE_FATAL);\n  }\n  if (firstpart < length) {\n    memcpy(buffer, &rar->lzss.window[windowoffs], firstpart);\n    memcpy(buffer, &rar->lzss.window[0], length - firstpart);\n  } else {\n    memcpy(buffer, &rar->lzss.window[windowoffs], length);\n  }",
+      "description": "copy_from_lzss_window() copies `length` bytes out of the LZSS window into the VM buffer. parse_filter() (lines 3264-3267) accepts a filter blocklength from the RAR bitstream without comparing it with rar->dictionary_size, and run_filters() (line 3429) only checks it against VM_MEMORY_SIZE. When blocklength exceeds the window size, firstpart is smaller than length and the line 3114 memcpy reads `length - firstpart` bytes from window[0], past the end of the allocated LZSS window. The fix adds `if (blocklength > rar->dictionary_size) return 0;` in parse_filter and also corrects this memcpy's destination to buffer + firstpart.",
+      "file": "libarchive/archive_read_support_format_rar.c",
+      "function": "copy_from_lzss_window",
+      "language": "C",
+      "line": "3099-3119",
+      "permalink": "https://github.com/libarchive/libarchive/blob/b439d586f53911c84be5e380445a8a259e19114c/libarchive/archive_read_support_format_rar.c#L3099-L3119"
+    },
+    "entry_point": {
+      "description": "Extracting an attacker-supplied RAR archive reaches expand(), which calls read_filter() at line 2965. read_filter() decodes the filter code block and calls parse_filter() at line 3628; the resulting filter is later executed by run_filters(), which calls copy_from_lzss_window() at line 3435 with the unchecked blocklength.",
+      "file": "libarchive/archive_read_support_format_rar.c",
+      "function": "read_filter",
+      "language": "C",
+      "line": 3592,
+      "permalink": "https://github.com/libarchive/libarchive/blob/b439d586f53911c84be5e380445a8a259e19114c/libarchive/archive_read_support_format_rar.c#L3592"
+    },
+    "location_id": "loc_CVE-2025-5915_snap_a47bcab3f2c97e92",
+    "location_kind": "memory",
+    "snapshot_id": "snap_a47bcab3f2c97e92",
+    "trace": [
+      {
+        "description": "read_filter decodes the filter block and calls parse_filter",
+        "file": "libarchive/archive_read_support_format_rar.c",
+        "function": "read_filter",
+        "language": "C",
+        "line": 3628,
+        "permalink": "https://github.com/libarchive/libarchive/blob/b439d586f53911c84be5e380445a8a259e19114c/libarchive/archive_read_support_format_rar.c#L3628"
+      },
+      {
+        "description": "parse_filter accepts blocklength without a dictionary_size bound",
+        "file": "libarchive/archive_read_support_format_rar.c",
+        "function": "parse_filter",
+        "language": "C",
+        "line": 3265,
+        "permalink": "https://github.com/libarchive/libarchive/blob/b439d586f53911c84be5e380445a8a259e19114c/libarchive/archive_read_support_format_rar.c#L3265"
+      },
+      {
+        "description": "run_filters calls copy_from_lzss_window with filter->blocklength",
+        "file": "libarchive/archive_read_support_format_rar.c",
+        "function": "run_filters",
+        "language": "C",
+        "line": 3435,
+        "permalink": "https://github.com/libarchive/libarchive/blob/b439d586f53911c84be5e380445a8a259e19114c/libarchive/archive_read_support_format_rar.c#L3435"
+      },
+      {
+        "description": "second memcpy over-reads the LZSS window and writes at the wrong offset",
+        "file": "libarchive/archive_read_support_format_rar.c",
+        "function": "copy_from_lzss_window",
+        "language": "C",
+        "line": 3114,
+        "permalink": "https://github.com/libarchive/libarchive/blob/b439d586f53911c84be5e380445a8a259e19114c/libarchive/archive_read_support_format_rar.c#L3114"
+      }
+    ],
+    "verification_method": "Static read of archive_read_support_format_rar.c at v3.7.7 and v3.8.0, the fix diff and the regression test; no archive was processed.",
+    "vulnerability_id": "CVE-2025-5915"
+  },
+  "open_questions": [
+    "Whether every RAR compression method can reach parse_filter with an attacker-controlled blocklength was not exhaustively traced; the code path is shared by the RAR reader.",
+    "The exact allocation size of the LZSS window relative to dictionary_size was not instrumented; the over-read follows from the missing bound, not from a measured run.",
+    "Whether distributions' backports introduce equivalent bounds checks was not verified beyond the upstream commit."
+  ],
+  "prepared_at": "2026-10-21T14:55:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/libarchive/libarchive",
+    "full_name": "libarchive/libarchive",
+    "primary_language": "C",
+    "project_kind": "Multi-format archive and compression library",
+    "repo_id": "3219804",
+    "snapshot_id": "snap_a47bcab3f2c97e92"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read rar.c at v3.7.7 and confirm parse_filter lacks a dictionary_size bound and copy_from_lzss_window line 3114 can read past the window.",
+      "An independent reviewer must confirm the annotated tags peel to b439d586 (v3.7.7) and 70ff28fc (v3.8.0) and that a612bf62 is in 3.8.0 but not 3.7.7.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV CVE conversion (GIT range and fixed commit)",
+      "CVE List v5 Red Hat record",
+      "NVD analysis and CPE range",
+      "upstream git history, fix commit and regression test"
+    ],
+    "independent_of_primary": true,
+    "notes": "Red Hat is the CNA: its CVE v5 record supplies the <3.8.0 range, CWE-122 and CVSS 6.6 (AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:N/A:H). NVD carries two metric entries, both marked Secondary (Red Hat and nvd@nist.gov), with the identical vector; there is no NVD Primary assessment. NVD's CPE range is versionEndExcluding 3.8.0, matching the CNA. OSV converts the CPE range to a GIT range fixed at the v3.8.0 commit 70ff28fc; that commit is the release commit, not the source fix a612bf62, and because v3.7.7 diverges from the 3.8.0 branch the linear GIT range omits the 3.7.x line. OSV's version list also stops at v3.7.5. The tag check confirms v3.7.6-v3.7.9 all contain the vulnerable code and lack the fix. The CNA assigns CWE-122 (heap buffer overflow) although the reported access is a read with no integrity impact, which would technically be CWE-125; CWE-122 is kept as the authoritative assignment with the disagreement recorded.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/libarchive/libarchive/pull/2599",
+    "affected_packages": [
+      {
+        "affected_range": "<3.8.0",
+        "ecosystem": "generic",
+        "package": "libarchive",
+        "purl": "pkg:generic/libarchive"
+      }
+    ],
+    "aliases": [
+      "CVE-2025-5915"
+    ],
+    "category_l1": "information_disclosure",
+    "category_l2": "RAR LZSS filter block heap buffer over-read",
+    "cwe_ids": [
+      "CWE-122"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "master",
+        "message": "rar: Fix heap-buffer-overflow (#2599)",
+        "sha": "a612bf62f86a6faa47bd57c52b94849f0a404d8c",
+        "url": "https://github.com/libarchive/libarchive/commit/a612bf62f86a6faa47bd57c52b94849f0a404d8c"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "generic",
+        "package": "libarchive",
+        "release_url": "https://github.com/libarchive/libarchive/releases/tag/v3.8.0",
+        "tag": "v3.8.0",
+        "verified_content": "At the v3.8.0 commit parse_filter rejects blocklength > rar->dictionary_size and copy_from_lzss_window writes the wrapped chunk to buffer + firstpart; v3.7.7 has neither guard",
+        "version": "3.8.0"
+      }
+    ],
+    "published_at": "2025-06-09T19:49:02Z",
+    "references": [
+      "https://github.com/libarchive/libarchive/issues/2565",
+      "https://github.com/libarchive/libarchive/pull/2599",
+      "https://github.com/libarchive/libarchive/commit/a612bf62f86a6faa47bd57c52b94849f0a404d8c",
+      "https://github.com/libarchive/libarchive/releases/tag/v3.8.0",
+      "https://nvd.nist.gov/vuln/detail/CVE-2025-5915",
+      "https://access.redhat.com/security/cve/CVE-2025-5915",
+      "https://bugzilla.redhat.com/show_bug.cgi?id=2370865"
+    ],
+    "repo_id": "3219804",
+    "severity": {
+      "level": "medium",
+      "numeric_level_rationale": "CVSS 3.1 numeric 6.6 falls in Medium (4.0-6.9). The CNA and both NVD entries agree on this vector.",
+      "score": 6.6,
+      "source": "Red Hat CNA metric; NVD repeats the same vector as a Secondary entry and has no Primary metric",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2025-5915",
+      "vector": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:N/A:H",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_a47bcab3f2c97e92",
+    "source_type": "upstream_advisory",
+    "title": "libarchive before 3.8.0 over-reads the LZSS window when a RAR filter block exceeds the dictionary size",
+    "vulnerability_id": "CVE-2025-5915",
+    "vulnerable_commit": "b439d586f53911c84be5e380445a8a259e19114c",
+    "vulnerable_commit_basis": "annotated tag v3.7.7 (tag object 7ce42547) peels to b439d586...; v3.7.7 is inside the CNA range <3.8.0 and the fix a612bf62 is absent from it",
+    "vulnerable_version": "3.7.7"
+  }
+}

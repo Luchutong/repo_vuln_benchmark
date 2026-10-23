@@ -1,0 +1,24 @@
+{
+  "key": "hyperium__hyper_security",
+  "repository": "hyperium/hyper",
+  "path": "SECURITY.md",
+  "retrieved_at": "2026-10-21T11:01:41.843Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "# Security Policy\n\nhyper (and related projects in hyperium) take security seriously, and greatly appreciate responsible disclosure.\n\n## Report a security issue\n\nTo report a security issue in hyper, or another crate in the hyperium organization, please [report a new draft GitHub Security Advisory](https://github.com/hyperium/hyper/security/advisories/new).\n\nWe will discuss it privately with you. hyper maintainers will determine the impact and release details. Participation in security issue coordination is at the discretion of hyper maintainers.\n\n## Transparency\n\nWe are committed to transparency in the security issue disclosure process. Advisories will be disclosed publicly once a patch is released, and if appropriate, added to the RustSec advisory database.\n",
+      "encoding": "utf-8",
+      "sha": "056e82a20d2be0fe98eed74188b74dd552108bf0",
+      "display_url": "https://github.com/hyperium/hyper/blob/master/SECURITY.md",
+      "display_title": "SECURITY.md"
+    },
+    "isError": false
+  }
+}

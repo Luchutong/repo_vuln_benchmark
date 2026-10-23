@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_dataprotection",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/DataProtection/DataProtection/src/Microsoft.AspNetCore.DataProtection.csproj",
+  "retrieved_at": "2026-10-21T10:56:27.552Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>ASP.NET Core logic to protect and unprotect data, similar to DPAPI.</Description>\n    <TargetFrameworks>$(DefaultNetFxTargetFramework);netstandard2.0;$(DefaultNetCoreTargetFramework)</TargetFrameworks>\n    <TargetFrameworks Condition=\"'$(DotNetBuildSourceOnly)' == 'true'\">$(DefaultNetCoreTargetFramework)</TargetFrameworks>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>\n    <GenerateDocumentationFile>true</GenerateDocumentationFile>\n    <PackageTags>aspnetcore;dataprotection</PackageTags>\n    <SuppressNullableAttributesImport>true</SuppressNullableAttributesImport>\n    <Nullable>annotations</Nullable>\n    <Nullable Condition=\"'$(TargetFramework)' == '$(DefaultNetCoreTargetFramework)'\">enable</Nullable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <Compile Include=\"..\\..\\shared\\src\\*.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)PlatformAttributes.cs\" LinkBase=\"Shared\" Condition=\"'$(TargetFramework)' != '$(DefaultNetCoreTargetFramework)'\" />\n    <Compile Include=\"$(SharedSourceRoot)TrimmingAttributes.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)\\Buffers\\RefPooledArrayBufferWriter.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)\\PooledArrayBufferWriter.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)ThrowHelpers\\ArgumentNullThrowHelper.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)CallerArgument\\CallerArgumentExpressionAttribute.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)Encoding\\Int7BitEncodingUtils.cs\" LinkBase=\"Shared\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <PackageReference Include=\"System.Security.Cryptography.Xml\" />\n\n    <ProjectReference Include=\"$(RepoRoot)src\\DataProtection\\Abstractions\\src\\Microsoft.AspNetCore.DataProtection.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\DataProtection\\Cryptography.Internal\\src\\Microsoft.AspNetCore.Cryptography.Internal.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup Condition=\" '$(TargetFramework)' == 'netstandard2.0' OR\n      '$(TargetFramework)' == '$(DefaultNetFxTargetFramework)' OR\n      '$(MSBuildRestoreSessionId)' == '' \">\n    <PackageReference Include=\"Microsoft.Win32.Registry\" />\n  </ItemGroup>\n\n  <ItemGroup Condition=\"'$(TargetFramework)' == 'netstandard2.0' OR '$(MSBuildRestoreSessionId)' == ''\">\n    <PackageReference Include=\"System.Security.Principal.Windows\" />\n  </ItemGroup>\n\n  <ItemGroup Condition=\"'$(TargetFramework)' == '$(DefaultNetFxTargetFramework)' OR '$(MSBuildRestoreSessionId)' == ''\">\n    <PackageReference Include=\"System.Runtime.InteropServices.RuntimeInformation\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.DataProtection.Extensions.Tests\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.DataProtection.Tests\" />\n    <InternalsVisibleTo Include=\"DynamicProxyGenAssembly2\" Key=\"$(MoqPublicKey)\" />\n    <InternalsVisibleTo Include=\"KeyManagementSimulator\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <AdditionalFiles Include=\"PublicAPI/$(TargetFramework)/PublicAPI.Shipped.txt\" />\n    <AdditionalFiles Include=\"PublicAPI/$(TargetFramework)/PublicAPI.Unshipped.txt\" />\n  </ItemGroup>\n\n  <ItemGroup Condition=\"!$([MSBuild]::IsTargetFrameworkCompatible('$(TargetFramework)', 'net12.0'))\">\n    <PackageReference Include=\"Microsoft.Extensions.DependencyInjection.Abstractions\" />\n    <PackageReference Include=\"Microsoft.Extensions.Hosting.Abstractions\" />\n    <PackageReference Include=\"Microsoft.Extensions.Logging.Abstractions\" />\n    <PackageReference Include=\"Microsoft.Extensions.Options\" />\n  </ItemGroup>\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "6751eafbfe2c6a0fda528e22677a20f3d4c174e4",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/DataProtection/DataProtection/src/Microsoft.AspNetCore.DataProtection.csproj",
+      "display_title": "Microsoft.AspNetCore.DataProtection.csproj"
+    },
+    "isError": false
+  }
+}

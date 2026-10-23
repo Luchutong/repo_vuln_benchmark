@@ -1,0 +1,376 @@
+{
+  "candidate_id": "disc2_542206954364f27257e02cfc",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T15:40:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "repo_id": "257485422",
+    "full_name": "vitejs/vite",
+    "canonical_url": "https://github.com/vitejs/vite",
+    "primary_language": "TypeScript",
+    "project_kind": "frontend build tool and development server",
+    "snapshot_id": "snap_2e50b228f2432623"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-31207",
+    "aliases": [
+      "CVE-2024-31207",
+      "GHSA-8jhw-289h-jh2g"
+    ],
+    "title": "Vite server.fs.deny matcher built with picomatch matchBase lets deny globs containing directories be bypassed, exposing files such as .git/config",
+    "repo_id": "257485422",
+    "snapshot_id": "snap_2e50b228f2432623",
+    "vulnerable_commit": "b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+    "affected_packages": [
+      {
+        "ecosystem": "npm",
+        "package": "vite",
+        "purl": "pkg:npm/vite",
+        "affected_range": ">=5.0.0,<5.0.13"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "vite",
+        "version": "5.0.13",
+        "tag": "v5.0.13",
+        "release_url": "https://github.com/vitejs/vite/releases/tag/v5.0.13",
+        "verified_content": "At v5.0.13 the matcher is built with slashless deny patterns rewritten to **/<pattern>, matchBase: false, nocase: true and dot: true; at the v5.0.11 snapshot only { matchBase: true } is set. static.ts is byte-identical between the two tags, so the fix is the matcher construction in server/index.ts."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "d2db33f7d4b96750b35370c70dd2c35ec3b9b649",
+        "branch": "5.0",
+        "release": "5.0.13",
+        "message": "fix: `fs.deny` with globs with directories (#16250)",
+        "url": "https://github.com/vitejs/vite/commit/d2db33f7d4b96750b35370c70dd2c35ec3b9b649"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-200",
+      "CWE-284"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "score": 5.9,
+      "level": "medium",
+      "numeric_level_rationale": "The GitHub_M CNA publishes CVSS 3.1 5.9 Medium and NVD's only metric is the same 5.9 Medium vector from security-advisories@github.com; the OSV/GHSA label is MODERATE with the same vector. No score conflict.",
+      "source": "GitHub_M CNA and nvd@nist.gov (NVD Secondary), both CVSS 3.1 5.9 Medium",
+      "source_url": "https://github.com/vitejs/vite/security/advisories/GHSA-8jhw-289h-jh2g",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 5.9,
+          "level": "medium",
+          "source": "GitHub_M CNA",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        },
+        {
+          "version": "3.1",
+          "score": 5.9,
+          "level": "medium",
+          "source": "nvd@nist.gov (NVD Secondary, from security-advisories@github.com)",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N"
+        }
+      ]
+    },
+    "category_l1": "information_disclosure",
+    "category_l2": "Access control: server.fs.deny uses picomatch matchBase without dot, so deny globs containing directories and dotfiles do not match requested paths",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-8jhw-289h-jh2g",
+    "published_at": "2024-04-04T15:51:54Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://github.com/vitejs/vite/security/advisories/GHSA-8jhw-289h-jh2g",
+      "https://github.com/vitejs/vite/commit/d2db33f7d4b96750b35370c70dd2c35ec3b9b649",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-31207",
+      "https://github.com/vitejs/vite/releases/tag/v5.0.13"
+    ]
+  },
+  "location": {
+    "location_id": "loc_CVE-2024-31207_snap_2e50b228f2432623",
+    "vulnerability_id": "CVE-2024-31207",
+    "snapshot_id": "snap_2e50b228f2432623",
+    "location_kind": "logic",
+    "file": "packages/vite/src/node/server/index.ts",
+    "function": "_createServer",
+    "language": "TypeScript",
+    "line": 620,
+    "critical_operation": {
+      "code_excerpt": "    _fsDenyGlob: picomatch(config.server.fs.deny, { matchBase: true }),",
+      "description": "At v5.0.11 _createServer() builds the server.fs.deny matcher as picomatch(config.server.fs.deny, { matchBase: true }) with neither dot: true nor a rewrite of slashless patterns. picomatch's matchBase matches only the basename (and is documented by the advisory as buggy, micromatch/picomatch#89), so a deny pattern that contains a directory component, such as **/.git/** or /foo/**/*, does not match the requested nested path; dotfiles also fail to match without dot: true. isFileServingAllowed() in server/middlewares/static.ts:216 returns false only when _fsDenyGlob(file) matches, so an unmatched path inside server.fs.allow is served. The default deny list at index.ts:933 is slashless ('.env', '.env.*', '*.{crt,pem}'), so the bypass requires a custom fs.deny containing a pattern with directories; the advisory's reproduction sets ['**/.git/**'] and then fetches /.git/config. The 5.0 fix d2db33f rewrites patterns without '/' to **/<pattern>, sets matchBase: false, dot: true and (on top of the 5.0.12 nocase fix) nocase: true. CWE-200/CWE-284.",
+      "file": "packages/vite/src/node/server/index.ts",
+      "function": "_createServer",
+      "language": "TypeScript",
+      "line": 620,
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/index.ts#L620"
+    },
+    "entry_point": {
+      "description": "A Vite dev server started with --host or server.host, using a custom server.fs.deny pattern that contains a directory component, receives an HTTP request for a path covered by that deny pattern (for example /.git/config when fs.deny contains **/.git/**).",
+      "file": "packages/vite/src/node/server/middlewares/static.ts",
+      "function": "isFileServingAllowed",
+      "language": "TypeScript",
+      "line": 208,
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L208"
+    },
+    "trace": [
+      {
+        "description": "the deny matcher is constructed once with picomatch matchBase, without dot: true and without rewriting slashless patterns",
+        "file": "packages/vite/src/node/server/index.ts",
+        "function": "_createServer",
+        "language": "TypeScript",
+        "line": 620,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/index.ts#L620"
+      },
+      {
+        "description": "the default deny list is slashless, so custom directory-containing patterns are the affected configuration",
+        "file": "packages/vite/src/node/server/index.ts",
+        "function": "_createServer",
+        "language": "TypeScript",
+        "line": 933,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/index.ts#L933"
+      },
+      {
+        "description": "isFileServingAllowed computes the requested file path and consults the deny matcher",
+        "file": "packages/vite/src/node/server/middlewares/static.ts",
+        "function": "isFileServingAllowed",
+        "language": "TypeScript",
+        "line": 208,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L208"
+      },
+      {
+        "description": "a non-matching deny glob returns false and the file is served from the allow list instead of being refused",
+        "file": "packages/vite/src/node/server/middlewares/static.ts",
+        "function": "isFileServingAllowed",
+        "language": "TypeScript",
+        "line": 216,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L216"
+      }
+    ],
+    "verification_method": "Static read of server/index.ts and server/middlewares/static.ts at v5.0.11 and v5.0.13, of the d2db33f patch and of local git ancestry/blobs in /tmp/vite_vuln.git; no dev server was started and no HTTP request was sent."
+  },
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/cve_v5.json",
+      "evidence_id": "ev_vite_31207_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "bc2def09ece4bbc7079602aaebad819a8b5ebbdbb72ac54bc589b7e353013d19",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-31207",
+      "supports": [
+        "CVE state PUBLISHED, assigner GitHub_M, published 2024-04-04",
+        "CNA description: server.fs.deny did not deny requests for patterns with directories",
+        "CNA CVSS 3.1 5.9 MEDIUM, CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+        "CNA problemTypes CWE-200 and CWE-284",
+        "CNA affected npm vite ranges including >=5.0.0,<=5.0.12"
+      ],
+      "verification_method": "CVE List v5 CNA record"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/nvd_cve.json",
+      "evidence_id": "ev_vite_31207_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "b4636c0414f385b5c962de4593afd7ed33c9d5e79a2461882fbdc4bc9098c28c",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-31207",
+      "supports": [
+        "NVD status Deferred, published 2024-04-04",
+        "NVD CVSS 3.1 Secondary 5.9 MEDIUM from security-advisories@github.com with the same vector",
+        "NVD weaknesses CWE-200 and CWE-284",
+        "no independent NVD primary score"
+      ],
+      "verification_method": "NVD CVE API 2.0 record"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/osv_ghsa.json",
+      "evidence_id": "ev_vite_31207_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "712a0fff6d6f246652c0c6bde76adeb80a9d55a6d355cdc6cfa29c27e2613c6d",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-8jhw-289h-jh2g",
+      "supports": [
+        "OSV record id GHSA-8jhw-289h-jh2g with alias CVE-2024-31207",
+        "severity CVSS_V3 CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N and database_specific MODERATE",
+        "SEMVER ranges: 5.0.0 fixed 5.0.13, plus the 2.9/3.2/4.5/5.1/5.2 lines",
+        "details name picomatch matchBase and the missing dot option, with /.git/config as the reproduction",
+        "the 5.0 fix commit d2db33f is listed among the references"
+      ],
+      "verification_method": "OSV.dev API record"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/ViteServerIndex_5.0.11.ts",
+      "evidence_id": "ev_vite_31207_vuln_index",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "16fe553e61e071568c3f8b80f16015a44097233a3253ab00d3ac42aaa66f1a19",
+      "source_url": "https://github.com/vitejs/vite/blob/v5.0.11/packages/vite/src/node/server/index.ts",
+      "supports": [
+        "line 620 constructs _fsDenyGlob with picomatch(config.server.fs.deny, { matchBase: true }) only",
+        "no dot: true, no nocase: true and no slashless-pattern rewrite in this revision",
+        "line 933 shows the default deny list is slashless, so the defect needs a custom directory-containing pattern"
+      ],
+      "verification_method": "file read at snapshot commit b44c4930 (v5.0.11); blob bec44daf matches the inventory"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/ViteStatic_5.0.11.ts",
+      "evidence_id": "ev_vite_31207_vuln_static",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "ade37c5b0dc504ddfe6587a414508569dcf4fec13ce73df0ddf1a665b7795a89",
+      "source_url": "https://github.com/vitejs/vite/blob/v5.0.11/packages/vite/src/node/server/middlewares/static.ts",
+      "supports": [
+        "isFileServingAllowed at line 208 computes fsPathFromUrl(url)",
+        "line 216 returns false (not allowed) only when server._fsDenyGlob(file) matches",
+        "therefore a deny glob that fails to match causes the path to be served if it is under fs.allow"
+      ],
+      "verification_method": "file read at snapshot commit b44c4930 (v5.0.11)"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/ViteServerIndex_5.0.13.ts",
+      "evidence_id": "ev_vite_31207_fixed_index",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "75c3f90976e2034ad1aadd8205aa99c5374355766fc04b7477d24d0e513bb8da",
+      "source_url": "https://github.com/vitejs/vite/blob/v5.0.13/packages/vite/src/node/server/index.ts",
+      "supports": [
+        "patterns without '/' are rewritten to **/<pattern>",
+        "picomatch options become matchBase: false, nocase: true and dot: true",
+        "the matcher construction spans lines 620-632 of the v5.0.13 file"
+      ],
+      "verification_method": "file read at release tag v5.0.13 (80b1b079)"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/fix_commit.patch",
+      "evidence_id": "ev_vite_31207_patch",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "f722e2c4d7c71817bd051114208bf7ba9fcb6f7eefcf6b8e0d77961836167040",
+      "source_url": "https://github.com/vitejs/vite/commit/d2db33f7d4b96750b35370c70dd2c35ec3b9b649",
+      "supports": [
+        "the code change replaces { matchBase: true } with the **/ rewrite and matchBase: false, nocase: true, dot: true",
+        "the patch adds regression tests for **/deny/** matching src/deny/deny.txt and src/deny/.deny"
+      ],
+      "verification_method": "unified diff read"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_31207/sources/git_object_checks.txt",
+      "evidence_id": "ev_vite_31207_git",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T15:40:00Z",
+      "sha256_of_observation": "9ee9c08dc4ad3a27d0c8ede9e1797d702b023f80dc75713a9e263add930d0d86",
+      "source_url": "https://github.com/vitejs/vite/commit/d2db33f7d4b96750b35370c70dd2c35ec3b9b649",
+      "supports": [
+        "snapshot v5.0.11 resolves to b44c4930 and the index.ts blob bec44daf matches the inventory (30845 bytes)",
+        "d2db33f is not an ancestor of v5.0.10, v5.0.11 or v5.0.12 and is contained in v5.0.13",
+        "git tag --contains d2db33f first lists v5.0.13",
+        "the fixed blob 7bf04d50 at the fix commit equals the blob at v5.0.13",
+        "static.ts is byte-identical between v5.0.11 and v5.0.13",
+        "the existing CVE-2024-23331 dossier is the missing-nocase defect at the same line, a distinct advisory fixed in v5.0.12"
+      ],
+      "verification_method": "git show/merge-base/tag with local blobless mirror /tmp/vite_vuln.git"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      3,
+      5,
+      6
+    ],
+    "cwe": [
+      0,
+      1
+    ],
+    "fix_commits": [
+      2,
+      6,
+      7
+    ],
+    "fixed_releases": [
+      1,
+      2,
+      5,
+      7
+    ],
+    "languages": [
+      3,
+      4,
+      5
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      7
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "source_crosscheck": {
+    "families": [
+      "NVD analysis",
+      "CVE List v5 GitHub_M CNA record",
+      "GitHub advisory / OSV record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD and OSV agree on CWE-200/CWE-284, on the 5.0.0-5.0.12 affected range and on 5.0.13 as the 5.0-line fix; CNA and NVD carry the identical CVSS 3.1 5.9 Medium vector (NVD only as a Secondary metric because the record is Deferred), and OSV labels it MODERATE. The advisory documents picomatch matchBase (micromatch/picomatch#89) and the missing dot option, with **/.git/** -> /.git/config as the reproduction. Local ancestry maps the 5.0 fix to d2db33f, absent from 5.0.10/5.0.11/5.0.12 and first contained in 5.0.13; the other five commits in the advisory are the 2.9/3.2/4.5/5.1/5.2 ports.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read _createServer at v5.0.11 and confirm the matcher is built with matchBase only, without dot or a slashless-pattern rewrite, and that isFileServingAllowed treats a non-match as allowed.",
+      "An independent reviewer must confirm d2db33f is the 5.0 fix, is not an ancestor of 5.0.10/5.0.11/5.0.12 and is contained in 5.0.13.",
+      "An independent reviewer must confirm the affected range, the 5.0.13 fixed release and the CVSS 3.1 5.9 Medium records.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "vite-CVE-2024-31207-round1-independent-reviewer-2026-10-22",
+      "verdict_path": "runs/independent/vite_CVE-2024-31207_round1/verdict.json",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": true,
+      "location_line": 620
+    },
+    "independent_corrections_accepted": [
+      "Causation separated: the directory-glob bypass of **/.git/** against /.git/config is caused by picomatch matchBase matching only the basename; the missing dot: true is a separate defect that affects dotfile basenames such as .deny. The dossier description already lists both but now records the distinction explicitly.",
+      "Precondition stated precisely: a custom server.fs.deny containing a directory pattern is required, and the dev server must be exposed over the network with --host/server.host; the default deny list is slashless and unaffected.",
+      "Deny is a blacklist on top of the allow list: a path that misses the deny glob is still subject to safeModulesPath/fs.allow. The bypass works because the default allow includes the project root; isFileServingAllowed's return-false-on-deny contract at static.ts:216 is unchanged.",
+      "Affected range is the 5.0 line only (>=5.0.0,<5.0.13); the advisory's full matrix also covers 2.7.0-2.9.17, 3.0.0-3.2.8, 4.0.0-4.5.2, 5.1.0-5.1.6 and 5.2.0-5.2.5, which this snapshot-based entry does not enumerate.",
+      "NVD is not an independent corroboration for this CVE: its CVSS is a Secondary metric sourced from security-advisories@github.com, the record is Deferred, and it carries no configurations/CPE or independent CWE analysis.",
+      "GitHub/OSV label the issue MODERATE while the CVSS base is 5.9 MEDIUM; same band, different string. The dossier records the CVSS label.",
+      "v5.0.11's { matchBase: true } line is accurate; nocase: true was added in v5.0.12 by 91641c4d for CVE-2024-23331, so the fix commit's parent line differs from the snapshot line."
+    ],
+    "duplicate_check": "Reviewer compared CVE-2023-34092 (// bypass), CVE-2024-23331 (case-insensitive filesystem, fixed v5.0.12), CVE-2024-45811 (?import&raw) and later 2025/2026 advisories: no duplicate root cause."
+  },
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No Vite dev server was started and no HTTP request was made; the bypass is established statically from the matcher configuration and the advisory.",
+    "Only the 5.0 line was diffed against v5.0.13; the 2.9/3.2/4.5/5.1/5.2 ports were not inspected.",
+    "Exploitation requires a custom server.fs.deny containing a pattern with directories and a dev server exposed with --host or server.host; the default deny list is slashless and is not affected by this specific defect.",
+    "The v5.0.11 snapshot predates the v5.0.12 nocase fix (CVE-2024-23331); both defects exist there, and this dossier isolates only the matchBase/dot directory-glob issue.",
+    "picomatch matchBase behavior is taken from the advisory and the option value, not from executing picomatch.",
+    "The reviewer notes picomatch 2.3.1's matchBase branch (regex.test(path.basename(input))) and sirv 2.0.3's dev-mode dotfile handling were read as library source to confirm reachability; neither library was executed.",
+    "Only the 5.0 line is covered by the recorded range; the advisory's 2.9/3.2/4.5/5.1/5.2 ranges are outside this snapshot-based entry."
+  ],
+  "open_questions": [
+    "Whether an application's fs.allow configuration alone would already block the same paths in common deployments was not surveyed."
+  ]
+}

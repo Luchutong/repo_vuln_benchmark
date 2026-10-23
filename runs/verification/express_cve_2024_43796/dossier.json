@@ -1,0 +1,350 @@
+{
+  "candidate_id": "disc2_46e365279c41c72736dcef18",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/raw/osv/cc9b391e52ce2a17358d9e09a27a1d5941febdd8385d174455a0e4c148ec83f1.json",
+      "evidence_id": "ev_ghsa_qw6h_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:45:29.915466Z",
+      "sha256_of_observation": "cc9b391e52ce2a17358d9e09a27a1d5941febdd8385d174455a0e4c148ec83f1",
+      "source_url": "https://osv.dev/vulnerability/GHSA-qw6h-vgh9-j6wx",
+      "supports": [
+        "aliases",
+        "affected ranges",
+        "fixed versions",
+        "CWE",
+        "CVSS vector",
+        "fix commit reference"
+      ],
+      "verification_method": "OSV API query for npm:express, cached response body"
+    },
+    {
+      "artifact_path": "runs/verification/express_lodash/sources/GHSA-qw6h-vgh9-j6wx_global.json",
+      "evidence_id": "ev_ghsa_qw6h_github",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T11:53:00Z",
+      "sha256_of_observation": "f7df0f1ee0e2ca11645dbca539bd5db74819830973b55dad9e5e80c17b5c0e98",
+      "source_url": "https://api.github.com/advisories/GHSA-qw6h-vgh9-j6wx",
+      "supports": [
+        "advisory url",
+        "repository advisory url",
+        "severity label low",
+        "published_at",
+        "CWE",
+        "patched versions"
+      ],
+      "verification_method": "GitHub Advisory API record, read-only"
+    },
+    {
+      "artifact_path": "runs/verification/express_lodash/sources/CVE-2024-43796_cve.json",
+      "evidence_id": "ev_cve_2024_43796_cvelist",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T11:53:00Z",
+      "sha256_of_observation": "d250f1cc9604764b19ca6347fffdd6be830eb43f537513cae1deefac9d67a477",
+      "source_url": "https://github.com/CVEProject/cvelistV5",
+      "supports": [
+        "CNA CVSS 3.1 5.0 MEDIUM",
+        "CWE-79",
+        "title",
+        "datePublished"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner GitHub_M)"
+    },
+    {
+      "artifact_path": "runs/verification/express_cve_2024_43796/nvd_cve_2024_43796.json",
+      "evidence_id": "ev_cve_2024_43796_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:17:20Z",
+      "sha256_of_observation": "7b1d8edda83d56516751ffea884a7561063f5ac4549476f1015f1550cd1e657e",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-43796",
+      "supports": [
+        "independent NVD primary score 4.7",
+        "CNA score 5.0",
+        "Patch tag on fix commit",
+        "CWE-79"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Analyzed"
+    },
+    {
+      "artifact_path": "runs/verification/express_manual/54271f6.patch",
+      "evidence_id": "ev_fix_commit_54271f6",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:16:00Z",
+      "sha256_of_observation": "9a08514518b7918ea04962c80e40b6030792f282e83f3f9be3b43ffc08926c53",
+      "source_url": "https://github.com/expressjs/express/commit/54271f69b511fea198471e6ff3400ab805d6b553",
+      "supports": [
+        "fix commit",
+        "root-cause file",
+        "sink removal",
+        "regression test javascript: URL"
+      ],
+      "verification_method": "commit patch fetched, diff read: removes anchor href from lib/response.js"
+    },
+    {
+      "artifact_path": "runs/verification/express_manual/response_4.19.2.js",
+      "evidence_id": "ev_vulnerable_file_4_19_2",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:16:00Z",
+      "sha256_of_observation": "8761b1592827b8d4708dc17810a7359b35ca469bde3bb10aabdce6a1884629a8",
+      "source_url": "https://raw.githubusercontent.com/expressjs/express/b28db2c12c3bd9cd763316824446f79bf81e0686/lib/response.js",
+      "supports": [
+        "root-cause location line 972",
+        "function res.redirect line 945"
+      ],
+      "verification_method": "raw file read at exact vulnerable SHA; line 972 inspected"
+    },
+    {
+      "artifact_path": "runs/verification/express_cve_2024_43796/git_object_checks.txt",
+      "evidence_id": "ev_git_objects_express",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:20:00Z",
+      "sha256_of_observation": "11bb7f9e162311bfdaa0c72d51310747357d8b8abcecd501023f310ad2047679",
+      "source_url": "https://github.com/expressjs/express",
+      "supports": [
+        "npm gitHead commit and tag 4.19.2 commit share tree f18a74c",
+        "4.20.0 and v5.0.0 contain fixed content"
+      ],
+      "verification_method": "git ls-remote + bare shallow fetch; tree comparison"
+    },
+    {
+      "artifact_path": "runs/language/snap_3166f788b2c56baa/snapshot_proposal.json",
+      "evidence_id": "ev_snapshot_snap_3166f788b2c56baa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:17:19.693282Z",
+      "sha256_of_observation": "f20f4986f7b7d6f69ac9408db9737467f051d0641141030f72a07e64304a13fd",
+      "source_url": "https://github.com/expressjs/express/tree/b28db2c12c3bd9cd763316824446f79bf81e0686",
+      "supports": [
+        "snapshot_id",
+        "language composition",
+        "JavaScript first-party code",
+        "tree oid f18a74c"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 231 tracked files, full_scan true"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      3
+    ],
+    "aliases": [
+      0
+    ],
+    "critical_operation": [
+      5
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "fix_commits": [
+      0,
+      4
+    ],
+    "fixed_releases": [
+      0,
+      6
+    ],
+    "severity": [
+      0,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      6
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "Location was established by static reading, not by executing a proof-of-concept against express 4.19.2.",
+    "Root cause is described at the sink; upstream caller paths that pass untrusted input are application-specific and not enumerated."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "body = '<p>' + statuses.message[status] + '. Redirecting to <a href=\"' + u + '\">' + u + '</a></p>'",
+      "description": "The untrusted redirect target is interpolated into an anchor href in the HTML body. escapeHtml neutralizes HTML metacharacters but not URL schemes, so a javascript: target survives and executes in the application origin when the victim clicks the link.",
+      "file": "lib/response.js",
+      "function": "res.redirect",
+      "language": "JavaScript",
+      "line": 972,
+      "permalink": "https://github.com/expressjs/express/blob/b28db2c12c3bd9cd763316824446f79bf81e0686/lib/response.js#L970-L973"
+    },
+    "entry_point": {
+      "description": "Public redirect API: the caller-supplied target URL arrives as `url` and becomes `address` (line 946).",
+      "file": "lib/response.js",
+      "function": "res.redirect",
+      "language": "JavaScript",
+      "line": 945,
+      "permalink": "https://github.com/expressjs/express/blob/b28db2c12c3bd9cd763316824446f79bf81e0686/lib/response.js#L945"
+    },
+    "location_id": "loc_GHSA_qw6h_vgh9_j6wx_snap_3166f788b2c56baa",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_3166f788b2c56baa",
+    "trace": [
+      {
+        "description": "var address = url; — attacker-controlled target enters the sink path.",
+        "file": "lib/response.js",
+        "function": "res.redirect",
+        "language": "JavaScript",
+        "line": 946,
+        "permalink": "https://github.com/expressjs/express/blob/b28db2c12c3bd9cd763316824446f79bf81e0686/lib/response.js#L946"
+      },
+      {
+        "description": "address = this.location(address).get('Location'); — URL encoding preserves the javascript: scheme.",
+        "file": "lib/response.js",
+        "function": "res.redirect",
+        "language": "JavaScript",
+        "line": 962,
+        "permalink": "https://github.com/expressjs/express/blob/b28db2c12c3bd9cd763316824446f79bf81e0686/lib/response.js#L962"
+      },
+      {
+        "description": "var u = escapeHtml(address); — HTML escaping only; does not validate or strip dangerous schemes.",
+        "file": "lib/response.js",
+        "function": "res.redirect",
+        "language": "JavaScript",
+        "line": 971,
+        "permalink": "https://github.com/expressjs/express/blob/b28db2c12c3bd9cd763316824446f79bf81e0686/lib/response.js#L971"
+      },
+      {
+        "description": "HTML body concatenation puts u into href; browser executes javascript: on navigation.",
+        "file": "lib/response.js",
+        "function": "res.redirect",
+        "language": "JavaScript",
+        "line": 972,
+        "permalink": "https://github.com/expressjs/express/blob/b28db2c12c3bd9cd763316824446f79bf81e0686/lib/response.js#L972"
+      }
+    ],
+    "verification_method": "Static read of lib/response.js at vulnerable SHA b28db2c12c3bd9cd763316824446f79bf81e0686 (artifact runs/verification/express_manual/response_4.19.2.js), compared against fix commit 54271f69b511fea198471e6ff3400ab805d6b553 and against the same file at tags 4.20.0 and v5.0.0. No code executed.",
+    "vulnerability_id": "GHSA-qw6h-vgh9-j6wx"
+  },
+  "open_questions": [
+    "GHSA labels severity low while the CNA CVSS numeric is 5.0 (Medium); dataset level follows the numeric.",
+    "The advisory range uses 5.0.0-alpha.1 as introduced but the stable tag is v5.0.0; alpha tags 5.0.0-alpha.1..8 exist without the v prefix.",
+    "npm gitHead b28db2c and GitHub tag 4.19.2 commit 04bc627 are content-identical trees; either is defensible as vulnerable_commit. The npm-published commit is recorded, with the tag tree equality documented."
+  ],
+  "prepared_at": "2026-10-21T13:20:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required",
+    "evaluation_target_snapshot_not_yet_designated"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/expressjs/express",
+    "full_name": "expressjs/express",
+    "license": "MIT",
+    "primary_language": "JavaScript",
+    "project_kind": "library",
+    "repo_id": "237159",
+    "snapshot_id": "snap_3166f788b2c56baa"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "A second reviewer must re-read the location at the vulnerable SHA and confirm the sink.",
+      "A second reviewer must confirm fixed-release content and that the vulnerable range does not include the fix.",
+      "Formal reviews.jsonl row cannot be written until an independent reviewer is named."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA API + OSV)",
+      "CVE List v5 CNA record",
+      "NVD analysis"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD has its own primary CVSS (4.7, S:C, A:N) distinct from the CNA vector (5.0, S:U, A:L). Both agree on the fix commit, CWE-79 and the patched releases. The GHSA/CNA/cvelist records share the GitHub advisory as origin, so they count as one advisory family plus NVD analysis."
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/expressjs/express/security/advisories/GHSA-qw6h-vgh9-j6wx",
+    "affected_packages": [
+      {
+        "affected_range": "<4.20.0",
+        "ecosystem": "npm",
+        "package": "express",
+        "purl": "pkg:npm/express"
+      },
+      {
+        "affected_range": ">=5.0.0-alpha.1, <5.0.0",
+        "ecosystem": "npm",
+        "package": "express",
+        "purl": "pkg:npm/express"
+      }
+    ],
+    "aliases": [
+      "GHSA-qw6h-vgh9-j6wx",
+      "CVE-2024-43796"
+    ],
+    "category_l1": "injection",
+    "category_l2": "cross-site scripting",
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "fix: don't render redirect values in anchor href",
+        "sha": "54271f69b511fea198471e6ff3400ab805d6b553",
+        "url": "https://github.com/expressjs/express/commit/54271f69b511fea198471e6ff3400ab805d6b553"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "express",
+        "release_url": "https://github.com/expressjs/express/releases/tag/4.20.0",
+        "tag": "4.20.0",
+        "verified_content": "lib/response.js line 972 renders redirect target without <a href>",
+        "version": "4.20.0"
+      },
+      {
+        "ecosystem": "npm",
+        "package": "express",
+        "release_url": "https://github.com/expressjs/express/releases/tag/v5.0.0",
+        "tag": "v5.0.0",
+        "verified_content": "lib/response.js line 827 renders redirect target without <a href>",
+        "version": "5.0.0"
+      }
+    ],
+    "published_at": "2024-09-10T19:41:04Z",
+    "references": [
+      "https://github.com/expressjs/express/security/advisories/GHSA-qw6h-vgh9-j6wx",
+      "https://github.com/expressjs/express/commit/54271f69b511fea198471e6ff3400ab805d6b553",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-43796",
+      "https://github.com/expressjs/express/releases/tag/4.20.0",
+      "https://github.com/expressjs/express/releases/tag/v5.0.0"
+    ],
+    "repo_id": "237159",
+    "severity": {
+      "alternate_scores": [
+        {
+          "level": "medium",
+          "score": 4.7,
+          "source": "nvd@nist.gov",
+          "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:L/I:L/A:N",
+          "version": "3.1"
+        }
+      ],
+      "level": "medium",
+      "numeric_level_rationale": "CVSS 3.1 numeric 5.0 falls in Medium (4.0-6.9); the GitHub qualitative label \"low\" is not used for level.",
+      "score": 5.0,
+      "source": "CNA security-advisories@github.com, as recorded by NVD (Secondary) and cvelistV5",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-43796",
+      "upstream_qualitative": "low (GitHub Advisory API label)",
+      "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:L/I:L/A:L",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_3166f788b2c56baa",
+    "source_type": "upstream_advisory",
+    "title": "express vulnerable to XSS via response.redirect()",
+    "vulnerability_id": "GHSA-qw6h-vgh9-j6wx",
+    "vulnerable_commit": "b28db2c12c3bd9cd763316824446f79bf81e0686",
+    "vulnerable_commit_basis": "npm registry gitHead for express@4.19.2; tree f18a74c2f183fd0ab2bd3b411ddd44b792d4481a equals tag 4.19.2 commit 04bc62787be974874bc1467b23606c36bc9779ba tree",
+    "vulnerable_version": "4.19.2"
+  }
+}

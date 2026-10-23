@@ -1,0 +1,175 @@
+{
+  "packet_id": "selrev_33100064_snap_f0ec66ad5ca54002",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "33100064",
+    "full_name": "jbeder/yaml-cpp",
+    "canonical_url": "https://github.com/jbeder/yaml-cpp",
+    "primary_language": "C++",
+    "project_kind": "A YAML parser and emitter in C++"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_f0ec66ad5ca54002",
+    "tag_or_release": "yaml-cpp-0.6.2",
+    "commit_sha": "562aefc114938e388457e6a531ed7b54d9dc1b62"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "562aefc114938e388457e6a531ed7b54d9dc1b62",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "296d72b846796a97e4e5f08e8ef64553d1e51756",
+    "tree_file_count": 446,
+    "exported_file_count": 446,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/jbeder__yaml-cpp/snap_f0ec66ad5ca54002.tar.gz",
+    "archive_sha256": "84f3ff489b1e02a4b626435686d74bb42e001c12aa3d8e09e07a7d654f778c03",
+    "archive_bytes": 1383022,
+    "manifest_path": "exports/jbeder__yaml-cpp/snap_f0ec66ad5ca54002.manifest.jsonl",
+    "manifest_sha256": "55c94d1ba5deb4babd3943ca9a515c40baf0cb2fe962780afc6e2e39be527b9b"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "test/gtest-1.8.0/googlemock/CHANGES",
+      "test/gtest-1.8.0/googletest/CHANGES",
+      "test/gtest-1.8.0/googletest/scripts/release_docs.py",
+      "test/gtest-1.8.0/googletest/xcode/Config/ReleaseProject.xcconfig"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      "test/gtest-1.8.0/googlemock/CHANGES",
+      "test/gtest-1.8.0/googletest/CHANGES",
+      "test/gtest-1.8.0/googletest/scripts/release_docs.py",
+      "test/gtest-1.8.0/googletest/xcode/Config/ReleaseProject.xcconfig"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "cmake": [
+        "CMakeLists.txt"
+      ],
+      "configure": [
+        "Makefile.am",
+        "configure.ac"
+      ],
+      "make": [
+        "Makefile"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "cmake",
+      "configure",
+      "make"
+    ],
+    "toolchain_available": {
+      "cmake": {
+        "cmake": true,
+        "make": true
+      },
+      "configure": {
+        "gcc": true,
+        "make": true
+      },
+      "make": {
+        "make": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2019-6285",
+      "aliases": [
+        "CVE-2019-6285",
+        "GHSA-hg7f-3vww-rc69"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "=0.6.2",
+          "ecosystem": "generic",
+          "note": "0.6.2 is the frozen snapshot and the only upstream version any record names. The Debian range describes Debian's patched source package (0.6.3-1 carries a backport of PR 807); it is a downstream range, not evidence that vanilla 0.6.3 is fixed. The OSV GIT range pins the affected commit to the 0.6.2 tag commit itself.",
+          "package": "yaml-cpp",
+          "purl": "pkg:generic/yaml-cpp",
+          "range_completeness": {
+            "additional_verified_affected": [
+              {
+                "evidence": "Vanilla upstream yaml-cpp-0.6.3 (9a36242) still segfaults on the same input: poc '[ ' x15000 with rc 139 (poc_reproduction.txt). The fix 4edff1f is not an ancestor of 0.6.3 (ancestry.txt). Debian's 0.6.3-1 is fixed only because it backports PR 807.",
+                "package": "yaml-cpp",
+                "source": "collector build and execution, 2026-10-23",
+                "version": "0.6.3"
+              }
+            ],
+            "exhaustive": false,
+            "first_affected_version": null,
+            "policy": "The dataset keeps the published range and does not widen it. The demonstrated fact that vanilla 0.6.3 is also affected, while Debian 0.6.3-1 is patched, is recorded here and in discrepancies so that no downstream fixed_version is mistaken for an upstream one.",
+            "published_versions": [
+              "0.6.2"
+            ],
+            "status": "published_range_exact_single_version",
+            "upper_bound_verified": true
+          },
+          "range_expressions": [
+            {
+              "first_patched_version": null,
+              "range": "introduced 562aefc114938e388457e6a531ed7b54d9dc1b62, last_affected 562aefc114938e388457e6a531ed7b54d9dc1b62",
+              "source": "OSV CVE-2019-6285 GIT range, modified 2026-10-20"
+            },
+            {
+              "first_patched_version": null,
+              "range": "cpe:2.3:a:yaml-cpp_project:yaml-cpp:0.6.2",
+              "source": "NVD CPE configuration, lastModified 2026-06-17"
+            },
+            {
+              "first_patched_version": "0.6.3-1 (Debian package)",
+              "range": ">=0, <0.6.3-1",
+              "source": "Debian OSV DEBIAN-CVE-2019-6285, Debian 12/13/14"
+            }
+          ],
+          "versions_includes": "0.6.2"
+        }
+      ],
+      "published_at": "2019-01-14T22:29:00Z",
+      "advisory_url": "https://nvd.nist.gov/vuln/detail/CVE-2019-6285",
+      "severity": {
+        "level": "medium",
+        "metric_disagreement": null,
+        "numeric_level_rationale": "6.5 falls in the Medium band (4.0-6.9). Availability-only impact with user interaction; no confidentiality or integrity effect.",
+        "published_level": "MEDIUM",
+        "published_score": 6.5,
+        "published_vector": "CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+        "published_version": "3.0",
+        "score": 6.5,
+        "source": "NVD publishes CVSS 3.0 6.5 MEDIUM (CVSS:3.0/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H); GHSA-hg7f-3vww-rc69 publishes the same 3.0 vector at 6.5; NVD also carries a legacy CVSS 2.0 4.3 vector that is not used. No source publishes a 3.1 vector. The 3.1 vector recorded here is the same eight base metrics re-expressed under the 3.1 notation; those metrics score identically at 6.5. It is a notation normalisation required by the dataset schema, not an independent publication.",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2019-6285",
+        "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

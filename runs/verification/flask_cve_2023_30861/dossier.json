@@ -1,0 +1,365 @@
+{
+  "candidate_id": null,
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/raw/osv/d693a49221437ebc57a7cb3612ec89e7ac3c1dc99b5bae5d1a3d3adce9a678b3.json",
+      "evidence_id": "ev_ghsa_m2qf_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:45:28.985090Z",
+      "sha256_of_observation": "d693a49221437ebc57a7cb3612ec89e7ac3c1dc99b5bae5d1a3d3adce9a678b3",
+      "source_url": "https://osv.dev/vulnerability/GHSA-m2qf-hxjv-5gpq",
+      "supports": [
+        "aliases",
+        "affected ranges",
+        "fixed versions",
+        "CWE-539",
+        "CVSS 7.5",
+        "fix commits",
+        "fixed releases"
+      ],
+      "verification_method": "OSV API query for PyPI:Flask, cached response body"
+    },
+    {
+      "artifact_path": "runs/raw/pilot_flask_cve_record.json",
+      "evidence_id": "ev_cve_2023_30861_cvelist",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:47:52.997Z",
+      "sha256_of_observation": "e3c2938cfc67081271445e7f8233ddaa39258db9172b6c806d9cc36197582d74",
+      "source_url": "https://raw.githubusercontent.com/CVEProject/cvelistV5/main/cves/2023/30xxx/CVE-2023-30861.json",
+      "supports": [
+        "CNA CVSS 3.1 7.5 HIGH",
+        "CWE-539",
+        "affected ranges",
+        "fix commit and release references"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner GitHub_M)"
+    },
+    {
+      "artifact_path": "runs/verification/flask_cve_2023_30861/nvd_cve_2023_30861.json",
+      "evidence_id": "ev_cve_2023_30861_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:22:00Z",
+      "sha256_of_observation": "d7843fc7afe4464fa3347b5b078141386bb8f1d4982cc0588fa2259f9e797c50",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2023-30861",
+      "supports": [
+        "independent NVD primary score 7.5 same vector",
+        "CWE-539",
+        "affected configurations"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/raw/pilot_flask_compare_231_232.json",
+      "evidence_id": "ev_flask_compare_231_232",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:47:52.997Z",
+      "sha256_of_observation": "c4e1fd608c64f789ae100ec3611559182e26a720c607f5bbb8d3638aa6682bdd",
+      "source_url": "https://api.github.com/repos/pallets/flask/compare/2.3.1...2.3.2",
+      "supports": [
+        "2.3.1 is the comparison base",
+        "fix 70f906c is in 2.3.2"
+      ],
+      "verification_method": "GitHub compare API; full commit list, base_commit 721abdc"
+    },
+    {
+      "artifact_path": "runs/raw/pilot_flask_compare_224_225.json",
+      "evidence_id": "ev_flask_compare_224_225",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:47:52.997Z",
+      "sha256_of_observation": "b2ba2c1cd08a18c7d07ed5272ea4d940240e934740b1f22ae02e00d6d008327e",
+      "source_url": "https://api.github.com/repos/pallets/flask/compare/2.2.4...2.2.5",
+      "supports": [
+        "fix afd63b1 is in 2.2.5"
+      ],
+      "verification_method": "GitHub compare API; full commit list"
+    },
+    {
+      "artifact_path": "runs/raw/pilot_flask_fix_70f906c.json",
+      "evidence_id": "ev_flask_fix_70f906c",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T10:47:52.997Z",
+      "sha256_of_observation": "4fbc7b7c0ff8790140d736b35d2cf881324d594d565a5aaa7ef6eb3b560c18a4",
+      "source_url": "https://github.com/pallets/flask/commit/70f906c51ce49c485f1d355703e9cc3386b1cc2b",
+      "supports": [
+        "fix commit for 2.3.x",
+        "file src/flask/sessions.py",
+        "test_session_refresh_vary"
+      ],
+      "verification_method": "GitHub commit API metadata and file patch"
+    },
+    {
+      "artifact_path": "runs/verification/flask_cve_2023_30861/sessions_2.3.1.py",
+      "evidence_id": "ev_flask_vulnerable_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:21:00Z",
+      "sha256_of_observation": "912d178b9b088ff2d34c5f83e176f2b31ce2af64f020378286c8b255c719aec7",
+      "source_url": "https://raw.githubusercontent.com/pallets/flask/721abdc3810057269503a72d2db80fb826f3c85c/src/flask/sessions.py",
+      "supports": [
+        "root-cause location lines 347-356",
+        "conditional Vary",
+        "unconditional set_cookie"
+      ],
+      "verification_method": "raw file read at exact vulnerable SHA; save_session lines 322-370 inspected"
+    },
+    {
+      "artifact_path": "runs/verification/flask_cve_2023_30861/fixed_content_checks.txt",
+      "evidence_id": "ev_flask_fixed_content",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T13:24:00Z",
+      "sha256_of_observation": "2cf39b36e42ad5dbbda64cb229bc52e319126a25fd120c2f8f8e037e24779572",
+      "source_url": "https://github.com/pallets/flask/tree/f3b8f570545200c87465d18386f3fc9f2258307a",
+      "supports": [
+        "Vary guaranteed after set_cookie and delete_cookie in both fixed releases"
+      ],
+      "verification_method": "git ls-remote plus shallow fetch; fixed files read at 2.3.2 and 2.2.5"
+    },
+    {
+      "artifact_path": "runs/language/snap_8ed1cab47a0b7011/snapshot_proposal.json",
+      "evidence_id": "ev_flask_snapshot_snap_8ed1cab47a0b7011",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T11:50:57.846392Z",
+      "sha256_of_observation": "fd6208b63001e5ed29d56e688b0814d6fac444ee88227f1cbe3fda5472947f09",
+      "source_url": "https://github.com/pallets/flask/tree/721abdc3810057269503a72d2db80fb826f3c85c",
+      "supports": [
+        "snapshot_id",
+        "Python first-party composition",
+        "tag 2.3.1 mapping"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 249 tracked files, full_scan true"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0
+    ],
+    "critical_operation": [
+      6
+    ],
+    "cwe": [
+      0,
+      1,
+      2
+    ],
+    "fix_commits": [
+      0,
+      3,
+      4,
+      5
+    ],
+    "fixed_releases": [
+      0,
+      7
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      3,
+      8
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No proxy cache reproduction was run; root cause is established statically from the exact release files.",
+    "Flask depends on Werkzeug for cookie handling; this dossier covers only the Flask-side Vary logic."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "        # Add a \"Vary: Cookie\" header if the session was accessed at all.\n        if session.accessed:\n            response.vary.add(\"Cookie\")\n\n        if not self.should_set_cookie(app, session):\n            return\n\n        expires = self.get_expiration_time(app, session)\n        val = self.get_signing_serializer(app).dumps(dict(session))  # type: ignore\n        response.set_cookie(",
+      "description": "Vary: Cookie is added only when session.accessed is true, but set_cookie is reached whenever should_set_cookie is true. A permanent session refreshed without being accessed therefore returns Set-Cookie with no Vary, and a shared cache may serve one client's cookie-bearing response to another.",
+      "file": "src/flask/sessions.py",
+      "function": "SecureCookieSessionInterface.save_session",
+      "language": "Python",
+      "line": "347-356",
+      "permalink": "https://github.com/pallets/flask/blob/721abdc3810057269503a72d2db80fb826f3c85c/src/flask/sessions.py#L347-L356"
+    },
+    "entry_point": {
+      "description": "Save hook runs after every request; it may emit or delete the session cookie without consulting whether the response varies by Cookie.",
+      "file": "src/flask/sessions.py",
+      "function": "SecureCookieSessionInterface.save_session",
+      "language": "Python",
+      "line": 322,
+      "permalink": "https://github.com/pallets/flask/blob/721abdc3810057269503a72d2db80fb826f3c85c/src/flask/sessions.py#L322"
+    },
+    "location_id": "loc_GHSA_m2qf_hxjv_5gpq_snap_8ed1cab47a0b7011",
+    "location_kind": "logic",
+    "snapshot_id": "snap_8ed1cab47a0b7011",
+    "trace": [
+      {
+        "description": "Empty-session branch returns at line 345; the delete_cookie response at line 336 also carries no Vary in this version.",
+        "file": "src/flask/sessions.py",
+        "function": "SecureCookieSessionInterface.save_session",
+        "language": "Python",
+        "line": 334,
+        "permalink": "https://github.com/pallets/flask/blob/721abdc3810057269503a72d2db80fb826f3c85c/src/flask/sessions.py#L334"
+      },
+      {
+        "description": "The only Vary addition is guarded by session.accessed.",
+        "file": "src/flask/sessions.py",
+        "function": "SecureCookieSessionInterface.save_session",
+        "language": "Python",
+        "line": 348,
+        "permalink": "https://github.com/pallets/flask/blob/721abdc3810057269503a72d2db80fb826f3c85c/src/flask/sessions.py#L348"
+      },
+      {
+        "description": "should_set_cookie is true for a modified session or a permanent session when SESSION_REFRESH_EACH_REQUEST is enabled; neither requires session.accessed.",
+        "file": "src/flask/sessions.py",
+        "function": "SecureCookieSessionInterface.save_session",
+        "language": "Python",
+        "line": 351,
+        "permalink": "https://github.com/pallets/flask/blob/721abdc3810057269503a72d2db80fb826f3c85c/src/flask/sessions.py#L351"
+      },
+      {
+        "description": "set_cookie emits Set-Cookie on a response that may lack Vary: Cookie, the precondition for a shared cache to leak the session cookie.",
+        "file": "src/flask/sessions.py",
+        "function": "SecureCookieSessionInterface.save_session",
+        "language": "Python",
+        "line": 356,
+        "permalink": "https://github.com/pallets/flask/blob/721abdc3810057269503a72d2db80fb826f3c85c/src/flask/sessions.py#L356"
+      }
+    ],
+    "verification_method": "Static comparison of src/flask/sessions.py at tag 2.3.1 commit 721abdc against tags 2.3.2 (f3b8f57) and 2.2.5 (47af817c), plus the GitHub compare API 2.3.1...2.3.2 and 2.2.4...2.2.5. Findings follow the CNA description conditions; no proxy or application was executed.",
+    "vulnerability_id": "GHSA-m2qf-hxjv-5gpq"
+  },
+  "open_questions": [
+    "The exploit requires an application-level precondition (permanent session, no access, SESSION_REFRESH_EACH_REQUEST, caching proxy). The dataset records the library defect, not a universal exploit.",
+    "2.2.x and 2.3.x have separate fix commits; the 2.3.0 lower bound comes from the CNA record, while 2.2.x is affected from 0."
+  ],
+  "prepared_at": "2026-10-21T13:25:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required",
+    "evaluation_target_snapshot_not_yet_designated"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/pallets/flask",
+    "full_name": "pallets/flask",
+    "license": "BSD-3-Clause",
+    "primary_language": "Python",
+    "project_kind": "framework",
+    "repo_id": "596892",
+    "snapshot_id": "snap_8ed1cab47a0b7011"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "A second reviewer must re-read save_session at 721abdc and confirm the Vary/set_cookie ordering.",
+      "A second reviewer must confirm that both fixed releases guarantee Vary on the cookie paths.",
+      "Dynamic proxy-cache reproduction is optional but absent; if claimed, it must be recorded separately."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA API + OSV)",
+      "CVE List v5 CNA record",
+      "NVD analysis",
+      "PyPA PYSEC (OSV)"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD independently scored the same vector (7.5, HIGH). OSV carries the GHSA and PYSEC records; PYSEC adds GIT-type ranges that map to the same two fix commits. No source disagrees on the fix set."
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/pallets/flask/security/advisories/GHSA-m2qf-hxjv-5gpq",
+    "affected_packages": [
+      {
+        "affected_range": ">=2.3.0, <2.3.2",
+        "ecosystem": "PyPI",
+        "package": "flask",
+        "purl": "pkg:pypi/flask"
+      },
+      {
+        "affected_range": "<2.2.5",
+        "ecosystem": "PyPI",
+        "package": "flask",
+        "purl": "pkg:pypi/flask"
+      }
+    ],
+    "aliases": [
+      "GHSA-m2qf-hxjv-5gpq",
+      "CVE-2023-30861",
+      "PYSEC-2023-62"
+    ],
+    "category_l1": "information_disclosure",
+    "category_l2": "cache_poisoning",
+    "cwe_ids": [
+      "CWE-539"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "2.3.x",
+        "sha": "70f906c51ce49c485f1d355703e9cc3386b1cc2b",
+        "url": "https://github.com/pallets/flask/commit/70f906c51ce49c485f1d355703e9cc3386b1cc2b"
+      },
+      {
+        "branch": "2.2.x",
+        "sha": "afd63b16170b7c047f5758eb910c416511e9c965",
+        "url": "https://github.com/pallets/flask/commit/afd63b16170b7c047f5758eb910c416511e9c965"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "flask",
+        "release_url": "https://github.com/pallets/flask/releases/tag/2.3.2",
+        "tag": "2.3.2",
+        "verified_content": "save_session adds Vary after set_cookie (line 367) and in the delete_cookie branch (line 348)",
+        "version": "2.3.2"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "flask",
+        "release_url": "https://github.com/pallets/flask/releases/tag/2.2.5",
+        "tag": "2.2.5",
+        "verified_content": "save_session adds Vary after set_cookie (line 421) and in the delete_cookie branch (line 402)",
+        "version": "2.2.5"
+      }
+    ],
+    "published_at": "2023-05-02T17:04:22.197Z",
+    "references": [
+      "https://github.com/pallets/flask/security/advisories/GHSA-m2qf-hxjv-5gpq",
+      "https://github.com/pallets/flask/commit/70f906c51ce49c485f1d355703e9cc3386b1cc2b",
+      "https://github.com/pallets/flask/commit/afd63b16170b7c047f5758eb910c416511e9c965",
+      "https://github.com/pallets/flask/releases/tag/2.3.2",
+      "https://github.com/pallets/flask/releases/tag/2.2.5",
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-30861"
+    ],
+    "repo_id": "596892",
+    "severity": {
+      "alternate_scores": [
+        {
+          "level": "high",
+          "score": 7.5,
+          "source": "nvd@nist.gov",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "version": "3.1"
+        }
+      ],
+      "level": "high",
+      "score": 7.5,
+      "source": "CNA security-advisories@github.com; NVD independently scored the same vector",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2023-30861",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_8ed1cab47a0b7011",
+    "source_type": "upstream_advisory",
+    "title": "Flask vulnerable to possible disclosure of permanent session cookie due to missing Vary: Cookie header",
+    "vulnerability_id": "GHSA-m2qf-hxjv-5gpq",
+    "vulnerable_commit": "721abdc3810057269503a72d2db80fb826f3c85c",
+    "vulnerable_commit_basis": "annotated tag 2.3.1 (164d2f8b...) peels to commit 721abdc; same base_commit recorded by the GitHub compare API for 2.3.1...2.3.2",
+    "vulnerable_version": "2.3.1"
+  }
+}

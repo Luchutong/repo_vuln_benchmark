@@ -1,0 +1,166 @@
+{
+  "packet_id": "selrev_105379569_snap_ca4042bda2431632",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "105379569",
+    "full_name": "actix/actix-web",
+    "canonical_url": "https://github.com/actix/actix-web",
+    "primary_language": "Rust",
+    "project_kind": "Actix Web is a powerful, pragmatic, and extremely fast web framework for Rust."
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_ca4042bda2431632",
+    "tag_or_release": "http-v3.12.0",
+    "commit_sha": "a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "329cd0a915a1b4bdb06db1ca981f85205b65fe20",
+    "tree_file_count": 442,
+    "exported_file_count": 418,
+    "symlink_count": 24,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/actix__actix-web/snap_ca4042bda2431632.tar.gz",
+    "archive_sha256": "aad2fee23b8531ba8bcc7eef312e7bbd98e0fae6d9388ad2158cfbbc1baad9b3",
+    "archive_bytes": 615451,
+    "manifest_path": "exports/actix__actix-web/snap_ca4042bda2431632.manifest.jsonl",
+    "manifest_sha256": "aff848294117d771ed787ba1024dfd3141d984ee1ce4385fe0ac7b077130b508"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "CHANGES.md",
+      "actix-files/CHANGES.md",
+      "actix-http-test/CHANGES.md",
+      "actix-http/CHANGES.md",
+      "actix-multipart-derive/CHANGES.md",
+      "actix-multipart/CHANGES.md",
+      "actix-router/CHANGES.md",
+      "actix-test/CHANGES.md",
+      "actix-web-actors/CHANGES.md",
+      "actix-web-codegen/CHANGES.md",
+      "actix-web/CHANGES.md",
+      "awc/CHANGES.md"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/FUNDING.yml",
+      ".github/ISSUE_TEMPLATE/bug_report.md",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/dependabot.yml",
+      ".github/labeler.yml",
+      ".github/workflows/bench.yml",
+      ".github/workflows/ci-post-merge.yml",
+      ".github/workflows/ci.yml",
+      ".github/workflows/coverage.yml",
+      ".github/workflows/labeler.yml",
+      ".github/workflows/lint.yml",
+      ".github/workflows/semver-labeler.yml",
+      "CHANGES.md",
+      "actix-files/CHANGES.md",
+      "actix-http-test/CHANGES.md",
+      "actix-http/CHANGES.md",
+      "actix-multipart-derive/CHANGES.md",
+      "actix-multipart/CHANGES.md",
+      "actix-router/CHANGES.md",
+      "actix-test/CHANGES.md",
+      "actix-web-actors/CHANGES.md",
+      "actix-web-codegen/CHANGES.md",
+      "actix-web/CHANGES.md",
+      "awc/CHANGES.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "rust": [
+        "Cargo.toml"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "rust"
+    ],
+    "toolchain_available": {
+      "rust": {
+        "cargo": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-73051",
+      "aliases": [
+        "CVE-2026-73051",
+        "GHSA-xhj4-vrgc-hr34"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": "<=3.12.0",
+          "ecosystem": "crates.io",
+          "package": "actix-http",
+          "purl": "pkg:cargo/actix-http",
+          "range_expressions": [
+            {
+              "first_patched_version": "3.12.1",
+              "range": "< 3.12.1",
+              "source": "GHSA GHSA-xhj4-vrgc-hr34 via GitHub and OSV"
+            },
+            {
+              "first_patched_version": "3.12.1",
+              "range": "introduced 0, fixed 3.12.1",
+              "source": "OSV CVE-2026-73051 extracted description event"
+            },
+            {
+              "first_patched_version": "3.12.0",
+              "range": "introduced 0, lessThan 3.12.0; 3.12.0 marked unaffected",
+              "source": "CVE.org CNA affected field (contradicted by the probe)"
+            },
+            {
+              "first_patched_version": "3.12.0",
+              "range": "introduced 0, fixed a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b",
+              "source": "OSV CVE-2026-73051 GIT event (points at the 3.12.0 release commit)"
+            }
+          ]
+        }
+      ],
+      "published_at": null,
+      "advisory_url": "https://github.com/advisories/GHSA-xhj4-vrgc-hr34",
+      "severity": {
+        "level": "medium",
+        "score": 6.3,
+        "source": "CVE.org CNA (VulnCheck) publishes CVSS v4.0 6.3; NVD carries the same vector as a Secondary cvssMetricV40 (disclosure@vulncheck.com) while its status is Awaiting Analysis; GHSA/OSV publish the identical vector with severity MODERATE/medium.",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-73051",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+        "version": "4.0"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

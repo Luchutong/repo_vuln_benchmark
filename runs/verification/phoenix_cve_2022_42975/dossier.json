@@ -1,0 +1,334 @@
+{
+  "candidate_id": "disc2_a66e2cfef368f78336f3e574",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/phoenix_cve_2022_42975/sources/osv_ghsa.json",
+      "evidence_id": "ev_phoenix_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:48:00Z",
+      "sha256_of_observation": "8a3d6cb68aa2c332071c0ffcc8663bbc90cc0ee2aac6d8a0bba08244cccd5688",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-p8f7-22gq-m7j9",
+      "supports": [
+        "GHSA aliases CVE-2022-42975",
+        "Hex phoenix SEMVER range introduced 0, fixed 1.6.14",
+        "CVSS 3.1 7.5 and CWE-346/CWE-863 in database_specific",
+        "advisory references commit 6e7185b"
+      ],
+      "verification_method": "OSV API query by GHSA id; response cached"
+    },
+    {
+      "artifact_path": "runs/verification/phoenix_cve_2022_42975/sources/cve_v5.json",
+      "evidence_id": "ev_phoenix_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:48:00Z",
+      "sha256_of_observation": "fb0f0d8cd55ac807c5bab25d30db07bc769992473c1b24fdeb98817ff3b12609",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2022-42975",
+      "supports": [
+        "CVE published 2022-10-17, state PUBLISHED, assigner MITRE",
+        "description: socket/transport.ex before 1.6.14 mishandles check_origin wildcarding",
+        "CNA supplies no CVSS, no CWE and product/version 'n/a'"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/phoenix_cve_2022_42975/sources/nvd_cve.json",
+      "evidence_id": "ev_phoenix_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:48:00Z",
+      "sha256_of_observation": "a8514793d63e7080caf930b001c829b75cbc6d6ef1d22efd3153ac957505f69b",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2022-42975",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+        "CWE-863 plus NVD-CWE-Other",
+        "CPE phoenix <1.6.14",
+        "patch reference 6e7185b"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/phoenix_cve_2022_42975/sources/git_object_checks.txt",
+      "evidence_id": "ev_phoenix_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:56:00Z",
+      "sha256_of_observation": "7f0be9318f2d9df764a2ab5829c6d0863baeb098d15bcc3d0adb1eccb32762e6",
+      "source_url": "https://github.com/phoenixframework/phoenix/commit/b2fc631f00267cd58255cffd5b12f8206e3cabae",
+      "supports": [
+        "annotated tags v1.6.13 and v1.6.14 and their peeled commits",
+        "release-line fix b2fc631 is in v1.6.14 and not in v1.6.13",
+        "advisory commit 6e7185b is not an ancestor of v1.6.14",
+        "the two fix commits contain the same affected hunk"
+      ],
+      "verification_method": "exact-SHA and tag fetch into a bare repository; git merge-base --is-ancestor in both directions; diff inspection"
+    },
+    {
+      "artifact_path": "runs/verification/phoenix_cve_2022_42975/sources/transport_1.6.13.ex",
+      "evidence_id": "ev_phoenix_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:52:00Z",
+      "sha256_of_observation": "7df716e2e9bed50216398cd2bbfb9456400654c5720319a1abf9a2c27c1c1d23",
+      "source_url": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket/transport.ex#L624-L629",
+      "supports": [
+        "vulnerable root-cause region",
+        "wildcard clause uses String.ends_with?(request_host, allowed_host)",
+        "no dot-boundary check and no exact-host alternative"
+      ],
+      "verification_method": "file read at the peeled v1.6.13 commit"
+    },
+    {
+      "artifact_path": "runs/verification/phoenix_cve_2022_42975/sources/transport_1.6.14.ex",
+      "evidence_id": "ev_phoenix_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:52:00Z",
+      "sha256_of_observation": "22b600794ffab77efc22a026168d691a1c76226bc70a0cbe5528328124937f67",
+      "source_url": "https://github.com/phoenixframework/phoenix/blob/50b4854124fc52cfa4666b2e555f984532d372e9/lib/phoenix/socket/transport.ex#L624-L629",
+      "supports": [
+        "fixed release content",
+        "exact match or '.' <> allowed_host suffix required"
+      ],
+      "verification_method": "file read at the peeled v1.6.14 commit"
+    },
+    {
+      "artifact_path": "runs/verification/phoenix_cve_2022_42975/sources/transport_test_1.6.14.exs",
+      "evidence_id": "ev_phoenix_tests",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:52:00Z",
+      "sha256_of_observation": "3013d2ac458221fbfb2505695817cf829b3414c51a695132c905dd1124243431",
+      "source_url": "https://github.com/phoenixframework/phoenix/blob/b2fc631f00267cd58255cffd5b12f8206e3cabae/test/phoenix/socket/transport_test.exs",
+      "supports": [
+        "upstream regression tests added with the fix",
+        "https://org1.prefix-ex.com and http://org1.prefix-foo.example.com must be rejected",
+        "bare ex.com/foo.example.com wildcard behavior is covered"
+      ],
+      "verification_method": "file read at the fix commit; test bodies were not executed"
+    },
+    {
+      "artifact_path": "runs/language/snap_ee79f4175242bbee/snapshot_proposal.json",
+      "evidence_id": "ev_phoenix_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:58:00Z",
+      "sha256_of_observation": "13cce772f39fe814bb312662f9e62e8b90efacfcca35cc6c33c6ca0fb366e24b",
+      "source_url": "https://github.com/phoenixframework/phoenix/tree/6234b576b94476f285a3397c0a9c5a610d1cdb67",
+      "supports": [
+        "snapshot_id and 429-file inventory",
+        "Elixir first-party 194 files / 808,069 bytes / 53.08% of first-party text",
+        "tree oid 0070a4e5",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      1,
+      2
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      0,
+      2
+    ],
+    "fix_commits": [
+      3
+    ],
+    "fixed_releases": [
+      3,
+      5
+    ],
+    "languages": [
+      7
+    ],
+    "severity": [
+      0,
+      2
+    ],
+    "vulnerable_commit": [
+      3,
+      4
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No WebSocket connection or HTTP request was made; the finding is static.",
+    "The advisory-cited commit 6e7185b is on the mainline and is not an ancestor of the fixed 1.6.14 tag. The 1.6.14 release contains an equivalent release-line commit b2fc631, which is declared as the fix commit; the mainline commit is retained as an advisory reference.",
+    "Only the 1.6.13 -> 1.6.14 path is verified. Other maintained branches mentioned by the Hex ecosystem were not checked.",
+    "The CNA record supplies no CVSS and no CWE; severity and CWE rely on NVD, with CWE-346 added only by OSV/GitHub metadata.",
+    "The regression tests were read but not executed; no dynamic red/green result is claimed."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "  defp compare_host?(_request_host, nil),\n    do: true\n  defp compare_host?(request_host, \"*.\" <> allowed_host),\n    do: String.ends_with?(request_host, allowed_host)\n  defp compare_host?(request_host, allowed_host),\n    do: request_host == allowed_host",
+      "description": "For a wildcard allowed origin such as `*.ex.com`, the pattern is stripped to `ex.com` and the request host is accepted when it merely ends with that string. No dot boundary is required, so `org1.prefix-ex.com` and `notex.com` style hosts pass the check even though they are not subdomains of ex.com. The fixed clause requires either an exact host match (`ex.com`) or a suffix preceded by a dot (`'.' <> allowed_host`), which forces the wildcard to match only real subdomains. The bug is reached from check_origin/2 via origin_allowed?/4 and compare_host?/2; the regression tests added in the fix reject `https://org1.prefix-ex.com` and `http://org1.prefix-foo.example.com`.",
+      "file": "lib/phoenix/socket/transport.ex",
+      "function": "Phoenix.Socket.Transport.compare_host?/2",
+      "language": "Elixir",
+      "line": "624-629",
+      "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket/transport.ex#L624-L629"
+    },
+    "entry_point": {
+      "description": "The public check_origin/5 (defined with a default sender argument, usable as check_origin/4) reads the Origin header and calls origin_allowed?/4; that dispatches the configured list to origin_allowed?/2, which reaches compare_host?/2. No application-level validation sits between the header and the wildcard comparison.",
+      "file": "lib/phoenix/socket/transport.ex",
+      "function": "Phoenix.Socket.Transport.check_origin/5",
+      "language": "Elixir",
+      "line": 342,
+      "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket/transport.ex#L342"
+    },
+    "location_id": "loc_CVE_2022_42975_snap_ee79f4175242bbee",
+    "location_kind": "logic",
+    "snapshot_id": "snap_ee79f4175242bbee",
+    "trace": [
+      {
+        "description": "Origin header is read and origin_allowed?/4 is called",
+        "file": "lib/phoenix/socket/transport.ex",
+        "function": "Phoenix.Socket.Transport.check_origin/5",
+        "language": "Elixir",
+        "line": 356,
+        "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket/transport.ex#L356"
+      },
+      {
+        "description": "Configured list is scanned by origin_allowed?/2",
+        "file": "lib/phoenix/socket/transport.ex",
+        "function": "Phoenix.Socket.Transport.origin_allowed?/2",
+        "language": "Elixir",
+        "line": 608,
+        "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket/transport.ex#L608"
+      },
+      {
+        "description": "Scheme, port and host are compared; host reaches the wildcard clause",
+        "file": "lib/phoenix/socket/transport.ex",
+        "function": "Phoenix.Socket.Transport.origin_allowed?/2",
+        "language": "Elixir",
+        "line": 616,
+        "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket/transport.ex#L616"
+      },
+      {
+        "description": "Wildcard clause strips \"*.\" and performs a bare suffix check",
+        "file": "lib/phoenix/socket/transport.ex",
+        "function": "Phoenix.Socket.Transport.compare_host?/2",
+        "language": "Elixir",
+        "line": 627,
+        "permalink": "https://github.com/phoenixframework/phoenix/blob/6234b576b94476f285a3397c0a9c5a610d1cdb67/lib/phoenix/socket/transport.ex#L627"
+      }
+    ],
+    "verification_method": "Static read of transport.ex at v1.6.13 and v1.6.14, diffed against b2fc631 and 6e7185b. No code executed.",
+    "vulnerability_id": "CVE-2022-42975"
+  },
+  "open_questions": [
+    "Whether a specific browser/framework origin header reaches the vulnerable path without an earlier LiveView CSRF rejection was not demonstrated.",
+    "Whether the same wildcard bug exists in maintained 1.7.x branches was not checked."
+  ],
+  "prepared_at": "2026-10-21T14:59:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/phoenixframework/phoenix",
+    "full_name": "phoenixframework/phoenix",
+    "primary_language": "Elixir",
+    "project_kind": "web framework",
+    "repo_id": "16072585",
+    "snapshot_id": "snap_ee79f4175242bbee"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read transport.ex at v1.6.13 and confirm the wildcard suffix bug.",
+      "An independent reviewer must confirm b2fc631 is in v1.6.14 and not v1.6.13, and that 6e7185b is not in v1.6.14.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "OSV (GHSA-p8f7-22gq-m7j9, Hex range)",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "upstream git history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA record is minimal (product n/a, no CVSS, no CWE). NVD supplies 7.5 HIGH, lists NVD-CWE-Other as its own primary weakness and CWE-863 in a secondary (CISA-ADP) entry; OSV metadata lists CWE-346 and CWE-863. The canonical cwe_ids keep CWE-863 and CWE-346 while the NVD-CWE-Other entry is recorded here rather than mapped to a concrete CWE. The advisory and NVD cite only mainline commit 6e7185b, but that commit is not an ancestor of the fixed 1.6.14 tag; the release contains b2fc631 with the same hunk. The dossier records both and declares the release-line commit as canonical for the verified release.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/phoenixframework/phoenix/security/advisories/GHSA-p8f7-22gq-m7j9",
+    "affected_packages": [
+      {
+        "affected_range": "<1.6.14",
+        "ecosystem": "Hex",
+        "package": "phoenix",
+        "purl": "pkg:hex/phoenix"
+      }
+    ],
+    "aliases": [
+      "CVE-2022-42975",
+      "GHSA-p8f7-22gq-m7j9"
+    ],
+    "category_l1": "injection",
+    "category_l2": "check_origin wildcard suffix bypass",
+    "cwe_ids": [
+      "CWE-863",
+      "CWE-346"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "1.6",
+        "message": "Fix wildcard check_origin vulnerability.",
+        "sha": "b2fc631f00267cd58255cffd5b12f8206e3cabae",
+        "url": "https://github.com/phoenixframework/phoenix/commit/b2fc631f00267cd58255cffd5b12f8206e3cabae"
+      },
+      {
+        "branch": "main",
+        "message": "Fix wildcard check_origin vulnerability.",
+        "sha": "6e7185b33a59e0b1d1c0b4223adf340a73e963ae",
+        "url": "https://github.com/phoenixframework/phoenix/commit/6e7185b33a59e0b1d1c0b4223adf340a73e963ae"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Hex",
+        "package": "phoenix",
+        "release_url": "https://github.com/phoenixframework/phoenix/releases/tag/v1.6.14",
+        "tag": "v1.6.14",
+        "verified_content": "At the v1.6.14 commit transport.ex compare_host?/2 requires request_host == allowed_host or a '.' <> allowed_host suffix; v1.6.13 uses a bare String.ends_with?(request_host, allowed_host)",
+        "version": "1.6.14"
+      }
+    ],
+    "published_at": "2022-10-17T00:00:00Z",
+    "references": [
+      "https://github.com/phoenixframework/phoenix/security/advisories/GHSA-p8f7-22gq-m7j9",
+      "https://github.com/phoenixframework/phoenix/commit/6e7185b33a59e0b1d1c0b4223adf340a73e963ae",
+      "https://github.com/phoenixframework/phoenix/commit/b2fc631f00267cd58255cffd5b12f8206e3cabae",
+      "https://nvd.nist.gov/vuln/detail/CVE-2022-42975",
+      "https://hexdocs.pm/phoenix/1.6.14/changelog.html#1-6-14-2022-10-10"
+    ],
+    "repo_id": "16072585",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 7.5 falls in High (7.0-8.9).",
+      "score": 7.5,
+      "source": "NVD primary metric",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2022-42975",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_ee79f4175242bbee",
+    "source_type": "upstream_advisory",
+    "title": "Phoenix check_origin wildcard matching accepts non-subdomain hosts before 1.6.14",
+    "vulnerability_id": "CVE-2022-42975",
+    "vulnerable_commit": "6234b576b94476f285a3397c0a9c5a610d1cdb67",
+    "vulnerable_commit_basis": "annotated tag v1.6.13 (tag object f0425c12) peels to commit 6234b576...; the advisory says 'before 1.6.14'",
+    "vulnerable_version": "1.6.13"
+  }
+}

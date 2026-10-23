@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/openssl/openssl.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:34.353907+00:00", "elapsed_seconds": 1.349, "response": {"returncode": 0, "stdout": "63bd920445f5339aa0ccaf07475df7abac2c8632\tHEAD\n", "stderr": ""}}

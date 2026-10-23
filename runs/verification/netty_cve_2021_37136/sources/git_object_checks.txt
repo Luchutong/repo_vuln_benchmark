@@ -1,0 +1,46 @@
+# git checks run 2026-10-21T17:28:50Z
+
+$ git log -1 --format='%H %ad %s' 97d044812dc84288ea2c44c0862c5b1c26cb5b2d
+97d044812dc84288ea2c44c0862c5b1c26cb5b2d Mon Feb 8 10:47:46 2021 +0000 [maven-release-plugin] prepare release netty-4.1.59.Final
+
+$ git log -1 --format='%H %ad %s' 41d3d61a61608f2223bb364955ab2045dd5e4020
+41d3d61a61608f2223bb364955ab2045dd5e4020 Thu Sep 9 14:53:58 2021 +0200 Merge pull request from GHSA-grg4-wf29-r9vv
+
+$ git log -1 --format='%H %ad %s' 7d34282f9d2ffdd64c91cb4780b09902d9779b92
+7d34282f9d2ffdd64c91cb4780b09902d9779b92 Thu Sep 9 13:10:39 2021 +0000 [maven-release-plugin] prepare release netty-4.1.68.Final
+
+$ git merge-base --is-ancestor 41d3d61a 97d04481  # fix in 4.1.59?
+exit=1 (1 = not an ancestor)
+
+$ git merge-base --is-ancestor 41d3d61a netty-4.1.68.Final
+exit=0
+
+$ git tag --contains 41d3d61a | head -5
+netty-4.1.68.Final
+netty-4.1.69.Final
+netty-4.1.70.Final
+netty-4.1.71.Final
+
+$ git show 97d04481:codec/.../Bzip2Decoder.java | grep -n 'blockLength\|ctx.alloc().buffer\|currentState = State.INIT_BLOCK\|break;'
+106:                currentState = State.INIT_BLOCK;
+122:                    break;
+128:                currentState = State.INIT_BLOCK_PARAMS;
+235:                        break;
+293:                final int blockLength = blockDecompressor.blockLength();
+294:                final ByteBuf uncompressed = ctx.alloc().buffer(blockLength);
+312:                currentState = State.INIT_BLOCK;
+313:                break;
+
+$ git show netty-4.1.68.Final:codec/.../Bzip2Decoder.java | grep -n 'currentState = State.INIT_BLOCK\|return;\|uncompressed = null'
+82:            return;
+92:                    return;
+106:                currentState = State.INIT_BLOCK;
+110:                    return;
+128:                currentState = State.INIT_BLOCK_PARAMS;
+132:                    return;
+143:                    return;
+155:                    return;
+185:                    return;
+208:                        return;
+272:                    return;
+284:                    return;

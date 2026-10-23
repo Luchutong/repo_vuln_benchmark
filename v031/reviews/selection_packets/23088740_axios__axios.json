@@ -1,0 +1,237 @@
+{
+  "packet_id": "selrev_23088740_snap_04c033042a3d52eb",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "23088740",
+    "full_name": "axios/axios",
+    "canonical_url": "https://github.com/axios/axios",
+    "primary_language": "JavaScript",
+    "project_kind": "Promise based HTTP client for the browser and node.js"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_04c033042a3d52eb",
+    "tag_or_release": "v1.19.0",
+    "commit_sha": "311fcc5c8d989b7248f05d390bb83bfbfb009977"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "311fcc5c8d989b7248f05d390bb83bfbfb009977",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "e235490f75463ad553dca06d75427aa17c1ab647",
+    "tree_file_count": 456,
+    "exported_file_count": 456,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/axios__axios/snap_04c033042a3d52eb.tar.gz",
+    "archive_sha256": "f6db8b2488222d3e30891fd8f5f4afd71cdb7f48d5e9d3bbf07a117d376b550f",
+    "archive_bytes": 836609,
+    "manifest_path": "exports/axios__axios/snap_04c033042a3d52eb.manifest.jsonl",
+    "manifest_sha256": "3447a262b2eefe1e9b4087f8a46d31121302d36644bfa6bfa44115da3e4934b0"
+  },
+  "leakage_facts": {
+    "assessment": "advisory_identifiers_present",
+    "changelog_like_files": [
+      ".github/workflows/release-branch.yml",
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 2,
+    "cve_ids_sample": [
+      "CVE-2023-45857",
+      "CVE-2024-39338"
+    ],
+    "files_with_advisory_ids_count": 2,
+    "files_with_advisory_ids_sample": [
+      "CHANGELOG.md",
+      "THREATMODEL.md"
+    ],
+    "ghsa_id_count": 6,
+    "ghsa_ids_sample": [
+      "GHSA-3W6X-2G7M-8V23",
+      "GHSA-445Q-VR5W-6Q77",
+      "GHSA-PF86-5X62-JRWF",
+      "GHSA-VF2M-468P-8V99",
+      "GHSA-W9J2-PVGH-6H63",
+      "GHSA-XX6V-RP6X-Q39C"
+    ],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/CODEOWNERS",
+      ".github/FUNDING.yml",
+      ".github/ISSUE_TEMPLATE.md",
+      ".github/PULL_REQUEST_TEMPLATE.md",
+      ".github/copilot-instructions.md",
+      ".github/dependabot.yml",
+      ".github/workflows/bundle-size.yml",
+      ".github/workflows/lockfile-lint.yml",
+      ".github/workflows/moderator.yml",
+      ".github/workflows/publish.yml",
+      ".github/workflows/release-branch.yml",
+      ".github/workflows/run-ci.yml",
+      ".github/workflows/verify-build-reproducibility.yml",
+      ".github/workflows/zizmor.yml",
+      "CHANGELOG.md",
+      "SECURITY.md",
+      "THREATMODEL.md",
+      "docs/es/pages/misc/security.md",
+      "docs/fr/pages/misc/security.md",
+      "docs/pages/misc/security.md",
+      "docs/zh/pages/misc/security.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "js_bundler": [
+        "rollup.config.js",
+        "webpack.config.js"
+      ],
+      "node": [
+        "package-lock.json",
+        "package.json"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "node",
+      "js_bundler"
+    ],
+    "toolchain_available": {
+      "js_bundler": {
+        "node": true,
+        "npm": true
+      },
+      "node": {
+        "node": true,
+        "npm": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "CVE-2026-101907",
+      "aliases": [
+        "CVE-2026-101907",
+        "GHSA-r4gj-5m52-g5wh"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">= 1.17.0, < 1.20.0",
+          "ecosystem": "npm",
+          "note": "The evaluation snapshot v1.19.0 (2026-07-22) is inside this range. The prior candidate rejection was about snapshot v1.15.0, which predates the advisory's lower bound; it is not an assessment of v1.19.0.",
+          "package": "axios",
+          "purl": "pkg:npm/axios",
+          "range_expressions": [
+            {
+              "events": [
+                {
+                  "introduced": "1.17.0"
+                },
+                {
+                  "fixed": "1.20.0"
+                }
+              ],
+              "source": "OSV GHSA-r4gj-5m52-g5wh",
+              "type": "SEMVER"
+            },
+            {
+              "first_patched_version": "1.20.0",
+              "range": ">= 1.17.0, < 1.20.0",
+              "source": "GitHub advisory API (global)"
+            },
+            {
+              "patched_versions": ">=1.20.0",
+              "range": "1.17.0",
+              "source": "GitHub repository advisory API"
+            },
+            {
+              "note": "expressed as a single free-text version string, not as SEMVER events",
+              "range": ">= 1.17.0, < 1.20.0",
+              "source": "CVE CNA / NVD"
+            },
+            {
+              "events": [
+                {
+                  "introduced": "4306df21e84332fc576e98c2de549347c06bfb76"
+                },
+                {
+                  "fixed": "84a9f3b9a4f3244b8c8e818f557d64c7b964fb25"
+                },
+                {
+                  "fixed": "d19040bda7a8be2f82c3c6e1a5bc03917daee39a"
+                }
+              ],
+              "repo": "https://github.com/axios/axios",
+              "source": "OSV CVE-2026-101907",
+              "type": "GIT",
+              "versions": [
+                "v1.19.0",
+                "v1.18.1",
+                "v1.18.0",
+                "v1.17.0"
+              ]
+            }
+          ]
+        }
+      ],
+      "published_at": "2026-09-16T09:02:57Z",
+      "advisory_url": "https://github.com/axios/axios/security/advisories/GHSA-r4gj-5m52-g5wh",
+      "severity": {
+        "all_published_scores": [
+          {
+            "level": "high",
+            "score": 7.0,
+            "source": "GitHub CNA (CVE Services cveawg)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:H/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.0,
+            "source": "NVD Secondary (security-advisories@github.com)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:H/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": 7.0,
+            "source": "GHSA-r4gj-5m52-g5wh (GitHub advisory API)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:H/SA:N",
+            "version": "4.0"
+          },
+          {
+            "level": "high",
+            "score": null,
+            "source": "OSV GHSA-r4gj-5m52-g5wh (vector only; database_specific.severity HIGH)",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:H/SA:N",
+            "version": "4.0"
+          }
+        ],
+        "level": "high",
+        "numeric_level_rationale": "There is exactly one numeric score across the published records: CVSS 4.0 7.0 HIGH from the GitHub CNA. NVD republishes it as a Secondary metric and has no Primary metric (status Awaiting Analysis); the GHSA machine records carry the same 7.0; OSV carries the vector with no numeric score and the label HIGH. No CVSS 3.1 score exists anywhere.",
+        "score": 7.0,
+        "source": "GitHub CNA (CVE Services cveawg) CVSS 4.0 7.0 HIGH; NVD Secondary metric security-advisories@github.com 7.0 HIGH; GHSA-r4gj-5m52-g5wh global API 7.0; OSV GHSA database_specific.severity HIGH; EPSS 0.00414 (percentile 0.34554)",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2026-101907",
+        "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:N/VA:N/SC:H/SI:H/SA:N",
+        "version": "4.0"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}

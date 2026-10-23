@@ -1,0 +1,232 @@
+commit efa1816322026f2b9235a27eee814bcc7ba0a764
+Author: Daniel Beck <daniel-beck@users.noreply.github.com>
+Date:   Tue Dec 2 13:46:19 2025 +0000
+
+    [SECURITY-3630]
+
+diff --git a/cli/src/main/java/hudson/cli/PlainCLIProtocol.java b/cli/src/main/java/hudson/cli/PlainCLIProtocol.java
+index e49daa246..4bd45b7b1 100644
+--- a/cli/src/main/java/hudson/cli/PlainCLIProtocol.java
++++ b/cli/src/main/java/hudson/cli/PlainCLIProtocol.java
+@@ -153,15 +153,14 @@ class PlainCLIProtocol {
+                 }
+             } catch (ClosedChannelException x) {
+                 LOGGER.log(Level.FINE, null, x);
+-                side.handleClose();
+             } catch (IOException x) {
+                 LOGGER.log(Level.WARNING, null, flightRecorder.analyzeCrash(x, "broken stream"));
+             } catch (ReadPendingException x) {
+                 // in case trick in CLIAction does not work
+                 LOGGER.log(Level.FINE, null, x);
+-                side.handleClose();
+             } catch (RuntimeException x) {
+                 LOGGER.log(Level.WARNING, null, x);
++            } finally {
+                 side.handleClose();
+             }
+         }
+diff --git a/core/src/main/java/hudson/cli/CLIAction.java b/core/src/main/java/hudson/cli/CLIAction.java
+index a2e756267..4538d857d 100644
+--- a/core/src/main/java/hudson/cli/CLIAction.java
++++ b/core/src/main/java/hudson/cli/CLIAction.java
+@@ -40,11 +40,11 @@ import java.nio.ByteBuffer;
+ import java.nio.charset.Charset;
+ import java.nio.charset.UnsupportedCharsetException;
+ import java.util.ArrayList;
+-import java.util.HashMap;
+ import java.util.List;
+ import java.util.Locale;
+ import java.util.Map;
+ import java.util.UUID;
++import java.util.concurrent.ConcurrentHashMap;
+ import java.util.logging.Level;
+ import java.util.logging.Logger;
+ import jenkins.model.Jenkins;
+@@ -80,7 +80,7 @@ public class CLIAction implements UnprotectedRootAction, StaplerProxy {
+      */
+     /* package-private for testing */ static /* non-final for Script Console */ Boolean ALLOW_WEBSOCKET = SystemProperties.optBoolean(CLIAction.class.getName() + ".ALLOW_WEBSOCKET");
+ 
+-    private final transient Map<UUID, FullDuplexHttpService> duplexServices = new HashMap<>();
++    private final transient Map<UUID, FullDuplexHttpService> duplexServices = new ConcurrentHashMap<>();
+ 
+     @Override
+     public String getIconFileName() {
+@@ -315,8 +315,13 @@ public class CLIAction implements UnprotectedRootAction, StaplerProxy {
+ 
+         void run() throws IOException, InterruptedException {
+             synchronized (this) {
+-                while (!ready) {
+-                    wait();
++                long end = System.currentTimeMillis() + FullDuplexHttpService.CONNECTION_TIMEOUT;
++                while (!ready && System.currentTimeMillis() < end) {
++                    wait(1000);
++                }
++                if (!ready) {
++                    LOGGER.log(Level.FINE, "CLI timeout waiting for client");
++                    return;
+                 }
+             }
+             PrintStream stdout = new PrintStream(streamStdout(), false, encoding);
+diff --git a/core/src/main/java/jenkins/util/FullDuplexHttpService.java b/core/src/main/java/jenkins/util/FullDuplexHttpService.java
+index 28b933420..4b83d49db 100644
+--- a/core/src/main/java/jenkins/util/FullDuplexHttpService.java
++++ b/core/src/main/java/jenkins/util/FullDuplexHttpService.java
+@@ -142,8 +142,15 @@ public abstract class FullDuplexHttpService {
+         notify();
+ 
+         // wait until we are done
+-        while (!completed) {
+-            wait();
++        long end = System.currentTimeMillis() + CONNECTION_TIMEOUT;
++        while (!completed && System.currentTimeMillis() < end) {
++            LOGGER.log(Level.FINE, "Waiting for upload stream {0} for {1}: {2}", new Object[] {upload, uuid, this});
++            wait(1000);
++        }
++
++        if (!completed) {
++            LOGGER.log(Level.FINE, "Timeout reached for {0} for {1}: {2}", new Object[] {upload, uuid, this});
++            throw new IOException("CLI timeout");
+         }
+     }
+ 
+diff --git a/test/src/test/java/hudson/cli/Security3630Test.java b/test/src/test/java/hudson/cli/Security3630Test.java
+new file mode 100644
+index 000000000..f301afea5
+--- /dev/null
++++ b/test/src/test/java/hudson/cli/Security3630Test.java
+@@ -0,0 +1,135 @@
++package hudson.cli;
++
++import static org.hamcrest.MatcherAssert.assertThat;
++import static org.hamcrest.Matchers.allOf;
++import static org.hamcrest.Matchers.containsString;
++import static org.hamcrest.Matchers.empty;
++import static org.hamcrest.Matchers.hasItem;
++import static org.hamcrest.Matchers.hasProperty;
++import static org.hamcrest.Matchers.instanceOf;
++import static org.hamcrest.Matchers.not;
++import static org.hamcrest.Matchers.nullValue;
++import static org.jvnet.hudson.test.LoggerRule.recorded;
++
++import hudson.Functions;
++import hudson.init.impl.InstallUncaughtExceptionHandler;
++import java.io.File;
++import java.io.IOException;
++import java.lang.management.ThreadInfo;
++import java.net.URL;
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.List;
++import java.util.Set;
++import java.util.UUID;
++import java.util.concurrent.Callable;
++import java.util.concurrent.ExecutionException;
++import java.util.concurrent.ExecutorService;
++import java.util.concurrent.Executors;
++import java.util.concurrent.Future;
++import java.util.concurrent.TimeUnit;
++import java.util.logging.Level;
++import java.util.stream.Collectors;
++import jenkins.util.FullDuplexHttpService;
++import org.apache.commons.io.FileUtils;
++import org.awaitility.Awaitility;
++import org.htmlunit.HttpMethod;
++import org.htmlunit.WebRequest;
++import org.junit.jupiter.api.AfterEach;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++import org.junit.jupiter.api.io.TempDir;
++import org.junit.platform.commons.util.ExceptionUtils;
++import org.jvnet.hudson.test.JenkinsRule;
++import org.jvnet.hudson.test.LoggerRule;
++import org.jvnet.hudson.test.junit.jupiter.WithJenkins;
++
++@WithJenkins
++public class Security3630Test {
++    public static final int CONCURRENCY = 50;
++    public static final int ITERATIONS = 50;
++    private JenkinsRule j = new JenkinsRule();
++
++    @TempDir
++    private File tmp;
++
++    private LoggerRule loggerRule = new LoggerRule().record(InstallUncaughtExceptionHandler.class.getName(), Level.WARNING);
++
++    private long originalTimeout;
++
++    @BeforeEach
++    public void setup(JenkinsRule j) throws Exception {
++        this.j = j;
++        // TODO FlagRule in JUnit 5?
++        originalTimeout = FullDuplexHttpService.CONNECTION_TIMEOUT;
++        FullDuplexHttpService.CONNECTION_TIMEOUT = TimeUnit.SECONDS.toMillis(5);
++    }
++
++    @AfterEach
++    public void reset() {
++        FullDuplexHttpService.CONNECTION_TIMEOUT = originalTimeout;
++    }
++
++    @Test
++    void control() throws IOException {
++        loggerRule.capture(100);
++        final String uuid = UUID.randomUUID().toString();
++        try (JenkinsRule.WebClient wc = j.createWebClient()) {
++            WebRequest request = new WebRequest(new URL(j.getURL().toString() + "cli?remoting=false"));
++            request.setHttpMethod(HttpMethod.POST);
++            request.setAdditionalHeader("Session", uuid);
++            request.setAdditionalHeader("Side", "download");
++            wc.getPage(request);
++        }
++        assertThat(loggerRule, recorded(nullValue(String.class), allOf(instanceOf(IOException.class), hasProperty("message", containsString("HTTP full-duplex channel timeout: " + uuid)))));
++    }
++
++    @Test
++    void testHashMap() throws InterruptedException, IOException {
++        // If this test appears flaky, it's probably not: The race condition cannot be reliably triggered.
++        // If the assertion fails, then there's probably a bug here.
++        // TODO Do we want to keep a test like this?
++        loggerRule.capture(100);
++        final File jar = File.createTempFile("jenkins-cli.jar", null, tmp);
++        FileUtils.copyURLToFile(j.jenkins.getJnlpJars("jenkins-cli.jar").getURL(), jar);
++        for (int i = 0; i < ITERATIONS; i++) {
++            List<Callable<Void>> callables = new ArrayList<>();
++            for (int c = 0; c < CONCURRENCY; c++) {
++                callables.add(() -> {
++                    new ProcessBuilder().command("java", "-jar", jar.getAbsolutePath(), "-http", "-s", j.getURL().toString(), "who-am-i").start().waitFor();
++                    return null;
++                });
++            }
++
++            ExecutorService executor = Executors.newFixedThreadPool(CONCURRENCY);
++            List<Future<Void>> futures = executor.invokeAll(callables);
++
++            futures.forEach(f -> {
++                try {
++                    f.get();
++                } catch (InterruptedException | ExecutionException e) {
++                    throw new RuntimeException(e);
++                }
++            });
++            assertThat(loggerRule.getRecords().stream().map(r -> String.join("\n", r.getMessage(), r.getLoggerName(), r.getThrown().getMessage(), ExceptionUtils.readStackTrace(r.getThrown()))).collect(Collectors.toList()), empty());
++            // See #control() assertion for the "expected" failure without the fix.
++        }
++    }
++
++    @Test
++    void testIndefiniteWait() throws IOException {
++        var stream = new hudson.cli.FullDuplexHttpStream(j.getURL(), "cli?remoting=false", null);
++        {
++            Set<String> threadNames = Arrays.stream(Functions.getThreadInfos()).map(ThreadInfo::getThreadName).collect(Collectors.toSet());
++            assertThat(threadNames, hasItem(containsString("Handling POST /jenkins/cli")));
++        }
++        stream.getOutputStream().write(new byte[10]);
++        stream.getOutputStream().close();
++        stream.getInputStream().close();
++
++        Awaitility.await().atMost(FullDuplexHttpService.CONNECTION_TIMEOUT * 2, TimeUnit.MILLISECONDS).untilAsserted(() -> {
++            Set<String> threadNames = Arrays.stream(Functions.getThreadInfos()).map(ThreadInfo::getThreadName).collect(Collectors.toSet());
++            assertThat(threadNames, not(hasItem(containsString("Handling POST /jenkins/cli"))));
++        });
++    }
++}

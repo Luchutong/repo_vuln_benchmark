@@ -1,0 +1,508 @@
+{
+  "candidate_id": "disc2_fd717fd5ea2aa7d4d0b18bd6",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/osv_ghsa.json",
+      "evidence_id": "ev_django13596_osv_ghsa",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:04:00Z",
+      "sha256_of_observation": "e387cd4055a6e1ed326995c66b87f4ae1e041a003ef129dd6a48cc2c9d79e310",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-2m34-jcjv-45xf",
+      "supports": [
+        "GHSA-2m34-jcjv-45xf aliases CVE-2020-13596, BIT-django-2020-13596 and PYSEC-2020-32",
+        "two PyPI ranges: 2.2a1 through <2.2.13 and 3.0a1 through <3.0.7",
+        "the details text says admin ForeignKeyRawIdWidget query parameters were not properly URL encoded, enabling XSS",
+        "database_specific records github_reviewed true, cwe_ids CWE-79 and severity MODERATE",
+        "severity carries CVSS 3.1 AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N and CVSS 4.0 AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:N/VA:N/SC:L/SI:L/SA:N",
+        "the references cite two fix commits, 1f2dd37f and 6d61860b"
+      ],
+      "verification_method": "OSV API query"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/cve_v5.json",
+      "evidence_id": "ev_django13596_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:04:00Z",
+      "sha256_of_observation": "bdeb57b4cb1024345e1f833f35b3b155dc03e269ec77e294f5cc2c2740532b3e",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2020-13596",
+      "supports": [
+        "CVE-2020-13596 is PUBLISHED, assigned by mitre, datePublished 2020-06-03T13:13:55.000Z",
+        "the CNA affected entry is a placeholder with vendor, product and version all n/a",
+        "the CNA problemType is n/a and there is no CNA CVSS metric",
+        "the references include the Django security release announcement and Ubuntu, Debian, Fedora, NetApp and Oracle advisories"
+      ],
+      "verification_method": "CVE List v5 MITRE record"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/nvd_cve.json",
+      "evidence_id": "ev_django13596_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:04:00Z",
+      "sha256_of_observation": "a6a550e744284818cf27fedd450d9f9e66ac520aa6f792ae6116a9086161d309",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2020-13596",
+      "supports": [
+        "NVD primary CVSS 3.1 6.1 MEDIUM AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+        "NVD also carries a CVSS 2.0 4.3 MEDIUM AV:N/AC:M/Au:N/C:N/I:P/A:N",
+        "NVD assigns CWE-79",
+        "CPE ranges 2.2 <= v < 2.2.13 and 3.0 <= v < 3.0.7 for djangoproject:django",
+        "NVD status Modified, published 2020-06-03T14:15:12.627 and last modified 2026-06-17",
+        "the English description matches the admin ForeignKeyRawIdWidget XSS; the Spanish description is a mistranslation describing the memcached key-collision issue from CVE-2020-13254"
+      ],
+      "verification_method": "NVD 2.0 API"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/djangoproject_security.html",
+      "evidence_id": "ev_django13596_advisory",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:04:00Z",
+      "sha256_of_observation": "5833a5f9431e3ce2a202e5e86e8a84d166485d60c141deec41d12cdce9480e50",
+      "source_url": "https://www.djangoproject.com/weblog/2020/jun/03/security-releases/",
+      "supports": [
+        "the announcement is titled 'Django security releases issued: 3.0.7 and 2.2.13' and posted by Carlton Gibson on June 3, 2020",
+        "CVE-2020-13596 is described as possible XSS via admin ForeignKeyRawIdWidget because query parameters were not properly URL encoded",
+        "the affected lines are master, 3.1 (alpha), 3.0 and 2.2; the fixed releases are 3.0.7 and 2.2.13",
+        "the announcement links four branch-specific changesets for this CVE: 2dd4d110 (master), 49d7cc19 (3.1), 1f2dd37f (3.0) and 6d61860b (2.2)",
+        "the reporter and patch author is credited as Jon Dufresne",
+        "the same announcement also covers CVE-2020-13254, a separate memcached key-collision issue"
+      ],
+      "verification_method": "upstream announcement HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/ghsa_page.html",
+      "evidence_id": "ev_django13596_ghsa_page",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:04:00Z",
+      "sha256_of_observation": "6708ce410b124ad8715ad1aaad0a3593f939894212643d2cd476a7c45e686d7d",
+      "source_url": "https://github.com/advisories/GHSA-2m34-jcjv-45xf",
+      "supports": [
+        "the rendered GitHub advisory page names weakness CWE-79",
+        "the page lists affected versions up to 2.2.12 and 3.0.6 and patched versions 2.2.13 and 3.0.7",
+        "the page repeats the ForeignKeyRawIdWidget URL-encoding description"
+      ],
+      "verification_method": "advisory HTML read; no scripts executed"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/git_object_checks.txt",
+      "evidence_id": "ev_django13596_git_checks",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "16ba60cc4e52c2e31b33ef8caa796f16ec6ec32b7f16c604577179f7ee4b1f97",
+      "source_url": "https://github.com/django/django/commit/1f2dd37f6fcefdd10ed44cb233b2e62b520afb38",
+      "supports": [
+        "Django refs/tags/3.0.2 peels to a36974395ebc03a41928db1743074575b143330d",
+        "refs/tags/3.0.6 peels to 24dd73a524c14f066489b64e220ca0ace701cf36 and refs/tags/3.0.7 peels to 44da7abda848f05caaed74f6a749038c87dedfda",
+        "refs/tags/2.2.12 peels to fb4d8bf799df71014ddb7dc1735941eebf3828b0 and refs/tags/2.2.13 peels to 8093aaa8ff9dd7386a069c6eb49fcc1c5980c033",
+        "1f2dd37f is the 3.0.x fix with parent 256d2971, dated 2020-05-26T09:51:02+02:00, subject '[3.0.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.'",
+        "1f2dd37f is an ancestor of 3.0.7 and absent from 3.0.2 and 3.0.6",
+        "6d61860b is the 2.2.x fix listed by the announcement, with parent 7e1084ea, the same timestamp, and subject '[2.0.x] Fixed CVE-2020-13596 ...' (branch prefix does not match the 2.2 branch it was merged to)",
+        "6d61860b is an ancestor of 2.2.13 and absent from 2.2.12",
+        "the pre-fix blob of django/contrib/admin/widgets.py at 3.0.2, 3.0.6 and fix parent 256d2971 is 7db57f40980e4af35671dac69d00052cf105bba9; the post-fix blob at 3.0.7 is 816f848ff0f76dad82fa70c7f8be7f7e27c40446",
+        "the pre-fix blob of the same file at 2.2.12 and fix parent 7e1084ea is aa4b6138945545156f85240050f91625d2a229ec; the post-fix blob at 2.2.13 is a56baee42779581ad8a53e5d412ebe7362baf136",
+        "the master and 3.1 fixes are 2dd4d110 with parent 81dc7105 and 49d7cc19 with parent 0186b430"
+      ],
+      "verification_method": "exact-tag shallow fetches into a bare repository; git rev-parse of peeled tags; merge-base --is-ancestor; blob identity checks"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/widgets_3.0.2.py",
+      "evidence_id": "ev_django13596_vuln_widgets",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "7d0e8a57c627a4d386b3410cb3f0764ebce19b07efe1fdf4d30dbece88f841dc",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/widgets.py#L151-L154",
+      "supports": [
+        "ForeignKeyRawIdWidget.get_context at lines 151-154 calls self.url_parameters(), then builds related_url with '?' + '&amp;'.join('%s=%s' % (k, v) for k, v in params.items())",
+        "line 154 passes the resulting string to mark_safe, so the admin template autoescape does not apply",
+        "the file imports mark_safe from django.utils.safestring at line 15 and does not import urlencode",
+        "base_url_parameters at lines 166-170 reads self.rel.limit_choices_to, calls it when callable, and passes the result to url_params_from_lookup_dict",
+        "url_params_from_lookup_dict at lines 105-122 stringifies every value with str(v) without any URL encoding"
+      ],
+      "verification_method": "file read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/widgets_3.0.7.py",
+      "evidence_id": "ev_django13596_fixed_widgets",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "fd869bd8d69d57a4ea7b29dad822f5b9fe3e97e06a2eb2d718cae8c84d4609e8",
+      "source_url": "https://github.com/django/django/blob/44da7abda848f05caaed74f6a749038c87dedfda/django/contrib/admin/widgets.py#L151-L154",
+      "supports": [
+        "the fixed line 153 uses urlencode(params) instead of the raw '%s=%s' join",
+        "the fixed line 154 assigns related_url directly and no longer calls mark_safe",
+        "the fixed file imports urlencode from django.utils.http; the mark_safe import is removed"
+      ],
+      "verification_method": "file read at the 3.0.7 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/widgets_2.2.12.py",
+      "evidence_id": "ev_django13596_vuln_widgets_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "ca39226d322bbf198757b100041238c00dcd6f60a1229360252413a3128da5dc",
+      "source_url": "https://github.com/django/django/blob/fb4d8bf799df71014ddb7dc1735941eebf3828b0/django/contrib/admin/widgets.py#L151-L154",
+      "supports": [
+        "the 2.2.12 code at lines 151-154 is byte-equivalent in shape to 3.0.2: raw '%s=%s' join plus mark_safe",
+        "the 2.2 branch therefore has the same root cause and the same fix shape"
+      ],
+      "verification_method": "file read at the 2.2.12 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/widgets_2.2.13.py",
+      "evidence_id": "ev_django13596_fixed_widgets_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "d97e7409b705371f5a525fa9c1c87bf37c6e07f0b6d4695c412b5bea05edcb0d",
+      "source_url": "https://github.com/django/django/blob/8093aaa8ff9dd7386a069c6eb49fcc1c5980c033/django/contrib/admin/widgets.py#L151-L154",
+      "supports": [
+        "the 2.2.13 code uses urlencode(params) and no longer calls mark_safe",
+        "the 2.2.13 widget fix matches the 3.0.7 widget fix"
+      ],
+      "verification_method": "file read at the 2.2.13 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/foreign_key_raw_id_3.0.2.html",
+      "evidence_id": "ev_django13596_template",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:07:00Z",
+      "sha256_of_observation": "d3e3f330e11edca49154e05e8afaee51cf27251733888a963be0f253ca6f8041",
+      "source_url": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/templates/admin/widgets/foreign_key_raw_id.html#L1",
+      "supports": [
+        "the raw id widget template renders related_url only into an anchor href attribute, href=\"{{ related_url }}\"",
+        "because related_url is a SafeString from mark_safe, the template autoescaper inserts it verbatim, so an unencoded quote or angle bracket reaches the HTML attribute context"
+      ],
+      "verification_method": "template read at the 3.0.2 tag"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/fix_diff_3.0.x.txt",
+      "evidence_id": "ev_django13596_fix_diff",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "f352e31daa62ade138d69a88fe364029a95871d535fb4fed62502fe50d039220",
+      "source_url": "https://github.com/django/django/commit/1f2dd37f6fcefdd10ed44cb233b2e62b520afb38",
+      "supports": [
+        "the 3.0.x fix replaces the raw '%s=%s' parameter join with urlencode(params)",
+        "the fix removes mark_safe and assigns the URL directly",
+        "the fix swaps the mark_safe import for urlencode",
+        "the fix also adds release notes to docs/releases/2.2.13.txt and docs/releases/3.0.7.txt",
+        "the code change is limited to django/contrib/admin/widgets.py"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/test_diff_3.0.x.txt",
+      "evidence_id": "ev_django13596_regression_test",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "6f01ca9f735bfa8405f9fb96e6dd98d081f48e229740374cc1ed2c53bc103801",
+      "source_url": "https://github.com/django/django/commit/1f2dd37f6fcefdd10ed44cb233b2e62b520afb38",
+      "supports": [
+        "the fix adds model UnsafeLimitChoicesTo with limit_choices_to={'name': '\"&><escapeme'} on a foreign key to Band",
+        "the fix adds test_render_unsafe_limit_choices_to in tests/admin_widgets/tests.py",
+        "the test expects href '/admin_widgets/band/?name=%22%26%3E%3Cescapeme&amp;_to_field=id', proving the values must be percent-encoded"
+      ],
+      "verification_method": "git show of the fix commit, test paths only"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/fix_diff_2.2.x.txt",
+      "evidence_id": "ev_django13596_fix_diff_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "effd3ab55ee77a025d7bf81c86a017f03da2d1781bd6c03a211572109133945e",
+      "source_url": "https://github.com/django/django/commit/6d61860b22875f358fac83d903dc629897934815",
+      "supports": [
+        "the 2.2.x fix makes the same widget change: urlencode(params) and no mark_safe",
+        "the 2.2.x commit adds only the 2.2.13 release note, not the 3.0.7 one"
+      ],
+      "verification_method": "git show of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/fix_commit_stat_3.0.x.txt",
+      "evidence_id": "ev_django13596_fix_stat",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "3e86dc27f3d334467c1d2280c2a4a87284f48ac9fdfe452d96f9e26f20f8210e",
+      "source_url": "https://github.com/django/django/commit/1f2dd37f6fcefdd10ed44cb233b2e62b520afb38",
+      "supports": [
+        "commit 1f2dd37f has parent 256d2971, author Jon Dufresne, dated 2020-05-26T09:51:02+02:00",
+        "the commit touches widgets.py, both release notes, and two test files",
+        "36 insertions and 3 deletions across five files"
+      ],
+      "verification_method": "git show --stat of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/fix_commit_stat_2.2.x.txt",
+      "evidence_id": "ev_django13596_fix_stat_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "c2ba2f2b9c385799b89093ceb34dd51c259be9c6c68b0f7390980571b2419a76",
+      "source_url": "https://github.com/django/django/commit/6d61860b22875f358fac83d903dc629897934815",
+      "supports": [
+        "commit 6d61860b has parent 7e1084ea, author Jon Dufresne, dated 2020-05-26T09:51:02+02:00",
+        "the subject says '[2.0.x]' although the announcement maps this changeset to the 2.2 release branch and it is an ancestor of tag 2.2.13",
+        "the commit touches widgets.py, the 2.2.13 release note, and two test files",
+        "29 insertions and 3 deletions across four files"
+      ],
+      "verification_method": "git show --stat of the fix commit"
+    },
+    {
+      "artifact_path": "runs/verification/django_cve_2020_13596/sources/test_diff_2.2.x.txt",
+      "evidence_id": "ev_django13596_regression_test_22",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:06:00Z",
+      "sha256_of_observation": "97ce4fae5020636ed148223cf07775c020bc4c45adf823cada2e7f61a05e2f0d",
+      "source_url": "https://github.com/django/django/commit/6d61860b22875f358fac83d903dc629897934815",
+      "supports": [
+        "the 2.2.x commit adds the same UnsafeLimitChoicesTo model and test_render_unsafe_limit_choices_to test",
+        "the only textual difference from the 3.0.x test diff is the tests.py blob index line"
+      ],
+      "verification_method": "git show of the fix commit, test paths only"
+    },
+    {
+      "artifact_path": "runs/language/snap_ab695ba3db678939/snapshot_proposal.json",
+      "evidence_id": "ev_django13596_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-22T00:07:00Z",
+      "sha256_of_observation": "e3ed33f91bdc17a75797801672f9e82c114a20922dc0111761121abcfb9582dc",
+      "source_url": "https://github.com/django/django/tree/a36974395ebc03a41928db1743074575b143330d",
+      "supports": [
+        "snapshot snap_ab695ba3db678939 is the django 3.0.2 tree a3697439",
+        "the language inventory is github-linguist 9.7.0 over the full tree",
+        "the inventory lists 6163 tracked files and 67 ambiguous files, so the language job stays NEEDS_REVIEW"
+      ],
+      "verification_method": "snapshot language proposal read"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [0, 2, 3],
+    "aliases": [0, 1],
+    "critical_operation": [5, 6, 10, 11],
+    "cwe": [0, 2, 4],
+    "fix_commits": [0, 3, 5, 14, 15],
+    "fixed_releases": [3, 5, 7, 9],
+    "languages": [16],
+    "severity": [0, 2],
+    "vulnerable_commit": [5, 6]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "No browser, admin site or Django request was run; the finding is static. The upstream regression test was read, not executed.",
+    "Reachability requires limit_choices_to (or a callable returning it) to contain a value an attacker can influence. Django models normally declare it statically; the flaw matters when an application derives those values from request data or stores attacker-controlled strings in them.",
+    "The NVD Spanish description is a mistranslation that describes CVE-2020-13254 (memcached key collision), not this CVE. The English description, the Django announcement, OSV and the fix commit all agree on ForeignKeyRawIdWidget. Only the English NVD text was used.",
+    "The MITRE CVE v5 CNA record is a placeholder (vendor/product/version n/a, problemType n/a, no CVSS). CWE-79 and CVSS 3.1 6.1 come from NVD; GHSA/OSV agree on CWE-79 and call the severity MODERATE.",
+    "The 2.2.x fix commit 6d61860b has the subject prefix '[2.0.x]' even though the Django announcement maps it to the 2.2 release branch and git confirms it is an ancestor of tag 2.2.13. The subject text is recorded as-is; branch membership is established by tag ancestry, not by the prefix.",
+    "The master and 3.1.x changesets (2dd4d110, 49d7cc19) were identified from the announcement and git metadata but were not used as the vulnerable-commit basis; 3.1 was still alpha at release time and no 3.1 fixed release exists.",
+    "The canonical vulnerable commit is the 3.0.2 tag; the 2.2 branch has the same vulnerable code at 2.2.12 but the dataset snapshot for this repository is 3.0.2.",
+    "The snapshot inventory has 6163 tracked files and 67 ambiguous files; the language job is NEEDS_REVIEW, not a clean PASS.",
+    "No downstream distribution backport (Ubuntu USN-4381-1/2, Debian DSA-4705, Fedora, NetApp, Oracle) was verified; only upstream tags and commits are used."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "            params = self.url_parameters()\n            if params:\n                related_url += '?' + '&amp;'.join('%s=%s' % (k, v) for k, v in params.items())\n            context['related_url'] = mark_safe(related_url)",
+      "description": "ForeignKeyRawIdWidget.get_context interpolates every query parameter with a bare '%s=%s' format, joins them with '&amp;', and then marks the whole URL safe. The values come from url_params_from_lookup_dict, which applies str() without percent-encoding, and from the related field name. Because mark_safe makes the result a SafeString, the admin template's href=\"{{ related_url }}\" inserts the string without HTML escaping, so a value containing a quote can close the attribute and inject markup. The 3.0.7 and 2.2.13 fixes replace the join with django.utils.http.urlencode and stop calling mark_safe.",
+      "file": "django/contrib/admin/widgets.py",
+      "function": "ForeignKeyRawIdWidget.get_context",
+      "language": "Python",
+      "line": "151-154",
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/widgets.py#L151-L154"
+    },
+    "entry_point": {
+      "description": "Rendering an admin form that uses ForeignKeyRawIdWidget calls get_context. The widget collects query parameters from the related model's limit_choices_to and builds the lookup link, so a value in limit_choices_to reaches the unencoded join.",
+      "file": "django/contrib/admin/widgets.py",
+      "function": "ForeignKeyRawIdWidget.get_context",
+      "language": "Python",
+      "line": 151,
+      "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/widgets.py#L151"
+    },
+    "location_id": "loc_CVE-2020-13596_snap_ab695ba3db678939",
+    "location_kind": "dataflow",
+    "snapshot_id": "snap_ab695ba3db678939",
+    "trace": [
+      {
+        "description": "base_url_parameters reads limit_choices_to and invokes it when callable",
+        "file": "django/contrib/admin/widgets.py",
+        "function": "ForeignKeyRawIdWidget.base_url_parameters",
+        "language": "Python",
+        "line": 167,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/widgets.py#L167"
+      },
+      {
+        "description": "url_params_from_lookup_dict converts each value with str() and performs no URL encoding",
+        "file": "django/contrib/admin/widgets.py",
+        "function": "url_params_from_lookup_dict",
+        "language": "Python",
+        "line": 120,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/widgets.py#L120"
+      },
+      {
+        "description": "get_context concatenates the parameters with '%s=%s' and '&amp;' without escaping",
+        "file": "django/contrib/admin/widgets.py",
+        "function": "ForeignKeyRawIdWidget.get_context",
+        "language": "Python",
+        "line": 153,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/widgets.py#L153"
+      },
+      {
+        "description": "mark_safe marks the concatenated URL as safe, disabling template autoescaping",
+        "file": "django/contrib/admin/widgets.py",
+        "function": "ForeignKeyRawIdWidget.get_context",
+        "language": "Python",
+        "line": 154,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/widgets.py#L154"
+      },
+      {
+        "description": "the widget template writes related_url into href, so a quote in the value breaks out of the attribute",
+        "file": "django/contrib/admin/templates/admin/widgets/foreign_key_raw_id.html",
+        "function": "",
+        "language": "HTML",
+        "line": 1,
+        "permalink": "https://github.com/django/django/blob/a36974395ebc03a41928db1743074575b143330d/django/contrib/admin/templates/admin/widgets/foreign_key_raw_id.html#L1"
+      }
+    ],
+    "verification_method": "Static read of widgets.py, foreign_key_raw_id.html and the release notes at 3.0.2, 3.0.6, 3.0.7, 2.2.12 and 2.2.13; the fix diffs and the added regression test were read but not executed.",
+    "vulnerability_id": "CVE-2020-13596"
+  },
+  "open_questions": [
+    "No browser was used to confirm which payload shapes survive the admin page's other escaping layers.",
+    "Whether a particular downstream application exposes attacker-controlled data through limit_choices_to was not surveyed.",
+    "The 2.2.x fix commit subject says '[2.0.x]'; whether that was a maintainer typo or a mis-targeted cherry-pick was not resolved from the repository alone."
+  ],
+  "prepared_at": "2026-10-22T00:12:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/django/django",
+    "full_name": "django/django",
+    "primary_language": "Python",
+    "project_kind": "web framework",
+    "repo_id": "4164482",
+    "snapshot_id": "snap_ab695ba3db678939"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read ForeignKeyRawIdWidget.get_context and url_params_from_lookup_dict at 3.0.2 and confirm the unencoded join plus mark_safe.",
+      "An independent reviewer must confirm 1f2dd37f is absent from 3.0.2 and 3.0.6 and an ancestor of 3.0.7, and that the fixed source uses urlencode without mark_safe.",
+      "An independent reviewer must confirm the 2.2.13 fix and the '[2.0.x]' subject anomaly against the announcement and tag ancestry.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "Django security release announcement",
+      "CVE List v5 MITRE record",
+      "NVD analysis",
+      "OSV/GHSA record",
+      "upstream git history and release tags"
+    ],
+    "independent_of_primary": true,
+    "notes": "NVD, OSV/GHSA, the GitHub advisory page and the Django announcement agree on the affected ranges 2.2 <2.2.13 and 3.0 <3.0.7, fixed releases 2.2.13 and 3.0.7, CWE-79 and the ForeignKeyRawIdWidget URL-encoding root cause. The MITRE CNA record is a placeholder. NVD 3.1 6.1 MEDIUM and GHSA MODERATE agree qualitatively; GHSA adds a CVSS 4.0 vector with no numeric score. The NVD Spanish description is wrong and describes CVE-2020-13254 instead. The announcement lists four branch changesets; blob identity ties 1f2dd37f's parent and the 3.0.2 tag to the same widgets.py blob.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.djangoproject.com/weblog/2020/jun/03/security-releases/",
+    "affected_packages": [
+      {
+        "affected_range": ">=2.2,<2.2.13",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      },
+      {
+        "affected_range": ">=3.0,<3.0.7",
+        "ecosystem": "PyPI",
+        "package": "django",
+        "purl": "pkg:pypi/django"
+      }
+    ],
+    "aliases": [
+      "CVE-2020-13596",
+      "GHSA-2m34-jcjv-45xf",
+      "BIT-django-2020-13596",
+      "PYSEC-2020-32"
+    ],
+    "category_l1": "injection",
+    "category_l2": "cross-site scripting through unencoded admin ForeignKeyRawIdWidget query parameters",
+    "cwe_ids": [
+      "CWE-79"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": "master",
+        "message": "Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.",
+        "sha": "2dd4d110c159d0c81dff42eaead2c378a0998735",
+        "url": "https://github.com/django/django/commit/2dd4d110c159d0c81dff42eaead2c378a0998735"
+      },
+      {
+        "branch": "3.1.x",
+        "message": "[3.1.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.",
+        "sha": "49d7cc19e33a104bb23f7ae1dbb1240b4f6c40f9",
+        "url": "https://github.com/django/django/commit/49d7cc19e33a104bb23f7ae1dbb1240b4f6c40f9"
+      },
+      {
+        "branch": "3.0.x",
+        "message": "[3.0.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.",
+        "sha": "1f2dd37f6fcefdd10ed44cb233b2e62b520afb38",
+        "url": "https://github.com/django/django/commit/1f2dd37f6fcefdd10ed44cb233b2e62b520afb38"
+      },
+      {
+        "branch": "2.2.x",
+        "message": "[2.0.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.",
+        "sha": "6d61860b22875f358fac83d903dc629897934815",
+        "url": "https://github.com/django/django/commit/6d61860b22875f358fac83d903dc629897934815"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/3.0/releases/3.0.7/",
+        "tag": "3.0.7",
+        "verified_content": "At tag 3.0.7 (44da7abd), widgets.py uses urlencode(params) and assigns related_url without mark_safe; fix 1f2dd37f is an ancestor of the tag and the post-fix blob 816f848f matches the fix diff post-image.",
+        "version": "3.0.7"
+      },
+      {
+        "ecosystem": "PyPI",
+        "package": "django",
+        "release_url": "https://docs.djangoproject.com/en/2.2/releases/2.2.13/",
+        "tag": "2.2.13",
+        "verified_content": "At tag 2.2.13 (8093aaa8), widgets.py contains the same urlencode fix; fix 6d61860b is an ancestor of the tag and the post-fix blob a56baee4 matches the fix diff post-image.",
+        "version": "2.2.13"
+      }
+    ],
+    "published_at": "2020-06-03T13:13:55Z",
+    "references": [
+      "https://www.djangoproject.com/weblog/2020/jun/03/security-releases/",
+      "https://nvd.nist.gov/vuln/detail/CVE-2020-13596",
+      "https://github.com/advisories/GHSA-2m34-jcjv-45xf",
+      "https://docs.djangoproject.com/en/3.0/releases/security/",
+      "https://github.com/django/django/commit/2dd4d110c159d0c81dff42eaead2c378a0998735",
+      "https://github.com/django/django/commit/49d7cc19e33a104bb23f7ae1dbb1240b4f6c40f9",
+      "https://github.com/django/django/commit/1f2dd37f6fcefdd10ed44cb233b2e62b520afb38",
+      "https://github.com/django/django/commit/6d61860b22875f358fac83d903dc629897934815"
+    ],
+    "repo_id": "4164482",
+    "severity": {
+      "level": "medium",
+      "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 6.1 falls in Medium (4.0-6.9); GHSA/OSV classify the same issue as MODERATE",
+      "score": 6.1,
+      "source": "NVD primary metric nvd@nist.gov; GHSA/OSV carry the same CVSS 3.1 vector and a MODERATE rating",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2020-13596",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:L/I:L/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_ab695ba3db678939",
+    "source_type": "upstream_advisory",
+    "title": "Django admin ForeignKeyRawIdWidget concatenates unencoded query parameters and marks the result safe, allowing XSS",
+    "vulnerability_id": "CVE-2020-13596",
+    "vulnerable_commit": "a36974395ebc03a41928db1743074575b143330d",
+    "vulnerable_commit_basis": "tag 3.0.2 points directly at a3697439..., released 2020-02-03; 3.0.7 is the first 3.0.x release containing fix 1f2dd37f, the fix is absent from 3.0.2 and 3.0.6, and the fix parent 256d2971 has the identical widgets.py blob 7db57f40 as the 3.0.2 tag",
+    "vulnerable_version": "3.0.2"
+  }
+}

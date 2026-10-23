@@ -1,0 +1,56 @@
+Axios CVE-2026-42037 / GHSA-445q-vr5w-6q77 — git object checks
+Collected 2026-10-22 (Asia/Shanghai). Bare mirror:
+scratch/snapshots/axios__axios__772a4e54ecc4.git
+
+Vulnerable snapshot
+-------------------
+$ git rev-parse 772a4e54ecc4cc2421e2b746daff0aca10f359d7:lib/helpers/formDataToStream.js
+f191e8cb177bfc64e1495fc6717b09279e8f23e4
+$ git show 772a4e54:lib/helpers/formDataToStream.js | nl -ba
+   15  class FormDataPart {
+   16    constructor(name, value) {
+   ...
+   24      if (isStringValue) {
+   25        value = textEncoder.encode(String(value).replace(/\r?\n|\r\n?/g, CRLF));
+   26      } else {
+   27        headers += `Content-Type: ${value.type || 'application/octet-stream'}${CRLF}`;
+   28      }
+The string branch replaces CRLF at line 25; the Blob/File branch interpolates
+value.type at line 27 with no CR/LF removal.
+
+Fix commit
+----------
+$ git log -1 --format='%H%n%s%n%an <%ae>%n%ad' 75873270a59bd5d895322eee145738e95fb89258
+75873270a59bd5d895322eee145738e95fb89258
+fix: strip crlf correctly (#10758)
+Jay <jasonsaayman@gmail.com>
+Sun Apr 19 15:32:32 2026 +0200
+$ git rev-parse 7587327^
+f0b98673b32677643a3b608431270d36e997473c
+$ git rev-parse 7587327^:lib/helpers/formDataToStream.js
+f191e8cb177bfc64e1495fc6717b09279e8f23e4
+$ git rev-parse 7587327:lib/helpers/formDataToStream.js
+761279105b69595b4f53ae2e8b592aa3d9445281
+The parent blob equals the v1.15.0 snapshot blob above. The fix diff header
+reads index f191e8c..7612791 and changes line 27 to:
+  const safeType = String(value.type || 'application/octet-stream').replace(/[\r\n]/g, '');
+  headers += `Content-Type: ${safeType}${CRLF}`;
+
+Fixed release v1.15.1
+---------------------
+$ git ls-remote https://github.com/axios/axios refs/tags/v1.15.1
+ac42446be51300fe214ba3c6e40cc95f34fd6871	refs/tags/v1.15.1
+$ git cat-file -p ac42446be51300fe214ba3c6e40cc95f34fd6871
+tree 671d7fcba43c6a52ce036617abc04a7c5d64c1f7
+parent 908f2206b6bfeff67236784abce85935698ac1d9
+author github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com> 1776617503 +0200
+$ git rev-parse ac42446be51300fe214ba3c6e40cc95f34fd6871:lib/helpers/formDataToStream.js
+761279105b69595b4f53ae2e8b592aa3d9445281
+The v1.15.1 blob equals the post-fix blob of commit 7587327, so the released tag
+contains the CR/LF stripping change.
+
+Ancestry note
+-------------
+The fetch was shallow (depth 80) but includes both v1.15.0 and v1.15.1; the fix
+parent blob equals the v1.15.0 blob and v1.15.0 predates the fix commit by date
+(2026-04-07 vs 2026-04-19).

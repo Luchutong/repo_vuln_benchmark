@@ -1,0 +1,24 @@
+{
+  "key": "angular_router",
+  "repository": "angular/angular",
+  "path": "packages/router/package.json",
+  "retrieved_at": "2026-10-21T10:56:20.887Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "{\n  \"name\": \"@angular/router\",\n  \"version\": \"0.0.0-PLACEHOLDER\",\n  \"description\": \"Angular - the routing library\",\n  \"keywords\": [\n    \"angular\",\n    \"router\"\n  ],\n  \"repository\": {\n    \"type\": \"git\",\n    \"url\": \"git+https://github.com/angular/angular.git\",\n    \"directory\": \"packages/router\"\n  },\n  \"author\": \"angular\",\n  \"license\": \"MIT\",\n  \"engines\": {\n    \"node\": \"^22.22.3 || ^24.15.0 || >=26.0.0\"\n  },\n  \"bugs\": {\n    \"url\": \"https://github.com/angular/angular/issues\"\n  },\n  \"homepage\": \"https://github.com/angular/angular/tree/main/packages/router\",\n  \"dependencies\": {\n    \"tslib\": \"^2.3.0\"\n  },\n  \"devDependencies\": {\n    \"@types/dom-navigation\": \"^1.0.5\"\n  },\n  \"peerDependencies\": {\n    \"@angular/core\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/common\": \"0.0.0-PLACEHOLDER\",\n    \"@angular/platform-browser\": \"0.0.0-PLACEHOLDER\",\n    \"rxjs\": \"^6.5.3 || ^7.4.0\"\n  },\n  \"ng-update\": {\n    \"packageGroup\": \"NG_UPDATE_PACKAGE_GROUP\"\n  },\n  \"sideEffects\": false\n}\n",
+      "encoding": "utf-8",
+      "sha": "1d0fce281ebaceb92e38f42a718200e8c4ac20bb",
+      "display_url": "https://github.com/angular/angular/blob/main/packages/router/package.json",
+      "display_title": "package.json"
+    },
+    "isError": false
+  }
+}

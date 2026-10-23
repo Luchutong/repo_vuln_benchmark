@@ -1,0 +1,320 @@
+{
+  "candidate_id": "disc2_90d2af61fdd64c4e05f07c98",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "evidence": [
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_23331/sources/osv_ghsa.json",
+      "evidence_id": "ev_vite_osv",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:00:00Z",
+      "sha256_of_observation": "9e8758498ca94034e4b6de41135d32168c867b29224cc20316e4c3ec373fef7c",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-c24v-8rfc-w8vw",
+      "supports": [
+        "alias CVE-2024-23331",
+        "affected npm ranges 2.7.0-2.9.17, 3.0.0-3.2.8, 4.0.0-4.5.2, 5.0.0-5.0.12",
+        "CVSS 3.1 7.5 vector",
+        "CWE-178/CWE-200/CWE-284",
+        "four fix commit references"
+      ],
+      "verification_method": "OSV API query for npm vite, response cached"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_23331/sources/cve_v5.json",
+      "evidence_id": "ev_vite_cve_v5",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:00:00Z",
+      "sha256_of_observation": "4ea139d8228ee0b0add3e5a8c1f443b3cef7180e5b8fdf2c6a9bfa8082f4428e",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-23331",
+      "supports": [
+        "title",
+        "picomatch case-sensitive default explanation",
+        "CWE-178, CWE-200, CWE-284",
+        "CVSS 3.1 7.5 HIGH",
+        "published date",
+        "affected 5.x range >=5.0.0,<5.0.12"
+      ],
+      "verification_method": "CVE List v5 CNA record (assigner GitHub_M)"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_23331/sources/nvd_cve.json",
+      "evidence_id": "ev_vite_nvd",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:00:00Z",
+      "sha256_of_observation": "13fafe0489ade543245409143a293505e630fc0d09a78f4cf4c37a5543880279",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-23331",
+      "supports": [
+        "NVD primary CVSS 3.1 7.5 HIGH (same vector as CNA)",
+        "CWE-178, CWE-200, CWE-284",
+        "CPE ranges for 2.x, 3.x, 4.x and 5.x",
+        "description that bypass affects hosts with case-insensitive filesystems"
+      ],
+      "verification_method": "NVD 2.0 API, vulnStatus Modified"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_23331/sources/git_object_checks.txt",
+      "evidence_id": "ev_vite_fix_commit",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:06:00Z",
+      "sha256_of_observation": "797c5775b502dbd2f1ed18272836f7292b2f19f6620d31b9c4d95d93a253605a",
+      "source_url": "https://github.com/vitejs/vite/commit/91641c4da0a011d4c5352e88fc68389d4e1289a5",
+      "supports": [
+        "fix commit",
+        "fix adds nocase: true to the fs-deny picomatch options",
+        "fix is an ancestor of v5.0.12",
+        "fix is not an ancestor of v5.0.11",
+        "tag and commit identities"
+      ],
+      "verification_method": "exact-SHA shallow fetch; diff against first parent ef89f809; merge-base --is-ancestor against both tags"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_23331/sources/index_ts_v5.0.11.ts",
+      "evidence_id": "ev_vite_vuln_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:05:00Z",
+      "sha256_of_observation": "16fe553e61e071568c3f8b80f16015a44097233a3253ab00d3ac42aaa66f1a19",
+      "source_url": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/index.ts#L620",
+      "supports": [
+        "root-cause line",
+        "_fsDenyGlob built with picomatch(config.server.fs.deny, { matchBase: true }) and no nocase option"
+      ],
+      "verification_method": "file read from the exact v5.0.11 tag commit"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_23331/sources/static_ts_v5.0.11.ts",
+      "evidence_id": "ev_vite_consumer_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:05:00Z",
+      "sha256_of_observation": "ade37c5b0dc504ddfe6587a414508569dcf4fec13ce73df0ddf1a665b7795a89",
+      "source_url": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L208-L216",
+      "supports": [
+        "request path reaches isFileServingAllowed",
+        "_fsDenyGlob(file) is the deny check",
+        "same content in v5.0.12, so the 5.x fix is the matcher option only"
+      ],
+      "verification_method": "file read from the exact v5.0.11 and v5.0.12 tag commits; identical sha256"
+    },
+    {
+      "artifact_path": "runs/verification/vite_cve_2024_23331/sources/index_ts_v5.0.12.ts",
+      "evidence_id": "ev_vite_fixed_file",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:05:00Z",
+      "sha256_of_observation": "ea6353fc73d7219016dd3af902ae8cd2cddcdf0ce9f35f4c3e85d4cea571763b",
+      "source_url": "https://github.com/vitejs/vite/blob/ee81e196769c102a6b1bf30f8444ccde236e71d5/packages/vite/src/node/server/index.ts#L620-L623",
+      "supports": [
+        "fixed release content",
+        "picomatch options include nocase: true at v5.0.12"
+      ],
+      "verification_method": "file read at the v5.0.12 tag commit"
+    },
+    {
+      "artifact_path": "runs/language/snap_2e50b228f2432623/snapshot_proposal.json",
+      "evidence_id": "ev_vite_snapshot",
+      "result": "PASS",
+      "retrieved_at": "2026-10-21T14:08:00Z",
+      "sha256_of_observation": "d9adccb8caf515d63b175e2600ead5dc290869b6eed091558c7d8104a941b2b4",
+      "source_url": "https://github.com/vitejs/vite/tree/b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+      "supports": [
+        "snapshot_id",
+        "TypeScript first-party 28.31%",
+        "tree oid 9340a33a",
+        "full_scan and ls-tree parity"
+      ],
+      "verification_method": "inventory_snapshot.py with github-linguist 9.7.0; 1780 tracked files, enumeration matches git ls-tree"
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0
+    ],
+    "aliases": [
+      0,
+      1
+    ],
+    "critical_operation": [
+      4
+    ],
+    "cwe": [
+      1
+    ],
+    "fix_commits": [
+      0,
+      3
+    ],
+    "fixed_releases": [
+      6,
+      3
+    ],
+    "severity": [
+      0,
+      1,
+      2
+    ],
+    "vulnerable_commit": [
+      3
+    ]
+  },
+  "field_evidence_note": "Each index names the dossier evidence item that actually supports the canonical field; the promotion step emits one formal evidence row per field/index pair.",
+  "limitations": [
+    "Single-reviewer dossier; not eligible for data/vulnerabilities.jsonl yet.",
+    "The bypass requires a case-insensitive filesystem (typically Windows) and an attacker able to request /@fs/ raw filesystem paths.",
+    "No dev server was started and no case-augmented request was sent; the finding is static.",
+    "Only the 5.0.x line was verified. The 2.x, 3.x and 4.x fix commits referenced by the advisory were not inspected or set as evaluation targets.",
+    "picomatch version and its default case sensitivity were inferred from its documented default and the fix diff, not from a runtime demonstration."
+  ],
+  "location": {
+    "critical_operation": {
+      "code_excerpt": "    _fsDenyGlob: picomatch(config.server.fs.deny, { matchBase: true }),",
+      "description": "Vite builds the server.fs.deny matcher with picomatch's default options plus matchBase, but without nocase. picomatch matches case-sensitively by default, while the file server on a case-insensitive filesystem (Windows, default macOS volumes) resolves any casing to the same file. A request for a denied path using different letter case therefore does not match _fsDenyGlob and is served. The advisory's fix adds nocase: true, which makes the deny patterns case-insensitive and restores the intended blacklist. The consumer is isFileServingAllowed in static.ts:216: when _fsDenyGlob(file) returns false the path is treated as allowed.",
+      "file": "packages/vite/src/node/server/index.ts",
+      "function": "_createServer",
+      "language": "TypeScript",
+      "line": 620,
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/index.ts#L620"
+    },
+    "entry_point": {
+      "description": "A dev-server request URL is converted to a filesystem path and checked against the deny matcher; a case-augmented denied path is not matched.",
+      "file": "packages/vite/src/node/server/middlewares/static.ts",
+      "function": "isFileServingAllowed",
+      "language": "TypeScript",
+      "line": 216,
+      "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L208-L216"
+    },
+    "location_id": "loc_GHSA_c24v_8rfc_w8vw_snap_2e50b228f2432623",
+    "location_kind": "logic",
+    "snapshot_id": "snap_2e50b228f2432623",
+    "trace": [
+      {
+        "description": "Request URL is decoded into a filesystem path",
+        "file": "packages/vite/src/node/server/middlewares/static.ts",
+        "function": "isFileServingAllowed",
+        "language": "TypeScript",
+        "line": 214,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L214"
+      },
+      {
+        "description": "Deny matcher is consulted; case-augmented path yields false",
+        "file": "packages/vite/src/node/server/middlewares/static.ts",
+        "function": "isFileServingAllowed",
+        "language": "TypeScript",
+        "line": 216,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L216"
+      },
+      {
+        "description": "Matcher was created with case-sensitive picomatch options",
+        "file": "packages/vite/src/node/server/index.ts",
+        "function": "_createServer",
+        "language": "TypeScript",
+        "line": 620,
+        "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/index.ts#L620"
+      }
+    ],
+    "verification_method": "Static read of index.ts and static.ts at the exact v5.0.11 commit b44c49302ffbf0c82f984f6219ed6376d1e4552a, diffed against fix commit 91641c4da0a011d4c5352e88fc68389d4e1289a5 and tag v5.0.12. No code executed.",
+    "vulnerability_id": "GHSA-c24v-8rfc-w8vw"
+  },
+  "open_questions": [
+    "Whether a specific deny pattern and request casing pair really escapes the blacklist on a given Windows filesystem was not executed.",
+    "The 2.x/3.x/4.x fix commits (0cd769c, a26c87d, eeec23b) may differ in shape; they were not inspected."
+  ],
+  "prepared_at": "2026-10-21T14:09:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); no independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required"
+  ],
+  "repository": {
+    "canonical_url": "https://github.com/vitejs/vite",
+    "full_name": "vitejs/vite",
+    "license": "MIT",
+    "primary_language": "TypeScript",
+    "project_kind": "tooling",
+    "repo_id": "257485422",
+    "snapshot_id": "snap_2e50b228f2432623"
+  },
+  "review": {
+    "independent_reviews": 0,
+    "required_before_promotion": [
+      "An independent reviewer must read index.ts at v5.0.11 and confirm the matcher options lack nocase.",
+      "An independent reviewer must confirm v5.0.12 contains nocase: true and that the fix commit is an ancestor of the tag.",
+      "An independent reviewer must confirm the deny check is reachable from a request URL via isFileServingAllowed.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "source_crosscheck": {
+    "families": [
+      "GitHub advisory (GHSA + OSV)",
+      "CVE List v5 CNA record (assigner GitHub_M)",
+      "NVD analysis"
+    ],
+    "independent_of_primary": true,
+    "notes": "CNA, NVD and OSV agree on the 7.5 HIGH vector, CWE-178/CWE-200/CWE-284 and the four affected release lines. OSV lists four fix commits, one per line; this dossier verifies only the 5.x commit 91641c4 (ancestor of v5.0.12) and claims only >=5.0.0,<5.0.12. The CNA text explicitly says picomatch defaults to case-sensitive glob matching while the file server does not discriminate, which matches the diff adding nocase: true.",
+    "severity_disagreement": false
+  },
+  "status": "awaiting_independent_review",
+  "vulnerability": {
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://github.com/vitejs/vite/security/advisories/GHSA-c24v-8rfc-w8vw",
+    "affected_packages": [
+      {
+        "affected_range": ">=5.0.0, <5.0.12",
+        "ecosystem": "npm",
+        "package": "vite",
+        "purl": "pkg:npm/vite"
+      }
+    ],
+    "aliases": [
+      "GHSA-c24v-8rfc-w8vw",
+      "CVE-2024-23331"
+    ],
+    "category_l1": "information_disclosure",
+    "category_l2": "path access-control bypass on case-insensitive filesystems",
+    "cwe_ids": [
+      "CWE-178",
+      "CWE-200",
+      "CWE-284"
+    ],
+    "discovery_cutoff_date": "2026-10-21",
+    "fix_commits": [
+      {
+        "branch": null,
+        "message": "fix: fs deny for case insensitive systems (#15653)",
+        "sha": "91641c4da0a011d4c5352e88fc68389d4e1289a5",
+        "url": "https://github.com/vitejs/vite/commit/91641c4da0a011d4c5352e88fc68389d4e1289a5"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "npm",
+        "package": "vite",
+        "release_url": "https://github.com/vitejs/vite/releases/tag/v5.0.12",
+        "tag": "v5.0.12",
+        "verified_content": "At the v5.0.12 commit the fs-deny picomatch matcher is created with nocase: true; v5.0.11 uses { matchBase: true } only, and static.ts is byte-identical in both tags",
+        "version": "5.0.12"
+      }
+    ],
+    "published_at": "2024-01-19T19:43:17Z",
+    "references": [
+      "https://github.com/vitejs/vite/security/advisories/GHSA-c24v-8rfc-w8vw",
+      "https://github.com/vitejs/vite/commit/91641c4da0a011d4c5352e88fc68389d4e1289a5",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-23331",
+      "https://vitejs.dev/config/server-options.html#server-fs-deny",
+      "https://nvd.nist.gov/vuln/detail/CVE-2023-34092"
+    ],
+    "repo_id": "257485422",
+    "severity": {
+      "level": "high",
+      "numeric_level_rationale": "CVSS 3.1 numeric 7.5 falls in High (7.0-8.9).",
+      "score": 7.5,
+      "source": "GitHub_M CNA metric; NVD primary carries the identical vector and score",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-23331",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+      "version": "3.1"
+    },
+    "snapshot_id": "snap_2e50b228f2432623",
+    "source_type": "upstream_advisory",
+    "title": "Vite dev server option `server.fs.deny` can be bypassed when hosted on case-insensitive filesystem",
+    "vulnerability_id": "GHSA-c24v-8rfc-w8vw",
+    "vulnerable_commit": "b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+    "vulnerable_commit_basis": "lightweight tag v5.0.11 points directly at commit b44c493...; packages/vite/package.json at that commit declares 5.0.11 and 5.0.11 is inside >=5.0.0,<5.0.12",
+    "vulnerable_version": "5.0.11"
+  }
+}

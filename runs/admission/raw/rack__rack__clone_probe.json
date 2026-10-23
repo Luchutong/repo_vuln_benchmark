@@ -1,0 +1,1 @@
+{"tool": "git_ls_remote_read_only", "query": {"argv": ["git", "-c", "credential.helper=", "ls-remote", "--exit-code", "https://github.com/rack/rack.git", "HEAD"]}, "retrieved_at": "2026-10-21T10:59:35.314006+00:00", "elapsed_seconds": 1.093, "response": {"returncode": 0, "stdout": "412b7e5250612e8b23095eee65ee3268addb4776\tHEAD\n", "stderr": ""}}

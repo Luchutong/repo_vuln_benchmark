@@ -1,0 +1,91 @@
+commit fe18adff1c2b333acb135ab779a3b9ba3295a1c4
+Author: Chris Vest <christianvest_hansen@apple.com>
+Date:   Mon Dec 12 05:04:58 2022 -0800
+
+    Merge pull request from GHSA-hh82-3pmq-7frp
+    
+    Motivation:
+    The setObject methods that took arrays and iterators as arguments provided a way to bypass value validation.
+    
+    Modification:
+    Add the missing value validation checks.
+    
+    Result:
+    It is no longer possibel to bypass value validation in DefaultHeaders based implementations, including DefaultHttpHeaders.
+
+diff --git a/codec-http/src/test/java/io/netty/handler/codec/http/DefaultHttpHeadersTest.java b/codec-http/src/test/java/io/netty/handler/codec/http/DefaultHttpHeadersTest.java
+index 2c175978b..4cd1beedf 100644
+--- a/codec-http/src/test/java/io/netty/handler/codec/http/DefaultHttpHeadersTest.java
++++ b/codec-http/src/test/java/io/netty/handler/codec/http/DefaultHttpHeadersTest.java
+@@ -22,7 +22,7 @@ import io.netty.util.internal.StringUtil;
+ import org.junit.jupiter.api.Test;
+ import org.junit.jupiter.api.function.Executable;
+ 
+-import java.util.Arrays;
++import java.util.Collections;
+ import java.util.Iterator;
+ import java.util.List;
+ import java.util.Set;
+@@ -41,6 +41,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
+ 
+ public class DefaultHttpHeadersTest {
+     private static final CharSequence HEADER_NAME = "testHeader";
++    private static final CharSequence ILLEGAL_VALUE = "testHeader\r\nContent-Length:45\r\n\r\n";
+ 
+     @Test
+     public void nullHeaderNameNotAllowed() {
+@@ -234,6 +235,28 @@ public class DefaultHttpHeadersTest {
+         assertDefaultValues(headers, HeaderValue.THREE);
+     }
+ 
++    @Test
++    public void setCharSequenceValidatesValue() {
++        final DefaultHttpHeaders headers = newDefaultDefaultHttpHeaders();
++        assertThrows(IllegalArgumentException.class, new Executable() {
++            @Override
++            public void execute() throws Throwable {
++                headers.set(HEADER_NAME, ILLEGAL_VALUE);
++            }
++        });
++    }
++
++    @Test
++    public void setIterableValidatesValue() {
++        final DefaultHttpHeaders headers = newDefaultDefaultHttpHeaders();
++        assertThrows(IllegalArgumentException.class, new Executable() {
++            @Override
++            public void execute() throws Throwable {
++                headers.set(HEADER_NAME, Collections.singleton(ILLEGAL_VALUE));
++            }
++        });
++    }
++
+     @Test
+     public void toStringOnEmptyHeaders() {
+         assertEquals("DefaultHttpHeaders[]", newDefaultDefaultHttpHeaders().toString());
+diff --git a/codec/src/main/java/io/netty/handler/codec/DefaultHeaders.java b/codec/src/main/java/io/netty/handler/codec/DefaultHeaders.java
+index ae62bdffb..6abe71be0 100644
+--- a/codec/src/main/java/io/netty/handler/codec/DefaultHeaders.java
++++ b/codec/src/main/java/io/netty/handler/codec/DefaultHeaders.java
+@@ -532,7 +532,9 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
+             if (v == null) {
+                 break;
+             }
+-            add0(h, i, name, fromObject(name, v));
++            V converted = fromObject(name, v);
++            validateValue(valueValidator, name, converted);
++            add0(h, i, name, converted);
+         }
+ 
+         return thisT();
+@@ -550,7 +552,9 @@ public class DefaultHeaders<K, V, T extends Headers<K, V, T>> implements Headers
+             if (v == null) {
+                 break;
+             }
+-            add0(h, i, name, fromObject(name, v));
++            V converted = fromObject(name, v);
++            validateValue(valueValidator, name, converted);
++            add0(h, i, name, converted);
+         }
+ 
+         return thisT();

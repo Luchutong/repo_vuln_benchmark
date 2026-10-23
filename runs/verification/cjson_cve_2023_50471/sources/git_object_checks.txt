@@ -1,0 +1,34 @@
+# cJSON CVE-2023-50471 git checks
+
+## ls-remote tags
+v1.7.16 cb8693b058ba302f4829ec6d03f609ac6f848546
+v1.7.17 87d8f0961a01bf09bef98ff89bae9fdec42181ee
+
+## ancestry
+60ff122 is ancestor of v1.7.17: YES
+60ff122 is ancestor of v1.7.16: NO
+
+## fix commit
+60ff122ef5862d04b39b150541459e7f5e35add8 cb8693b058ba302f4829ec6d03f609ac6f848546 add NULL checkings (#809)
+
+## follow-up
+f66cbab4bfb3926ffd4c5e13f9fb6d506ee0241d 60ff122ef5862d04b39b150541459e7f5e35add8 fix error in null checkings (#810)
+
+## release log
+87d8f09 Release 1.7.17
+f66cbab fix error in null checkings (#810)
+60ff122 add NULL checkings (#809)
+cb8693b Release 1.7.16 (#770)
+
+## stat 60ff122
+60ff122ef5862d04b39b150541459e7f5e35add8 add NULL checkings (#809)
+
+ cJSON.c            | 14 ++++++++++++--
+ tests/misc_tests.c | 21 +++++++++++++++++++++
+ 2 files changed, 33 insertions(+), 2 deletions(-)
+
+## stat f66cbab
+f66cbab4bfb3926ffd4c5e13f9fb6d506ee0241d fix error in null checkings (#810)
+
+ cJSON.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)

@@ -1,0 +1,11 @@
+6d61860b22875f358fac83d903dc629897934815
+Jon Dufresne <jon.dufresne@gmail.com>
+Tue May 26 09:51:02 2020 +0200
+[2.0.x] Fixed CVE-2020-13596 -- Fixed potential XSS in admin ForeignKeyRawIdWidget.
+
+
+ django/contrib/admin/widgets.py |  6 +++---
+ docs/releases/2.2.13.txt        |  7 +++++++
+ tests/admin_widgets/models.py   |  8 ++++++++
+ tests/admin_widgets/tests.py    | 11 +++++++++++
+ 4 files changed, 29 insertions(+), 3 deletions(-)

@@ -1,0 +1,404 @@
+{
+  "candidate_id": "disc2_d12c850046a2d4e29ec16b98",
+  "dossier_version": "repo-vuln-50-v0.2/verification-dossier-1",
+  "status": "awaiting_independent_review",
+  "prepared_at": "2026-10-22T20:10:00Z",
+  "prepared_by": "Codex collecting agent (single reviewer); independent reviewer assigned",
+  "promotion_blocked_by": [
+    "independent_reviewer_required",
+    "independent_verdict_fields_false: cvss"
+  ],
+  "repository": {
+    "repo_id": "1103607",
+    "full_name": "jenkinsci/jenkins",
+    "canonical_url": "https://github.com/jenkinsci/jenkins",
+    "primary_language": "Java",
+    "project_kind": "automation server",
+    "snapshot_id": "snap_d9b0ffa82cd068d0"
+  },
+  "vulnerability": {
+    "vulnerability_id": "CVE-2024-43045",
+    "aliases": [
+      "CVE-2024-43045",
+      "GHSA-8pv9-qh96-9hc6",
+      "BIT-jenkins-2024-43045"
+    ],
+    "title": "Jenkins My Views endpoint lacks a permission check, exposing other users' views",
+    "repo_id": "1103607",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "vulnerable_commit": "3b0de10df3bedba515e13032104d4d84f83045be",
+    "affected_packages": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "purl": "pkg:maven/org.jenkins-ci.main/jenkins-core",
+        "affected_range": "weekly <=2.470; LTS <=2.452.3 (snapshot 2.441 is in range)"
+      }
+    ],
+    "fixed_releases": [
+      {
+        "ecosystem": "Maven",
+        "package": "org.jenkins-ci.main:jenkins-core",
+        "version": "2.471",
+        "tag": "jenkins-2.471",
+        "release_url": "https://www.jenkins.io/changelog/#v2.471",
+        "verified_content": "The 2.471 release commit d0df46d2 has 3752f406 as its direct parent. In the 2.471 tree MyViewsProperty implements StaplerProxy, getIconFileName returns the icon only for SKIP_PERMISSION_CHECK or getACL().hasPermission(Jenkins.ADMINISTER), and getTarget() calls checkPermission(Jenkins.ADMINISTER). The CNA record also lists LTS 2.452.4 and 2.462.1 as unaffected; those backports were not fetched or asserted."
+      }
+    ],
+    "fix_commits": [
+      {
+        "sha": "3752f406bfef764e4954238acf44343169ae5799",
+        "branch": "master",
+        "release": "2.471",
+        "message": "[SECURITY-3349]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/3752f406bfef764e4954238acf44343169ae5799"
+      },
+      {
+        "sha": "efece77d759b38c95b39b191051a8203bbc2f428",
+        "branch": "2.462.x LTS backport",
+        "release": "2.462.1",
+        "message": "[SECURITY-3349]",
+        "url": "https://github.com/jenkinsci/jenkins/commit/efece77d759b38c95b39b191051a8203bbc2f428"
+      }
+    ],
+    "cwe_ids": [
+      "CWE-862",
+      "CWE-285"
+    ],
+    "severity": {
+      "version": "3.1",
+      "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+      "score": 6.3,
+      "level": "medium",
+      "numeric_level_rationale": "NVD publishes 6.3 MEDIUM as Primary (nvd@nist.gov) and 6.3 MEDIUM as the Secondary metric (CISA-ADP), both with CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L; the OSV record for the CVE repeats that vector. The GitHub advisory GHSA-8pv9-qh96-9hc6 publishes a different vector, CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N (5.4 MEDIUM), because it scores availability as N. The CNA container has no CVSS metric. The scores differ within one level: every published severity level is MEDIUM, so the level is consistent and the numeric differences are recorded rather than averaged.",
+      "source": "NVD Primary 6.3 MEDIUM; NVD Secondary (CISA-ADP) 6.3 MEDIUM; GHSA/OSV 5.4 MEDIUM",
+      "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2024-43045",
+      "all_published_scores": [
+        {
+          "version": "3.1",
+          "score": 6.3,
+          "level": "medium",
+          "source": "NVD Primary (nvd@nist.gov)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+        },
+        {
+          "version": "3.1",
+          "score": 6.3,
+          "level": "medium",
+          "source": "NVD Secondary (CISA-ADP, source 134c704f-9b21-4f2e-91b3-4a467353bcc0)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L"
+        },
+        {
+          "version": "3.1",
+          "score": 5.4,
+          "level": "medium",
+          "source": "GHSA-8pv9-qh96-9hc6 / OSV (CVSS_V4 also published, database_specific MODERATE)",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N"
+        }
+      ]
+    },
+    "category_l1": "authorization_bypass",
+    "category_l2": "Missing permission check on a Stapler-exposed user property: the My Views action is reachable for any Overall/Read user and returns another user's views",
+    "advisory_status": "official_upstream",
+    "advisory_url": "https://www.jenkins.io/security/advisory/2024-08-07/#SECURITY-3349",
+    "published_at": "2024-08-07T13:27:12Z",
+    "discovery_cutoff_date": "2026-10-21",
+    "source_type": "upstream_advisory",
+    "references": [
+      "https://www.jenkins.io/security/advisory/2024-08-07/#SECURITY-3349",
+      "https://nvd.nist.gov/vuln/detail/CVE-2024-43045",
+      "https://github.com/advisories/GHSA-8pv9-qh96-9hc6",
+      "https://github.com/jenkinsci/jenkins/commit/3752f406bfef764e4954238acf44343169ae5799"
+    ]
+  },
+  "description": "Jenkins exposes each user's My Views property as a Stapler action at /user/<id>/my-views/. At 2.441, hudson/model/MyViewsProperty.java implements Action (getIconFileName at 227-229 returns 'symbol-browsers' unconditionally; getUrlName at 231-234 returns 'my-views') but not StaplerProxy, and the class has no getTarget() or Jenkins.ADMINISTER check anywhere; getACL() at 215-218 delegates to the owning user's ACL but is never consulted as an access gate for the action. A user with Overall/Read can therefore traverse to another user's MyViewsProperty and read that user's views through the HTTP endpoint, matching CWE-862. The 2.471 fix 3752f406 makes the class implement StaplerProxy, gates getIconFileName on SKIP_PERMISSION_CHECK or getACL().hasPermission(Jenkins.ADMINISTER), and adds getTarget() calling checkPermission(Jenkins.ADMINISTER); it also adds Security3349Test.usersCannotAccessOtherUsersViews.",
+  "location": {
+    "location_id": "loc_CVE-2024-43045_snap_d9b0ffa82cd068d0",
+    "vulnerability_id": "CVE-2024-43045",
+    "snapshot_id": "snap_d9b0ffa82cd068d0",
+    "location_kind": "logic",
+    "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+    "function": "getIconFileName",
+    "language": "Java",
+    "line": "227-229",
+    "critical_operation": {
+      "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+      "function": "getIconFileName",
+      "language": "Java",
+      "line": "227-229",
+      "code_excerpt": "    @Override\n    public String getIconFileName() {\n        return \"symbol-browsers\";\n    }",
+      "description": "The My Views action is published to every user with no permission check. The class implements Action but not StaplerProxy and defines no getTarget(), so Stapler hands the object to any request that reaches /user/<id>/my-views/; getUrlName (231-234) supplies that path. The fix gates this method on ADMINISTER and adds a getTarget() check.",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/MyViewsProperty.java#L227-L229"
+    },
+    "entry_point": {
+      "description": "HTTP request to /user/<id>/my-views/ for another user's id, authenticated with Overall/Read.",
+      "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+      "function": "getUrlName",
+      "language": "Java",
+      "line": "231-234",
+      "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/MyViewsProperty.java#L231-L234"
+    },
+    "trace": [
+      {
+        "description": "the class extends UserProperty and implements Action without StaplerProxy, so no getTarget() permission gate exists",
+        "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+        "function": "MyViewsProperty",
+        "language": "Java",
+        "line": 62,
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/MyViewsProperty.java#L62"
+      },
+      {
+        "description": "getACL delegates to the owning user's ACL but is not used to authorize the action",
+        "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+        "function": "getACL",
+        "language": "Java",
+        "line": "215-218",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/MyViewsProperty.java#L215-L218"
+      },
+      {
+        "description": "getIconFileName exposes the action unconditionally",
+        "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+        "function": "getIconFileName",
+        "language": "Java",
+        "line": "227-229",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/MyViewsProperty.java#L227-L229"
+      },
+      {
+        "description": "getUrlName publishes the endpoint path",
+        "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+        "function": "getUrlName",
+        "language": "Java",
+        "line": "231-234",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/MyViewsProperty.java#L231-L234"
+      },
+      {
+        "description": "the fix adds a getTarget() that calls checkPermission(Jenkins.ADMINISTER)",
+        "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+        "function": "getTarget",
+        "language": "Java",
+        "line": "250-255",
+        "permalink": "https://github.com/jenkinsci/jenkins/blob/d0df46d2e83e89bdd3eced69460842ab7aa03315/core/src/main/java/hudson/model/MyViewsProperty.java#L250-L255"
+      }
+    ],
+    "verification_method": "Static read of MyViewsProperty.java at 2.441 and 2.471, of the 3752f406 patch and of the Jenkins/NVD/OSV records; no Jenkins instance or HTTP request was run."
+  },
+  "evidence": [
+    {
+      "evidence_id": "ev_jenkins_43045_cve_v5",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/cve_v5.json",
+      "source_url": "https://cveawg.mitre.org/api/cve/CVE-2024-43045",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "4c6badc9fa06fd3ab7a3061de7ccf589f835ccd122b18823c7609e5314ace954",
+      "verification_method": "CVE List v5 record",
+      "result": "PASS",
+      "supports": [
+        "state PUBLISHED, datePublished 2024-08-07, assigner Jenkins",
+        "description: Jenkins 2.470 and earlier, LTS 2.452.3 and earlier does not perform a permission check in an HTTP endpoint, allowing attackers with Overall/Read permission to access other users' 'My Views'",
+        "affected versions: 2.452.* unaffected from 2.452.4, 2.462.* unaffected from 2.462.1, weekly unaffected from 2.471; defaultStatus affected",
+        "the CNA container carries no CVSS metric and no CWE",
+        "reference https://www.jenkins.io/security/advisory/2024-08-07/#SECURITY-3349"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_43045_nvd",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/nvd_cve.json",
+      "source_url": "https://services.nvd.nist.gov/rest/json/cves/2.0?cveId=CVE-2024-43045",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "50c4c2a05d26926c37964e0194c285cb61fedd59aac5b5265244f48a0fe1a50b",
+      "verification_method": "NVD CVE API 2.0 record",
+      "result": "PASS",
+      "supports": [
+        "published 2024-08-07, status Modified",
+        "CVSS 3.1 6.3 MEDIUM from nvd@nist.gov (Primary) with vector CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
+        "CVSS 3.1 6.3 MEDIUM from the Secondary entry (source 134c704f-9b21-4f2e-91b3-4a467353bcc0, CISA-ADP) with the same A:L vector",
+        "CWE-862 Missing Authorization"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_43045_osv_cve",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/osv_cve.json",
+      "source_url": "https://api.osv.dev/v1/vulns/CVE-2024-43045",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "c0af586bc7a97845b13dbf978406b4a90d8c111b0af36888cf9bb971747f43eb",
+      "verification_method": "OSV.dev API record",
+      "result": "PASS",
+      "supports": [
+        "alias GHSA-8pv9-qh96-9hc6",
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L (6.3 MEDIUM, A:L), the NVD-aligned metric",
+        "affected jenkinsci/jenkins GIT ranges fixed at the 2.452.4 and 2.471 release commits, CPE ranges weekly <2.471 and LTS <2.452.4"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_43045_osv_ghsa",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/osv_ghsa.json",
+      "source_url": "https://api.osv.dev/v1/vulns/GHSA-8pv9-qh96-9hc6",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "94fa836c299de54b11ba162ebf79c5443f3a69c5e5ce982f500432525e4c2486",
+      "verification_method": "OSV.dev API record for the GitHub advisory",
+      "result": "PASS",
+      "supports": [
+        "CVSS_V3 CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N (5.4 MEDIUM, A:N), lower than NVD's A:L vector but the same MEDIUM level",
+        "CVSS_V4 CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:L/VI:L/VA:N/SC:N/SI:N/SA:N and database_specific severity MODERATE",
+        "database_specific cwe_ids include CWE-285 (Improper Authorization) alongside CWE-862",
+        "details repeat the Jenkins advisory text for SECURITY-3349"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_43045_vuln_src",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/myviews_2.441.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/model/MyViewsProperty.java#L62",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "e16e4d3dc76ea0dbace76e161717bea7dad172cc8ce0c6013d8cb265812ce595",
+      "verification_method": "file read at snapshot commit 3b0de10d (jenkins-2.441); blob 9d7b8b65 matches the snapshot inventory",
+      "result": "PASS",
+      "supports": [
+        "class declaration at line 62 implements UserProperty, ModifiableViewGroup, Action, StaplerFallback but not StaplerProxy",
+        "getIconFileName at lines 227-229 unconditionally returns 'symbol-browsers' for every user",
+        "getUrlName at lines 231-234 exposes the action at 'my-views'",
+        "there is no getTarget() and no Jenkins.ADMINISTER check in the class; getACL() at 215-218 is not consulted when the action is read, it only backs the checkPermission(View.CREATE) calls in doCreateView (190) and doViewExistsCheck (200)"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_43045_fixed_src",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/myviews_2.471.java",
+      "source_url": "https://github.com/jenkinsci/jenkins/blob/d0df46d2e83e89bdd3eced69460842ab7aa03315/core/src/main/java/hudson/model/MyViewsProperty.java#L238-L255",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "d28341306b8d7dcf6c9fd5c632321c3bb460d98a1d03c038f44f13930ab662df",
+      "verification_method": "file read at the 2.471 release commit d0df46d2; blob 49fdfac4",
+      "result": "PASS",
+      "supports": [
+        "class now implements StaplerProxy (line 66)",
+        "SKIP_PERMISSION_CHECK escape hatch at line 73",
+        "getIconFileName at 238-242 returns the icon only when SKIP_PERMISSION_CHECK or getACL().hasPermission(Jenkins.ADMINISTER)",
+        "getTarget at 250-255 calls checkPermission(Jenkins.ADMINISTER) unless SKIP_PERMISSION_CHECK"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_43045_patch",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/fix_commit.patch",
+      "source_url": "https://github.com/jenkinsci/jenkins/commit/3752f406bfef764e4954238acf44343169ae5799",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "00bdc79f65cbb98b3aebd92c81319dc203b8a223feeb5d3e5df5c293f227ab02",
+      "verification_method": "downloaded commit patch for the master-branch fix",
+      "result": "PASS",
+      "supports": [
+        "commit 3752f406 '[SECURITY-3349]', 2024-07-30, parent 5d26b53a",
+        "adds StaplerProxy, SKIP_PERMISSION_CHECK, the ADMINISTER check in getIconFileName and the getTarget() permission gate",
+        "adds test/src/test/java/hudson/model/Security3349Test.java with usersCannotAccessOtherUsersViews"
+      ]
+    },
+    {
+      "evidence_id": "ev_jenkins_43045_git",
+      "artifact_path": "runs/verification/jenkins_cve_2024_43045/sources/git_object_checks.txt",
+      "source_url": "https://github.com/jenkinsci/jenkins",
+      "retrieved_at": "2026-10-22T20:10:00Z",
+      "sha256_of_observation": "5719c928220bba0932c669ae94ddc200f6ba825f73707b9357dd767692be07b3",
+      "verification_method": "local git tags, blob comparison and local ancestry",
+      "result": "PASS",
+      "supports": [
+        "snapshot tag jenkins-2.441 resolves to 3b0de10d and the MyViewsProperty blob 9d7b8b65 matches the inventory (8976 bytes)",
+        "fix commit 3752f406 is an ancestor of the 2.471 release commit d0df46d2 (git merge-base --is-ancestor exit 0); the release commit's parent is the fix",
+        "the fixed file blob at 2.471 is 49fdfac4 and contains getTarget/StaplerProxy and the ADMINISTER check",
+        "a separate LTS-branch commit '[SECURITY-3349]' exists for the backports; per the independent review, efece77d is the direct parent of the 2.462.1 release commit acc86685 and 0c13259c is the direct parent of the 2.452.4 release commit c5a3ba54 (the local mirror fetched neither LTS branch, so no ancestry is asserted here)",
+        "CNA affected range 2.470 and earlier weekly / 2.452.3 and earlier LTS includes the 2.441 snapshot"
+      ]
+    }
+  ],
+  "field_evidence": {
+    "affected_ranges": [
+      0,
+      2
+    ],
+    "aliases": [
+      0,
+      2
+    ],
+    "critical_operation": [
+      4,
+      5,
+      6
+    ],
+    "cwe": [
+      1,
+      3
+    ],
+    "fix_commits": [
+      2,
+      6,
+      7
+    ],
+    "fixed_releases": [
+      0,
+      2,
+      5,
+      7
+    ],
+    "languages": [
+      4,
+      5
+    ],
+    "severity": [
+      1,
+      2,
+      3
+    ],
+    "vulnerable_commit": [
+      7
+    ]
+  },
+  "field_evidence_note": "Indexes into the evidence array, as in the other dossiers.",
+  "source_crosscheck": {
+    "families": [
+      "CVE List v5 record",
+      "NVD analysis (Primary 6.3 MEDIUM)",
+      "GitHub advisory / OSV records",
+      "upstream git tags and commit history"
+    ],
+    "independent_of_primary": true,
+    "notes": "The CNA, NVD, OSV and the GitHub advisory agree on the mechanism (the My Views action is reachable for any Overall/Read user because MyViewsProperty has no getTarget() and no ADMINISTER check) and on the affected range. Severity levels agree (MEDIUM everywhere), but the vectors do not: NVD Primary and NVD Secondary (CISA-ADP) are 6.3 MEDIUM with A:L, the GHSA/OSV advisory is 5.4 MEDIUM with A:N, and the OSV CVE record repeats NVD's 6.3. The dataset records 6.3 with the A:L vector as the NVD score and lists the GHSA vector separately instead of asserting they are identical. CWEs: NVD lists CWE-862 only; GHSA/OSV list CWE-285 and CWE-862; the CNA lists none. The 2.471 fix and its regression test describe the same missing-permission-check mechanism as the advisory, and the 2.441 tree has no getTarget() or ADMINISTER check. This root cause is distinct from the previously promoted jenkins entries: CVE-2024-23897 is arbitrary file read through the CLI command parser and CVE-2024-23898 is cross-site WebSocket hijacking of the CLI; neither shares this Stapler permission gate or fix.",
+    "severity_disagreement": false
+  },
+  "review": {
+    "status": "PENDING_INDEPENDENT_REVIEW",
+    "independent_reviews": 1,
+    "required_before_promotion": [
+      "An independent reviewer must read MyViewsProperty.java at 2.441 and confirm the class has no getTarget()/StaplerProxy permission gate.",
+      "An independent reviewer must confirm 3752f406 is the fix and is contained in the 2.471 release.",
+      "An independent reviewer must confirm the affected range (weekly <=2.470, LTS <=2.452.3).",
+      "An independent reviewer must confirm all published severity levels are MEDIUM and record CWE-862.",
+      "An independent reviewer must confirm the mechanism is distinct from CVE-2024-23897 and CVE-2024-23898.",
+      "No formal reviews.jsonl row may be written until a named independent reviewer returns a verdict."
+    ],
+    "independent_verdict": {
+      "reviewer_identity": "deepseek-flash (independent review agent)",
+      "verdict_path": "runs/independent/jenkins_CVE-2024-43045_round1/verdict.json",
+      "verdict": "vulnerable_commit",
+      "grade_recommendation": "B",
+      "fields_verified_all_true": false,
+      "fields_false": [
+        "cvss"
+      ],
+      "severity_level": "medium",
+      "location_file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+      "location_line": "227-229"
+    },
+    "independent_corrections_accepted": [
+      "The dossier wrongly stated that OSV/GHSA carries the same 6.3 vector as NVD. GHSA-8pv9-qh96-9hc6 publishes CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N (5.4 MEDIUM, A:N), while NVD Primary and NVD Secondary (CISA-ADP) publish 6.3 with A:L. The statements in the evidence summaries and in the severity block were corrected; all published levels remain MEDIUM.",
+      "The dossier wrongly labelled efece77d as the 2.452.x backport. It is the direct parent of the 2.462.1 release commit acc86685; the 2.452.x fix is 0c13259c, the direct parent of the 2.452.4 release commit c5a3ba54. The weekly fix 3752f406 and the fixed-release list are unchanged.",
+      "The dossier overstated that getACL() is never used as an access gate. It backs the checkPermission(View.CREATE) calls in doCreateView (line 190) and doViewExistsCheck (line 200); it is not consulted when the My Views action is read, which is the vulnerability.",
+      "GHSA/OSV also list CWE-285 alongside CWE-862; the dossier now records both."
+    ],
+    "promotion_status": "BLOCKED: the independent verdict is vulnerable_commit at grade B but marks fields_verified.cvss false, because the claim it reviewed asserted that GHSA/OSV carried the same 6.3 vector as NVD. The factual statements were corrected after the review, but a promotion verdict may not be edited after the fact, so the dossier stays PENDING_INDEPENDENT_REVIEW until an independent review of the corrected claim returns all fields true. The dataset does not coerce cvss to true."
+  },
+  "limitations": [
+    "Static verification only; no Jenkins instance was started and no HTTP request was sent.",
+    "The CNA container has no CVSS metric and no CWE; severity and CWE come from NVD and the GitHub advisory, which agree.",
+    "Only the weekly 2.471 release is asserted by local ancestry; the CNA also lists LTS 2.452.4 and 2.462.1, whose LTS-branch backport efece77d is recorded but not asserted as an ancestor.",
+    "The practical impact depends on the security realm and authorization strategy: NVD assumes PR:L (Overall/Read), and the endpoint returns the target user's view names/descriptions rather than arbitrary files.",
+    "No independent third-party reproduction reference is recorded, so grade A is not available."
+  ],
+  "open_questions": [
+    "The corrected CVSS statements have not been re-reviewed by a new independent reviewer; the dataset keeps this entry pending instead of editing the existing verdict.",
+    "The 2.452.x and 2.462.x backports were not fetched into the local mirror; their commit relationship is recorded from the independent review, not asserted as local ancestry."
+  ]
+}

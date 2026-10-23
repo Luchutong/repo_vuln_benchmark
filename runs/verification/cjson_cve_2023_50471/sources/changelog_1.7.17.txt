@@ -1,0 +1,7 @@
+Source: https://github.com/DaveGamble/cJSON/blob/v1.7.17/CHANGELOG.md
+Retrieved: 2026-10-21 from the v1.7.17 tag (local bare clone, exact SHA 87d8f096)
+
+1.7.17 (Dec 26, 2023)
+Fixes:
+* Fix null reference in cJSON_SetValuestring(CVE-2023-50472), see #809
+* Fix null reference in cJSON_InsertItemInArray(CVE-2023-50471), see #809 and #810

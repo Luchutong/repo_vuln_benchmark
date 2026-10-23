@@ -1,0 +1,24 @@
+{
+  "key": "aspnet_signalr",
+  "repository": "dotnet/aspnetcore",
+  "path": "src/SignalR/server/Core/src/Microsoft.AspNetCore.SignalR.Core.csproj",
+  "retrieved_at": "2026-10-21T10:56:27.552Z",
+  "source_family": "official_upstream",
+  "tool": "github_fetch_file",
+  "response": {
+    "content": [
+      {
+        "type": "text",
+        "text": "Action completed."
+      }
+    ],
+    "structuredContent": {
+      "content": "<Project Sdk=\"Microsoft.NET.Sdk\">\n\n  <PropertyGroup>\n    <Description>Real-time communication framework for ASP.NET Core.</Description>\n    <TargetFramework>$(DefaultNetCoreTargetFramework)</TargetFramework>\n    <IsAspNetCoreApp>true</IsAspNetCoreApp>\n    <RootNamespace>Microsoft.AspNetCore.SignalR</RootNamespace>\n    <IsPackable>false</IsPackable>\n    <Nullable>enable</Nullable>\n    <IsTrimmable>true</IsTrimmable>\n  </PropertyGroup>\n\n  <ItemGroup>\n    <Compile Include=\"$(SignalRSharedSourceRoot)ReflectionHelper.cs\" Link=\"ReflectionHelper.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)ClosedGenericMatcher\\*.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)ObjectMethodExecutor\\*.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)AsyncEnumerableAdapters.cs\" Link=\"Internal\\AsyncEnumerableAdapters.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)TaskCache.cs\" Link=\"Internal\\TaskCache.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)ClientResultsManager.cs\" Link=\"Internal\\ClientResultsManager.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)CreateLinkedToken.cs\" Link=\"Internal\\CreateLinkedToken.cs\" />\n    <Compile Include=\"$(SignalRSharedSourceRoot)MessageBuffer.cs\" Link=\"MessageBuffer.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)ThrowHelpers\\ArgumentNullThrowHelper.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)CallerArgument\\CallerArgumentExpressionAttribute.cs\" LinkBase=\"Shared\" />\n    <Compile Include=\"$(SharedSourceRoot)Diagnostics\\ActivityCreator.cs\" />\n    <Compile Include=\"$(SharedSourceRoot)ConnectionEndpointTags.cs\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <ProjectReference Include=\"$(RepoRoot)src\\Http\\Http.Abstractions\\src\\Microsoft.AspNetCore.Http.Abstractions.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\Security\\Authorization\\Policy\\src\\Microsoft.AspNetCore.Authorization.Policy.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\SignalR\\common\\Protocols.Json\\src\\Microsoft.AspNetCore.SignalR.Protocols.Json.csproj\" />\n    <ProjectReference Include=\"$(RepoRoot)src\\SignalR\\common\\SignalR.Common\\src\\Microsoft.AspNetCore.SignalR.Common.csproj\" />\n  </ItemGroup>\n\n  <ItemGroup>\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.SignalR.Tests.Utils\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.SignalR.Microbenchmarks\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.SignalR.Tests\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.SignalR.StackExchangeRedis.Tests\" />\n    <InternalsVisibleTo Include=\"Microsoft.AspNetCore.SignalR.Client.FunctionalTests\" />    \n  </ItemGroup>\n\n</Project>\n",
+      "encoding": "utf-8",
+      "sha": "8366e62a59a1f12193274c20b3cb87539f022b4a",
+      "display_url": "https://github.com/dotnet/aspnetcore/blob/main/src/SignalR/server/Core/src/Microsoft.AspNetCore.SignalR.Core.csproj",
+      "display_title": "Microsoft.AspNetCore.SignalR.Core.csproj"
+    },
+    "isError": false
+  }
+}

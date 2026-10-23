@@ -1,0 +1,47 @@
+Repository: https://github.com/vitejs/vite
+Local blobless bare mirror: /tmp/vite_vuln.git
+  (git clone --bare --filter=blob:none --single-branch --branch v5.0.13,
+   then git fetch origin tag v5.0.11 and tag v5.0.12)
+
+Dataset snapshot: tag v5.0.11, commit b44c49302ffbf0c82f984f6219ed6376d1e4552a.
+  runs/language/snap_2e50b228f2432623/snapshot_proposal.json records
+  tag_or_release=v5.0.11, vulnerable_commit=b44c49302ffbf0c82f984f6219ed6376d1e4552a.
+  runs/language/snap_2e50b228f2432623/file_inventory.json records
+  packages/vite/src/node/server/index.ts
+  bytes=30845, git_oid=bec44dafb25910162ed6b6dfd0fd7b0d52412e97,
+  language=TypeScript, which matches the blob at the snapshot commit:
+  $ git show b44c4930:packages/vite/src/node/server/index.ts | git hash-object --stdin
+  bec44dafb25910162ed6b6dfd0fd7b0d52412e97
+
+Fix commit: d2db33f7d4b96750b35370c70dd2c35ec3b9b649
+  "fix: `fs.deny` with globs with directories (#16250)", 2024-03-24
+  This is the 5.0-branch port; the other five commits listed by the GHSA are
+  the 2.9/3.2/4.5/5.1/5.2 ports of the same change.
+  $ git merge-base --is-ancestor d2db33f v5.0.10^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor d2db33f v5.0.11^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor d2db33f v5.0.12^{commit} ; echo $?  -> 1
+  $ git merge-base --is-ancestor d2db33f v5.0.13^{commit} ; echo $?  -> 0
+  $ git tag --contains d2db33f | sort -V | head -1                   -> v5.0.13
+
+Release tags resolve to:
+  v5.0.11 -> b44c49302ffbf0c82f984f6219ed6376d1e4552a
+  v5.0.12 -> ee81e196769c102a6b1bf30f8444ccde236e71d5
+  v5.0.13 -> 80b1b07915295a32a7251df543509f8f667c5771
+
+The target file's blob by release:
+  v5.0.10 index.ts -> bec44dafb25910162ed6b6dfd0fd7b0d52412e97 (vulnerable)
+  v5.0.11 index.ts -> bec44dafb25910162ed6b6dfd0fd7b0d52412e97 (vulnerable snapshot)
+  v5.0.12 index.ts -> eb34efa3dd4b9944e27e4f83ae97ea0c4b172cf0 (case-insensitive
+                     fix from CVE-2024-23331; the directory-glob defect remains)
+  v5.0.13 index.ts -> 7bf04d509808142a51b5e622e711db9794dace8d (this fix)
+  $ git show d2db33f:packages/vite/src/node/server/index.ts | git hash-object --stdin
+  7bf04d509808142a51b5e622e711db9794dace8d
+  static.ts is byte-identical between v5.0.11 and v5.0.13, so the only code change
+  for this advisory on the 5.0 line is the matcher construction in index.ts.
+
+Duplicate check in the dataset at this snapshot: the existing
+GHSA-c24v-8rfc-w8vw / CVE-2024-23331 entry is the missing-nocase issue at the
+same line, fixed in v5.0.12 by adding nocase: true. This candidate is
+CVE-2024-31207, the matchBase/dot directory-glob issue, fixed in v5.0.13 by
+converting slashless patterns to **/<pattern> with matchBase: false and dot:
+true. They are distinct advisories with distinct fixes.

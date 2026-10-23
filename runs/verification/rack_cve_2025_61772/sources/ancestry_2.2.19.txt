@@ -1,0 +1,38 @@
+# rack CVE-2025-61772: fix-commit ancestry and blob checks (run 2026-10-22)
+# remote: https://github.com/rack/rack.git ; exact-SHA fetch, --filter=blob:none
+# fetched: 4c4ea296 (v2.2.19 commit), 0f76d43c (v2.2.18 commit),
+#          589127f4, d869fed6, e08f78c6
+
+== ancestry relative to v2.2.19 commit 4c4ea296fdfd115377912aa7dbcb55b83bf2888e ==
+NOT-ANC 589127f4ac8b5cf11cf88fb0cd116ffed4d2181e
+ANC  d869fed663b113b95a74ad53e1b5cae6ab31f29e
+NOT-ANC e08f78c656c9394d6737c022bde087e0f33336fd
+
+== git log 4c4ea296 -8 ==
+4c4ea296fdfd115377912aa7dbcb55b83bf2888e 2025-10-07 14:48:42 +1300 Bump patch version.
+c370dcd9405a6799763b70a83f06ae2d1aaa0e87 2025-10-07 14:28:25 +1300 Limit amount of retained data when parsing multipart requests
+d869fed663b113b95a74ad53e1b5cae6ab31f29e 2025-10-07 14:27:27 +1300 Fix denial of service vulnerbilties in multipart parsing
+0f76d43c0d5624bd0d325df4f0a63f5e1faa7254 2025-09-25 18:01:29 +0900 Bump patch version.
+493a4119ea010a7ac3dbc0ff579fc8af42e24ba4 2025-09-25 17:59:13 +0900 Fix thin integration.
+54e4ffdd5affebcb0c015cc6ae74635c0831ed71 2025-09-25 17:52:06 +0900 Unbounded parameter parsing in `Rack::QueryParser`.
+9163ac3f5fac795179f9935e2ba6533a0ca1cf82 2025-06-03 10:48:32 +0900 Bump patch version.
+8e52d2a3769e83fc698784b06c82703ba40448e7 2025-06-03 10:43:45 +0900 Backport #2263 to v2.2, fix: malformed charset param (#2338)
+
+== blobs lib/rack/multipart/parser.rb ==
+1741c580 (tag 2.2.3)                 2eb38380b0c88a79aae5b4a251748fe7e9d71807
+0f76d43c (tag v2.2.18 peel)          3b53832fcf6da7abb281881a888c7384b6f96dd4
+4c4ea296 (tag v2.2.19 peel)          ba7b4794ae1db872c3004e5fc2e399873db8e2d3
+d869fed6 (2.2-line fix)              0cb5d347c72bfd8ac317fc0c16e72aa347a43365
+c370dcd9 (retained-data follow-up)   ba7b4794ae1db872c3004e5fc2e399873db8e2d3
+
+== local file blobs (git hash-object) ==
+2eb38380b0c88a79aae5b4a251748fe7e9d71807  parser_2.2.3.rb
+3b53832fcf6da7abb281881a888c7384b6f96dd4  parser_v2.2.18.rb
+ba7b4794ae1db872c3004e5fc2e399873db8e2d3  parser_v2.2.19.rb
+
+== note ==
+The v2.2.19 tag content is c370dcd9's result: d869fed6 introduced
+MIME_HEADER_BYTESIZE_LIMIT (the CVE-2025-61772 fix) and the preamble cap, and
+c370dcd9 one commit later added the retained-data limit. The shipped v2.2.19 file
+therefore differs from d869fed6's post-image while still containing the 61772 cap.
+The 2.2.18 file has neither limit.

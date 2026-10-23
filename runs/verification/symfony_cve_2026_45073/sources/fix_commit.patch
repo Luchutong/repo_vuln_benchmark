@@ -1,0 +1,142 @@
+From ec50b799d79ebe24561f29351c1efcb6da95c9b1 Mon Sep 17 00:00:00 2001
+From: Nicolas Grekas <nicolas.grekas@gmail.com>
+Date: Wed, 6 May 2026 13:02:13 +0200
+Subject: [PATCH] [Cache] Validate the prefix given to AbstractAdapter::clear()
+
+---
+ .../Cache/Tests/Adapter/AdapterTestCase.php   | 28 +++++++++++++++++++
+ .../Cache/Tests/Adapter/ArrayAdapterTest.php  |  1 +
+ .../Adapter/CouchbaseBucketAdapterTest.php    |  1 +
+ .../CouchbaseCollectionAdapterTest.php        |  1 +
+ .../Tests/Adapter/MemcachedAdapterTest.php    |  1 +
+ .../Tests/Adapter/PhpArrayAdapterTest.php     |  1 +
+ .../Cache/Tests/Adapter/ProxyAdapterTest.php  |  1 +
+ .../Cache/Traits/AbstractAdapterTrait.php     |  4 +++
+ 8 files changed, 38 insertions(+)
+
+diff --git a/src/Symfony/Component/Cache/Tests/Adapter/AdapterTestCase.php b/src/Symfony/Component/Cache/Tests/Adapter/AdapterTestCase.php
+index 91b648fd718ec..bb57921204a95 100644
+--- a/src/Symfony/Component/Cache/Tests/Adapter/AdapterTestCase.php
++++ b/src/Symfony/Component/Cache/Tests/Adapter/AdapterTestCase.php
+@@ -309,6 +309,34 @@ public function testClearPrefix()
+         $this->assertTrue($cache->hasItem('barfoo'));
+     }
+ 
++    /**
++     * @dataProvider provideInvalidPrefixes
++     */
++    public function testClearWithInvalidPrefix(string $prefix)
++    {
++        if (isset($this->skippedTests[__FUNCTION__])) {
++            $this->markTestSkipped($this->skippedTests[__FUNCTION__]);
++        }
++
++        $cache = $this->createCachePool(0, __FUNCTION__);
++        $cache->clear();
++
++        $cache->save($cache->getItem('foobar')->set(1));
++
++        $this->assertFalse($cache->clear($prefix));
++        $this->assertTrue($cache->hasItem('foobar'));
++    }
++
++    public static function provideInvalidPrefixes(): iterable
++    {
++        yield 'single quote' => ["foo' OR 1=1; --"];
++        yield 'percent wildcard' => ['foo%'];
++        yield 'space' => ['foo bar'];
++        yield 'null byte' => ["foo\0bar"];
++        yield 'backslash' => ['foo\\bar'];
++        yield 'slash' => ['foo/bar'];
++    }
++
+     public function testWeirdDataMatchingMetadataWrappedValues()
+     {
+         if (isset($this->skippedTests[__FUNCTION__])) {
+diff --git a/src/Symfony/Component/Cache/Tests/Adapter/ArrayAdapterTest.php b/src/Symfony/Component/Cache/Tests/Adapter/ArrayAdapterTest.php
+index 9a55e95cc7ef5..f78a739305e4c 100644
+--- a/src/Symfony/Component/Cache/Tests/Adapter/ArrayAdapterTest.php
++++ b/src/Symfony/Component/Cache/Tests/Adapter/ArrayAdapterTest.php
+@@ -23,6 +23,7 @@ class ArrayAdapterTest extends AdapterTestCase
+         'testGetMetadata' => 'ArrayAdapter does not keep metadata.',
+         'testDeferredSaveWithoutCommit' => 'Assumes a shared cache which ArrayAdapter is not.',
+         'testSaveWithoutExpire' => 'Assumes a shared cache which ArrayAdapter is not.',
++        'testClearWithInvalidPrefix' => 'ArrayAdapter does not validate the prefix.',
+     ];
+ 
+     public function createCachePool(int $defaultLifetime = 0): CacheItemPoolInterface
+diff --git a/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseBucketAdapterTest.php b/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseBucketAdapterTest.php
+index 08edff2c33a68..4b58c55c866d5 100644
+--- a/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseBucketAdapterTest.php
++++ b/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseBucketAdapterTest.php
+@@ -28,6 +28,7 @@ class CouchbaseBucketAdapterTest extends AdapterTestCase
+ {
+     protected $skippedTests = [
+         'testClearPrefix' => 'Couchbase cannot clear by prefix',
++        'testClearWithInvalidPrefix' => 'Couchbase cannot clear by prefix',
+     ];
+ 
+     /** @var \CouchbaseBucket */
+diff --git a/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseCollectionAdapterTest.php b/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseCollectionAdapterTest.php
+index 427e04339f944..5b335569f65e4 100644
+--- a/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseCollectionAdapterTest.php
++++ b/src/Symfony/Component/Cache/Tests/Adapter/CouchbaseCollectionAdapterTest.php
+@@ -28,6 +28,7 @@ class CouchbaseCollectionAdapterTest extends AdapterTestCase
+ {
+     protected $skippedTests = [
+         'testClearPrefix' => 'Couchbase cannot clear by prefix',
++        'testClearWithInvalidPrefix' => 'Couchbase cannot clear by prefix',
+     ];
+ 
+     /** @var Collection */
+diff --git a/src/Symfony/Component/Cache/Tests/Adapter/MemcachedAdapterTest.php b/src/Symfony/Component/Cache/Tests/Adapter/MemcachedAdapterTest.php
+index e21a2f63e3255..1c0cba2d432b3 100644
+--- a/src/Symfony/Component/Cache/Tests/Adapter/MemcachedAdapterTest.php
++++ b/src/Symfony/Component/Cache/Tests/Adapter/MemcachedAdapterTest.php
+@@ -26,6 +26,7 @@ class MemcachedAdapterTest extends AdapterTestCase
+         'testHasItemReturnsFalseWhenDeferredItemIsExpired' => 'Testing expiration slows down the test suite',
+         'testDefaultLifeTime' => 'Testing expiration slows down the test suite',
+         'testClearPrefix' => 'Memcached cannot clear by prefix',
++        'testClearWithInvalidPrefix' => 'Memcached cannot clear by prefix',
+     ];
+ 
+     protected static $client;
+diff --git a/src/Symfony/Component/Cache/Tests/Adapter/PhpArrayAdapterTest.php b/src/Symfony/Component/Cache/Tests/Adapter/PhpArrayAdapterTest.php
+index 541681df291c2..9b4751a530174 100644
+--- a/src/Symfony/Component/Cache/Tests/Adapter/PhpArrayAdapterTest.php
++++ b/src/Symfony/Component/Cache/Tests/Adapter/PhpArrayAdapterTest.php
+@@ -57,6 +57,7 @@ class PhpArrayAdapterTest extends AdapterTestCase
+ 
+         'testDefaultLifeTime' => 'PhpArrayAdapter does not allow configuring a default lifetime.',
+         'testPrune' => 'PhpArrayAdapter just proxies',
++        'testClearWithInvalidPrefix' => 'PhpArrayAdapter does not validate the prefix.',
+     ];
+ 
+     protected static $file;
+diff --git a/src/Symfony/Component/Cache/Tests/Adapter/ProxyAdapterTest.php b/src/Symfony/Component/Cache/Tests/Adapter/ProxyAdapterTest.php
+index 387542bb1a631..ac960d0f5d009 100644
+--- a/src/Symfony/Component/Cache/Tests/Adapter/ProxyAdapterTest.php
++++ b/src/Symfony/Component/Cache/Tests/Adapter/ProxyAdapterTest.php
+@@ -27,6 +27,7 @@ class ProxyAdapterTest extends AdapterTestCase
+         'testDeferredSaveWithoutCommit' => 'Assumes a shared cache which ArrayAdapter is not.',
+         'testSaveWithoutExpire' => 'Assumes a shared cache which ArrayAdapter is not.',
+         'testPrune' => 'ProxyAdapter just proxies',
++        'testClearWithInvalidPrefix' => 'Inner ArrayAdapter does not validate the prefix.',
+     ];
+ 
+     public function createCachePool(int $defaultLifetime = 0, ?string $testMethod = null): CacheItemPoolInterface
+diff --git a/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php b/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php
+index 32d78b1858cff..8c75557b16f26 100644
+--- a/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php
++++ b/src/Symfony/Component/Cache/Traits/AbstractAdapterTrait.php
+@@ -143,6 +143,10 @@ public function clear(string $prefix = '')
+                 $this->namespaceVersion = $namespaceVersion;
+                 $this->ids = [];
+             }
++        } elseif (preg_match('#[^-+.A-Za-z0-9]#', $prefix)) {
++            CacheItem::log($this->logger, 'Failed to clear the cache: Namespace-prefix contains invalid characters.', ['cache-adapter' => get_debug_type($this)]);
++
++            return false;
+         } else {
+             $namespaceToClear = $this->namespace.$prefix;
+         }

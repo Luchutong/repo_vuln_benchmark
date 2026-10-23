@@ -1,0 +1,123 @@
+{
+  "packet_id": "selrev_23500865_snap_735b41cb13177d03",
+  "tool_version": "build_selection_review_packets/1.0",
+  "review_scope": "evaluation_target_selection_only",
+  "repo": {
+    "repo_id": "23500865",
+    "full_name": "hyperium/hyper",
+    "canonical_url": "https://github.com/hyperium/hyper",
+    "primary_language": "Rust",
+    "project_kind": "An HTTP library for Rust"
+  },
+  "proposed_target": {
+    "snapshot_id": "snap_735b41cb13177d03",
+    "tag_or_release": "v0.14.2",
+    "commit_sha": "8861f9a7867216c81ea14ac6224c11a1303e7761"
+  },
+  "tag_facts": {
+    "resolved_tag_sha": "8861f9a7867216c81ea14ac6224c11a1303e7761",
+    "tag_matches_commit": true,
+    "tag_commit_tree_sha": null,
+    "tag_tree_matches_commit": true,
+    "accepted_via": "tag_commit",
+    "tag_resolution_note": null
+  },
+  "export_facts": {
+    "tree_sha": "aa4f215d53ca79b417c4b5250584edb476b9caa6",
+    "tree_file_count": 93,
+    "exported_file_count": 93,
+    "symlink_count": 0,
+    "gitlink_count": 0,
+    "missing_from_archive_count": 0,
+    "source_completeness": "full_tracked_tree_including_export_ignored_paths",
+    "export_method": "git_ls_tree_plus_cat_file_batch",
+    "archive_path": "exports/hyperium__hyper/snap_735b41cb13177d03.tar.gz",
+    "archive_sha256": "e5f06aec5515ca3cf1c533ea8a3f6e5b124108c28f6e1fe75ff966d1c3d4cccf",
+    "archive_bytes": 220632,
+    "manifest_path": "exports/hyperium__hyper/snap_735b41cb13177d03.manifest.jsonl",
+    "manifest_sha256": "cf737357d30a07b414df7459ee03e2fff51ea8ac13febadb0e2e6bd6eb69ca9b"
+  },
+  "leakage_facts": {
+    "assessment": "no_advisory_identifiers_detected_in_scanned_files",
+    "changelog_like_files": [
+      "CHANGELOG.md"
+    ],
+    "cve_id_count": 0,
+    "cve_ids_sample": [],
+    "files_with_advisory_ids_count": 0,
+    "files_with_advisory_ids_sample": [],
+    "ghsa_id_count": 0,
+    "ghsa_ids_sample": [],
+    "git_metadata_present": false,
+    "scan_method": "lexical_regex_first_1MiB_text_files",
+    "security_or_policy_files": [
+      ".github/PULL_REQUEST_TEMPLATE",
+      ".github/workflows/CI.yml",
+      ".github/workflows/bench.yml",
+      "CHANGELOG.md"
+    ]
+  },
+  "build_facts": {
+    "build_attempted": false,
+    "indicators": {
+      "rust": [
+        "Cargo.toml"
+      ]
+    },
+    "note": "Build feasibility is recorded from files and local toolchain presence only; no build was executed.",
+    "status": "toolchain_available",
+    "systems": [
+      "rust"
+    ],
+    "toolchain_available": {
+      "rust": {
+        "cargo": true
+      }
+    }
+  },
+  "known_positive_anchors": [
+    {
+      "vulnerability_id": "GHSA-6hfq-h8hq-87mf",
+      "aliases": [
+        "GHSA-6hfq-h8hq-87mf",
+        "CVE-2021-21299",
+        "RUSTSEC-2021-0020"
+      ],
+      "affected_packages": [
+        {
+          "affected_range": ">=0.14.0, <0.14.3",
+          "ecosystem": "crates.io",
+          "package": "hyper",
+          "purl": "pkg:cargo/hyper"
+        }
+      ],
+      "published_at": "2021-02-11T18:00:18Z",
+      "advisory_url": "https://github.com/hyperium/hyper/security/advisories/GHSA-6hfq-h8hq-87mf",
+      "severity": {
+        "alternate_scores": [
+          {
+            "level": "medium",
+            "score": 4.8,
+            "source": "GitHub_M CNA / GHSA advisory",
+            "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:L/A:N",
+            "version": "3.1"
+          }
+        ],
+        "level": "high",
+        "numeric_level_rationale": "NVD primary CVSS 3.1 numeric 8.1 falls in High (7.0-8.9).",
+        "score": 8.1,
+        "source": "NVD primary metric nvd@nist.gov; CNA scored the same issue 4.8 MEDIUM, recorded as an alternate",
+        "source_url": "https://nvd.nist.gov/vuln/detail/CVE-2021-21299",
+        "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+        "version": "3.1"
+      }
+    }
+  ],
+  "independent_checks_required": [
+    "resolve the tag yourself with git ls-remote and compare to commit_sha",
+    "verify commit date and that the tag is a stable release, not a dist/channel tag",
+    "recompute archive_sha256 and manifest_sha256, and confirm no .git directory",
+    "confirm exported_file_count + symlink_count accounts for tree_file_count",
+    "confirm at least one anchor advisory really affects this exact version from a public source"
+  ]
+}
