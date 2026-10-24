@@ -1,0 +1,27 @@
+{
+  "dataset_version": "0.3.1",
+  "status": "draft",
+  "target_repository_count": 50,
+  "evaluation_policy": "one_frozen_snapshot_snapshot_only_oracle",
+  "source_cutoff_date": null,
+  "source_dataset_version": "0.2",
+  "freeze_timestamp": null,
+  "source_file_sha256": {
+    "data/candidates.jsonl": "396c616de18d3dc8a1d2bca3306a02a3f5312ee36c2d513f01c233c3244bb7be",
+    "data/discovery_coverage.jsonl": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+    "data/evidence.jsonl": "59004f11ed1791e9340d72d137cc64c11c175674a0d0a6552c02ba8eb74ebed3",
+    "data/excluded_candidates.jsonl": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a",
+    "data/locations.jsonl": "4c98634abdba2afa5785db0be8e9d1280c1f54b03b47c02c5fa7f840bb2a2f5a",
+    "data/repositories.jsonl": "0ab22dc4be2c77f74e91492179b4f020754560052c8315841c2b505fd78e0cd6",
+    "data/reviews.jsonl": "c2f1522c6f06686ea05f375847e687783c68ad068dae78f24e2e2704eccb3a2c",
+    "data/snapshot_vulnerability_status.jsonl": "a776bc706eaf1969510d679df24b1d5ea1cc0cef8ef68b92b46c21330d48f868",
+    "data/snapshots.jsonl": "7e7537b33cbc25be84ddc0d3b79d11d810ac88f5fb9eed69f862dbe95556a6d0",
+    "data/vulnerabilities.jsonl": "36c83729692824b0281c18ed1c4a775c64e2c466cd5266d8070b4eda065f51b9"
+  },
+  "known_limitations": [
+    "Migrated draft; selection rows are proposed not frozen",
+    "No new vulnerability verification was performed by migration",
+    "Coverage sweep and language audit still require independent assessment",
+    "v0.3 full-history coverage does not establish selected-snapshot completeness; repeat scoped sweep"
+  ]
+}

@@ -1,0 +1,5 @@
+.venv/
+tools/gems/
+__pycache__/
+scratch/*
+!scratch/.gitkeep
