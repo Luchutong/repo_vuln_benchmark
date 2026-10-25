@@ -1,0 +1,408 @@
+{
+  "scope": "JSON syntax for every data/ JSONL file; current source schemas for named tables and manifest. Raw evidence and export existence checks are outside this reduced publication.",
+  "data_file_count": 77,
+  "total_rows": 13608,
+  "errors": [],
+  "files": [
+    {
+      "path": "data/candidates.jsonl",
+      "rows": 2626,
+      "schema_applied": true,
+      "source_schema_sha256": "d5fb8c6cd62b5ff2997e5b99fd71a7213e2306fcd9aa5d68c1a15be0a599f114"
+    },
+    {
+      "path": "data/discovery_coverage.jsonl",
+      "rows": 50,
+      "schema_applied": true,
+      "source_schema_sha256": "13150f268ddb98609c5c09e0591c2d377c2a8ae3aa831df956c029e8603282f3"
+    },
+    {
+      "path": "data/evaluation_selection.jsonl",
+      "rows": 48,
+      "schema_applied": true,
+      "source_schema_sha256": "e8c3e1c4f56acb9dd206f2c70299748af48db18799311536bffebad06deac1da"
+    },
+    {
+      "path": "data/evidence.jsonl",
+      "rows": 6518,
+      "schema_applied": true,
+      "source_schema_sha256": "1bc9013dc9cb2a531dc093d13b21c444329d5bd53e5c594841533408962e5486"
+    },
+    {
+      "path": "data/excluded_candidates.jsonl",
+      "rows": 3,
+      "schema_applied": false
+    },
+    {
+      "path": "data/historical_snapshot_status.jsonl",
+      "rows": 0,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_discovery_coverage_v03.jsonl",
+      "rows": 50,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_1064563.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_1420053.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_16072585.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_20904437.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_23357588.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_80314213.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_96071.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_evaluation_selection_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_ab695ba3db678939.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_bb344e672a0544ef.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_d33251dac37c334c.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_d4899c7054105aea.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_ee79f4175242bbee.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_efe695448113758a.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_audit_exports_snap_f97687a4e0807cb2.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 14,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_ab695ba3db678939.jsonl",
+      "rows": 163,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_bb344e672a0544ef.jsonl",
+      "rows": 130,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_d33251dac37c334c.jsonl",
+      "rows": 143,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_d4899c7054105aea.jsonl",
+      "rows": 5,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 14,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_ee79f4175242bbee.jsonl",
+      "rows": 8,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_efe695448113758a.jsonl",
+      "rows": 17,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_candidate_triage_snap_f97687a4e0807cb2.jsonl",
+      "rows": 50,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_evidence_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 67,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_evidence_snap_d4899c7054105aea.jsonl",
+      "rows": 19,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_evidence_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 76,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_evidence_snap_ee79f4175242bbee.jsonl",
+      "rows": 21,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_ab695ba3db678939.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_bb344e672a0544ef.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_d33251dac37c334c.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_d4899c7054105aea.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_ee79f4175242bbee.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_efe695448113758a.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_exports_snap_f97687a4e0807cb2.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_locations_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 3,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_locations_snap_d4899c7054105aea.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_locations_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_locations_snap_ee79f4175242bbee.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_reviews_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 3,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_reviews_snap_d4899c7054105aea.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_reviews_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_reviews_snap_ee79f4175242bbee.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerabilities_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 3,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerabilities_snap_d4899c7054105aea.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerabilities_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerabilities_snap_ee79f4175242bbee.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_6bc3f36eb61ef280.jsonl",
+      "rows": 3,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_ab695ba3db678939.jsonl",
+      "rows": 8,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_bb344e672a0544ef.jsonl",
+      "rows": 6,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_d33251dac37c334c.jsonl",
+      "rows": 7,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_d4899c7054105aea.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_de01ecf37efd6cd5.jsonl",
+      "rows": 1,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_ee79f4175242bbee.jsonl",
+      "rows": 2,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_efe695448113758a.jsonl",
+      "rows": 2,
+      "schema_applied": false
+    },
+    {
+      "path": "data/legacy_snapshot_vulnerability_status_snap_f97687a4e0807cb2.jsonl",
+      "rows": 2,
+      "schema_applied": false
+    },
+    {
+      "path": "data/locations.jsonl",
+      "rows": 167,
+      "schema_applied": true,
+      "source_schema_sha256": "4a438c6201e705685049fc840e24c739e4eb5cb33527a04536938293f6ee0d7c"
+    },
+    {
+      "path": "data/repositories.jsonl",
+      "rows": 50,
+      "schema_applied": true,
+      "source_schema_sha256": "43302030962f254be1c27ea36aa4f0803f5176c41261f67f7642c10d2950d7b7"
+    },
+    {
+      "path": "data/reviews.jsonl",
+      "rows": 167,
+      "schema_applied": true,
+      "source_schema_sha256": "2458c3e873ab55efced3caee04a7997de912f3d03af7e8b235264faed5d11ce1"
+    },
+    {
+      "path": "data/snapshot_audit_exports.jsonl",
+      "rows": 48,
+      "schema_applied": true,
+      "source_schema_sha256": "67bceb0fe1ffa439df1057197cdb939ed686cda2ca217f2d42396ff70dfc41dc"
+    },
+    {
+      "path": "data/snapshot_candidate_triage.jsonl",
+      "rows": 2613,
+      "schema_applied": true,
+      "source_schema_sha256": "1cd697f5990ed1147a7fcdff3f0e27c79009b21b63f871125961870dee41193f"
+    },
+    {
+      "path": "data/snapshot_exports.jsonl",
+      "rows": 48,
+      "schema_applied": true,
+      "source_schema_sha256": "370714c712c03c776af88918c7cadb75178ee38f35ca34eaee36a14439f68e4d"
+    },
+    {
+      "path": "data/snapshot_proposals.jsonl",
+      "rows": 2,
+      "schema_applied": true,
+      "source_schema_sha256": "77446d14c36ad6f950df55a341551850246b1654f5cc2c0a66666e076553760e"
+    },
+    {
+      "path": "data/snapshot_vulnerability_status.jsonl",
+      "rows": 138,
+      "schema_applied": true,
+      "source_schema_sha256": "ffe02cdbebfe504553433bac46877509a890312ee9f10f08843eafd9f0162625"
+    },
+    {
+      "path": "data/snapshots.jsonl",
+      "rows": 110,
+      "schema_applied": true,
+      "source_schema_sha256": "6faff8a77f202f08d7ac61f7a7e3af68b0c1636ac7f5b38fe5753b9cd3b3d886"
+    },
+    {
+      "path": "data/vulnerabilities.jsonl",
+      "rows": 167,
+      "schema_applied": true,
+      "source_schema_sha256": "c3a253c02af4bc1e77df2e1f5c1e29ab3b66a5f6d2bc6be8132e81a5770d3da5"
+    }
+  ],
+  "manifest_schema_sha256": "826d72c4689ddbeed69a29699098245cd0d7f5cd36d3bb28baf9a6b3956ace9c"
+}

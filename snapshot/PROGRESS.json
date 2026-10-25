@@ -1,0 +1,99 @@
+{
+  "captured_at": "2026-10-25T09:19:07+08:00",
+  "previous_snapshot": "snapshot/data-progress-20261024",
+  "current": {
+    "counts": {
+      "repositories": 50,
+      "snapshots": 110,
+      "evaluation_selection": 48,
+      "vulnerabilities": 167,
+      "locations": 167,
+      "evidence": 6518,
+      "reviews": 167,
+      "candidates": 2626,
+      "discovery_coverage": 50,
+      "snapshot_vulnerability_status": 138,
+      "snapshot_candidate_triage": 2613,
+      "snapshot_proposals": 2
+    },
+    "selection_decisions": {
+      "frozen": 46,
+      "proposed": 2
+    },
+    "review_grades": {
+      "B": 77,
+      "A": 90
+    },
+    "triage_decisions": {
+      "confirmed_not_affected": 1322,
+      "confirmed_affected": 162,
+      "possible_affected": 527,
+      "unknown": 574,
+      "duplicate": 28
+    },
+    "pending_relevant_triage": 1101,
+    "target_known_positives": 138,
+    "coverage_outcomes": {
+      "NEEDS_REVIEW": 50
+    },
+    "repositories_without_selection": [
+      "https://github.com/nlohmann/json",
+      "https://github.com/openssl/openssl"
+    ],
+    "unfrozen_selections": [
+      {
+        "repository": "https://github.com/hyperium/hyper",
+        "decision": "proposed",
+        "review_status": "rejected"
+      },
+      {
+        "repository": "https://github.com/JamesNK/Newtonsoft.Json",
+        "decision": "proposed",
+        "review_status": "rejected"
+      }
+    ]
+  },
+  "previous": {
+    "counts": {
+      "repositories": 50,
+      "snapshots": 110,
+      "evaluation_selection": 48,
+      "vulnerabilities": 126,
+      "locations": 126,
+      "evidence": 4298,
+      "reviews": 126,
+      "candidates": 2626,
+      "discovery_coverage": 50,
+      "snapshot_vulnerability_status": 97,
+      "snapshot_candidate_triage": 2613,
+      "snapshot_proposals": 2
+    },
+    "selection_decisions": {
+      "frozen": 46,
+      "proposed": 2
+    },
+    "review_grades": {
+      "B": 75,
+      "A": 51
+    },
+    "triage_decisions": {
+      "confirmed_not_affected": 1321,
+      "confirmed_affected": 117,
+      "possible_affected": 573,
+      "unknown": 574,
+      "duplicate": 28
+    },
+    "pending_relevant_triage": 1147,
+    "target_known_positives": 97,
+    "coverage_outcomes": {
+      "NEEDS_REVIEW": 50
+    }
+  },
+  "deltas": {
+    "vulnerabilities": 41,
+    "evidence": 2220,
+    "grade_A": 39,
+    "target_known_positives": 41,
+    "pending_relevant_triage": -46
+  }
+}
