@@ -1,0 +1,52 @@
+{
+ "applied": true,
+ "checked_at": "2026-10-31T13:02:17Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "GHSA-6365-7ppr-5r92",
+   "snapshot_id": "snap_ea53ce6e88becc8f",
+   "location": "modules/caddyhttp/reverseproxy/reverseproxy.go:663-666",
+   "permalink": "https://github.com/caddyserver/caddy/blob/e2eee6a7fce366321294c9c2a79f3146891dcbdf/modules/caddyhttp/reverseproxy/reverseproxy.go#L663-L666",
+   "excerpt_head": "\t// attach to the request information about how to dial the upstream;\n\t// this is necessary because the information cannot be sufficiently\n\t// or satisfactorily",
+   "returncode": 0,
+   "vulnerability_id": "GHSA-6365-7ppr-5r92",
+   "candidate_id": "adv3_2574d175235d4729",
+   "repo": "caddyserver/caddy",
+   "fix_commits": [
+    "https://github.com/caddyserver/caddy/commit/1830809afe8c95c6c554740f8719e023415f85cb"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-2950",
+   "snapshot_id": "snap_033e9a6478460d9b",
+   "location": "lodash.js:4371-4414",
+   "permalink": "https://github.com/lodash/lodash/blob/dec55b7a3b382da075e2eac90089b4cd00a26cbb/lodash.js#L4371-L4414",
+   "excerpt_head": "    function baseUnset(object, path) {\n      path = castPath(path, object);\n\n      // Prevent prototype pollution, see: https://github.com/lodash/lodash/securit",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-2950",
+   "candidate_id": "disc2_e723f5f71a79988ec17c4cfc",
+   "repo": "lodash/lodash",
+   "fix_commits": [
+    "https://github.com/lodash/lodash/commit/fe8d32eda854377349a4f922ab7655c8e5df9a0b"
+   ]
+  }
+ ],
+ "triaged": {
+  "CVE-2024-51999": "confirmed_not_affected",
+  "CVE-2024-26143": "confirmed_not_affected",
+  "CVE-2026-96580": "out_of_scope"
+ },
+ "counts": {
+  "promoted": 2,
+  "triaged": 3
+ },
+ "notes": [
+  "GHSA-6365-7ppr-5r92 is promoted at the SetVar that publishes the dial info through the request vars map (reverseproxy.go:663-666, line granularity): GetDialInfo reads the same mutable map at dial time, so a forward_auth handler can redirect the reverse_proxy transport to the auth upstream, which then serves proxy requests from a pooled connection. The 2.11.5 fix 1830809afe replaces it with a private context key.",
+  "CVE-2026-2950 is promoted at baseUnset (lodash.js:4371-4414): the CVE-2025-13465 guard skips non-string segments, castPath passes arrays through and baseGet/toKey stringifies them, so array-wrapped constructor/prototype segments delete built-in prototype properties. Fixed in 4.18.1 by fe8d32ed.",
+  "express CVE-2024-51999 is confirmed_not_affected: the advisory is withdrawn as a correctness bug and the 4.x patch was reverted upstream; rails CVE-2024-26143 is confirmed_not_affected: the published rows stop at 7.0.8.1 / 7.1.3.1 and 8.0.4 carries the escaping fix; gitea CVE-2026-96580 is out_of_scope: the workflow parser lives in the pinned gitea.com/gitea/act module."
+ ]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["snapshot_id", "repo_id", "commit_sha", "evaluation_target"],
+  "properties": {
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "repo_id": {"type": "string", "minLength": 1},
+    "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "vulnerable_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "evaluation_target": {"const": true},
+    "purpose": {"const": "evaluation"},
+    "tag_or_release": {"type": ["string", "null"]},
+    "release_date": {"type": ["string", "null"], "format": "date"},
+    "languages": {"type": "array", "items": {"type": "object"}},
+    "full_scan": {"type": "boolean"}
+  },
+  "additionalProperties": true
+}

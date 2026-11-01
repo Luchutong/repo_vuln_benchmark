@@ -1,0 +1,44 @@
+{
+ "generated_for": "2026-10-31 vitejs/vite promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The proposed anchor is the serveRawFsMiddleware sirvOptions call, but the advisory's PoC (/.env/.) is served by serveStaticMiddleware. Held here and relocated via promote_candidate.py (see relocated_rows). The cited c22c43de612e is the main-branch fix; the frozen v5.0.11 file differs by three lines from its preimage, and the removed deny check is present verbatim at the relocated anchor.",
+ "counts": {
+  "admit": 0,
+  "drop": 0,
+  "hold": 1,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2025-46565",
+   "advisory_record": "CVE-2025-46565",
+   "repo": "vitejs/vite",
+   "snapshot_version": "v5.0.11",
+   "advisory_trust_tier": "T2",
+   "file": "packages/vite/src/node/server/middlewares/static.ts",
+   "function": "serveRawFsMiddleware",
+   "line_start": 169,
+   "line_end": 169,
+   "granularity": "line",
+   "fix_commit": "c22c43de612e",
+   "verdict": "hold",
+   "reason": "The PoC request target /.env/. reaches serveStaticMiddleware on the project root, not the /@fs/ raw-fs middleware. The bypassable deny check is the ensureServingAccess call that serveStaticMiddleware runs before sirv resolves the target; the fix removes it and performs the check on the resolved file inside sirv. Relocate to static.ts:151 in serveStaticMiddleware."
+  }
+ ],
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2025-46565",
+   "verdict": "admit",
+   "file": "packages/vite/src/node/server/middlewares/static.ts",
+   "function": "serveStaticMiddleware",
+   "line_start": 151,
+   "line_end": 151,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/vitejs/vite/commit/c22c43de612eebb6c182dd67850c24e4fab8cacb",
+   "applied": true,
+   "reason": "Frozen 151 is the ensureServingAccess(req.url) check that runs before sirv resolves the target; /.env/. passes the fs.deny glob there while sirv later normalizes it to .env. The cited fix removes this call and enforces the deny decision on the resolved path inside sirv. c22c43de612e is the main-branch fix; the frozen v5.0.11 file contains the same removed line verbatim."
+  }
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "report": "curl/curl curl-8_3_0 early rows (CVE-2023-46219, 2024-2004, 2024-8096, 2024-2398)",
+ "generated_at": "2026-10-31T06:30:46Z",
+ "reconstructed_at": "2026-10-31T08:05:00Z",
+ "reconstruction_note": "The four rows were promoted at 06:30:46Z into a report file that the later 18-row batch-2 run reused; this file is rebuilt verbatim from the Ground Truth rows and their locations (admission_checks/static_review_summary are the stored evidence) so the earlier citation keeps a target.",
+ "summary": {
+  "rows": 4,
+  "evidence_source": "data/vulnerabilities.jsonl + data/locations.jsonl"
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2023-46219",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/fopen.c",
+   "function": "Curl_fopen",
+   "line": 71,
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/fopen.c#L71",
+   "fix_commit": "https://github.com/curl/curl/commit/73b65e94f3531179de45c6f3c836a610e3d0a846",
+   "affected_range": "7.84.0 <= v < 8.5.0 (curl advisory last_affected 8.4.0; NVD CPE); fixed in 8.5.0",
+   "evidence_level": "S2",
+   "verification_method": "advisory_plus_static_source",
+   "admission_checks": {
+    "sha_release_match": true,
+    "component_present": true,
+    "no_counter_evidence": true,
+    "checked_at": "2026-10-31T06:30:46Z",
+    "notes": "frozen 8.3.0 line(s) lib/fopen.c:71-71 carry the pre-image of fix 73b65e94f353 (\"fopen: create short(er) temporary file name\") (removed_line); curl advisory SEMVER 7.84.0..8.5.0 and the NVD CPE match agree; curl-8_5_0 ships the fixed code and the frozen tree does not"
+   },
+   "static_review_summary": "Curl_fopen() derives the temporary file name by appending a random suffix to the full target path (frozen line 71: aprintf(\"%s.%s.tmp\", filename, randsuffix)). When the target file name is long enough that the derived temp name exceeds the file-system NAME_MAX, the temp file cannot be created and the HSTS store rewrite path clears the existing HSTS file, so a later curl invocation trusts HSTS hosts that the store should have pinned (CWE-311). NVD CPE and the curl advisory both place 8.3.0 in 7.84.0 <= v < 8.5.0. The fix (73b65e94, released in 8.5.0) replaces the target-name-derived temp name with a directory prefix plus 40 random characters and \".tmp\", via the new dirslash() helper; curl-8_5_0 ships that code and the frozen 8.3.0 tree does not."
+  },
+  {
+   "vulnerability_id": "CVE-2024-2004",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/setopt.c",
+   "function": "Curl_vsetopt",
+   "line": 2693,
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/setopt.c#L2693-L2698",
+   "fix_commit": "https://github.com/curl/curl/commit/17d302e56221f5040092db77d4f85086e8a20e0e",
+   "affected_range": "7.85.0 <= v < 8.7.0 (curl advisory + NVD CPE); fixed in 8.7.0",
+   "evidence_level": "S2",
+   "verification_method": "advisory_plus_static_source",
+   "admission_checks": {
+    "sha_release_match": true,
+    "component_present": true,
+    "no_counter_evidence": true,
+    "checked_at": "2026-10-31T06:30:46Z",
+    "notes": "frozen 8.3.0 line(s) lib/setopt.c:2693-2698 carry the pre-image of fix 17d302e56221 (\"setopt: Fix disabling all protocols\") (removed_line); curl advisory SEMVER 7.85.0..8.7.0 and the NVD CPE match agree; curl-8_7_0 ships the fixed code and the frozen tree does not"
+   },
+   "static_review_summary": "Curl_vsetopt() parses CURLOPT_PROTOCOLS_STR into a local curl_prot_t and assigns data->set.allowed_protocols only when protocol2num() succeeds (frozen lines 2693-2698). protocol2num() returns CURLE_BAD_FUNCTION_ARGUMENT when the parsed mask is empty (frozen lines 183-186), which is exactly the \"-all,-http\" case, so the caller keeps the default protocol set and the explicitly disabled protocols stay usable (CWE-115/CWE-436 misinterpretation of the option value). NVD CPE and the curl advisory both place 8.3.0 in 7.85.0 <= v < 8.7.0. The fix (17d302e5, released in 8.7.0) passes the destination mask directly to protocol2num() and clears it before parsing, so the empty set survives the error path; curl-8_7_0 ships that code and the frozen 8.3.0 tree does not."
+  },
+  {
+   "vulnerability_id": "CVE-2024-8096",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/vtls/gtls.c",
+   "function": "Curl_gtls_verifyserver",
+   "line": 928,
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/vtls/gtls.c#L928",
+   "fix_commit": "https://github.com/curl/curl/commit/aeb1a281cab13c7ba791cb104e556b20e713941f",
+   "affected_range": "7.41.0 <= v < 8.10.0 (curl advisory last_affected 8.9.1; NVD CPE); fixed in 8.10.0",
+   "evidence_level": "S2",
+   "verification_method": "advisory_plus_static_source",
+   "admission_checks": {
+    "sha_release_match": true,
+    "component_present": true,
+    "no_counter_evidence": true,
+    "checked_at": "2026-10-31T06:30:46Z",
+    "notes": "frozen 8.3.0 line(s) lib/vtls/gtls.c:928-928 carry the pre-image of fix aeb1a281cab1 (\"gtls: fix OCSP stapling management\") (removed_line); curl advisory SEMVER 7.41.0..8.10.0 and the NVD CPE match agree; curl-8_10_0 ships the fixed code and the frozen tree does not"
+   },
+   "static_review_summary": "Curl_gtls_verifyserver() parses the stapled OCSP response only when gnutls_ocsp_status_request_is_checked() returns 0 (frozen line 928); when GnuTLS reports the response as already checked, the else branch at frozen lines 1024-1025 records \"server certificate status verification OK\" without inspecting the OCSP certificate status, so a response whose status is an error other than revoked (for example unauthorized) is accepted as valid (CWE-295). NVD CPE and the curl advisory both place 8.3.0 in 7.41.0 <= v < 8.10.0. The fix (aeb1a281, released in 8.10.0) drops the is_checked() gate, always imports the response, and returns CURLE_SSL_INVALIDCERTSTATUS unless the status is GOOD; curl-8_10_0 ships that code and the frozen 8.3.0 tree does not."
+  },
+  {
+   "vulnerability_id": "CVE-2024-2398",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/http2.c",
+   "function": "on_header",
+   "line": 1458,
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/http2.c#L1458",
+   "fix_commit": "https://github.com/curl/curl/commit/deca8039991886a559b67bcd6701db800a5cf764",
+   "affected_range": "7.44.0 <= v < 8.7.0 (curl advisory + NVD CPE); fixed in 8.7.0",
+   "evidence_level": "S2",
+   "verification_method": "advisory_plus_static_source",
+   "admission_checks": {
+    "sha_release_match": true,
+    "component_present": true,
+    "no_counter_evidence": true,
+    "checked_at": "2026-10-31T06:30:46Z",
+    "notes": "frozen 8.3.0 line(s) lib/http2.c:1458-1458 carry the pre-image of fix deca80399918 (\"http2: push headers better cleanup\") (removed_line); curl advisory SEMVER 7.44.0..8.7.0 and the NVD CPE match agree; curl-8_7_0 ships the fixed code and the frozen tree does not"
+   },
+   "static_review_summary": "on_header() doubles the PUSH_PROMISE header array as headers arrive; once the allocation count exceeds 1000 it frees the array with Curl_safefree() and aborts the push (frozen line 1458). Curl_safefree() frees only the array block, not the up-to-1000 header strings it holds, and push_headers_used keeps its value, so every aborted push leaks its headers and the error is silent (CWE-772). NVD CPE and the curl advisory both place 8.3.0 in 7.44.0 <= v < 8.7.0. The fix (deca8039, released in 8.7.0) adds free_push_headers(), which frees each used string and resets the counter, and calls it on the too-many-headers path, the realloc failure path and stream teardown; curl-8_7_0 ships that code and the frozen 8.3.0 tree does not."
+  }
+ ]
+}

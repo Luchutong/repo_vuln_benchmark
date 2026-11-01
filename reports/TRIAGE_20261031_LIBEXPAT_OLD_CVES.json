@@ -1,0 +1,64 @@
+{
+ "report": "libexpat/libexpat R_2_6_2 old-CVE exclusions",
+ "generated_at": "2026-10-31T07:37:58Z",
+ "applied": true,
+ "summary": {
+  "rows": 9
+ },
+ "rows": [
+  {
+   "candidate_id": "disc2_546a535891e004094d0add05",
+   "vulnerability_id": "CVE-2004-1378",
+   "decision": "confirmed_not_affected",
+   "basis": "NVD describes a crash in jabberd 1.4.3 and jadc2s 0.9.0 reached by malformed packets on an XML socket; the defect is in how those daemons drive expat, and no libexpat commit or release note fixes it. Nothing in libexpat source corresponds to the advisory."
+  },
+  {
+   "candidate_id": "disc2_68415eefb919c3574a4d55d7",
+   "vulnerability_id": "CVE-2009-1955",
+   "decision": "confirmed_not_affected",
+   "basis": "NVD names Apache APR-util before 1.3.7 (xml/apr_xml.c); the fix is in APR-util, not libexpat, and R_2_6_2 contains no APR-util code."
+  },
+  {
+   "candidate_id": "disc2_0c9cbf5bb34d2a9423adad2f",
+   "vulnerability_id": "CVE-2009-2473",
+   "decision": "confirmed_not_affected",
+   "basis": "NVD names neon before 0.28.6 when expat is used; the missing recursion detection is in neon's XML reader, and the fix is in neon. No libexpat change is associated."
+  },
+  {
+   "candidate_id": "disc2_8d2c83a4a56166e6802ad499",
+   "vulnerability_id": "CVE-2011-1753",
+   "decision": "confirmed_not_affected",
+   "basis": "NVD names expat_erl.c in ejabberd before 2.1.7 and exmpp before 0.9.7; the entity recursion check is in those Erlang bindings, not in libexpat."
+  },
+  {
+   "candidate_id": "disc2_cf66e163a2cb77010cecb502",
+   "vulnerability_id": "CVE-2016-9063",
+   "decision": "confirmed_not_affected",
+   "basis": "The advisory covers Firefox < 50 using its bundled expat copy; Mozilla fixed it by taking expat 2.2.0, whose integer-overflow fix is present at R_2_6_2. The OSV record's fixed events are mozilla-central commits, not libexpat commits."
+  },
+  {
+   "candidate_id": "disc2_7afd7f01b01456776f1fba5b",
+   "vulnerability_id": "CVE-2016-9063",
+   "decision": "confirmed_not_affected",
+   "basis": "Debian catalog entry for the same Firefox < 50 advisory as disc2_cf66e163a2cb77010cecb502; it describes Mozilla's bundled expat, and R_2_6_2 contains expat 2.6.2, which postdates the 2.2.0 fix."
+  },
+  {
+   "candidate_id": "disc2_d40a19e0a6105ad71b0109cc",
+   "vulnerability_id": "CVE-2018-14647",
+   "decision": "confirmed_not_affected",
+   "basis": "NVD describes CPython's _elementtree failing to call XML_SetHashSalt during module init; the fix is in CPython, and libexpat at R_2_6_2 does seed the salt itself when the caller does not (startParsing -> generate_hash_secret_salt)."
+  },
+  {
+   "candidate_id": "disc2_fd04a4efdf3667cd50d222ad",
+   "vulnerability_id": "CVE-2021-40439",
+   "decision": "confirmed_not_affected",
+   "basis": "NVD describes Apache OpenOffice up to 4.1.10 bundling expat before 2.1.0 and exposing CVE-2013-0340 entity expansion; the advice is to move to a newer expat. R_2_6_2 is far past 2.1.0 and already enforces entity-expansion limits."
+  },
+  {
+   "candidate_id": "disc2_ade081b20ec60f85fb4d9bdd",
+   "vulnerability_id": "CVE-2023-32206",
+   "decision": "confirmed_not_affected",
+   "basis": "NVD describes an out-of-bounds read in the Firefox RLBox Expat driver (Firefox < 113); the driver is Mozilla code, not libexpat source."
+  }
+ ]
+}

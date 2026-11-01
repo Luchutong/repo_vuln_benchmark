@@ -1,0 +1,298 @@
+{
+ "repo": "labstack/echo",
+ "snapshot_id": "snap_e0836fa1c53e240d",
+ "tag": "v4.15.2",
+ "sha": "25685e6f5f7b0683105d1386db46ae48eb3de028",
+ "applied": true,
+ "promoted": 9,
+ "failed": 0,
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-118653",
+   "candidate_id": "adv3_2a42c6a7c3441700",
+   "ghsa": "GHSA-246p-cpwv-v3jq",
+   "file": "context.go",
+   "function": "RealIP",
+   "line": "313-330",
+   "anchor": [
+    "// Fall back to legacy behavior",
+    "if ip := c.request.Header.Get(HeaderXForwardedFor); ip != \"\" {"
+   ],
+   "severity": "medium",
+   "score": 5.3,
+   "category": "protection_bypass",
+   "affected_range": ">= 4.0.0, < 4.16.3 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/ebbb855f5827b76fb206e267dd91d020000baf66",
+   "fix_refs": [
+    "https://github.com/labstack/echo/pull/3197",
+    "https://github.com/labstack/echo/releases/tag/v4.16.3"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-246p-cpwv-v3jq",
+   "preimage_check": "context.go and middleware/rate_limiter.go hunks of ebbb855f apply cleanly (`git apply --check`); the removed legacy branch is context.go:313-330"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118651",
+   "candidate_id": "adv3_3d3341bfad8fefab",
+   "ghsa": "GHSA-99jh-6h7p-pp36",
+   "file": "middleware/proxy.go",
+   "function": "ProxyWithConfig",
+   "line": "349-351",
+   "anchor": [
+    "if req.Header.Get(echo.HeaderXRealIP) == \"\" || c.Echo().IPExtractor != nil {",
+    "req.Header.Set(echo.HeaderXRealIP, c.RealIP())"
+   ],
+   "severity": "medium",
+   "score": 5.3,
+   "category": "protection_bypass",
+   "affected_range": ">= 4.0.0, < 4.16.3 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/ebbb855f5827b76fb206e267dd91d020000baf66",
+   "fix_refs": [
+    "https://github.com/labstack/echo/pull/3197",
+    "https://github.com/labstack/echo/releases/tag/v4.16.3"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-99jh-6h7p-pp36",
+   "preimage_check": "the six removed lines (proxy.go:346-351) are verbatim at the frozen SHA; the full hunk does not apply only because its trailing context is the X-Forwarded-Proto rewrite that b838391e2 added later"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118655",
+   "candidate_id": "adv3_3e3dfcd37bd36168",
+   "ghsa": "GHSA-xwq5-6cqp-vx96",
+   "file": "middleware/static.go",
+   "function": "StaticWithConfig",
+   "line": "169-173",
+   "anchor": [
+    "p := c.Request().URL.Path",
+    "p, err = url.PathUnescape(p)"
+   ],
+   "severity": "medium",
+   "score": 5.9,
+   "category": "path_traversal",
+   "affected_range": "< 4.15.3 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725",
+   "fix_refs": [
+    "https://github.com/labstack/echo/pull/3011",
+    "https://github.com/labstack/echo/releases/tag/v4.15.3"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-xwq5-6cqp-vx96",
+   "preimage_check": "middleware/static.go and echo_fs.go hunks of c3fa2a27 both apply cleanly (`git apply --check`); the rejected double-unescape line is static.go:173"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118654",
+   "candidate_id": "adv3_b5ff4855b16c644b",
+   "ghsa": "GHSA-3pmx-cf9f-34xr",
+   "file": "middleware/static.go",
+   "function": "StaticWithConfig",
+   "line": "183-183",
+   "anchor": [
+    "name := path.Join(config.Root, path.Clean(\"/\"+p)) // \"/\"+ for security"
+   ],
+   "severity": "medium",
+   "score": 5.9,
+   "category": "path_traversal",
+   "affected_range": "< 4.16.0 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/b838391e2eade87ae7e5a09d7bb5087bec271ec1",
+   "fix_refs": [
+    "https://github.com/labstack/echo/releases/tag/v4.16.0"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-3pmx-cf9f-34xr",
+   "preimage_check": "the Open call the guard wraps (static.go:194) is the exact removed line of a b838391e2 hunk that applies cleanly, while both dot-segment guards are absent from the frozen file; the hunk that inserts hasUncleanPath cannot apply at v4.15.2 because the EnablePathUnescaping/RawPath refactor landed in v4.15.4/v4.16.0"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118656",
+   "candidate_id": "adv3_fd583d2b31b98268",
+   "ghsa": "GHSA-v753-g4cw-jm48",
+   "file": "middleware/slash.go",
+   "function": "sanitizeURI",
+   "line": "122-129",
+   "anchor": [
+    "if len(uri) > 1 && (uri[0] == '\\\\' || uri[0] == '/') && (uri[1] == '\\\\' || uri[1] == '/') {",
+    "uri = \"/\" + strings.TrimLeft(uri, `/\\`)"
+   ],
+   "severity": "medium",
+   "score": 6.1,
+   "category": "open_redirect",
+   "affected_range": "< 4.16.0 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/b838391e2eade87ae7e5a09d7bb5087bec271ec1",
+   "fix_refs": [
+    "https://github.com/labstack/echo/releases/tag/v4.16.0"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-v753-g4cw-jm48",
+   "preimage_check": "the middleware/slash.go hunk of b838391e2 applies cleanly (`git apply --check`); the frozen function is the exact removed pre-image"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118260",
+   "candidate_id": "sweep_6c2927c40589f9e6",
+   "ghsa": "GHSA-f48p-c9v4-h7xv",
+   "file": "middleware/body_dump.go",
+   "function": "BodyDumpWithConfig",
+   "line": "69-81",
+   "anchor": [
+    "reqBody, readErr = io.ReadAll(c.Request().Body)",
+    "mw := io.MultiWriter(c.Response().Writer, resBody)"
+   ],
+   "severity": "medium",
+   "score": null,
+   "category": "resource_exhaustion",
+   "affected_range": ">= 4.0.0, < 4.16.1 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f",
+   "fix_refs": [
+    "https://github.com/labstack/echo/releases/tag/v4.16.1"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-f48p-c9v4-h7xv",
+   "preimage_check": "the middleware/body_dump.go hunk of 3fb0ba7 applies cleanly (`git apply --check`); the unlimited io.ReadAll is body_dump.go:71"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118264",
+   "candidate_id": "sweep_8c7f48153e3efbed",
+   "ghsa": "GHSA-cxf3-9h37-7rr8",
+   "file": "middleware/proxy.go",
+   "function": "ProxyWithConfig",
+   "line": "386-391",
+   "anchor": [
+    "case c.IsWebSocket():",
+    "proxyRaw(tgt, c, config).ServeHTTP(res, req)"
+   ],
+   "severity": "critical",
+   "score": 9.1,
+   "category": "authorization_bypass",
+   "affected_range": ">= 4.0.0, < 4.16.1 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f",
+   "fix_refs": [
+    "https://github.com/labstack/echo/releases/tag/v4.16.1"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-cxf3-9h37-7rr8",
+   "preimage_check": "the middleware/proxy.go hunk of 3fb0ba7 that deletes the IsWebSocket switch applies cleanly (`git apply --check`)"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118262",
+   "candidate_id": "sweep_c2ed164290d0da2d",
+   "ghsa": "GHSA-9969-6676-49h5",
+   "file": "middleware/proxy.go",
+   "function": "proxyRaw",
+   "line": "170-181",
+   "anchor": [
+    "go cp(out, in)",
+    "go cp(in, out)",
+    "// Wait for BOTH goroutines to complete"
+   ],
+   "severity": "medium",
+   "score": null,
+   "category": "resource_exhaustion",
+   "affected_range": ">= 4.15.0, < 4.16.1 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f",
+   "fix_refs": [
+    "https://github.com/labstack/echo/releases/tag/v4.16.1"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-9969-6676-49h5",
+   "preimage_check": "the middleware/proxy.go hunk of 3fb0ba7 that deletes proxyRaw applies cleanly (`git apply --check`); the frozen proxyRaw is the exact removed pre-image"
+  },
+  {
+   "vulnerability_id": "CVE-2026-118261",
+   "candidate_id": "sweep_e421bc9eaf104574",
+   "ghsa": "GHSA-h7wr-284f-5qvc",
+   "file": "middleware/decompress.go",
+   "function": "DecompressWithConfig",
+   "line": "90-93",
+   "anchor": [
+    "defer gr.Close()",
+    "c.Request().Body = gr"
+   ],
+   "severity": "medium",
+   "score": null,
+   "category": "resource_exhaustion",
+   "affected_range": ">= 4.0.0, < 4.16.1 (Go github.com/labstack/echo/v4; frozen v4.15.2 in range)",
+   "tier": "T1",
+   "review": "vendor_official",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f",
+   "fix_refs": [
+    "https://github.com/labstack/echo/releases/tag/v4.16.1"
+   ],
+   "advisory": "https://github.com/labstack/echo/security/advisories/GHSA-h7wr-284f-5qvc",
+   "preimage_check": "the middleware/decompress.go hunk of 3fb0ba7 applies cleanly (`git apply --check`); the unlimited body assignment is decompress.go:93"
+  }
+ ],
+ "failures": [],
+ "not_affected": [
+  {
+   "candidate_id": "sweep_a3338f3795593142",
+   "vulnerability_id": "CVE-2026-118658",
+   "ghsa": "GHSA-23wf-92cp-8pcj",
+   "reason": "Advisory GHSA-23wf-92cp-8pcj publishes v4 `< 4.15.2` (patched 4.15.2); the frozen snapshot IS the v4.15.2 tag commit 25685e6f5f7b, so the version range excludes it. Static review at the frozen SHA confirms the fix is present: context.go:274-305 adds isValidProto and Context.Scheme (context.go:288) returns a forwarded scheme header only when it is http, https, ws or wss, falling back to http otherwise; the v4.15.2 CHANGELOG records \"Context.Scheme() should validate values taken from header\" (#2962). This is source-level evidence, not only a version-range miss."
+  }
+ ],
+ "normalised_review_status": [
+  {
+   "vulnerability_id": "GHSA-375p-5qhx-8wq4",
+   "from": "github_reviewed",
+   "to": "vendor_official"
+  },
+  {
+   "vulnerability_id": "GHSA-r7w9-592q-9vg4",
+   "from": "github_reviewed",
+   "to": "vendor_official"
+  },
+  {
+   "vulnerability_id": "GHSA-2ffq-g2xg-c22p",
+   "from": "github_reviewed",
+   "to": "vendor_official"
+  },
+  {
+   "vulnerability_id": "GHSA-h9g5-28mm-hx3g",
+   "from": "github_reviewed",
+   "to": "vendor_official"
+  }
+ ],
+ "fixes": {
+  "https://github.com/labstack/echo/commit/c3fa2a27ff92b2b8db360de614f999ef1da24725": [
+   "CVE-2026-118655"
+  ],
+  "https://github.com/labstack/echo/commit/b838391e2eade87ae7e5a09d7bb5087bec271ec1": [
+   "CVE-2026-118654",
+   "CVE-2026-118656"
+  ],
+  "https://github.com/labstack/echo/commit/3fb0ba7e17645bb65611e2a08875d0a2f65c421f": [
+   "CVE-2026-118260",
+   "CVE-2026-118262",
+   "CVE-2026-118264",
+   "CVE-2026-118261"
+  ],
+  "https://github.com/labstack/echo/commit/ebbb855f5827b76fb206e267dd91d020000baf66": [
+   "CVE-2026-118651",
+   "CVE-2026-118653"
+  ]
+ },
+ "notes": [
+  "CVE-2026-118658 is not affected: the frozen snapshot is the v4.15.2 tag commit and the Scheme whitelist (#2962) is already in it.",
+  "The b838391e2 static.go hunk that inserts hasUncleanPath cannot apply at v4.15.2 because the EnablePathUnescaping/RawPath refactor landed in v4.15.4/v4.16.0; the guarded Open call is verified as the removed line of an applying hunk and both guard functions are absent from the frozen file.",
+  "CVE-2026-118651 and CVE-2026-118653 were deliberately left unfixed in v4.16.0 (the CHANGELOG says \"no code change in v4\"); the code fix is ebbb855f in v4.16.3.",
+  "GHSA-99jh-6h7p-pp36 prose quotes CVSS 6.7 but its record carries 5.3; the record value is used.",
+  "Three advisories (CVE-2026-118260, -118262, -118261) publish no CVSS score; their rows carry the advisory level with score/vector null.",
+  "The four pre-existing adv3 echoes are normalised from github_reviewed to vendor_official because their advisory_url is the same repo-owned endpoint.",
+  "CVE-2026-118655 (static double-unescape) and the existing GHSA-375p (encoded-separator bypass) overlap in effect (guarded-route bypass through the static middleware) but are distinct advisories with distinct v4 fixes and anchors."
+ ]
+}

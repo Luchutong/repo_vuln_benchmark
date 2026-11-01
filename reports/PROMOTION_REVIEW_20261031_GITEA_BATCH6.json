@@ -1,0 +1,217 @@
+{
+ "report": "gitea/go-gitea v1.25.5 batch 6 row-level review (open 2026 advisories)",
+ "scope": "six advisories from the remainder of the open needs_static_location set, each attributed to one handler inside a shared security commit",
+ "not_promotable": [
+  "CVE-2026-63792: the collaborative-owner reusable-workflow check in models/perm/access/repo_permission.go does not exist at v1.25.5",
+  "CVE-2026-66874: the filtered-workflow skipped-status path is newer than v1.25.5",
+  "CVE-2026-66877: checkJobsOfCurrentRunAttempt does not exist at v1.25.5",
+  "CVE-2026-96594: the media API LFS-pointer branch is newer than v1.25.5"
+ ],
+ "method": "advisory text -> matching guard inside the shared commit; anchor = the frozen line a guard is attached to or the frozen line the hunk removes; marker must be absent from the frozen enclosing function and present in the patch added lines",
+ "generated_at": "2026-10-31T07:12:54Z",
+ "summary": {
+  "rows": 6,
+  "removed_line": 3,
+  "adjacent_insertion": 3,
+  "T1": 6,
+  "T2": 0,
+  "failures": 0,
+  "applied": true
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-27761",
+   "candidate_id": "adv3_8ff1a68ccf528162",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/feed/repo.go",
+   "function": "ShowRepoFeed",
+   "line_start": 19,
+   "line_end": 19,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "9e84deb969aff5c1115c2984e41250f28c78451f",
+    "5facdcc7fd99fd9d745835e37e65bee9d33397ac"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-3pww-vcvm-3gmj",
+   "advisory_range": "OSV GIT range: introduced 0, fixed 4aa0d704f2c7",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/feed/repo.go:19-19 is the pre-image of the handler-specific hunk in the shared security commit 9e84deb969af (\"fix: Various sec fixes 2 (#38108)\") + 5facdcc7fd99 (\"fix: Various sec fixes (#38108) (#38147)\") (adjacent_insertion); the advisory text names this handler. Range: OSV GIT range: introduced 0, fixed 4aa0d704f2c7. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-3pww-vcvm-3gmj."
+  },
+  {
+   "vulnerability_id": "CVE-2026-68957",
+   "candidate_id": "adv3_7cb4709b61be80e7",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "models/issues/issue_search.go",
+   "function": "applyRepoConditions",
+   "line_start": 231,
+   "line_end": 231,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "6bb6ce678be87d0e125d8e7ce444771b330484b0",
+    "1e86e1e45afe27f29f197bc65fa26f7c6736cfdf"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-wg93-gp4m-c6vr",
+   "advisory_range": "OSV GIT range: introduced 0, fixed 146cc3eec571",
+   "severity": {
+    "level": "high",
+    "score": null,
+    "vector": null,
+    "cwe": [
+     "CWE-200"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 models/issues/issue_search.go:231-231 is the pre-image of the handler-specific hunk in the shared security commit 6bb6ce678be8 (\"fix(api): hide limited users from restricted viewers (#39004)\") + 1e86e1e45afe (\"fix(api): hide limited users from restricted viewers (#39004) (#39039)\") (removed_line); the advisory text names this handler. Range: OSV GIT range: introduced 0, fixed 146cc3eec571. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-wg93-gp4m-c6vr."
+  },
+  {
+   "vulnerability_id": "CVE-2026-86684",
+   "candidate_id": "adv3_402e3e354c3de639",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/repo/mirror.go",
+   "function": "CreatePushMirror",
+   "line_start": 347,
+   "line_end": 347,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-7v5j-mph8-9w6g",
+   "advisory_range": "OSV GIT range: introduced 433443ffa9f4, fixed 4ebd5e319b6a",
+   "severity": {
+    "level": "high",
+    "score": 7.1,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/repo/mirror.go:347-347 is the pre-image of the handler-specific hunk in the shared security commit 89363035105d (\"fix: add missing checks to several API and web handlers (#39501)\") + 2d58c8c3dfda (\"fix: add missing checks to several API and web handlers (#39501) (#39507)\") (removed_line); the advisory text names this handler. Range: OSV GIT range: introduced 433443ffa9f4, fixed 4ebd5e319b6a. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-7v5j-mph8-9w6g."
+  },
+  {
+   "vulnerability_id": "CVE-2026-97208",
+   "candidate_id": "adv3_85db16105dae5ad6",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/repo/mirror.go",
+   "function": "AddPushMirror",
+   "line_start": 286,
+   "line_end": 286,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-8hhh-mqpg-jpxc",
+   "advisory_range": "OSV GIT range: introduced 0, fixed 4ebd5e319b6a",
+   "severity": {
+    "level": "high",
+    "score": 8.1,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/repo/mirror.go:286-286 is the pre-image of the handler-specific hunk in the shared security commit 89363035105d (\"fix: add missing checks to several API and web handlers (#39501)\") + 2d58c8c3dfda (\"fix: add missing checks to several API and web handlers (#39501) (#39507)\") (adjacent_insertion); the advisory text names this handler. Range: OSV GIT range: introduced 0, fixed 4ebd5e319b6a. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-8hhh-mqpg-jpxc."
+  },
+  {
+   "vulnerability_id": "CVE-2026-97626",
+   "candidate_id": "adv3_184fee5c977d7dae",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/feed/profile.go",
+   "function": "showUserFeed",
+   "line_start": 31,
+   "line_end": 31,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-hf55-9cwq-2x64",
+   "advisory_range": "OSV GIT range: introduced 0, fixed 4ebd5e319b6a",
+   "severity": {
+    "level": "medium",
+    "score": null,
+    "vector": null,
+    "cwe": [
+     "CWE-200",
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/feed/profile.go:31-31 is the pre-image of the handler-specific hunk in the shared security commit 89363035105d (\"fix: add missing checks to several API and web handlers (#39501)\") + 2d58c8c3dfda (\"fix: add missing checks to several API and web handlers (#39501) (#39507)\") (adjacent_insertion); the advisory text names this handler. Range: OSV GIT range: introduced 0, fixed 4ebd5e319b6a. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-hf55-9cwq-2x64."
+  },
+  {
+   "vulnerability_id": "CVE-2026-71184",
+   "candidate_id": "adv3_4a2b326e00bc0113",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/actions/notifier.go",
+   "function": "PullRequestReview",
+   "line_start": 461,
+   "line_end": 461,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "ad05aaee800a7d1180e325957a37998e6c6c30c5",
+    "dbc17db0c2641094f0a8de9e2735a85d18ad7cfa"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-7w2r-xwp6-mh6c",
+   "advisory_range": "OSV GIT range: introduced 90a7bba1f2af, fixed 146cc3eec571",
+   "severity": {
+    "level": "high",
+    "score": 8.8,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/actions/notifier.go:461-461 is the pre-image of the handler-specific hunk in the shared security commit ad05aaee800a (\"fix(actions): enforce fork pull request trust boundaries (#39005)\") + dbc17db0c264 (\"fix(actions): enforce fork pull request trust boundaries (#39005) (#39018)\") (removed_line); the advisory text names this handler. Range: OSV GIT range: introduced 90a7bba1f2af, fixed 146cc3eec571. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-7w2r-xwp6-mh6c."
+  }
+ ],
+ "failures": []
+}

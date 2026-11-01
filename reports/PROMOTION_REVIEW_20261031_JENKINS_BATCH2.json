@@ -1,0 +1,36 @@
+{
+ "report": "jenkinsci/jenkins 2.441 batch 2",
+ "generated_at": "2026-10-31T08:40:25Z",
+ "applied": true,
+ "summary": {
+  "rows": 1,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-84650",
+   "candidate_id": "sweep_8a6737305fc71cc1",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/util/RobustReflectionConverter.java",
+   "function": "fieldDefinedInClass",
+   "line": 449,
+   "anchor_class": "the field predicate accepts every field reflection finds, including transient ones",
+   "patch_file": "core/src/main/java/hudson/util/RobustReflectionConverter.java",
+   "fix_commit": "6244ebadf5b30257fde506c2d12d8eac9b6bc0e6",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-502"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/util/RobustReflectionConverter.java:449 is the frozen pre-image of the fix in 6244ebadf5b3 (2.580 / LTS 2.568.3). the field predicate accepts every field reflection finds, including transient ones. The marker 'if (!DISABLE_XSTREAM_NOT_DESERIALIZABLE_CHECK' is absent from the frozen scope fieldDefinedInClass and present in the fix patch for core/src/main/java/hudson/util/RobustReflectionConverter.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (6244ebadf5b3); 2.441 is inside the vendor affected range."
+  }
+ ],
+ "failures": []
+}

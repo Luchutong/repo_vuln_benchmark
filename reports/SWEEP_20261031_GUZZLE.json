@@ -1,0 +1,160 @@
+{
+ "repo": "guzzle/guzzle",
+ "repo_id": "1420053",
+ "snapshot_id": "snap_1ce353bfdb334948",
+ "tag": "7.14.1",
+ "sha": "6b1d2429a2c312474c523aa9017fba0c07b5f4a0",
+ "applied": true,
+ "checked_at": "2026-10-31T10:43:13Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-67353",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "location": "src/Cookie/CookieJar.php:291-301",
+   "permalink": "https://github.com/guzzle/guzzle/blob/6b1d2429a2c312474c523aa9017fba0c07b5f4a0/src/Cookie/CookieJar.php#L291-L301",
+   "excerpt_head": "        foreach ($this->cookies as $cookie) {\n            if ($cookie->getDomain() !== null\n                && $cookie->matchesPath($path)\n                && $c",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-67353",
+   "candidate_id": "disc2_507dae751b4d7b8f7625059c",
+   "fix_commit": "7b68220d6543f6f80fe62e633361fc9d4ead14d4"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-67354",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "location": "src/RedirectMiddleware.php:205-209",
+   "permalink": "https://github.com/guzzle/guzzle/blob/6b1d2429a2c312474c523aa9017fba0c07b5f4a0/src/RedirectMiddleware.php#L205-L209",
+   "excerpt_head": "        if ($options['allow_redirects']['referer']\n            && $modify['uri']->getScheme() === $request->getUri()->getScheme()\n        ) {\n            $uri =",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-67354",
+   "candidate_id": "disc2_d540687dbe09010d9f513745",
+   "fix_commit": "7b68220d6543f6f80fe62e633361fc9d4ead14d4"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-67355",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "location": "src/Cookie/CookieJar.php:239-244",
+   "permalink": "https://github.com/guzzle/guzzle/blob/6b1d2429a2c312474c523aa9017fba0c07b5f4a0/src/Cookie/CookieJar.php#L239-L244",
+   "excerpt_head": "                if ($domain === null || $domain === '') {\n                    $sc->setDomain($request->getUri()->getHost());\n                } elseif (\\substr($",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-67355",
+   "candidate_id": "disc2_f51e2e77bf24a72db5adf6b8",
+   "fix_commit": "7b68220d6543f6f80fe62e633361fc9d4ead14d4"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-69245",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "location": "src/Cookie/SetCookie.php:480-501",
+   "permalink": "https://github.com/guzzle/guzzle/blob/6b1d2429a2c312474c523aa9017fba0c07b5f4a0/src/Cookie/SetCookie.php#L480-L501",
+   "excerpt_head": "    private static function isIpAddressOrNumericHost(string $host): bool\n    {\n        // Strip one root dot before detection so trailing-dot numeric hosts\n    ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-69245",
+   "candidate_id": "disc2_33d5efe9875952a2e99aefa4",
+   "fix_commit": "744101956d78b7c1384d0cbf379db13e859167bf"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-69246",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "location": "src/Handler/CurlFactory.php:1744-1747",
+   "permalink": "https://github.com/guzzle/guzzle/blob/6b1d2429a2c312474c523aa9017fba0c07b5f4a0/src/Handler/CurlFactory.php#L1744-L1747",
+   "excerpt_head": "        $conf = [\n            '_headers' => $easy->request->getHeaders(),\n            \\CURLOPT_CUSTOMREQUEST => $easy->request->getMethod(),\n            \\CURLOP",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-69246",
+   "candidate_id": "disc2_590c06015dad6b048d0d9539",
+   "fix_commit": "744101956d78b7c1384d0cbf379db13e859167bf"
+  }
+ ],
+ "duplicates": [
+  {
+   "candidate_id": "sweep_0a9a029945dd444e",
+   "repo_id": "1420053",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "vulnerability_id": "CVE-2026-67339",
+   "decision": "duplicate",
+   "basis": "GHSA-32rq-jhr7-m3hh is a GitHub-withdrawn duplicate advisory: its own text says it duplicates GHSA-94pj-82f3-465w (Proxy-Authorization headers can be sent to origin servers). Both describe the same root cause and the same fix commit 9e4580d4b9981e903dc6323fe37f50a96e85b05e, so this sweep candidate adds no distinct root cause.",
+   "evidence_urls": [
+    "https://github.com/advisories/ghsa-32rq-jhr7-m3hh",
+    "https://github.com/guzzle/guzzle/security/advisories/GHSA-94pj-82f3-465w",
+    "https://github.com/guzzle/guzzle/commit/9e4580d4b9981e903dc6323fe37f50a96e85b05e"
+   ],
+   "notes": "Withdrawn duplicate of GHSA-94pj-82f3-465w / CVE-2026-67339.",
+   "review_method": "withdrawn_duplicate_advisory",
+   "reviewed_by": "static-source-review/1.0 (guzzle 7.14.1, 2026-10-31)",
+   "checked_at": "2026-10-31T10:43:13Z"
+  },
+  {
+   "candidate_id": "sweep_441c5340a2a584bb",
+   "repo_id": "1420053",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "vulnerability_id": "CVE-2026-67353",
+   "decision": "duplicate",
+   "basis": "GHSA-3fvr-2jw6-crq4 is a GitHub-withdrawn duplicate advisory: its own text says it duplicates GHSA-f283-ghqc-fg79 (unbounded response cookies risk denial of service). Both describe the same root cause and the same fix commit 7b68220d6543f6f80fe62e633361fc9d4ead14d4, so this sweep candidate adds no distinct root cause.",
+   "evidence_urls": [
+    "https://github.com/advisories/ghsa-3fvr-2jw6-crq4",
+    "https://github.com/guzzle/guzzle/security/advisories/GHSA-f283-ghqc-fg79",
+    "https://github.com/guzzle/guzzle/commit/7b68220d6543f6f80fe62e633361fc9d4ead14d4"
+   ],
+   "notes": "Withdrawn duplicate of GHSA-f283-ghqc-fg79 / CVE-2026-67353.",
+   "review_method": "withdrawn_duplicate_advisory",
+   "reviewed_by": "static-source-review/1.0 (guzzle 7.14.1, 2026-10-31)",
+   "checked_at": "2026-10-31T10:43:13Z"
+  },
+  {
+   "candidate_id": "sweep_1a80bfef1dc81104",
+   "repo_id": "1420053",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "vulnerability_id": "CVE-2026-67354",
+   "decision": "duplicate",
+   "basis": "GHSA-mqq9-gxg5-m58g is a GitHub-withdrawn duplicate advisory: its own text says it duplicates GHSA-h95v-h523-3mw8 (URI fragments disclosed in redirect Referer headers). Both describe the same root cause and the same fix commit 7b68220d6543f6f80fe62e633361fc9d4ead14d4, so this sweep candidate adds no distinct root cause.",
+   "evidence_urls": [
+    "https://github.com/advisories/ghsa-mqq9-gxg5-m58g",
+    "https://github.com/guzzle/guzzle/security/advisories/GHSA-h95v-h523-3mw8",
+    "https://github.com/guzzle/guzzle/commit/7b68220d6543f6f80fe62e633361fc9d4ead14d4"
+   ],
+   "notes": "Withdrawn duplicate of GHSA-h95v-h523-3mw8 / CVE-2026-67354.",
+   "review_method": "withdrawn_duplicate_advisory",
+   "reviewed_by": "static-source-review/1.0 (guzzle 7.14.1, 2026-10-31)",
+   "checked_at": "2026-10-31T10:43:13Z"
+  },
+  {
+   "candidate_id": "sweep_ab634950366c8f99",
+   "repo_id": "1420053",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "vulnerability_id": "CVE-2026-67355",
+   "decision": "duplicate",
+   "basis": "GHSA-mjrx-74jh-7xgw is a GitHub-withdrawn duplicate advisory: its own text says it duplicates GHSA-wm3w-8rrp-j577 (host-only cookie scope is not preserved). Both describe the same root cause and the same fix commit 7b68220d6543f6f80fe62e633361fc9d4ead14d4, so this sweep candidate adds no distinct root cause.",
+   "evidence_urls": [
+    "https://github.com/advisories/ghsa-mjrx-74jh-7xgw",
+    "https://github.com/guzzle/guzzle/security/advisories/GHSA-wm3w-8rrp-j577",
+    "https://github.com/guzzle/guzzle/commit/7b68220d6543f6f80fe62e633361fc9d4ead14d4"
+   ],
+   "notes": "Withdrawn duplicate of GHSA-wm3w-8rrp-j577 / CVE-2026-67355.",
+   "review_method": "withdrawn_duplicate_advisory",
+   "reviewed_by": "static-source-review/1.0 (guzzle 7.14.1, 2026-10-31)",
+   "checked_at": "2026-10-31T10:43:13Z"
+  }
+ ],
+ "fixes": {
+  "CVE-2026-67353": "7b68220d6543f6f80fe62e633361fc9d4ead14d4",
+  "CVE-2026-67354": "7b68220d6543f6f80fe62e633361fc9d4ead14d4",
+  "CVE-2026-67355": "7b68220d6543f6f80fe62e633361fc9d4ead14d4",
+  "CVE-2026-69245": "744101956d78b7c1384d0cbf379db13e859167bf",
+  "CVE-2026-69246": "744101956d78b7c1384d0cbf379db13e859167bf"
+ },
+ "notes": [
+  "Five canonical repo-owned GHSAs -> vendor_official, T1; four sweep GHSAs are withdrawn duplicates that GitHub itself redirects to the canonical records.",
+  "7.15.1 fix 7b68220d6543 is 38 commits ahead / 0 behind 7.14.1; its CookieJar.php, SetCookie.php and RedirectMiddleware.php patches apply cleanly.",
+  "7.15.2 fix 744101956d78 is 40 commits ahead / 0 behind 7.14.1; its Client.php, CurlHandler.php, StreamHandler.php and HostValidator.php patches apply cleanly.",
+  "The 7.15.2 SetCookie.php and CurlMultiHandler.php hunks do not apply because 7.15.1 changed their context; their pre-images were verified verbatim (no percent-escape guard / no inet_aton numeric check / no HostValidator.php).",
+  "Severity is the advisory CVSS 3.1 vector; 69246 keeps the high 7.2 S:C rating."
+ ]
+}

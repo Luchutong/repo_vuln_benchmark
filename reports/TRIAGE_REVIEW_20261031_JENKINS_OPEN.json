@@ -1,0 +1,50 @@
+{
+ "report": "jenkinsci/jenkins 2.441 open-candidate triage",
+ "generated_at": "2026-10-31T08:44:42Z",
+ "applied": true,
+ "summary": {
+  "appended": 3,
+  "refreshed": 4,
+  "skipped": 0
+ },
+ "appended": [
+  {
+   "candidate_id": "sweep_82497ea247bafe43",
+   "vulnerability_id": "CVE-2026-33002",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "sweep_e9303dbdf684b561",
+   "vulnerability_id": "CVE-2026-70427",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_77c380ed78f8ebca",
+   "vulnerability_id": "CVE-2026-84655",
+   "decision": "possible_affected"
+  }
+ ],
+ "refreshed": [
+  {
+   "candidate_id": "disc2_f994da4f217884ea196762e9",
+   "vulnerability_id": null,
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_47d0d2b10db3d2d894a2b0a7",
+   "vulnerability_id": null,
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_563a4eef3001d061833821bd",
+   "vulnerability_id": null,
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_aef565bb5e2c8ffabd3b8b28",
+   "vulnerability_id": null,
+   "decision": "possible_affected"
+  }
+ ],
+ "skipped": []
+}

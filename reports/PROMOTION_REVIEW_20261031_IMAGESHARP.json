@@ -1,0 +1,29 @@
+{
+ "generated_for": "2026-10-31 SixLabors/ImageSharp promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The anchored span 89-93 is exactly the late width check that the cited fix removes and replaces with a pre-write bound. Admitted by the batch.",
+ "counts": {
+  "admit": 1,
+  "drop": 0,
+  "hold": 0,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-106117",
+   "advisory_record": "CVE-2026-106117",
+   "repo": "SixLabors/ImageSharp",
+   "snapshot_version": "v3.1.6",
+   "advisory_trust_tier": "T2",
+   "file": "src/ImageSharp/Formats/Tiff/Compression/Decompressors/ModifiedHuffmanTiffCompression.cs",
+   "function": "Decompress",
+   "line_start": 89,
+   "line_end": 93,
+   "granularity": "line",
+   "fix_commit": "e8892ecd8a95",
+   "verdict": "admit",
+   "reason": "The only width guard ran after BitWriterUtils.WriteBits had already written the untrusted run into buffer, so an oversized Modified Huffman run overflows the destination span before the check at 90-92 can throw (CWE-787). The cited fix removes this post-hoc check and adds the bound before WriteBits; frozen 89-93 is the removed block."
+  }
+ ]
+}

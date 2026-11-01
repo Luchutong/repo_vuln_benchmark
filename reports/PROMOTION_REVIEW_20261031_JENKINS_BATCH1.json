@@ -1,0 +1,444 @@
+{
+ "report": "jenkinsci/jenkins 2.441 batch 1",
+ "generated_at": "2026-10-31T08:39:34Z",
+ "applied": true,
+ "summary": {
+  "rows": 18,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2024-47803",
+   "candidate_id": "disc2_fa22016adad496af7caba1c9",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "war/src/main/webapp/scripts/hudson-behavior.js",
+   "function": null,
+   "line": 2610,
+   "anchor_class": "the default serializer branch redacts only complex-password-field inputs",
+   "patch_file": "war/src/main/webapp/scripts/hudson-behavior.js",
+   "fix_commit": "d0c0d07bc4644bc7045ac321472d0a9822dbb8b8",
+   "fixed_version": "2.479 / LTS 2.462.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-209"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 war/src/main/webapp/scripts/hudson-behavior.js:2610 is the frozen pre-image of the fix in d0c0d07bc464 (2.479 / LTS 2.462.3). the default serializer branch redacts only complex-password-field inputs. The marker 'if (e.classList.contains(\"secretTextarea-redact\")) {' is absent from the frozen scope JavaScript: the Jsonify form serializer runs inside an anonymous Behaviour.specify callback, so there is no named enclosing function and present in the fix patch for war/src/main/webapp/scripts/hudson-behavior.js (added lines or hunk post-image). Jenkins weekly up to and including 2.478, LTS up to and including 2.462.2; fixed in 2.479 / LTS 2.462.3 (d0c0d07bc464); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2024-47804",
+   "candidate_id": "disc2_30280dc5f077336d5b15cdaf",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/ItemGroupMixIn.java",
+   "function": "createProjectFromXML",
+   "line": 288,
+   "anchor_class": "the create-permission and applicability results are combined into success, not enforced",
+   "patch_file": "core/src/main/java/hudson/model/ItemGroupMixIn.java",
+   "fix_commit": "cd242d9ed4fdf8213fd10078fe515fabde25ea6a",
+   "fixed_version": "2.479 / LTS 2.462.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/ItemGroupMixIn.java:288 is the frozen pre-image of the fix in cd242d9ed4fd (2.479 / LTS 2.462.3). the create-permission and applicability results are combined into success, not enforced. The marker 'if (!hasCreatePermission) {' is absent from the frozen scope createProjectFromXML and present in the fix patch for core/src/main/java/hudson/model/ItemGroupMixIn.java (added lines or hunk post-image). Jenkins weekly up to and including 2.478, LTS up to and including 2.462.2; fixed in 2.479 / LTS 2.462.3 (cd242d9ed4fd); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-59474",
+   "candidate_id": "disc2_601528ac8989b90681e9fca8",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/resources/hudson/model/View/sidepanel.jelly",
+   "function": null,
+   "line": 31,
+   "anchor_class": "the side-panel header and widget loop render without an Overall/Read check",
+   "patch_file": "core/src/main/resources/hudson/model/View/sidepanel.jelly",
+   "fix_commit": "e5fb48fd045b0a94c086707e1fe698c143a681ef",
+   "fixed_version": "2.528 / LTS 2.516.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-862"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/resources/hudson/model/View/sidepanel.jelly:31 is the frozen pre-image of the fix in e5fb48fd045b (2.528 / LTS 2.516.3). the side-panel header and widget loop render without an Overall/Read check. The marker '<j:if test=\"${h.hasPermission(app.READ)}\">' is absent from the frozen scope Jelly template: the defect is the side-panel markup, which has no enclosing function and present in the fix patch for core/src/main/resources/hudson/model/View/sidepanel.jelly (added lines or hunk post-image). Jenkins weekly up to and including 2.527, LTS up to and including 2.516.2; fixed in 2.528 / LTS 2.516.3 (e5fb48fd045b); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-67636",
+   "candidate_id": "disc2_c299a931a9221bb6b13c4c37",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/Functions.java",
+   "function": "getPasswordValue",
+   "line": 2154,
+   "anchor_class": "the masking decision looks only at the nearest Item/Computer ancestor",
+   "patch_file": "core/src/main/java/hudson/Functions.java",
+   "fix_commit": "3ee7380c5e167fab865f58b52a81ef01c24b9eb2",
+   "fixed_version": "2.541 / LTS 2.528.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/Functions.java:2154 is the frozen pre-image of the fix in 3ee7380c5e16 (2.541 / LTS 2.528.3). the masking decision looks only at the nearest Item/Computer ancestor. The marker 'if (NON_RECURSIVE_PASSWORD_MASKING_PERMISSION_CHECK) {' is absent from the frozen scope getPasswordValue and present in the fix patch for core/src/main/java/hudson/Functions.java (added lines or hunk post-image). Jenkins weekly up to and including 2.540, LTS up to and including 2.528.2; fixed in 2.541 / LTS 2.528.3 (3ee7380c5e16); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-67637",
+   "candidate_id": "disc2_cf687150cfd1e463ab3a8550",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+   "function": "BuildAuthorizationToken",
+   "line": 49,
+   "anchor_class": "the build authorization token is a plain String field",
+   "patch_file": "core/src/main/java/hudson/model/BuildAuthorizationToken.java",
+   "fix_commit": "4710d65339251aaf1d1599f19545db99be24d981",
+   "fixed_version": "2.541 / LTS 2.528.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-312"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/BuildAuthorizationToken.java:49 is the frozen pre-image of the fix in 4710d6533925 (2.541 / LTS 2.528.3). the build authorization token is a plain String field. The marker 'private final Secret token;' is absent from the frozen scope BuildAuthorizationToken and present in the fix patch for core/src/main/java/hudson/model/BuildAuthorizationToken.java (added lines or hunk post-image). Jenkins weekly up to and including 2.540, LTS up to and including 2.528.2; fixed in 2.541 / LTS 2.528.3 (4710d6533925); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-67638",
+   "candidate_id": "disc2_a9f074a54ff3f40ecd8e6abc",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+   "function": null,
+   "line": 38,
+   "anchor_class": "the token form field is a textbox bound to the plaintext value",
+   "patch_file": "core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly",
+   "fix_commit": "4710d65339251aaf1d1599f19545db99be24d981",
+   "fixed_version": "2.541 / LTS 2.528.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-312"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly:38 is the frozen pre-image of the fix in 4710d6533925 (2.541 / LTS 2.528.3). the token form field is a textbox bound to the plaintext value. The marker '<f:password name=\"authToken\" value=\"${it.authToken.encryptedToken}\" />' is absent from the frozen scope Jelly template: the defect is the form field binding in the job configuration page, which has no enclosing function and present in the fix patch for core/src/main/resources/hudson/model/BuildAuthorizationToken/config.jelly (added lines or hunk post-image). Jenkins weekly up to and including 2.540, LTS up to and including 2.528.2; fixed in 2.541 / LTS 2.528.3 (4710d6533925); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-33001",
+   "candidate_id": "disc2_2224e6601a4776dd178ef34f",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/FilePath.java",
+   "function": "readFromTar",
+   "line": 3082,
+   "anchor_class": "the entry path is only prefix-checked after normalization and symlinks are followed",
+   "patch_file": "core/src/main/java/hudson/FilePath.java",
+   "fix_commit": "6dc99937605d5bddfeaae43a4cd14c2571e23adc",
+   "fixed_version": "2.555 / LTS 2.541.3",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-59"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/FilePath.java:3082 is the frozen pre-image of the fix in 6dc99937605d (2.555 / LTS 2.541.3). the entry path is only prefix-checked after normalization and symlinks are followed. The marker 'if (!ALLOW_REENTRY_PATH_TRAVERSAL) {' is absent from the frozen scope readFromTar and present in the fix patch for core/src/main/java/hudson/FilePath.java (added lines or hunk post-image). Jenkins weekly up to and including 2.554, LTS up to and including 2.541.2; fixed in 2.555 / LTS 2.541.3 (6dc99937605d); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-53436",
+   "candidate_id": "disc2_e63e6a6431801a4e903109d7",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/Util.java",
+   "function": "isSafeToRedirectTo",
+   "line": 1659,
+   "anchor_class": "the redirect target is validated before relative segments are collapsed",
+   "patch_file": "core/src/main/java/hudson/Util.java",
+   "fix_commit": "8ef52891b07eb639b38271e4bab5dab3c0f10fda",
+   "fixed_version": "2.568 / LTS 2.555.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-601"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/Util.java:1659 is the frozen pre-image of the fix in 8ef52891b07e (2.568 / LTS 2.555.3). the redirect target is validated before relative segments are collapsed. The marker '.contains(\"//\")' is absent from the frozen scope isSafeToRedirectTo and present in the fix patch for core/src/main/java/hudson/Util.java (added lines or hunk post-image). Jenkins weekly up to and including 2.567, LTS up to and including 2.555.2; fixed in 2.568 / LTS 2.555.3 (8ef52891b07e); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-53437",
+   "candidate_id": "disc2_38426975d88c3c8cf0a28bf5",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/Util.java",
+   "function": "isSafeToRedirectTo",
+   "line": 1659,
+   "anchor_class": "control characters are not stripped before the leading // check",
+   "patch_file": "core/src/main/java/hudson/Util.java",
+   "fix_commit": "8ef52891b07eb639b38271e4bab5dab3c0f10fda",
+   "fixed_version": "2.568 / LTS 2.555.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-601"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/Util.java:1659 is the frozen pre-image of the fix in 8ef52891b07e (2.568 / LTS 2.555.3). control characters are not stripped before the leading // check. The marker 'uri.replace(\"\\\\t\", \"\")' is absent from the frozen scope isSafeToRedirectTo and present in the fix patch for core/src/main/java/hudson/Util.java (added lines or hunk post-image). Jenkins weekly up to and including 2.567, LTS up to and including 2.555.2; fixed in 2.568 / LTS 2.555.3 (8ef52891b07e); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-53442",
+   "candidate_id": "disc2_a1e945111709ccd703f09120",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/AbstractItem.java",
+   "function": "writeConfigDotXml",
+   "line": 877,
+   "anchor_class": "the GET path copies the on-disk config.xml, which may hold plaintext secrets",
+   "patch_file": "core/src/main/java/hudson/model/AbstractItem.java",
+   "fix_commit": "037c2c30cd26b926ec9df3d1b60e16b80608edb4",
+   "fixed_version": "2.568 / LTS 2.555.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-312"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/AbstractItem.java:877 is the frozen pre-image of the fix in 037c2c30cd26 (2.568 / LTS 2.555.3). the GET path copies the on-disk config.xml, which may hold plaintext secrets. The marker 'Items.XSTREAM2.toXMLUTF8(this, os);' is absent from the frozen scope writeConfigDotXml and present in the fix patch for core/src/main/java/hudson/model/AbstractItem.java (added lines or hunk post-image). Jenkins weekly up to and including 2.567, LTS up to and including 2.555.2; fixed in 2.568 / LTS 2.555.3 (037c2c30cd26); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-70428",
+   "candidate_id": "sweep_95c67abbc79a5835",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/FileParameterValue.java",
+   "function": "setUp",
+   "line": 165,
+   "anchor_class": "the location check uses a raw regex plus isDescendant without normalizing either side",
+   "patch_file": "core/src/main/java/hudson/model/FileParameterValue.java",
+   "fix_commit": "94671be53b9d536069a1e80a66c507d878abda79",
+   "fixed_version": "2.576 / LTS 2.568.2",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-22"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/FileParameterValue.java:165 is the frozen pre-image of the fix in 94671be53b9d (2.576 / LTS 2.568.2). the location check uses a raw regex plus isDescendant without normalizing either side. The marker 'isWithin(locationFilePath, ws)' is absent from the frozen scope setUp and present in the fix patch for core/src/main/java/hudson/model/FileParameterValue.java (added lines or hunk post-image). Jenkins weekly up to and including 2.575, LTS up to and including 2.568.1; fixed in 2.576 / LTS 2.568.2 (94671be53b9d); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-70429",
+   "candidate_id": "sweep_42da520199ee3c11",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/jenkins/model/IdStrategy.java",
+   "function": "equals",
+   "line": 215,
+   "anchor_class": "equals compares raw IDs instead of the stored key",
+   "patch_file": "core/src/main/java/jenkins/model/IdStrategy.java",
+   "fix_commit": "93ea5a0bbf4458cc012e82f944e02b7088c1823b",
+   "fixed_version": "2.576 / LTS 2.568.2",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/jenkins/model/IdStrategy.java:215 is the frozen pre-image of the fix in 93ea5a0bbf44 (2.576 / LTS 2.568.2). equals compares raw IDs instead of the stored key. The marker 'return keyFor(id1).equals(keyFor(id2));' is absent from the frozen scope equals and present in the fix patch for core/src/main/java/jenkins/model/IdStrategy.java (added lines or hunk post-image). Jenkins weekly up to and including 2.575, LTS up to and including 2.568.1; fixed in 2.576 / LTS 2.568.2 (93ea5a0bbf44); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-70430",
+   "candidate_id": "sweep_164a66e08c32bc9f",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/jenkins/model/GlobalProjectNamingStrategyConfiguration.java",
+   "function": "configure",
+   "line": 51,
+   "anchor_class": "the submitted $class is loaded without a type restriction before bindJSON",
+   "patch_file": "core/src/main/java/jenkins/model/GlobalProjectNamingStrategyConfiguration.java",
+   "fix_commit": "2f9802bf2f69efb32d3eca3978aee266b26164f1",
+   "fixed_version": "2.576 / LTS 2.568.2",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-470"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/jenkins/model/GlobalProjectNamingStrategyConfiguration.java:51 is the frozen pre-image of the fix in 2f9802bf2f69 (2.576 / LTS 2.568.2). the submitted $class is loaded without a type restriction before bindJSON. The marker '.asSubclass(ProjectNamingStrategy.class)' is absent from the frozen scope configure and present in the fix patch for core/src/main/java/jenkins/model/GlobalProjectNamingStrategyConfiguration.java (added lines or hunk post-image). Jenkins weekly up to and including 2.575, LTS up to and including 2.568.1; fixed in 2.576 / LTS 2.568.2 (2f9802bf2f69); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84646",
+   "candidate_id": "sweep_e3d4832a5561fe8c",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/User.java",
+   "function": "User",
+   "line": 124,
+   "anchor_class": "User is not a PersistenceRoot, so it can be deserialized as a nested field",
+   "patch_file": "core/src/main/java/hudson/model/User.java",
+   "fix_commit": "cf08096038285ce3336b8fbd5a1dafeedd2b5cd4",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-502"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/User.java:124 is the frozen pre-image of the fix in cf0809603828 (2.580 / LTS 2.568.3). User is not a PersistenceRoot, so it can be deserialized as a nested field. The marker 'StaplerProxy, PersistenceRoot {' is absent from the frozen scope User and present in the fix patch for core/src/main/java/hudson/model/User.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (cf0809603828); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84648",
+   "candidate_id": "sweep_3afc39c31f48560c",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/Functions.java",
+   "function": "printLogRecordHtml",
+   "line": 552,
+   "anchor_class": "the metadata span concatenates the raw log text without escaping",
+   "patch_file": "core/src/main/java/hudson/Functions.java",
+   "fix_commit": "65a80524f9ffb885c028d4a7ab65d3a97a54712b",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-79"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/Functions.java:552 is the frozen pre-image of the fix in 65a80524f9ff (2.580 / LTS 2.568.3). the metadata span concatenates the raw log text without escaping. The marker 'Util.xmlEscape(newParts[i])' is absent from the frozen scope printLogRecordHtml and present in the fix patch for core/src/main/java/hudson/Functions.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (65a80524f9ff); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84652",
+   "candidate_id": "sweep_ed59360de6f810d2",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/security/SecurityRealm.java",
+   "function": "createFilter",
+   "line": 612,
+   "anchor_class": "the remember-me filter is added without a session authentication strategy",
+   "patch_file": "core/src/main/java/hudson/security/SecurityRealm.java",
+   "fix_commit": "69b9bdc1411743f9d0ccf290fb0883659050889a",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-384"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/security/SecurityRealm.java:612 is the frozen pre-image of the fix in 69b9bdc14117 (2.580 / LTS 2.568.3). the remember-me filter is added without a session authentication strategy. The marker 'rememberMe.setSessionAuthenticationStrategy(new SessionFixationProtectionStrategy());' is absent from the frozen scope createFilter and present in the fix patch for core/src/main/java/hudson/security/SecurityRealm.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (69b9bdc14117); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84653",
+   "candidate_id": "sweep_33e2d0b8868ce122",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/jenkins/appearance/AppearanceGlobalConfiguration.java",
+   "function": "configure",
+   "line": 108,
+   "anchor_class": "the configure loop uses every FILTER descriptor instead of the writable set",
+   "patch_file": "core/src/main/java/jenkins/appearance/AppearanceGlobalConfiguration.java",
+   "fix_commit": "317516ddfa48e1a1feb96e9421846da99131a4fc",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/jenkins/appearance/AppearanceGlobalConfiguration.java:108 is the frozen pre-image of the fix in 317516ddfa48 (2.580 / LTS 2.568.3). the configure loop uses every FILTER descriptor instead of the writable set. The marker 'getConfigurableDescriptors()' is absent from the frozen scope configure and present in the fix patch for core/src/main/java/jenkins/appearance/AppearanceGlobalConfiguration.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (317516ddfa48); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84657",
+   "candidate_id": "sweep_2f5d597aec47b4ac",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/cli/BuildCommand.java",
+   "function": "run",
+   "line": 210,
+   "anchor_class": "the interrupt path cancels the build without an Item/Cancel check",
+   "patch_file": "core/src/main/java/hudson/cli/BuildCommand.java",
+   "fix_commit": "fed1b08ad147e3903b070628a468922f90312692",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-862"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/cli/BuildCommand.java:210 is the frozen pre-image of the fix in fed1b08ad147 (2.580 / LTS 2.568.3). the interrupt path cancels the build without an Item/Cancel check. The marker 'if (job.hasPermission(Item.CANCEL)) {' is absent from the frozen scope run and present in the fix patch for core/src/main/java/hudson/cli/BuildCommand.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (fed1b08ad147); 2.441 is inside the vendor affected range."
+  }
+ ],
+ "failures": []
+}

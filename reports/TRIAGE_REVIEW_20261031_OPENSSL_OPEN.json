@@ -1,0 +1,94 @@
+{
+ "repo": "openssl/openssl",
+ "repo_id": "7634677",
+ "snapshot_id": "snap_d9fd4b3730195f59",
+ "tag": "openssl-3.5.8",
+ "sha": "f4dc4d58b48d346a8270183f89acf826d459b0ca",
+ "applied": true,
+ "checked_at": "2026-10-31T12:11:47Z",
+ "decisions": {
+  "CVE-2025-9230": {
+   "candidate_id": "sweep_165160bd21c7ed9a",
+   "decision": "confirmed_not_affected",
+   "review_method": "trusted_range_with_branch",
+   "basis": "Out-of-bounds read/write in RFC 3211 KEK unwrap in CMS password based decryption. The vendor advisory 20250930.txt states that OpenSSL 3.5 is vulnerable and \"OpenSSL 3.5 users should upgrade to OpenSSL 3.5.4\", so the fix ships in 3.5.4 and every later 3.5 release. The frozen snapshot is openssl-3.5.8 (f4dc4d58b48d), which is past 3.5.4. The OSV record corroborates this: its version list covers 3.5.0 through 3.5.3 only, and its GIT ranges are the per-branch fix commits (5965ea5dd6 for 3.5). NVD carries no CPE configuration for this CVE, which is why the version resolver left it unknown.",
+   "evidence_urls": [
+    "https://openssl-library.org/news/secadv/20250930.txt",
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-9230",
+    "https://github.com/openssl/openssl/commit/5965ea5dd6960f36d8b7f74f8eac67a8eb8f2b45"
+   ]
+  },
+  "CVE-2025-27587": {
+   "candidate_id": "sweep_f6e8be22eb56fca8",
+   "decision": "confirmed_not_affected",
+   "review_method": "trusted_range_with_branch",
+   "basis": "Minerva timing attack, described as \"OpenSSL 3.0.0 through 3.3.2 on the PowerPC architecture\", exploitable by timing EVP_DigestSign and recovering the ECDSA nonce. The range ends at 3.3.2, so the frozen openssl-3.5.8 snapshot is outside it; 3.4 and 3.5 were released after the fix and the OpenSSL vulnerabilities index has no advisory for this CVE. The OSV record only carries the GIT fix commits (89cd17a0, fb7fab9f) and no version list, which is why the resolver left it unknown.",
+   "evidence_urls": [
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-27587",
+    "https://minerva.crocs.fi.muni.cz",
+    "https://github.com/openssl/openssl/issues/24253"
+   ]
+  },
+  "CVE-2024-2408": {
+   "candidate_id": "sweep_f57a43619e2748bf",
+   "decision": "confirmed_not_affected",
+   "review_method": "advisory_plus_static_source",
+   "basis": "PHP openssl_private_decrypt with OPENSSL_PKCS1_PADDING is exposed to the Marvin attack. The advisory states the exposure exists \"unless it is used with an OpenSSL version that includes the changes from this pull request: openssl/openssl#13817 (rsa_pkcs1_implicit_rejection). These changes are part of OpenSSL 3.2\". The frozen openssl-3.5.8 provider includes them: RSA_PKEY_CTX has implicit_rejection (crypto/rsa/rsa_pmeth.c:55) initialised to 1 at :77, pkey_rsa_decrypt only falls back to RSA_PKCS1_NO_IMPLICIT_REJECT_PADDING when the option is switched off (:384), and ossl_rsa_padding_check_PKCS1_type_2 (crypto/rsa/rsa_pk1.c:376-388) deliberately returns a deterministic random message instead of an error. NVD routes this CVE to the PHP product only, which is why the resolver could not decide it for openssl/openssl; the OpenSSL-side mitigation the advisory requires is present at the tag.",
+   "evidence_urls": [
+    "https://github.com/php/php-src/security/advisories/GHSA-hh26-4ppw-5864",
+    "https://github.com/openssl/openssl/pull/13817",
+    "https://nvd.nist.gov/vuln/detail/CVE-2024-2408",
+    "https://osv.dev/vulnerability/CVE-2024-2408"
+   ]
+  },
+  "CVE-2015-7575": {
+   "candidate_id": "sweep_ca2fe71052314677",
+   "decision": "out_of_scope",
+   "review_method": "upstream_advisory",
+   "basis": "SLOTH: acceptance of MD5 signatures in TLS 1.2 Server Key Exchange. The advisory assigns the defect to Mozilla Network Security Services (\"NSS before 3.20.2, as used in Mozilla Firefox before 43.0.2 and Firefox ESR 38.x before 38.5.2\") and NVD's only CPE is cpe:2.3:a:mozilla:network_security_services. No OpenSSL component is named. As a secondary check, the frozen tree's only MD5 signature entry is legacy_rsa_sigalg (ssl/t1_lib.c:2134, \"rsa_pkcs1_md5_sha1\", the legacy TLS<1.2 RSA fallback), and md5_sha1 is assigned security bits 67 (:2608-2609), below the 80 bits required by the default security level, so tls12_sigalg_allowed (:3305, secbits check at :3370-3374) rejects it.",
+   "evidence_urls": [
+    "https://nvd.nist.gov/vuln/detail/CVE-2015-7575"
+   ]
+  },
+  "CVE-2022-40735": {
+   "candidate_id": "sweep_2d6f262ba32fe4a6",
+   "decision": "out_of_scope",
+   "review_method": "upstream_advisory",
+   "basis": "D(HE)at: the Diffie-Hellman key agreement protocol as specified permits long exponents, which makes server-side exponentiation more expensive than necessary; the CVE is assigned to diffie-hellman_key_exchange_project and its only CPE is cpe:2.3:a:diffie-hellman_key_exchange_project:diffie-hellman_key_exchange. It describes a protocol-level property, not a defect in a specific OpenSSL source component, and the advisory does not name openssl/openssl. The candidate reached the openssl queue through the keyword sweep.",
+   "evidence_urls": [
+    "https://nvd.nist.gov/vuln/detail/CVE-2022-40735",
+    "https://dheatattack.gitlab.io/"
+   ]
+  },
+  "CVE-2025-66109": {
+   "candidate_id": "sweep_4e4f6f0478592c09",
+   "decision": "out_of_scope",
+   "review_method": "upstream_advisory",
+   "basis": "Missing authorization in the Octolize \"Cart Weight for WooCommerce\" WordPress plugin (affected \"from n/a through <= 1.9.11\", patchstack WOOWOO record). The advisory concerns a WordPress plugin and names no OpenSSL component; the candidate reached the openssl queue through the keyword sweep. OSV has no record for this CVE, which is why the resolver left it unknown.",
+   "evidence_urls": [
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-66109",
+    "https://patchstack.com/database/Wordpress/Plugin/woo-cart-weight/vulnerability/wordpress-cart-weight-for-woocommerce-plugin-1-9-11-broken-access-control-vulnerability"
+   ]
+  },
+  "CVE-2026-22799": {
+   "candidate_id": "sweep_3de645b4a91bad17",
+   "decision": "out_of_scope",
+   "review_method": "upstream_advisory",
+   "basis": "Emlog (PHP blog/CMS) v2.6.1 and earlier exposes /index.php?rest-api=upload without validating file type, extension or content, giving an authenticated API-key holder arbitrary file upload (GHSA-p837-mrw9-5x5j). The advisory and its CPE concern the emlog product only; no OpenSSL component is named, and the candidate reached the openssl queue through the keyword sweep.",
+   "evidence_urls": [
+    "https://nvd.nist.gov/vuln/detail/CVE-2026-22799",
+    "https://github.com/emlog/emlog/security/advisories/GHSA-p837-mrw9-5x5j"
+   ]
+  }
+ },
+ "counts": {
+  "confirmed_not_affected": 3,
+  "out_of_scope": 4
+ },
+ "notes": [
+  "All seven were left unknown because their advisories carry no OSV/NVD range the resolver can map to openssl/openssl: three CPEs name other products, two records have no version list, one has no OSV record, and CVE-2024-2408 is assigned to PHP.",
+  "The two version closures (9230, 27587) rest on the vendor advisory fixed release (3.5.4) and the CVE statement range (3.0.0-3.3.2) respectively; the snapshot is openssl-3.5.8.",
+  "CVE-2024-2408 is closed not affected on the OpenSSL side because the mitigation PHP requires (implicit rejection, PR #13817, part of OpenSSL 3.2) is present and on by default in the frozen provider; the vulnerability remains assigned to PHP.",
+  "The four out_of_scope rows name another product (Mozilla NSS, the Diffie-Hellman protocol project, the WooCommerce Cart Weight plugin, emlog) and no openssl/openssl component."
+ ]
+}

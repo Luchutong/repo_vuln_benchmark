@@ -1,0 +1,180 @@
+{
+ "report": "jenkinsci/jenkins 2.441 batch 3",
+ "generated_at": "2026-10-31T08:44:05Z",
+ "applied": true,
+ "summary": {
+  "rows": 7,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2025-31720",
+   "candidate_id": "disc2_8534cb66b9eee2ac0fa5b5b3",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/ComputerSet.java",
+   "function": "doCreateItem",
+   "line": 266,
+   "anchor_class": "the copy source is serialized without checking Extended Read",
+   "patch_file": "core/src/main/java/hudson/model/ComputerSet.java",
+   "fix_commit": "bf32018bf075c06e5df649583557c82d42d8bb5c",
+   "fixed_version": "2.504 / LTS 2.492.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-862"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/ComputerSet.java:266 is the frozen pre-image of the fix in bf32018bf075 (2.504 / LTS 2.492.3). the copy source is serialized without checking Extended Read. The marker 'src.checkPermission(Computer.EXTENDED_READ);' is absent from the frozen scope doCreateItem and present in the fix patch for core/src/main/java/hudson/model/ComputerSet.java (added lines or hunk post-image). Jenkins weekly up to and including 2.503, LTS up to and including 2.492.2; fixed in 2.504 / LTS 2.492.3 (bf32018bf075); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-31721",
+   "candidate_id": "disc2_748fc960f1ca0741e2bcaaca",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/ComputerSet.java",
+   "function": "doCreateItem",
+   "line": 266,
+   "anchor_class": "secrets in the copied agent configuration are exposed without Configure",
+   "patch_file": "core/src/main/java/hudson/model/ComputerSet.java",
+   "fix_commit": "b3651b475302e8dba20fc63c1ff89d144ec652f0",
+   "fixed_version": "2.504 / LTS 2.492.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/ComputerSet.java:266 is the frozen pre-image of the fix in b3651b475302 (2.504 / LTS 2.492.3). secrets in the copied agent configuration are exposed without Configure. The marker 'if (!src.hasPermission(Computer.CONFIGURE)) {' is absent from the frozen scope doCreateItem and present in the fix patch for core/src/main/java/hudson/model/ComputerSet.java (added lines or hunk post-image). Jenkins weekly up to and including 2.503, LTS up to and including 2.492.2; fixed in 2.504 / LTS 2.492.3 (b3651b475302); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-53438",
+   "candidate_id": "disc2_e22f25077704df7a2bf2f6da",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/Queue.java",
+   "function": "doCancelQueue",
+   "line": 2358,
+   "anchor_class": "the cancel endpoint does not require Read on the owning item",
+   "patch_file": "core/src/main/java/hudson/model/Queue.java",
+   "fix_commit": "d22d0916148a430dd308760641539d06c0d8a184",
+   "fixed_version": "2.568 / LTS 2.555.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-862"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/Queue.java:2358 is the frozen pre-image of the fix in d22d0916148a (2.568 / LTS 2.555.3). the cancel endpoint does not require Read on the owning item. The marker 'hasReadPermission(this, true)' is absent from the frozen scope doCancelQueue and present in the fix patch for core/src/main/java/hudson/model/Queue.java (added lines or hunk post-image). Jenkins weekly up to and including 2.567, LTS up to and including 2.555.2; fixed in 2.568 / LTS 2.555.3 (d22d0916148a); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-53439",
+   "candidate_id": "disc2_e732704eccd67cc139705c81",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/TimeZoneProperty.java",
+   "function": "doFillTimeZoneNameItems",
+   "line": 85,
+   "anchor_class": "the descriptor reads an arbitrary user datum with only Overall/Read",
+   "patch_file": "core/src/main/java/hudson/model/TimeZoneProperty.java",
+   "fix_commit": "98fe05f1753f664ffddd295a03492684b74e1950",
+   "fixed_version": "2.568 / LTS 2.555.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-862"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/TimeZoneProperty.java:85 is the frozen pre-image of the fix in 98fe05f1753f (2.568 / LTS 2.555.3). the descriptor reads an arbitrary user datum with only Overall/Read. The marker 'user.checkPermission(Jenkins.ADMINISTER)' is absent from the frozen scope doFillTimeZoneNameItems and present in the fix patch for core/src/main/java/hudson/model/TimeZoneProperty.java (added lines or hunk post-image). Jenkins weekly up to and including 2.567, LTS up to and including 2.555.2; fixed in 2.568 / LTS 2.555.3 (98fe05f1753f); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84645",
+   "candidate_id": "sweep_62a43b9e5ee9e53c",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/jenkins/model/Jenkins.java",
+   "function": "readResolve",
+   "line": 1066,
+   "anchor_class": "readResolve does not reject a second Jenkins instance",
+   "patch_file": "core/src/main/java/jenkins/model/Jenkins.java",
+   "fix_commit": "0d731367e08656f8cd1e8275f0e820f97af07fc6",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-502"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/jenkins/model/Jenkins.java:1066 is the frozen pre-image of the fix in 0d731367e086 (2.580 / LTS 2.568.3). readResolve does not reject a second Jenkins instance. The marker 'Jenkins existing = Jenkins.getInstanceOrNull();' is absent from the frozen scope readResolve and present in the fix patch for core/src/main/java/jenkins/model/Jenkins.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (0d731367e086); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84651",
+   "candidate_id": "sweep_fb630655a8f410c5",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/jenkins/model/Nodes.java",
+   "function": "replaceNode",
+   "line": 244,
+   "anchor_class": "the replacement writes a node under a name it did not check for collisions",
+   "patch_file": "core/src/main/java/jenkins/model/Nodes.java",
+   "fix_commit": "28cda9ac51321ecc8de5675332d062687c77e121",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-639"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/jenkins/model/Nodes.java:244 is the frozen pre-image of the fix in 28cda9ac5132 (2.580 / LTS 2.568.3). the replacement writes a node under a name it did not check for collisions. The marker 'throw new Failure(\"Node already exists: ' is absent from the frozen scope replaceNode and present in the fix patch for core/src/main/java/jenkins/model/Nodes.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (28cda9ac5132); 2.441 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-84656",
+   "candidate_id": "sweep_1960c4d014df177a",
+   "repo_id": "1103607",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "file": "core/src/main/java/hudson/model/Queue.java",
+   "function": "Item",
+   "line": 2135,
+   "anchor_class": "queue items bypass per-item permission checks when served by Stapler",
+   "patch_file": "core/src/main/java/hudson/model/Queue.java",
+   "fix_commit": "650576ea8d1297e48b3bc6b66fb42b2ca515af74",
+   "fixed_version": "2.580 / LTS 2.568.3",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-862"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v2.441 core/src/main/java/hudson/model/Queue.java:2135 is the frozen pre-image of the fix in 650576ea8d12 (2.580 / LTS 2.568.3). queue items bypass per-item permission checks when served by Stapler. The marker 'StaplerProxy' is absent from the frozen scope Item and present in the fix patch for core/src/main/java/hudson/model/Queue.java (added lines or hunk post-image). Jenkins weekly up to and including 2.579, LTS up to and including 2.568.2; fixed in 2.580 / LTS 2.568.3 (650576ea8d12); 2.441 is inside the vendor affected range."
+  }
+ ],
+ "failures": []
+}

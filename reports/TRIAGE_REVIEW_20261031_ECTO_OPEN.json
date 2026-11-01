@@ -1,0 +1,63 @@
+{
+ "repo": "elixir-ecto/ecto",
+ "repo_id": "10649374",
+ "snapshot_id": "snap_c7a36628b7853599",
+ "tag": "v2.2.0",
+ "sha": "4f84ddfbc89f83d6eed8362bf24e77bec5dcf81e",
+ "applied": true,
+ "checked_at": "2026-10-31T12:18:01Z",
+ "decisions": {
+  "GHSA-2xxx-fhc8-9qvq": {
+   "candidate_id": "sweep_703de71bc7b3ee3c",
+   "decision": "duplicate",
+   "review_method": "alias_cluster",
+   "basis": "GHSA-4r2f-6fm9-2qgh is a GitHub-withdrawn duplicate advisory: its own text says it duplicates GHSA-2xxx-fhc8-9qvq and is kept only to preserve external references. The canonical advisory is already a Ground Truth row on this same v2.2.0 snapshot (vulnerability GHSA-2xxx-fhc8-9qvq, alias CVE-2017-20166, anchor lib/ecto/repo/queryable.ex:351-352, fix db55b0cba652, range = 2.2.0 fixed in 2.2.1). The withdrawn advisory adds no distinct root cause, so the candidate resolves as a duplicate.",
+   "evidence_urls": [
+    "https://github.com/advisories/ghsa-4r2f-6fm9-2qgh",
+    "https://github.com/advisories/GHSA-2xxx-fhc8-9qvq",
+    "https://github.com/elixir-ecto/ecto/commit/db55b0cba6525c24ebddc88ef9ae0c1c00620250"
+   ]
+  },
+  "CVE-2026-32687": {
+   "candidate_id": "adv3_3ff64ffe52d68514",
+   "decision": "out_of_scope",
+   "review_method": "upstream_advisory",
+   "basis": "Channel-name SQL injection in Postgrex.Notifications.listen/3. The GitHub advisory filed in the elixir-ecto/ecto repository names package `postgrex` (range > 0.16.0, fixed 0.22.2) and the NVD record's only CPE is cpe:2.3:a:elixir-ecto:postgrex. The frozen ecto v2.2.0 tree contains no Postgrex.Notifications module (no \"Notifications\" match under lib/ or test/) and its optional postgrex requirement is \"~> 0.13.0\" (mix.exs:47), below the first affected postgrex release. No ecto source component is affected; the candidate entered the ecto queue because the advisory was published under the ecto repository.",
+   "evidence_urls": [
+    "https://github.com/elixir-ecto/ecto/security/advisories/GHSA-r73h-97w8-m54h",
+    "https://nvd.nist.gov/vuln/detail/CVE-2026-32687",
+    "https://cna.erlef.org/cves/CVE-2026-32687.html"
+   ]
+  },
+  "CVE-2026-58225": {
+   "candidate_id": "adv3_aa4fe5f23152bb91",
+   "decision": "out_of_scope",
+   "review_method": "upstream_advisory",
+   "basis": "SQL injection through an unescaped dollar-quote ($$) in the reconnect DO block. The advisory filed in elixir-ecto/ecto names package `postgrex` (range >= 0.16.0, fixed 0.22.3); NVD describes it as \"SQL Injection vulnerability in elixir-ecto postgrex\". The frozen ecto v2.2.0 tree has no reconnect/notification code and its optional postgrex requirement is \"~> 0.13.0\" (mix.exs:47). No ecto source component is affected.",
+   "evidence_urls": [
+    "https://github.com/elixir-ecto/ecto/security/advisories/GHSA-4mw9-4qgj-m97w",
+    "https://nvd.nist.gov/vuln/detail/CVE-2026-58225",
+    "https://cna.erlef.org/cves/CVE-2026-58225.html"
+   ]
+  },
+  "CVE-2026-66838": {
+   "candidate_id": "adv3_e2579cf8dc1ab08c",
+   "decision": "out_of_scope",
+   "review_method": "upstream_advisory",
+   "basis": "SQL injection through the :comment option of Postgrex.stream/4. The advisory filed in elixir-ecto/ecto names package `postgrex` (range >= 0.19.3 and < 0.22.4) and NVD's only CPE is cpe:2.3:a:elixir-ecto:postgrex. The frozen ecto v2.2.0 adapter only forwards to Postgrex.stream/4 (lib/ecto/adapters/postgres/connection.ex:112-113) and never constructs a :comment option — the only comment handling in the adapter is DDL COMMENT ON with single_quote escaping (:687-692). Its optional postgrex requirement is \"~> 0.13.0\" (mix.exs:47), below the affected >= 0.19.3 range. The defect is in postgrex, not ecto.",
+   "evidence_urls": [
+    "https://github.com/elixir-ecto/ecto/security/advisories/GHSA-3gww-3f36-2388",
+    "https://nvd.nist.gov/vuln/detail/CVE-2026-66838",
+    "https://cna.erlef.org/cves/CVE-2026-66838.html"
+   ]
+  }
+ },
+ "counts": {
+  "duplicate": 1,
+  "out_of_scope": 3
+ },
+ "notes": [
+  "No promotion: the only ecto vulnerability among these candidates, CVE-2017-20166 / GHSA-2xxx-fhc8-9qvq, is already a Ground Truth row on this snapshot. GHSA-4r2f-6fm9-2qgh is its withdrawn duplicate advisory and resolves as duplicate.",
+  "The three 2026 advisories were filed in the elixir-ecto/ecto repository but name package postgrex. The frozen ecto tree has no Postgrex.Notifications or Postgrex.stream/4 code and requires postgrex ~> 0.13.0 (mix.exs:47), below every affected range (>= 0.16.0 or >= 0.19.3). They are out of scope for this repo."
+ ]
+}

@@ -1,0 +1,46 @@
+{
+ "repo": "leethomason/tinyxml2",
+ "repo_id": "3542607",
+ "snapshot_id": "snap_5b58f4c33f6103b5",
+ "tag": "10.0.0",
+ "sha": "321ea883b7190d4e85cae5512a12e5eaa8f8731f",
+ "applied": true,
+ "checked_at": "2026-10-31T12:50:56Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2024-50614",
+   "snapshot_id": "snap_5b58f4c33f6103b5",
+   "location": "tinyxml2.cpp:475-568",
+   "permalink": "https://github.com/leethomason/tinyxml2/blob/321ea883b7190d4e85cae5512a12e5eaa8f8731f/tinyxml2.cpp#L475-L568",
+   "excerpt_head": "const char* XMLUtil::GetCharacterRef( const char* p, char* value, int* length )\n{\n    // Presume an entity, and pull it out.\n    *length = 0;\n\n    if ( *(p+1) =",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2024-50614",
+   "candidate_id": "disc2_c259dbfa630800a8b2a454ac",
+   "fix_commits": [
+    "494735de30c946bc7d684c65ff8ece05beeb232d",
+    "4cbb25155cde261ccf868efb8ae29ad0eebea4d1"
+   ]
+  }
+ ],
+ "duplicates": {
+  "sweep_f978923aeaa98920": "The candidate carries CVE-2024-50614 for the same snapshot and the same advisory range (OSV: introduced 0, last_affected 321ea883 = tag 10.0.0). That is the defect promoted from disc2_c259dbfa630800a8b2a454ac: XMLUtil::GetCharacterRef assertion overflow in tinyxml2.cpp, fixed by 494735de in 10.1.0. No second root cause, so this row is an alias cluster."
+ },
+ "counts": {
+  "promoted": 1,
+  "duplicate": 1
+ },
+ "fixes": {
+  "CVE-2024-50614": [
+   "494735de30c946bc7d684c65ff8ece05beeb232d",
+   "4cbb25155cde261ccf868efb8ae29ad0eebea4d1"
+  ]
+ },
+ "notes": [
+  "CVE-2024-50614 is promoted at XMLUtil::GetCharacterRef (tinyxml2.cpp:475-568): the numeric-reference accumulator is bounded only by TIXMLASSERT checks (:519-559), which are active only with TINYXML2_DEBUG; 8 hex digits or 10 decimal digits reach mult > UINT_MAX/16 and abort the process while parsing an entity in any attribute or text node. Fixed in 10.1.0 by 494735de / merge 4cbb2515 (PR #1009), which caps ucs at 0x10FFFF.",
+  "Release builds (TIXMLASSERT a no-op) wrap the unsigned arithmetic and ConvertUTF32ToUTF8 returns length 0 for input >= 0x200000; that is recorded as a static fact, not as a second impact, and the row category is denial_of_service.",
+  "Severity is the only published CVSS for this CVE (Secondary CNA metric 6.5 MEDIUM, AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:N/A:H), matching GHSA-xpm9-95h9-q996; tier T2 / review status unknown because the advisory is a CVE/GHSA global record with no vendor advisory and the defect was reported through issue #996.",
+  "sweep_f978923aeaa98920 is the second candidate for the same CVE and is closed as duplicate."
+ ]
+}

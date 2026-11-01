@@ -1,0 +1,110 @@
+{
+ "repo": "SixLabors/ImageSharp",
+ "repo_id": "72174164",
+ "snapshot_id": "snap_da570194ab16247d",
+ "tag": "v3.1.6",
+ "sha": "313a7e8daaae0d5eacb50b16b0398e40266e890a",
+ "applied": true,
+ "checked_at": "2026-10-31T11:25:17Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-54575",
+   "snapshot_id": "snap_da570194ab16247d",
+   "location": "src/ImageSharp/Formats/Gif/GifDecoderCore.cs:381-411",
+   "permalink": "https://github.com/SixLabors/ImageSharp/blob/313a7e8daaae0d5eacb50b16b0398e40266e890a/src/ImageSharp/Formats/Gif/GifDecoderCore.cs#L381-L411",
+   "excerpt_head": "    private void ReadComments(BufferedReadStream stream)\n    {\n        int length;\n\n        StringBuilder stringBuilder = new();\n        while ((length = stream",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-54575",
+   "candidate_id": "disc2_4440df657a95c6e1cf4986bf",
+   "fix_commits": [
+    "https://github.com/SixLabors/ImageSharp/commit/f4a2684737732059876c13c481c856ed6b28e2c6"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-106110",
+   "snapshot_id": "snap_da570194ab16247d",
+   "location": "src/ImageSharp/Formats/Tiff/Compression/Compressors/T4BitCompressor.cs:39-127",
+   "permalink": "https://github.com/SixLabors/ImageSharp/blob/313a7e8daaae0d5eacb50b16b0398e40266e890a/src/ImageSharp/Formats/Tiff/Compression/Compressors/T4BitCompressor.cs#L39-L127",
+   "excerpt_head": "    protected override void CompressStrip(Span<byte> pixelsAsGray, int height, Span<byte> compressedData)\n    {\n        if (!this.useModifiedHuffman)\n        {\n",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-106110",
+   "candidate_id": "disc2_742e4a921daefc8fd8a64293",
+   "fix_commits": [
+    "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-106113",
+   "snapshot_id": "snap_da570194ab16247d",
+   "location": "src/ImageSharp/Common/Helpers/ColorNumerics.cs:29-30",
+   "permalink": "https://github.com/SixLabors/ImageSharp/blob/313a7e8daaae0d5eacb50b16b0398e40266e890a/src/ImageSharp/Common/Helpers/ColorNumerics.cs#L29-L30",
+   "excerpt_head": "    public static int GetBT709Luminance(ref Vector4 vector, int luminanceLevels)\n        => (int)MathF.Round(Vector4.Dot(vector, Bt709) * (luminanceLevels - 1))",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-106113",
+   "candidate_id": "disc2_67a9dd17ceb662cf8c2edd1b",
+   "fix_commits": [
+    "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-106115",
+   "snapshot_id": "snap_da570194ab16247d",
+   "location": "src/ImageSharp/Formats/Tiff/Compression/Compressors/T6BitCompressor.cs:53-132",
+   "permalink": "https://github.com/SixLabors/ImageSharp/blob/313a7e8daaae0d5eacb50b16b0398e40266e890a/src/ImageSharp/Formats/Tiff/Compression/Compressors/T6BitCompressor.cs#L53-L132",
+   "excerpt_head": "    protected override void CompressStrip(Span<byte> pixelsAsGray, int height, Span<byte> compressedData)\n    {\n        // Initial reference line is all white.\n",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-106115",
+   "candidate_id": "disc2_e59178c696d86b322f125ad4",
+   "fix_commits": [
+    "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-106116",
+   "snapshot_id": "snap_da570194ab16247d",
+   "location": "src/ImageSharp/Metadata/Profiles/Exif/ExifReader.cs:199-211",
+   "permalink": "https://github.com/SixLabors/ImageSharp/blob/313a7e8daaae0d5eacb50b16b0398e40266e890a/src/ImageSharp/Metadata/Profiles/Exif/ExifReader.cs#L199-L211",
+   "excerpt_head": "    protected void ReadValues64(List<IExifValue> values, ulong offset)\n    {\n        DebugGuard.MustBeLessThanOrEqualTo(offset, (ulong)this.data.Length, \"By spe",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-106116",
+   "candidate_id": "disc2_608a8253231de579548e7042",
+   "fix_commits": [
+    "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+   ]
+  }
+ ],
+ "fixes": {
+  "CVE-2025-54575": [
+   "https://github.com/SixLabors/ImageSharp/commit/f4a2684737732059876c13c481c856ed6b28e2c6"
+  ],
+  "CVE-2026-106110": [
+   "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+  ],
+  "CVE-2026-106113": [
+   "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+  ],
+  "CVE-2026-106115": [
+   "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+  ],
+  "CVE-2026-106116": [
+   "https://github.com/SixLabors/ImageSharp/commit/baa37cd19077b2a2a0c5667535111cf31d48c019"
+  ]
+ },
+ "notes": [
+  "All five candidates are contained in the published ranges at v3.1.6 (which is the frozen SHA: compare v3.1.6...313a7e8d -> identical).",
+  "GIF: fix f4a2684737732059876c13c481c856ed6b28e2c6 is the v3.1.11 tag commit (compare identical); the mainline 833f3cee carries the same five lines but is diverged from v3.1.11.",
+  "TIFF: fix baa37cd19077b2a2a0c5667535111cf31d48c019 is the v3.2.0 tag commit (compare identical); the 4.x equivalents a9498c6d, c4c4bf29 and 92b12d72 are in v4.1.2 and are not this branch.",
+  "106110 and 106115 share the Initialize sizing defect (:527-532) but are anchored on their own CompressStrip, since the fix gives each subclass its own GetMaximumEncodedBits bound.",
+  "CVE-2026-106114, CVE-2026-106117, CVE-2026-106118 and CVE-2025-27598 were already Ground Truth rows at this snapshot."
+ ]
+}

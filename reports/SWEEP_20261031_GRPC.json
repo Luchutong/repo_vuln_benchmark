@@ -1,0 +1,97 @@
+{
+ "report": "grpc/grpc v1.52.0 sweep",
+ "generated_at": "2026-10-31T09:41:39Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2023-33953",
+    "candidate_id": "disc2_a3afc58773feb683298ba558",
+    "file": "src/core/ext/transport/chttp2/transport/hpack_parser.cc",
+    "function": "EmitHeader",
+    "line": "1049-1055",
+    "anchor": "*frame_length_ += md.transport_size();",
+    "severity": "high",
+    "score": 7.5,
+    "category": "denial_of_service",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/grpc/grpc/commit/6bb17232b2d0bed9efb6bd12d98a3af4582ea9d0",
+     "https://github.com/grpc/grpc/pull/33021"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2023-4785",
+    "candidate_id": "sweep_719f7a109f6c92ff",
+    "file": "src/core/lib/iomgr/tcp_server_posix.cc",
+    "function": "on_read",
+    "line": "206-221",
+    "anchor": "goto error;",
+    "severity": "high",
+    "score": 7.5,
+    "category": "denial_of_service",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/grpc/grpc/commit/2788b56867bb36aebdfe567ef1efdbce1799424e",
+     "https://github.com/grpc/grpc/pull/33656"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2023-44487",
+    "candidate_id": "sweep_f8c1ce9a20eef972",
+    "file": "src/core/ext/transport/chttp2/transport/frame_rst_stream.cc",
+    "function": "grpc_chttp2_rst_stream_parser_parse",
+    "line": "105-127",
+    "anchor": "grpc_chttp2_mark_stream_closed(t, s, true, true, error);",
+    "severity": "high",
+    "score": 7.5,
+    "category": "denial_of_service",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/grpc/grpc/commit/6358f61d0b44b0fa4f9be6743657ccf27f4f499f",
+     "https://github.com/grpc/grpc/pull/34637",
+     "https://github.com/grpc/grpc/pull/34763"
+    ]
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "updated": [
+   "sweep_6f65c8a0f1ca74f2",
+   "sweep_4658595a3361a3fb",
+   "sweep_3d9488da3100a3fb",
+   "sweep_1ef75bec27b84b4e",
+   "sweep_bb06dcbe2beeeb76",
+   "sweep_371fa712d2c5c1f7",
+   "sweep_86a81dc910da6836",
+   "sweep_4f6e16af0acf74b6",
+   "sweep_e913708579a6fc36"
+  ],
+  "added": [
+   "sweep_bd287b5c3942c128",
+   "sweep_3389e6eddc64df74",
+   "sweep_06cc2b84e98c8ec8"
+  ],
+  "decisions": {
+   "sweep_bd287b5c3942c128": "confirmed_not_affected",
+   "sweep_3389e6eddc64df74": "confirmed_not_affected",
+   "sweep_6f65c8a0f1ca74f2": "out_of_scope",
+   "sweep_4658595a3361a3fb": "out_of_scope",
+   "sweep_3d9488da3100a3fb": "out_of_scope",
+   "sweep_1ef75bec27b84b4e": "out_of_scope",
+   "sweep_bb06dcbe2beeeb76": "out_of_scope",
+   "sweep_371fa712d2c5c1f7": "out_of_scope",
+   "sweep_06cc2b84e98c8ec8": "out_of_scope",
+   "sweep_86a81dc910da6836": "out_of_scope",
+   "sweep_4f6e16af0acf74b6": "out_of_scope",
+   "sweep_e913708579a6fc36": "out_of_scope"
+  }
+ }
+}

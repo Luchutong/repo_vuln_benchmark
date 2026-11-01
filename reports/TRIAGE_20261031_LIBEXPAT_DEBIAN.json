@@ -1,0 +1,88 @@
+{
+ "report": "libexpat/libexpat R_2_6_2 Debian DSA/DLA catalog resolution",
+ "generated_at": "2026-10-31T07:38:38Z",
+ "applied": true,
+ "source": "https://security-tracker.debian.org/tracker/",
+ "summary": {
+  "rows": 12,
+  "not_affected": 9,
+  "duplicates": 3
+ },
+ "rows": [
+  {
+   "candidate_id": "disc2_126002b97718da681fbd239e",
+   "advisory": "DSA-1921-1",
+   "decision": "confirmed_not_affected",
+   "basis": "DSA-1921-1 covers CVE-2009-3720 (expat denial of service) with fixed versions 1.95.8-3.4+etch1 and 2.0.1-4+lenny1. The defect predates expat 2.0.1; R_2_6_2 is not affected."
+  },
+  {
+   "candidate_id": "disc2_ddd8e94db1d4a6fc979ed4a3",
+   "advisory": "DSA-1953-1",
+   "decision": "confirmed_not_affected",
+   "basis": "DSA-1953-1 covers CVE-2009-3560 with fixed versions 1.95.8-3.4+etch2 and 2.0.1-4+lenny2. Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_d31a9776e43cc3b401f8c947",
+   "advisory": "DSA-1953-2",
+   "decision": "confirmed_not_affected",
+   "basis": "DSA-1953-2 is the regression update of DSA-1953-1 for the same CVE-2009-3560 (fixed 1.95.8-3.4+etch3 / 2.0.1-4+lenny3). Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_7e84173dda67c4bfb6b01789",
+   "advisory": "DSA-2525-1",
+   "decision": "confirmed_not_affected",
+   "basis": "DSA-2525-1 covers CVE-2012-0876 and CVE-2012-1148 with fixed version 2.0.1-7+squeeze1. Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_700504fe311116b868443118",
+   "advisory": "DSA-3318-1",
+   "decision": "confirmed_not_affected",
+   "basis": "DSA-3318-1 covers CVE-2015-1283 with fixed versions 2.1.0-1+deb7u2 and 2.1.0-6+deb8u1. Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_87836e49ad639a3023481c46",
+   "advisory": "DSA-4530-1",
+   "decision": "confirmed_not_affected",
+   "basis": "DSA-4530-1 covers CVE-2019-15903 with fixed versions 2.2.0-2+deb9u3 and 2.2.6-2+deb10u1. Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_0fc196b40351702fe88969db",
+   "advisory": "DLA-281-1",
+   "decision": "confirmed_not_affected",
+   "basis": "DLA-281-1 covers CVE-2015-1283 for squeeze with fixed version 2.0.1-7+squeeze2. Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_09d47b1f07024b225b4de63b",
+   "advisory": "DLA-1912-1",
+   "decision": "confirmed_not_affected",
+   "basis": "DLA-1912-1 covers CVE-2019-15903 for jessie with fixed version 2.1.0-6+deb8u6. Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_c7acaf6ef2c3b8053aa767fa",
+   "advisory": "DSA-5085-2",
+   "decision": "confirmed_not_affected",
+   "basis": "DSA-5085-2 is the regression update of DSA-5085-1, which fixed the early-2022 expat CVEs (CVE-2021-45960/CVE-2021-46143/CVE-2022-22822..22827) with fixed versions 2.2.6-2+deb10u4 and 2.2.10-2+deb11u3. Fixed long before R_2_6_2."
+  },
+  {
+   "candidate_id": "disc2_e0a09144556b6cb17b248b2f",
+   "advisory": "DLA-3893-1",
+   "decision": "duplicate",
+   "canonical_candidate_id": "disc2_91f536c46f2bed6a3bd1a56c",
+   "basis": "DLA-3893-1 (bullseye 2.2.10+deb11u6) bundles CVE-2023-52425 and CVE-2024-45490/45491/45492; the 45491 and 45492 defects are already in the Ground Truth through CVE-2024-45491/45492, so this advisory adds no new vulnerability."
+  },
+  {
+   "candidate_id": "disc2_c31db55b4823ecb00d28068d",
+   "advisory": "DLA-4145-1",
+   "decision": "duplicate",
+   "canonical_candidate_id": "disc2_c7e893eeab17d88e1fe6f972",
+   "basis": "DLA-4145-1 (bullseye 2.2.10+deb11u7) is the Debian advisory for CVE-2024-50602, which is already in the Ground Truth."
+  },
+  {
+   "candidate_id": "disc2_6b9f528276ccbece89efdbb6",
+   "advisory": "DSA-5770-1",
+   "decision": "duplicate",
+   "canonical_candidate_id": "disc2_91f536c46f2bed6a3bd1a56c",
+   "basis": "DSA-5770-1 (bookworm 2.5.0) covers CVE-2024-45490/45491/45492; 45491 and 45492 are already in the Ground Truth, so this advisory adds no new vulnerability."
+  }
+ ]
+}

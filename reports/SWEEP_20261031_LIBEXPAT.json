@@ -1,0 +1,66 @@
+{
+ "repo": "libexpat/libexpat",
+ "repo_id": "80314213",
+ "snapshot_id": "snap_67132f0363b8bc23",
+ "tag": "R_2_6_2",
+ "sha": "fa75b96546c069d17b8f80d91e0f4ef0cde3790d",
+ "applied": true,
+ "checked_at": "2026-10-31T11:12:28Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-66046",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "location": "expat/lib/xmlparse.c:3453-3461",
+   "permalink": "https://github.com/libexpat/libexpat/blob/fa75b96546c069d17b8f80d91e0f4ef0cde3790d/expat/lib/xmlparse.c#L3453-L3461",
+   "excerpt_head": "      if (attId->maybeTokenized) {\n        int j;\n        for (j = 0; j < nDefaultAtts; j++) {\n          if (attId == elementType->defaultAtts[j].id) {\n        ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-66046",
+   "candidate_id": "disc2_b41310f5432b6485df053332",
+   "fix_commits": [
+    "https://github.com/libexpat/libexpat/commit/f8f7c4ffd883e3c2c58f0ebb49416a6c1d248738"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-59375",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "location": "expat/lib/xmlparse.c:2981-2989",
+   "permalink": "https://github.com/libexpat/libexpat/blob/fa75b96546c069d17b8f80d91e0f4ef0cde3790d/expat/lib/xmlparse.c#L2981-L2989",
+   "excerpt_head": "        tag = (TAG *)MALLOC(parser, sizeof(TAG));\n        if (! tag)\n          return XML_ERROR_NO_MEMORY;\n        tag->buf = (char *)MALLOC(parser, INIT_TAG_BU",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-59375",
+   "candidate_id": "disc2_05d528e5a5aa7eae6663dcd5",
+   "fix_commits": [
+    "https://github.com/libexpat/libexpat/commit/ac7a27e1f034c06e6be590ce98c36db9f8f5eedc",
+    "https://github.com/libexpat/libexpat/commit/cfce28e171676fe6f70d17b97ed8a59eaeb83f15"
+   ]
+  }
+ ],
+ "duplicates": {
+  "disc2_7e37fb46da3f7968d4a5584d": "disc2_05d528e5a5aa7eae6663dcd5",
+  "disc2_ba5e2a1d6cb2946415e6ce1c": "disc2_b41310f5432b6485df053332",
+  "sweep_ba31185ee33e3779": "disc2_786559575d8051f82cf309e8"
+ },
+ "open": {
+  "CVE-2025-66382": "disc2_786559575d8051f82cf309e8"
+ },
+ "fixes": {
+  "CVE-2026-66046": [
+   "https://github.com/libexpat/libexpat/commit/f8f7c4ffd883e3c2c58f0ebb49416a6c1d248738"
+  ],
+  "CVE-2025-59375": [
+   "https://github.com/libexpat/libexpat/commit/ac7a27e1f034c06e6be590ce98c36db9f8f5eedc",
+   "https://github.com/libexpat/libexpat/commit/cfce28e171676fe6f70d17b97ed8a59eaeb83f15"
+  ]
+ },
+ "notes": [
+  "Both promoted advisories cover R_2_6_2 by their published ranges: CVE-2025-59375 (before 2.7.2) and CVE-2026-66046 (introduced 0, last_affected R_2_8_3).",
+  "CVE-2026-66046 is located by fix-diff comparison against f8f7c4ff (PR #1321, in R_2_8_4); the loop matches the fix pre-image except for `int j` vs `size_t j`, and the hash-table half of the fix does not exist at 2.6.2.",
+  "CVE-2025-59375 is located by source review: the shipped fix (PR #1034 merge ac7a27e1, in R_2_7_2) is a parser-wide MALLOC tracker with no hunk at the tag allocation, so the anchor is the allocation that upstream issue #1018 identifies as the amplification source (120 bytes per 3-byte tag, measured 70.77x).",
+  "CVE-2025-66382 remains possible_affected: issue #1076 is open, the details are NDA-bound, there is no fix commit and no locatable public root cause. Its NVD-only sweep duplicate is closed as a duplicate.",
+  "OSV GIT \"fixed\" for CVE-2025-59375 is 7643f96b, a release-prep merge (#1038); it is not used as the fix commit."
+ ]
+}

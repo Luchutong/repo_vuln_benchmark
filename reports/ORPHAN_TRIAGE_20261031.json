@@ -1,0 +1,114 @@
+{
+ "checked_at": "2026-10-31T14:09:50Z",
+ "applied": true,
+ "rows": [
+  {
+   "candidate_id": "adv3_41f917065d59142a",
+   "snapshot_id": "snap_7f217d0f9de119d5",
+   "repo": "pyca/cryptography 41.0.5",
+   "advisory": "CVE-2023-49083",
+   "decision": "duplicate",
+   "duplicate_of_candidate": "disc2_0f5b08e44610251a3e1aef1e",
+   "anchor": "src/cryptography/hazmat/backends/openssl/backend.py:1893-1893",
+   "was_live": false
+  },
+  {
+   "candidate_id": "adv3_3a9ae2e3f3176cf3",
+   "snapshot_id": "snap_69faea6949b7a9bb",
+   "repo": "elixir-plug/plug v1.19.2",
+   "advisory": "CVE-2026-54892",
+   "decision": "duplicate",
+   "duplicate_of_candidate": "disc2_66f8f9c063af47f3f5e8939f",
+   "anchor": "lib/plug/conn/query.ex:215-231",
+   "was_live": false
+  },
+  {
+   "candidate_id": "adv3_e3d1a510dc1beb35",
+   "snapshot_id": "snap_39f103d0ed9572cb",
+   "repo": "elixir-plug/plug_cowboy v2.8.0",
+   "advisory": "CVE-2026-32688",
+   "decision": "duplicate",
+   "duplicate_of_candidate": "disc2_b6a9a610f8bcc9ff8e8fe71e",
+   "anchor": "lib/plug/cowboy/conn.ex:29-29",
+   "was_live": false
+  },
+  {
+   "candidate_id": "adv3_0d67b1bbf8e29378",
+   "snapshot_id": "snap_6513f827cbeb91ab",
+   "repo": "dotnet/aspnetcore v8.0.13",
+   "advisory": "CVE-2025-24070",
+   "decision": "duplicate",
+   "duplicate_of_candidate": "disc2_fec22b71309c9a81e27dd8a1",
+   "anchor": "src/Identity/Core/src/SignInManager.cs:183-183",
+   "was_live": false
+  },
+  {
+   "candidate_id": "adv3_7c67a1d20046e446",
+   "snapshot_id": "snap_b840904431f8a856",
+   "repo": "PHPMailer/PHPMailer v6.1.5",
+   "advisory": "CVE-2020-13625",
+   "decision": "duplicate",
+   "duplicate_of_candidate": "disc2_8190d4a1d935763fc5f34cab",
+   "anchor": "src/PHPMailer.php:3064-3108",
+   "was_live": false
+  },
+  {
+   "candidate_id": "disc2_3dab3b7574adba0643f369ea",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "repo": "curl/curl curl-8_3_0",
+   "advisory": "CVE-2026-67339",
+   "decision": "out_of_scope",
+   "was_live": false
+  }
+ ],
+ "counts": {
+  "rows_changed": 6,
+  "triage_rows": 2939,
+  "decisions": {
+   "confirmed_affected": 740,
+   "confirmed_not_affected": 1754,
+   "duplicate": 170,
+   "out_of_scope": 268,
+   "possible_affected": 6,
+   "unknown": 1
+  },
+  "unresolved_rows_after": 7,
+  "unresolved_after": [
+   {
+    "candidate_id": "adv3_61724d22cf10bab7",
+    "snapshot_id": "snap_ca4042bda2431632",
+    "decision": "unknown"
+   },
+   {
+    "candidate_id": "disc2_786559575d8051f82cf309e8",
+    "snapshot_id": "snap_67132f0363b8bc23",
+    "decision": "possible_affected"
+   },
+   {
+    "candidate_id": "adv3_b8e39225010ac61d",
+    "snapshot_id": "snap_ccfc92616d383a5b",
+    "decision": "possible_affected"
+   },
+   {
+    "candidate_id": "adv3_e83efe88ba153617",
+    "snapshot_id": "snap_ccfc92616d383a5b",
+    "decision": "possible_affected"
+   },
+   {
+    "candidate_id": "disc2_0a06e67944652b11e82e36b1",
+    "snapshot_id": "snap_ccfc92616d383a5b",
+    "decision": "possible_affected"
+   },
+   {
+    "candidate_id": "adv3_c71d115b3aa6a14a",
+    "snapshot_id": "snap_ccfc92616d383a5b",
+    "decision": "possible_affected"
+   },
+   {
+    "candidate_id": "disc2_ac9c5df2a03d6b22e63af912",
+    "snapshot_id": "snap_0cb7894bf83f49db",
+    "decision": "possible_affected"
+   }
+  ]
+ }
+}

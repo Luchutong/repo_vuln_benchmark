@@ -1,0 +1,44 @@
+{
+ "generated_for": "2026-10-31 django/django promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The proposed anchor is the GenericIPAddressField.deconstruct max_length literal swap, which is collateral. The DoS fix is the length cap inserted ahead of the IPv6 parsing in django/utils/ipv6.py. Held here and relocated via promote_candidate.py (see relocated_rows). The 4.2.x fix commit is ad866a1ca3e7, whose ipv6.py preimage blob 88dd6ecb matches the frozen 4.2.13 tree exactly; 4806731e58f3 is the 5.1.x sibling.",
+ "counts": {
+  "admit": 0,
+  "drop": 0,
+  "hold": 1,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2024-56374",
+   "advisory_record": "GHSA-qcgg-j2x8-h9g8",
+   "repo": "django/django",
+   "snapshot_version": "4.2.13",
+   "advisory_trust_tier": "T1",
+   "file": "django/db/models/fields/__init__.py",
+   "function": "deconstruct",
+   "line_start": 2190,
+   "line_end": 2190,
+   "granularity": "line",
+   "fix_commit": "ad866a1ca3e7",
+   "verdict": "hold",
+   "reason": "Frozen 2190 only replaces the 39 literal with self.max_length in deconstruct - no parsing behaviour. The DoS is that clean_ipv6_address parses an arbitrarily long string before any length limit; the 4.2 fix ad866a1ca3e7 routes it through _ipv6_address_from_str with MAX_IPV6_ADDRESS_LENGTH. Relocate to django/utils/ipv6.py:27 in clean_ipv6_address."
+  }
+ ],
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2024-56374",
+   "verdict": "admit",
+   "file": "django/utils/ipv6.py",
+   "function": "clean_ipv6_address",
+   "line_start": 27,
+   "line_end": 27,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/django/django/commit/ad866a1ca3e7d60da888d25d27e46a8adb2ed36e",
+   "applied": true,
+   "reason": "Frozen 27 parses an unbounded string via ipaddress.IPv6Address before any length check, so a very long IPv6-like value forces disproportionate work (CWE-770). The 4.2.x fix ad866a1c adds MAX_IPV6_ADDRESS_LENGTH and routes parsing through _ipv6_address_from_str; its ipv6.py preimage blob matches the frozen 4.2.13 tree."
+  }
+ ]
+}

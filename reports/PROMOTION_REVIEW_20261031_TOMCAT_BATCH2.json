@@ -1,0 +1,84 @@
+{
+ "report": "apache/tomcat 9.0.98 batch 2",
+ "generated_at": "2026-10-31T08:28:48Z",
+ "applied": true,
+ "summary": {
+  "rows": 3,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-53434",
+   "candidate_id": "sweep_7541ec14b9e77662",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/tomcat/util/net/openssl/panama/OpenSSLContext.java",
+   "function": "addCertificate",
+   "line": 1165,
+   "anchor_class": "CRL load failure raises IllegalArgumentException instead of logging",
+   "patch_file": "java/org/apache/tomcat/util/net/openssl/panama/OpenSSLContext.java",
+   "fix_commit": "c48ac39c27f4494f8c96b9d56a487253e362d276",
+   "fixed_version": "9.0.119",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-295"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/tomcat/util/net/openssl/panama/OpenSSLContext.java:1165 is the frozen pre-image of the fix in c48ac39c27f4 (9.0.119). CRL load failure raises IllegalArgumentException instead of logging. The marker 'throw new IllegalArgumentException(sm.getString(' is absent from the frozen scope addCertificate and present in the fix patch for java/org/apache/tomcat/util/net/openssl/panama/OpenSSLContext.java (added lines or hunk post-image). 9.0.83 - 9.0.118; fixed in 9.0.119 (c48ac39c27f4); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-53404",
+   "candidate_id": "sweep_d156b96647445ef1",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/valves/rewrite/RewriteRule.java",
+   "function": "evaluate",
+   "line": 120,
+   "anchor_class": "OR skip loop guarded by the matching condition being OR-tagged",
+   "patch_file": "java/org/apache/catalina/valves/rewrite/RewriteRule.java",
+   "fix_commit": "fe06ae8a71997061596f54189dae1b1b5da75430",
+   "fixed_version": "9.0.119",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/valves/rewrite/RewriteRule.java:120 is the frozen pre-image of the fix in fe06ae8a7199 (9.0.119). OR skip loop guarded by the matching condition being OR-tagged. The marker 'if (conditions[pos].isOrnext()) {' is absent from the frozen scope evaluate and present in the fix patch for java/org/apache/catalina/valves/rewrite/RewriteRule.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.118; fixed in 9.0.119 (fe06ae8a7199); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-50229",
+   "candidate_id": "sweep_7dafb2f67f7e31be",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "webapps/examples/jsp/num/numguess.jsp",
+   "function": null,
+   "line": 25,
+   "anchor_class": "wildcard parameter binding replaced by the single guess parameter",
+   "patch_file": "webapps/examples/jsp/num/numguess.jsp",
+   "fix_commit": "de5a950415fc67713f17fab63d0c7809e0fca80b",
+   "fixed_version": "9.0.119",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-79"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 webapps/examples/jsp/num/numguess.jsp:25 is the frozen pre-image of the fix in de5a950415fc (9.0.119). wildcard parameter binding replaced by the single guess parameter. The marker '<jsp:setProperty name=\"numguess\" property=\"guess\"/>' is absent from the frozen scope JSP example page: the defect is the jsp:setProperty action in the page template, which has no enclosing function and present in the fix patch for webapps/examples/jsp/num/numguess.jsp (added lines or hunk post-image). 9.0.0.M1 - 9.0.118; fixed in 9.0.119 (de5a950415fc); 9.0.98 is inside the vendor affected range."
+  }
+ ],
+ "failures": []
+}

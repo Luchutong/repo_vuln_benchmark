@@ -1,0 +1,16 @@
+{
+  "command": [
+    "/usr/bin/python3",
+    "-m",
+    "unittest",
+    "discover",
+    "-s",
+    "tests",
+    "-v"
+  ],
+  "source_directory": "/home/luchitong/work/repo-vuln-bench-v040",
+  "tests_run": 62,
+  "exit_code": 0,
+  "passed": true,
+  "scope": "Current local v0.4.0 toolkit. Executable toolkit code is not included in this data checkpoint."
+}

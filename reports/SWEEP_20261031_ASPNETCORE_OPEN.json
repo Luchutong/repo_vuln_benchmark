@@ -1,0 +1,45 @@
+{
+ "repo": "dotnet/aspnetcore",
+ "repo_id": "17620347",
+ "snapshot_id": "snap_6513f827cbeb91ab",
+ "tag": "v8.0.13",
+ "sha": "009e1ccafde4086ea52999e878f6e7aa5a7c4ccf",
+ "applied": true,
+ "checked_at": "2026-10-31T12:35:11Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-42899",
+   "snapshot_id": "snap_6513f827cbeb91ab",
+   "location": "src/Components/Endpoints/src/FormMapping/FormDataReader.cs:124-165",
+   "permalink": "https://github.com/dotnet/aspnetcore/blob/009e1ccafde4086ea52999e878f6e7aa5a7c4ccf/src/Components/Endpoints/src/FormMapping/FormDataReader.cs#L124-L165",
+   "excerpt_head": "    internal IReadOnlyDictionary<FormKey, HashSet<FormKey>> ProcessFormKeys()\n    {\n        var keys = _readOnlyMemoryKeys.Keys;\n        var result = new Dictio",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-42899",
+   "candidate_id": "adv3_da32ca8459b0648d",
+   "fix_commits": [
+    "ab7d766648e4193b4bbd8bf08e31df3dfe58d30f",
+    "b48ed8d3387bfd2aafe36edaac375c62d915761c"
+   ]
+  }
+ ],
+ "out_of_scope": {
+  "adv3_d44f1a8a0469acb7": "The advisory describes a stack overflow in the SignalR/Blazor MessagePack hub protocol caused by deeply nested arrays. The v8.0.28 fix dc6799d732 (\"Merged PR 61221: Update MessagePack\", 2026-05-19) does not change any deserializer logic in this repository: it bumps eng/Versions.props MessagePackVersion from 2.5.187 to 2.5.301, applies src/submodules/msgpack-fix-full.diff and upstream-patch.diff to the MessagePack-CSharp submodule, and adds only a regression test in src/SignalR/common/SignalR.Common/test/Internal/Protocol/MessagePackHubProtocolTestBase.cs. The deserializer that recurses on nested arrays lives in the separate project aspnet/MessagePack-CSharp (a .gitmodules entry at the frozen SHA; the submodule has no content in the frozen tree), so the root cause is outside this repository and cannot be anchored here.",
+  "adv3_683c84ac5fc83514": "NVD describes CVE-2026-92707 as a MessagePack for C# defect: PrimitiveObjectFormatter allocates an object[] from each declared array length before the object-graph depth limit rejects the input, fixed in MessagePack 2.5.303 and 3.1.9; an ASP.NET Core SignalR hub with an object parameter is only named as one exposure path. The v8.0.32 fix in this repository is 21f2be26fd (\"Update MessagePack to 2.5.303 (#69370)\", 2026-09-21), i.e. a dependency version bump, and eng/Versions.props at v8.0.32 reads <MessagePackVersion>2.5.303</MessagePackVersion>. No file in this repository contains the formatter or its depth handling; the defect belongs to MessagePack-CSharp, so this repository cannot carry a source anchor for it."
+ },
+ "counts": {
+  "promoted": 1,
+  "out_of_scope": 2
+ },
+ "fixes": {
+  "CVE-2026-42899": [
+   "ab7d766648e4193b4bbd8bf08e31df3dfe58d30f",
+   "b48ed8d3387bfd2aafe36edaac375c62d915761c"
+  ]
+ },
+ "notes": [
+  "CVE-2026-42899 is promoted at FormDataReader.ProcessFormKeys (124-165): the -1 sentinel is checked after startIndex is added, so an unmatched \"[\" at a non-zero index leaves startIndex unchanged and the while loop never exits. The v8.0.27 fix ab7d766648 (public backport #66674) deletes the function.",
+  "CVE-2026-45591 and CVE-2026-92707 are out of scope for this repository: both fixes are MessagePack dependency updates (2.5.187 -> 2.5.301 in 8.0.28; 2.5.303 in 8.0.32) and the vulnerable deserializer lives in the external aspnet/MessagePack-CSharp submodule, not in aspnetcore files."
+ ]
+}

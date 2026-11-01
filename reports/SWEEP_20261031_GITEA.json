@@ -1,0 +1,207 @@
+{
+ "report": "go-gitea/gitea v1.25.5 sweep",
+ "generated_at": "2026-10-31T10:15:21Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2026-58428",
+    "candidate_id": "adv3_f1c3fbb96e138d02",
+    "file": "services/release/release.go",
+    "function": "UpdateRelease",
+    "line": "321-329",
+    "anchor": "repo_model.UpdateAttachmentByUUID(ctx, &repo_model.Attachment{",
+    "severity": "medium",
+    "score": 6.5,
+    "category": "authorization_bypass",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/e4ef995f2a162e3aca3f3a0b536afae067975d71",
+     "https://github.com/go-gitea/gitea/pull/38314"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-58440",
+    "candidate_id": "adv3_ba423d33afec5e34",
+    "file": "services/repository/collaboration.go",
+    "function": "DeleteCollaboration",
+    "line": "68-99",
+    "anchor": "return ReconsiderRepoIssuesAssignee(ctx, repo, collaborator)",
+    "severity": "medium",
+    "score": 6.8,
+    "category": "authorization_bypass",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review",
+    "fix_commits": []
+   },
+   {
+    "vulnerability_id": "CVE-2026-73504",
+    "candidate_id": "adv3_c6913528871c054e",
+    "file": "routers/api/v1/repo/action.go",
+    "function": "DownloadArtifactRaw",
+    "line": "1635-1654",
+    "anchor": "expectedSig := buildSignature(buildDownloadRawEndpoint(repo, art.ID), expires, art.ID)",
+    "severity": "low",
+    "score": null,
+    "category": "information_disclosure",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/5fc3cec87ff6d6a10ee7f56574066eea2140d7d8",
+     "https://github.com/go-gitea/gitea/commit/6e2cf106871451f5ee89b0b0e3fab0821c3b2464",
+     "https://github.com/go-gitea/gitea/pull/39049",
+     "https://github.com/go-gitea/gitea/pull/39053"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-104636",
+    "candidate_id": "adv3_704c243e63191904",
+    "file": "modules/git/repo.go",
+    "function": "Push",
+    "line": "204-233",
+    "anchor": "remoteBranchArgs := []string{opts.Remote}",
+    "severity": "medium",
+    "score": 4.3,
+    "category": "ssrf",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/1b1274486c401c96f308d960e35163dd1f9f1a2c",
+     "https://github.com/go-gitea/gitea/pull/39426"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-89430",
+    "candidate_id": "adv3_fb1568801261a260",
+    "file": "services/mirror/mirror_push.go",
+    "function": "runPushSync",
+    "line": "133-166",
+    "anchor": "envs := proxy.EnvWithProxy(remoteURL.URL)",
+    "severity": "high",
+    "score": 8.5,
+    "category": "ssrf",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/1b1274486c401c96f308d960e35163dd1f9f1a2c",
+     "https://github.com/go-gitea/gitea/pull/39426"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-70357",
+    "candidate_id": "adv3_a156a93496d13d64",
+    "file": "services/migrations/dump.go",
+    "function": "CreateRepo",
+    "line": "146-159",
+    "anchor": "err = git.Clone(ctx, remoteAddr, repoPath, git.CloneRepoOptions{",
+    "severity": "high",
+    "score": 7.5,
+    "category": "ssrf",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/1b1274486c401c96f308d960e35163dd1f9f1a2c",
+     "https://github.com/go-gitea/gitea/pull/39426"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-104632",
+    "candidate_id": "adv3_69c449c167dbb329",
+    "file": "routers/web/repo/actions/view.go",
+    "function": "rerunJob",
+    "line": "477-505",
+    "anchor": "job.Status = actions_model.StatusWaiting",
+    "severity": "critical",
+    "score": 9.0,
+    "category": "authorization_bypass",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review",
+    "fix_commits": []
+   },
+   {
+    "vulnerability_id": "CVE-2026-101029",
+    "candidate_id": "adv3_1a6c5f293b33e5a1",
+    "file": "services/migrations/migrate.go",
+    "function": "checkByAllowBlockList",
+    "line": "88-106",
+    "anchor": "ipAllowed = ipAllowed || allowList.MatchIPAddr(addr)",
+    "severity": "high",
+    "score": 8.5,
+    "category": "ssrf",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/1b1274486c401c96f308d960e35163dd1f9f1a2c",
+     "https://github.com/go-gitea/gitea/pull/39426"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-96400",
+    "candidate_id": "adv3_357b5d27b18d63a3",
+    "file": "modules/hostmatcher/hostmatcher.go",
+    "function": "checkIP",
+    "line": "111-114",
+    "anchor": "case MatchBuiltinPrivate:",
+    "severity": "medium",
+    "score": 4.3,
+    "category": "ssrf",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/920b3f8cb6000b4189ba62ce3628a7c8adb41dcf",
+     "https://github.com/go-gitea/gitea/commit/1b1274486c401c96f308d960e35163dd1f9f1a2c",
+     "https://github.com/go-gitea/gitea/pull/38039",
+     "https://github.com/go-gitea/gitea/pull/39426"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-28737",
+    "candidate_id": "adv3_f679920670dfb7f2",
+    "file": "web_src/js/render/plugins/3d-viewer.ts",
+    "function": "newRenderPlugin3DViewer",
+    "line": "48-56",
+    "anchor": "const viewer = new OV.EmbeddedViewer(container, {",
+    "severity": "high",
+    "score": 8.7,
+    "category": "xss",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/go-gitea/gitea/commit/d5831b9385ebb4c0349499ba263218a43e5d41ea",
+     "https://github.com/go-gitea/gitea/pull/37233"
+    ]
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "updated": [
+   "disc2_a6e519311964f4876aea9e6b",
+   "disc2_9a99ddeb7f4f5d485a0fb617",
+   "disc2_69aa35ad58d948d2d7541748",
+   "adv3_c3e3e558ab48e05e",
+   "adv3_5b97cdd8cb959477",
+   "adv3_152744cdd5908cc0"
+  ],
+  "added": [],
+  "decisions": {
+   "disc2_a6e519311964f4876aea9e6b": "duplicate",
+   "disc2_9a99ddeb7f4f5d485a0fb617": "duplicate",
+   "disc2_69aa35ad58d948d2d7541748": "duplicate",
+   "adv3_c3e3e558ab48e05e": "duplicate",
+   "adv3_5b97cdd8cb959477": "duplicate",
+   "adv3_152744cdd5908cc0": "possible_affected"
+  }
+ }
+}

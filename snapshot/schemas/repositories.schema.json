@@ -1,0 +1,14 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["repo_id", "canonical_url", "full_name", "quality"],
+  "properties": {
+    "repo_id": {"type": "string", "minLength": 1},
+    "canonical_url": {"type": "string", "pattern": "^https://"},
+    "full_name": {"type": "string", "minLength": 1},
+    "primary_language": {"type": ["string", "null"]},
+    "quality": {"type": "object", "required": ["status"], "properties": {"status": {"const": "PASS"}}, "additionalProperties": true},
+    "evaluation_snapshot_id": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

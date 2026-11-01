@@ -1,0 +1,84 @@
+{
+ "report": "spring-framework v4.1.1.RELEASE batch 2",
+ "generated_at": "2026-10-31T08:16:58Z",
+ "applied": true,
+ "summary": {
+  "rows": 3,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2018-1272",
+   "candidate_id": "disc2_ef5c54222602f24c45daff8d",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-web/src/main/java/org/springframework/http/converter/FormHttpMessageConverter.java",
+   "function": "FormHttpMessageConverter",
+   "line": 104,
+   "anchor_class": "boundary Random field replaced by SecureRandom (generator relocated in 4.3)",
+   "patch_file": "spring-core/src/main/java/org/springframework/util/MimeTypeUtils.java",
+   "fix_commit": "ab2410c754b67902f002bfcc0c3895bd7772d39f",
+   "fixed_version": "5.0.5.RELEASE / 4.3.15.RELEASE",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-330"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-web/src/main/java/org/springframework/http/converter/FormHttpMessageConverter.java:104 is the frozen pre-image of the fix in ab2410c754b6 (5.0.5.RELEASE / 4.3.15.RELEASE). boundary Random field replaced by SecureRandom (generator relocated in 4.3). The marker 'new SecureRandom()' is absent from the frozen Java scope FormHttpMessageConverter and present in the patch added lines used for spring-core/src/main/java/org/springframework/util/MimeTypeUtils.java. 5.0.0.RELEASE - 5.0.4.RELEASE, 4.3.0.RELEASE - 4.3.14.RELEASE and earlier; introduced 3.0, fixed ab2410c754b6 (5.0.5.RELEASE / 4.3.15.RELEASE); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2024-22243",
+   "candidate_id": "disc2_f47aaeb7234f726848e7688f",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java",
+   "function": "UriComponentsBuilder",
+   "line": 65,
+   "anchor_class": "userinfo character class replaced in the URL split patterns",
+   "patch_file": "spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java",
+   "fix_commit": "120ea0a51c63171e624ca55dbd7cae627d53a042",
+   "fixed_version": "6.1.4",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-601"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java:65 is the frozen pre-image of the fix in 120ea0a51c63 (6.1.4). userinfo character class replaced in the URL split patterns. The marker 'USERINFO_PATTERN = \"([^@/?#]*)\"' is absent from the frozen Java scope UriComponentsBuilder and present in the patch added lines used for spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java. 6.1.0 - 6.1.3, 6.0.0 - 6.0.16, 5.3.31 and earlier; introduced 4.0.0.RELEAS, fixed 120ea0a51c63 (6.1.4); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2024-22262",
+   "candidate_id": "disc2_c0c5441be33f01bc2f6df27e",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java",
+   "function": "UriComponentsBuilder",
+   "line": 61,
+   "anchor_class": "backslash added to the excluded set of every URL split pattern",
+   "patch_file": "spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java",
+   "fix_commit": "494ed4e852e11907107e978f56f24f0b0aef8680",
+   "fixed_version": "6.1.6",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-601"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java:61 is the frozen pre-image of the fix in 494ed4e852e1 (6.1.6). backslash added to the excluded set of every URL split pattern. The marker 'SCHEME_PATTERN = \"([^:/?#\\\\\\\\\\\\\\\\]+):\"' is absent from the frozen Java scope UriComponentsBuilder and present in the patch added lines used for spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java. 6.1.0 - 6.1.5, 6.0.0 - 6.0.18, 5.3.33 and earlier; introduced 4.0.0.RELEAS, fixed 494ed4e852e1 (6.1.6); 4.1.1.RELEASE is inside the vendor range."
+  }
+ ],
+ "failures": []
+}

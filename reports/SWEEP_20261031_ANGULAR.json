@@ -1,0 +1,215 @@
+{
+ "report": "angular/angular 19.2.15 sweep",
+ "generated_at": "2026-10-31T09:31:39Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2026-41423",
+    "candidate_id": "disc2_3ce837ffce44d66778112840",
+    "file": "packages/platform-server/src/location.ts",
+    "function": "parseUrl",
+    "line": 31,
+    "anchor": "const {hostname, protocol, port, pathname, search, hash} = new URL(",
+    "severity": "high",
+    "score": null,
+    "category": "ssrf",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison"
+   },
+   {
+    "vulnerability_id": "CVE-2026-111754",
+    "candidate_id": "disc2_47400a3c7b6b584e0fb0a815",
+    "file": "packages/platform-server/src/location.ts",
+    "function": "parseUrl",
+    "line": 36,
+    "anchor": "return {",
+    "severity": "moderate",
+    "score": null,
+    "category": "open_redirect",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-54265",
+    "candidate_id": "disc2_9a85debc518c160b61169c27",
+    "file": "packages/compiler/src/template/pipeline/src/phases/resolve_sanitizers.ts",
+    "function": "resolveSanitizers",
+    "line": 59,
+    "anchor": "case ir.OpKind.Property:",
+    "severity": "moderate",
+    "score": 6.1,
+    "category": "xss",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-54268",
+    "candidate_id": "disc2_12279ec3e5eb4bd74d25c712",
+    "file": "packages/common/src/i18n/format_date.ts",
+    "function": "formatDate",
+    "line": 92,
+    "anchor": "while (format) {",
+    "severity": "high",
+    "score": 7.5,
+    "category": "denial_of_service",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison"
+   },
+   {
+    "vulnerability_id": "CVE-2026-69151",
+    "candidate_id": "disc2_50babbf748776109e68ea54c",
+    "file": "packages/compiler/src/render3/view/i18n/meta.ts",
+    "function": "visitElement",
+    "line": 147,
+    "anchor": "if (isTrustedTypesSink(element.name, name)) {",
+    "severity": "high",
+    "score": null,
+    "category": "xss",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-50171",
+    "candidate_id": "disc2_d95b43d68c7626321bd0976b",
+    "file": "packages/common/src/i18n/format_number.ts",
+    "function": "formatNumberToLocaleString",
+    "line": 71,
+    "anchor": "} else if (minFractionPart != null && minFraction > maxFraction) {",
+    "severity": "high",
+    "score": null,
+    "category": "denial_of_service",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison"
+   },
+   {
+    "vulnerability_id": "CVE-2026-50170",
+    "candidate_id": "disc2_b562848aba50904c73c757bd",
+    "file": "packages/common/http/src/transfer_cache.ts",
+    "function": "transferCacheInterceptorFn",
+    "line": 139,
+    "anchor": "(!globalOptions.includeRequestsWithAuthHeaders && hasAuthHeaders(req)) ||",
+    "severity": "high",
+    "score": 7.5,
+    "category": "information_disclosure",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison"
+   },
+   {
+    "vulnerability_id": "CVE-2026-54266",
+    "candidate_id": "disc2_21f96e5aef8e67b7fcf94546",
+    "file": "packages/common/http/src/transfer_cache.ts",
+    "function": "generateHash",
+    "line": 297,
+    "anchor": "hash = (Math.imul(31, hash) + char.charCodeAt(0)) << 0;",
+    "severity": "high",
+    "score": null,
+    "category": "information_disclosure",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison"
+   },
+   {
+    "vulnerability_id": "CVE-2026-50184",
+    "candidate_id": "disc2_1c797f97419eb3f3a643230f",
+    "file": "packages/service-worker/worker/src/assets.ts",
+    "function": "newRequestWithMetadata",
+    "line": 515,
+    "anchor": "return this.adapter.newRequest(url, {headers: options.headers});",
+    "severity": "moderate",
+    "score": 6.1,
+    "category": "information_disclosure",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-50169",
+    "candidate_id": "disc2_5f5429278a388a088ff6155e",
+    "file": "packages/service-worker/worker/src/assets.ts",
+    "function": "newRequestWithMetadata",
+    "line": 514,
+    "anchor": "private newRequestWithMetadata(url: string, options: RequestInit): Request {",
+    "severity": "moderate",
+    "score": 6.1,
+    "category": "integrity",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison"
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "rows": [
+   {
+    "candidate_id": "adv3_65ecb0ba09047ac7",
+    "cve": "CVE-2026-49241",
+    "decision": "confirmed_not_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "adv3_9aeff8daa1180ca0",
+    "cve": "CVE-2026-101897",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "adv3_bda71b85dcb9e31e",
+    "cve": "CVE-2026-50178",
+    "decision": "confirmed_not_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "disc2_13b29db20996add0767700f3",
+    "cve": "CVE-2026-88056",
+    "decision": "confirmed_not_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "disc2_1c69191574b35111a0305319",
+    "cve": "CVE-2026-101895",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_47438d4d1e5aac3844ffd482",
+    "cve": "CVE-2026-88060",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_c95555da0eb5e029b4bfff38",
+    "cve": "CVE-2026-50555",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_e43a6bd1f79f28a1e7baaf35",
+    "cve": "CVE-2026-69149",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_f01213b2a7f5fc48f5387845",
+    "cve": "CVE-2026-50556",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_fa6be2302191002138ed7131",
+    "cve": "CVE-2026-88058",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   }
+  ],
+  "missing": []
+ }
+}

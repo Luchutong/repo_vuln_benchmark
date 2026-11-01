@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["vulnerability_id", "repo_id", "snapshot_id", "advisory_url", "title", "vulnerable_commit", "evidence_level", "verification_method"],
+  "properties": {
+    "vulnerability_id": {"type": "string", "minLength": 1},
+    "aliases": {"type": "array", "items": {"type": "string"}, "minItems": 1},
+    "repo_id": {"type": "string", "minLength": 1},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "advisory_url": {"type": "string", "pattern": "^https://"},
+    "source_urls": {"type": "array", "items": {"type": "string", "pattern": "^https://"}},
+    "advisory_status": {"type": ["string", "null"]},
+    "title": {"type": "string", "minLength": 1},
+    "category_l1": {"type": ["string", "null"]},
+    "category_l2": {"type": ["string", "null"]},
+    "cwe_ids": {"type": "array", "items": {"type": "string"}},
+    "severity": {
+      "type": ["object", "null"],
+      "properties": {
+        "level": {"type": ["string", "null"]},
+        "score": {"type": ["number", "null"], "minimum": 0, "maximum": 10},
+        "vector": {"type": ["string", "null"]},
+        "source": {"type": ["string", "null"]},
+        "status": {"enum": ["confirmed", "missing", "conflict", "unknown", null]}
+      },
+      "additionalProperties": true
+    },
+    "vulnerable_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "affected_range": {"type": ["string", "null"]},
+    "affected_packages": {"type": "array", "items": {"type": "object"}},
+    "fix_commits": {"type": "array", "items": {"type": "string"}},
+    "fixed_releases": {"type": "array", "items": {"type": "object"}},
+    "references": {"type": "array", "items": {"type": "string", "pattern": "^https://"}},
+    "evidence_level": {"enum": ["S1", "S2", "S3"]},
+    "advisory_trust_tier": {"enum": ["T1", "T2", "T3"]},
+    "advisory_review_status": {"enum": ["github_reviewed", "vendor_official", "unreviewed", "unknown"]},
+    "advisory_withdrawn_at": {"type": ["string", "null"], "format": "date-time"},
+    "admission_checks": {
+      "type": "object",
+      "properties": {
+        "sha_release_match": {"type": "boolean"},
+        "component_present": {"type": "boolean"},
+        "no_counter_evidence": {"type": "boolean"},
+        "checked_at": {"type": ["string", "null"], "format": "date-time"},
+        "notes": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "tier_assigned_by": {"type": ["string", "null"]},
+    "tier_assigned_at": {"type": ["string", "null"], "format": "date-time"},
+    "verification_method": {"enum": ["advisory_plus_static_source", "advisory_range_plus_static_source", "advisory_plus_fix_diff", "candidate_only"]},
+    "legacy_review_grade": {"enum": ["A", "B", null]},
+    "static_review_summary": {"type": "string"}
+  },
+  "additionalProperties": true
+}

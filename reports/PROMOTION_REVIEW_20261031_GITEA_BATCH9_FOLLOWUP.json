@@ -1,0 +1,26 @@
+{
+ "report": "gitea/go-gitea v1.25.5 batch 9 follow-up (Actions concurrency cluster)",
+ "generated_at": "2026-10-31T07:29:53Z",
+ "applied": true,
+ "not_affected": [
+  {
+   "candidate_id": "adv3_75fe4a3f7f64be0c",
+   "decision": "confirmed_not_affected",
+   "vulnerability_id": "CVE-2026-103670",
+   "basis": "Requires Actions workflow-level concurrency groups: at v1.25.5 the YAML `concurrency` key is not parsed (no Concurrency field or group handling in modules/actions, models/actions or services/actions), so an inserted fork run can never cancel a trusted in-progress run in a shared group; the OSV range (introduced 0, fixed 15b8a5805adf) reflects the 28.0.0 fix release, not the feature history."
+  },
+  {
+   "candidate_id": "adv3_06b7e01dea6a7625",
+   "decision": "confirmed_not_affected",
+   "vulnerability_id": "CVE-2026-104626",
+   "basis": "Requires Actions run-level concurrency groups: at v1.25.5 no concurrency group is computed and no sibling run is cancelled, so a blocked fork job can never be moved to a terminal state by a later run and then revived by approval; the OSV range (introduced 0, fixed 15b8a5805adf) reflects the 28.0.0 fix release, not the feature history."
+  }
+ ],
+ "left_open": [
+  {
+   "candidate_id": "adv3_69c449c167dbb329",
+   "vulnerability_id": "CVE-2026-104632",
+   "reason": "The frozen Rerun/rerunJob (routers/web/repo/actions/view.go:401-502) does set jobs back to waiting without considering NeedApproval, but the fix (PR #39399, f44e64be8107) is expressed on the v28 services/actions/rerun.go `plan` structure, whose pre-image does not exist at v1.25.5, so the fix marker cannot be tied to the frozen file. Left open for a dedicated review."
+  }
+ ]
+}

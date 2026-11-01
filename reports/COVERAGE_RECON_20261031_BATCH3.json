@@ -1,0 +1,76 @@
+{
+ "checked_at": "2026-10-31T14:11:40Z",
+ "applied": true,
+ "batch": 3,
+ "snapshots": [
+  {
+   "repo": "actix/actix-web",
+   "repo_id": "105379569",
+   "snapshot_id": "snap_ca4042bda2431632",
+   "package": "crates.io:actix-http@3.12.0",
+   "osv_records": 1,
+   "gh_records": 1,
+   "triage_rows": 9,
+   "live_candidates": 3,
+   "undecided_live_candidates": 0,
+   "unresolved_triage_rows": 0,
+   "empty_sources": false,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  },
+  {
+   "repo": "pyca/cryptography",
+   "repo_id": "11939484",
+   "snapshot_id": "snap_7f217d0f9de119d5",
+   "package": "PyPI:cryptography@41.0.5",
+   "osv_records": 16,
+   "gh_records": 8,
+   "triage_rows": 43,
+   "live_candidates": 23,
+   "undecided_live_candidates": 0,
+   "unresolved_triage_rows": 0,
+   "empty_sources": false,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  },
+  {
+   "repo": "elixir-plug/plug",
+   "repo_id": "14421569",
+   "snapshot_id": "snap_69faea6949b7a9bb",
+   "package": "Hex:plug@1.19.2",
+   "osv_records": 4,
+   "gh_records": 1,
+   "triage_rows": 12,
+   "live_candidates": 6,
+   "undecided_live_candidates": 0,
+   "unresolved_triage_rows": 0,
+   "empty_sources": false,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  },
+  {
+   "repo": "PHPMailer/PHPMailer",
+   "repo_id": "2253830",
+   "snapshot_id": "snap_b840904431f8a856",
+   "package": "Packagist:phpmailer/phpmailer@6.1.5",
+   "osv_records": 3,
+   "gh_records": 3,
+   "triage_rows": 18,
+   "live_candidates": 2,
+   "undecided_live_candidates": 0,
+   "unresolved_triage_rows": 0,
+   "empty_sources": false,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  }
+ ],
+ "counts": {
+  "targets": 4,
+  "upgraded": 4,
+  "kept": 0
+ }
+}

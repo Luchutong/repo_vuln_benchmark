@@ -1,0 +1,72 @@
+{
+ "generated_for": "2026-10-31 go-gitea/gitea promotion dry-run review",
+ "source_dryrun": "workdir/promote_gitea.json",
+ "apply": true,
+ "note": "Both proposed anchors were collateral lines of multi-fix fork-merge commits: the OAuth scope file for the OpenID state advisory and an error-message rewording for the diffpatch advisory. Both rows are held here and were relocated and applied via promote_candidate.py (see relocated_rows). The dataset proposals file carries only the v1.26 fix commit 829b49c1ae96 for CVE-2026-104627, so the batch did not list that row; the v1.25.5 backport f270534e8396 is present in the candidate's fix_commits and is what the relocation cites.",
+ "counts": {
+  "admit": 0,
+  "drop": 0,
+  "hold": 2,
+  "total": 2
+ },
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2026-104627",
+   "verdict": "admit",
+   "file": "routers/web/user/setting/security/openid.go",
+   "function": "settingsOpenIDVerify",
+   "line_start": 82,
+   "line_end": 88,
+   "granularity": "function",
+   "evidence_type": "source_review",
+   "fix_commit": "https://github.com/go-gitea/gitea/commit/f270534e8396cd2dfbee6cdac4c3018a5878386c",
+   "applied": true,
+   "reason": "Frozen settingsOpenIDVerify verifies the OpenID 2.0 assertion and immediately calls AddUserOpenID with ctx.Doer.ID, with no state binding the callback to this session. Since OpenID 2.0 allows unsolicited assertions, an attacker-controlled provider can link the attacker's identity to a signed-in victim who opens a crafted link, and the attacker can then sign in as the victim through OpenID login, which skips local TOTP/WebAuthn. The v1.25 backport f270534e8396 adds a time-limited state to the redirect in OpenIDPost and rejects the callback when VerifyTimeLimitCode fails."
+  },
+  {
+   "vulnerability_id": "CVE-2026-60004",
+   "verdict": "admit",
+   "file": "services/repository/files/patch.go",
+   "function": "ApplyDiffPatch",
+   "line_start": 130,
+   "line_end": 130,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/go-gitea/gitea/commit/d7bc52beeadff4be5f5690de4d5de42abd10affe",
+   "applied": true,
+   "reason": "Frozen line 130 clones a bare repository (t.Clone(ctx, opts.OldBranch, true)) and the subsequent git apply --index --cached writes into its working tree, so repository-controlled patch content can install Git hooks that Gitea executes (RCE as the Gitea OS user). The backport d7bc52beeadf changes true to false with the comment that the following git commands may operate the working tree directly."
+  }
+ ],
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-104627",
+   "advisory_record": "CVE-2026-104627",
+   "repo": "go-gitea/gitea",
+   "snapshot_version": "v1.25.5",
+   "advisory_trust_tier": "T2",
+   "file": "models/auth/access_token_scope.go",
+   "function": "ContainsCategory",
+   "line_start": 215,
+   "line_end": 217,
+   "granularity": "line",
+   "fix_commit": "f270534e8396",
+   "verdict": "hold",
+   "reason": "The advisory is OpenID association without session binding, but the anchored hunk is in the OAuth2 scope part of the same fork-merge fix. The state check this CVE describes is inserted at the top of settingsOpenIDVerify in routers/web/user/setting/security/openid.go (frozen v1.25.5 line 82). Relocate there."
+  },
+  {
+   "vulnerability_id": "CVE-2026-60004",
+   "advisory_record": "GHSA-rcr6-4jqh-j84m",
+   "repo": "go-gitea/gitea",
+   "snapshot_version": "v1.25.5",
+   "advisory_trust_tier": "T1",
+   "file": "services/repository/files/patch.go",
+   "function": "ApplyDiffPatch",
+   "line_start": 149,
+   "line_end": 149,
+   "granularity": "line",
+   "fix_commit": "d7bc52beeadf",
+   "verdict": "hold",
+   "reason": "Line 149 is only the reworded invalid-last-commit-ID error. The diffpatch RCE is fixed by changing the temporary clone from bare to non-bare: t.Clone(ctx, opts.OldBranch, true) becomes false at frozen 130, with the fix comment that the following git commands may operate the working tree directly. Relocate to 130."
+  }
+ ]
+}

@@ -1,0 +1,37 @@
+{
+ "report": "curl/curl curl-8_3_0 batch 3 (CVE-2026-86410)",
+ "generated_at": "2026-10-31T07:58:26Z",
+ "applied": true,
+ "summary": {
+  "rows": 1,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-86410",
+   "candidate_id": "disc2_dca32ccca515caaaa33aec32",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "src/tool_operate.c",
+   "function": "single_transfer",
+   "line": 1797,
+   "anchor_class": "removed_line",
+   "patch_file": "src/config2setopts.c",
+   "fix_commit": "6ae9befb2fb6bdfdb5fc11fdf76bbe519fe1f52c",
+   "pr": 22839,
+   "fixed_version": "8.23.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-297"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 src/tool_operate.c:1797 is the pre-image of the fix hunk in 6ae9befb2fb6 (removed_line); introduced 7.81.0, fixed 6ae9befb2fb6 (8.23.0), PR #22839; SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function single_transfer and present in the patch added lines for src/config2setopts.c. Severity/cwe from the curl advisory record."
+  }
+ ],
+ "failures": []
+}

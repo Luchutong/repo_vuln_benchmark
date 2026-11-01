@@ -1,0 +1,376 @@
+{
+ "report": "gitea/go-gitea v1.25.5 batch 4 row-level review (open 2026 advisories)",
+ "scope": "first ten of the 87 open needs_static_location candidates whose bundled fix commit contains a handler matching the advisory text, plus three candidates duplicating an already-promoted CVE and one range-excluded CVE",
+ "method": "advisory text -> handler attribution inside a bundle commit; anchor = frozen pre-image line of that handler hunk (removed_line), the frozen line an inserted guard protects (adjacent_insertion), or a hand-read frozen line when the fix parent drifted (manual_anchor); marker must be absent from the frozen enclosing function and present in the fix patch added lines",
+ "generated_at": "2026-10-31T07:07:45Z",
+ "summary": {
+  "rows": 10,
+  "removed_line": 6,
+  "adjacent_insertion": 2,
+  "manual_anchor": 2,
+  "T1": 10,
+  "T2": 0,
+  "duplicates": 3,
+  "confirmed_not_affected": 2,
+  "skipped": 3,
+  "failures": 0,
+  "applied": true
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-101023",
+   "candidate_id": "adv3_e30825a2792839ff",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/auth/oauth2_provider.go",
+   "function": "handleRefreshToken",
+   "line_start": 548,
+   "line_end": 548,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-469m-x4mw-38r3",
+   "advisory_range": "OSV: introduced 0, fixed 28.1.0",
+   "severity": {
+    "level": "medium",
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+    "cwe": [
+     "CWE-287"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/auth/oauth2_provider.go:548-548 is the pre-image of the handler-specific hunk in 89363035105d (\"fix: add missing checks to several API and web handlers (#39501)\") + 2d58c8c3dfda (\"fix: add missing checks to several API and web handlers (#39501) (#39507)\") (removed_line); the fix release is OSV: introduced 0, fixed 28.1.0 and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-469m-x4mw-38r3."
+  },
+  {
+   "vulnerability_id": "CVE-2026-103059",
+   "candidate_id": "adv3_61e38250ce7e888d",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "models/asymkey/ssh_key.go",
+   "function": "SearchPublicKeyByContent",
+   "line_start": 145,
+   "line_end": 145,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "448f8c67e043b09546ca018754ca77c3b493a0c7"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-8pwg-hcgm-54cp",
+   "advisory_range": "OSV: introduced 0, fixed 28.0.0",
+   "severity": {
+    "level": "critical",
+    "score": 9.1,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cwe": [
+     "CWE-287"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 models/asymkey/ssh_key.go:145-145 is the pre-image of the handler-specific hunk in 448f8c67e043 (\"fix(ssh): fetch ssh key by fingerprint (#39423)\") (removed_line); the fix release is OSV: introduced 0, fixed 28.0.0 and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-8pwg-hcgm-54cp."
+  },
+  {
+   "vulnerability_id": "CVE-2026-103667",
+   "candidate_id": "adv3_a8e6af371e0d1ab7",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/packages/container/container.go",
+   "function": "serveBlob",
+   "line_start": 708,
+   "line_end": 708,
+   "anchor_class": "manual_anchor",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "71065941a9bb6de859e081f2db2ff5ffb4db16f7"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-7cq7-4v93-8wjm",
+   "advisory_range": "OSV: introduced 0, fixed 28.0.0",
+   "severity": {
+    "level": "critical",
+    "score": 9.0,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H",
+    "cwe": [
+     "CWE-79"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/packages/container/container.go:708-708 is the pre-image of the handler-specific hunk in 71065941a9bb (\"fix: use correct content-type for container registry response (#39398)\") (manual_anchor); the fix release is OSV: introduced 0, fixed 28.0.0 and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-7cq7-4v93-8wjm."
+  },
+  {
+   "vulnerability_id": "CVE-2026-104633",
+   "candidate_id": "adv3_8103d39a510a3062",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/migrations/gitea_downloader.go",
+   "function": "NewGiteaDownloader",
+   "line_start": 110,
+   "line_end": 112,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-jj5r-9rpc-8h6h",
+   "advisory_range": "OSV: introduced 0, fixed 28.1.0",
+   "severity": {
+    "level": "medium",
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+    "cwe": [
+     "CWE-400",
+     "CWE-835"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/migrations/gitea_downloader.go:110-112 is the pre-image of the handler-specific hunk in 89363035105d (\"fix: add missing checks to several API and web handlers (#39501)\") + 2d58c8c3dfda (\"fix: add missing checks to several API and web handlers (#39501) (#39507)\") (removed_line); the fix release is OSV: introduced 0, fixed 28.1.0 and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-jj5r-9rpc-8h6h."
+  },
+  {
+   "vulnerability_id": "CVE-2026-105267",
+   "candidate_id": "adv3_2a241e737a1d62af",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/repo/release.go",
+   "function": "deleteReleaseOrTag",
+   "line_start": 654,
+   "line_end": 654,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-vvqw-mjq8-x248",
+   "advisory_range": "OSV: introduced 0, fixed 28.1.0",
+   "severity": {
+    "level": "medium",
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:H/A:N",
+    "cwe": [
+     "CWE-732",
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/repo/release.go:654-654 is the pre-image of the handler-specific hunk in 89363035105d (\"fix: add missing checks to several API and web handlers (#39501)\") + 2d58c8c3dfda (\"fix: add missing checks to several API and web handlers (#39501) (#39507)\") (adjacent_insertion); the fix release is OSV: introduced 0, fixed 28.1.0 and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-vvqw-mjq8-x248."
+  },
+  {
+   "vulnerability_id": "CVE-2026-105268",
+   "candidate_id": "adv3_29d219fb697640f7",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/repo/issue_attachment.go",
+   "function": "attachmentBelongsToRepoOrIssue",
+   "line_start": 389,
+   "line_end": 390,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-96qg-qxxj-r8xq",
+   "advisory_range": "OSV: introduced 0, fixed 28.1.0",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:N",
+    "cwe": [
+     "CWE-639",
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/repo/issue_attachment.go:389-390 is the pre-image of the handler-specific hunk in 89363035105d (\"fix: add missing checks to several API and web handlers (#39501)\") + 2d58c8c3dfda (\"fix: add missing checks to several API and web handlers (#39501) (#39507)\") (removed_line); the fix release is OSV: introduced 0, fixed 28.1.0 and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-96qg-qxxj-r8xq."
+  },
+  {
+   "vulnerability_id": "CVE-2026-101027",
+   "candidate_id": "adv3_bd75bda69a16e7f4",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/migrations/migrate.go",
+   "function": "checkByAllowBlockList",
+   "line_start": 101,
+   "line_end": 101,
+   "anchor_class": "manual_anchor",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "1b1274486c401c96f308d960e35163dd1f9f1a2c"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-fqjr-23c8-gg9m",
+   "advisory_range": "OSV: introduced 0, fixed 28.0.0",
+   "severity": {
+    "level": "high",
+    "score": 7.7,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N",
+    "cwe": [
+     "CWE-918"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/migrations/migrate.go:101-101 is the pre-image of the handler-specific hunk in 1b1274486c40 (\"fix(git)!: use internal proxy for all git operations (#39426)\") (manual_anchor); the fix release is OSV: introduced 0, fixed 28.0.0 and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-fqjr-23c8-gg9m."
+  },
+  {
+   "vulnerability_id": "CVE-2026-24791",
+   "candidate_id": "adv3_214e6f5b22471a44",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/user/repo.go",
+   "function": "listUserRepos",
+   "line_start": 25,
+   "line_end": 29,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "f2a1271f164569264c378fad720b0c000fff3336"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-wrr5-99h5-gq57",
+   "advisory_range": "OSV: introduced 1.22.3, last affected 1.26.1 (fixed 1.26.2)",
+   "severity": {
+    "level": "high",
+    "score": 8.1,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/user/repo.go:25-29 is the pre-image of the handler-specific hunk in f2a1271f1645 (\"fix: Unify public-only token filtering in API queries and repo access checks (#37118)\") (removed_line); the fix release is OSV: introduced 1.22.3, last affected 1.26.1 (fixed 1.26.2) and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-wrr5-99h5-gq57."
+  },
+  {
+   "vulnerability_id": "CVE-2026-25714",
+   "candidate_id": "adv3_5173e5079bb83ed3",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/api.go",
+   "function": "checkTokenPublicOnly",
+   "line_start": 274,
+   "line_end": 314,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "f2a1271f164569264c378fad720b0c000fff3336"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-8629-vc8r-5p58",
+   "advisory_range": "OSV: introduced 0, last affected 1.26.1 (fixed 1.26.2)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-862"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/api.go:274-314 is the pre-image of the handler-specific hunk in f2a1271f1645 (\"fix: Unify public-only token filtering in API queries and repo access checks (#37118)\") (removed_line); the fix release is OSV: introduced 0, last affected 1.26.1 (fixed 1.26.2) and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-8629-vc8r-5p58."
+  },
+  {
+   "vulnerability_id": "CVE-2026-20706",
+   "candidate_id": "adv3_4e5c92b70443ee03",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/repo/repo.go",
+   "function": "Download",
+   "line_start": 367,
+   "line_end": 367,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "c3d9d0770253fcb168da979094d07ed522be5905"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-cr4g-f395-h25h",
+   "advisory_range": "OSV: introduced 0, last affected 1.26.1 (fixed 1.26.2)",
+   "severity": {
+    "level": "medium",
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/repo/repo.go:367-367 is the pre-image of the handler-specific hunk in c3d9d0770253 (\"fix: Add missed token scope checking (#37735)\") (adjacent_insertion); the fix release is OSV: introduced 0, last affected 1.26.1 (fixed 1.26.2) and postdates the snapshot. The cited commit bundles several handlers, so the row was attributed to this CVE by matching the advisory text to the modified handler; the marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-cr4g-f395-h25h."
+  }
+ ],
+ "duplicates": [
+  {
+   "candidate_id": "adv3_04204c3a1e996757",
+   "decision": "duplicate",
+   "canonical_candidate_id": "disc2_b613d9893bd841b4114841d8",
+   "vulnerability_id": "CVE-2026-28740"
+  },
+  {
+   "candidate_id": "adv3_6f7d9ccc1fcfbf3b",
+   "decision": "duplicate",
+   "canonical_candidate_id": "disc2_4a2df7da308a7047eb620d08",
+   "vulnerability_id": "CVE-2026-58422"
+  },
+  {
+   "candidate_id": "adv3_a29516a84609feac",
+   "decision": "duplicate",
+   "canonical_candidate_id": "disc2_dc21bfb626ced47d5f4698d2",
+   "vulnerability_id": "CVE-2026-60004"
+  }
+ ],
+ "skipped": [
+  {
+   "vulnerability_id": "CVE-2026-101029",
+   "candidate_id": "adv3_1a6c5f293b33e5a1",
+   "reason": "The multi-answer DNS bypass is the OR-over-answers defect in checkByAllowBlockList already anchored by CVE-2026-58442 at services/migrations/migrate.go:89-106; its own fix (the egress rework) does not add a distinct code path at v1.25.5."
+  },
+  {
+   "vulnerability_id": "CVE-2026-104636",
+   "candidate_id": "adv3_704c243e63191904",
+   "reason": "The fix removes modules/git/redirection.go, a no-op HandleGitCmdHTTPRedirection helper that does not exist at v1.25.5, so there is no frozen anchor for the redirect-SSRF change."
+  },
+  {
+   "vulnerability_id": "CVE-2026-55987",
+   "candidate_id": "adv3_4843a875b11de563",
+   "reason": "Same as batch 3: the flawed gate postdates v1.25.5; the cited 73e0e442 hunks are unrelated attachment/mailer changes."
+  }
+ ],
+ "failures": []
+}

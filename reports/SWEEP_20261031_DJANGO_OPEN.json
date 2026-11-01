@@ -1,0 +1,48 @@
+{
+ "repo": "django/django",
+ "repo_id": "4164482",
+ "snapshot_id": "snap_516aa9971dd9509d",
+ "tag": "4.2.13",
+ "sha": "3bf46e2e023904c825728267f3131c42f02ce696",
+ "applied": true,
+ "checked_at": "2026-10-31T12:26:24Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-15337",
+   "snapshot_id": "snap_516aa9971dd9509d",
+   "location": "django/utils/translation/trans_real.py:462-479",
+   "permalink": "https://github.com/django/django/blob/3bf46e2e023904c825728267f3131c42f02ce696/django/utils/translation/trans_real.py#L462-L479",
+   "excerpt_head": "@functools.lru_cache(maxsize=1000)\ndef check_for_language(lang_code):\n    \"\"\"\n    Check whether there is a global language file for the given language\n    code.",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-15337",
+   "candidate_id": "sweep_bd6e590c5836791d",
+   "fix_commits": [
+    "27137e655e442e81095f1f8f77ff3870d9fdf169",
+    "c72a5dbb64d0777f3f471f1be94e8b2ca91e0959"
+   ]
+  }
+ ],
+ "duplicate": {},
+ "not_affected": {
+  "disc2_0375e0e8d50b5f62dc5c2e03": "CVE-2024-41990 (urlize/urlizetrunc DoS) is a regression of the 4.2.14 fix for CVE-2024-38875: the 4.2.15 patch d0a82e26 edits the CountsDict-based trim_punctuation introduced in 4.2.14, and its new regression inputs (\"&.;\"*100000, \".;\"*100000) exercise the `amp = middle.rfind(\"&\")` branch added by that rewrite. The frozen 4.2.13 trim_punctuation (django/utils/html.py:333-367) is the earlier implementation: it calls html.unescape(middle) and rstrips once per while-pass over the whole word and contains no amp/rfind, no CountsDict and no trailing_punctuation_chars_no_semicolon, so the code the 4.2.15 fix modifies does not exist at this tag. 4.2.13 has its own urlize DoS (very large bracket inputs, CVE-2024-38875, fixed in 4.2.14), which is a distinct advisory. The OSV/NVD range \"4.2 before 4.2.15\" is coarse and does not mean the patched construct is present at this snapshot.",
+  "disc2_91b14048e4ec3e3a627057a1": "CVE-2024-45230 (urlize/urlizetrunc DoS via trailing semicolons) targets the amp/semicolon branch that the 4.2.14 urlize rewrite introduced: the 4.2.16 fix d147a8eb rewrites that branch using trail_start and trailing_punctuation_chars, and its regression input \"&\" + \";:\"*100000 exercises it. At the frozen 4.2.13 tag trim_punctuation (django/utils/html.py:333-367) is the earlier implementation with no amp variable, no semicolon/entity special-case and no CountsDict; the whole post-4.2.14 code path the fix edits is absent. The published \"4.2 before 4.2.16\" range is coarse version-range boilerplate; code-level review shows this CVE cannot be anchored in the 4.2.13 source.",
+  "sweep_a07451b3f9889036": "CVE-2026-53878 is a missing-newline check in DomainNameValidator: the fix d5d60ed0 changes the class regex tail from r\"$\" to r\"\\Z\". The frozen 4.2.13 tree has no DomainNameValidator at all: a grep over the whole tag checkout finds zero occurrences, and django/core/validators.py only defines RegexValidator, URLValidator, EmailValidator and the validate_* helpers (no hostname_re/tld_re class). The component the advisory names therefore cannot accept a newline here. NVD also restricts the CVE to 5.2 < 5.2.16 and 6.0 < 6.0.7. The OSV record's blanket {introduced: 0} range is not code evidence, and the advisory text itself says earlier unsupported series were not evaluated."
+ },
+ "counts": {
+  "promoted": 1,
+  "not_affected": 3
+ },
+ "fixes": {
+  "CVE-2026-15337": [
+   "27137e655e442e81095f1f8f77ff3870d9fdf169",
+   "c72a5dbb64d0777f3f471f1be94e8b2ca91e0959"
+  ]
+ },
+ "notes": [
+  "The two 2024 urlize candidates were range hits only: both fixes edit the trim_punctuation rewrite that shipped in 4.2.14, and the frozen 4.2.13 function is the earlier implementation, so the patched code is absent at this tag. 4.2.13 has the separate bracket DoS CVE-2024-38875 (fixed in 4.2.14).",
+  "CVE-2026-53878 cannot exist at 4.2.13 because the whole DomainNameValidator class is missing from the tag, and NVD starts its range at 5.2.",
+  "CVE-2026-15337 is promoted: the vulnerable lru_cache-on-untrusted-input construct is present, the fix is a length gate that does not exist anywhere in 4.2.13, and NVD has no lower bound on the CPE range."
+ ]
+}

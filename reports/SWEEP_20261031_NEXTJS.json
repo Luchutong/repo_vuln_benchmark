@@ -1,0 +1,463 @@
+{
+ "repo": "vercel/next.js",
+ "repo_id": "70107786",
+ "snapshot_id": "snap_ccfc92616d383a5b",
+ "tag": "v14.2.24",
+ "sha": "756be15c4cfecb6fae1c69cae7cfaf336423b6cf",
+ "applied": true,
+ "checked_at": "2026-10-31T11:44:25Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44573",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/router-utils/resolve-routes.ts:399-407",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/router-utils/resolve-routes.ts#L399-L407",
+   "excerpt_head": "            if (config.i18n) {\n              const curLocaleResult = normalizeLocalePath(\n                normalized,\n                config.i18n.locales\n      ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44573",
+   "candidate_id": "disc2_46066f8f36990c9b4562baac",
+   "fix_commits": [
+    "6c72e0b4ee096643b42c742f35e0de84c41d190d"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44572",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/server-ipc/utils.ts:42-51",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/server-ipc/utils.ts#L42-L51",
+   "excerpt_head": "const INTERNAL_HEADERS = [\n  'x-middleware-rewrite',\n  'x-middleware-redirect',\n  'x-middleware-set-cookie',\n  'x-middleware-skip',\n  'x-middleware-override-hea",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44572",
+   "candidate_id": "disc2_899ae7e374fe615afee1ca05",
+   "fix_commits": [
+    "ac51823b5b2e2beaf57faf78aef6031d0bae2bd5"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44580",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/client/script.tsx:340-344",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/client/script.tsx#L340-L344",
+   "excerpt_head": "              __html: `(self.__next_s=self.__next_s||[]).push(${JSON.stringify([\n                0,\n                { ...restProps, id },\n              ])})`,\n ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44580",
+   "candidate_id": "disc2_68e4cb21e2827e3cf9061267",
+   "fix_commits": [
+    "086dfa7f8fd284646266d8c757c9ab59b2ce1a43"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44581",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/app-render/get-script-nonce-from-header.tsx:43-50",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/app-render/get-script-nonce-from-header.tsx#L43-L50",
+   "excerpt_head": "  // Don't accept the nonce value if it contains HTML escape characters.\n  // Technically, the spec requires a base64'd value, but this is just an\n  // extra la",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44581",
+   "candidate_id": "disc2_07e0f1a88dbc7e0d97d059e0",
+   "fix_commits": [
+    "79d7dff1448483f0c8f187f98887b31019f6e494"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44578",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/router-server.ts:699-700",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/router-server.ts#L699-L700",
+   "excerpt_head": "      if (parsedUrl.protocol) {\n        return await proxyRequest(req, socket as any, parsedUrl, head)",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44578",
+   "candidate_id": "disc2_dfc9e1b0718c997aa176bf5b",
+   "fix_commits": [
+    "c4f69086cc8dcbd81b1dbc321c98ea874d90d6f8"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44577",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/image-optimizer.ts:612-612",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/image-optimizer.ts#L612",
+   "excerpt_head": "    const buffer = Buffer.concat(mocked.res.buffers)",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44577",
+   "candidate_id": "disc2_d3e3c92902c9f8a1c22a9591",
+   "fix_commits": [
+    "3f1b7b7501e9ec030866e0df82b4d7573460edec"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-59471",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/image-optimizer.ts:576-576",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/image-optimizer.ts#L576",
+   "excerpt_head": "  const buffer = Buffer.from(await res.arrayBuffer())",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-59471",
+   "candidate_id": "disc2_bd84de2be71a1b79168a3e1c",
+   "fix_commits": [
+    "39a2f6a8d13dfa50cee843f93241c8c1dbaf801e"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-64645",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/shared/lib/router/utils/prepare-destination.ts:209-209",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/shared/lib/router/utils/prepare-destination.ts#L209",
+   "excerpt_head": "  const destHostnameCompiler = compile(destHostname, { validate: false })",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-64645",
+   "candidate_id": "disc2_3a243d7e14832787d807fb90",
+   "fix_commits": [
+    "35f501357e9b0fe7c950b0d6aa8fcf5343f707e9"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-64646",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/app-render/action-handler.ts:570-570",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/app-render/action-handler.ts#L570",
+   "excerpt_head": "          const formData = await webRequest.request.formData()",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-64646",
+   "candidate_id": "disc2_efca93103d552319f2cf3875",
+   "fix_commits": [
+    "57c31f724d746e86a9e8b92aa8be538a922446a4"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-75604",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/incremental-cache/file-system-cache.ts:442-461",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/incremental-cache/file-system-cache.ts#L442-L461",
+   "excerpt_head": "  private getFilePath(\n    pathname: string,\n    kind: 'app' | 'fetch' | 'pages'\n  ): string {\n    switch (kind) {\n      case 'fetch':\n        // we store in .n",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-75604",
+   "candidate_id": "disc2_528c95e0d7ca564583c6e2d9",
+   "fix_commits": [
+    "b0f3460a92b955d3ca41fccff9a525a2b910fbf3",
+    "968b9fcb26bdeb8e0a861a9df05361474666d51b"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-48068",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/router-server.ts:303-303",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/router-server.ts#L303",
+   "excerpt_head": "      if (developmentBundler) {",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-48068",
+   "candidate_id": "disc2_e2dc713dd9317b11b19062a3",
+   "fix_commits": [
+    "f523d4a142913fa9f9f743241cc6132a39f6883b"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-55184",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/compiled/react-server-dom-webpack/package.json:50-51",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/compiled/react-server-dom-webpack/package.json#L50-L51",
+   "excerpt_head": "    \"react\": \"18.3.0-canary-178c267a4e-20241218\",\n    \"react-dom\": \"18.3.0-canary-178c267a4e-20241218\",",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-55184",
+   "candidate_id": "adv3_34f96fde48f69132",
+   "fix_commits": [
+    "8e43882798208066d8fb4c44f9d4362bb4900a1b"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44582",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/client/components/router-reducer/fetch-server-response.ts:87-93",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/client/components/router-reducer/fetch-server-response.ts#L87-L93",
+   "excerpt_head": "  const uniqueCacheQuery = hexHash(\n    [\n      headers[NEXT_ROUTER_PREFETCH_HEADER] || '0',\n      headers[NEXT_ROUTER_STATE_TREE],\n      headers[NEXT_URL],\n   ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44582",
+   "candidate_id": "disc2_2dff514f8f281cf2756c65ff",
+   "fix_commits": [
+    "8c96fec05695fe907c50e9626bc3e6ec59ea8a9b"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-44576",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/app-render/app-render.tsx:811-811",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/app-render/app-render.tsx#L811",
+   "excerpt_head": "  const isRSCRequest = req.headers[RSC_HEADER.toLowerCase()] !== undefined",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-44576",
+   "candidate_id": "disc2_bed0c867130812cd677caf86",
+   "fix_commits": [
+    "3e247110b33f3bee3d05cfbac342581051cdf405"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-55173",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/image-optimizer.ts:594-599",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/image-optimizer.ts#L594-L599",
+   "excerpt_head": "    const mocked = createRequestResponseMocks({\n      url: href,\n      method: _req.method || 'GET',\n      headers: _req.headers,\n      socket: _req.socket,\n   ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-55173",
+   "candidate_id": "disc2_675d09786cccdce64cc8fc51",
+   "fix_commits": [
+    "6b12c60c61ee80cb0443ccd20de82ca9b4422ddd"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-57752",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/image-optimizer.ts:594-599",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/image-optimizer.ts#L594-L599",
+   "excerpt_head": "    const mocked = createRequestResponseMocks({\n      url: href,\n      method: _req.method || 'GET',\n      headers: _req.headers,\n      socket: _req.socket,\n   ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-57752",
+   "candidate_id": "disc2_54e811d36b2b6cdd75efe325",
+   "fix_commits": [
+    "6b12c60c61ee80cb0443ccd20de82ca9b4422ddd"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-57822",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/router-utils/resolve-routes.ts:641-651",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/router-utils/resolve-routes.ts#L641-L651",
+   "excerpt_head": "            if (middlewareHeaders['location']) {\n              const value = middlewareHeaders['location'] as string\n              const rel = relativizeURL(val",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-57822",
+   "candidate_id": "disc2_9d72a14453f48b5aacd95e31",
+   "fix_commits": [
+    "9c9aaed5bb9338ef31b0517ccf0ab4414f2093d8"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-27980",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/image-optimizer.ts:388-401",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/image-optimizer.ts#L388-L401",
+   "excerpt_head": "      Math.max(revalidate, this.nextConfig.images.minimumCacheTTL) * 1000 +\n      Date.now()\n\n    try {\n      await writeToCacheDir(\n        join(this.cacheDir,",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-27980",
+   "candidate_id": "disc2_67445c5427a0c5bfb2af3a2a",
+   "fix_commits": [
+    "39eb8e0ac498b48855a0430fbf4c22276a73b4bd"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-64643",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/app-render/action-utils.ts:17-30",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/app-render/action-utils.ts#L17-L30",
+   "excerpt_head": "  return new Proxy(\n    {},\n    {\n      get: (_, id: string) => {\n        return {\n          id: serverActionsManifest[\n            process.env.NEXT_RUNTIME ===",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-64643",
+   "candidate_id": "disc2_6ad23f200eae48e11219b0b9",
+   "fix_commits": [
+    "ff12a6124e1504f17b62de948b8a553fdecaef7b",
+    "1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-64647",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/incremental-cache/index.ts:330-340",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/incremental-cache/index.ts#L330-L340",
+   "excerpt_head": "                  chunks.push(encoder.encode(chunk))\n                  bodyChunks.push(chunk)\n                } else {\n                  chunks.push(chunk)\n    ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-64647",
+   "candidate_id": "disc2_e4b6b8b325d3cc5c88c9065d",
+   "fix_commits": [
+    "025bf4a5f7b47fb7758c4ebf1c931a61c451c082"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-64648",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/lib/patch-fetch.ts:469-476",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/lib/patch-fetch.ts#L469-L476",
+   "excerpt_head": "        if (staticGenerationStore.incrementalCache && isCacheableRevalidate) {\n          try {\n            cacheKey =\n              await staticGenerationStore.",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-64648",
+   "candidate_id": "disc2_7cd9c5f4c142fe903f81e201",
+   "fix_commits": [
+    "062f66700b52a5d6bba2c0605d55577ab7ad262c",
+    "73b94872bc343d09494b50394d8c08eb9fc8e56a"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-64649",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "location": "packages/next/src/server/app-render/action-handler.ts:180-183",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/server/app-render/action-handler.ts#L180-L183",
+   "excerpt_head": "  // For standalone or the serverful mode, use the internal origin directly\n  // other than the host headers from the request.\n  const origin = process.env.__NE",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-64649",
+   "candidate_id": "disc2_b56186bddcdabbe070e60bb1",
+   "fix_commits": [
+    "e3e5666ccead3a15162793d697af5e48b7cc0498",
+    "b51206321854193208c0805ba42acc49287f942b"
+   ]
+  }
+ ],
+ "duplicates": {
+  "adv3_c7b17a760a27ce3c": "adv3_34f96fde48f69132",
+  "disc2_d35ee832fcafc2b404cd9e8a": "adv3_34f96fde48f69132",
+  "disc2_47d7d3cee8e8d0f8ae3691bb": "adv3_34f96fde48f69132",
+  "disc2_256f7730d886766876428eae": "adv3_86ef089391008788",
+  "disc2_49ae8a9332fc36e900e2412a": "adv3_e83efe88ba153617",
+  "disc2_2c17cf88dda453f13d80c546": "adv3_b8e39225010ac61d"
+ },
+ "not_affected": {
+  "adv3_37ace347de2c63cf": "OSV range for GHSA-wff4-fpwg-qqv3 is introduced 12.2.3, fixed 12.2.4 only.  14.2.24 is far outside that range, so the server crash fix has been present since the 12.2.4 release.",
+  "disc2_1e56657d32603a1cbe45cbe4": "The Server Actions DoS ranges are 13.0.0-13.5.8, 14.0.0-14.2.21 and 15.0.0-15.1.2 (GHSA-7m27-7ghc-44w9).  The frozen 14.2.24 is after the 14.2.21 fix, so the bounded action body handling is already present.",
+  "disc2_78d61aaf72de17706aa4c6dc": "GHSA-223j-4rm8-mrmf introduces the x-middleware-subrequest-id leak in 14.2.25 (fixed 14.2.26), 15.2.3, 13.5.9 and 12.3.5.  The frozen 14.2.24 predates the 14.2.25 introduction, so the vulnerable code does not exist at this snapshot.",
+  "disc2_c7845a6a3a37239fb0be4d30": "GHSA-qpjv-v59x-3qc4 lists the 14.x range as introduced 0.9.9 and fixed 14.2.24, and the frozen tree is exactly the v14.2.24 tag commit 756be15c, i.e. the release that carries the race-condition cache-poisoning fix.",
+  "adv3_8c02a4878b3b9078": "The React flight RCE ranges start at 14.3.0-canary.77 / 15.0.0-canary.0 (GHSA-9qr9-h5gf-34mp).  The frozen 14.2.24 predates those canary lines and its vendored react-server-dom-webpack pin is the 2024-12-18 canary, outside the affected versions listed for the RCE.",
+  "adv3_2a0febff17f6368f": "GHSA-w37m-7fhw-fmv9 starts at 15.0.0-canary.0 and has no 14.2 range.  The source-code-exposure path it fixes does not exist on the 14.2.24 line.",
+  "adv3_35b25d8facd9a062": "GHSA-h694-7cp9-m8p3 only lists 16.3.0-16.3.8 (fixed 16.3.8).  The cached `use cache` root-param leak was introduced after v14.2.24 and cannot reproduce at this snapshot.",
+  "adv3_efe00498f7a05a3e": "GHSA-vcvr-r3jv-pc5j affects 16.2.0-16.3.6 only (next/og ImageResponse RCE).  The 14.2 line does not contain the affected 16.x code.",
+  "adv3_49327bdad54ca190": "GHSA-673q-mjm6-r5xr affects 16.0.0-16.4.0 only (RCE in `use cache` functions returning typed arrays).  The frozen 14.2.24 predates the 16.0.0 introduction."
+ },
+ "out_of_scope": {
+  "adv3_10fb59fcb5800e26": "The unauthenticated image-optimizer RCE for SVG inputs is in the upstream sharp/libvips stack: the 15.5.28 fix 5e3b687b5e only bumps `sharp` in packages/next/package.json and pnpm-lock.yaml, and the advisory text attributes the flaw to libvips.  No Next-authored source file takes part in the SVG decode path, so there is no location to anchor in this repository.",
+  "disc2_107d1e97808c925501c452eb": "The request smuggling is in http-proxy 1.18.1: the fix dc98c04f37 adds patches/http-proxy@1.18.1.patch (hop-by-hop Transfer-Encoding handling) and regenerates the vendored packages/next/src/compiled/http-proxy/index.js plus pnpm-lock.yaml.  No Next-authored server/router source changes; the defect lives in the dependency copy, so the repository has no source location for the root cause."
+ },
+ "left_open": {
+  "adv3_86ef089391008788": "Upstream React RSC deserialization DoS (GHSA-h25m-26qc-wcjf -> facebook/react GHSA-83fc-fqcc-2hmg) whose OSV range covers Next.js 13.x-16.x, but the 14.2 line has no published fixed version.  At 14.2.24 the vendored react-server-dom-webpack is 18.3.0-canary-178c267a4e-20241218, older than the React 19.x builds named in the advisory; whether it contains the same deserialization defect needs a decoder-level review that this pass did not perform.",
+  "adv3_b8e39225010ac61d": "RSC Server Components DoS (GHSA-q4gf-8mx6-v5v3 -> React GHSA-479c-33wc-g2pg), 14.2 line fixed only at 15.5.15 upstream; the same vendored-decoder question as CVE-2026-23864.  Not closed because the decoder at 14.2.24 has not been analyzed for this specific pathological input.",
+  "adv3_e83efe88ba153617": "RSC Server Components DoS (GHSA-8h8q-6873-q5fj -> React GHSA-rv78-f8rc-xrxh), fixed only on 15.x/16.x.  Same open vendored-decoder question as CVE-2026-23864.",
+  "disc2_0a06e67944652b11e82e36b1": "Server Action DoS fixed by 15.5.21 (0196285716).  The symbols the fix touches (`$ACTION_REF_` handling and areAllActionIdsValid) do not exist at 14.2.24, so the exact vulnerable path is absent; however 14.2.24 still accepts unbounded Server Action payloads on some paths (cf. CVE-2026-64646), so the candidate is left possible_affected rather than closed.",
+  "adv3_c71d115b3aa6a14a": "Server Action DoS fixed in 15.5.28 (16.4.1) by syncing the React transport build; the advisory gives no Next-authored code hunk.  The vendored flight transport at 14.2.24 was not compared against the fixed build, so the candidate stays open."
+ },
+ "counts": {
+  "duplicate": 6,
+  "out_of_scope": 2,
+  "confirmed_affected": 1,
+  "confirmed_not_affected": 9,
+  "possible_affected": 5
+ },
+ "fixes": {
+  "CVE-2026-44573": [
+   "6c72e0b4ee096643b42c742f35e0de84c41d190d"
+  ],
+  "CVE-2026-44572": [
+   "ac51823b5b2e2beaf57faf78aef6031d0bae2bd5"
+  ],
+  "CVE-2026-44580": [
+   "086dfa7f8fd284646266d8c757c9ab59b2ce1a43"
+  ],
+  "CVE-2026-44581": [
+   "79d7dff1448483f0c8f187f98887b31019f6e494"
+  ],
+  "CVE-2026-44578": [
+   "c4f69086cc8dcbd81b1dbc321c98ea874d90d6f8"
+  ],
+  "CVE-2026-44577": [
+   "3f1b7b7501e9ec030866e0df82b4d7573460edec"
+  ],
+  "CVE-2025-59471": [
+   "39a2f6a8d13dfa50cee843f93241c8c1dbaf801e"
+  ],
+  "CVE-2026-64645": [
+   "35f501357e9b0fe7c950b0d6aa8fcf5343f707e9"
+  ],
+  "CVE-2026-64646": [
+   "57c31f724d746e86a9e8b92aa8be538a922446a4"
+  ],
+  "CVE-2026-75604": [
+   "b0f3460a92b955d3ca41fccff9a525a2b910fbf3",
+   "968b9fcb26bdeb8e0a861a9df05361474666d51b"
+  ],
+  "CVE-2025-48068": [
+   "f523d4a142913fa9f9f743241cc6132a39f6883b"
+  ],
+  "CVE-2025-55184": [
+   "8e43882798208066d8fb4c44f9d4362bb4900a1b"
+  ],
+  "CVE-2026-44582": [
+   "8c96fec05695fe907c50e9626bc3e6ec59ea8a9b"
+  ],
+  "CVE-2026-44576": [
+   "3e247110b33f3bee3d05cfbac342581051cdf405"
+  ],
+  "CVE-2025-55173": [
+   "6b12c60c61ee80cb0443ccd20de82ca9b4422ddd"
+  ],
+  "CVE-2025-57752": [
+   "6b12c60c61ee80cb0443ccd20de82ca9b4422ddd"
+  ],
+  "CVE-2025-57822": [
+   "9c9aaed5bb9338ef31b0517ccf0ab4414f2093d8"
+  ],
+  "CVE-2026-27980": [
+   "39eb8e0ac498b48855a0430fbf4c22276a73b4bd"
+  ],
+  "CVE-2026-64643": [
+   "ff12a6124e1504f17b62de948b8a553fdecaef7b",
+   "1b0c3ae912a3ad925c60065cc8d55b070fa8bcd3"
+  ],
+  "CVE-2026-64647": [
+   "025bf4a5f7b47fb7758c4ebf1c931a61c451c082"
+  ],
+  "CVE-2026-64648": [
+   "062f66700b52a5d6bba2c0605d55577ab7ad262c",
+   "73b94872bc343d09494b50394d8c08eb9fc8e56a"
+  ],
+  "CVE-2026-64649": [
+   "e3e5666ccead3a15162793d697af5e48b7cc0498",
+   "b51206321854193208c0805ba42acc49287f942b"
+  ]
+ },
+ "notes": [
+  "The frozen SHA is the v14.2.24 tag commit (compare v14.2.24...756be15c -> identical).",
+  "Twenty-two rows are promoted. The 14 original Next.js advisory rows (14.2.24 inside each OSV range) were extended with 8 more candidates whose code pre-images were verified by direct read: image-optimizer header pass-through (CVE-2025-55173/57752), middleware Location SSRF (CVE-2025-57822), unbounded image disk cache (CVE-2026-27980), unvalidated server reference lookup (CVE-2026-64643), TextDecoder-based fetch cache key (CVE-2026-64647), Request-as-RequestInit cache key (CVE-2026-64648), and forwarded-action Host-derived origin (CVE-2026-64649).",
+  "CVE-2025-55184 is anchored at the vendored react-server-dom-webpack pin (package.json:50-51); CVE-2025-67779 and the GHSA twins mwv6/h25m/8h8q/q4gf are duplicates of that single decoder row because no Next-authored guard exists at 14.2.24.",
+  "CVE-2026-96889, GHSA-2xp9-vwfh-vxw4 and CVE-2026-29057 are dependency-only (sharp/libvips, sharp/libheif, http-proxy 1.18.1 vendored patch) and are closed out_of_scope.",
+  "Nine candidates are outside the 14.2.24 window per the OSV ranges: fixed at 12.2.4 (CVE-2022-36046), 14.2.21 (CVE-2024-56332), exactly 14.2.24 (CVE-2025-32421), or introduced after the snapshot (CVE-2025-30218 at 14.2.25, CVE-2025-55182/55183 at 14.3/15.0 canaries, CVE-2026-103004 at 16.3.0, CVE-2026-94545 at 16.2.0, GHSA-673q at 16.0.0).",
+  "Five stay open as possible_affected: the upstream React RSC DoS family with no 14.2 patch line (CVE-2026-23864/23869/23870) and the two Server Action DoS CVEs whose fixes are 15.x action-id validation / transport sync (CVE-2026-64641/94482).",
+  "CVSS is the NVD CVSS 3.1 primary score; where the GHSA uses CVSS 4.0 (e.g. CVE-2026-64645 HIGH 8.3 vs NVD 6.1) the note in the row records the discrepancy."
+ ]
+}

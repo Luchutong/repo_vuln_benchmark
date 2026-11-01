@@ -1,0 +1,159 @@
+{
+ "report": "pyca/cryptography 41.0.5 sweep",
+ "generated_at": "2026-10-31T09:23:09Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2024-26130",
+    "candidate_id": "adv3_3a0bf429ff9b8866",
+    "file": "src/cryptography/hazmat/backends/openssl/backend.py",
+    "function": "serialize_key_and_certificates_to_pkcs12",
+    "line": 1829,
+    "anchor": "self._lib.PKCS12_set_mac(",
+    "severity": "high",
+    "score": 7.5,
+    "category": "null_pointer_dereference",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2023-50782",
+    "candidate_id": "disc2_94c445522024a0b7a4dd6580",
+    "file": "src/cryptography/hazmat/backends/openssl/rsa.py",
+    "function": "_enc_dec_rsa_pkey_ctx",
+    "line": 163,
+    "anchor": "raise ValueError(\"Encryption/decryption failed.\")",
+    "severity": "high",
+    "score": 7.5,
+    "category": "information_disclosure",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-26007",
+    "candidate_id": "adv3_9a5971e8d46ece3e",
+    "file": "src/cryptography/hazmat/backends/openssl/backend.py",
+    "function": "_ec_key_set_public_key_affine_coordinates",
+    "line": 1248,
+    "anchor": "res = self._lib.EC_POINT_set_affine_coordinates(",
+    "severity": "high",
+    "score": null,
+    "category": "cryptography",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "source_review"
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "rows": [
+   {
+    "candidate_id": "adv3_36727f9141debff6",
+    "cve": "CVE-2026-34073",
+    "decision": "confirmed_not_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "adv3_4a9a7757a6bcd38a",
+    "cve": "CVE-2023-0286",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "adv3_4e6a39c9b1b965fd",
+    "cve": "CVE-2023-2650",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "adv3_59db2c76ad92b929",
+    "cve": "CVE-2026-34180",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "adv3_62bfcfa372cf98b9",
+    "cve": "CVE-2022-3602",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "adv3_6e8ffbe84bb3e2f2",
+    "cve": "CVE-2026-69248",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "adv3_af9b8563ffed0fed",
+    "cve": "CVE-2024-6119",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "adv3_e034d1ff1044481b",
+    "cve": "CVE-2023-23931",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "adv3_e473b7cc7768cbaa",
+    "cve": "CVE-2026-69249",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_4c0730d905e015c3a9bbb9e0",
+    "cve": null,
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_4e55baccd7e1ae552297936b",
+    "cve": "CVE-2026-26007",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   },
+   {
+    "candidate_id": "disc2_528c1973b127fb9f9b8e85dc",
+    "cve": null,
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_736fc3bc67dcf48ad77dddce",
+    "cve": "CVE-2026-69248",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_b8808c9655959abaf86d7659",
+    "cve": "CVE-2026-34073",
+    "decision": "confirmed_not_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "disc2_bec220e83fa6228fc4a4a2d4",
+    "cve": "CVE-2026-69249",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_c563c9c5cd7f2bd8a7be2565",
+    "cve": "CVE-2024-0727",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_c9e0c84cfdf678e6b4b15e6f",
+    "cve": "CVE-2024-26130",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   }
+  ],
+  "missing": []
+ }
+}

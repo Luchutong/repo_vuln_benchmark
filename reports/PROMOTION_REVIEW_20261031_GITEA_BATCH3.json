@@ -1,0 +1,415 @@
+{
+ "report": "gitea/go-gitea v1.25.5 batch row-level review (remaining 1.27.0 advisories)",
+ "scope": "the nine 1.27.0 advisories not covered by the batch-2 promotion, whose real fixes are the per-topic security commits #38323/#38324/#38322/#38213/#38108 + #38320 rather than the shared OSV commit 73e0e442",
+ "method": "frozen anchors derived from the topic-commit hunk pre-image where it still matches v1.25.5 (removed_line) and read from the frozen file where the fix parent drifted (manual_anchor/adjacent_insertion); every row checked for marker absence in the frozen function and marker presence in the released v1.27.0 tree",
+ "generated_at": "2026-10-31T06:59:20Z",
+ "summary": {
+  "rows": 9,
+  "removed_line": 2,
+  "adjacent_insertion": 4,
+  "manual_anchor": 3,
+  "T1": 8,
+  "T2": 1,
+  "skipped": 1,
+  "failures": 0,
+  "applied": true
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-58427",
+   "candidate_id": "adv3_dc8c1bb775cdf8c4",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/api.go",
+   "function": "Routes",
+   "line_start": 1644,
+   "line_end": 1648,
+   "anchor_class": "manual_anchor",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\t\t\tm.Group(\"/members\", func() {",
+    "\t\t\t\tm.Get(\"\", reqToken(), org.ListMembers)",
+    "\t\t\t\tm.Combo(\"/{username}\").Get(reqToken(), org.IsMember).",
+    "\t\t\t\t\tDelete(reqToken(), reqOrgOwnership(), org.DeleteMember)",
+    "\t\t\t})"
+   ],
+   "fix_commits": [
+    "122ebcf0a8f6f187575a42ad3023d8f8c5e9181b"
+   ],
+   "fix_subject": "fix(api): deny private org member enumeration via /members (#38213)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-prr9-9mp4-5gp2",
+   "ghsa": "GHSA-prr9-9mp4-5gp2",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cwe": [
+     "CWE-200",
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/api.go:1644-1648 carries the pre-image of fix 122ebcf0a8f6 (\"fix(api): deny private org member enumeration via /members (#38213)\") (manual_anchor/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-prr9-9mp4-5gp2 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58431",
+   "candidate_id": "adv3_6c6a753fbb368eb5",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/org/team.go",
+   "function": "GetTeamRepos",
+   "line_start": 562,
+   "line_end": 564,
+   "anchor_class": "manual_anchor",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\tteamRepos, err := repo_model.GetTeamRepositories(ctx, &repo_model.SearchTeamRepoOptions{",
+    "\t\tListOptions: utils.GetListOptions(ctx),",
+    "\t\tTeamID:      team.ID,"
+   ],
+   "fix_commits": [
+    "f452c369acc9f1bd05ec6ef9c2e4399062dd6da1"
+   ],
+   "fix_subject": "fix: enforce public-only token scope and harden push options / locale parsing (#38323)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-h56g-4qw7-2mxg",
+   "ghsa": "GHSA-h56g-4qw7-2mxg",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/org/team.go:562-564 carries the pre-image of fix f452c369acc9 (\"fix: enforce public-only token scope and harden push options / locale parsing (#38323)\") (manual_anchor/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-h56g-4qw7-2mxg places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58433",
+   "candidate_id": "adv3_a2d31a0c033e66ba",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/org/team.go",
+   "function": "AddTeamRepository",
+   "line_start": 682,
+   "line_end": 682,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\tif access, err := access_model.AccessLevel(ctx, ctx.Doer, repo); err != nil {"
+   ],
+   "fix_commits": [
+    "aab3242f7b96224cf2e9d8561cbae0ab58ebeae8"
+   ],
+   "fix_subject": "fix(security): harden access checks and migration validation (#38324)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://osv.dev/vulnerability/CVE-2026-58433",
+   "ghsa": null,
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": null,
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+    "cwe": [
+     "CWE-862"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/org/team.go:682-682 carries the pre-image of fix aab3242f7b96 (\"fix(security): harden access checks and migration validation (#38324)\") (adjacent_insertion/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://osv.dev/vulnerability/CVE-2026-58433 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58435",
+   "candidate_id": "adv3_40f0273cacb18df9",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/lfs/server.go",
+   "function": "BatchHandler",
+   "line_start": 267,
+   "line_end": 284,
+   "anchor_class": "removed_line",
+   "anchor_mode": "pre_image",
+   "frozen_text": [
+    "\t\t\tif exists && meta == nil {",
+    "\t\t\t\taccessible, err := git_model.LFSObjectAccessible(ctx, ctx.Doer, p.Oid)",
+    "\t\t\t\tif err != nil {",
+    "\t\t\t\t\tlog.Error(\"Unable to check if LFS MetaObject [%s] is accessible. Error: %v\", p.Oid, err)",
+    "\t\t\t\t\twriteStatus(ctx, http.StatusInternalServerError)",
+    "\t\t\t\t\treturn",
+    "\t\t\t\t}",
+    "\t\t\t\tif accessible {",
+    "\t\t\t\t\t_, err := git_model.NewLFSMetaObject(ctx, repository.ID, p)",
+    "\t\t\t\t\tif err != nil {",
+    "\t\t\t\t\t\tlog.Error(\"Unable to create LFS MetaObject [%s] for %s/%s. Error: %v\", p.Oid, rc.User, rc.Repo, err)",
+    "\t\t\t\t\t\twriteStatus(ctx, http.StatusInternalServerError)",
+    "\t\t\t\t\t\treturn",
+    "\t\t\t\t\t}",
+    "\t\t\t\t} else {",
+    "\t\t\t\t\texists = false",
+    "\t\t\t\t}",
+    "\t\t\t}"
+   ],
+   "fix_commits": [
+    "66a3723cbb1d2224be9dc62483902b6b2df226c0"
+   ],
+   "fix_subject": "fix(lfs): require proof of possession for cross-repo objects (#38322)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-rh79-75qm-gwjr",
+   "ghsa": "GHSA-rh79-75qm-gwjr",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 5.4,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N",
+    "cwe": [
+     "CWE-266",
+     "CWE-639"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/lfs/server.go:267-284 carries the pre-image of fix 66a3723cbb1d (\"fix(lfs): require proof of possession for cross-repo objects (#38322)\") (removed_line/pre_image); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-rh79-75qm-gwjr places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58437",
+   "candidate_id": "adv3_a9a51e74c6152303",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/private/hook_post_receive.go",
+   "function": "HookPostReceive",
+   "line_start": 212,
+   "line_end": 212,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\t\tif isPrivate.Has() && repo.IsPrivate != isPrivate.Value() {"
+   ],
+   "fix_commits": [
+    "f452c369acc9f1bd05ec6ef9c2e4399062dd6da1"
+   ],
+   "fix_subject": "fix: enforce public-only token scope and harden push options / locale parsing (#38323)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-8p9h-49rc-qgxj",
+   "ghsa": "GHSA-8p9h-49rc-qgxj",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "high",
+    "score": 7.1,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:H/A:N",
+    "cwe": [
+     "CWE-284"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/private/hook_post_receive.go:212-212 carries the pre-image of fix f452c369acc9 (\"fix: enforce public-only token scope and harden push options / locale parsing (#38323)\") (adjacent_insertion/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-8p9h-49rc-qgxj places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58438",
+   "candidate_id": "adv3_3f7c70577e74efd5",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/repo/issue_dependency.go",
+   "function": "RemoveDependency",
+   "line_start": 133,
+   "line_end": 133,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\tif err = issues_model.RemoveIssueDependency(ctx, ctx.Doer, issue, dep, depType); err != nil {"
+   ],
+   "fix_commits": [
+    "aab3242f7b96224cf2e9d8561cbae0ab58ebeae8"
+   ],
+   "fix_subject": "fix(security): harden access checks and migration validation (#38324)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-xv9x-fj9g-vj6h",
+   "ghsa": "GHSA-xv9x-fj9g-vj6h",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "low",
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+    "cwe": [
+     "CWE-862"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/repo/issue_dependency.go:133-133 carries the pre-image of fix aab3242f7b96 (\"fix(security): harden access checks and migration validation (#38324)\") (adjacent_insertion/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-xv9x-fj9g-vj6h places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58441",
+   "candidate_id": "adv3_a659d714c23bd64e",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/migrations/restore.go",
+   "function": "GetPullRequests",
+   "line_start": 238,
+   "line_end": 238,
+   "anchor_class": "manual_anchor",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\t\tCheckAndEnsureSafePR(pr, \"\", r)"
+   ],
+   "fix_commits": [
+    "aab3242f7b96224cf2e9d8561cbae0ab58ebeae8"
+   ],
+   "fix_subject": "fix(security): harden access checks and migration validation (#38324)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-xmj7-xj85-hfc3",
+   "ghsa": "GHSA-xmj7-xj85-hfc3",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 6.3,
+    "vector": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:N/A:N",
+    "cwe": [
+     "CWE-918"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/migrations/restore.go:238-238 carries the pre-image of fix aab3242f7b96 (\"fix(security): harden access checks and migration validation (#38324)\") (manual_anchor/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-xmj7-xj85-hfc3 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58442",
+   "candidate_id": "adv3_4e80c0efef1f64c1",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/migrations/migrate.go",
+   "function": "checkByAllowBlockList",
+   "line_start": 89,
+   "line_end": 106,
+   "anchor_class": "removed_line",
+   "anchor_mode": "pre_image",
+   "frozen_text": [
+    "\tvar ipAllowed bool",
+    "\tvar ipBlocked bool",
+    "\tfor _, addr := range addrList {",
+    "\t\tipAllowed = ipAllowed || allowList.MatchIPAddr(addr)",
+    "\t\tipBlocked = ipBlocked || blockList.MatchIPAddr(addr)",
+    "\t}",
+    "\tvar blockedError error",
+    "\tif blockList.MatchHostName(hostName) || ipBlocked {",
+    "\t\tblockedError = &git.ErrInvalidCloneAddr{Host: hostName, IsPermissionDenied: true}",
+    "\t}",
+    "\t// if we have an allow-list, check the allow-list before return to get the more accurate error",
+    "\tif !allowList.IsEmpty() {",
+    "\t\tif !allowList.MatchHostName(hostName) && !ipAllowed {",
+    "\t\t\treturn &git.ErrInvalidCloneAddr{Host: hostName, IsPermissionDenied: true}",
+    "\t\t}",
+    "\t}",
+    "\t// otherwise, we always follow the blocked list",
+    "\treturn blockedError"
+   ],
+   "fix_commits": [
+    "aab3242f7b96224cf2e9d8561cbae0ab58ebeae8"
+   ],
+   "fix_subject": "fix(security): harden access checks and migration validation (#38324)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-h2x6-g7q6-344v",
+   "ghsa": "GHSA-h2x6-g7q6-344v",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+    "cwe": [
+     "CWE-200",
+     "CWE-918"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/migrations/migrate.go:89-106 carries the pre-image of fix aab3242f7b96 (\"fix(security): harden access checks and migration validation (#38324)\") (removed_line/pre_image); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-h2x6-g7q6-344v places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  },
+  {
+   "vulnerability_id": "CVE-2026-57894",
+   "candidate_id": "adv3_21c8f05a9aa6e0fe",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "modules/git/repo.go",
+   "function": "Clone",
+   "line_start": 141,
+   "line_end": 141,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\tcmd := gitcmd.NewCommand().AddArguments(\"clone\")"
+   ],
+   "fix_commits": [
+    "9e84deb969aff5c1115c2984e41250f28c78451f",
+    "97078b96cfcaeeed7ed82cc51a6822d906e5e0e3"
+   ],
+   "fix_subject": "fix: Various sec fixes 2 (#38108)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-82f7-87hm-852x",
+   "ghsa": "GHSA-82f7-87hm-852x",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "high",
+    "score": 8.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:L/A:N",
+    "cwe": [
+     "CWE-918"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 modules/git/repo.go:141-141 carries the pre-image of fix 9e84deb969af (\"fix: Various sec fixes 2 (#38108)\") + 97078b96cfca (\"fix(mirror): disable HTTP redirects on pull mirror sync (#38320)\") (adjacent_insertion/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-82f7-87hm-852x places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; this row cites the topic commit that actually carries the fix instead."
+  }
+ ],
+ "skipped": [
+  {
+   "id": "CVE-2026-55987",
+   "cand": "adv3_4843a875b11de563",
+   "ghsa": "GHSA-vrhc-jjfc-m3m3",
+   "verdict": "not_promotable_at_v1.25.5",
+   "reason": "The flawed gate `if !u.IsActive { ... isDisabledByAutoSync := hasExt && extLogin.RefreshToken == \"\" }` does not exist at v1.25.5: the frozen routers/web/auth/oauth.go:351-354 block is the pre-#38009 unconditional reactivation already anchored by CVE-2026-58422 (fix c43eb7c33a). This advisory is an incomplete fix of #38009 and only applies once that gate ships; anchoring it at 351-354 would duplicate the CVE-2026-58422 location."
+  }
+ ],
+ "failures": []
+}

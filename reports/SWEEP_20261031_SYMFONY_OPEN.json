@@ -1,0 +1,70 @@
+{
+ "repo": "symfony/symfony",
+ "repo_id": "458058",
+ "snapshot_id": "snap_39105a8a3ceb9fe4",
+ "tag": "v5.4.45",
+ "sha": "2b66d7d7d8129531229708ef708860844db91944",
+ "applied": true,
+ "checked_at": "2026-10-31T12:31:02Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-24739",
+   "snapshot_id": "snap_39105a8a3ceb9fe4",
+   "location": "src/Symfony/Component/Process/Process.php:1630-1647",
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Process/Process.php#L1630-L1647",
+   "excerpt_head": "    private function escapeArgument(?string $argument): string\n    {\n        if ('' === $argument || null === $argument) {\n            return '\"\"';\n        }\n  ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-24739",
+   "candidate_id": "disc2_51632e0837f1373e7161a3cc",
+   "fix_commits": [
+    "ec154f6f95f8c60f831998ec4d246a857e9d179b",
+    "35203939050e5abd3caf2202113b00cab5d379b3"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-45070",
+   "snapshot_id": "snap_39105a8a3ceb9fe4",
+   "location": "src/Symfony/Component/Mime/Header/ParameterizedHeader.php:57-60",
+   "permalink": "https://github.com/symfony/symfony/blob/2b66d7d7d8129531229708ef708860844db91944/src/Symfony/Component/Mime/Header/ParameterizedHeader.php#L57-L60",
+   "excerpt_head": "    public function setParameters(array $parameters)\n    {\n        $this->parameters = $parameters;\n    }",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-45070",
+   "candidate_id": "disc2_e031c24a464639dc6f21508c",
+   "fix_commits": [
+    "8cc149f5d7dddcb02b17f8d0d3fe9b2450b86714",
+    "1503ceb9005f197fafc32032a8ae48beba0cc3a6"
+   ]
+  }
+ ],
+ "not_affected": {
+  "sweep_82a18ed1909a9a59": "GHSA-7q22-x757-cmgc is a withdrawn advisory (\"Withdrawn Advisory: Symfony http-security has authentication bypass\") and NVD records that the supplier concluded this is a false report, describing Symfony v7.0.7 and carrying no CPE configuration at all. Static check at v5.4.45: FormLoginAuthenticator::authenticate (src/Symfony/Component/Security/Http/Authenticator/FormLoginAuthenticator.php:82-110) builds a Passport from getCredentials (:135-172); an empty username is passed to UserProvider::loadUserByIdentifier(), which throws UsernameNotFoundException, and an empty password reaches PasswordCredentials/BadCredentialsException. There is no early return, anonymous token or missing-credential path that would authenticate the request."
+ },
+ "out_of_scope": {
+  "sweep_9e482f0365414f71": "The CVE is about the Auth0-PHP SDK: applications using Auth0-PHP 8.0.0-8.17.0 (and bundles built on it, including Auth0/symfony 5.0.0 to 5.5.x) accept ID tokens as access tokens because audience validation is improper. NVD's only CPEs are cpe:2.3:a:auth0:auth0-php, auth0:laravel-auth0, auth0:symfony (5.0.0 to <5.6.0) and auth0:wp-auth0. The frozen repository is the symfony/symfony monorepo (composer.json name \"symfony/symfony\"), which contains no auth0 dependency or code (grep -i auth0 over composer.json and src/ is empty). The \"symfony\" package in the advisory is Auth0's Symfony integration bundle, not the framework."
+ },
+ "counts": {
+  "promoted": 2,
+  "not_affected": 1,
+  "out_of_scope": 1
+ },
+ "fixes": {
+  "CVE-2026-24739": [
+   "ec154f6f95f8c60f831998ec4d246a857e9d179b",
+   "35203939050e5abd3caf2202113b00cab5d379b3"
+  ],
+  "CVE-2026-45070": [
+   "8cc149f5d7dddcb02b17f8d0d3fe9b2450b86714",
+   "1503ceb9005f197fafc32032a8ae48beba0cc3a6"
+  ]
+ },
+ "notes": [
+  "CVE-2026-24739 is promoted at the Windows branch of Process::escapeArgument: the frozen regex lacks = ; * ? ' $ [ ] and the 5.4.51 fix adds them.",
+  "CVE-2026-45070 is promoted at ParameterizedHeader::setParameters: names are stored and emitted without the TOKEN_REGEX check that the 5.4.55 backport adds. The GHSA fixed version (5.4.52) is stale: v5.4.52 is byte-identical to v5.4.45 here.",
+  "CVE-2024-36611 is a withdrawn, supplier-declared false report with no NVD CPE, and the 5.4.45 authenticator has no empty-credential bypass.",
+  "CVE-2025-68129 names Auth0-PHP and Auth0/symfony, not the symfony/symfony framework; the frozen tree has no auth0 code."
+ ]
+}

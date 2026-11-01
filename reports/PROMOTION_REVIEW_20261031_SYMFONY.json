@@ -1,0 +1,89 @@
+{
+ "generated_for": "2026-10-31 symfony/symfony promotion dry-run review",
+ "source_dryrun": "workdir/promote_symfony.json",
+ "apply": true,
+ "note": "Three proposal anchors were verified verbatim against the frozen v5.4.45 tree and the fix hunks. CVE-2026-109413 was anchored in Form/FormRenderer.php by the proposal but the advisory and fix concern the YAML inline lexer; it is held here and relocated to the Yaml Parser via promote_candidate.py (see relocated_rows).",
+ "counts": {
+  "admit": 3,
+  "drop": 0,
+  "hold": 1,
+  "total": 4
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-109413",
+   "advisory_record": "CVE-2026-109413",
+   "repo": "symfony/symfony",
+   "snapshot_version": "v5.4.45",
+   "advisory_trust_tier": "T1",
+   "file": "src/Symfony/Component/Form/FormRenderer.php",
+   "function": "searchAndRenderBlock",
+   "line_start": 257,
+   "line_end": 270,
+   "granularity": "function",
+   "fix_commit": "116287c3b5bc",
+   "verdict": "hold",
+   "reason": "Wrong component: the proposal anchored FormRenderer::searchAndRenderBlock, but the advisory and the fix are about unbounded recursion in the YAML inline lexer. 116287c3b5bc is the 5.4.54 release merge (14 patches); patch 01/14 is the lexer fix 2a8bf9c58d86, which wraps Parser::lexInlineStructure with enterNestingLevel/leaveNestingLevel. Relocate to src/Symfony/Component/Yaml/Parser.php lexInlineStructure 1239-1263."
+  },
+  {
+   "vulnerability_id": "CVE-2026-109449",
+   "advisory_record": "CVE-2026-109449",
+   "repo": "symfony/symfony",
+   "snapshot_version": "v5.4.45",
+   "advisory_trust_tier": "T2",
+   "file": "src/Symfony/Component/ExpressionLanguage/Parser.php",
+   "function": "parseExpression",
+   "line_start": 135,
+   "line_end": 151,
+   "granularity": "function",
+   "fix_commit": "3b7969f51f50",
+   "verdict": "admit",
+   "reason": "Fix 3b7969f51f50 '[ExpressionLanguage] Bound the nesting level of parsed' removes the recursive descent block of parseExpression at frozen lines 135-151 and rebuilds it as an explicit bounded stack (MAX_NESTING_LEVEL check around the pushed children). The removed lines are present verbatim at the anchor, in the function named by the advisory."
+  },
+  {
+   "vulnerability_id": "CVE-2024-51736",
+   "advisory_record": "CVE-2024-51736",
+   "repo": "symfony/symfony",
+   "snapshot_version": "v5.4.45",
+   "advisory_trust_tier": "T1",
+   "file": "src/Symfony/Component/Process/Process.php",
+   "function": "prepareWindowsCommandLine",
+   "line_start": 1595,
+   "line_end": 1595,
+   "granularity": "line",
+   "fix_commit": "18ecd03eda39",
+   "verdict": "admit",
+   "reason": "Fix 18ecd03eda39 '[Process] Use %PATH% before %CD% to load the shell on Windows' removes the relative invocation \"cmd /V:ON /E:ON /D /C (...)\" at frozen line 1595 (inside prepareWindowsCommandLine) in favour of the absolute ComSpec path, which is exactly the cmd.exe current-directory hijack described in the advisory."
+  },
+  {
+   "vulnerability_id": "CVE-2026-108082",
+   "advisory_record": "CVE-2026-108082",
+   "repo": "symfony/symfony",
+   "snapshot_version": "v5.4.45",
+   "advisory_trust_tier": "T1",
+   "file": "src/Symfony/Component/HttpFoundation/HeaderUtils.php",
+   "function": "split",
+   "line_start": 61,
+   "line_end": 63,
+   "granularity": "line",
+   "fix_commit": "343a1772ce6a",
+   "verdict": "admit",
+   "reason": "Fix 343a1772ce6a '[HttpFoundation] Remove the ambiguity that makes HeaderUtils::split() backtrack' rewrites the token alternation of the preg_match_all pattern; the removed lines at frozen 61-63 ([^\"'.$quotedSeparators.']+ / )+ / (?<!\\s)) are the matcher the advisory describes as exponentially ambiguous."
+  }
+ ],
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2026-109413",
+   "verdict": "admit",
+   "file": "src/Symfony/Component/Yaml/Parser.php",
+   "function": "lexInlineStructure",
+   "line_start": 1239,
+   "line_end": 1263,
+   "granularity": "function",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/symfony/symfony/commit/2a8bf9c58d862b0c76a35ce288d1ba6a27223aad",
+   "applied": true,
+   "reason": "The real fix is patch 01/14 of the 5.4.54 merge (2a8bf9c58d86, cherry-picked from 2c5677e4f5cd): lexInlineStructure now enters/leaves the shared nesting level around the lexer body, which was renamed doLexInlineStructure. The frozen v5.4.45 function at 1239-1263 is the unguarded self-recursive lexer, calling lexInlineMapping/lexInlineSequence for every '{' and '['."
+  }
+ ]
+}

@@ -1,0 +1,353 @@
+{
+ "generated_for": "2026-10-31 angular/angular promotion dry-run review",
+ "source_dryrun": "workdir/promote_angular2.json",
+ "apply": true,
+ "note": "Admission review only. hold rows need a relocated anchor before they can be promoted; they are excluded from the batch apply and applied one by one via promote_candidate.py.",
+ "counts": {
+  "admit": 7,
+  "drop": 0,
+  "hold": 6,
+  "total": 13
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-52725",
+   "advisory_record": "CVE-2026-52725",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/compiler/src/template/pipeline/src/ingest.ts",
+   "function": "ingestElementBindings",
+   "line_start": 1265,
+   "line_end": 1265,
+   "granularity": "line",
+   "fix_commit": "cef4a095a2a63e020278803f75f9f1f8c247719e",
+   "matched_removed_lines": 1,
+   "removed_lines_total": 1,
+   "verdict": "admit",
+   "reason": "Located hunk is the removed domSchema.securityContext(element.name, attr.name, true) call in ingestElementBindings; the cited refactor replaces it with namespace-aware validation, which is the advisory's namespaced-attribute bypass."
+  },
+  {
+   "vulnerability_id": "CVE-2026-50557",
+   "advisory_record": "CVE-2026-50557",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/compiler/src/template_parser/template_preparser.ts",
+   "function": "normalizeNgContentSelect",
+   "line_start": 77,
+   "line_end": 82,
+   "granularity": "function",
+   "fix_commit": "90494cd909d75446110eaa527fb48076e50ef9e0",
+   "matched_removed_lines": 6,
+   "removed_lines_total": 7,
+   "verdict": "hold",
+   "reason": "Proposal anchored the refactor-deleted normalizeNgContentSelect helper. The security change is the SCRIPT_ELEMENTS set replacing nodeName == SCRIPT_ELEMENT in preparseElement (frozen line 51). Relocate to template_preparser.ts preparseElement 51-52."
+  },
+  {
+   "vulnerability_id": "CVE-2026-101896",
+   "advisory_record": "CVE-2026-101896",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/router/src/url_tree.ts",
+   "function": "squashSegmentGroup",
+   "line_start": 790,
+   "line_end": 794,
+   "granularity": "function",
+   "fix_commit": "03872a80bcf1c89b2b04cdd3f444b2ee954da583",
+   "matched_removed_lines": 2,
+   "removed_lines_total": 2,
+   "verdict": "admit",
+   "reason": "Located hunk is the removed object assignment newChildren[grandChildOutlet] = grandChild in squashSegmentGroup, the numeric-key dense-allocation sink the advisory describes; the fix switches these maps to Map."
+  },
+  {
+   "vulnerability_id": "CVE-2026-88057",
+   "advisory_record": "GHSA-hh8m-fm6v-7cvg",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T1",
+   "file": "packages/core/src/render3/i18n/i18n_parse.ts",
+   "function": "parseICUBlock",
+   "line_start": 655,
+   "line_end": 655,
+   "granularity": "line",
+   "fix_commit": "c7d4a214797ffbe13c5d57a0d82bc98821dbb51e",
+   "matched_removed_lines": 1,
+   "removed_lines_total": 1,
+   "verdict": "hold",
+   "reason": "Proposal anchored an unrelated i18n commit of the same 7-commit series. The security change is ingestHostBinding deriving SecurityContext from input.componentSelector; relocate to packages/compiler/src/template/pipeline/src/ingest.ts ingestHostBinding 104-113."
+  },
+  {
+   "vulnerability_id": "CVE-2026-111753",
+   "advisory_record": "GHSA-jfgx-762w-99vr",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T1",
+   "file": "packages/core/src/render3/i18n/i18n_apply.ts",
+   "function": "applyI18n",
+   "line_start": 104,
+   "line_end": 116,
+   "granularity": "function",
+   "fix_commit": "fc0e50a2d2441941de359c623621d8d530ee46ef",
+   "matched_removed_lines": 12,
+   "removed_lines_total": 12,
+   "verdict": "hold",
+   "reason": "Proposal anchored the i18n commit fc0e50a2 in the same alias cluster. The XSRF fix commits (0659d11c/20474d3f/933ce817) change xsrfInterceptorFn's absolute-URL skip. Relocate to packages/common/http/src/xsrf.ts xsrfInterceptorFn 91-97 (frozen 19.2.15 uses lcUrl.startsWith('http://'/'https://'), which also misses protocol-relative and WHATWG-normalized URLs)."
+  },
+  {
+   "vulnerability_id": "CVE-2026-68945",
+   "advisory_record": "CVE-2026-68945",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/common/http/src/transfer_cache.ts",
+   "function": "sortAndConcatParams",
+   "line_start": 260,
+   "line_end": 263,
+   "granularity": "line",
+   "fix_commit": "6867f77ec779a0a24f6339ad6c775f444202103c",
+   "matched_removed_lines": 4,
+   "removed_lines_total": 5,
+   "verdict": "admit",
+   "reason": "Located hunk is sortAndConcatParams, whose getAll(k) comma join is the cache-key ambiguity in the advisory; the fix distinguishes repeated params."
+  },
+  {
+   "vulnerability_id": "CVE-2026-22610",
+   "advisory_record": "CVE-2026-22610",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/core/src/sanitization/sanitization.ts",
+   "function": "getUrlSanitizer",
+   "line_start": 219,
+   "line_end": 230,
+   "granularity": "function",
+   "fix_commit": "91dc91bae4a1bbefc58bef6ef739d0e02ab44d56",
+   "matched_removed_lines": 12,
+   "removed_lines_total": 12,
+   "verdict": "admit",
+   "reason": "Located span is getUrlSanitizer's hardcoded src/href tag lists; the fix adds xlink:href on script and hoists the sets, which is the SVG script attribute sanitization gap."
+  },
+  {
+   "vulnerability_id": "CVE-2026-27970",
+   "advisory_record": "CVE-2026-27970",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/core/src/render3/i18n/i18n_parse.ts",
+   "function": "addCreateAttribute",
+   "line_start": 948,
+   "line_end": 953,
+   "granularity": "function",
+   "fix_commit": "306f367899dfc2e04238fecd3455547b5d54075d",
+   "matched_removed_lines": 6,
+   "removed_lines_total": 6,
+   "verdict": "admit",
+   "reason": "Located span is addCreateAttribute, which the i18n fix removes so ICU script attributes go through the normal sanitizer path; matches the advisory."
+  },
+  {
+   "vulnerability_id": "CVE-2026-54264",
+   "advisory_record": "CVE-2026-54264",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/service-worker/worker/src/adapter.ts",
+   "function": "newHeaders",
+   "line_start": 54,
+   "line_end": 54,
+   "granularity": "line",
+   "fix_commit": "47d68dcb26266316647133ab6385e77fc3e5ae08",
+   "matched_removed_lines": 1,
+   "removed_lines_total": 1,
+   "verdict": "hold",
+   "reason": "Proposal anchored the type-widening of newHeaders (HeadersInit), a cosmetic change in the same commit. The security change is newRequestWithMetadata (packages/service-worker/worker/src/assets.ts), which now strips Authorization/Proxy-Authorization/Cookie on cross-origin redirects. Relocate to assets.ts 514-516."
+  },
+  {
+   "vulnerability_id": "CVE-2026-46417",
+   "advisory_record": "CVE-2026-46417",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/platform-server/src/utils.ts",
+   "function": "createServerPlatform",
+   "line_start": 58,
+   "line_end": 58,
+   "granularity": "line",
+   "fix_commit": "60552a73e82c1d631c72679aae026eaa9268c226",
+   "matched_removed_lines": 1,
+   "removed_lines_total": 1,
+   "verdict": "hold",
+   "reason": "Proposal anchored the INITIAL_CONFIG reformat in createServerPlatform, which is cosmetic. The security change adds validateAllowedHosts at the renderModule/renderApplication entry points; relocate to packages/platform-server/src/utils.ts renderModule 275-276, where options.url is passed in without host validation."
+  },
+  {
+   "vulnerability_id": "CVE-2026-54267",
+   "advisory_record": "CVE-2026-54267",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/core/src/transfer_state.ts",
+   "function": "retrieveTransferredState",
+   "line_start": 158,
+   "line_end": 158,
+   "granularity": "line",
+   "fix_commit": "6bde84fa8e6a5770b54040fbbc9bf10d5d0386fa",
+   "matched_removed_lines": 1,
+   "removed_lines_total": 1,
+   "verdict": "admit",
+   "reason": "Located line is the script?.textContent check in retrieveTransferredState, the DOM-clobbering read the fix hardens; matches the advisory."
+  },
+  {
+   "vulnerability_id": "CVE-2025-66412",
+   "advisory_record": "CVE-2025-66412",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/compiler/src/schema/dom_security_schema.ts",
+   "function": "isIframeSecuritySensitiveAttr",
+   "line_start": 98,
+   "line_end": 102,
+   "granularity": "function",
+   "fix_commit": "1c6b0704fb63d051fab8acff84d076abfbc4893a",
+   "matched_removed_lines": 5,
+   "removed_lines_total": 28,
+   "verdict": "hold",
+   "reason": "Proposal anchored the deleted iframe helper (downstream cleanup). The root cause is SECURITY_SCHEMA's URL context list, which lacks the MathML href/xlink:href and a|xlink:href entries the fix adds; relocate to packages/compiler/src/schema/dom_security_schema.ts SECURITY_SCHEMA 33-52."
+  },
+  {
+   "vulnerability_id": "CVE-2026-50168",
+   "advisory_record": "CVE-2026-50168",
+   "repo": "angular/angular",
+   "snapshot_version": "19.2.15",
+   "advisory_trust_tier": "T2",
+   "file": "packages/platform-server/src/server.ts",
+   "function": "_document",
+   "line_start": 101,
+   "line_end": 101,
+   "granularity": "line",
+   "fix_commit": "1307ff355c99befd35642f0f1ac22009320ca1db",
+   "matched_removed_lines": 1,
+   "removed_lines_total": 1,
+   "verdict": "admit",
+   "reason": "Located line is parseDocument(config.document, config.url) in _document(), which the fix replaces with parseUrl(config.url, 'http://localhost').href; that is the URL parser differential the advisory describes."
+  }
+ ],
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2026-50557",
+   "from": {
+    "file": "packages/compiler/src/template_parser/template_preparser.ts",
+    "function": "normalizeNgContentSelect",
+    "line_start": 77,
+    "line_end": 82
+   },
+   "to": {
+    "file": "packages/compiler/src/template_parser/template_preparser.ts",
+    "function": "preparseElement",
+    "line_start": 51,
+    "line_end": 52
+   },
+   "verdict": "admit",
+   "applied_via": "promote_candidate.py --apply",
+   "applied_at": "2026-10-31",
+   "reason": "Both removed lines of the fix hunk ('} else if (nodeName == SCRIPT_ELEMENT) {' and 'type = PreparsedElementType.SCRIPT;') are present verbatim at the relocated anchor; the proposal had matched the refactor-deleted normalizeNgContentSelect helper."
+  },
+  {
+   "vulnerability_id": "CVE-2026-88057",
+   "from": {
+    "file": "packages/core/src/render3/i18n/i18n_parse.ts",
+    "function": "parseICUBlock",
+    "line_start": 655,
+    "line_end": 655
+   },
+   "to": {
+    "file": "packages/compiler/src/template/pipeline/src/ingest.ts",
+    "function": "ingestHostBinding",
+    "line_start": 104,
+    "line_end": 113
+   },
+   "verdict": "admit",
+   "applied_via": "promote_candidate.py --apply",
+   "applied_at": "2026-10-31",
+   "reason": "The fix removes both calcPossibleSecurityContexts(input.componentSelector, ...) calls in ingestHostBinding; the property-branch call is present verbatim at the frozen anchor. The i18n anchor came from an unrelated commit of the 7-commit series."
+  },
+  {
+   "vulnerability_id": "CVE-2026-111753",
+   "from": {
+    "file": "packages/core/src/render3/i18n/i18n_apply.ts",
+    "function": "applyI18n",
+    "line_start": 104,
+    "line_end": 116
+   },
+   "to": {
+    "file": "packages/common/http/src/xsrf.ts",
+    "function": "xsrfInterceptorFn",
+    "line_start": 91,
+    "line_end": 97
+   },
+   "verdict": "admit",
+   "applied_via": "promote_candidate.py --apply",
+   "applied_at": "2026-10-31",
+   "reason": "Frozen 19.2.15 skips the XSRF header only for urls starting with http:// or https://; protocol-relative and WHATWG-normalized urls bypass that check. The cited 20/21/22 fix commits replace ABSOLUTE_URL_REGEX with an origin comparison, whose pre-image is absent from this branch, so the equivalent vulnerable check is the anchor."
+  },
+  {
+   "vulnerability_id": "CVE-2026-54264",
+   "from": {
+    "file": "packages/service-worker/worker/src/adapter.ts",
+    "function": "newHeaders",
+    "line_start": 54,
+    "line_end": 54
+   },
+   "to": {
+    "file": "packages/service-worker/worker/src/assets.ts",
+    "function": "newRequestWithMetadata",
+    "line_start": 514,
+    "line_end": 516
+   },
+   "verdict": "admit",
+   "applied_via": "promote_candidate.py --apply",
+   "applied_at": "2026-10-31",
+   "reason": "The adapter.ts change only widens a parameter type to HeadersInit (cosmetic). The security change strips Authorization/Proxy-Authorization/Cookie on cross-origin redirects in newRequestWithMetadata; the frozen function preserves all headers unconditionally."
+  },
+  {
+   "vulnerability_id": "CVE-2026-46417",
+   "from": {
+    "file": "packages/platform-server/src/utils.ts",
+    "function": "createServerPlatform",
+    "line_start": 58,
+    "line_end": 58
+   },
+   "to": {
+    "file": "packages/platform-server/src/utils.ts",
+    "function": "renderApplication",
+    "line_start": 325,
+    "line_end": 332
+   },
+   "verdict": "admit",
+   "applied_via": "promote_candidate.py --apply",
+   "applied_at": "2026-10-31",
+   "reason": "The createServerPlatform change is an INITIAL_CONFIG reformat. The fix adds validateAllowedHosts(url, allowedHosts) at the renderApplication/renderModule entry points where options.url is forwarded to the platform; renderApplication is used because renderModule<T> has a generic parameter the tool cannot match."
+  },
+  {
+   "vulnerability_id": "CVE-2025-66412",
+   "from": {
+    "file": "packages/compiler/src/schema/dom_security_schema.ts",
+    "function": "isIframeSecuritySensitiveAttr",
+    "line_start": 98,
+    "line_end": 102
+   },
+   "to": {
+    "file": "packages/compiler/src/schema/dom_security_schema.ts",
+    "function": "SECURITY_SCHEMA",
+    "line_start": 33,
+    "line_end": 52
+   },
+   "verdict": "admit",
+   "applied_via": "promote_candidate.py --apply",
+   "applied_at": "2026-10-31",
+   "reason": "The deleted iframe helper is downstream cleanup. The root cause is the URL registration list in SECURITY_SCHEMA, which lacks a|xlink:href and the MathML href/xlink:href entries the fix adds (plus the ATTRIBUTE_NO_BINDING block for SVG animation attributeName)."
+  }
+ ],
+ "applied_at": "2026-10-31",
+ "apply_note": "7 rows admitted in the batch (--review --apply); the 6 hold rows were relocated (see relocated_rows, all verdict admit) and applied one by one with promote_candidate.py --apply. All 13 angular rows are now in the Ground Truth."
+}

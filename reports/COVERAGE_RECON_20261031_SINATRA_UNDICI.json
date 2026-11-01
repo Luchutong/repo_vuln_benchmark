@@ -1,0 +1,39 @@
+{
+ "checked_at": "2026-10-31T13:53:45Z",
+ "applied": true,
+ "snapshots": [
+  {
+   "repo": "sinatra/sinatra",
+   "repo_id": "106995",
+   "snapshot_id": "snap_5ab17df9ee6e4957",
+   "package": "RubyGems:sinatra@4.0.1",
+   "osv_records": 2,
+   "gh_records": 2,
+   "triage_rows": 7,
+   "live_candidates": 1,
+   "undecided_live_candidates": 0,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  },
+  {
+   "repo": "nodejs/undici",
+   "repo_id": "133092972",
+   "snapshot_id": "snap_24c4a191fd049fc3",
+   "package": "npm:undici@5.19.0",
+   "osv_records": 24,
+   "gh_records": 24,
+   "triage_rows": 63,
+   "live_candidates": 7,
+   "undecided_live_candidates": 0,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  }
+ ],
+ "counts": {
+  "targets": 2,
+  "upgraded": 2,
+  "kept_needs_review": 0
+ }
+}

@@ -1,0 +1,177 @@
+{
+ "report": "DaveGamble/cJSON v1.7.16 sweep",
+ "generated_at": "2026-10-31T09:16:43Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2026-29036",
+    "candidate_id": "disc2_c7eaea4a01d8d31b05b0eeb9",
+    "file": "cJSON_Utils.c",
+    "function": "decode_pointer_inplace",
+    "line": 377,
+    "anchor": "decoded_string[1] = '/';",
+    "severity": "high",
+    "score": null,
+    "category": "integrity",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-67215",
+    "candidate_id": "disc2_4a77fea3693b3253d0a41036",
+    "file": "cJSON.c",
+    "function": "cJSON_Duplicate",
+    "line": 2753,
+    "anchor": "newchild = cJSON_Duplicate(child, true); /* Duplicate (with recurse) each item in the ->next chain */",
+    "severity": "high",
+    "score": null,
+    "category": "denial_of_service",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-67216",
+    "candidate_id": "disc2_4c318a08a866bdfef7dd754e",
+    "file": "cJSON.c",
+    "function": "cJSON_Compare",
+    "line": 3097,
+    "anchor": "if (!cJSON_Compare(b_element, a_element, case_sensitive))",
+    "severity": "medium",
+    "score": null,
+    "category": "denial_of_service",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2026-67217",
+    "candidate_id": "disc2_f928acd179e5d6f0ffe73bb6",
+    "file": "cJSON_Utils.c",
+    "function": "apply_patch",
+    "line": 890,
+    "anchor": "cJSON *old_item = detach_path(object, (unsigned char*)path->valuestring, case_sensitive);",
+    "severity": "medium",
+    "score": null,
+    "category": "integrity",
+    "evidence_type": "source_review"
+   },
+   {
+    "vulnerability_id": "CVE-2023-26819",
+    "candidate_id": "disc2_a3f5e5512dbfb5d1ff940b26",
+    "file": "cJSON.c",
+    "function": "parse_number",
+    "line": 309,
+    "anchor": "unsigned char number_c_string[64];",
+    "severity": "low",
+    "score": 2.9,
+    "category": "denial_of_service",
+    "evidence_type": "source_review"
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "rows": [
+   {
+    "candidate_id": "disc2_a851d46d8833f6f263388579",
+    "cve": "CVE-2009-4924",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_c8ad8ff7b0d510d571123739",
+    "cve": "CVE-2010-1666",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_f72830f9f3614b646d93161c",
+    "cve": "CVE-2015-7392",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_cbbf645dec334f9187b6897a",
+    "cve": "CVE-2016-10749",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_47c72e8e36a538f899333a1c",
+    "cve": "CVE-2022-36423",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_1cb29d3978507c8177d257da",
+    "cve": "CVE-2024-31755",
+    "decision": "duplicate",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "disc2_2cee45e6d27b0d1297929b76",
+    "cve": "CVE-2026-24813",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_b588ee1178f53b24adb3ce26",
+    "cve": "CVE-2026-46752",
+    "decision": "out_of_scope",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "disc2_79aed2441b157a275d78d0d9",
+    "cve": "DEBIAN-CVE-2019-1010239",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_85d9d3c8d5cc168b7581842a",
+    "cve": "DEBIAN-CVE-2019-11834",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_697d72c8513bf0ca380ed241",
+    "cve": "DEBIAN-CVE-2019-11835",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "disc2_63670f7294f73c0a04fd7f67",
+    "cve": "DEBIAN-CVE-2024-31755",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   },
+   {
+    "candidate_id": "disc2_3841d382425565552d13884e",
+    "cve": "DEBIAN-CVE-2026-29036",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   },
+   {
+    "candidate_id": "disc2_241b6a1983d35d17a86e46b5",
+    "cve": "DEBIAN-CVE-2026-67215",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   },
+   {
+    "candidate_id": "disc2_8e421d003eae65fbe275a52e",
+    "cve": "DEBIAN-CVE-2026-67216",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   },
+   {
+    "candidate_id": "disc2_7983eb26550a87cdc97ced0d",
+    "cve": "DEBIAN-CVE-2026-67217",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   },
+   {
+    "candidate_id": "disc2_d09e6e995d22c24fecb2b973",
+    "cve": "DEBIAN-CVE-2026-87933",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   }
+  ],
+  "missing": []
+ }
+}

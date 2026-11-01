@@ -1,0 +1,34 @@
+{
+  "dataset_version": "0.4.0",
+  "status": "draft",
+  "repository_count": 50,
+  "evaluation_snapshot_count": 47,
+  "known_positive_count": 721,
+  "candidate_count": 1405,
+  "unresolved_candidate_count": 6,
+  "candidate_triage_decisions": {
+    "confirmed_not_affected": 1754,
+    "confirmed_affected": 741,
+    "out_of_scope": 268,
+    "duplicate": 170,
+    "possible_affected": 6
+  },
+  "tier_counts": {
+    "T2": 152,
+    "T1": 569
+  },
+  "advisory_review_status_counts": {
+    "unreviewed": 65,
+    "vendor_official": 429,
+    "unknown": 76,
+    "github_reviewed": 151
+  },
+  "location_scope_counts": {
+    "source_location": 721
+  },
+  "qa_status_counts": {
+    "pass": 43
+  },
+  "errors": [],
+  "warnings": []
+}

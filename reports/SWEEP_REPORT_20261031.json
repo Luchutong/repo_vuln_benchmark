@@ -1,0 +1,1323 @@
+{
+ "report": "Phase A advisory sweep, all frozen evaluation snapshots",
+ "generated_at": "2026-10-30T16:49:18Z",
+ "scope": {
+  "frozen_snapshots": 47,
+  "repositories": 47
+ },
+ "method": {
+  "sources": [
+   "OSV version query (ecosystem set when the package has one)",
+   "GitHub Advisory Database affects query (gh api advisories)",
+   "NVD: CPE dictionary resolves vendor:product by exact product token, then virtualMatchString; keywordSearch only as fallback"
+  ],
+  "product_identity": "CPE product must equal a package/repository token after normalization (language prefixes stripped); sister products such as angular_cli, angular.js, tomcat_native, apache_tomcat are excluded",
+  "alias_clustering": "records merge when their id sets intersect; embedded CVEs are extracted from distro ids; distro rollup ids never enter a cluster and single-CVE distro advisories are reduced to the CVE",
+  "version_applicability": "CPE version ranges and exact versions are compared against the frozen release; distro advisory ranges are not treated as upstream version evidence",
+  "candidate_status": "needs_static_location when an upstream source (OSV upstream record, GH advisory, or NVD CPE range) identifies the CVE for the frozen version; needs_version_check when only a distro advisory names the CVE"
+ },
+ "totals": {
+  "new_candidates": 338,
+  "new_by_status": {
+   "needs_version_check": 197,
+   "needs_static_location": 141
+  },
+  "coverage_outcomes": {
+   "NEEDS_REVIEW": 42,
+   "PASS_KNOWN_SWEEP": 5
+  },
+  "snapshots_with_source_errors": 0,
+  "unresolved_relevant_candidates_total": 1404,
+  "new_candidates_20261031_only": 330,
+  "new_20261031_by_status": {
+   "needs_static_location": 133,
+   "needs_version_check": 197
+  }
+ },
+ "per_snapshot": [
+  {
+   "repo": "curl/curl",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "version": "curl-8_3_0",
+   "packages": [
+    "generic:curl"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:curl:curl",
+    "cpe:2.3:a:curl_project:curl",
+    "cpe:2.3:a:haxx:curl"
+   ],
+   "records": {
+    "osv": 871,
+    "gh": 0,
+    "nvd": 175
+   },
+   "osv_distro_rollups_ignored": 122,
+   "osv_foreign_ecosystem_skipped": 1,
+   "new_candidates": 77,
+   "new_by_status": {
+    "needs_version_check": 53,
+    "needs_static_location": 24
+   },
+   "unresolved_relevant_candidates": 304,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "apache/tomcat",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "version": "9.0.98",
+   "packages": [
+    "Maven:tomcat-catalina"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 430
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 29,
+   "new_by_status": {
+    "needs_static_location": 29
+   },
+   "unresolved_relevant_candidates": 60,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "libarchive/libarchive",
+   "snapshot_id": "snap_a47bcab3f2c97e92",
+   "version": "v3.7.7",
+   "packages": [
+    "generic:libarchive"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:freebsd:libarchive",
+    "cpe:2.3:a:libarchive:libarchive"
+   ],
+   "records": {
+    "osv": 131,
+    "gh": 0,
+    "nvd": 83
+   },
+   "osv_distro_rollups_ignored": 35,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 24,
+   "new_by_status": {
+    "needs_version_check": 17,
+    "needs_static_location": 7
+   },
+   "unresolved_relevant_candidates": 25,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "grpc/grpc",
+   "snapshot_id": "snap_0319ebb1a71dfd3c",
+   "version": "v1.52.0",
+   "packages": [
+    "C/C++ (grpc/grpc core):grpc",
+    "Maven:io.grpc:grpc-protobuf",
+    "PyPI:grpcio",
+    "RubyGems:grpc"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:grpc:grpc"
+   ],
+   "records": {
+    "osv": 107,
+    "gh": 7,
+    "nvd": 56
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 2,
+   "new_candidates": 22,
+   "new_by_status": {
+    "needs_version_check": 17,
+    "needs_static_location": 5
+   },
+   "unresolved_relevant_candidates": 23,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "libexpat/libexpat",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "version": "R_2_6_2",
+   "packages": [
+    "GIT:libexpat"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:libexpat:expat",
+    "cpe:2.3:a:libexpat_project:libexpat"
+   ],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 64
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 20,
+   "new_by_status": {
+    "needs_static_location": 20
+   },
+   "unresolved_relevant_candidates": 92,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "jenkinsci/jenkins",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "version": "jenkins-2.441",
+   "packages": [
+    "Maven:org.jenkins-ci.main:jenkins-core"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:cloudbees:jenkins",
+    "cpe:2.3:a:jenkins:jenkins"
+   ],
+   "records": {
+    "osv": 29,
+    "gh": 29,
+    "nvd": 291
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 15,
+   "new_by_status": {
+    "needs_static_location": 15
+   },
+   "unresolved_relevant_candidates": 38,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "jbeder/yaml-cpp",
+   "snapshot_id": "snap_f0ec66ad5ca54002",
+   "version": "yaml-cpp-0.6.2",
+   "packages": [
+    "generic:yaml-cpp"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:yaml-cpp_project:yaml-cpp"
+   ],
+   "records": {
+    "osv": 23,
+    "gh": 0,
+    "nvd": 6
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 7,
+   "new_by_status": {
+    "needs_static_location": 3,
+    "needs_version_check": 4
+   },
+   "unresolved_relevant_candidates": 13,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "nodejs/undici",
+   "snapshot_id": "snap_24c4a191fd049fc3",
+   "version": "v5.19.0",
+   "packages": [
+    "npm:undici",
+    "None:None",
+    "None:None"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 7,
+   "new_by_status": {
+    "needs_static_location": 7
+   },
+   "unresolved_relevant_candidates": 7,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "labstack/echo",
+   "snapshot_id": "snap_e0836fa1c53e240d",
+   "version": "v4.15.2",
+   "packages": [
+    "Go:github.com/labstack/echo/v4",
+    "Go:github.com/labstack/echo/v5",
+    "Go:github.com/labstack/echo"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:echo_project:echo",
+    "cpe:2.3:a:labstack:echo",
+    "cpe:2.3:a:nextapp:echo",
+    "cpe:2.3:a:pearlsw:echo"
+   ],
+   "records": {
+    "osv": 26,
+    "gh": 24,
+    "nvd": 15
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 5,
+   "new_by_status": {
+    "needs_static_location": 5
+   },
+   "unresolved_relevant_candidates": 14,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "guzzle/guzzle",
+   "snapshot_id": "snap_1ce353bfdb334948",
+   "version": "7.14.1",
+   "packages": [
+    "Packagist:guzzlehttp/guzzle"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:guzzlephp:guzzle"
+   ],
+   "records": {
+    "osv": 6,
+    "gh": 10,
+    "nvd": 8
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 4,
+   "new_by_status": {
+    "needs_static_location": 4
+   },
+   "unresolved_relevant_candidates": 10,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "django/django",
+   "snapshot_id": "snap_516aa9971dd9509d",
+   "version": "4.2.13",
+   "packages": [
+    "PyPI:django"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:django_project:django",
+    "cpe:2.3:a:djangoproject:django",
+    "cpe:2.3:a:gofiber:django"
+   ],
+   "records": {
+    "osv": 82,
+    "gh": 13,
+    "nvd": 164
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 2,
+   "new_by_status": {
+    "needs_static_location": 2
+   },
+   "unresolved_relevant_candidates": 7,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "leethomason/tinyxml2",
+   "snapshot_id": "snap_5b58f4c33f6103b5",
+   "version": "10.0.0",
+   "packages": [
+    "generic:tinyxml2"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:tinyxml2_project:tinyxml2"
+   ],
+   "records": {
+    "osv": 6,
+    "gh": 0,
+    "nvd": 3
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 2,
+   "new_by_status": {
+    "needs_version_check": 1,
+    "needs_static_location": 1
+   },
+   "unresolved_relevant_candidates": 3,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "symfony/symfony",
+   "snapshot_id": "snap_39105a8a3ceb9fe4",
+   "version": "v5.4.45",
+   "packages": [
+    "Packagist:symfony/runtime",
+    "Packagist:symfony/http-client",
+    "Packagist:symfony/http-foundation",
+    "Packagist:symfony/security-http",
+    "Packagist:symfony/symfony",
+    "Packagist:symfony/routing",
+    "Packagist:symfony/mime",
+    "Packagist:symfony/mailer",
+    "Packagist:symfony/dom-crawler",
+    "Packagist:symfony/cache",
+    "Packagist:symfony/monolog-bridge",
+    "Packagist:symfony/yaml"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:auth0:symfony",
+    "cpe:2.3:a:sensiolabs:symfony"
+   ],
+   "records": {
+    "osv": 42,
+    "gh": 43,
+    "nvd": 1080
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 2,
+   "new_by_status": {
+    "needs_static_location": 2
+   },
+   "unresolved_relevant_candidates": 21,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "elixir-ecto/ecto",
+   "snapshot_id": "snap_c7a36628b7853599",
+   "version": "v2.2.0",
+   "packages": [
+    "Hex:ecto"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:ecto_project:ecto"
+   ],
+   "records": {
+    "osv": 1,
+    "gh": 2,
+    "nvd": 1
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 1,
+   "new_by_status": {
+    "needs_static_location": 1
+   },
+   "unresolved_relevant_candidates": 4,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "elixir-plug/plug",
+   "snapshot_id": "snap_69faea6949b7a9bb",
+   "version": "v1.19.2",
+   "packages": [
+    "Hex:plug"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:plug_project:plug"
+   ],
+   "records": {
+    "osv": 4,
+    "gh": 1,
+    "nvd": 3
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 1,
+   "new_by_status": {
+    "needs_static_location": 1
+   },
+   "unresolved_relevant_candidates": 6,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "sinatra/sinatra",
+   "snapshot_id": "snap_5ab17df9ee6e4957",
+   "version": "v4.0.1",
+   "packages": [
+    "RubyGems:sinatra",
+    "None:None",
+    "None:None"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 1,
+   "new_by_status": {
+    "needs_static_location": 1
+   },
+   "unresolved_relevant_candidates": 1,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "tokio-rs/tokio",
+   "snapshot_id": "snap_bb1aca4519b1aae6",
+   "version": "tokio-1.8.0",
+   "packages": [
+    "crates.io:tokio"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:tokio:tokio",
+    "cpe:2.3:a:tokio_project:tokio"
+   ],
+   "records": {
+    "osv": 11,
+    "gh": 5,
+    "nvd": 4
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 1,
+   "new_by_status": {
+    "needs_static_location": 1
+   },
+   "unresolved_relevant_candidates": 6,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "aaubry/YamlDotNet",
+   "snapshot_id": "snap_c9bc21e647038615",
+   "version": "v4.3.2",
+   "packages": [
+    "NuGet:YamlDotNet",
+    "None:None",
+    "None:None"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 0,
+   "outcome": "PASS_KNOWN_SWEEP",
+   "source_errors": []
+  },
+  {
+   "repo": "actix/actix-web",
+   "snapshot_id": "snap_ca4042bda2431632",
+   "version": "http-v3.12.0",
+   "packages": [
+    "crates.io:actix-http"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 1,
+    "gh": 1,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 2,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "angular/angular",
+   "snapshot_id": "snap_3e3c1cd4c21a2a27",
+   "version": "19.2.15",
+   "packages": [
+    "npm:@angular/common"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 8,
+    "gh": 8,
+    "nvd": 96
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 37,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "axios/axios",
+   "snapshot_id": "snap_04c033042a3d52eb",
+   "version": "v1.19.0",
+   "packages": [
+    "npm:axios"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 12,
+    "gh": 12,
+    "nvd": 89
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 12,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "caddyserver/caddy",
+   "snapshot_id": "snap_ea53ce6e88becc8f",
+   "version": "v2.11.4",
+   "packages": [
+    "Go:github.com/caddyserver/caddy/v2"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 1,
+    "gh": 1,
+    "nvd": 39
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 1,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "DaveGamble/cJSON",
+   "snapshot_id": "snap_d9525608880dc9e1",
+   "version": "v1.7.16",
+   "packages": [
+    "generic:cjson"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 49,
+    "gh": 0,
+    "nvd": 32
+   },
+   "osv_distro_rollups_ignored": 13,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 37,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "dotnet/aspnetcore",
+   "snapshot_id": "snap_6513f827cbeb91ab",
+   "version": "v8.0.13",
+   "packages": [
+    "NuGet:Microsoft.AspNetCore.App.Runtime",
+    "NuGet:Microsoft.AspNetCore.Identity"
+   ],
+   "nvd_mode": [
+    "keyword"
+   ],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 4
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 43,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "elixir-plug/plug_cowboy",
+   "snapshot_id": "snap_39f103d0ed9572cb",
+   "version": "v2.8.0",
+   "packages": [
+    "Hex:plug_cowboy",
+    "None:None",
+    "None:None"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 0,
+   "outcome": "PASS_KNOWN_SWEEP",
+   "source_errors": []
+  },
+  {
+   "repo": "expressjs/express",
+   "snapshot_id": "snap_3166f788b2c56baa",
+   "version": "4.19.2",
+   "packages": [
+    "npm:express"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:checkpoint:express",
+    "cpe:2.3:a:express:express",
+    "cpe:2.3:a:expressjs:express",
+    "cpe:2.3:a:openjsf:express",
+    "cpe:2.3:a:perlexpress:perl_express"
+   ],
+   "records": {
+    "osv": 1,
+    "gh": 2,
+    "nvd": 7
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 1,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "gin-gonic/gin",
+   "snapshot_id": "snap_33d2dbd3f77388df",
+   "version": "v1.9.0",
+   "packages": [
+    "Go:gin",
+    "None:None",
+    "None:None"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 0,
+   "outcome": "PASS_KNOWN_SWEEP",
+   "source_errors": []
+  },
+  {
+   "repo": "go-gitea/gitea",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "version": "v1.25.5",
+   "packages": [
+    "Go:code.gitea.io/gitea"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:gitea:gitea"
+   ],
+   "records": {
+    "osv": 94,
+    "gh": 62,
+    "nvd": 81
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 221,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "laravel/framework",
+   "snapshot_id": "snap_6e1f42aa46ca4df5",
+   "version": "v11.30.0",
+   "packages": [
+    "Packagist:laravel/framework"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:laravel:laravel"
+   ],
+   "records": {
+    "osv": 8,
+    "gh": 8,
+    "nvd": 11
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 11,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "lodash/lodash",
+   "snapshot_id": "snap_033e9a6478460d9b",
+   "version": "4.17.23",
+   "packages": [
+    "npm:lodash"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:lodash:lodash"
+   ],
+   "records": {
+    "osv": 2,
+    "gh": 2,
+    "nvd": 10
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 1,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "nestjs/nest",
+   "snapshot_id": "snap_af37094ca730365c",
+   "version": "v11.2.3",
+   "packages": [
+    "npm:@nestjs/microservices"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:nestjs:nest"
+   ],
+   "records": {
+    "osv": 2,
+    "gh": 2,
+    "nvd": 7
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 3,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "netty/netty",
+   "snapshot_id": "snap_5c3900a03253c043",
+   "version": "netty-4.1.137.Final",
+   "packages": [
+    "Maven:io.netty:netty-codec-stomp"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:netty:netty",
+    "cpe:2.3:a:netty_project:netty"
+   ],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 93
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 96,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "pallets/flask",
+   "snapshot_id": "snap_8ed1cab47a0b7011",
+   "version": "2.3.1",
+   "packages": [
+    "PyPI:flask"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:palletsprojects:flask"
+   ],
+   "records": {
+    "osv": 4,
+    "gh": 2,
+    "nvd": 4
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 1,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "pallets/werkzeug",
+   "snapshot_id": "snap_b57262de7996e8a2",
+   "version": "3.0.2",
+   "packages": [
+    "PyPI:werkzeug"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:palletsprojects:werkzeug"
+   ],
+   "records": {
+    "osv": 14,
+    "gh": 2,
+    "nvd": 14
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 10,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "phoenixframework/phoenix",
+   "snapshot_id": "snap_aca73214a7703174",
+   "version": "v1.8.8",
+   "packages": [
+    "Hex:phoenix",
+    "None:None",
+    "None:None"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 0,
+   "outcome": "PASS_KNOWN_SWEEP",
+   "source_errors": []
+  },
+  {
+   "repo": "PHPMailer/PHPMailer",
+   "snapshot_id": "snap_b840904431f8a856",
+   "version": "v6.1.5",
+   "packages": [
+    "Packagist:phpmailer/phpmailer"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 3,
+    "gh": 3,
+    "nvd": 20
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 2,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "protocolbuffers/protobuf",
+   "snapshot_id": "snap_442de86eb5fd3f62",
+   "version": "v3.25.4",
+   "packages": [
+    "Maven:com.google.protobuf:protobuf-java",
+    "Maven:com.google.protobuf:protobuf-javalite",
+    "Maven:com.google.protobuf:protobuf-kotlin",
+    "Maven:com.google.protobuf:protobuf-kotlin-lite",
+    "RubyGems:google-protobuf"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:golang:protobuf",
+    "cpe:2.3:a:google:protobuf",
+    "cpe:2.3:a:google:protobuf-java",
+    "cpe:2.3:a:google:protobuf-javalite",
+    "cpe:2.3:a:google:protobuf-kotlin",
+    "cpe:2.3:a:google:protobuf-kotlin-lite",
+    "cpe:2.3:a:protobuf:protobuf",
+    "cpe:2.3:a:protobuf_project:protobuf"
+   ],
+   "records": {
+    "osv": 5,
+    "gh": 5,
+    "nvd": 45
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 5,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "pyca/cryptography",
+   "snapshot_id": "snap_7f217d0f9de119d5",
+   "version": "41.0.5",
+   "packages": [
+    "PyPI:cryptography"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:cryptography.io:cryptography",
+    "cpe:2.3:a:cryptography:cryptography",
+    "cpe:2.3:a:cryptography_project:cryptography"
+   ],
+   "records": {
+    "osv": 16,
+    "gh": 8,
+    "nvd": 11
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 23,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "rack/rack",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "version": "v3.1.13",
+   "packages": [
+    "RubyGems:rack"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:rack:rack",
+    "cpe:2.3:a:rack_project:rack"
+   ],
+   "records": {
+    "osv": 21,
+    "gh": 21,
+    "nvd": 50
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 8,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "rails/rails",
+   "snapshot_id": "snap_2ac31ec18ac30934",
+   "version": "v8.0.4",
+   "packages": [
+    "RubyGems:activestorage"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:rubyonrails:rails"
+   ],
+   "records": {
+    "osv": 6,
+    "gh": 6,
+    "nvd": 122
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 17,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "ruby/rexml",
+   "snapshot_id": "snap_23dff8507560a593",
+   "version": "v3.4.1",
+   "packages": [
+    "RubyGems:rexml",
+    "None:None",
+    "None:None"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 0,
+    "gh": 0,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 0,
+   "outcome": "PASS_KNOWN_SWEEP",
+   "source_errors": []
+  },
+  {
+   "repo": "rustls/rustls",
+   "snapshot_id": "snap_b3a6891886ef2160",
+   "version": "v/0.23.4",
+   "packages": [
+    "crates.io:rustls"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:rustls_project:rustls"
+   ],
+   "records": {
+    "osv": 7,
+    "gh": 4,
+    "nvd": 2
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 7,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "SixLabors/ImageSharp",
+   "snapshot_id": "snap_da570194ab16247d",
+   "version": "v3.1.6",
+   "packages": [
+    "NuGet:SixLabors.ImageSharp"
+   ],
+   "nvd_mode": [],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 8,
+    "gh": 8,
+    "nvd": 16
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 8,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "spring-projects/spring-framework",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "version": "v4.1.1.RELEASE",
+   "packages": [
+    "Maven:org.springframework:spring-webmvc"
+   ],
+   "nvd_mode": [
+    "keyword"
+   ],
+   "nvd_cpes": [],
+   "records": {
+    "osv": 13,
+    "gh": 13,
+    "nvd": 0
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 49,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "vercel/next.js",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "version": "v14.2.24",
+   "packages": [
+    "npm:next"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:kanopi:next.js",
+    "cpe:2.3:a:vercel:next.js",
+    "cpe:2.3:a:zeit:next.js"
+   ],
+   "records": {
+    "osv": 32,
+    "gh": 32,
+    "nvd": 68
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 45,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "vitejs/vite",
+   "snapshot_id": "snap_2e50b228f2432623",
+   "version": "v5.0.11",
+   "packages": [
+    "npm:vite"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:vitejs:vite"
+   ],
+   "records": {
+    "osv": 22,
+    "gh": 21,
+    "nvd": 14
+   },
+   "osv_distro_rollups_ignored": 0,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 0,
+   "new_by_status": {},
+   "unresolved_relevant_candidates": 12,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  },
+  {
+   "repo": "openssl/openssl",
+   "snapshot_id": "snap_d9fd4b3730195f59",
+   "version": "openssl-3.5.8",
+   "packages": [
+    "generic:openssl"
+   ],
+   "nvd_mode": [
+    "cpe"
+   ],
+   "nvd_cpes": [
+    "cpe:2.3:a:openssl:openssl",
+    "cpe:2.3:a:openssl_project:openssl",
+    "cpe:2.3:a:redhat:openssl",
+    "cpe:2.3:a:ruby-lang:openssl",
+    "cpe:2.3:a:sfackler:openssl"
+   ],
+   "records": {
+    "osv": 471,
+    "gh": 0,
+    "nvd": 321
+   },
+   "osv_distro_rollups_ignored": 135,
+   "osv_foreign_ecosystem_skipped": 0,
+   "new_candidates": 118,
+   "new_by_status": {
+    "needs_version_check": 105,
+    "needs_static_location": 13
+   },
+   "unresolved_relevant_candidates": 118,
+   "outcome": "NEEDS_REVIEW",
+   "source_errors": []
+  }
+ ],
+ "limitations": [
+  "PASS_KNOWN_SWEEP means the three advisory sources yielded no uncovered version-applicable identifier for the frozen SHA; it is not proof that no other vulnerability exists.",
+  "OSV aggregates GHSA/NVD/ecosystem records, so the three passes are not fully independent source families.",
+  "NVD keyword fallback was used only where no CPE product could be resolved; in that mode product identity is weaker and the snapshot stays NEEDS_REVIEW.",
+  "Candidates marked needs_version_check come from distro advisories only; the frozen upstream version is not proven affected.",
+  "No dynamic reproduction, build, or PoC execution was performed."
+ ],
+ "amendments": [
+  {
+   "added": "openssl/openssl",
+   "snapshot_id": "snap_d9fd4b3730195f59",
+   "version": "openssl-3.5.8",
+   "reason": "snapshot frozen and swept after the report was written; same tool, cut-off and method as the other snapshots; totals recomputed from per_snapshot",
+   "amended_at": "2026-10-31T06:11:24Z"
+  }
+ ]
+}

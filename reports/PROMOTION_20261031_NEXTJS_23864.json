@@ -1,0 +1,47 @@
+{
+ "repo": "vercel/next.js",
+ "repo_id": "70107786",
+ "snapshot_id": "snap_ccfc92616d383a5b",
+ "tag": "v14.2.24",
+ "tag_object": "ba09179a3ca9b022de240493266c4c744bd5f3c6",
+ "sha": "756be15c4cfecb6fae1c69cae7cfaf336423b6cf",
+ "applied": true,
+ "checked_at": "2026-10-31T13:16:19Z",
+ "promoted": [
+  {
+   "vulnerability_id": "CVE-2026-23864",
+   "candidate_id": "adv3_86ef089391008788",
+   "location": "packages/next/src/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-server.node.development.js:3620-3656",
+   "function": "decodeAction",
+   "evidence_type": "source_review",
+   "tier": "T1",
+   "review_status": "github_reviewed",
+   "severity": {
+    "level": "high",
+    "score": 7.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H"
+   },
+   "cwe_ids": [
+    "CWE-770"
+   ],
+   "fix_commits": [
+    "https://github.com/vercel/next.js/commit/99b450109dfd12eb5fe3e671e4b480a0cde9bd49",
+    "https://github.com/facebook/react/commit/de58cca00cf0"
+   ],
+   "advisory_url": "https://github.com/vercel/next.js/security/advisories/GHSA-h25m-26qc-wcjf",
+   "upstream_advisory": "https://github.com/facebook/react/security/advisories/GHSA-83fc-fqcc-2hmg",
+   "permalink": "https://github.com/vercel/next.js/blob/756be15c4cfecb6fae1c69cae7cfaf336423b6cf/packages/next/src/compiled/react-server-dom-webpack/cjs/react-server-dom-webpack-server.node.development.js#L3620-L3656",
+   "ok": true
+  }
+ ],
+ "counts": {
+  "promoted": 1,
+  "triage": 0
+ },
+ "notes": [
+  "CVE-2026-23864 is the React 19.0.4 DoS round; the Next advisory (GHSA-h25m-26qc-wcjf) covers >=13.0.0 <15.0.8 and has no 14.x patch. At v14.2.24 the vendored reply decoder is 18.3.0-canary-178c267a4e-20241218 and its decodeAction re-decodes every duplicate $ACTION_REF_ field with no dedup, while parseModelString case K rescans the whole FormData per reference, so repeated fields cost O(N^2).",
+  "The 15.0.8 fix 99b450109dfd syncs the React DoS mitigations by re-pinning react/react-dom to 19.0.0-rc-4cd8f914-20260126; upstream the hardening commit is de58cca00cf0 (19.0.4).",
+  "The row is source_review, not fix_diff_comparison: no 14.x patch exists and the missing guards (seenActions, MAX_BOUND_ARGS, arraySizeLimit) are verified by absence in both development and production bundles rather than by a literal pre-image hunk.",
+  "CVE-2026-23869 and CVE-2026-23870 stay possible_affected: their 19.0.5/19.0.6 fixes harden constructs ($$consumed, deferred reply FormData) that the 18.3 bundle does not contain at all, so the mapping from the fix to this tree is not established."
+ ]
+}

@@ -1,0 +1,44 @@
+{
+ "generated_for": "2026-10-31 nestjs/nest promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The proposed span is the runMiddie hook, but the bypass is decided where the vendored engine copies the raw request target into holder.url for middleware matching. Held here and relocated via promote_candidate.py (see relocated_rows). The cited fix deletes the vendored engine and depends on @fastify/middie 9.3.4, so every line of the frozen file is a removed line of the commit.",
+ "counts": {
+  "admit": 0,
+  "drop": 0,
+  "hold": 1,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "GHSA-9c5c-9qcx-q35q",
+   "advisory_record": "GHSA-9c5c-9qcx-q35q",
+   "repo": "nestjs/nest",
+   "snapshot_version": "v11.2.3",
+   "advisory_trust_tier": "T1",
+   "file": "packages/platform-fastify/adapters/middie/fastify-middie.ts",
+   "function": "runMiddie",
+   "line_start": 317,
+   "line_end": 338,
+   "granularity": "function",
+   "fix_commit": "5226fe084cf6",
+   "verdict": "hold",
+   "reason": "runMiddie only forwards to the engine; it does not decide path matching. The bypass comes from run() using sanitizeUrl(req.url) as holder.url: with an absolute-form target ('GET http://host/path') the middleware regexp sees the full URL and never matches while Fastify routes /path. The fix replaces the vendored engine with @fastify/middie 9.3.4, which resolves absolute-form targets before matching. Relocate to line 113 in run()."
+  }
+ ],
+ "relocated_rows": [
+  {
+   "vulnerability_id": "GHSA-9c5c-9qcx-q35q",
+   "verdict": "admit",
+   "file": "packages/platform-fastify/adapters/middie/fastify-middie.ts",
+   "function": "run",
+   "line_start": 113,
+   "line_end": 113,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/nestjs/nest/commit/5226fe084cf64b357de436f154bc89f2d319b621",
+   "applied": true,
+   "reason": "Frozen 113 stores sanitizeUrl(req.url) as holder.url, which keeps scheme and authority for absolute-form request targets, so a middleware mounted on /path never matches while Fastify routes the request to /path. The cited fix deletes the vendored engine and uses @fastify/middie 9.3.4, which resolves the target before matching."
+  }
+ ]
+}

@@ -1,0 +1,631 @@
+{
+  "report_status": "COMPLETE_FOR_FROZEN_SCOPE",
+  "read_me_zh": "本报告只记录选择性迁移的范围与计数，不是漏洞验证结果；迁移未重新验证任何漏洞。",
+  "dataset_version": "0.4.0",
+  "source_root": "/home/luchitong/work/repo-vuln-50-v031",
+  "target_root": "/home/luchitong/work/repo-vuln-bench-v040-dataset",
+  "source_dataset_version": "0.3.1",
+  "tool_report": "reports/MIGRATION_REPORT.json",
+  "source_unchanged": true,
+  "source_hash_check": {
+    "before": {
+      "manifest.json": "cec435eeac9d66dea87a14828ff0ff31d27135766257c3d652ad43bf056945e4",
+      "data/candidates.jsonl": "7a8b96a96266ab80f0ea73fc86ac733eb91c122576f21978d425c79d280ffb6f",
+      "data/discovery_coverage.jsonl": "18b972e257aa9c0d3f2bdc1bcf27a09a69b2178995a0c58516a738b022e29cc1",
+      "data/evaluation_selection.jsonl": "8edeecf83d220f0539a9c59599fb6a02d1412572eb9e4ac07b81310fa48c2e84",
+      "data/evidence.jsonl": "26be69cccf48d591bc7aab4f55dd463df563874e011a28fc1b373854633321a0",
+      "data/excluded_candidates.jsonl": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a",
+      "data/historical_snapshot_status.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data/legacy_discovery_coverage_v03.jsonl": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+      "data/legacy_evaluation_selection_1064563.jsonl": "63c1f9884f342e80bd0b87423d81e8395fcdb5f9833e226486978bbbc3f4e8c2",
+      "data/legacy_evaluation_selection_1420053.jsonl": "d15776bf277bdd3c54e6784158bd7695d0b0592732d566e58faa54bba85cf329",
+      "data/legacy_evaluation_selection_16072585.jsonl": "7bdf8edd15880ddb8938842ee440e5c9998c5d5490ee8104d4c0eb5bc797ad3f",
+      "data/legacy_evaluation_selection_20904437.jsonl": "76b05a3061137d5b527823f007aab20f4bd0e3ed7c6e67fd21f2388d4e9fe54e",
+      "data/legacy_evaluation_selection_23357588.jsonl": "3ca2da5bae0e19bb77dcb4a02c21fc583ec9126baf3ddaa23f28b59aa45d296b",
+      "data/legacy_evaluation_selection_80314213.jsonl": "18d657f9883876cfa706628b61234b5a0de1afa55a2f3ac19ce6a5d0c26c9b8a",
+      "data/legacy_evaluation_selection_96071.jsonl": "fa5571168d665a43dbdc0b6e6e54f00620a1cfd69b6936c67cd46149766a6ac2",
+      "data/legacy_evaluation_selection_snap_de01ecf37efd6cd5.jsonl": "1ecfd081709d72093a1b6b93046462b3eb6ee5987df4583e62a74d14c6aefc7a",
+      "data/legacy_snapshot_audit_exports_snap_6bc3f36eb61ef280.jsonl": "dab35170ba4b34467af83f63f46c92e9657adf8033ec4129902eb0cc7836d876",
+      "data/legacy_snapshot_audit_exports_snap_ab695ba3db678939.jsonl": "8f4934ed4185bb57823f4b001e989654142262c4f84482c2c0dbad18234882b7",
+      "data/legacy_snapshot_audit_exports_snap_bb344e672a0544ef.jsonl": "c248fcb9759f094b91962fd29bc9ebdf19172ace56fd1073497cee966720f21d",
+      "data/legacy_snapshot_audit_exports_snap_d33251dac37c334c.jsonl": "b58700a3fd16ea405f9aa502f40404b2cae8f4d9eeb6827551a800ede5447731",
+      "data/legacy_snapshot_audit_exports_snap_d4899c7054105aea.jsonl": "bd6029ce441583002ec6e6179b4e1cabfea2819b909d44bef087eee58d6e4598",
+      "data/legacy_snapshot_audit_exports_snap_de01ecf37efd6cd5.jsonl": "5bc9bac904980673b261684721aac593b2d61c13dd3457137f43e7a644d984b5",
+      "data/legacy_snapshot_audit_exports_snap_ee79f4175242bbee.jsonl": "9422a964e79d1c1f106ac14d112d335f7b908a408ef9bcf9fa632a5c67bab17a",
+      "data/legacy_snapshot_audit_exports_snap_efe695448113758a.jsonl": "d3fed7ce50f2c5841b63fc70b1d8d780d35547bf52c36348d4372843ee48a906",
+      "data/legacy_snapshot_audit_exports_snap_f97687a4e0807cb2.jsonl": "c50eb819a57ae34976af3a38cbc2a1c61dbfc15fac4bcdee260fe616fc4963c0",
+      "data/legacy_snapshot_candidate_triage_snap_6bc3f36eb61ef280.jsonl": "be028854c96cfda04d7d409858767919acfda707b3b498ec154a5d49f7c272de",
+      "data/legacy_snapshot_candidate_triage_snap_ab695ba3db678939.jsonl": "9d810edb294263727a743b49c93816c365f874fa338d1871ea7ef3ad1f1ba3df",
+      "data/legacy_snapshot_candidate_triage_snap_bb344e672a0544ef.jsonl": "e26342b3c7e7271efdf16ffddbe8387c9f16050d44ea8b0e885cf0e7f3faf90c",
+      "data/legacy_snapshot_candidate_triage_snap_d33251dac37c334c.jsonl": "39e372b964489d6629a2e224d639d41fea330b4e7aa98885b770690ba64bc53d",
+      "data/legacy_snapshot_candidate_triage_snap_d4899c7054105aea.jsonl": "0ec1c423194f068bace50fdda03dc19e202b6884c57fc6a68ab47baa427aa363",
+      "data/legacy_snapshot_candidate_triage_snap_de01ecf37efd6cd5.jsonl": "d5aaeb1942b6a7c45fba05020b2c69b1dc9ec3646383c7dba1fbe9b624f8529d",
+      "data/legacy_snapshot_candidate_triage_snap_ee79f4175242bbee.jsonl": "26dcbbd0949aa15d1ecfd8f857f8abebf50939c4b0336255326809d6ecc05891",
+      "data/legacy_snapshot_candidate_triage_snap_efe695448113758a.jsonl": "404edcf80e68b35380da6e56d5709fb51bd7e9a644d5d57b12992e1c4af1b18f",
+      "data/legacy_snapshot_candidate_triage_snap_f97687a4e0807cb2.jsonl": "a459763eb99c99a1ccbd09a7239c777cf0cb006a4910b76eba9e397c9d120601",
+      "data/legacy_snapshot_evidence_snap_6bc3f36eb61ef280.jsonl": "dfb632fdc40e811cf14dc4ce7df7a0ed735ce9ede64ef880daff6361ec61ecc4",
+      "data/legacy_snapshot_evidence_snap_d4899c7054105aea.jsonl": "1b31afe516be94648fa307313db5222264b6641c332207731a93df0a6ac900d0",
+      "data/legacy_snapshot_evidence_snap_de01ecf37efd6cd5.jsonl": "bbd4582a3233bbc599a07e06e321a302b2cc3a2cbf23e37e83310780e9b37b76",
+      "data/legacy_snapshot_evidence_snap_ee79f4175242bbee.jsonl": "8be2e2a8b502062fae35e7287e55450581051c67d1e88c6f5776ba19d00b1911",
+      "data/legacy_snapshot_exports_snap_6bc3f36eb61ef280.jsonl": "7ab0d89ebf5b904e473a6ea2ebc0abcd812251b1a48d352b1ee97983205ccf60",
+      "data/legacy_snapshot_exports_snap_ab695ba3db678939.jsonl": "88d1998d3978e1f77b4999c3cf034762ae341779ded1c24e309f45b33b658990",
+      "data/legacy_snapshot_exports_snap_bb344e672a0544ef.jsonl": "e07b08c933fbfb5f0a8ee811df456fc695e2024e94561dd4744bc135021a42db",
+      "data/legacy_snapshot_exports_snap_d33251dac37c334c.jsonl": "a77507bbf07e84a2821151796ccf8ba992e26f1a65c0a66fa06c1ec29db9afe6",
+      "data/legacy_snapshot_exports_snap_d4899c7054105aea.jsonl": "cc7c0576c5b54ba5731a2eef5ab5fc1336b5fb8475614f404e96a84101492851",
+      "data/legacy_snapshot_exports_snap_de01ecf37efd6cd5.jsonl": "0c18b50db747a0a1f481afcd5e47ffb437fb76130f7d1a7937d83797ff376197",
+      "data/legacy_snapshot_exports_snap_ee79f4175242bbee.jsonl": "5a448018ee9b17cd20acfc1e324c3ef37b29345281d8f286da3b176fb7fb3e0c",
+      "data/legacy_snapshot_exports_snap_efe695448113758a.jsonl": "4e3b36c2c0339c4ae17017bb3de6ea97e8d9a043a2e06fac1a2368409f9017b6",
+      "data/legacy_snapshot_exports_snap_f97687a4e0807cb2.jsonl": "849639f12deff22162d07c6f73c8ef8d0f0ca8941c3d32995d8b4a8562a80e66",
+      "data/legacy_snapshot_locations_snap_6bc3f36eb61ef280.jsonl": "4723af4c82d632002694b60091eca75eae881f8c38e7afe3d310c6e01b961c5a",
+      "data/legacy_snapshot_locations_snap_d4899c7054105aea.jsonl": "25f3a4586c4789f3c1c9d08dfc9e791f4e4b6a24ff204f6c6ec0c6901ac1627e",
+      "data/legacy_snapshot_locations_snap_de01ecf37efd6cd5.jsonl": "231ce73205b30fafb176795f7313737276d49b5236da343107dc3ee3d8f53b4a",
+      "data/legacy_snapshot_locations_snap_ee79f4175242bbee.jsonl": "c3122ca7b66982ca044032d167e818cddc852c2bdea92b7cc535137edbcaa4bc",
+      "data/legacy_snapshot_reviews_snap_6bc3f36eb61ef280.jsonl": "359368e570e6fd375f4d0fad2e9c51296a672c45df0b0f2ac99b04ffde620765",
+      "data/legacy_snapshot_reviews_snap_d4899c7054105aea.jsonl": "7a1715ae249983d81a461ed08416d7c6946c717163afe2b3e565bd593aeecb62",
+      "data/legacy_snapshot_reviews_snap_de01ecf37efd6cd5.jsonl": "14ccb6095979e2d44aca437d872f2fa95bf0086f50c79ab019dbb5bc3fbff20b",
+      "data/legacy_snapshot_reviews_snap_ee79f4175242bbee.jsonl": "707ac17f1a6090dab885a5f77a0601553ac654d20174f7dcc299116bf6e2f06e",
+      "data/legacy_snapshot_vulnerabilities_snap_6bc3f36eb61ef280.jsonl": "0d6b7e73c98b7e27a48ba08991225ced87f2d3529a7c35474811dfe85be4a181",
+      "data/legacy_snapshot_vulnerabilities_snap_d4899c7054105aea.jsonl": "5bc18b60d9cd16e7adb8f79f54ccdf8e542cbef727c662478f70c011c6ba89ec",
+      "data/legacy_snapshot_vulnerabilities_snap_de01ecf37efd6cd5.jsonl": "9f4b500ee5f60a77c3a7094738ab30a342e01a6140f9ca3407cff9c7174ec44a",
+      "data/legacy_snapshot_vulnerabilities_snap_ee79f4175242bbee.jsonl": "2df8720fba9e9e3a81e84abed36aa5af06d451e50701d081edf6359accbe525c",
+      "data/legacy_snapshot_vulnerability_status_snap_6bc3f36eb61ef280.jsonl": "b517959f4a7e2501b262b3ed91503a62341f644abbecabf5c996301743ab5199",
+      "data/legacy_snapshot_vulnerability_status_snap_ab695ba3db678939.jsonl": "a10a536c261a3b236dba7ccd6d61a936d74080e0849c47a5f86417176eeca4e6",
+      "data/legacy_snapshot_vulnerability_status_snap_bb344e672a0544ef.jsonl": "c5adb14e661dcc1ad3f717390ffbfe10fbea24342fb8b5785275c328a1262552",
+      "data/legacy_snapshot_vulnerability_status_snap_d33251dac37c334c.jsonl": "ecef8ae0d8b337956298deaf708fa9e69da89b3e0a53b000317b1dccf7589e9d",
+      "data/legacy_snapshot_vulnerability_status_snap_d4899c7054105aea.jsonl": "ec047770c23247708b6c77d42a90fd4826aa523506f08ffdfa4a15b06d6a366b",
+      "data/legacy_snapshot_vulnerability_status_snap_de01ecf37efd6cd5.jsonl": "da99f7f7dba90aec0d5e7d242f64110c74848978e0c0b266e340acc96cc93c42",
+      "data/legacy_snapshot_vulnerability_status_snap_ee79f4175242bbee.jsonl": "306d1a6a03170277885693b5fc352269adf2add2c78fb0df16324214f3840755",
+      "data/legacy_snapshot_vulnerability_status_snap_efe695448113758a.jsonl": "ddc8327ec79e164c26ddb1d1f459af663394866752fef20b045c6ec4e3c051ea",
+      "data/legacy_snapshot_vulnerability_status_snap_f97687a4e0807cb2.jsonl": "a505f90fc4aa53ea147c71c315e21632feabe0ed8484814c05bcc12a3e5e7b76",
+      "data/locations.jsonl": "8ce5da953ed02cc0f0ae78ef281aa407d116386e0dd6d203f7ac4aa6f381ab74",
+      "data/locations_before_round71_entry_line_fix_20261025T212339Z.jsonl": "b16c617f8ffceb076b1f16f83100a38f8ee1b49606b543e9516ee2f1754a83f7",
+      "data/repositories.jsonl": "0c994479d59db3928617752307971caf6b226110130a5bb5cae130e24272ce77",
+      "data/reviews.jsonl": "b6d8f31761fb9b17a0578eee4296fb3b0392b0d13429101d0ad3f056ac3bd182",
+      "data/snapshot_audit_exports.jsonl": "98bbf43da383be5ace527a6faf6eb01b3026ffcf50795847f82fd58063e8bb2f",
+      "data/snapshot_candidate_triage.jsonl": "671d4f446e4691312753d4c85b99c49054bd881432a0fc76d3399a14d17bae94",
+      "data/snapshot_candidate_triage_before_round70_na_20261025T211029Z.jsonl": "bd407a7408a2d80a7625966cd2ed2198cc7cb0e733399cddd682fd8ee1ca02cf",
+      "data/snapshot_candidate_triage_before_round78_na_20261025T224212Z.jsonl": "2599c7c8e8b15034be20a8a588a4b3f56c201bc95a24223ff59c02ecf708ace7",
+      "data/snapshot_exports.jsonl": "532a045e44ba4d94b71204da1e4912c29368d7eb75b0eb3b90c3173bf50518e1",
+      "data/snapshot_proposals.jsonl": "7d4c5d1507981d4c03e302e63a6c1edaac4170c9818ab2d852d2d1657551d11c",
+      "data/snapshot_vulnerability_status.jsonl": "c7f1f20b3a95a6e0037bdf8351baac046e8d6d0365a4470ae8cc63544c7dd6fb",
+      "data/snapshots.jsonl": "ef77d02bb58f1cb67c4495165b14ae78ee0de3a4eca3aa126551966858064422",
+      "data/vulnerabilities.jsonl": "f4fa95af46640ecb77df591f82c6c4f4a8a6d868f7ba9b09669836c71dc77dd5"
+    },
+    "after": {
+      "manifest.json": "cec435eeac9d66dea87a14828ff0ff31d27135766257c3d652ad43bf056945e4",
+      "data/candidates.jsonl": "7a8b96a96266ab80f0ea73fc86ac733eb91c122576f21978d425c79d280ffb6f",
+      "data/discovery_coverage.jsonl": "18b972e257aa9c0d3f2bdc1bcf27a09a69b2178995a0c58516a738b022e29cc1",
+      "data/evaluation_selection.jsonl": "8edeecf83d220f0539a9c59599fb6a02d1412572eb9e4ac07b81310fa48c2e84",
+      "data/evidence.jsonl": "26be69cccf48d591bc7aab4f55dd463df563874e011a28fc1b373854633321a0",
+      "data/excluded_candidates.jsonl": "52208b5196b592356140be867ac00dc8c8b9a70f24eddbd79fa56bca7c3a752a",
+      "data/historical_snapshot_status.jsonl": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "data/legacy_discovery_coverage_v03.jsonl": "6f8cda79f2163c1b36dcf5fddad25a9da8e3a6d0af090d774ec67cf9f842724b",
+      "data/legacy_evaluation_selection_1064563.jsonl": "63c1f9884f342e80bd0b87423d81e8395fcdb5f9833e226486978bbbc3f4e8c2",
+      "data/legacy_evaluation_selection_1420053.jsonl": "d15776bf277bdd3c54e6784158bd7695d0b0592732d566e58faa54bba85cf329",
+      "data/legacy_evaluation_selection_16072585.jsonl": "7bdf8edd15880ddb8938842ee440e5c9998c5d5490ee8104d4c0eb5bc797ad3f",
+      "data/legacy_evaluation_selection_20904437.jsonl": "76b05a3061137d5b527823f007aab20f4bd0e3ed7c6e67fd21f2388d4e9fe54e",
+      "data/legacy_evaluation_selection_23357588.jsonl": "3ca2da5bae0e19bb77dcb4a02c21fc583ec9126baf3ddaa23f28b59aa45d296b",
+      "data/legacy_evaluation_selection_80314213.jsonl": "18d657f9883876cfa706628b61234b5a0de1afa55a2f3ac19ce6a5d0c26c9b8a",
+      "data/legacy_evaluation_selection_96071.jsonl": "fa5571168d665a43dbdc0b6e6e54f00620a1cfd69b6936c67cd46149766a6ac2",
+      "data/legacy_evaluation_selection_snap_de01ecf37efd6cd5.jsonl": "1ecfd081709d72093a1b6b93046462b3eb6ee5987df4583e62a74d14c6aefc7a",
+      "data/legacy_snapshot_audit_exports_snap_6bc3f36eb61ef280.jsonl": "dab35170ba4b34467af83f63f46c92e9657adf8033ec4129902eb0cc7836d876",
+      "data/legacy_snapshot_audit_exports_snap_ab695ba3db678939.jsonl": "8f4934ed4185bb57823f4b001e989654142262c4f84482c2c0dbad18234882b7",
+      "data/legacy_snapshot_audit_exports_snap_bb344e672a0544ef.jsonl": "c248fcb9759f094b91962fd29bc9ebdf19172ace56fd1073497cee966720f21d",
+      "data/legacy_snapshot_audit_exports_snap_d33251dac37c334c.jsonl": "b58700a3fd16ea405f9aa502f40404b2cae8f4d9eeb6827551a800ede5447731",
+      "data/legacy_snapshot_audit_exports_snap_d4899c7054105aea.jsonl": "bd6029ce441583002ec6e6179b4e1cabfea2819b909d44bef087eee58d6e4598",
+      "data/legacy_snapshot_audit_exports_snap_de01ecf37efd6cd5.jsonl": "5bc9bac904980673b261684721aac593b2d61c13dd3457137f43e7a644d984b5",
+      "data/legacy_snapshot_audit_exports_snap_ee79f4175242bbee.jsonl": "9422a964e79d1c1f106ac14d112d335f7b908a408ef9bcf9fa632a5c67bab17a",
+      "data/legacy_snapshot_audit_exports_snap_efe695448113758a.jsonl": "d3fed7ce50f2c5841b63fc70b1d8d780d35547bf52c36348d4372843ee48a906",
+      "data/legacy_snapshot_audit_exports_snap_f97687a4e0807cb2.jsonl": "c50eb819a57ae34976af3a38cbc2a1c61dbfc15fac4bcdee260fe616fc4963c0",
+      "data/legacy_snapshot_candidate_triage_snap_6bc3f36eb61ef280.jsonl": "be028854c96cfda04d7d409858767919acfda707b3b498ec154a5d49f7c272de",
+      "data/legacy_snapshot_candidate_triage_snap_ab695ba3db678939.jsonl": "9d810edb294263727a743b49c93816c365f874fa338d1871ea7ef3ad1f1ba3df",
+      "data/legacy_snapshot_candidate_triage_snap_bb344e672a0544ef.jsonl": "e26342b3c7e7271efdf16ffddbe8387c9f16050d44ea8b0e885cf0e7f3faf90c",
+      "data/legacy_snapshot_candidate_triage_snap_d33251dac37c334c.jsonl": "39e372b964489d6629a2e224d639d41fea330b4e7aa98885b770690ba64bc53d",
+      "data/legacy_snapshot_candidate_triage_snap_d4899c7054105aea.jsonl": "0ec1c423194f068bace50fdda03dc19e202b6884c57fc6a68ab47baa427aa363",
+      "data/legacy_snapshot_candidate_triage_snap_de01ecf37efd6cd5.jsonl": "d5aaeb1942b6a7c45fba05020b2c69b1dc9ec3646383c7dba1fbe9b624f8529d",
+      "data/legacy_snapshot_candidate_triage_snap_ee79f4175242bbee.jsonl": "26dcbbd0949aa15d1ecfd8f857f8abebf50939c4b0336255326809d6ecc05891",
+      "data/legacy_snapshot_candidate_triage_snap_efe695448113758a.jsonl": "404edcf80e68b35380da6e56d5709fb51bd7e9a644d5d57b12992e1c4af1b18f",
+      "data/legacy_snapshot_candidate_triage_snap_f97687a4e0807cb2.jsonl": "a459763eb99c99a1ccbd09a7239c777cf0cb006a4910b76eba9e397c9d120601",
+      "data/legacy_snapshot_evidence_snap_6bc3f36eb61ef280.jsonl": "dfb632fdc40e811cf14dc4ce7df7a0ed735ce9ede64ef880daff6361ec61ecc4",
+      "data/legacy_snapshot_evidence_snap_d4899c7054105aea.jsonl": "1b31afe516be94648fa307313db5222264b6641c332207731a93df0a6ac900d0",
+      "data/legacy_snapshot_evidence_snap_de01ecf37efd6cd5.jsonl": "bbd4582a3233bbc599a07e06e321a302b2cc3a2cbf23e37e83310780e9b37b76",
+      "data/legacy_snapshot_evidence_snap_ee79f4175242bbee.jsonl": "8be2e2a8b502062fae35e7287e55450581051c67d1e88c6f5776ba19d00b1911",
+      "data/legacy_snapshot_exports_snap_6bc3f36eb61ef280.jsonl": "7ab0d89ebf5b904e473a6ea2ebc0abcd812251b1a48d352b1ee97983205ccf60",
+      "data/legacy_snapshot_exports_snap_ab695ba3db678939.jsonl": "88d1998d3978e1f77b4999c3cf034762ae341779ded1c24e309f45b33b658990",
+      "data/legacy_snapshot_exports_snap_bb344e672a0544ef.jsonl": "e07b08c933fbfb5f0a8ee811df456fc695e2024e94561dd4744bc135021a42db",
+      "data/legacy_snapshot_exports_snap_d33251dac37c334c.jsonl": "a77507bbf07e84a2821151796ccf8ba992e26f1a65c0a66fa06c1ec29db9afe6",
+      "data/legacy_snapshot_exports_snap_d4899c7054105aea.jsonl": "cc7c0576c5b54ba5731a2eef5ab5fc1336b5fb8475614f404e96a84101492851",
+      "data/legacy_snapshot_exports_snap_de01ecf37efd6cd5.jsonl": "0c18b50db747a0a1f481afcd5e47ffb437fb76130f7d1a7937d83797ff376197",
+      "data/legacy_snapshot_exports_snap_ee79f4175242bbee.jsonl": "5a448018ee9b17cd20acfc1e324c3ef37b29345281d8f286da3b176fb7fb3e0c",
+      "data/legacy_snapshot_exports_snap_efe695448113758a.jsonl": "4e3b36c2c0339c4ae17017bb3de6ea97e8d9a043a2e06fac1a2368409f9017b6",
+      "data/legacy_snapshot_exports_snap_f97687a4e0807cb2.jsonl": "849639f12deff22162d07c6f73c8ef8d0f0ca8941c3d32995d8b4a8562a80e66",
+      "data/legacy_snapshot_locations_snap_6bc3f36eb61ef280.jsonl": "4723af4c82d632002694b60091eca75eae881f8c38e7afe3d310c6e01b961c5a",
+      "data/legacy_snapshot_locations_snap_d4899c7054105aea.jsonl": "25f3a4586c4789f3c1c9d08dfc9e791f4e4b6a24ff204f6c6ec0c6901ac1627e",
+      "data/legacy_snapshot_locations_snap_de01ecf37efd6cd5.jsonl": "231ce73205b30fafb176795f7313737276d49b5236da343107dc3ee3d8f53b4a",
+      "data/legacy_snapshot_locations_snap_ee79f4175242bbee.jsonl": "c3122ca7b66982ca044032d167e818cddc852c2bdea92b7cc535137edbcaa4bc",
+      "data/legacy_snapshot_reviews_snap_6bc3f36eb61ef280.jsonl": "359368e570e6fd375f4d0fad2e9c51296a672c45df0b0f2ac99b04ffde620765",
+      "data/legacy_snapshot_reviews_snap_d4899c7054105aea.jsonl": "7a1715ae249983d81a461ed08416d7c6946c717163afe2b3e565bd593aeecb62",
+      "data/legacy_snapshot_reviews_snap_de01ecf37efd6cd5.jsonl": "14ccb6095979e2d44aca437d872f2fa95bf0086f50c79ab019dbb5bc3fbff20b",
+      "data/legacy_snapshot_reviews_snap_ee79f4175242bbee.jsonl": "707ac17f1a6090dab885a5f77a0601553ac654d20174f7dcc299116bf6e2f06e",
+      "data/legacy_snapshot_vulnerabilities_snap_6bc3f36eb61ef280.jsonl": "0d6b7e73c98b7e27a48ba08991225ced87f2d3529a7c35474811dfe85be4a181",
+      "data/legacy_snapshot_vulnerabilities_snap_d4899c7054105aea.jsonl": "5bc18b60d9cd16e7adb8f79f54ccdf8e542cbef727c662478f70c011c6ba89ec",
+      "data/legacy_snapshot_vulnerabilities_snap_de01ecf37efd6cd5.jsonl": "9f4b500ee5f60a77c3a7094738ab30a342e01a6140f9ca3407cff9c7174ec44a",
+      "data/legacy_snapshot_vulnerabilities_snap_ee79f4175242bbee.jsonl": "2df8720fba9e9e3a81e84abed36aa5af06d451e50701d081edf6359accbe525c",
+      "data/legacy_snapshot_vulnerability_status_snap_6bc3f36eb61ef280.jsonl": "b517959f4a7e2501b262b3ed91503a62341f644abbecabf5c996301743ab5199",
+      "data/legacy_snapshot_vulnerability_status_snap_ab695ba3db678939.jsonl": "a10a536c261a3b236dba7ccd6d61a936d74080e0849c47a5f86417176eeca4e6",
+      "data/legacy_snapshot_vulnerability_status_snap_bb344e672a0544ef.jsonl": "c5adb14e661dcc1ad3f717390ffbfe10fbea24342fb8b5785275c328a1262552",
+      "data/legacy_snapshot_vulnerability_status_snap_d33251dac37c334c.jsonl": "ecef8ae0d8b337956298deaf708fa9e69da89b3e0a53b000317b1dccf7589e9d",
+      "data/legacy_snapshot_vulnerability_status_snap_d4899c7054105aea.jsonl": "ec047770c23247708b6c77d42a90fd4826aa523506f08ffdfa4a15b06d6a366b",
+      "data/legacy_snapshot_vulnerability_status_snap_de01ecf37efd6cd5.jsonl": "da99f7f7dba90aec0d5e7d242f64110c74848978e0c0b266e340acc96cc93c42",
+      "data/legacy_snapshot_vulnerability_status_snap_ee79f4175242bbee.jsonl": "306d1a6a03170277885693b5fc352269adf2add2c78fb0df16324214f3840755",
+      "data/legacy_snapshot_vulnerability_status_snap_efe695448113758a.jsonl": "ddc8327ec79e164c26ddb1d1f459af663394866752fef20b045c6ec4e3c051ea",
+      "data/legacy_snapshot_vulnerability_status_snap_f97687a4e0807cb2.jsonl": "a505f90fc4aa53ea147c71c315e21632feabe0ed8484814c05bcc12a3e5e7b76",
+      "data/locations.jsonl": "8ce5da953ed02cc0f0ae78ef281aa407d116386e0dd6d203f7ac4aa6f381ab74",
+      "data/locations_before_round71_entry_line_fix_20261025T212339Z.jsonl": "b16c617f8ffceb076b1f16f83100a38f8ee1b49606b543e9516ee2f1754a83f7",
+      "data/repositories.jsonl": "0c994479d59db3928617752307971caf6b226110130a5bb5cae130e24272ce77",
+      "data/reviews.jsonl": "b6d8f31761fb9b17a0578eee4296fb3b0392b0d13429101d0ad3f056ac3bd182",
+      "data/snapshot_audit_exports.jsonl": "98bbf43da383be5ace527a6faf6eb01b3026ffcf50795847f82fd58063e8bb2f",
+      "data/snapshot_candidate_triage.jsonl": "671d4f446e4691312753d4c85b99c49054bd881432a0fc76d3399a14d17bae94",
+      "data/snapshot_candidate_triage_before_round70_na_20261025T211029Z.jsonl": "bd407a7408a2d80a7625966cd2ed2198cc7cb0e733399cddd682fd8ee1ca02cf",
+      "data/snapshot_candidate_triage_before_round78_na_20261025T224212Z.jsonl": "2599c7c8e8b15034be20a8a588a4b3f56c201bc95a24223ff59c02ecf708ace7",
+      "data/snapshot_exports.jsonl": "532a045e44ba4d94b71204da1e4912c29368d7eb75b0eb3b90c3173bf50518e1",
+      "data/snapshot_proposals.jsonl": "7d4c5d1507981d4c03e302e63a6c1edaac4170c9818ab2d852d2d1657551d11c",
+      "data/snapshot_vulnerability_status.jsonl": "c7f1f20b3a95a6e0037bdf8351baac046e8d6d0365a4470ae8cc63544c7dd6fb",
+      "data/snapshots.jsonl": "ef77d02bb58f1cb67c4495165b14ae78ee0de3a4eca3aa126551966858064422",
+      "data/vulnerabilities.jsonl": "f4fa95af46640ecb77df591f82c6c4f4a8a6d868f7ba9b09669836c71dc77dd5"
+    },
+    "all_tables_identical": true,
+    "independent_rehash_of_10_main_tables_matches": {
+      "repositories": "0c994479d59db3928617752307971caf6b226110130a5bb5cae130e24272ce77",
+      "snapshots": "ef77d02bb58f1cb67c4495165b14ae78ee0de3a4eca3aa126551966858064422",
+      "evaluation_selection": "8edeecf83d220f0539a9c59599fb6a02d1412572eb9e4ac07b81310fa48c2e84",
+      "vulnerabilities": "f4fa95af46640ecb77df591f82c6c4f4a8a6d868f7ba9b09669836c71dc77dd5",
+      "locations": "8ce5da953ed02cc0f0ae78ef281aa407d116386e0dd6d203f7ac4aa6f381ab74",
+      "snapshot_vulnerability_status": "c7f1f20b3a95a6e0037bdf8351baac046e8d6d0365a4470ae8cc63544c7dd6fb",
+      "candidates": "7a8b96a96266ab80f0ea73fc86ac733eb91c122576f21978d425c79d280ffb6f",
+      "snapshot_candidate_triage": "671d4f446e4691312753d4c85b99c49054bd881432a0fc76d3399a14d17bae94",
+      "evidence": "26be69cccf48d591bc7aab4f55dd463df563874e011a28fc1b373854633321a0",
+      "discovery_coverage": "18b972e257aa9c0d3f2bdc1bcf27a09a69b2178995a0c58516a738b022e29cc1"
+    }
+  },
+  "table_counts": {
+    "repositories": {
+      "source": 50,
+      "target": 50,
+      "excluded": 0
+    },
+    "snapshots": {
+      "source": 110,
+      "target": 46,
+      "excluded": 64
+    },
+    "evaluation_selection": {
+      "source": 48,
+      "target": 46,
+      "excluded": 2
+    },
+    "vulnerabilities": {
+      "source": 196,
+      "target": 165,
+      "excluded": 31
+    },
+    "locations": {
+      "source": 196,
+      "target": 165,
+      "excluded": 31
+    },
+    "snapshot_vulnerability_status": {
+      "source": 167,
+      "target": 165,
+      "excluded": 2
+    },
+    "candidates": {
+      "source": 2626,
+      "target": 1066,
+      "excluded": 1560
+    },
+    "snapshot_candidate_triage": {
+      "source": 2613,
+      "target": 2601,
+      "excluded": 12
+    },
+    "evidence": {
+      "source": 7998,
+      "target": 7245,
+      "excluded": 753
+    },
+    "discovery_coverage": {
+      "source": 50,
+      "target": 0,
+      "excluded": 50
+    }
+  },
+  "table_hashes": {
+    "repositories": {
+      "source_sha256": "0c994479d59db3928617752307971caf6b226110130a5bb5cae130e24272ce77",
+      "target_sha256": "a99d522da71d2962b889edd6ae88bff82a23d14d6d1cba5f5860a605aab64e12"
+    },
+    "snapshots": {
+      "source_sha256": "ef77d02bb58f1cb67c4495165b14ae78ee0de3a4eca3aa126551966858064422",
+      "target_sha256": "1d726040103649d36d5819df53f904b3a9aefe4f25af109460b064d90e7a9624"
+    },
+    "evaluation_selection": {
+      "source_sha256": "8edeecf83d220f0539a9c59599fb6a02d1412572eb9e4ac07b81310fa48c2e84",
+      "target_sha256": "e4d32ec75de4eae5df9aca1ce44316953238e61edb6504b4d1c15193d1286192"
+    },
+    "vulnerabilities": {
+      "source_sha256": "f4fa95af46640ecb77df591f82c6c4f4a8a6d868f7ba9b09669836c71dc77dd5",
+      "target_sha256": "cf6f07c6b8c4d147574ebdc535d523ff806c1a0adbb6cc4df01be3587846cf30"
+    },
+    "locations": {
+      "source_sha256": "8ce5da953ed02cc0f0ae78ef281aa407d116386e0dd6d203f7ac4aa6f381ab74",
+      "target_sha256": "b6a15013175ed5f9b548279293e6cd54fd9b0ff739a9018f35f1cb7d93da1f44"
+    },
+    "snapshot_vulnerability_status": {
+      "source_sha256": "c7f1f20b3a95a6e0037bdf8351baac046e8d6d0365a4470ae8cc63544c7dd6fb",
+      "target_sha256": "de7f22b38b7dfdc1a38209378b32872324f9019a84998bee84acecd0a963be84"
+    },
+    "candidates": {
+      "source_sha256": "7a8b96a96266ab80f0ea73fc86ac733eb91c122576f21978d425c79d280ffb6f",
+      "target_sha256": "0284cf6f2fa457817909010a20890b11908615b58562e99b692bf7ee4a45db22"
+    },
+    "snapshot_candidate_triage": {
+      "source_sha256": "671d4f446e4691312753d4c85b99c49054bd881432a0fc76d3399a14d17bae94",
+      "target_sha256": "afbf7f42baa4b4f99c342e69bd206a59601b98e3fe72152308cd34d69d500a70"
+    },
+    "evidence": {
+      "source_sha256": "26be69cccf48d591bc7aab4f55dd463df563874e011a28fc1b373854633321a0",
+      "target_sha256": "e71279b344bad25f4c46ea2fd9916274f5757278772eb137220982f6e945c5a0"
+    },
+    "discovery_coverage": {
+      "source_sha256": "18b972e257aa9c0d3f2bdc1bcf27a09a69b2178995a0c58516a738b022e29cc1",
+      "target_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  },
+  "generated_tables": {
+    "discovery_tasks": 46,
+    "selection_queue": 4
+  },
+  "frozen_snapshot_count": 46,
+  "repositories_with_frozen_snapshot": 46,
+  "repositories_metadata_only": 4,
+  "formal_static_ground_truth_count": 165,
+  "positive_evidence_level": {
+    "S2": 165
+  },
+  "positive_legacy_review_grade": {
+    "B": 46,
+    "A": 119
+  },
+  "candidates_requiring_version_check": 564,
+  "candidates_requiring_static_location": 502,
+  "candidate_status_counts": {
+    "needs_version_check": 564,
+    "needs_static_location": 502
+  },
+  "source_positive_status_counts": {
+    "confirmed_affected": 167
+  },
+  "exclusion_reasons": {
+    "snapshots": {
+      "historical_evidence_snapshots_not_copied": 62,
+      "proposed_or_draft_snapshots_not_copied": 2
+    },
+    "evaluation_selection": {
+      "proposed_selections_not_copied": 2
+    },
+    "vulnerabilities": {
+      "historical_vulnerabilities_not_on_a_frozen_target_sha": 31
+    },
+    "locations": {
+      "locations_of_excluded_vulnerabilities": 31
+    },
+    "snapshot_vulnerability_status": {
+      "confirmed_affected_rows_on_proposed_snapshots": 2
+    },
+    "candidates": {
+      "snapshot_triage_confirmed_not_affected": 1325,
+      "duplicate_of_migrated_ground_truth_alias": 183,
+      "migrated": 1066,
+      "repo_without_frozen_snapshot": 25,
+      "snapshot_triage_duplicate": 27
+    },
+    "snapshot_candidate_triage": {
+      "rows_on_proposed_snapshots": 12
+    },
+    "evidence": {
+      "target_not_migrated": 752,
+      "migrated": 7245,
+      "result_not_PASS": 1
+    },
+    "reviews": {
+      "old_reviews_table_not_copied_by_policy": 196
+    },
+    "discovery_coverage": {
+      "old_full_history_coverage_not_copied_by_policy": 50
+    }
+  },
+  "unfrozen_repositories": [
+    {
+      "repo_id": "23500865",
+      "full_name": "hyperium/hyper",
+      "canonical_url": "https://github.com/hyperium/hyper",
+      "source_status": "repository metadata kept; no frozen evaluation selection",
+      "unfrozen_selections_in_source": [
+        {
+          "snapshot_id": "snap_735b41cb13177d03",
+          "decision_status": "proposed"
+        }
+      ],
+      "candidate_snapshot_ids_in_queue": [
+        "snap_735b41cb13177d03",
+        "snap_91f2c33e009442f7"
+      ],
+      "queue_reason": "proposed_selection_rejected_pending_new_selection"
+    },
+    {
+      "repo_id": "3476845",
+      "full_name": "JamesNK/Newtonsoft.Json",
+      "canonical_url": "https://github.com/JamesNK/Newtonsoft.Json",
+      "source_status": "repository metadata kept; no frozen evaluation selection",
+      "unfrozen_selections_in_source": [
+        {
+          "snapshot_id": "snap_25561773eac9d84f",
+          "decision_status": "proposed"
+        }
+      ],
+      "candidate_snapshot_ids_in_queue": [
+        "snap_25561773eac9d84f",
+        "snap_5ee01d837fd6448e"
+      ],
+      "queue_reason": "proposed_selection_rejected_pending_new_selection"
+    },
+    {
+      "repo_id": "11171548",
+      "full_name": "nlohmann/json",
+      "canonical_url": "https://github.com/nlohmann/json",
+      "source_status": "repository metadata kept; no frozen evaluation selection",
+      "unfrozen_selections_in_source": [],
+      "candidate_snapshot_ids_in_queue": [],
+      "queue_reason": "no_selection_proposal"
+    },
+    {
+      "repo_id": "7634677",
+      "full_name": "openssl/openssl",
+      "canonical_url": "https://github.com/openssl/openssl",
+      "source_status": "repository metadata kept; no frozen evaluation selection",
+      "unfrozen_selections_in_source": [],
+      "candidate_snapshot_ids_in_queue": [],
+      "queue_reason": "no_selection_proposal"
+    }
+  ],
+  "legacy_positives_without_fixed_sha_location": 0,
+  "advisory_url_source_kinds": {
+    "upstream_github_issue": 3,
+    "vendor_advisory_curl": 4,
+    "upstream_github_security_advisory": 57,
+    "vendor_advisory_jenkins": 6,
+    "upstream_github_pr": 1,
+    "vendor_advisory_symfony": 18,
+    "github_advisory_database": 62,
+    "nvd": 9,
+    "osv": 4,
+    "github_advisory_api": 1
+  },
+  "advisory_url_needing_review": [
+    {
+      "vulnerability_id": "CVE-2023-50471",
+      "advisory_url": "https://github.com/DaveGamble/cJSON/issues/802",
+      "has_nvd_reference": true
+    },
+    {
+      "vulnerability_id": "CVE-2025-5915",
+      "advisory_url": "https://github.com/libarchive/libarchive/pull/2599",
+      "has_nvd_reference": true
+    },
+    {
+      "vulnerability_id": "CVE-2023-53154",
+      "advisory_url": "https://github.com/DaveGamble/cJSON/issues/800",
+      "has_nvd_reference": true
+    },
+    {
+      "vulnerability_id": "CVE-2023-50472",
+      "advisory_url": "https://github.com/DaveGamble/cJSON/issues/803",
+      "has_nvd_reference": true
+    }
+  ],
+  "cross_checks": {
+    "validator": {
+      "command": "python3 scripts/validate_dataset.py NEW_ROOT --draft",
+      "errors": 0,
+      "warnings": 0,
+      "repository_count": 50,
+      "evaluation_snapshot_count": 46,
+      "known_positive_count": 165,
+      "candidate_count": 1066
+    },
+    "unit_tests": {
+      "command": "python3 -m unittest discover -s tests -v",
+      "tests": 18,
+      "failures": 0
+    },
+    "every_positive_has_https_advisory_url_and_fixed_sha_location": true,
+    "every_location_permalink_contains_its_commit_sha": true,
+    "no_candidate_is_itself_a_positive_alias": true,
+    "protected_rows": {
+      "django_4.2.13_snap_516aa9971dd9509d_CVE-2024-45230": "carried as candidate needs_static_location, not confirmed",
+      "django_4.2.13_CVE-2024-41990": "carried as candidate needs_static_location, not confirmed",
+      "vite_v5.0.11_snap_2e50b228f2432623_disc2_a9e1d40f6d45b48f37ff8a9c": "carried unchanged as candidate needs_static_location; no decision change"
+    },
+    "tier_backfill": {
+      "T1": 148,
+      "T2": 17,
+      "T3_positives": 0,
+      "candidates_T3": 1066,
+      "qa_sample_pending": 34,
+      "report": "reports/TRUST_TIER_REPORT.json"
+    }
+  },
+  "disclosures": [
+    "Migration does not re-verify any vulnerability; S2 labels are carried from the prior workflow, where each had an advisory URL plus a fixed-SHA static root-cause location.",
+    "No legacy positive was demoted: every one of the 165 target-SHA confirmed_affected rows had an https advisory URL and a portable fixed-SHA location, so the script created zero needs_static_location conversions.",
+    "Four quality-PASS repositories have no frozen evaluation selection (hyper, Newtonsoft.Json, nlohmann/json, openssl): only repository metadata is kept. The selection queue now records the proposed snapshot ids and a reason per repo: hyper and Newtonsoft.Json have proposed selections rejected by independent selection review (snap_735b41cb13177d03, snap_25561773eac9d84f); nlohmann/json and openssl have no proposal because no stable tag falls inside the cached advisory ranges.",
+    "Two proposed snapshots were not migrated (hyper snap_735b41cb13177d03: 11 triage rows / 1 confirmed status; Newtonsoft.Json snap_25561773eac9d84f: 1 triage row / 1 confirmed status). They stay draft and were not frozen by this migration.",
+    "Nine source candidates had legacy status rejected but an open snapshot-level triage decision (possible_affected/unknown); they were carried as unresolved candidates, not as negatives.",
+    "220 carried candidates had source status in_validation at cut-off. Their labels are unchanged and they remain unresolved; nothing was promoted.",
+    "4 of the 165 positives use an upstream issue or pull-request URL as advisory_url (3 cJSON GitHub issues, 1 libarchive pull request); all four have an NVD reference. They satisfy the migration rule (https advisory URL) but should be re-checked against the v0.4.0 trusted-advisory bar before release.",
+    "The old reviews table (196 rows, A119/B77) was not copied; only a legacy_review_grade annotation on migrated positives survives (A119/B46). It is not an admission condition in v0.4.0.",
+    "Old discovery_coverage (50 rows) was not copied; 46 snapshot-scoped discovery_tasks were generated with status not_started. No PASS_KNOWN_SWEEP claim exists for any frozen SHA.",
+    "The in-flight round-62 independent reviewer in the old workflow was not consulted and its result is not reflected; migration copied the vite candidate row verbatim."
+  ],
+  "not_a_validation_result": true,
+  "post_migration_annotations": {
+    "date": "2026-10-30",
+    "kind": "tier_annotation_and_qa_sampling",
+    "no_vulnerability_reverification": true,
+    "tier_report": "reports/TRUST_TIER_REPORT.json",
+    "qa_plan": "reports/QA_SAMPLE_PLAN.json",
+    "table_hashes_at_migration": {
+      "vulnerabilities": "cf6f07c6b8c4d147574ebdc535d523ff806c1a0adbb6cc4df01be3587846cf30",
+      "snapshot_vulnerability_status": "de7f22b38b7dfdc1a38209378b32872324f9019a84998bee84acecd0a963be84",
+      "candidates": "0284cf6f2fa457817909010a20890b11908615b58562e99b692bf7ee4a45db22"
+    },
+    "table_hashes_after_annotation": {
+      "vulnerabilities": "8e69f7d43a9c714de827b7bbeed4e55d3b5d5495b4c74a22b63c189d4a2ece7a",
+      "snapshot_vulnerability_status": "02293515ba10f947f8d2954a46f5c5e7588b4266acc5c4e9a2dcb8832131a38d",
+      "candidates": "2a9464a35a0875f691f1dd3414c75b9c1454578a52aa8a551eeb5724c5d72a8b"
+    },
+    "tier_counts": {
+      "T2": 17,
+      "T1": 148
+    },
+    "advisory_review_status_counts": {
+      "unreviewed": 4,
+      "vendor_official": 90,
+      "unknown": 13,
+      "github_reviewed": 58
+    },
+    "qa": {
+      "random_sampled": 22,
+      "mandatory": 15,
+      "total": 34,
+      "status": "pending"
+    },
+    "note": "MIGRATION_REPORT table_hashes describe the post-migration, pre-annotation state; use TRUST_TIER_REPORT.json for current hashes of the annotated tables. Counts are unchanged."
+  },
+  "migration_completion": {
+    "completed_at": "2026-10-30T15:45:30Z",
+    "scope": "46 frozen evaluation snapshots plus metadata for all 50 quality-PASS repositories",
+    "frozen_scope_complete": true,
+    "frozen_repositories": 46,
+    "quality_pass_repositories": 50,
+    "metadata_only_repositories": 4,
+    "excluded_repositories": [
+      {
+        "repo_id": "23500865",
+        "full_name": "hyperium/hyper",
+        "reason": "source selection is proposed and was rejected by independent selection review; no frozen target",
+        "evidence": {
+          "proposed_snapshot_ids": [
+            "snap_735b41cb13177d03",
+            "snap_91f2c33e009442f7"
+          ],
+          "selection_review_verdict": "reject",
+          "unmigrated_vulnerabilities": [
+            "GHSA-6hfq-h8hq-87mf"
+          ],
+          "unmigrated_status_rows": 1,
+          "unmigrated_candidates": 11,
+          "unmigrated_triage_rows": 11
+        }
+      },
+      {
+        "repo_id": "3476845",
+        "full_name": "JamesNK/Newtonsoft.Json",
+        "reason": "source selection is proposed and was rejected by independent selection review; no frozen target",
+        "evidence": {
+          "proposed_snapshot_ids": [
+            "snap_25561773eac9d84f",
+            "snap_5ee01d837fd6448e"
+          ],
+          "selection_review_verdict": "reject",
+          "unmigrated_vulnerabilities": [
+            "GHSA-5crp-9r3c-p9vr"
+          ],
+          "unmigrated_status_rows": 1,
+          "unmigrated_candidates": 1,
+          "unmigrated_triage_rows": 1
+        }
+      },
+      {
+        "repo_id": "11171548",
+        "full_name": "nlohmann/json",
+        "reason": "no selection proposal: no stable tag falls inside the cached advisory ranges",
+        "evidence": {
+          "proposed_snapshot_ids": [],
+          "unmigrated_candidates": 3
+        }
+      },
+      {
+        "repo_id": "7634677",
+        "full_name": "openssl/openssl",
+        "reason": "no selection proposal: no stable tag falls inside the cached advisory ranges",
+        "evidence": {
+          "proposed_snapshot_ids": [],
+          "unmigrated_candidates": 10
+        }
+      }
+    ],
+    "excluded_rows": {
+      "vulnerabilities_not_on_a_frozen_sha": 31,
+      "status_rows_on_proposed_snapshots": 2,
+      "candidates_in_repositories_without_frozen_snapshot": 25,
+      "proposed_or_draft_snapshots": 2,
+      "historical_snapshots": 62
+    },
+    "queue_reasons": {
+      "23500865": "proposed_selection_rejected_pending_new_selection",
+      "3476845": "proposed_selection_rejected_pending_new_selection",
+      "11171548": "no_selection_proposal",
+      "7634677": "no_selection_proposal"
+    },
+    "rebuild_verification": {
+      "rebuild_root": "/home/luchitong/work/repo-vuln-bench-v040-dataset-rebuild-20261030",
+      "fact_tables_equal": true,
+      "compared_tables": [
+        "repositories",
+        "snapshots",
+        "evaluation_selection",
+        "vulnerabilities",
+        "locations",
+        "snapshot_vulnerability_status",
+        "candidates",
+        "snapshot_candidate_triage",
+        "evidence",
+        "discovery_coverage",
+        "discovery_tasks"
+      ],
+      "ignored_annotation_fields": [
+        "advisory_trust_tier",
+        "advisory_review_status",
+        "admission_checks",
+        "tier_assigned_by",
+        "tier_assigned_at"
+      ],
+      "note": "A clean re-run of migrate_selective.py reproduced every migrated fact row; only tier annotation and the post-migration QA plan differ."
+    },
+    "draft_validation": {
+      "errors": 0,
+      "warnings": 0
+    },
+    "unit_tests": {
+      "tests": 18,
+      "failures": 0
+    },
+    "remaining_outside_migration": [
+      "Four repositories need a selection decision (two rejected proposals, two without a proposal) before their data can be migrated.",
+      "Discovery, candidate resolution, PASS_KNOWN_SWEEP and QA review are Phase A work, not migration work."
+    ],
+    "note": "Migration completion does not verify any vulnerability and does not make the dataset release-ready."
+  }
+}

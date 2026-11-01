@@ -1,0 +1,734 @@
+{
+ "report": "legacy batch row-level review (29 rows added without one)",
+ "scope": "26 Gitea rows from the 2026-10-30T17:24 and 2026-10-31T04:21 batch runs and 3 libexpat rows from 2026-10-31T04:34-04:35",
+ "method": "frozen line looked up verbatim at the anchored location; the cited fix commit's cached patch is split per file; admission requires that frozen line to occur among the removed (pre-image) lines of a hunk in the anchored file",
+ "generated_at": "2026-10-31T05:39:49Z",
+ "summary": {
+  "rows": 29,
+  "admit": 29,
+  "needs_manual_review": 0,
+  "relocated": [
+   "CVE-2026-73273"
+  ],
+  "by_repo": {
+   "go-gitea/gitea": 26,
+   "libexpat/libexpat": 3
+  },
+  "note": "line offsets between the anchor and the hunk old-start are expected: the fix commits are authored on newer branches than the frozen snapshots (Gitea v1.25.5, libexpat R_2_6_2), so only the verbatim removed-line match is used"
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-103504",
+   "candidate_id": "adv3_6c5af7ef58ed8751",
+   "repo_id": "72495579",
+   "file": "routers/api/v1/org/team.go",
+   "function": "attachAdminTeamUnits",
+   "line_start": 167,
+   "line_end": 178,
+   "frozen_line": "func attachAdminTeamUnits(team *organization.Team) {",
+   "fix_commit": "ed4a23e893b0bfb4eed85e34fde72da2774c982a",
+   "hunk_header": "@@ -150,42 +152,36 @@ func GetTeam(ctx *context.APIContext) {",
+   "anchor_minus_hunk_old_start": 17,
+   "removed_lines_sample": [
+    "func attachTeamUnits(team *organization.Team, defaultAccessMode perm.AccessMode, units []string) {",
+    "unitTypes, _ := unit_model.FindUnitTypes(units...)",
+    "team.Units = make([]*organization.TeamUnit, 0, len(units))",
+    "for _, tp := range unitTypes {"
+   ],
+   "added_lines_sample": [
+    "// assignTeamPermissionUnits sets authorize + team_unit rows.",
+    "func assignTeamPermissionUnits(team *organization.Team, permission string, units []string, unitsMap map[string]string) (changed bool, _ error) {",
+    "if len(units) > 0 && len(unitsMap) > 0 {",
+    "return false, util.NewInvalidArgumentErrorf(\"only one of units or units_map can be set\")"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-105964",
+   "candidate_id": "adv3_81cdd0ae9f3f86a5",
+   "repo_id": "72495579",
+   "file": "routers/api/actions/artifactsv4.go",
+   "function": "parseProtobufBody",
+   "line_start": 280,
+   "line_end": 280,
+   "frozen_line": "body, err := io.ReadAll(ctx.Req.Body)",
+   "fix_commit": "0081bd84303c93d727c3f5cb880ebd17fc15488e",
+   "hunk_header": "@@ -290,13 +290,22 @@ func (r *artifactV4Routes) findArtifactByName(ctx *ArtifactContext, runID int64,",
+   "anchor_minus_hunk_old_start": -10,
+   "removed_lines_sample": [
+    "body, err := io.ReadAll(ctx.Req.Body)"
+   ],
+   "added_lines_sample": [
+    "// maxProtobufBodySize caps the Twirp request body size accepted by parseProtobufBody.",
+    "// These requests only ever carry a handful of small scalar fields (run IDs, artifact",
+    "// names, etc.), so this is far above any legitimate payload while still bounding memory use.",
+    "const maxProtobufBodySize = 1024 * 1024 // 1 MiB"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-20779",
+   "candidate_id": "adv3_88f37b360eb8074f",
+   "repo_id": "72495579",
+   "file": "routers/web/auth/password.go",
+   "function": "ResetPasswdPost",
+   "line_start": 181,
+   "line_end": 195,
+   "frozen_line": "ok, err := twofa.ValidateTOTP(passcode)",
+   "fix_commit": "99f8b3d9a1d32f4c39828e07971455a18191e0b9",
+   "hunk_header": "@@ -177,23 +177,17 @@ func ResetPasswdPost(ctx *context.Context) {",
+   "anchor_minus_hunk_old_start": 4,
+   "removed_lines_sample": [
+    "ok, err := twofa.ValidateTOTP(passcode)",
+    "ctx.HTTPError(http.StatusInternalServerError, \"ValidateTOTP\", err.Error())",
+    "if !ok || twofa.LastUsedPasscode == passcode {",
+    ""
+   ],
+   "added_lines_sample": [
+    "ok, err := twofa.ValidateAndConsumeTOTP(ctx, passcode)",
+    "ctx.HTTPError(http.StatusInternalServerError, \"ValidateAndConsumeTOTP\", err.Error())",
+    "if !ok {"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-22555",
+   "candidate_id": "adv3_a48f9e59968b7a0c",
+   "repo_id": "72495579",
+   "file": "routers/api/v1/repo/fork.go",
+   "function": "CreateFork",
+   "line_start": 121,
+   "line_end": 155,
+   "frozen_line": "repo := ctx.Repo.Repository",
+   "fix_commit": "686d10b7f0c26baf91171124b382cbcdfa7bf025",
+   "hunk_header": "@@ -118,41 +147,18 @@ func CreateFork(ctx *context.APIContext) {",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "repo := ctx.Repo.Repository",
+    "var forker *user_model.User // user/org that will own the fork",
+    "if form.Organization == nil {",
+    "forker = ctx.Doer"
+   ],
+   "added_lines_sample": [
+    "forkOwner := ctx.Doer // user/org that will own the fork",
+    "if form.Organization != nil {",
+    "org := prepareDoerCreateRepoInOrg(ctx, *form.Organization)",
+    "if ctx.Written() {"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-22874",
+   "candidate_id": "adv3_d60dc346c431e70f",
+   "repo_id": "72495579",
+   "file": "modules/hostmatcher/hostmatcher.go",
+   "function": "checkIP",
+   "line_start": 108,
+   "line_end": 112,
+   "frozen_line": "if ip.IsGlobalUnicast() && !ip.IsPrivate() {",
+   "fix_commit": "617b6948b1acca60db446c34f659bf036eb7d1f6",
+   "hunk_header": "@@ -105,11 +160,11 @@ func (hl *HostMatchList) checkIP(ip net.IP) bool {",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "if ip.IsGlobalUnicast() && !ip.IsPrivate() {",
+    "if ip.IsPrivate() {"
+   ],
+   "added_lines_sample": [
+    "if ip.IsGlobalUnicast() && !isPrivateIP(ip) {",
+    "if isPrivateIP(ip) {"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-27771",
+   "candidate_id": "adv3_32162654d63d2224",
+   "repo_id": "72495579",
+   "file": "routers/api/packages/composer/api.go",
+   "function": "createPackageMetadataResponse",
+   "line_start": 119,
+   "line_end": 122,
+   "frozen_line": "pkg.Source = Source{",
+   "fix_commit": "5d87a70af929dba47402fbea7d59f34e5913b3b4",
+   "hunk_header": "@@ -116,10 +119,15 @@ func createPackageMetadataResponse(registryURL string, pds []*packages_model.Pac",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "pkg.Source = Source{",
+    "URL:       pd.Repository.HTMLURL(),",
+    "Type:      \"git\",",
+    "Reference: pd.Version.Version,"
+   ],
+   "added_lines_sample": [
+    "permission, err := access_model.GetDoerRepoPermission(ctx, pd.Repository, ctx.Doer)",
+    "if err != nil {",
+    "log.Error(\"GetDoerRepoPermission[%d]: %v\", pd.Repository.ID, err)",
+    "} else if permission.HasAnyUnitAccessOrPublicAccess() {"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-27783",
+   "candidate_id": "adv3_4b971591a769e342",
+   "repo_id": "72495579",
+   "file": "routers/api/v1/api.go",
+   "function": "Routes",
+   "line_start": 1460,
+   "line_end": 1462,
+   "frozen_line": "m.Get(\"/issue_templates\", context.ReferencesGitRepo(), repo.GetIssueTemplates)",
+   "fix_commit": "171df0c9ffcec1b0839431e75f3b59e35d39ddca",
+   "hunk_header": "@@ -1453,9 +1453,9 @@ func Routes() *web.Router {",
+   "anchor_minus_hunk_old_start": 7,
+   "removed_lines_sample": [
+    "m.Get(\"/issue_templates\", context.ReferencesGitRepo(), repo.GetIssueTemplates)",
+    "m.Get(\"/issue_config\", context.ReferencesGitRepo(), repo.GetIssueConfig)",
+    "m.Get(\"/issue_config/validate\", context.ReferencesGitRepo(), repo.ValidateIssueConfig)"
+   ],
+   "added_lines_sample": [
+    "m.Get(\"/issue_templates\", reqRepoReader(unit.TypeCode), context.ReferencesGitRepo(), repo.GetIssueTemplates)",
+    "m.Get(\"/issue_config\", reqRepoReader(unit.TypeCode), context.ReferencesGitRepo(), repo.GetIssueConfig)",
+    "m.Get(\"/issue_config/validate\", reqRepoReader(unit.TypeCode), context.ReferencesGitRepo(), repo.ValidateIssueConfig)"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-28740",
+   "candidate_id": "disc2_b613d9893bd841b4114841d8",
+   "repo_id": "72495579",
+   "file": "models/git/lfs.go",
+   "function": "LFSObjectAccessible",
+   "line_start": 230,
+   "line_end": 254,
+   "frozen_line": "cond := repo_model.AccessibleRepositoryCondition(user, unit.TypeInvalid)",
+   "fix_commit": "1c7b7ea72df7cf81e88b8e09049608254d32e56e",
+   "hunk_header": "@@ -196,7 +196,10 @@ func LFSObjectAccessible(ctx context.Context, user *user_model.User, oid string)",
+   "anchor_minus_hunk_old_start": 34,
+   "removed_lines_sample": [
+    "cond := repo_model.AccessibleRepositoryCondition(user, unit.TypeInvalid)"
+   ],
+   "added_lines_sample": [
+    "// LFS objects are repository code content, so authorization must require",
+    "// Code-unit access; other unit accesses (e.g. Issues) must not authorize",
+    "// reuse of an existing LFS object across repositories.",
+    "cond := repo_model.AccessibleRepositoryCondition(user, unit.TypeCode)"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-28744",
+   "candidate_id": "adv3_a137d742fc95f2ac",
+   "repo_id": "72495579",
+   "file": "services/context/permission.go",
+   "function": "CheckRepoScopedToken",
+   "line_start": 62,
+   "line_end": 67,
+   "frozen_line": "if !ctx.IsBasicAuth || ctx.Data[\"IsApiToken\"] != true {",
+   "fix_commit": "7dc3087acd8c156f531a0bdab7645f2e85a9927c",
+   "hunk_header": "@@ -57,14 +57,14 @@ func RequireUnitReader(unitTypes ...unit.Type) func(ctx *Context) {",
+   "anchor_minus_hunk_old_start": 5,
+   "removed_lines_sample": [
+    "// CheckRepoScopedToken check whether personal access token has repo scope",
+    "if !ctx.IsBasicAuth || ctx.Data[\"IsApiToken\"] != true {",
+    "if ok { // it's a personal access token but not oauth2 token"
+   ],
+   "added_lines_sample": [
+    "// CheckRepoScopedToken checks whether the authenticated API token has repo scope.",
+    "if ctx.Data[\"IsApiToken\"] != true {",
+    "if ok {"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-34966",
+   "candidate_id": "disc2_f958f603dda5c1d658986a46",
+   "repo_id": "72495579",
+   "file": "modules/uri/uri.go",
+   "function": "Open",
+   "line_start": 32,
+   "line_end": 32,
+   "frozen_line": "f, err := http.Get(uriStr)",
+   "fix_commit": "de4b8277e9cb576f2315fb03b5ab6478b42a1d31",
+   "hunk_header": "@@ -23,13 +23,21 @@ func (e ErrURISchemeNotSupported) Error() string {",
+   "anchor_minus_hunk_old_start": 9,
+   "removed_lines_sample": [
+    "f, err := http.Get(uriStr)"
+   ],
+   "added_lines_sample": [
+    "return OpenWithClient(uriStr, http.DefaultClient)",
+    "}",
+    "",
+    "// OpenWithClient opens a local file or a remote file, using the given (non-nil) HTTP client"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-56657",
+   "candidate_id": "adv3_47747b72fedd7ffe",
+   "repo_id": "72495579",
+   "file": "models/asymkey/ssh_key_parse.go",
+   "function": "parseKeyString",
+   "line_start": 77,
+   "line_end": 77,
+   "frozen_line": "keyContent += line",
+   "fix_commit": "de4b8277e9cb576f2315fb03b5ab6478b42a1d31",
+   "hunk_header": "@@ -74,9 +91,10 @@ func parseKeyString(content string) (string, error) {",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "keyContent += line"
+   ],
+   "added_lines_sample": [
+    "b.WriteString(line)",
+    "keyContent = b.String()"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-58422",
+   "candidate_id": "disc2_4a2df7da308a7047eb620d08",
+   "repo_id": "72495579",
+   "file": "routers/web/auth/oauth.go",
+   "function": "oauth2SignInSync",
+   "line_start": 351,
+   "line_end": 353,
+   "frozen_line": "// Reactivate user if they are deactivated",
+   "fix_commit": "c43eb7c33a100ffc7b2367adf165f7085e0ccdc5",
+   "hunk_header": "@@ -364,9 +364,21 @@ func handleOAuth2SignIn(ctx *context.Context, authSource *auth.Source, u *user_m",
+   "anchor_minus_hunk_old_start": -13,
+   "removed_lines_sample": [
+    "// Reactivate user if they are deactivated",
+    "opts.IsActive = optional.Some(true)"
+   ],
+   "added_lines_sample": [
+    "// HINT: OAUTH-AUTO-SYNC-USER-ACTIVATION: see services/auth/source/oauth2/source_sync.go",
+    "// Reactivate user only if they were disabled by the OAuth2 auto sync cron (invalid_grant),",
+    "// which clears AccessToken/RefreshToken/ExpiresAt on the ExternalLoginUser row",
+    "// An admin-disabled user has no such signature, so we leave IsActive alone"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-58424",
+   "candidate_id": "adv3_58924b7dd4940b4a",
+   "repo_id": "72495579",
+   "file": "services/actions/notifier_helper.go",
+   "function": "ifNeedApproval",
+   "line_start": 476,
+   "line_end": 494,
+   "frozen_line": "} else if perm.CanWrite(unit_model.TypeActions) {",
+   "fix_commit": "699fe2ef43b9466ac1b0cb857029f91fd5b0056d",
+   "hunk_header": "@@ -413,27 +431,24 @@ func ifNeedApproval(ctx context.Context, run *actions_model.ActionRun, repo *rep",
+   "anchor_minus_hunk_old_start": 63,
+   "removed_lines_sample": [
+    "if perm, err := access_model.GetDoerRepoPermission(ctx, repo, user); err != nil {",
+    "} else if perm.CanWrite(unit_model.TypeActions) {",
+    "// don't need approval if the user has been approved before",
+    "if count, err := db.Count[actions_model.ActionRun](ctx, actions_model.FindRunOptions{"
+   ],
+   "added_lines_sample": [
+    "if ok, err := canWriteActions(ctx, repo, user); err != nil {",
+    "} else if ok {",
+    "// trust the user only after a merged PR — matching GitHub Actions. Approving one",
+    "// fork PR's run must not implicitly trust later fork PRs that replace the workflow."
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-58425",
+   "candidate_id": "adv3_695597c337579461",
+   "repo_id": "72495579",
+   "file": "routers/web/auth/oauth2_provider.go",
+   "function": "IntrospectOAuth",
+   "line_start": 131,
+   "line_end": 169,
+   "frozen_line": "clientIDValid := false",
+   "fix_commit": "c9920b7bd0f6ec1f7590f104711b09d55917f9e8",
+   "hunk_header": "@@ -128,7 +128,7 @@ func InfoOAuth(ctx *context.Context) {",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "clientIDValid := false"
+   ],
+   "added_lines_sample": [
+    "var introspectingApp *auth.OAuth2Application"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-58429",
+   "candidate_id": "adv3_274348771abcafc4",
+   "repo_id": "72495579",
+   "file": "routers/api/v1/repo/repo.go",
+   "function": "Search",
+   "line_start": 133,
+   "line_end": 134,
+   "frozen_line": "if ctx.PublicOnly {",
+   "fix_commit": "a34eac5ef42ada433a7c7dafb98f15c13d7ad74e",
+   "hunk_header": "@@ -131,9 +131,6 @@ func Search(ctx *context.APIContext) {",
+   "anchor_minus_hunk_old_start": 2,
+   "removed_lines_sample": [
+    "if ctx.PublicOnly {",
+    "private = false",
+    "}"
+   ],
+   "added_lines_sample": [],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-59763",
+   "candidate_id": "adv3_a56972099e6eb2f0",
+   "repo_id": "72495579",
+   "file": "modules/packages/arch/metadata.go",
+   "function": "ParsePackage",
+   "line_start": 127,
+   "line_end": 158,
+   "frozen_line": "files := make([]string, 0, 10)",
+   "fix_commit": "de4b8277e9cb576f2315fb03b5ab6478b42a1d31",
+   "hunk_header": "@@ -124,7 +130,7 @@ func ParsePackage(r io.Reader) (*Package, error) {",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "files := make([]string, 0, 10)"
+   ],
+   "added_lines_sample": [
+    "files := packages.NewBoundedFileList(maxFileEntries, maxFileNameBytes)"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-59774",
+   "candidate_id": "adv3_e37ea47001954877",
+   "repo_id": "72495579",
+   "file": "modules/markup/orgmode/orgmode.go",
+   "function": "Render",
+   "line_start": 99,
+   "line_end": 99,
+   "frozen_line": "res, err := org.New().Silent().Parse(input, \"\").Write(w)",
+   "fix_commit": "3e6cb7c16b837e993f90dbe1ff06dd5726b74588",
+   "hunk_header": "@@ -70,7 +70,15 @@ func Render(ctx *markup.RenderContext, input io.Reader, output io.Writer) error",
+   "anchor_minus_hunk_old_start": 29,
+   "removed_lines_sample": [
+    "res, err := org.New().Silent().Parse(input, \"\").Write(w)"
+   ],
+   "added_lines_sample": [
+    "cfg := org.New()",
+    "cfg.ReadFile = func(path string) ([]byte, error) {",
+    "// actually the orgmode render doesn't support rendering the content from the content again,",
+    "// so just leave the plain text to end users"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-60018",
+   "candidate_id": "adv3_2477cbd874483e5a",
+   "repo_id": "72495579",
+   "file": "services/migrations/onedev.go",
+   "function": "callAPI",
+   "line_start": 140,
+   "line_end": 140,
+   "frozen_line": "bytes, err := io.ReadAll(resp.Body)",
+   "fix_commit": "5eba4f92ce69b8466fc1a7139a22ba50e75048d7",
+   "hunk_header": "@@ -137,10 +140,13 @@ func (d *OneDevDownloader) callAPI(ctx context.Context, endpoint string, paramet",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "bytes, err := io.ReadAll(resp.Body)"
+   ],
+   "added_lines_sample": [
+    "bytes, err := io.ReadAll(io.LimitReader(resp.Body, maxOneDevVersionResponseSize+1))",
+    "if len(bytes) > maxOneDevVersionResponseSize {",
+    "return fmt.Errorf(\"OneDev server version response exceeds %d bytes\", maxOneDevVersionResponseSize)",
+    "}"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-60021",
+   "candidate_id": "adv3_5a7ea7ab9d40396d",
+   "repo_id": "72495579",
+   "file": "services/migrations/gitlab.go",
+   "function": "NewGitlabDownloader",
+   "line_start": 108,
+   "line_end": 108,
+   "frozen_line": "_, resp, err = gitlabClient.Version.GetVersion()",
+   "fix_commit": "1f349eb1ebca247d731dfe02592cd2cf5bee55b9",
+   "hunk_header": "@@ -105,7 +105,7 @@ func NewGitlabDownloader(ctx context.Context, baseURL, repoPath, token string) (",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "_, resp, err = gitlabClient.Version.GetVersion()"
+   ],
+   "added_lines_sample": [
+    "_, resp, err = gitlabClient.Version.GetVersion(gitlab.WithContext(ctx))"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-66849",
+   "candidate_id": "adv3_809930d1b710f670",
+   "repo_id": "72495579",
+   "file": "models/packages/package_blob.go",
+   "function": "IsBlobAccessibleForUser",
+   "line_start": 147,
+   "line_end": 147,
+   "frozen_line": "Or(builder.Eq{\"`user`.visibility\": structs.VisibleTypePublic}.Or(builder.Eq{\"`user`.visibility\": structs.VisibleTypeLimited})).",
+   "fix_commit": "0bed1232ee3fb28c4c977bc8b3f0640db47f8be5",
+   "hunk_header": "@@ -144,7 +148,7 @@ func IsBlobAccessibleForUser(ctx context.Context, blobID int64, user *user_model",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "Or(builder.Eq{\"`user`.visibility\": structs.VisibleTypePublic}.Or(builder.Eq{\"`user`.visibility\": structs.VisibleTypeLimited}))."
+   ],
+   "added_lines_sample": [
+    "Or(builder.In(\"`user`.visibility\", ownerVisibilities))."
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-73135",
+   "candidate_id": "adv3_9d7e2291d4651643",
+   "repo_id": "72495579",
+   "file": "models/repo/repo_list.go",
+   "function": "userAllPublicRepoCond",
+   "line_start": 648,
+   "line_end": 652,
+   "frozen_line": "// Aren't in a private organisation or limited organisation if we're not logged in",
+   "fix_commit": "7306d5aff8e8bd30096461414f87704e9ead7afa",
+   "hunk_header": "@@ -655,11 +655,15 @@ func SearchRepositoryIDsByCondition(ctx context.Context, cond builder.Cond) ([]i",
+   "anchor_minus_hunk_old_start": -7,
+   "removed_lines_sample": [
+    "// Aren't in a private organisation or limited organisation if we're not logged in",
+    "builder.And(",
+    "builder.Eq{\"type\": user_model.UserTypeOrganization},",
+    "builder.In(\"visibility\", orgVisibilityLimit)),"
+   ],
+   "added_lines_sample": [
+    "builder.Or(",
+    "builder.And(",
+    "builder.Eq{\"type\": user_model.UserTypeOrganization},",
+    "builder.In(\"visibility\", orgVisibilityLimit)),"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-73273",
+   "candidate_id": "adv3_916353b3ffe9f8e5",
+   "repo_id": "72495579",
+   "file": "routers/api/packages/maven/maven.go",
+   "function": "UploadPackageFile",
+   "line_start": 263,
+   "line_end": 263,
+   "frozen_line": "buf, err := packages_module.CreateHashedBufferFromReader(ctx.Req.Body)",
+   "fix_commit": "fa4c0b1cf69883f2725c0499a82fcd91f81c37ee",
+   "hunk_header": "@@ -260,12 +262,21 @@ func UploadPackageFile(ctx *context.Context) {",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "buf, err := packages_module.CreateHashedBufferFromReader(ctx.Req.Body)"
+   ],
+   "added_lines_sample": [
+    "ext := path.Ext(params.Filename)",
+    "reader := io.Reader(ctx.Req.Body)",
+    "if isChecksumExtension(ext) {",
+    "reader = io.LimitReader(reader, maxChecksumSize+1)"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset",
+   "relocation": {
+    "from": "routers/api/packages/maven/maven.go:294-295",
+    "to": "routers/api/packages/maven/maven.go:263",
+    "why": "the earlier anchor was the tag-path assembly (a moved error-handling block); the fix hunk replaces the unbounded ctx.Req.Body read at frozen line 263 with a size-limited hashed buffer, so the anchor was moved onto that removed line"
+   }
+  },
+  {
+   "vulnerability_id": "CVE-2026-73539",
+   "candidate_id": "adv3_c2e48e1678027a69",
+   "repo_id": "72495579",
+   "file": "modules/markup/external/external.go",
+   "function": "Render",
+   "line_start": 79,
+   "line_end": 113,
+   "frozen_line": "command := strings.NewReplacer(",
+   "fix_commit": "53d7d3f053cd0c163dc55531e571e7db0b343bf6",
+   "hunk_header": "@@ -91,52 +91,63 @@ func (p *Renderer) GetExternalRendererOptions() (ret markup.ExternalRendererOpti",
+   "anchor_minus_hunk_old_start": -12,
+   "removed_lines_sample": [
+    "func envMark(envName string) string {",
+    "if runtime.GOOS == \"windows\" {",
+    "return \"%\" + envName + \"%\"",
+    "return \"$\" + envName"
+   ],
+   "added_lines_sample": [
+    "func (p *Renderer) prepareExternalCommand(vars map[string]string) (string, []string, error) {",
+    "fields, err := shellquote.Split(strings.TrimSpace(p.Command))",
+    "if err != nil {",
+    "return \"\", nil, err"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-73800",
+   "candidate_id": "adv3_d36d6b9c0a4d1a04",
+   "repo_id": "72495579",
+   "file": "modules/actions/workflows.go",
+   "function": "DetectScheduledWorkflows",
+   "line_start": 175,
+   "line_end": 177,
+   "frozen_line": "EntryName:    entry.Name(),",
+   "fix_commit": "8161479fdefe847b10afa8d6d08a7145325d795c",
+   "hunk_header": "@@ -205,17 +207,19 @@ func DetectWorkflows(",
+   "anchor_minus_hunk_old_start": -30,
+   "removed_lines_sample": [
+    "EntryName:    entry.Name(),",
+    "TriggerEvent: evt,",
+    "Content:      content,",
+    "EntryName:    entry.Name(),"
+   ],
+   "added_lines_sample": [
+    "EntryName:       entry.Name(),",
+    "TriggerEvent:    evt,",
+    "Content:         content,",
+    "SourceCommitSHA: commit.ID.String(),"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-73804",
+   "candidate_id": "adv3_23f4cd23d8b83490",
+   "repo_id": "72495579",
+   "file": "routers/api/packages/api.go",
+   "function": "reqPackageAccess",
+   "line_start": 42,
+   "line_end": 44,
+   "frozen_line": "if ctx.Data[\"IsApiToken\"] == true {",
+   "fix_commit": "b3f547ac16e4f133ef874c1bd610c92ce43d91a3",
+   "hunk_header": "@@ -40,9 +40,9 @@ import (",
+   "anchor_minus_hunk_old_start": 2,
+   "removed_lines_sample": [
+    "if ctx.Data[\"IsApiToken\"] == true {",
+    "scope, ok := ctx.Data[\"ApiTokenScope\"].(auth_model.AccessTokenScope)",
+    "if ok { // it's a personal access token but not oauth2 token"
+   ],
+   "added_lines_sample": [
+    "scope, hasApiTokenScope := ctx.Data[\"ApiTokenScope\"].(auth_model.AccessTokenScope)",
+    "if hasApiTokenScope {",
+    "{ // request authenticated by a scoped token; enforce package scope restrictions"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-73814",
+   "candidate_id": "adv3_9aea2acfec408c3f",
+   "repo_id": "72495579",
+   "file": "routers/web/repo/setting/collaboration.go",
+   "function": "ChangeCollaborationAccessMode",
+   "line_start": 121,
+   "line_end": 126,
+   "frozen_line": "if err := repo_model.ChangeCollaborationAccessMode(",
+   "fix_commit": "d2be79a942fb73b55b9be5e6f02965a8ca7681a3",
+   "hunk_header": "@@ -118,13 +118,19 @@ func CollaborationPost(ctx *context.Context) {",
+   "anchor_minus_hunk_old_start": 3,
+   "removed_lines_sample": [
+    "if err := repo_model.ChangeCollaborationAccessMode(",
+    "ctx,",
+    "ctx.Repo.Repository,",
+    "ctx.FormInt64(\"uid\"),"
+   ],
+   "added_lines_sample": [
+    "// the frontend initRepoSettingsCollaboration logic: it only checks \"resp.ok\"",
+    "u, err := user_model.GetUserByID(ctx, ctx.FormInt64(\"uid\"))",
+    "if err != nil {",
+    "ctx.Status(http.StatusBadRequest)"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-25210",
+   "candidate_id": "sweep_0fe33151a50e540b",
+   "repo_id": "80314213",
+   "file": "expat/lib/xmlparse.c",
+   "function": "doContent",
+   "line_start": 3015,
+   "line_end": 3015,
+   "frozen_line": "bufSize = (int)(tag->bufEnd - tag->buf) << 1;",
+   "fix_commit": "4fb6357c327d1a2f77849119ea5769a7a0201f3e",
+   "hunk_header": "@@ -3503,7 +3503,7 @@ doContent(XML_Parser parser, int startTagLevel, const ENCODING *enc,",
+   "anchor_minus_hunk_old_start": -488,
+   "removed_lines_sample": [
+    "bufSize = (int)(tag->bufEnd - tag->buf) << 1;"
+   ],
+   "added_lines_sample": [
+    "bufSize = (int)(tag->bufEnd - tag->buf) * 2;"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-41080",
+   "candidate_id": "sweep_4fa31c5730b84bef",
+   "repo_id": "80314213",
+   "file": "expat/lib/xmlparse.c",
+   "function": "generate_hash_secret_salt",
+   "line_start": 950,
+   "line_end": 950,
+   "frozen_line": "unsigned long entropy;",
+   "fix_commit": "ed80eaea0ce7179b56713fb22fe933b993aee814",
+   "hunk_header": "@@ -1068,18 +1068,21 @@ gather_time_entropy(void) {",
+   "anchor_minus_hunk_old_start": -118,
+   "removed_lines_sample": [
+    "static unsigned long",
+    "ENTROPY_DEBUG(const char *label, unsigned long entropy) {",
+    "fprintf(stderr, \"expat: Entropy: %s --> 0x%0*lx (%lu bytes)\\n\", label,",
+    "(int)sizeof(entropy) * 2, entropy, (unsigned long)sizeof(entropy));"
+   ],
+   "added_lines_sample": [
+    "static struct sipkey",
+    "ENTROPY_DEBUG(const char *label, struct sipkey entropy_128) {",
+    "fprintf(stderr,",
+    "\"expat: Entropy: %s --> [0x\" EXPAT_FMT_LLX("
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  },
+  {
+   "vulnerability_id": "CVE-2026-56412",
+   "candidate_id": "sweep_9856452ea3090984",
+   "repo_id": "80314213",
+   "file": "expat/lib/xmlparse.c",
+   "function": "doCdataSection",
+   "line_start": 4161,
+   "line_end": 4163,
+   "frozen_line": "} else",
+   "fix_commit": "11cd58eb92dd8ebd85e018eabb7357ee28fec1c7",
+   "hunk_header": "@@ -4612,16 +4612,21 @@ doCdataSection(XML_Parser parser, const ENCODING *enc, const char **startPtr,",
+   "anchor_minus_hunk_old_start": -451,
+   "removed_lines_sample": [
+    "} else"
+   ],
+   "added_lines_sample": [
+    "beforeHandler(parser);",
+    "afterHandler(parser);",
+    "} else {",
+    "beforeHandler(parser);"
+   ],
+   "verdict": "admit",
+   "basis": "the frozen line at the anchor is one of the lines this fix hunk removes, so the anchor is the pre-image of the fix; the hunk header is relative to a newer branch, hence the line offset"
+  }
+ ]
+}

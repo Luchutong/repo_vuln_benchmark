@@ -1,0 +1,153 @@
+{
+ "checked_at": "2026-10-31T14:17:00Z",
+ "applied": true,
+ "batch": 4,
+ "snapshots": [
+  {
+   "repo": "go-gitea/gitea",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "packages": [
+    {
+     "package": "Go:code.gitea.io/gitea@1.25.5",
+     "osv_records": 94,
+     "gh_records": 62
+    }
+   ],
+   "osv_records": 94,
+   "gh_records": 62,
+   "triage_rows": 293,
+   "live_candidates": 221,
+   "undecided_live_candidates": 0,
+   "unresolved_triage_rows": 0,
+   "empty_sources": false,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  },
+  {
+   "repo": "protocolbuffers/protobuf",
+   "repo_id": "23357588",
+   "snapshot_id": "snap_442de86eb5fd3f62",
+   "packages": [
+    {
+     "package": "Maven:com.google.protobuf:protobuf-java@3.25.4",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Maven:com.google.protobuf:protobuf-javalite@3.25.4",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Maven:com.google.protobuf:protobuf-kotlin@3.25.4",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Maven:com.google.protobuf:protobuf-kotlin-lite@3.25.4",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "RubyGems:google-protobuf@3.25.4",
+     "osv_records": 1,
+     "gh_records": 1
+    }
+   ],
+   "osv_records": 5,
+   "gh_records": 5,
+   "triage_rows": 14,
+   "live_candidates": 5,
+   "undecided_live_candidates": 0,
+   "unresolved_triage_rows": 0,
+   "empty_sources": false,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  },
+  {
+   "repo": "symfony/symfony",
+   "repo_id": "458058",
+   "snapshot_id": "snap_39105a8a3ceb9fe4",
+   "packages": [
+    {
+     "package": "Packagist:symfony/runtime@5.4.45",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Packagist:symfony/http-client@5.4.45",
+     "osv_records": 2,
+     "gh_records": 2
+    },
+    {
+     "package": "Packagist:symfony/http-foundation@5.4.45",
+     "osv_records": 3,
+     "gh_records": 3
+    },
+    {
+     "package": "Packagist:symfony/security-http@5.4.45",
+     "osv_records": 3,
+     "gh_records": 4
+    },
+    {
+     "package": "Packagist:symfony/symfony@5.4.45",
+     "osv_records": 21,
+     "gh_records": 21
+    },
+    {
+     "package": "Packagist:symfony/routing@5.4.45",
+     "osv_records": 2,
+     "gh_records": 2
+    },
+    {
+     "package": "Packagist:symfony/mime@5.4.45",
+     "osv_records": 2,
+     "gh_records": 2
+    },
+    {
+     "package": "Packagist:symfony/mailer@5.4.45",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Packagist:symfony/dom-crawler@5.4.45",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Packagist:symfony/cache@5.4.45",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Packagist:symfony/monolog-bridge@5.4.45",
+     "osv_records": 1,
+     "gh_records": 1
+    },
+    {
+     "package": "Packagist:symfony/yaml@5.4.45",
+     "osv_records": 4,
+     "gh_records": 4
+    }
+   ],
+   "osv_records": 42,
+   "gh_records": 43,
+   "triage_rows": 131,
+   "live_candidates": 21,
+   "undecided_live_candidates": 0,
+   "unresolved_triage_rows": 0,
+   "empty_sources": false,
+   "gaps": [],
+   "prior_outcome": "NEEDS_REVIEW",
+   "upgrade": true
+  }
+ ],
+ "counts": {
+  "targets": 3,
+  "upgraded": 3,
+  "kept": 0
+ }
+}

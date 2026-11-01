@@ -1,0 +1,42 @@
+{
+  "dataset": "/home/luchitong/work/repo-vuln-bench-v040-dataset",
+  "mode": "apply",
+  "rules": {
+    "T1": "github_reviewed/vendor_official source + all three admission checks + source location",
+    "T2": "trusted source + version relation + confirmed location but not T1 (targeted static route)",
+    "T3": "not admitted: missing confirmed location or counter-evidence; candidates are T3"
+  },
+  "vulnerability_tiers": {
+    "T2": 17,
+    "T1": 148
+  },
+  "advisory_review_status": {
+    "unreviewed": 4,
+    "vendor_official": 90,
+    "unknown": 13,
+    "github_reviewed": 58
+  },
+  "status_location_scope": {
+    "source_location": 165
+  },
+  "candidate_tiers": {
+    "T3": 1066
+  },
+  "rows_changed": {
+    "vulnerabilities": 165,
+    "snapshot_vulnerability_status": 165,
+    "candidates": 1066
+  },
+  "before_sha256": {
+    "vulnerabilities": "cf6f07c6b8c4d147574ebdc535d523ff806c1a0adbb6cc4df01be3587846cf30",
+    "snapshot_vulnerability_status": "de7f22b38b7dfdc1a38209378b32872324f9019a84998bee84acecd0a963be84",
+    "candidates": "0284cf6f2fa457817909010a20890b11908615b58562e99b692bf7ee4a45db22"
+  },
+  "backup_dir": "/home/luchitong/work/repo-vuln-bench-v040-dataset/reports/backups",
+  "backup_suffix": "20261030T154106Z",
+  "after_sha256": {
+    "vulnerabilities": "8e69f7d43a9c714de827b7bbeed4e55d3b5d5495b4c74a22b63c189d4a2ece7a",
+    "snapshot_vulnerability_status": "02293515ba10f947f8d2954a46f5c5e7588b4266acc5c4e9a2dcb8832131a38d",
+    "candidates": "2a9464a35a0875f691f1dd3414c75b9c1454578a52aa8a551eeb5724c5d72a8b"
+  }
+}

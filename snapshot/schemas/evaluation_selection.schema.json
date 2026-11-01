@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["repo_id", "snapshot_id", "decision_status", "selection_reason", "evidence_urls"],
+  "properties": {
+    "repo_id": {"type": "string", "minLength": 1},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "decision_status": {"const": "frozen"},
+    "selection_reason": {"type": "string", "minLength": 1},
+    "evidence_urls": {"type": "array", "items": {"type": "string", "pattern": "^https://"}, "minItems": 1},
+    "selected_by": {"type": "string"},
+    "frozen_at": {"type": ["string", "null"], "format": "date-time"}
+  },
+  "additionalProperties": true
+}

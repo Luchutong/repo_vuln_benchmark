@@ -1,0 +1,81 @@
+{
+ "report": "libexpat/libexpat R_2_6_2 batch 3 row-level review",
+ "generated_at": "2026-10-31T07:40:06Z",
+ "applied": true,
+ "summary": {
+  "rows": 2,
+  "duplicates": 0,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-72522",
+   "candidate_id": "disc2_e2b6ebee937a686ff0556e2a",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmltok.c",
+   "function": null,
+   "line_start": 708,
+   "line_end": 709,
+   "anchor_class": "manual_anchor",
+   "fix_commit": "27c6536c2bfa",
+   "pr": 1296,
+   "severity": {
+    "score": 7.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:N/A:H",
+    "cwe": "CWE-125"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmltok.c:708-709 is the pre-image of the fix hunk in 27c6536c2bfa (PR #1296, manual_anchor); range introduced 0, fixed 27c6536c2bfa (2.8.3), PR #1296 covers the snapshot. The marker is absent from the frozen enclosing file and present in the patch added lines. Severity/cwe from the advisory record.",
+   "range": "introduced 0, fixed 27c6536c2bfa (2.8.3), PR #1296"
+  },
+  {
+   "vulnerability_id": "CVE-2026-77214",
+   "candidate_id": "disc2_1d1a0130a524bd641ab23b85",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "XML_ParseBuffer",
+   "line_start": 2066,
+   "line_end": 2066,
+   "anchor_class": "adjacent_insertion",
+   "fix_commit": "13c5f63a7f1c",
+   "pr": 1393,
+   "severity": {
+    "score": 8.3,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:H/VI:N/VA:L/SC:N/SI:N/SA:N",
+    "cwe": "CWE-125"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:2066-2066 is the pre-image of the fix hunk in 13c5f63a7f1c (PR #1393, adjacent_insertion); range introduced 0, fixed 13c5f63a7f1c (2.9.0), PR #1393 covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the advisory record.",
+   "range": "introduced 0, fixed 13c5f63a7f1c (2.9.0), PR #1393"
+  }
+ ],
+ "duplicates": [],
+ "left_open": [
+  {
+   "vulnerability": "CVE-2025-59375",
+   "rows": "CVE-2025-59375 (and DEBIAN twin)",
+   "reason": "PR #1034 (ac7a27e1f034) introduces a 19-commit dynamic-memory allocation tracker with two new public API functions; there is no single pre-image statement at R_2_6_2 whose absence proves the defect, so the two-check model cannot anchor it."
+  },
+  {
+   "vulnerability": "CVE-2025-66382",
+   "rows": "CVE-2025-66382",
+   "reason": "No fix commit was recovered (commit search by CVE id returns nothing and the OSV record has no fixed event), so there is no marker to compare."
+  },
+  {
+   "vulnerability": "CVE-2026-66046",
+   "rows": "CVE-2026-66046 (and DEBIAN twin)",
+   "reason": "The fix e97a6c453a4e renames and hardens the defaultAttForName table introduced by CVE-2026-45186 (2.8.1), which is absent at R_2_6_2; whether the older attributeIds path is likewise quadratic needs a runtime audit."
+  }
+ ],
+ "failures": []
+}

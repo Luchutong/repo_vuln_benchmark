@@ -1,0 +1,96 @@
+{
+  "generated_at": "2026-10-30T15:48:02Z",
+  "method": "three-source version-scoped advisory sweep; NVD relevance via CPE vendor/product + version range",
+  "repos": {
+    "6181245": {
+      "full_name": "aaubry/YamlDotNet",
+      "snapshot_id": "snap_c9bc21e647038615",
+      "version": "v4.3.2",
+      "gh_records": 1,
+      "osv_records": 1,
+      "nvd_records": 1,
+      "nvd_version_applicable": 1,
+      "new_candidates": [],
+      "outcome": "PASS_KNOWN_SWEEP"
+    },
+    "153667429": {
+      "full_name": "elixir-plug/plug_cowboy",
+      "snapshot_id": "snap_39f103d0ed9572cb",
+      "version": "v2.8.0",
+      "gh_records": 1,
+      "osv_records": 2,
+      "nvd_records": 1,
+      "nvd_version_applicable": 1,
+      "new_candidates": [],
+      "outcome": "PASS_KNOWN_SWEEP"
+    },
+    "20904437": {
+      "full_name": "gin-gonic/gin",
+      "snapshot_id": "snap_33d2dbd3f77388df",
+      "version": "v1.9.0",
+      "gh_records": 1,
+      "osv_records": 2,
+      "nvd_records": 70,
+      "nvd_version_applicable": 0,
+      "new_candidates": [],
+      "outcome": "PASS_KNOWN_SWEEP"
+    },
+    "133092972": {
+      "full_name": "nodejs/undici",
+      "snapshot_id": "snap_24c4a191fd049fc3",
+      "version": "v5.19.0",
+      "gh_records": 24,
+      "osv_records": 24,
+      "nvd_records": 60,
+      "nvd_version_applicable": 22,
+      "new_candidates": [
+        "GHSA-8xcm-r25x-g524",
+        "GHSA-p88m-4jfj-68fv",
+        "GHSA-r53p-7pc4-xj5r",
+        "GHSA-v9p9-hfj2-hcw8",
+        "GHSA-vrm6-8vpv-qv8q",
+        "GHSA-vxpw-j846-p89q",
+        "GHSA-f269-vfmq-vjvj"
+      ],
+      "outcome": "NEEDS_REVIEW"
+    },
+    "16072585": {
+      "full_name": "phoenixframework/phoenix",
+      "snapshot_id": "snap_aca73214a7703174",
+      "version": "v1.8.8",
+      "gh_records": 2,
+      "osv_records": 4,
+      "nvd_records": 172,
+      "nvd_version_applicable": 2,
+      "new_candidates": [],
+      "outcome": "PASS_KNOWN_SWEEP"
+    },
+    "135525225": {
+      "full_name": "ruby/rexml",
+      "snapshot_id": "snap_23dff8507560a593",
+      "version": "v3.4.1",
+      "gh_records": 1,
+      "osv_records": 1,
+      "nvd_records": 17,
+      "nvd_version_applicable": 1,
+      "new_candidates": [],
+      "outcome": "PASS_KNOWN_SWEEP"
+    },
+    "106995": {
+      "full_name": "sinatra/sinatra",
+      "snapshot_id": "snap_5ab17df9ee6e4957",
+      "version": "v4.0.1",
+      "gh_records": 2,
+      "osv_records": 2,
+      "nvd_records": 15,
+      "nvd_version_applicable": 1,
+      "new_candidates": [
+        "GHSA-mr3q-g2mv-mr4q"
+      ],
+      "outcome": "NEEDS_REVIEW"
+    }
+  },
+  "new_candidate_count": 8,
+  "pass_snapshots": 5,
+  "needs_review_snapshots": 2
+}

@@ -1,0 +1,137 @@
+{
+ "report": "evaluation-target selection decisions for the four repositories without a frozen v0.4 snapshot",
+ "generated_at": "2026-10-31T05:48:32Z",
+ "method": "Each repository was re-queried on 2026-10-31: tag list from git ls-remote, advisory ranges from the OSV API, and NVD CPE matches by version. A repository is selectable only if a stable, non-obsolete release lies inside a published version range and the advisory batch names the fixed release. The openssl tree was then exported and scanned for the selected advisory ids before the selection row was written.",
+ "decisions": [
+  {
+   "repo_id": "7634677",
+   "full_name": "openssl/openssl",
+   "decision": "frozen",
+   "reason_code": "pre_registered_stable_vulnerable_release",
+   "selected_tag": "openssl-3.5.8",
+   "commit_sha": "f4dc4d58b48d346a8270183f89acf826d459b0ca",
+   "commit_date": "2026-08-25T11:56:39Z",
+   "snapshot_id": "snap_d9fd4b3730195f59",
+   "evidence_urls": [
+    "https://github.com/openssl/openssl/releases/tag/openssl-3.5.8",
+    "https://github.com/openssl/openssl/releases/tag/openssl-3.5.9",
+    "https://openssl-library.org/news/secadv/20260929.txt",
+    "https://nvd.nist.gov/vuln/detail/CVE-2026-35189",
+    "https://nvd.nist.gov/vuln/detail/CVE-2026-75806",
+    "https://github.com/openssl/openssl/commit/2b93c73b2c70ddc4c61c5e4bfaaa6bd71379eb84",
+    "https://github.com/openssl/openssl/commit/04728a289a823e68137f88da016cb9ede307217d"
+   ],
+   "advisory_batch": {
+    "advisory": "openssl security advisory 2026-09-29",
+    "cves": [
+     "CVE-2026-35189",
+     "CVE-2026-35191",
+     "CVE-2026-42772",
+     "CVE-2026-54872",
+     "CVE-2026-54873",
+     "CVE-2026-54875",
+     "CVE-2026-72897",
+     "CVE-2026-75804",
+     "CVE-2026-75805",
+     "CVE-2026-75806",
+     "CVE-2026-77696",
+     "CVE-2026-84782",
+     "CVE-2026-84783",
+     "CVE-2026-84784"
+    ],
+    "applies_to_3_5_8": [
+     "CVE-2026-35189",
+     "CVE-2026-35191",
+     "CVE-2026-42772",
+     "CVE-2026-54872",
+     "CVE-2026-54873",
+     "CVE-2026-54875",
+     "CVE-2026-72897",
+     "CVE-2026-75804",
+     "CVE-2026-75805",
+     "CVE-2026-75806",
+     "CVE-2026-77696",
+     "CVE-2026-84782",
+     "CVE-2026-84784"
+    ],
+    "not_applicable": {
+     "CVE-2026-84783": "4.0.0 <= v < 4.0.3 only"
+    }
+   }
+  },
+  {
+   "repo_id": "23500865",
+   "full_name": "hyperium/hyper",
+   "reason_code": "excluded_no_recent_vulnerable_stable_release",
+   "reason": "The OSV crates.io query returns 14 advisory records; every one is fixed by 0.14.12 at the latest (GHSA-f67m-9j94-qv9j / RUSTSEC-2022-0022, introduced 0, fixed 0.14.12), so the newest vulnerable stable release is v0.14.11 (19f38b3e7febadedbfc558d17fa41baff73c6ecc, 2021-07-21). That is 5.28 years before the 2026-10-31 cutoff and over the 4-year release-sanity threshold that rejected the legacy v0.14.2 proposal. No advisory affects any 1.x release: the newest stable tags v1.11.1 and v1.12.0 have no OSV record, and NVD cpe:2.3:a:hyper:hyper matches zero CVEs at 0.14.32, 1.11.1 and 1.12.0.",
+   "evidence_urls": [
+    "https://api.osv.dev/v1/query (POST package=hyper, ecosystem=crates.io)",
+    "https://github.com/advisories/GHSA-f67m-9j94-qv9j",
+    "https://github.com/hyperium/hyper/releases/tag/v0.14.11",
+    "https://github.com/hyperium/hyper/releases/tag/v1.12.0",
+    "https://services.nvd.nist.gov/rest/json/cves/2.0?virtualMatchString=cpe:2.3:a:hyper:hyper:1.12.0",
+    "https://github.com/hyperium/hyper/commit/19f38b3e7febadedbfc558d17fa41baff73c6ecc"
+   ],
+   "observations": {
+    "osv_records": 14,
+    "latest_fixed_version": "0.14.12",
+    "newest_vulnerable_stable_tag": "v0.14.11",
+    "newest_vulnerable_tag_commit": "19f38b3e7febadedbfc558d17fa41baff73c6ecc",
+    "newest_vulnerable_tag_date": "2021-07-21T22:06:07Z",
+    "age_years_at_cutoff": 5.28,
+    "nvd_matches_for_1x_versions": 0
+   },
+   "decision": "excluded_metadata_only"
+  },
+  {
+   "repo_id": "3476845",
+   "full_name": "JamesNK/Newtonsoft.Json",
+   "reason_code": "excluded_no_recent_vulnerable_stable_release",
+   "reason": "The OSV NuGet query returns one advisory, GHSA-5crp-9r3c-p9vr (CVE-2024-21907), introduced 0 and fixed 13.0.1. The tag list jumps from 12.0.3 to 13.0.1 with no 13.0.0 tag, so the newest vulnerable stable release is 12.0.3 (7c3d7f8da7e35dde8fa74188b0decff70f8f10e3, 2019-11-09), 6.98 years before the cutoff; the independent selection review already rejected it as obsolete. NVD has no CVE whose CPE matches newtonsoft:json at 12.0.3, 13.0.1 or 13.0.4.",
+   "evidence_urls": [
+    "https://api.osv.dev/v1/query (POST package=Newtonsoft.Json, ecosystem=NuGet)",
+    "https://github.com/advisories/GHSA-5crp-9r3c-p9vr",
+    "https://github.com/JamesNK/Newtonsoft.Json/releases/tag/12.0.3",
+    "https://github.com/JamesNK/Newtonsoft.Json/releases/tag/13.0.1",
+    "https://github.com/JamesNK/Newtonsoft.Json/commit/7c3d7f8da7e35dde8fa74188b0decff70f8f10e3"
+   ],
+   "observations": {
+    "osv_records": 1,
+    "fixed_version": "13.0.1",
+    "missing_fixed_predecessor_tag": "13.0.0",
+    "newest_vulnerable_stable_tag": "12.0.3",
+    "newest_vulnerable_tag_commit": "7c3d7f8da7e35dde8fa74188b0decff70f8f10e3",
+    "newest_vulnerable_tag_date": "2019-11-09T00:48:42Z",
+    "age_years_at_cutoff": 6.98,
+    "nvd_matches": 0
+   },
+   "decision": "excluded_metadata_only"
+  },
+  {
+   "repo_id": "11171548",
+   "full_name": "nlohmann/json",
+   "reason_code": "excluded_no_versioned_advisory",
+   "reason": "The OSV records for this repository are OSS-Fuzz fuzzer reports only (OSV-2017-59, OSV-2022-409, OSV-2022-425). Each carries a GIT range between develop-branch commits and no version range, no severity and no advisory status, so no stable release can be pre-registered as vulnerable from them. There is no GHSA entry and no NVD CPE record for nlohmann/json: an NVD keyword query returns two unrelated CVEs (Envoy, NanaZip). The newest stable tag v3.12.0 (2025-04-11) is not implicated by any record.",
+   "evidence_urls": [
+    "https://osv.dev/vulnerability/OSV-2017-59",
+    "https://osv.dev/vulnerability/OSV-2022-409",
+    "https://osv.dev/vulnerability/OSV-2022-425",
+    "https://github.com/nlohmann/json/releases/tag/v3.12.0",
+    "https://services.nvd.nist.gov/rest/json/cves/2.0?keywordSearch=nlohmann"
+   ],
+   "observations": {
+    "osv_records": 3,
+    "osv_range_type": "GIT",
+    "version_ranged_advisories": 0,
+    "ghsa_records": 0,
+    "nvd_cpe_matches": 0
+   },
+   "decision": "excluded_metadata_only"
+  }
+ ],
+ "summary": {
+  "repositories": 4,
+  "frozen": 1,
+  "excluded": 3
+ }
+}

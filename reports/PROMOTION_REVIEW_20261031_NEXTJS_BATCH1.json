@@ -1,0 +1,108 @@
+{
+ "report": "vercel/next.js v14.2.24 batch 1",
+ "generated_at": "2026-10-31T08:49:29Z",
+ "applied": true,
+ "summary": {
+  "rows": 4,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2025-55173",
+   "candidate_id": "disc2_675d09786cccdce64cc8fc51",
+   "repo_id": "70107786",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "file": "packages/next/src/server/image-optimizer.ts",
+   "function": "fetchInternalImage",
+   "line": 597,
+   "anchor_class": "the upstream image fetch inherits all request headers",
+   "patch_file": "packages/next/src/server/image-optimizer.ts",
+   "fix_commit": "6b12c60c61ee80cb0443ccd20de82ca9b4422ddd",
+   "fixed_version": "14.2.31 / 15.4.5",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-20"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v14.2.24 packages/next/src/server/image-optimizer.ts:597 is the frozen pre-image of the fix in 6b12c60c61ee (14.2.31 / 15.4.5). the upstream image fetch inherits all request headers. The marker \"method: _req.method || 'GET',\\n      socket: _req.socket,\" is absent from the frozen scope fetchInternalImage and present in the fix patch for packages/next/src/server/image-optimizer.ts (added lines or hunk post-image). next <14.2.31 and >=15.0.0 <15.4.5 (advisory: fixed in 14.2.31 and 15.4.5); fixed in 14.2.31 / 15.4.5 (6b12c60c61ee); 14.2.24 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-57752",
+   "candidate_id": "disc2_54e811d36b2b6cdd75efe325",
+   "repo_id": "70107786",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "file": "packages/next/src/server/image-optimizer.ts",
+   "function": "fetchInternalImage",
+   "line": 597,
+   "anchor_class": "header-dependent image responses are cached per URL only",
+   "patch_file": "packages/next/src/server/image-optimizer.ts",
+   "fix_commit": "6b12c60c61ee80cb0443ccd20de82ca9b4422ddd",
+   "fixed_version": "14.2.31 / 15.4.5",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-524"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v14.2.24 packages/next/src/server/image-optimizer.ts:597 is the frozen pre-image of the fix in 6b12c60c61ee (14.2.31 / 15.4.5). header-dependent image responses are cached per URL only. The marker \"method: _req.method || 'GET',\\n      socket: _req.socket,\" is absent from the frozen scope fetchInternalImage and present in the fix patch for packages/next/src/server/image-optimizer.ts (added lines or hunk post-image). next <14.2.31 and >=15.0.0 <15.4.5 (advisory: fixed in 14.2.31 and 15.4.5); fixed in 14.2.31 / 15.4.5 (6b12c60c61ee); 14.2.24 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-57822",
+   "candidate_id": "disc2_9d72a14453f48b5aacd95e31",
+   "repo_id": "70107786",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "file": "packages/next/src/server/lib/router-utils/resolve-routes.ts",
+   "function": "handleRoute",
+   "line": 644,
+   "anchor_class": "a Location header is followed without checking the status",
+   "patch_file": "packages/next/src/server/lib/router-utils/resolve-routes.ts",
+   "fix_commit": "9c9aaed5bb9338ef31b0517ccf0ab4414f2093d8",
+   "fixed_version": "14.2.32 / 15.4.7",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-918"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v14.2.24 packages/next/src/server/lib/router-utils/resolve-routes.ts:644 is the frozen pre-image of the fix in 9c9aaed5bb93 (14.2.32 / 15.4.7). a Location header is followed without checking the status. The marker 'allowedStatusCodes' is absent from the frozen scope handleRoute and present in the fix patch for packages/next/src/server/lib/router-utils/resolve-routes.ts (added lines or hunk post-image). next <14.2.32 and >=15.0.0 <15.4.7 (advisory: fixed in 14.2.32 and 15.4.7); fixed in 14.2.32 / 15.4.7 (9c9aaed5bb93); 14.2.24 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "GHSA-2xp9-vwfh-vxw4",
+   "candidate_id": "disc2_f47eb94c6a3a11c5035e8bb1",
+   "repo_id": "70107786",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "file": "packages/next/src/build/webpack/loaders/next-image-loader/blur.ts",
+   "function": null,
+   "line": 6,
+   "anchor_class": "AVIF input is passed to the vulnerable libheif codec",
+   "patch_file": "packages/next/src/build/webpack/loaders/next-image-loader/blur.ts",
+   "fix_commit": "3a15b4ac6ac8e70b1a9b18ecc18e8434462899b3",
+   "fixed_version": "15.5.24 / 16.3.3",
+   "severity": {
+    "level": "critical",
+    "cwe": "CWE-1395"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v14.2.24 packages/next/src/build/webpack/loaders/next-image-loader/blur.ts:6 is the frozen pre-image of the fix in 3a15b4ac6ac8 (15.5.24 / 16.3.3). AVIF input is passed to the vulnerable libheif codec. The marker \"const VALID_BLUR_EXT = ['jpeg', 'png', 'webp'] // should match other usages\" is absent from the frozen scope module-level constant: VALID_BLUR_EXT is declared at file scope, so the frozen scope for the check is the whole file and present in the fix patch for packages/next/src/build/webpack/loaders/next-image-loader/blur.ts (added lines or hunk post-image). next >=10.0.0 <15.5.24 and >=16.0.0 <16.3.3 (advisory: fixed in 15.5.24 and 16.3.3; the 14.2 line is inside the first range and was not separately backported); fixed in 15.5.24 / 16.3.3 (3a15b4ac6ac8); 14.2.24 is inside the vendor affected range."
+  }
+ ],
+ "failures": []
+}

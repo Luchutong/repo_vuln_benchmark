@@ -1,0 +1,463 @@
+{
+ "report_status": "GITEA_PR_ROWS_REVIEWED",
+ "generated_at": "2026-10-31T05:33:40Z",
+ "applied": true,
+ "method": "each row was matched to the FIX pull request named by its advisory, the fix hunk was read, and the anchor was placed on the corresponding code in the frozen v1.25.5 tree; most fixes are addition-only, hence evidence_type source_review",
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-58417",
+   "candidate_id": "adv3_534b1b771d5483bb",
+   "file": "routers/api/v1/org/member.go",
+   "function": "ListPublicMembers",
+   "line": 120,
+   "fixes": [
+    "685b62c60fc595e3612a85f0895471876db56292"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-109844",
+   "candidate_id": "adv3_d027fa85d725cf12",
+   "file": "models/repo/user_repo.go",
+   "function": "ToConds",
+   "line": 73,
+   "fixes": [
+    "362539b78e50dfcc4bd1b9368fdd2a1b8cab0129",
+    "500a09e044156d7a8d6eb58d67a28b8a1512c887"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-110324",
+   "candidate_id": "adv3_379813c46ae3e46d",
+   "file": "routers/web/user/profile.go",
+   "function": "ActionUserFollow",
+   "line": 326,
+   "fixes": [
+    "89363035105da5effe61ed3acc47677c25235986",
+    "2d58c8c3dfdafa407d014e08ceb2743f09f94d1f"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-97859",
+   "candidate_id": "adv3_1428d84a4ec66940",
+   "file": "routers/api/v1/api.go",
+   "function": "Routes",
+   "line": 1046,
+   "fixes": [
+    "6bb6ce678be87d0e125d8e7ce444771b330484b0",
+    "1e86e1e45afe27f29f197bc65fa26f7c6736cfdf"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-58432",
+   "candidate_id": "adv3_815da5e9ce93d7be",
+   "file": "routers/web/repo/attachment.go",
+   "function": "ServeAttachment",
+   "line": 170,
+   "fixes": [
+    "f7fd51022495737cf960b8c4053a27d69148f664",
+    "ab10e37acf7fabf7829a485cc3e13d118638a856"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-58439",
+   "candidate_id": "adv3_fb48c88af93f237d",
+   "file": "services/pull/pull.go",
+   "function": "ChangeTargetBranch",
+   "line": 325,
+   "fixes": [
+    "8401fe7c544abff1ecc49d7f3166fd4ee0c174ef",
+    "74ad781db9c37134ee9280c69a6b1de53801503e"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-97204",
+   "candidate_id": "adv3_aa02344ff33d9792",
+   "file": "models/issues/label.go",
+   "function": "DeleteLabel",
+   "line": 250,
+   "fixes": [
+    "0e32b4a3629e3dd3fce3980f12789a288801874c",
+    "f5fd936cbb1b5560c0235dd5f193c4c0aec1821a"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-110311",
+   "candidate_id": "adv3_19e56bf7d1f439a5",
+   "file": "models/repo/release.go",
+   "function": "GetReleaseAttachments",
+   "line": 403,
+   "fixes": [
+    "0e32b4a3629e3dd3fce3980f12789a288801874c",
+    "f5fd936cbb1b5560c0235dd5f193c4c0aec1821a"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-23603",
+   "candidate_id": "adv3_8de674ea01c73790",
+   "file": "routers/web/auth/oauth.go",
+   "function": "oauth2UpdateAvatarIfNeed",
+   "line": 308,
+   "fixes": [
+    "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+    "de4b8277e9cb576f2315fb03b5ab6478b42a1d31"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-56654",
+   "candidate_id": "adv3_48c22b130eb3e2d9",
+   "file": "routers/api/v1/user/app.go",
+   "function": "CreateAccessToken",
+   "line": 127,
+   "fixes": [
+    "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+    "de4b8277e9cb576f2315fb03b5ab6478b42a1d31"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-56750",
+   "candidate_id": "adv3_02594606657a3bd0",
+   "file": "services/auth/auth_token.go",
+   "function": "CheckAuthToken",
+   "line": 57,
+   "fixes": [
+    "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+    "de4b8277e9cb576f2315fb03b5ab6478b42a1d31"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-57886",
+   "candidate_id": "adv3_a35f4f97fa9bbed3",
+   "file": "models/issues/comment.go",
+   "function": "UpdateCommentAttachments",
+   "line": 614,
+   "fixes": [
+    "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+    "de4b8277e9cb576f2315fb03b5ab6478b42a1d31"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-25038",
+   "candidate_id": "adv3_a635248012fe0949",
+   "file": "routers/api/v1/api.go",
+   "function": "Routes",
+   "line": 1665,
+   "fixes": [
+    "99f8b3d9a1d32f4c39828e07971455a18191e0b9"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-105661",
+   "candidate_id": "adv3_57ccc3509cd3d3ac",
+   "file": "routers/web/org/home.go",
+   "function": "home",
+   "line": 50,
+   "fixes": [
+    "ae17c14cffe9d416a38a3bf85f92e5b35fcb9da6",
+    "829b49c1ae96015e345f9d2a0eb1ea7acd5f31e1"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-107618",
+   "candidate_id": "adv3_fe119e8cad0b03ae",
+   "file": "routers/web/web.go",
+   "function": "registerWebRoutes",
+   "line": 1411,
+   "fixes": [
+    "ae17c14cffe9d416a38a3bf85f92e5b35fcb9da6",
+    "829b49c1ae96015e345f9d2a0eb1ea7acd5f31e1"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-107686",
+   "candidate_id": "adv3_a82e591b87bd46fa",
+   "file": "routers/web/repo/issue.go",
+   "function": "ChangeIssueReaction",
+   "line": 494,
+   "fixes": [
+    "ae17c14cffe9d416a38a3bf85f92e5b35fcb9da6",
+    "829b49c1ae96015e345f9d2a0eb1ea7acd5f31e1"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-109553",
+   "candidate_id": "adv3_be8bc8bf3f21741b",
+   "file": "models/asymkey/ssh_key.go",
+   "function": "SearchPublicKeyByContentExact",
+   "line": 161,
+   "fixes": [
+    "ae17c14cffe9d416a38a3bf85f92e5b35fcb9da6",
+    "829b49c1ae96015e345f9d2a0eb1ea7acd5f31e1"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-110494",
+   "candidate_id": "adv3_d173f3aded132f6b",
+   "file": "models/repo/release.go",
+   "function": "AddReleaseAttachments",
+   "line": 204,
+   "fixes": [
+    "ae17c14cffe9d416a38a3bf85f92e5b35fcb9da6",
+    "829b49c1ae96015e345f9d2a0eb1ea7acd5f31e1"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true
+  },
+  {
+   "vulnerability_id": "CVE-2026-58420",
+   "candidate_id": "adv3_5466f6f9a94f3499",
+   "file": "services/migrations/restore.go",
+   "function": "GetPullRequests",
+   "line": 238,
+   "fixes": [
+    "aab3242f7b96224cf2e9d8561cbae0ab58ebeae8"
+   ],
+   "tier": "T2",
+   "rc": 0,
+   "applied": true,
+   "attribution": "advisory has no FIX reference; fix commit located by content (PR #38324, cached commit aab3242f7b96) and confirmed because its restore.go hunk removes this exact line and its common.go hunk adds the empty-baseURL guard in hasBaseURL"
+  },
+  {
+   "vulnerability_id": "CVE-2026-20896",
+   "candidate_id": "adv3_f8d254c837f77de9",
+   "file": "docker/root/etc/templates/app.ini",
+   "function": null,
+   "line": 55,
+   "fixes": [
+    "99f8b3d9a1d32f4c39828e07971455a18191e0b9"
+   ],
+   "tier": "T1",
+   "rc": 0,
+   "applied": true,
+   "attribution": "Docker config template; no enclosing function, so the location carries function=null with an explicit functionless reason."
+  }
+ ],
+ "metadata_normalization": {
+  "applied": true,
+  "changes": [
+   {
+    "vulnerability_id": "CVE-2026-58417",
+    "field": "category_l2",
+    "from": " Summary",
+    "to": "Gitea: REST API exposes organization membership of private organizations to public",
+    "why": "markdown heading leaked from details"
+   },
+   {
+    "vulnerability_id": "CVE-2026-58432",
+    "field": "category_l2",
+    "from": " Summary",
+    "to": "Gitea: draft release attachment disclosure via missing web authorization",
+    "why": "markdown heading leaked from details"
+   },
+   {
+    "vulnerability_id": "CVE-2026-58439",
+    "field": "category_l2",
+    "from": " Summary",
+    "to": "Gitea: Branch Protection Bypass via PR Retargeting Preserves Stale `official` Approval Flag",
+    "why": "markdown heading leaked from details"
+   },
+   {
+    "vulnerability_id": "CVE-2026-23603",
+    "field": "category_l2",
+    "from": " Summary When [oauth2_client] UPDATE_AVATAR = true is enabled, Gitea fetches the avatar URL received from an OAuth2/OIDC provider using Go's default HTTP client",
+    "to": "When [oauth2_client] UPDATE_AVATAR = true is enabled, Gitea fetches the avatar URL received from an OAuth2/OIDC provider using Go's default HTTP client",
+    "why": "markdown heading leaked from details"
+   },
+   {
+    "vulnerability_id": "CVE-2026-56654",
+    "field": "category_l2",
+    "from": "Gitea's API endpoint for creating Personal Access Tokens (POST /users/{username}/tokens) is protected by a middleware (reqBasicOrRevProxyAuth) that is intended ",
+    "to": "Gitea's API endpoint for creating Personal Access Tokens (POST /users/{username}/tokens) is protected by a middleware (reqBasicOrRevProxyAuth) that is intended",
+    "why": "whitespace trimmed"
+   },
+   {
+    "vulnerability_id": "CVE-2026-56750",
+    "field": "category_l1",
+    "from": null,
+    "to": "authentication_bypass",
+    "why": "CWE-613 (insufficient session expiration) in the GHSA record; classified as an authentication/session failure"
+   },
+   {
+    "vulnerability_id": "CVE-2026-57886",
+    "field": "category_l2",
+    "from": " Summary",
+    "to": "Gitea: Cross-repository issue/comment attachment re-linking can expose private attachment content",
+    "why": "markdown heading leaked from details"
+   },
+   {
+    "vulnerability_id": "CVE-2026-25038",
+    "field": "category_l2",
+    "from": " Summary",
+    "to": "Gitea: Unauthorized Access to Labels of Private Organizations",
+    "why": "markdown heading leaked from details"
+   },
+   {
+    "vulnerability_id": "CVE-2026-107618",
+    "field": "category_l1",
+    "from": null,
+    "to": "csrf",
+    "why": "advisory title names cross-site request forgery; the fix adds the CSRF-providing optSignIn middleware"
+   },
+   {
+    "vulnerability_id": "CVE-2026-107686",
+    "field": "category_l1",
+    "from": null,
+    "to": "authorization_bypass",
+    "why": "the fix replaces a read check with CanSelfChangeOrAccessContent, an authorization test"
+   },
+   {
+    "vulnerability_id": "CVE-2026-109553",
+    "field": "category_l2",
+    "from": "Gitea resolved the principals of an SSH certificate by searching the content of all stored public keys instead of only principal keys. When Gitea trusts a user ",
+    "to": "Gitea resolved the principals of an SSH certificate by searching the content of all stored public keys instead of only principal keys. When Gitea trusts a user",
+    "why": "whitespace trimmed"
+   },
+   {
+    "vulnerability_id": "CVE-2026-109553",
+    "field": "category_l1",
+    "from": null,
+    "to": "authentication_bypass",
+    "why": "the fix restricts principal lookup so one user cannot authenticate as another via SSH certificates"
+   },
+   {
+    "vulnerability_id": "CVE-2026-110494",
+    "field": "category_l1",
+    "from": null,
+    "to": "authorization_bypass",
+    "why": "CWE-639 in the GHSA record; the fix adds an ownership check before re-linking an attachment"
+   }
+  ],
+  "note": "category_l1 set from the advisory title/fix semantics where the GHSA record publishes no mapped CWE; cwe_ids were not extended beyond the published record."
+ },
+ "summary": {
+  "applied_rows": 20,
+  "tier_counts": {
+   "T1": 9,
+   "T2": 11
+  },
+  "evidence_types": {
+   "source_review": 18,
+   "fix_diff_comparison": 2
+  },
+  "sibling_duplicate_rows": [
+   {
+    "candidate_id": "disc2_2f4e639257671a79889c33d5",
+    "canonical": "adv3_534b1b771d5483bb",
+    "cve": "CVE-2026-58417"
+   },
+   {
+    "candidate_id": "disc2_f742a8d604a44e3b5d1ca62b",
+    "canonical": "adv3_815da5e9ce93d7be",
+    "cve": "CVE-2026-58432"
+   },
+   {
+    "candidate_id": "disc2_ad439991d434a755dc8adaf1",
+    "canonical": "adv3_fb48c88af93f237d",
+    "cve": "CVE-2026-58439"
+   },
+   {
+    "candidate_id": "disc2_b4a80e1d931129da03a14176",
+    "canonical": "adv3_8de674ea01c73790",
+    "cve": "CVE-2026-23603"
+   },
+   {
+    "candidate_id": "disc2_8da891842bf55deb64f2c1a3",
+    "canonical": "adv3_48c22b130eb3e2d9",
+    "cve": "CVE-2026-56654"
+   },
+   {
+    "candidate_id": "disc2_2734247c13784d304814fc13",
+    "canonical": "adv3_02594606657a3bd0",
+    "cve": "CVE-2026-56750"
+   },
+   {
+    "candidate_id": "disc2_6ca6eab419f1b331e6e9b005",
+    "canonical": "adv3_a35f4f97fa9bbed3",
+    "cve": "CVE-2026-57886"
+   },
+   {
+    "candidate_id": "disc2_211bc203e16f72d1689bc569",
+    "canonical": "adv3_a635248012fe0949",
+    "cve": "CVE-2026-25038"
+   },
+   {
+    "candidate_id": "disc2_f4c1c9c3db14090c98f9b95e",
+    "canonical": "adv3_f8d254c837f77de9",
+    "cve": "CVE-2026-20896"
+   },
+   {
+    "candidate_id": "disc2_df4d09784b0cb671cc442a5e",
+    "canonical": "adv3_5466f6f9a94f3499",
+    "cve": "CVE-2026-58420"
+   }
+  ]
+ },
+ "not_promoted": [
+  {
+   "cve": "CVE-2026-58416",
+   "decision": "confirmed_not_affected",
+   "reason": "the fix PR #38214 guards the collaborative-owner branch of GetActionsUserRepoPermission with task.IsForkPullRequest; neither that function nor the ActionsConfig collaborative-owner accessors exist at frozen v1.25.5, so the vulnerable code path was introduced later. OSV introduced:0 makes range membership say nothing about code presence. Both candidate rows were triaged confirmed_not_affected."
+  },
+  {
+   "cve": "CVE-2026-58428",
+   "decision": "unresolved",
+   "reason": "the advisory cites PRs #38406/#38426; neither the merged commit f69e15afe749 nor the v1.27 backport de4b8277e9cb touches a release web-edit attachment path (file list checked), and no other cached commit does. No fix hunk can be verified, so the row stays a possible_affected candidate."
+  },
+  {
+   "cve": "CVE-2026-58440",
+   "decision": "unresolved",
+   "reason": "same cited PRs as 58428; the cached bundle contains no DeleteCollaboration or webhook change (grep over the full commit patch), so the revocation-cleanup fix cannot be verified from cached evidence."
+  }
+ ]
+}

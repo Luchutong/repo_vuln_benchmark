@@ -1,0 +1,70 @@
+{
+ "report": "apache/tomcat 9.0.98 open-candidate triage",
+ "generated_at": "2026-10-31T08:29:55Z",
+ "applied": true,
+ "summary": {
+  "appended": 9,
+  "refreshed": 2,
+  "skipped": 0
+ },
+ "appended": [
+  {
+   "candidate_id": "sweep_53ca4fd64956663d",
+   "vulnerability_id": "CVE-2025-66614",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_5d323bbabd48e460",
+   "vulnerability_id": "CVE-2026-24733",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_3d79c94eee891aa6",
+   "vulnerability_id": "CVE-2026-24734",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_bd9db1df44a4bb0b",
+   "vulnerability_id": "CVE-2026-29145",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_ca5a36b43af415dc",
+   "vulnerability_id": "CVE-2026-34500",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_e9267d1b2a33fc46",
+   "vulnerability_id": "CVE-2026-55957",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_ca999bdc932efe89",
+   "vulnerability_id": "CVE-2026-59083",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_5b61bfd69ee9a6d7",
+   "vulnerability_id": "CVE-2026-59084",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "sweep_bac4d808c53b450d",
+   "vulnerability_id": "CVE-2026-66299",
+   "decision": "possible_affected"
+  }
+ ],
+ "refreshed": [
+  {
+   "candidate_id": "disc2_1217a2cc11b5997ffdc974d7",
+   "vulnerability_id": null,
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_7549afda898b49941b0ec4ec",
+   "vulnerability_id": null,
+   "decision": "possible_affected"
+  }
+ ],
+ "skipped": []
+}

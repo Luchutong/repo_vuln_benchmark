@@ -1,0 +1,43 @@
+{
+ "repo": "PHPMailer/PHPMailer",
+ "repo_id": "2253830",
+ "snapshot_id": "snap_b840904431f8a856",
+ "tag": "v6.1.5",
+ "sha": "a8bf068f64a580302026e484ee29511f661b2ad3",
+ "applied": true,
+ "checked_at": "2026-10-31T12:48:36Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2021-34551",
+   "snapshot_id": "snap_b840904431f8a856",
+   "location": "src/PHPMailer.php:2078-2143",
+   "permalink": "https://github.com/PHPMailer/PHPMailer/blob/a8bf068f64a580302026e484ee29511f661b2ad3/src/PHPMailer.php#L2078-L2143",
+   "excerpt_head": "    public function setLanguage($langcode = 'en', $lang_path = '')\n    {\n        // Backwards compatibility for renamed language codes\n        $renamed_langcode",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2021-34551",
+   "candidate_id": "adv3_47770e25681da792",
+   "fix_commits": [
+    "acd264bf17ff4ac5c915f0d4226dce8a9ea70bc3"
+   ]
+  }
+ ],
+ "duplicates": {
+  "disc2_73fd935199dc7d92bafd4ded": "The candidate carries the aliases BIT-phpmailer-2021-34551, CVE-2021-34551 and GHSA-7q44-r25x-wm4q and comes from the FriendsOfPHP security-advisories yaml feed. That identifies the same defect promoted from adv3_47770e25681da792: the setLanguage() $lang_path include in src/PHPMailer.php, the same \"< 6.5.0\" composed range with 6.5.0 patched, and the same Windows UNC execution path (the FriendsOfPHP yaml was the source of the GHSA record). One vulnerability account, one source anchor; this row is an alias cluster of CVE-2021-34551."
+ },
+ "counts": {
+  "promoted": 1,
+  "duplicate": 1
+ },
+ "fixes": {
+  "CVE-2021-34551": [
+   "acd264bf17ff4ac5c915f0d4226dce8a9ea70bc3"
+  ]
+ },
+ "notes": [
+  "CVE-2021-34551 is promoted at PHPMailer::setLanguage (src/PHPMailer.php:2078-2143): $lang_file is built from the caller-supplied $lang_path and executed by include at :2137, with isPermittedPath (:1745-1748) rejecting only URI schemes, so a Windows UNC path reaches file_exists() and include. VERSION at the frozen commit is 6.1.5; the 6.5.0 fix acd264bf parses the language file as text.",
+  "The maintainers' repository advisory scored the issue 5.5 (PR:H) while NVD and the GitHub global advisory score 8.1 (PR:N); the promoted row records the NVD Primary 8.1 HIGH vector AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H with CWE-434.",
+  "disc2_73fd935199dc7d92bafd4ded is the FriendsOfPHP yaml alias of the same CVE/GHSA pair and is recorded as duplicate, keeping one source anchor for the defect."
+ ]
+}

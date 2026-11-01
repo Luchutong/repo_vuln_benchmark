@@ -1,0 +1,248 @@
+{
+ "report": "libarchive/libarchive v3.7.7 sweep",
+ "generated_at": "2026-10-31T10:01:43Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2026-45308",
+    "candidate_id": "adv3_fad1f72cd91b30c1",
+    "file": "libarchive/archive_write_set_format_zip.c",
+    "function": "archive_write_zip_header",
+    "line": "817-823",
+    "anchor": "e = cd_alloc(zip, filename_length);",
+    "severity": "low",
+    "score": null,
+    "category": "memory_safety",
+    "tier": "T1",
+    "review": "vendor_official",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/eb482315a0f8ac41af4b973bc63b79697f97c4da",
+     "https://github.com/libarchive/libarchive/pull/2993"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2025-1632",
+    "candidate_id": "sweep_102767708d705d03",
+    "file": "unzip/bsdunzip.c",
+    "function": "list",
+    "line": "879-901",
+    "anchor": "archive_entry_pathname(e)",
+    "severity": "low",
+    "score": 3.3,
+    "category": "null_pointer_dereference",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/c9bc934e7e91d302e0feca6e713ccc38d6d01532",
+     "https://github.com/libarchive/libarchive/pull/2532"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2025-25724",
+    "candidate_id": "sweep_831d587a6e9a62a8",
+    "file": "tar/util.c",
+    "function": "list_item_verbose",
+    "line": "744-752",
+    "anchor": "strftime(tmp, sizeof(tmp), fmt, ltime);",
+    "severity": "medium",
+    "score": 4.0,
+    "category": "denial_of_service",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/c9bc934e7e91d302e0feca6e713ccc38d6d01532",
+     "https://github.com/libarchive/libarchive/commit/ecce46744f79b2a1f653bb3aa190993d5f58a689",
+     "https://github.com/libarchive/libarchive/pull/2532",
+     "https://github.com/libarchive/libarchive/pull/2710"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-4111",
+    "candidate_id": "sweep_fb99830f3f32234c",
+    "file": "libarchive/archive_read_support_format_rar5.c",
+    "function": "parse_filter",
+    "line": "2963-2970",
+    "anchor": "!is_valid_filter_block_start(rar, block_start))",
+    "severity": "high",
+    "score": 7.5,
+    "category": "denial_of_service",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/7273d04803a1e5a482f26d8d0fbaf2b204a72168",
+     "https://github.com/libarchive/libarchive/commit/ef53e2023d75a205cf7cbddb5d01c4cc592e9ce4",
+     "https://github.com/libarchive/libarchive/pull/2877"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-16517",
+    "candidate_id": "sweep_6c3af1b9758e2066",
+    "file": "libarchive/archive_write_set_format_zip.c",
+    "function": "archive_write_zip_header",
+    "line": "717-733",
+    "anchor": "zip->entry_uncompressed_size + additional_size > ZIP_4GB_MAX",
+    "severity": "low",
+    "score": 2.9,
+    "category": "integer_overflow",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/1c6e7b491f60fce335c20a9692f870d1f1ca39aa",
+     "https://github.com/libarchive/libarchive/commit/4bb52f4934113059cfa23a2375f3bad9f124ff90",
+     "https://github.com/libarchive/libarchive/pull/3228"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-15028",
+    "candidate_id": "sweep_e34f00f2930ab8fd",
+    "file": "libarchive/archive_read_support_format_tar.c",
+    "function": "tar_atol_base_n",
+    "line": "3324-3333",
+    "anchor": "digit = *++p - '0';",
+    "severity": "low",
+    "score": 3.9,
+    "category": "memory_safety",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/f93abd161ec37326c566f4f0efcd44fe7a66dd95",
+     "https://github.com/libarchive/libarchive/commit/ffc1114f84953b9b9c79a36798e534d07194e85b",
+     "https://github.com/libarchive/libarchive/pull/3253"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-4424",
+    "candidate_id": "sweep_28c0498a95d598ff",
+    "file": "libarchive/archive_read_support_format_rar.c",
+    "function": "parse_codes",
+    "line": "2506-2511",
+    "anchor": "if (!rar->dictionary_size || !rar->lzss.window)",
+    "severity": "high",
+    "score": 7.5,
+    "category": "information_disclosure",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/d379dc0b2976b7207d1ad78f5ed3eb99a5b6d375",
+     "https://github.com/libarchive/libarchive/commit/e1907c5832b6489c7b4198b0825f857c93a03c10",
+     "https://github.com/libarchive/libarchive/pull/2898"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-17591",
+    "candidate_id": "sweep_127e6af7536ce8ac",
+    "file": "libarchive/archive_entry.c",
+    "function": "archive_entry_copy_mac_metadata",
+    "line": "1561-1570",
+    "anchor": "entry->mac_metadata = malloc(s);",
+    "severity": "low",
+    "score": 3.6,
+    "category": "memory_safety",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/45f7ec5422e7677673a7da1ae9ae2ac2b5721204",
+     "https://github.com/libarchive/libarchive/pull/3318"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-4426",
+    "candidate_id": "sweep_6cdf1a4d8876a6bf",
+    "file": "libarchive/archive_read_support_format_iso9660.c",
+    "function": "parse_rockridge_ZF1",
+    "line": "2758-2763",
+    "anchor": "file->pz_log2_bs = data[3];",
+    "severity": "medium",
+    "score": 6.5,
+    "category": "integer_overflow",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/c3cb1c568ebf9e8f7f478cfc0356ae54e99712b0",
+     "https://github.com/libarchive/libarchive/pull/2897"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-5121",
+    "candidate_id": "sweep_3303442942a6f1cb",
+    "file": "libarchive/archive_read_support_format_iso9660.c",
+    "function": "zisofs_read_data",
+    "line": "1527-1538",
+    "anchor": "xsize = (ceil + 1) * 4;",
+    "severity": "high",
+    "score": 7.5,
+    "category": "integer_overflow",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/a2a73a8f14b3208c7f6acbbc93265254a7c1efd0",
+     "https://github.com/libarchive/libarchive/commit/c3cb1c568ebf9e8f7f478cfc0356ae54e99712b0",
+     "https://github.com/libarchive/libarchive/pull/2934",
+     "https://github.com/libarchive/libarchive/pull/2897"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2026-5745",
+    "candidate_id": "sweep_81e881fddcb89dd7",
+    "file": "libarchive/archive_acl.c",
+    "function": "archive_acl_from_text_nl",
+    "line": "1719-1727",
+    "anchor": "st = field[n].start + 1;",
+    "severity": "medium",
+    "score": 5.5,
+    "category": "null_pointer_dereference",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/5f7025543205106d64081cbafd8c345bf859b86f",
+     "https://github.com/libarchive/libarchive/commit/0b0b888f86b46e3b279f5f7c6eef0479f35978ee",
+     "https://github.com/libarchive/libarchive/pull/2905"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2025-60753",
+    "candidate_id": "sweep_b8e0e66b15465a91",
+    "file": "tar/subst.c",
+    "function": "apply_substitution",
+    "line": "291-296",
+    "anchor": "name += matches[0].rm_eo;",
+    "severity": "medium",
+    "score": 5.5,
+    "category": "resource_exhaustion",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/libarchive/libarchive/commit/df9967323ee89c07e59c82999dcbbdc6a54a3282",
+     "https://github.com/libarchive/libarchive/commit/e108f0dfaba0136fb46e0a11c1a84c42ada7d635",
+     "https://github.com/libarchive/libarchive/pull/2787",
+     "https://github.com/libarchive/libarchive/pull/2809"
+    ]
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "updated": [
+   "sweep_bb8175aa133c0340",
+   "sweep_dbbcc2ffffb4f494"
+  ],
+  "added": [],
+  "decisions": {
+   "sweep_bb8175aa133c0340": "confirmed_not_affected",
+   "sweep_dbbcc2ffffb4f494": "confirmed_not_affected"
+  }
+ }
+}

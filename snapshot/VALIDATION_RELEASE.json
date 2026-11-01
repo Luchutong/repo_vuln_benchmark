@@ -1,0 +1,53 @@
+{
+  "dataset_version": "0.4.0",
+  "status": "release_check",
+  "repository_count": 50,
+  "evaluation_snapshot_count": 47,
+  "known_positive_count": 721,
+  "candidate_count": 1405,
+  "unresolved_candidate_count": 6,
+  "candidate_triage_decisions": {
+    "confirmed_not_affected": 1754,
+    "confirmed_affected": 741,
+    "out_of_scope": 268,
+    "duplicate": 170,
+    "possible_affected": 6
+  },
+  "tier_counts": {
+    "T2": 152,
+    "T1": 569
+  },
+  "advisory_review_status_counts": {
+    "unreviewed": 65,
+    "vendor_official": 429,
+    "unknown": 76,
+    "github_reviewed": 151
+  },
+  "location_scope_counts": {
+    "source_location": 721
+  },
+  "qa_status_counts": {
+    "pass": 43
+  },
+  "errors": [
+    "release requires 50 frozen evaluation snapshots; found 47",
+    "release repo 2493904: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 569041: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 54280778: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 17620347: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 27729880: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 33100064: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 3542607: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 3219804: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 80314213: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 80314213: 1 relevant candidates unresolved",
+    "release repo 1064563: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 1148753: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 1148753: 1 relevant candidates unresolved",
+    "release repo 70107786: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release repo 70107786: 4 relevant candidates unresolved",
+    "release repo 7634677: missing snapshot-scoped PASS_KNOWN_SWEEP",
+    "release requires >=10% T1 QA review (57); found 43"
+  ],
+  "warnings": []
+}

@@ -1,0 +1,54 @@
+{
+ "batch": "tomcat-vite-open-closure",
+ "applied": true,
+ "checked_at": "2026-10-31T13:08:59Z",
+ "triage": [
+  {
+   "candidate_id": "disc2_7549afda898b49941b0ec4ec",
+   "vulnerability_id": "CVE-2025-55752",
+   "decision": "confirmed_not_affected",
+   "review_method": "source_code_review",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "basis": "Source review of the frozen 9.0.98 valve (java/org/apache/catalina/valves/rewrite/RewriteValve.java) shows the defect carrier does not exist in this tree. At 9.0.98 RewriteValve.invoke takes `urlDecoded` from request.getDecodedRequestURIMB():306, rewrites in decoded space, and when a rule matched builds the encoded requestURI with `URLEncoder.DEFAULT.encode(urlStringDecoded, uriCharset)` (:492), then normalizes the decoded string with `urlStringDecoded = RequestUtil.normalize(urlStringDecoded)` (:495) and appends it to decodedURI (:502). The file contains no java.net.URLDecoder call and no decode step after normalization, so an encoded traversal introduced by a rewrite substitution cannot survive into decodedURI. The normalize-before-decode arrangement the advisory describes first appears in 9.0.103, together with the bug-60013 rewrite ee3ab548e923 (\"Better handling of URLs with literal ';' and '?'\", 2025-03-13): 9.0.103 imports java.net.URLDecoder (:24), runs RequestUtil.normalize on the encoded rewrite result (:548) and only then URLDecoder.decode(...) into decodedURI (:555); 9.0.108 has the same shape at :558/:565, and the fix b5042622b8b7 reverses the order in 9.0.109 (`String urlStringRewriteDecoded = URLDecoder.decode(...)` :559, `urlStringRewriteDecoded = RequestUtil.normalize(...)` :560). The frozen 9.0.98 predates that regression: 9.0.98 and 9.0.102 both show the single normalize call at :495 and no URLDecoder, and the vendor's own text attributes the defect to \"the fix for bug 60013\". The published range \"Affects: 9.0.0.M11 to 9.0.108\" is a conservative RewriteValve-era range; the static counter-evidence is the decode-then-normalize flow, and the same reasoning already closed CVE-2026-59083. No in-range anchor exists at the frozen SHA, so no promotion.",
+   "evidence_urls": [
+    "https://tomcat.apache.org/security-9.html#Fixed_in_Apache_Tomcat_9.0.109",
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-55752",
+    "https://github.com/apache/tomcat/commit/b5042622b8b78340ae65403c55dcb9c7416924df",
+    "https://github.com/apache/tomcat/commit/ee3ab548e92345eca0cbd1f01649eb36c6f29454",
+    "https://bz.apache.org/bugzilla/show_bug.cgi?id=60013"
+   ],
+   "notes": "closed: 9.0.98 normalizes the decoded rewrite output (:495) and has no URLDecoder; the vulnerable encoded-space flow starts at 9.0.103 and is fixed in 9.0.109. Vendor range is over-broad relative to its own regression statement.",
+   "reviewed_by": "static-source-review/1.0 (tomcat 9.0.98, 2026-10-31)",
+   "checked_at": "2026-10-31T13:08:59Z"
+  },
+  {
+   "candidate_id": "disc2_885da9918e0641ababf57c60",
+   "vulnerability_id": "CVE-2025-62522",
+   "decision": "confirmed_not_affected",
+   "review_method": "source_code_review",
+   "repo_id": "257485422",
+   "snapshot_id": "snap_2e50b228f2432623",
+   "basis": "At the frozen v5.0.11 the deny matcher is built as `picomatch(config.server.fs.deny, { matchBase: true })` (packages/vite/src/node/server/index.ts:620) over the default patterns `['.env', '.env.*', '*.{crt,pem}']` (index.ts:933); picomatch ^2.3.1 is pinned in packages/vite/package.json:127 and its matchBase implementation is `regex.test(path.basename(input))` (picomatch 2.3.1 lib/picomatch.js:161-163). A request target `/.env\\` is parsed by new URL() with the backslash normalized to \"/\", fsPathFromUrl/normalizePath keeps the trailing slash, and path.basename(\".../.env/\") is still \".env\", so the deny matcher returns true at static.ts:216 and ensureServingAccess refuses the request (403) before sirv reads anything. Verified with picomatch 2.3.1 directly: {matchBase:true} + \".env\" matches \"/root/.env/\" while the 5.2.6-style regex \"**/.env\" with matchBase:false does not. That is why the vendor row starts at 5.2.6: 5.2.5 still uses `{ matchBase: true, nocase: true }`, and 5.2.6 replaces the construction with `config.server.fs.deny.map(p => p.includes(\"/\") ? p : `**/${p}`)` plus `{ matchBase: false, nocase: true, dot: true }` (index.ts:688-698), which loses the trailing-slash match. The OSV record collapses the vendor rows into introduced 2.9.18 / fixed 5.4.21, and that union is what flagged this snapshot; the per-row vendor ranges exclude 5.0.0-5.2.5 for the matcher reason above, and v5.0.11 lies in that gap. No vendor statement contradicts the mechanism, so the row closes as confirmed_not_affected.",
+   "evidence_urls": [
+    "https://github.com/vitejs/vite/security/advisories/GHSA-93m4-6634-74q7",
+    "https://osv.dev/vulnerability/GHSA-93m4-6634-74q7",
+    "https://nvd.nist.gov/vuln/detail/CVE-2025-62522",
+    "https://github.com/vitejs/vite/commit/cad1d31d0635"
+   ],
+   "notes": "closed: 5.0.11 uses picomatch matchBase:true, which matches path.basename(\"/root/.env/\") = \".env\"; the bypass needs the 5.2.6+ `**/` + matchBase:false matcher, so the vendor row starting at 5.2.6 is a code difference, not a support-policy gap.",
+   "reviewed_by": "static-source-review/1.0 (vite v5.0.11, 2026-10-31)",
+   "checked_at": "2026-10-31T13:08:59Z"
+  }
+ ],
+ "counts": {
+  "triage": 2,
+  "promoted": 0,
+  "confirmed_not_affected": 2
+ },
+ "notes": [
+  "CVE-2025-55752 closes at tomcat 9.0.98: the valve rewrites in decoded space (getDecodedRequestURIMB), normalizes the decoded string at RewriteValve.java:495 and never calls URLDecoder; the normalize-before-decode flow the advisory describes appears in 9.0.103 with ee3ab548 and is reversed in 9.0.109 by b5042622. The vendor range 9.0.0.M11-9.0.108 is broader than its own regression statement.",
+  "CVE-2025-62522 closes at vite 5.0.11: server.fs.deny is compiled with picomatch matchBase:true (index.ts:620), and picomatch tests path.basename(input), so a trailing separator still yields basename .env and the request is refused at static.ts:216. The bypass requires the 5.2.6+ matcher (patterns expanded to **/<pattern>, matchBase:false), which is exactly where the vendor 5.x row starts; 5.2.5 still uses matchBase:true.",
+  "No Ground Truth rows were added; both decisions are triage-only."
+ ]
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["candidate_id", "repo_id", "snapshot_id", "source_urls", "status", "reason"],
+  "properties": {
+    "candidate_id": {"type": "string", "minLength": 1},
+    "repo_id": {"type": "string", "minLength": 1},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "vulnerability_id": {"type": ["string", "null"]},
+    "aliases": {"type": "array", "items": {"type": "string"}},
+    "source_urls": {"type": "array", "items": {"type": "string", "pattern": "^https://"}, "minItems": 1},
+    "status": {"enum": ["needs_version_check", "needs_static_location", "needs_static_review", "needs_metadata", "unknown"]},
+    "advisory_trust_tier": {"enum": ["T1", "T2", "T3"]},
+    "advisory_review_status": {"enum": ["github_reviewed", "vendor_official", "unreviewed", "unknown"]},
+    "reason": {"type": "string", "minLength": 1},
+    "source_candidate_status": {"type": ["string", "null"]}
+  },
+  "additionalProperties": true
+}

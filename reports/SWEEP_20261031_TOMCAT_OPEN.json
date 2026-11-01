@@ -1,0 +1,202 @@
+{
+ "repo": "apache/tomcat",
+ "repo_id": "2493904",
+ "snapshot_id": "snap_1afe89480f20c291",
+ "tag": "9.0.98",
+ "sha": "727a8467a37e17fef91e12a65db4d56862d36171",
+ "applied": true,
+ "checked_at": "2026-10-31T12:08:59Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-24733",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/coyote/http11/Http11Processor.java:609-612",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/coyote/http11/Http11Processor.java#L609-L612",
+   "excerpt_head": "            // HTTP/0.9\n            http09 = true;\n            http11 = false;\n            keepAlive = false;",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-24733",
+   "candidate_id": "sweep_5d323bbabd48e460",
+   "fix_commits": [
+    "2e2fa23f2635bbb819759576a2f2f5e64ecf7c5f"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-24734",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/tomcat/util/net/openssl/panama/OpenSSLEngine.java:1352-1362",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/tomcat/util/net/openssl/panama/OpenSSLEngine.java#L1352-L1362",
+   "excerpt_head": "            if (!MemorySegment.NULL.equals(ocspResponse)) {\n                if (OCSP_response_status(ocspResponse) == OCSP_RESPONSE_STATUS_SUCCESSFUL()) {\n     ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-24734",
+   "candidate_id": "sweep_3d79c94eee891aa6",
+   "fix_commits": [
+    "e76e9eaa246f30debd603726d9147a8a8cb5171c"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-43513",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/catalina/realm/LockOutRealm.java:207-210",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/catalina/realm/LockOutRealm.java#L207-L210",
+   "excerpt_head": "    public boolean isLocked(String username) {\n        LockRecord lockRecord = null;\n        synchronized (this) {\n            lockRecord = failedUsers.get(user",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-43513",
+   "candidate_id": "disc2_673a6f377ddfd2dabd001cf3",
+   "fix_commits": [
+    "6dd75beb55bd42fc5f78e929596b25018cd17717"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41284",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/catalina/servlets/WebdavServlet.java:835-839",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/catalina/servlets/WebdavServlet.java#L835-L839",
+   "excerpt_head": "        if (req.getContentLengthLong() > 0 || \"chunked\".equalsIgnoreCase(req.getHeader(\"Transfer-Encoding\"))) {\n            DocumentBuilder documentBuilder = ge",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41284",
+   "candidate_id": "disc2_1217a2cc11b5997ffdc974d7",
+   "fix_commits": [
+    "17dacd9aa48628da2eba37a9ab743c0b6c71685c"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-66614",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/coyote/http11/Http11Processor.java:788-789",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/coyote/http11/Http11Processor.java#L788-L789",
+   "excerpt_head": "        // Validate host name and extract port if present\n        parseHost(hostValueMB);",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-66614",
+   "candidate_id": "sweep_53ca4fd64956663d",
+   "fix_commits": [
+    "152c14885d45f5e0a8b59bd9f93c289cfe20ce30",
+    "a4aa74232e826028cd2f7ba0445caf8a8b52c509",
+    "9276b5e783c8cd5b3fe2bb716306b65004bdd940"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-29145",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/tomcat/util/net/openssl/panama/OpenSSLEngine.java:1352-1380",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/tomcat/util/net/openssl/panama/OpenSSLEngine.java#L1352-L1380",
+   "excerpt_head": "            if (!MemorySegment.NULL.equals(ocspResponse)) {\n                if (OCSP_response_status(ocspResponse) == OCSP_RESPONSE_STATUS_SUCCESSFUL()) {\n     ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-29145",
+   "candidate_id": "sweep_bd9db1df44a4bb0b",
+   "fix_commits": [
+    "d1406df5ae0326f39f54c3f64ac30d8fca55cd5b"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-34500",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/tomcat/util/net/openssl/panama/OpenSSLEngine.java:1306-1341",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/tomcat/util/net/openssl/panama/OpenSSLEngine.java#L1306-L1341",
+   "excerpt_head": "            ocspRequest = OCSP_REQUEST_new();\n            if (MemorySegment.NULL.equals(ocspRequest)) {\n                return V_OCSP_CERTSTATUS_UNKNOWN();\n    ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-34500",
+   "candidate_id": "sweep_ca5a36b43af415dc",
+   "fix_commits": [
+    "ff589ab26e8250a2ca4286d986305318c033ff9f"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-55957",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "java/org/apache/catalina/realm/JNDIRealm.java:1839-1848",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/java/org/apache/catalina/realm/JNDIRealm.java#L1839-L1848",
+   "excerpt_head": "        userCredentialsAdd(context, dn, credentials);\n\n        // Elicit an LDAP bind operation\n        boolean validated = false;\n        try {\n            if ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-55957",
+   "candidate_id": "sweep_e9267d1b2a33fc46",
+   "fix_commits": [
+    "c32bbd37ea9ee0aaab848af4ee1c9a76e84240ea"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-66299",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "location": "webapps/examples/WEB-INF/classes/websocket/chat/ChatAnnotation.java:96-101",
+   "permalink": "https://github.com/apache/tomcat/blob/727a8467a37e17fef91e12a65db4d56862d36171/webapps/examples/WEB-INF/classes/websocket/chat/ChatAnnotation.java#L96-L101",
+   "excerpt_head": "    private void sendMessage(String msg) throws IOException {\n\n        synchronized (this) {\n            if (messageInProgress) {\n                messageBacklog",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-66299",
+   "candidate_id": "sweep_bac4d808c53b450d",
+   "fix_commits": [
+    "f6dda658e4eda2190de96219c182b9a75d27ab06"
+   ]
+  }
+ ],
+ "not_affected": {
+  "sweep_ca999bdc932efe89": "The advisory describes \"+\" being converted to a space while the rewrite valve handles a rewritten path: the 9.0.120 fix a520aecb325e replaces URLDecoder.decode(urlStringRewriteEncoded, uriCharset.name()) with UDecoder.URLDecode, because java.net.URLDecoder maps \"+\" to \" \". At 9.0.98 the valve never decodes the rewritten path: RewriteValve.invoke takes the already-decoded request path in urlDecoded, appends URLEncoder.DEFAULT.encode(urlStringDecoded, uriCharset) to the requestURI chunk (java/org/apache/catalina/valves/rewrite/RewriteValve.java:492), normalizes the decoded string at :495 and appends that same decoded string to the decodedURI chunk at :502. There is no URLDecoder call anywhere in the 9.0.98 file (the only UDecoder use is the sendRedirect branch at :409). The decode-after-normalize flow that the advisory targets was introduced by the 9.0.103 rewrite refactor ee3ab548e923, so the \"+\" conversion and the security-control bypass it enables cannot occur at 9.0.98."
+ },
+ "out_of_scope": {
+  "sweep_5b61bfd69ee9a6d7": "The 9.0.120 fix 617d7275782b changes documentation only: webapps/docs/config/cluster-interceptor.xml and webapps/docs/changelog.xml now state that EncryptInterceptor replay protection is effective only for non-malleable algorithms and recommend AES/GCM/NoPadding. No product code changes, so the snapshot has no code location to anchor for this advisory. The underlying weakness is the EncryptInterceptor padding-oracle/default-algorithm issue tracked as CVE-2026-29146, which is already a Ground Truth row for this snapshot."
+ },
+ "left_open": {
+  "disc2_7549afda898b49941b0ec4ec": "The fix b5042622b8b7 is the normalize-before-decode defect in the rewrite valve: at 9.0.108 the rewritten URL is built in encoded space, normalized with RequestUtil.normalize while still encoded, and only then decoded, so an encoded traversal in a rewrite substitution survives normalization. At 9.0.98 the valve works in decoded space: RewriteValve.invoke takes urlDecoded from getDecodedRequestURIMB, builds the requestURI with URLEncoder.DEFAULT.encode(urlStringDecoded, uriCharset) at java/org/apache/catalina/valves/rewrite/RewriteValve.java:492, normalizes the decoded string at :495 and appends the decoded string to decodedURI at :502. There is no URLDecoder call in the file, so the byte-for-byte pre-image of the fix does not exist at 9.0.98; the flow was rewritten by the 9.0.103 refactor ee3ab548e923. The vendor range (9.0.0.M11 to 9.0.108) nominally includes 9.0.98, but static review cannot establish the normalize-before-decode construct in the frozen tree, so the row stays open."
+ },
+ "counts": {
+  "confirmed_not_affected": 1,
+  "out_of_scope": 1,
+  "possible_affected": 1
+ },
+ "fixes": {
+  "CVE-2026-24733": [
+   "2e2fa23f2635bbb819759576a2f2f5e64ecf7c5f"
+  ],
+  "CVE-2026-24734": [
+   "e76e9eaa246f30debd603726d9147a8a8cb5171c"
+  ],
+  "CVE-2026-43513": [
+   "6dd75beb55bd42fc5f78e929596b25018cd17717"
+  ],
+  "CVE-2026-41284": [
+   "17dacd9aa48628da2eba37a9ab743c0b6c71685c"
+  ],
+  "CVE-2025-66614": [
+   "152c14885d45f5e0a8b59bd9f93c289cfe20ce30",
+   "a4aa74232e826028cd2f7ba0445caf8a8b52c509",
+   "9276b5e783c8cd5b3fe2bb716306b65004bdd940"
+  ],
+  "CVE-2026-29145": [
+   "d1406df5ae0326f39f54c3f64ac30d8fca55cd5b"
+  ],
+  "CVE-2026-34500": [
+   "ff589ab26e8250a2ca4286d986305318c033ff9f"
+  ],
+  "CVE-2026-55957": [
+   "c32bbd37ea9ee0aaab848af4ee1c9a76e84240ea"
+  ],
+  "CVE-2026-66299": [
+   "f6dda658e4eda2190de96219c182b9a75d27ab06"
+  ]
+ },
+ "notes": [
+  "The frozen SHA is the 9.0.98 tag commit; all twelve candidates lie inside their vendor release ranges and every anchor line was verified verbatim in the cached tag checkout.",
+  "Nine rows are promoted. The fixes for 24733, 43513, 66614, 29145, 34500, 55957 and 66299 are additive (a guard, lowercasing, an error-set or a limit inserted next to existing code), so those rows anchor on the line the added code protects or runs beside; 24734 and 41284 anchor on the block the fix rewrites.",
+  "CVE-2026-24734 and CVE-2026-29145/34500 touch the FFM/panama OpenSSLEngine, whose 9.0.98 method lacks the EngineState parameter and the ocspSoftFail option added by 566a25a3bd0c for 9.0.114. The missing-error and missing-check defects are present in the 9.0.98 method; the anchors are that method, not the later signature. The vendor page names d1406df5 for 29145 and ff589ab2 for 34500 but no commit for 24734; the 24734 commit e76e9eaa was identified from the 9.0.x panama history and its containment in 9.0.114 and 9.0.115 was verified with the GitHub compare API (the vendor still lists 9.0.115 as the first fixed release).",
+  "CVE-2025-66614 cites the three commits the vendor entry names (152c1488, a4aa7423, 9276b5e7). The case-insensitivity gap in that fix is a separate advisory, CVE-2026-32990 (95f77782, 9.0.116), and is not folded into this row.",
+  "Severity levels follow the GHSA database_specific severity where the row is backed by a GHSA and otherwise the vendor security-9 label mapped Low->low, Moderate->medium, Important->high. For CVE-2026-41284 and CVE-2026-43513 the GHSA record and the CNA CVSS 3.1 vector both say High (7.5) while the security-9 page types them \"Low\"; the rows keep high because the cited advisory and the stored vector agree. No base score is computed, so severity.status stays unknown.",
+  "CVE-2026-59083 is closed not affected because the URLDecoder call it fixes exists only since the 9.0.103 rewrite refactor and the 9.0.98 valve never decodes the rewritten path. CVE-2026-59084 is out of scope because its fix is documentation only; the code weakness is CVE-2026-29146, already a GT row.",
+  "CVE-2025-55752 stays open: the fix rewrites the 9.0.103 encode-space rewrite flow, while 9.0.98 normalizes the already-decoded path and has no URLDecoder call, so no normalize-before-decode anchor exists at this tag."
+ ]
+}

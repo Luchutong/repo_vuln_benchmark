@@ -1,0 +1,44 @@
+{
+ "generated_for": "2026-10-31 laravel/framework promotion dry-run review",
+ "source_dryrun": "workdir/promote_laravel.json",
+ "apply": true,
+ "note": "Both proposal anchors are removed lines of their fix commits and are present verbatim in the frozen v11.30.0 tree. Batch applied.",
+ "counts": {
+  "admit": 2,
+  "drop": 0,
+  "hold": 0,
+  "total": 2
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-48019",
+   "advisory_record": "CVE-2026-48019",
+   "repo": "laravel/framework",
+   "snapshot_version": "v11.30.0",
+   "advisory_trust_tier": "T2",
+   "file": "src/Illuminate/Mail/Message.php",
+   "function": "from",
+   "line_start": 57,
+   "line_end": 58,
+   "granularity": "line",
+   "fix_commit": "96e9a663db657cf37ef26cd794fda8ff60eaa451",
+   "verdict": "admit",
+   "reason": "Fix 96e9a663db65 'port fix' reworks how Message passes addresses to Symfony Mime: Address gains CRLF validation and addAddresses normalizes/validates, and the direct from()/sender()/to()/cc()/bcc() calls are replaced. The removed lines at frozen 57-58 are the unvalidated from() dispatch the advisory describes."
+  },
+  {
+   "vulnerability_id": "CVE-2026-48041",
+   "advisory_record": "GHSA-crmm-hgp2-wgrp",
+   "repo": "laravel/framework",
+   "snapshot_version": "v11.30.0",
+   "advisory_trust_tier": "T1",
+   "file": "src/Illuminate/Filesystem/LocalFilesystemAdapter.php",
+   "function": "temporaryUrl",
+   "line_start": 71,
+   "line_end": 71,
+   "granularity": "line",
+   "fix_commit": "7b2b2fe508d4a8013c5262d8d7dbb443d1dabd5e",
+   "verdict": "admit",
+   "reason": "Fix 7b2b2fe508d4 'urlencode paths (#60137)' changes the signed-route parameter from the raw path to an urlencoded one in both temporaryUrl and temporaryUploadUrl; frozen line 71 is the removed ['path' => $path] the URL signer receives, which is the ambiguity the advisory describes."
+  }
+ ]
+}

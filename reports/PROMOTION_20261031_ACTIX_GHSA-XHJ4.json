@@ -1,0 +1,38 @@
+{
+ "checked_at": "2026-10-31T14:10:49Z",
+ "repo": "actix/actix-web",
+ "repo_id": "105379569",
+ "snapshot_id": "snap_ca4042bda2431632",
+ "tag": "http-v3.12.0",
+ "sha": "a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b",
+ "candidate_id": "adv3_61724d22cf10bab7",
+ "vulnerability_id": "GHSA-xhj4-vrgc-hr34",
+ "location": "actix-http/src/h1/decoder.rs:231-315",
+ "function": "decode",
+ "evidence_type": "fix_diff_comparison",
+ "tier": "T1",
+ "candidate_inserted": true,
+ "advisory": {
+  "url": "https://github.com/actix/actix-web/security/advisories/GHSA-xhj4-vrgc-hr34",
+  "severity": "medium",
+  "score": 6.3,
+  "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:N/VC:N/VI:L/VA:N/SC:N/SI:N/SA:N",
+  "cwe": [
+   "CWE-444"
+  ],
+  "affected": "actix-http < 3.12.1",
+  "first_patched": "3.12.1"
+ },
+ "fix_commit": "https://github.com/actix/actix-web/commit/3c056bd36128d41ba130a8704ef5d648de3f2870",
+ "fix_release": "https://github.com/actix/actix-web/releases/tag/http-v3.12.1",
+ "applied": true,
+ "promotion": {
+  "ok": true,
+  "applied": true,
+  "vulnerability": "GHSA-xhj4-vrgc-hr34",
+  "snapshot_id": "snap_ca4042bda2431632",
+  "location": "actix-http/src/h1/decoder.rs",
+  "permalink": "https://github.com/actix/actix-web/blob/a7a26f1ee0adfeabb5ee85a6eb2a62cff601a70b/actix-http/src/h1/decoder.rs#L231-L315",
+  "excerpt_head": "    fn decode(src: &mut BytesMut) -> Result<Option<(Self, PayloadType)>, ParseError> {\n        let mut headers: [HeaderIndex; MAX_HEADERS] = EMPTY_HEADER_INDEX_"
+ }
+}

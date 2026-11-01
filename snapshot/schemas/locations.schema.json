@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["location_id", "vulnerability_id", "snapshot_id", "commit_sha", "file", "language", "permalink", "description", "granularity", "static_root_cause_confirmed"],
+  "properties": {
+    "location_id": {"type": "string", "minLength": 1},
+    "vulnerability_id": {"type": "string", "minLength": 1},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "commit_sha": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "file": {"type": "string", "minLength": 1},
+    "line_start": {"type": ["integer", "null"], "minimum": 1},
+    "line_end": {"type": ["integer", "null"], "minimum": 1},
+    "function": {"type": ["string", "null"]},
+    "language": {"type": "string", "minLength": 1},
+    "permalink": {"type": "string", "pattern": "^https://"},
+    "description": {"type": "string", "minLength": 1},
+    "granularity": {"enum": ["line", "function", "file"]},
+    "static_evidence_type": {"enum": ["advisory_location", "source_review", "fix_diff_comparison", "legacy_review"]},
+    "static_root_cause_confirmed": {"type": "boolean"},
+    "code_excerpt": {"type": ["string", "null"], "maxLength": 500}
+  },
+  "additionalProperties": true
+}

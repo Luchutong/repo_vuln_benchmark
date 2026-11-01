@@ -1,0 +1,58 @@
+{
+ "repo": "curl/curl",
+ "repo_id": "569041",
+ "snapshot_id": "snap_0ec1c11542393304",
+ "tag": "curl-8_3_0",
+ "sha": "6fa1d817e5b1a00d7d0c8168091877476b499317",
+ "applied": true,
+ "checked_at": "2026-10-31T12:55:14Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-5773",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "location": "lib/url.c:1055-1491",
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/url.c#L1055-L1491",
+   "excerpt_head": "static bool\nConnectionExists(struct Curl_easy *data,\n                 struct connectdata *needle,\n                 struct connectdata **usethis,\n               ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-5773",
+   "candidate_id": "sweep_c7588c09b1a16bc9",
+   "fix_commits": [
+    "74a169575d6412dc0ff532acdf94de35a6c2a571"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-9547",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "location": "lib/vssh/libssh.c:334-561",
+   "permalink": "https://github.com/curl/curl/blob/6fa1d817e5b1a00d7d0c8168091877476b499317/lib/vssh/libssh.c#L334-L561",
+   "excerpt_head": "static int myssh_is_known(struct Curl_easy *data)\n{\n  int rc;\n  struct connectdata *conn = data->conn;\n  struct ssh_conn *sshc = &conn->proto.sshc;\n  ssh_key pu",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-9547",
+   "candidate_id": "sweep_4c216b1853e9bd5b",
+   "fix_commits": [
+    "0b8dbbc63c98777e4584cb9fbd71df3464008ad1"
+   ]
+  }
+ ],
+ "counts": {
+  "promoted": 2,
+  "triage": 0
+ },
+ "fixes": {
+  "CVE-2026-5773": [
+   "74a169575d6412dc0ff532acdf94de35a6c2a571"
+  ],
+  "CVE-2026-9547": [
+   "0b8dbbc63c98777e4584cb9fbd71df3464008ad1"
+  ]
+ },
+ "notes": [
+  "CVE-2026-5773 is promoted at ConnectionExists (lib/url.c:1055-1491, evidence source_review): the reuse key is host+port and the per-connection filter never compares the SMB share, while reuse_conn frees the connection that holds the newly parsed share, so the second transfer tree-connects to the first share. The 8.20.0 fix 74a169575d removes PROTOPT_CONN_REUSE from the SMB scheme entries, a table that does not exist at 8.3.0.",
+  "CVE-2026-9547 is promoted at myssh_is_known (lib/vssh/libssh.c:334-561, evidence fix_diff_comparison): SSH_KNOWN_HOSTS_OTHER falls through to CURLKHMATCH_MISSING at :446-453, and the 8.21.0 fix 0b8dbbc63 inserts CURLKHMATCH_MISMATCH + break for that case; the frozen file has that assignment only in the default arm.",
+  "Both advisories are vendor advisories served from curl.se and label the issues Low without a CVSS; the rows carry level low and no score/vector, matching the existing curl Low rows. Both are T1/vendor_official."
+ ]
+}

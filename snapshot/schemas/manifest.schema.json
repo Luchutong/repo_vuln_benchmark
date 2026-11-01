@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["dataset_version", "status", "evaluation_policy", "source_dataset_version"],
+  "properties": {
+    "dataset_version": {"const": "0.4.0"},
+    "status": {"enum": ["draft", "release"]},
+    "evaluation_policy": {"const": "one_frozen_snapshot_advisory_static_gt"},
+    "source_dataset_version": {"type": "string"},
+    "source_cutoff_date": {"type": ["string", "null"], "format": "date"},
+    "freeze_timestamp": {"type": ["string", "null"], "format": "date-time"},
+    "target_repository_count": {"type": "integer", "minimum": 0, "maximum": 50},
+    "source_file_sha256": {"type": "object", "additionalProperties": {"type": "string", "pattern": "^[0-9a-f]{64}$"}},
+    "known_limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

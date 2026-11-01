@@ -1,0 +1,35 @@
+{
+ "report": "curl/curl curl-8_3_0 triage follow-up",
+ "generated_at": "2026-10-31T07:59:36Z",
+ "applied": true,
+ "reclassified": [
+  {
+   "candidate_id": "disc2_dfdc1a3f5562198db6f78e65",
+   "vulnerability_id": "CVE-2013-2617",
+   "from": "possible_affected",
+   "to": "out_of_scope",
+   "basis": "The CPE that produced the range hit, cpe:2.3:a:curl_project:curl:-:*:*:*:*:ruby:*:*, is the Curl Gem for Ruby, not curl/curl. NVD describes lib/curl.rb in the Curl Gem: shell metacharacters in a URL reach the gem and allow command execution. The defect is in the gem's own Ruby code and no curl/curl affected range or fix exists, so it cannot place a defect at snapshot curl-8_3_0."
+  },
+  {
+   "candidate_id": "disc2_22243d0e577c81477bb2708e",
+   "vulnerability_id": "CVE-2024-32928",
+   "from": "possible_affected",
+   "to": "out_of_scope",
+   "basis": "NVD: \"The libcurl CURLOPT_SSL_VERIFYPEER option was disabled on a subset of requests made by Nest production devices\". The configurations pair the haxx:libcurl CPE with google:nest_mini device/firmware CPEs, and Google's own product advisory is the reference. The flaw is a consumer disabling the verification option, not a libcurl code defect: there is no change to curl/curl and no curl/curl fix to anchor, so the candidate is out of scope for this repository."
+  }
+ ],
+ "added": [
+  {
+   "candidate_id": "sweep_4c216b1853e9bd5b",
+   "vulnerability_id": "CVE-2026-9547",
+   "decision": "possible_affected",
+   "basis": "Vendor advisory CURL-CVE-2026-9547 (\"SSH improper host validation\", package curl, affects lib, CWE-297, Low, last_affected 8.20.0) lists 8.3.0 in its affected versions (SEMVER 7.69.0..8.14.2), so the frozen snapshot is inside the vendor range. The fix 0b8dbbc63c98777e4584cb9fbd71df3464008ad1 adds only `keymatch = CURLKHMATCH_MISMATCH;` and `break;` to `case SSH_KNOWN_HOSTS_OTHER:` in myssh_is_known(), and both added lines already occur elsewhere in the frozen function, so no marker distinguishes the frozen tree from the fixed tree and the row cannot be statically promoted. Recorded as possible_affected on the vendor range alone."
+  },
+  {
+   "candidate_id": "sweep_c7588c09b1a16bc9",
+   "vulnerability_id": "CVE-2026-5773",
+   "decision": "possible_affected",
+   "basis": "Vendor advisory CURL-CVE-2026-5773 (\"wrong reuse of SMB connection\", package curl, affects both, CWE-488, Low, last_affected 8.19.0) lists 8.3.0 in its affected versions (SEMVER 7.40.0..8.14.2), so the frozen snapshot is inside the vendor range. The fix 74a169575d6412dc0ff532acdf94de35a6c2a571 disables SMB connection reuse by introducing the PROTOPT_CONN_REUSE flag in the protocol table; curl-8_3_0 has no PROTOPT_CONN_REUSE at all (lib/urldata.h defines PROTOPT_NONE..PROTOPT_NOTCPPROXY and the SMB handler carries PROTOPT_NONE / PROTOPT_SSL), so the guard the fix keys on does not exist in the frozen tree and no marker can anchor it. Recorded as possible_affected on the vendor range alone."
+  }
+ ]
+}

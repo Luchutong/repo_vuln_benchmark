@@ -1,0 +1,1035 @@
+{
+ "proposals": 698,
+ "plan": 56,
+ "promotable_groups": 48,
+ "duplicates": 7,
+ "already_present": 1,
+ "rejected": 200,
+ "rejected_reasons": {
+  "ambiguous_shared_fix_commit": 10,
+  "no_advisory_cites_fix_commit": 8,
+  "location_not_named_by_advisory": 60,
+  "no_promotable_code_location": 63,
+  "ambiguous_hunk_match": 2,
+  "no_citing_advisory_with_version_hit": 57
+ },
+ "apply": false,
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-101905",
+   "repo": "axios/axios",
+   "adv": "CVE-2026-101905",
+   "tier": "T2",
+   "title": "Axios: Node HTTP adapter prototype-pollution gadget allows request socket hijack via inher",
+   "file": "lib/adapters/http.js",
+   "function": "httpAdapter",
+   "lines": [
+    551,
+    565
+   ],
+   "cwe": [
+    "CWE-1321",
+    "CWE-441"
+   ],
+   "severity": null,
+   "score": null,
+   "candidates": [
+    "disc2_7962c9f9f8ed5d71999a8782"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2024-38820",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-4gc7-5j7h-4qph",
+   "tier": "T1",
+   "title": "Spring Framework DataBinder Case Sensitive Match Exception",
+   "file": "spring-webmvc/src/main/java/org/springframework/web/servlet/view/xslt/XsltView.java",
+   "function": "configureResponse",
+   "lines": [
+    406,
+    406
+   ],
+   "cwe": [
+    "CWE-178"
+   ],
+   "severity": "medium",
+   "score": 5.3,
+   "candidates": [
+    "disc2_050060bfefbe32bcebe9819b"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2015-3192",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-6v7w-535j-rq5m",
+   "tier": "T1",
+   "title": "Pivotal Spring Framework DoS Attack with XML Input",
+   "file": "spring-web/src/main/java/org/springframework/http/converter/json/AbstractJackson2HttpMessageConverter.java",
+   "function": "readJavaType",
+   "lines": [
+    208,
+    208
+   ],
+   "cwe": [
+    "CWE-119"
+   ],
+   "severity": "medium",
+   "score": 5.5,
+   "candidates": [
+    "disc2_c379702e923d71e75e5ab6e6"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-41846",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-957g-f97v-vppc",
+   "tier": "T1",
+   "title": "Spring Framework Cross-site Scripting via JSP Form Tags",
+   "file": "spring-webmvc/src/main/java/org/springframework/web/servlet/tags/form/AbstractHtmlElementTag.java",
+   "function": "writeOptionalAttributes",
+   "lines": [
+    433,
+    434
+   ],
+   "cwe": [
+    "CWE-79"
+   ],
+   "severity": "medium",
+   "score": 5.9,
+   "candidates": [
+    "disc2_ca254dd122c52340354651f1"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2024-38808",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-9cmq-m9j5-mvww",
+   "tier": "T1",
+   "title": "Spring Framework vulnerable to Denial of Service",
+   "file": "spring-expression/src/main/java/org/springframework/expression/spel/ast/OpInc.java",
+   "function": "getValueInternal",
+   "lines": [
+    101,
+    101
+   ],
+   "cwe": [
+    "CWE-770"
+   ],
+   "severity": "medium",
+   "score": 4.3,
+   "candidates": [
+    "disc2_218c64d81c31533157d3faee"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2022-22968",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-g5mm-vmx4-3rg7",
+   "tier": "T1",
+   "title": "Improper handling of case sensitivity in Spring Framework",
+   "file": "spring-context/src/main/java/org/springframework/validation/DataBinder.java",
+   "function": "isAllowed",
+   "lines": [
+    688,
+    688
+   ],
+   "cwe": [
+    "CWE-178"
+   ],
+   "severity": "high",
+   "score": 7.5,
+   "candidates": [
+    "disc2_88ee87e9f6dee58f389f2866"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2024-22259",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-hgjh-9rj2-g67j",
+   "tier": "T1",
+   "title": "Spring Framework URL Parsing with Host Validation Vulnerability",
+   "file": "spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java",
+   "function": "fromHttpUrl",
+   "lines": [
+    233,
+    235
+   ],
+   "cwe": [
+    "CWE-601"
+   ],
+   "severity": "high",
+   "score": 8.1,
+   "candidates": [
+    "disc2_db0011fc6e287db60706bf1b"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2015-5211",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-pgf9-h69p-pcgf",
+   "tier": "T1",
+   "title": "Files or Directories Accessible to External Parties in org.springframework:spring-core",
+   "file": "spring-webmvc/src/main/java/org/springframework/web/servlet/view/json/MappingJackson2JsonView.java",
+   "function": "getJsonpParameterValue",
+   "lines": [
+    182,
+    183
+   ],
+   "cwe": [
+    "CWE-20",
+    "CWE-552"
+   ],
+   "severity": "high",
+   "score": 8.6,
+   "candidates": [
+    "disc2_7ee9e1395f06c2dc916514f7"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-41851",
+   "repo": "spring-projects/spring-framework",
+   "adv": "GHSA-wxpp-56q6-5pcg",
+   "tier": "T1",
+   "title": "Spring Framework Denial of Service via Unbounded Cache in SpEL",
+   "file": "spring-expression/src/main/java/org/springframework/expression/spel/ast/OpDec.java",
+   "function": "getValueInternal",
+   "lines": [
+    104,
+    104
+   ],
+   "cwe": [
+    "CWE-770"
+   ],
+   "severity": "medium",
+   "score": 5.3,
+   "candidates": [
+    "disc2_8664d76e6cee9921f0c70d27"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-55668",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-23hv-mwm6-g8jf",
+   "tier": "T1",
+   "title": "Apache Tomcat Session Fixation vulnerability",
+   "file": "java/org/apache/catalina/valves/rewrite/RewriteValve.java",
+   "function": "invoke",
+   "lines": [
+    409,
+    411
+   ],
+   "cwe": [
+    "CWE-384"
+   ],
+   "severity": "medium",
+   "score": 6.5,
+   "candidates": [
+    "disc2_8e99dc22abfd13d173c8e8ad"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-43515",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-5m62-pw8w-7w9f",
+   "tier": "T1",
+   "title": "Apache Tomcat - Security constraints not correctly applied",
+   "file": "java/org/apache/catalina/realm/RealmBase.java",
+   "function": "findSecurityConstraints",
+   "lines": [
+    691,
+    703
+   ],
+   "cwe": [
+    "CWE-285"
+   ],
+   "severity": "critical",
+   "score": 9.1,
+   "candidates": [
+    "disc2_dbf4676f0a89f46cb2d5cde6"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-43514",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-9m89-8frq-c98c",
+   "tier": "T1",
+   "title": "Apache Tomcat - AJP secret compared in non-constant time",
+   "file": "java/org/apache/catalina/realm/DigestCredentialHandlerBase.java",
+   "function": "equals",
+   "lines": [
+    298,
+    327
+   ],
+   "cwe": [
+    "CWE-208"
+   ],
+   "severity": "low",
+   "score": 3.7,
+   "candidates": [
+    "disc2_cfc77eb554e464e1ab2af367"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-31651",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-ff77-26x5-69cr",
+   "tier": "T1",
+   "title": "Apache Tomcat Rewrite rule bypass",
+   "file": "java/org/apache/catalina/connector/CoyoteAdapter.java",
+   "function": "postParseRequest",
+   "lines": [
+    655,
+    665
+   ],
+   "cwe": [
+    "CWE-116",
+    "CWE-150"
+   ],
+   "severity": "low",
+   "score": null,
+   "candidates": [
+    "disc2_deb0148a7d434c8a74b37094"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-42498",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-fv25-8xcx-gqjc",
+   "tier": "T1",
+   "title": "Apache Tomcat - WebSocket authentication header exposure",
+   "file": "java/org/apache/tomcat/websocket/WsWebSocketContainer.java",
+   "function": "connectToServerRecursive",
+   "lines": [
+    183,
+    216
+   ],
+   "cwe": [
+    "CWE-200"
+   ],
+   "severity": "high",
+   "score": 7.3,
+   "candidates": [
+    "disc2_77f2ecfd71aefb1e3952eff9"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-65182",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-gcx9-497g-6cp6",
+   "tier": "T1",
+   "title": "Apache Tomcat has an Improper Access Control, Incorrect Authorization vulnerability",
+   "file": "java/org/apache/catalina/realm/RealmBase.java",
+   "function": "findSecurityConstraints",
+   "lines": [
+    621,
+    621
+   ],
+   "cwe": [
+    "CWE-284"
+   ],
+   "severity": "critical",
+   "score": 9.1,
+   "candidates": [
+    "disc2_39948765b5fc22df72cf3d60"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-46701",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-h2fw-rfh5-95r3",
+   "tier": "T1",
+   "title": "Apache Tomcat - CGI security constraint bypass",
+   "file": "java/org/apache/catalina/servlets/CGIServlet.java",
+   "function": "setCGIEnvironment",
+   "lines": [
+    895,
+    901
+   ],
+   "cwe": [
+    "CWE-178"
+   ],
+   "severity": "low",
+   "score": null,
+   "candidates": [
+    "disc2_61813ef3c20309492b233900"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-48988",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-h3gc-qfqq-6h8f",
+   "tier": "T1",
+   "title": "Apache Tomcat - DoS in multipart upload",
+   "file": "java/org/apache/catalina/connector/Request.java",
+   "function": "parseParts",
+   "lines": [
+    2615,
+    2620
+   ],
+   "cwe": [
+    "CWE-770"
+   ],
+   "severity": "high",
+   "score": 7.5,
+   "candidates": [
+    "disc2_dc90ee4d656877926a0b2d57"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-68525",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-h3x4-894j-xpx5",
+   "tier": "T1",
+   "title": "Apache Tomcat's FORM authentication process has an Incorrect Authorization vulnerability",
+   "file": "java/org/apache/catalina/authenticator/FormAuthenticator.java",
+   "function": "doAuthenticate",
+   "lines": [
+    198,
+    215
+   ],
+   "cwe": [
+    "CWE-863"
+   ],
+   "severity": "critical",
+   "score": 9.1,
+   "candidates": [
+    "disc2_5e0b3db14d127ebd469fdf25"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-55754",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-vfww-5hm6-hx2j",
+   "tier": "T1",
+   "title": "Apache Tomcat Vulnerable to Improper Neutralization of Escape, Meta, or Control Sequences",
+   "file": "java/org/apache/juli/OneLineFormatter.java",
+   "function": "format",
+   "lines": [
+    150,
+    150
+   ],
+   "cwe": [
+    "CWE-150"
+   ],
+   "severity": "low",
+   "score": 9.6,
+   "candidates": [
+    "disc2_42626cde53e42f42a32c249e"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-49125",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-wc4r-xq3c-5cf3",
+   "tier": "T1",
+   "title": "Apache Tomcat - Security constraint bypass for pre/post-resources",
+   "file": "java/org/apache/catalina/webresources/AbstractArchiveResourceSet.java",
+   "function": "listWebAppPaths",
+   "lines": [
+    117,
+    117
+   ],
+   "cwe": [
+    "CWE-288"
+   ],
+   "severity": "medium",
+   "score": null,
+   "candidates": [
+    "disc2_60c9c3a091807c406ec0c802"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-52520",
+   "repo": "apache/tomcat",
+   "adv": "GHSA-wr62-c79q-cv37",
+   "tier": "T1",
+   "title": "Apache Tomcat Catalina is vulnerable to DoS attack through bypassing of size limits",
+   "file": "java/org/apache/catalina/connector/Request.java",
+   "function": "parseParts",
+   "lines": [
+    2627,
+    2643
+   ],
+   "cwe": [
+    "CWE-190"
+   ],
+   "severity": "high",
+   "score": 7.5,
+   "candidates": [
+    "disc2_4e44f1dd1c85615178445af2"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-112945",
+   "repo": "vitejs/vite",
+   "adv": "GHSA-9jrq-w75r-8gcw",
+   "tier": "T1",
+   "title": "Vite: Cross origin script execution through Vite custom middleware",
+   "file": "packages/vite/src/node/server/middlewares/indexHtml.ts",
+   "function": "getHtmlFilename",
+   "lines": [
+    100,
+    104
+   ],
+   "cwe": [
+    "CWE-80"
+   ],
+   "severity": "low",
+   "score": null,
+   "candidates": [
+    "adv3_05f1ef6e9e4620e9"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2024-51999",
+   "repo": "expressjs/express",
+   "adv": "GHSA-pj86-cfqh-vqx6",
+   "tier": "T1",
+   "title": "Withdrawn Advisory: express improperly controls modification of query properties",
+   "file": "lib/utils.js",
+   "function": "parseExtendedQueryString",
+   "lines": [
+    290,
+    290
+   ],
+   "cwe": [
+    "CWE-915"
+   ],
+   "severity": "low",
+   "score": null,
+   "candidates": [
+    "adv3_087476da78c375b4"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-111752",
+   "repo": "angular/angular",
+   "adv": "GHSA-62vg-58rm-qff7",
+   "tier": "T1",
+   "title": "@angular/router: Denial of Service via Unmatched Empty-Path Outlet Route Matching in Serve",
+   "file": "packages/router/src/utils/config_matching.ts",
+   "function": "noLeftoversInUrl",
+   "lines": [
+    215,
+    215
+   ],
+   "cwe": [
+    "CWE-400",
+    "CWE-405"
+   ],
+   "severity": "high",
+   "score": null,
+   "candidates": [
+    "disc2_97847a2db96b4d31d0c3e314"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-32635",
+   "repo": "angular/angular",
+   "adv": "GHSA-g93w-mfhg-p222",
+   "tier": "T1",
+   "title": "Angular vulnerable to XSS in i18n attribute bindings",
+   "file": "packages/core/src/render3/i18n/i18n_parse.ts",
+   "function": "i18nAttributesFirstPass",
+   "lines": [
+    391,
+    391
+   ],
+   "cwe": [
+    "CWE-79"
+   ],
+   "severity": "high",
+   "score": 9.0,
+   "candidates": [
+    "disc2_d05c70ffd178760a211ba16e"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-88059",
+   "repo": "angular/angular",
+   "adv": "GHSA-p297-fm68-3q8c",
+   "tier": "T1",
+   "title": "Angular: Information Leak via `HttpTransferCache` Bypass When Using `withRequestsMadeViaPa",
+   "file": "packages/common/http/src/interceptor.ts",
+   "function": "handle",
+   "lines": [
+    308,
+    311
+   ],
+   "cwe": [
+    "CWE-200",
+    "CWE-524"
+   ],
+   "severity": "medium",
+   "score": 4.0,
+   "candidates": [
+    "disc2_5903535659bed895e4214e9a"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-6409",
+   "repo": "protocolbuffers/protobuf",
+   "adv": "GHSA-p2gh-cfq4-4wjc",
+   "tier": "T1",
+   "title": "Protobuf: Denial of Service issue through malicious messages containing negative varints o",
+   "file": "php/src/Google/Protobuf/Internal/CodedInputStream.php",
+   "function": "readRaw",
+   "lines": [
+    274,
+    274
+   ],
+   "cwe": [
+    "CWE-400"
+   ],
+   "severity": "high",
+   "score": null,
+   "candidates": [
+    "disc2_6a78c741e894acbe0d67b929"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-56813",
+   "repo": "elixir-plug/plug",
+   "adv": "EEF-CVE-2026-56813",
+   "tier": "T2",
+   "title": "Cookie attribute injection in Plug.Conn.Cookies.encode/2",
+   "file": "lib/plug/conn/cookies.ex",
+   "function": "encode",
+   "lines": [
+    72,
+    80
+   ],
+   "cwe": [
+    "CWE-141"
+   ],
+   "severity": null,
+   "score": null,
+   "candidates": [
+    "disc2_93ee7a4e3f15c5fb8f6033b7"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-27515",
+   "repo": "laravel/framework",
+   "adv": "BIT-laravel-2025-27515",
+   "tier": "T2",
+   "title": "Laravel has a File Validation Bypass",
+   "file": "src/Illuminate/Validation/Validator.php",
+   "function": "validateUsingCustomRule",
+   "lines": [
+    872,
+    879
+   ],
+   "cwe": [],
+   "severity": null,
+   "score": null,
+   "candidates": [
+    "disc2_e322c6736d81a4cff51ba81e"
+   ]
+  },
+  {
+   "vulnerability_id": "GHSA-f9x3-7vq9-cph6",
+   "repo": "laravel/framework",
+   "adv": "GHSA-f9x3-7vq9-cph6",
+   "tier": "T1",
+   "title": "Laravel TokenGuard authentication bypass through non-string API credentials",
+   "file": "src/Illuminate/Auth/TokenGuard.php",
+   "function": "user",
+   "lines": [
+    84,
+    84
+   ],
+   "cwe": [
+    "CWE-1287",
+    "CWE-287"
+   ],
+   "severity": "critical",
+   "score": null,
+   "candidates": [
+    "adv3_581689c93dc95b34"
+   ]
+  },
+  {
+   "vulnerability_id": "GHSA-96h4-vgxj-gvm2",
+   "repo": "nestjs/nest",
+   "adv": "GHSA-96h4-vgxj-gvm2",
+   "tier": "T1",
+   "title": "Nest: Unbounded memory growth in the NestJS TCP microservice transport",
+   "file": "packages/microservices/client/client-tcp.ts",
+   "function": "createSocket",
+   "lines": [
+    113,
+    115
+   ],
+   "cwe": [
+    "CWE-770"
+   ],
+   "severity": "medium",
+   "score": 6.5,
+   "candidates": [
+    "disc2_51f2b6935ba09df1b2118440"
+   ]
+  },
+  {
+   "vulnerability_id": "GHSA-9c5c-9qcx-q35q",
+   "repo": "nestjs/nest",
+   "adv": "GHSA-9c5c-9qcx-q35q",
+   "tier": "T1",
+   "title": "@nestjs/platform-fastify: Path-scoped middleware bypass via absolute-form request targets",
+   "file": "packages/platform-fastify/adapters/middie/fastify-middie.ts",
+   "function": "runMiddie",
+   "lines": [
+    317,
+    338
+   ],
+   "cwe": [
+    "CWE-288",
+    "CWE-436"
+   ],
+   "severity": "high",
+   "score": 7.4,
+   "candidates": [
+    "disc2_3aebf1fabcff1b7a535b8572"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-58314",
+   "repo": "go-gitea/gitea",
+   "adv": "GHSA-2fcr-jfvc-vgg2",
+   "tier": "T1",
+   "title": "Gitea: Two SSRF findings",
+   "file": "modules/hostmatcher/hostmatcher.go",
+   "function": "checkIP",
+   "lines": [
+    108,
+    112
+   ],
+   "cwe": [
+    "CWE-918"
+   ],
+   "severity": "high",
+   "score": 7.7,
+   "candidates": [
+    "adv3_093e3252022915a8"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-27775",
+   "repo": "go-gitea/gitea",
+   "adv": "GHSA-649p-mmhf-85c7",
+   "tier": "T1",
+   "title": "Gitea: Cached Per-Branch Permission Check in Pre-Receive Hook Allows Full Repository Write",
+   "file": "routers/private/hook_pre_receive.go",
+   "function": "CanWriteCode",
+   "lines": [
+    55,
+    63
+   ],
+   "cwe": [
+    "CWE-863"
+   ],
+   "severity": "high",
+   "score": 8.8,
+   "candidates": [
+    "adv3_ca7e3d313f843ab6"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-56755",
+   "repo": "go-gitea/gitea",
+   "adv": "GHSA-6hm7-3pwj-22rm",
+   "tier": "T1",
+   "title": "Gitea: Denial of Service (CPU & Memory Exhaustion) via O(N^2) String Concatenation in Debi",
+   "file": "modules/packages/debian/metadata.go",
+   "function": "ParseControlFile",
+   "lines": [
+    188,
+    188
+   ],
+   "cwe": [
+    "CWE-409"
+   ],
+   "severity": "high",
+   "score": null,
+   "candidates": [
+    "adv3_c683cc9513721864"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-56443",
+   "repo": "go-gitea/gitea",
+   "adv": "GHSA-7p4h-3gxq-x3h3",
+   "tier": "T1",
+   "title": "Gitea: Token public-only scope bypassed on Limited-visibility owners (Repository + Package",
+   "file": "routers/api/packages/api.go",
+   "function": "reqPackageAccess",
+   "lines": [
+    75,
+    75
+   ],
+   "cwe": [
+    "CWE-863"
+   ],
+   "severity": "medium",
+   "score": 4.3,
+   "candidates": [
+    "adv3_95c79c345edf8fd6"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-58436",
+   "repo": "go-gitea/gitea",
+   "adv": "GHSA-fw57-jgch-pgf3",
+   "tier": "T1",
+   "title": "Gitea: ParseAcceptLanguage quadratic-time DoS via Locale middleware on unauthenticated req",
+   "file": "modules/web/middleware/locale.go",
+   "function": "Locale",
+   "lines": [
+    38,
+    38
+   ],
+   "cwe": [
+    "CWE-1333",
+    "CWE-407"
+   ],
+   "severity": "high",
+   "score": null,
+   "candidates": [
+    "adv3_cf8c8bfb0e527b1d"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-60004",
+   "repo": "go-gitea/gitea",
+   "adv": "GHSA-rcr6-4jqh-j84m",
+   "tier": "T1",
+   "title": "Gitea: Remote Code Execution via diffpatch Git Hook Installation",
+   "file": "services/repository/files/patch.go",
+   "function": "ApplyDiffPatch",
+   "lines": [
+    149,
+    149
+   ],
+   "cwe": [
+    "CWE-94"
+   ],
+   "severity": "critical",
+   "score": 9.8,
+   "candidates": [
+    "disc2_dc21bfb626ced47d5f4698d2"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2024-43045",
+   "repo": "jenkinsci/jenkins",
+   "adv": "GHSA-8pv9-qh96-9hc6",
+   "tier": "T1",
+   "title": "Jenkins does not perform a permission check in an HTTP endpoint",
+   "file": "core/src/main/java/hudson/model/MyViewsProperty.java",
+   "function": "getIconFileName",
+   "lines": [
+    228,
+    228
+   ],
+   "cwe": [
+    "CWE-285",
+    "CWE-862"
+   ],
+   "severity": "medium",
+   "score": 5.4,
+   "candidates": [
+    "disc2_d12c850046a2d4e29ec16b98"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-53440",
+   "repo": "jenkinsci/jenkins",
+   "adv": "GHSA-92m7-4fpw-2wxm",
+   "tier": "T1",
+   "title": "Jenkins: Open Redirect phishing attacks possible via \"from\" parameter in \"Delegate to serv",
+   "file": "core/src/main/java/jenkins/model/Jenkins.java",
+   "function": "doLoginEntry",
+   "lines": [
+    4383,
+    4384
+   ],
+   "cwe": [
+    "CWE-601"
+   ],
+   "severity": "medium",
+   "score": 4.3,
+   "candidates": [
+    "disc2_538f97760b3dddb7515f84e8"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2025-67635",
+   "repo": "jenkinsci/jenkins",
+   "adv": "GHSA-9p56-p6mw-w8qc",
+   "tier": "T1",
+   "title": "Jenkins has a Denial of service vulnerability in HTTP-based CLI",
+   "file": "core/src/main/java/jenkins/util/FullDuplexHttpService.java",
+   "function": "upload",
+   "lines": [
+    145,
+    146
+   ],
+   "cwe": [
+    "CWE-404"
+   ],
+   "severity": "high",
+   "score": 7.5,
+   "candidates": [
+    "disc2_a1210c5eda3ce65cc2b19524"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-27100",
+   "repo": "jenkinsci/jenkins",
+   "adv": "GHSA-wfhp-qgm8-5p5c",
+   "tier": "T1",
+   "title": "Jenkins has a build information disclosure vulnerability through Run Parameter ",
+   "file": "core/src/main/java/hudson/model/RunParameterValue.java",
+   "function": "check",
+   "lines": [
+    52,
+    53
+   ],
+   "cwe": [
+    "CWE-200"
+   ],
+   "severity": "medium",
+   "score": 4.3,
+   "candidates": [
+    "disc2_2f9376944204bcb2ec592877"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-106114",
+   "repo": "SixLabors/ImageSharp",
+   "adv": "GHSA-gwg2-r3hj-4w44",
+   "tier": "T1",
+   "title": "ImageSharp: ICC CLUT parsing allocates from unvalidated channel and grid dimensions",
+   "file": "src/ImageSharp/Metadata/Profiles/ICC/DataReader/IccDataReader.Lut.cs",
+   "function": "ReadClut16",
+   "lines": [
+    113,
+    119
+   ],
+   "cwe": [
+    "CWE-789"
+   ],
+   "severity": "medium",
+   "score": 5.3,
+   "candidates": [
+    "disc2_2f6076b8830529e5bbc0ddb5"
+   ]
+  },
+  {
+   "vulnerability_id": "CVE-2026-106118",
+   "repo": "SixLabors/ImageSharp",
+   "adv": "GHSA-v76p-62qx-wwq2",
+   "tier": "T1",
+   "title": "ImageSharp: Tiled fax TIFF: tile buffer sized by TileWidth but fax decompressor writes sca",
+   "file": "src/ImageSharp/Formats/Tiff/Compression/Decompressors/T4TiffCompression.cs",
+   "function": "Decompress",
+   "lines": [
+    75,
+    75
+   ],
+   "cwe": [
+    "CWE-787"
+   ],
+   "severity": "high",
+   "score": 7.5,
+   "candidates": [
+    "adv3_1193e969226c309b"
+   ]
+  },
+  {
+   "vulnerability_id": "GHSA-2ffq-g2xg-c22p",
+   "repo": "labstack/echo",
+   "adv": "GHSA-2ffq-g2xg-c22p",
+   "tier": "T1",
+   "title": "Echo: HTTPS Redirect and HSTS Bypass via Unconditional Trust of Forwarded Scheme Headers",
+   "file": "middleware/secure.go",
+   "function": "SecureWithConfig",
+   "lines": [
+    109,
+    109
+   ],
+   "cwe": [
+    "CWE-346"
+   ],
+   "severity": "medium",
+   "score": 5.9,
+   "candidates": [
+    "adv3_7e77373acf961aea"
+   ]
+  },
+  {
+   "vulnerability_id": "GHSA-375p-5qhx-8wq4",
+   "repo": "labstack/echo",
+   "adv": "GHSA-375p-5qhx-8wq4",
+   "tier": "T1",
+   "title": "Echo's middleware.Static: `%2F`-encoded path bypasses route/group middleware guarding a st",
+   "file": "middleware/static.go",
+   "function": "StaticWithConfig",
+   "lines": [
+    194,
+    194
+   ],
+   "cwe": [
+    "CWE-177",
+    "CWE-863"
+   ],
+   "severity": "high",
+   "score": 7.5,
+   "candidates": [
+    "adv3_2402157472459fd5"
+   ]
+  },
+  {
+   "vulnerability_id": "GHSA-h9g5-28mm-hx3g",
+   "repo": "labstack/echo",
+   "adv": "GHSA-h9g5-28mm-hx3g",
+   "tier": "T1",
+   "title": "Echo vulnerable to Reflected Cross-Site Scripting (XSS) via unsanitized JSONP callback in ",
+   "file": "context.go",
+   "function": "Scheme",
+   "lines": [
+    291,
+    306
+   ],
+   "cwe": [
+    "CWE-79"
+   ],
+   "severity": "medium",
+   "score": 6.1,
+   "candidates": [
+    "adv3_c4c2d65f04477c1d"
+   ]
+  },
+  {
+   "vulnerability_id": "GHSA-r7w9-592q-9vg4",
+   "repo": "labstack/echo",
+   "adv": "GHSA-r7w9-592q-9vg4",
+   "tier": "T1",
+   "title": "Echo has CSRF Protection Bypass via MethodOverride Rewriting POST to Safe Method",
+   "file": "middleware/method_override.go",
+   "function": "MethodOverrideWithConfig",
+   "lines": [
+    60,
+    60
+   ],
+   "cwe": [
+    "CWE-352"
+   ],
+   "severity": "medium",
+   "score": 5.3,
+   "candidates": [
+    "adv3_b6ab1f33eba2aee5"
+   ]
+  }
+ ]
+}

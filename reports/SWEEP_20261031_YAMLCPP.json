@@ -1,0 +1,123 @@
+{
+ "report": "jbeder/yaml-cpp yaml-cpp-0.6.2 sweep",
+ "generated_at": "2026-10-31T10:22:59Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2017-11692",
+    "candidate_id": "disc2_4d1ea9a057b8cd350e44c500",
+    "file": "src/singledocparser.cpp",
+    "function": "HandleNode",
+    "line": "73-77",
+    "anchor": "const Token& token = m_scanner.peek();",
+    "severity": "high",
+    "score": 7.5,
+    "category": "reachable_assertion",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/jbeder/yaml-cpp/commit/c9460110e072df84b7dee3eb651f2ec5df75fb18"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2017-5950",
+    "candidate_id": "disc2_4eea98022e8d4f8e5570338a",
+    "file": "src/singledocparser.cpp",
+    "function": "HandleNode",
+    "line": "48-60",
+    "anchor": "void SingleDocParser::HandleNode(EventHandler& eventHandler) {",
+    "severity": "medium",
+    "score": 5.5,
+    "category": "denial_of_service",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/jbeder/yaml-cpp/commit/4edff1fa5dbfca16fc72d89870841bee89f8ef89",
+     "https://github.com/jbeder/yaml-cpp/pull/807"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2018-20573",
+    "candidate_id": "disc2_89b05e73df5fa26aa41d15f3",
+    "file": "src/scanner.cpp",
+    "function": "Scanner::EnsureTokensInQueue",
+    "line": "48-60",
+    "anchor": "void Scanner::EnsureTokensInQueue() {",
+    "severity": "medium",
+    "score": 6.5,
+    "category": "denial_of_service",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/jbeder/yaml-cpp/commit/4edff1fa5dbfca16fc72d89870841bee89f8ef89",
+     "https://github.com/jbeder/yaml-cpp/pull/807"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2018-20574",
+    "candidate_id": "disc2_7f26fb7e7ae793d3258463d8",
+    "file": "src/singledocparser.cpp",
+    "function": "HandleFlowMap",
+    "line": "275-303",
+    "anchor": "void SingleDocParser::HandleFlowMap(EventHandler& eventHandler) {",
+    "severity": "medium",
+    "score": 6.5,
+    "category": "denial_of_service",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/jbeder/yaml-cpp/commit/4edff1fa5dbfca16fc72d89870841bee89f8ef89",
+     "https://github.com/jbeder/yaml-cpp/pull/807"
+    ]
+   },
+   {
+    "vulnerability_id": "CVE-2019-6292",
+    "candidate_id": "disc2_bf26294ad497c77aa92b16b9",
+    "file": "src/singledocparser.cpp",
+    "function": "HandleCompactMap",
+    "line": "324-340",
+    "anchor": "void SingleDocParser::HandleCompactMap(EventHandler& eventHandler) {",
+    "severity": "medium",
+    "score": 6.5,
+    "category": "denial_of_service",
+    "tier": "T2",
+    "review": "unknown",
+    "evidence_type": "fix_diff_comparison",
+    "fix_commits": [
+     "https://github.com/jbeder/yaml-cpp/commit/4edff1fa5dbfca16fc72d89870841bee89f8ef89",
+     "https://github.com/jbeder/yaml-cpp/pull/807"
+    ]
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "updated": [
+   "sweep_c78706e3131b933f",
+   "sweep_6596c679fdf962e5",
+   "sweep_a877e3dd9ffabc6a",
+   "disc2_7091ec55678c4f58709e9219",
+   "sweep_64532568e6e2d5bd"
+  ],
+  "added": [
+   "sweep_3d7d3da44f43daa3",
+   "sweep_e4eeca19e3ac7a2d",
+   "sweep_f1d0ad7d902925f9"
+  ],
+  "decisions": {
+   "sweep_c78706e3131b933f": "duplicate",
+   "sweep_6596c679fdf962e5": "duplicate",
+   "sweep_3d7d3da44f43daa3": "duplicate",
+   "sweep_e4eeca19e3ac7a2d": "duplicate",
+   "sweep_f1d0ad7d902925f9": "duplicate",
+   "sweep_a877e3dd9ffabc6a": "duplicate",
+   "disc2_7091ec55678c4f58709e9219": "confirmed_not_affected",
+   "sweep_64532568e6e2d5bd": "confirmed_not_affected"
+  }
+ }
+}

@@ -1,0 +1,273 @@
+{
+ "report": "gitea/go-gitea v1.25.5 batch 5 row-level review (open 2026 advisories)",
+ "scope": "eight per-topic 2026 advisories from the remainder of the 87 open needs_static_location candidates; each cited fix commit is small and the advisory text maps to one hunk",
+ "method": "advisory text -> fix hunk; anchor = the frozen line the hunk removes or the frozen line an inserted guard is attached to (struct field anchored with a functionless reason); marker must be absent from the frozen enclosing function and present in the fix patch added lines",
+ "generated_at": "2026-10-31T07:11:01Z",
+ "summary": {
+  "rows": 8,
+  "removed_line": 7,
+  "adjacent_insertion": 1,
+  "manual_anchor": 0,
+  "T1": 8,
+  "T2": 0,
+  "failures": 0,
+  "applied": true
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-62925",
+   "candidate_id": "adv3_bc44c84a9aad33c7",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "modules/packages/alpine/metadata.go",
+   "function": "ParsePackageInfo",
+   "line_start": 188,
+   "line_end": 188,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "2b81cbbe709f7c1da22470cbd1813d4c01e4d8fe",
+    "c9da6553a213a0ceac01347a45d8e9ba9c5c0a0c"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-36q5-5423-vgx2",
+   "advisory_range": "OSV: introduced 0, fixed 146cc3eec571 (v1.27.2)",
+   "severity": {
+    "level": "medium",
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+    "cwe": [
+     "CWE-400"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 modules/packages/alpine/metadata.go:188-188 is the pre-image of the handler-specific hunk in 2b81cbbe709f (\"fix(packages): bound Alpine metadata entries (#39026)\") + c9da6553a213 (\"fix(packages): bound Alpine metadata entries (#39026) (#39029)\") (adjacent_insertion); the fix release OSV: introduced 0, fixed 146cc3eec571 (v1.27.2) postdates the snapshot. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-36q5-5423-vgx2."
+  },
+  {
+   "vulnerability_id": "CVE-2026-95112",
+   "candidate_id": "adv3_bb0510d36360fae1",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "modules/references/references.go",
+   "function": "findActionKeywords",
+   "line_start": 572,
+   "line_end": 572,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "8b46a956d8d1e474272f14cb1900f62df06c5c45"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-467c-4w7p-8427",
+   "advisory_range": "OSV: introduced 0, fixed 15b8a5805adf (v28.0.0)",
+   "severity": {
+    "level": "medium",
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+    "cwe": [
+     "CWE-407"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 modules/references/references.go:572-572 is the pre-image of the handler-specific hunk in 8b46a956d8d1 (\"perf(references): scan only the keyword window before a reference (#39396)\") (removed_line); the fix release OSV: introduced 0, fixed 15b8a5805adf (v28.0.0) postdates the snapshot. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-467c-4w7p-8427."
+  },
+  {
+   "vulnerability_id": "CVE-2026-73130",
+   "candidate_id": "adv3_2c1607ddb4627223",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "modules/structs/repo.go",
+   "function": null,
+   "line_start": 143,
+   "line_end": 143,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "89c7019a3cc19a85d787ae8d726b4a9941fb1a4a",
+    "0d946be8be140a9614afd525f08faed1625908d6"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-8r3w-5682-jrqf",
+   "advisory_range": "OSV: introduced 0, fixed 146cc3eec571 (v1.27.2)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
+    "cwe": [
+     "CWE-400"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 modules/structs/repo.go:143-143 is the pre-image of the handler-specific hunk in 89c7019a3cc1 (\"fix(repo): limit gitignore template selections (#39027)\") + 0d946be8be14 (\"fix(repo): limit gitignore template selections (#39027) (#39040)\") (removed_line); the fix release OSV: introduced 0, fixed 146cc3eec571 (v1.27.2) postdates the snapshot. The marker is absent from the frozen enclosing file and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-8r3w-5682-jrqf."
+  },
+  {
+   "vulnerability_id": "CVE-2026-70400",
+   "candidate_id": "adv3_824062eaaeac8d26",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/api.go",
+   "function": "Routes",
+   "line_start": 1186,
+   "line_end": 1186,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "db24633e6dd373887de8c9062061e76bd847c3ee",
+    "76c768edca94549df8bd4c926aaa4d5cfd110a40"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-x58h-3mx5-q44r",
+   "advisory_range": "OSV: introduced 0, fixed 146cc3eec571 (v1.27.2)",
+   "severity": {
+    "level": "medium",
+    "score": 5.4,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:L/A:L",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/api.go:1186-1186 is the pre-image of the handler-specific hunk in db24633e6dd3 (\"fix(api): enforce repository creation token authorization (#39007)\") + 76c768edca94 (\"fix(api): enforce repository creation token authorization (#39007) (#39014)\") (removed_line); the fix release OSV: introduced 0, fixed 146cc3eec571 (v1.27.2) postdates the snapshot. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-x58h-3mx5-q44r."
+  },
+  {
+   "vulnerability_id": "CVE-2026-67577",
+   "candidate_id": "adv3_47a9c7efc8747070",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/api.go",
+   "function": "individualPermsChecker",
+   "line_start": 870,
+   "line_end": 870,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "6bb6ce678be87d0e125d8e7ce444771b330484b0",
+    "1e86e1e45afe27f29f197bc65fa26f7c6736cfdf"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-rfm6-r2x5-cg56",
+   "advisory_range": "OSV: introduced 0, fixed 146cc3eec571 (v1.27.2)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-200"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/api.go:870-870 is the pre-image of the handler-specific hunk in 6bb6ce678be8 (\"fix(api): hide limited users from restricted viewers (#39004)\") + 1e86e1e45afe (\"fix(api): hide limited users from restricted viewers (#39004) (#39039)\") (removed_line); the fix release OSV: introduced 0, fixed 146cc3eec571 (v1.27.2) postdates the snapshot. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-rfm6-r2x5-cg56."
+  },
+  {
+   "vulnerability_id": "CVE-2026-73278",
+   "candidate_id": "adv3_7f43f93e1853e842",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/auth/linkaccount.go",
+   "function": "oauth2LinkAccount",
+   "line_start": 181,
+   "line_end": 181,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "9dac77fdc29e9375debe7798c8f3f9b24d3fb454",
+    "92044649a0499d8e539143d5b5ffeea572d52f83"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-92j2-6qcg-c28c",
+   "advisory_range": "OSV: introduced 8df3d6575a3e, fixed 1dac1bb2f859 (v1.27.2)",
+   "severity": {
+    "level": "high",
+    "score": 8.1,
+    "vector": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cwe": [
+     "CWE-287"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/auth/linkaccount.go:181-181 is the pre-image of the handler-specific hunk in 9dac77fdc29e (\"fix(auth): set WebAuthn user verification per request (#38805)\") + 92044649a049 (\"fix(auth): set WebAuthn user verification per request (#38810)\") (removed_line); the fix release OSV: introduced 8df3d6575a3e, fixed 1dac1bb2f859 (v1.27.2) postdates the snapshot. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-92j2-6qcg-c28c."
+  },
+  {
+   "vulnerability_id": "CVE-2026-79960",
+   "candidate_id": "adv3_655a8b2998eba785",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/repository/push.go",
+   "function": "pushUpdates",
+   "line_start": 113,
+   "line_end": 113,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "646ea0f2538b02b2c4946aef1e5c23e77964061d"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-7769-9pr9-m24h",
+   "advisory_range": "OSV: introduced 0, fixed 15b8a5805adf (v28.0.0)",
+   "severity": {
+    "level": "medium",
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/repository/push.go:113-113 is the pre-image of the handler-specific hunk in 646ea0f2538b (\"feat: add deploy tokens (#37306)\") (removed_line); the fix release OSV: introduced 0, fixed 15b8a5805adf (v28.0.0) postdates the snapshot. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-7769-9pr9-m24h."
+  },
+  {
+   "vulnerability_id": "CVE-2026-96589",
+   "candidate_id": "adv3_b08bd1265f98c12b",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/repository/transfer.go",
+   "function": "StartRepositoryTransfer",
+   "line_start": 452,
+   "line_end": 452,
+   "anchor_class": "removed_line",
+   "anchor_mode": "advisory_attributed_hunk",
+   "fix_commits": [
+    "e6af4c341ca84242ab11fec0b46ceb3e2c8f5eca"
+   ],
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-xfqq-h54g-92f8",
+   "advisory_range": "OSV: introduced 0, fixed 15b8a5805adf (v28.0.0)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-672",
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/repository/transfer.go:452-452 is the pre-image of the handler-specific hunk in e6af4c341ca8 (\"fix(repo): preserve transfer recipient collaboration (#39042)\") (removed_line); the fix release OSV: introduced 0, fixed 15b8a5805adf (v28.0.0) postdates the snapshot. The marker is absent from the frozen enclosing function and present in the patch added lines. Severity/cwe from https://github.com/go-gitea/gitea/security/advisories/GHSA-xfqq-h54g-92f8."
+  }
+ ],
+ "failures": []
+}

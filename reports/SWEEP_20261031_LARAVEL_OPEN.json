@@ -1,0 +1,65 @@
+{
+ "repo": "laravel/framework",
+ "repo_id": "7548986",
+ "snapshot_id": "snap_6e1f42aa46ca4df5",
+ "tag": "v11.30.0",
+ "sha": "dff716442d9c229d716be82ccc9a7de52eb97193",
+ "applied": true,
+ "checked_at": "2026-10-31T12:15:48Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2024-13918",
+   "snapshot_id": "snap_6e1f42aa46ca4df5",
+   "location": "src/Illuminate/Foundation/resources/exceptions/renderer/components/context.blade.php:54-54",
+   "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/resources/exceptions/renderer/components/context.blade.php#L54",
+   "excerpt_head": "                <pre class=\"scrollbar-hidden mx-5 my-3 overflow-y-hidden text-xs lg:text-sm\"><code class=\"overflow-y-hidden scrollbar-hidden overflow-x-scroll s",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2024-13918",
+   "candidate_id": "disc2_53a5f154ebe83755068046fe",
+   "fix_commits": [
+    "45287fb2a91c69bb1c110539b9b7341faf5aee33"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2024-13919",
+   "snapshot_id": "snap_6e1f42aa46ca4df5",
+   "location": "src/Illuminate/Foundation/resources/exceptions/renderer/components/context.blade.php:108-108",
+   "permalink": "https://github.com/laravel/framework/blob/dff716442d9c229d716be82ccc9a7de52eb97193/src/Illuminate/Foundation/resources/exceptions/renderer/components/context.blade.php#L108",
+   "excerpt_head": "                    <pre class=\"scrollbar-hidden mx-5 my-3 overflow-y-hidden text-xs lg:text-sm\"><code class=\"overflow-y-hidden scrollbar-hidden overflow-x-scro",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2024-13919",
+   "candidate_id": "disc2_43154b9896cdc721baa005c8",
+   "fix_commits": [
+    "45287fb2a91c69bb1c110539b9b7341faf5aee33"
+   ]
+  }
+ ],
+ "not_affected": {
+  "disc2_3dcbcf6d0be08b1865d2a173": "XSS in the debug page information through a Tippy.js tooltip configured with allowHTML: true. The OSV range says introduced 0, fixed 12.69.0, which nominally contains v11.30.0; the source does not. The fix b495ca2ec4e1 (PR #61381) does two things: it renames the tooltip attribute in formatted-source.blade.php from data-tippy-content to data-tippy-html-content, and it splits the single tippy() call that had allowHTML: true into two, with allowHTML: false for data-tippy-content. Neither part exists in the frozen v11.30.0 tree: there is no formatted-source.blade.php component, no allowHTML option in the renderer source, and the shipped bundle src/Illuminate/Foundation/resources/exceptions/renderer/dist/scripts.js contains only allowHTML:!1 (false). The only tippy targets at v11.30.0 are context.blade.php:20 and :74, whose data-tippy-content values are Blade-escaped {{ }} header and route names. With allowHTML disabled tippy renders content as text, so no markup from the page can execute. The vulnerable tooltip is a later renderer feature; v11.30.0 is not affected.",
+  "adv3_64602c927aaf2245": "Unauthorized data destruction through relationship inclusion on a read endpoint. The OSV record carries two ranges: introduced 12.45.0, fixed 12.68.0, and introduced 13.0.0, fixed 13.27.0; the resolver only considered the 13.x branch and left the 11.x snapshot possible. The fix commits 50a7970efe9f and b89f2944995d both modify src/Illuminate/Http/Resources/JsonApi/Concerns/ResolvesJsonApiElements.php, the JSON:API resource feature that shipped in 12.45.0. The frozen v11.30.0 tree has no src/Illuminate/Http/Resources/JsonApi directory at all, so the defective inclusion/destruction path does not exist there. v11.30.0 predates the introduced version and is not affected."
+ },
+ "out_of_scope": {},
+ "left_open": {},
+ "counts": {
+  "confirmed_not_affected": 2
+ },
+ "fixes": {
+  "CVE-2024-13918": [
+   "45287fb2a91c69bb1c110539b9b7341faf5aee33"
+  ],
+  "CVE-2024-13919": [
+   "45287fb2a91c69bb1c110539b9b7341faf5aee33"
+  ]
+ },
+ "notes": [
+  "The frozen SHA is the v11.30.0 tag commit; all four candidates lie inside a published range that nominally contains v11.30.0, and each decision rests on the frozen source, not the range alone.",
+  "CVE-2024-13918 and CVE-2024-13919 share one fix commit, 45287fb2a91c (PR #53869, \"Escape data\"), which changes exactly two Blade echoes in the exceptions renderer context component. The pre-image lines are verbatim at the frozen SHA: line 54 {!! $exception->requestBody() ?: 'No body data' !!} and line 108 {!! $routeParametersContext !!}. Both rows are anchored on the raw echo; the producing methods (requestBody at Exception.php:155-164 and applicationRouteParametersContext at :189-197) are named in the summaries. Both require APP_DEBUG=true (Handler.php:841).",
+  "CVE-2026-102279 is closed not affected on source evidence: the fix b495ca2 splits allowHTML out of the tippy() call and the vulnerable allowHTML:true tooltip plus formatted-source component are absent at v11.30.0, where the shipped bundle uses allowHTML:!1 and the only tippy targets are escaped. The OSV \"introduced 0\" range is nominal for the 12.x feature.",
+  "CVE-2026-114508 is closed not affected because the 12.x range starts at 12.45.0 and the frozen tree predates the JSON:API resource feature entirely (no src/Illuminate/Http/Resources/JsonApi directory).",
+  "Severity: both promoted rows carry the NVD primary CVSS 3.1 6.1 MEDIUM score and vector; the GHSA records are MODERATE with their own AC:H vector (4.7) and that divergence is recorded in each admission_checks note."
+ ]
+}

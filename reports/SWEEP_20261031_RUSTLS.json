@@ -1,0 +1,64 @@
+{
+ "repo": "rustls/rustls",
+ "repo_id": "57920736",
+ "snapshot_id": "snap_b3a6891886ef2160",
+ "tag": "v/0.23.4",
+ "sha": "1dee8b13134d877ade94dda7b68c7bf072e18d62",
+ "applied": true,
+ "checked_at": "2026-10-31T11:20:12Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "GHSA-c8m5-c952-6cm4",
+   "snapshot_id": "snap_b3a6891886ef2160",
+   "location": "rustls/src/msgs/persist.rs:71-72",
+   "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/msgs/persist.rs#L71-L72",
+   "excerpt_head": "#[derive(Debug)]\npub struct Tls13ClientSessionValue {",
+   "returncode": 0,
+   "vulnerability_id": "GHSA-c8m5-c952-6cm4",
+   "candidate_id": "adv3_20ec3d86824f8363",
+   "fix_commits": [
+    "https://github.com/rustls/rustls/commit/dcdb9464d376f45f42a94a5f837cda1506449f23"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "GHSA-w44r-93j7-qv28",
+   "snapshot_id": "snap_b3a6891886ef2160",
+   "location": "rustls/src/client/tls13.rs:150-154",
+   "permalink": "https://github.com/rustls/rustls/blob/1dee8b13134d877ade94dda7b68c7bf072e18d62/rustls/src/client/tls13.rs#L150-L154",
+   "excerpt_head": "    // Remember what KX group the server liked for next time.\n    config\n        .resumption\n        .store\n        .set_kx_hint(server_name.clone(), their_key_",
+   "returncode": 0,
+   "vulnerability_id": "GHSA-w44r-93j7-qv28",
+   "candidate_id": "adv3_9f9f5e9216df0fc1",
+   "fix_commits": [
+    "https://github.com/rustls/rustls/commit/f04804fa13341a9b1dc02b5d1dd8a746f2c4b7fb"
+   ]
+  }
+ ],
+ "duplicates": {
+  "disc2_a94d1f4a467a338d396c82dd": "adv3_20ec3d86824f8363",
+  "disc2_f038b5436fb45aee54873d28": "adv3_9f9f5e9216df0fc1"
+ },
+ "not_affected": {
+  "adv3_c491e0c96e47acd4": "The Brotli certificate-decompression path does not exist at v/0.23.4. RUSTSEC-2026-0348 (the same advisory as GHSA-h2v8-394m-p7vv) records introduced 0.23.9, fixed 0.23.46, so the frozen tag predates the feature; the GHSA record's coarse \"introduced 0\" interval is contradicted by the RUSTSEC range. Static check at 1dee8b13134d877ade94dda7b68c7bf072e18d62: rustls/src/compress.rs does not exist, no brotli dependency appears in Cargo.toml/Cargo.lock, and there is no CompressedCertificate message handling (the only \"compression\" in the client is the TLS record Compression::Null at client/hs.rs:329 and :572). Both fix commits (1aa987af, 402b7b78) modify only rustls/src/compress.rs."
+ },
+ "fixes": {
+  "GHSA-c8m5-c952-6cm4": [
+   "https://github.com/rustls/rustls/commit/dcdb9464d376f45f42a94a5f837cda1506449f23"
+  ],
+  "GHSA-w44r-93j7-qv28": [
+   "https://github.com/rustls/rustls/commit/f04804fa13341a9b1dc02b5d1dd8a746f2c4b7fb"
+  ]
+ },
+ "notes": [
+  "Both promoted advisories cover v/0.23.4 by their published ranges: RUSTSEC-2026-0346 (introduced 0.21.0, fixed 0.23.46) and RUSTSEC-2026-0349 (introduced 0.0.0-0, fixed 0.23.46).",
+  "GHSA-c8m5 is located at the #[derive(Debug)] on Tls13ClientSessionValue (persist.rs:71-72) as the public leak path; the secret itself lives in ClientSessionCommon (:204-210, secret at :207) and PayloadU8/Zeroizing Debug render it as hex.",
+  "GHSA-w44r is located at the early set_kx_hint in handle_server_hello (tls13.rs:150-154); the hint is consumed by initial_key_share at :207. At 0.23.4 there is no hybrid/PQ group, so only the pre-authentication poisoning primitive is present.",
+  "GHSA-h2v8 is confirmed_not_affected: rustls/src/compress.rs and every brotli reference are absent at the SHA, and RUSTSEC-2026-0348 puts the introduction at 0.23.9.",
+  "The two RUSTSEC records (disc2 candidates) are closed as duplicates of the promoted GHSA candidates; the two other snapshot candidates (CVE-2024-11738 and GHSA-vp88) were already confirmed_not_affected by the range pass.",
+  "OSV GIT fixed events point at the 0.24-dev commits (f5f7bf50, 8fa0dc5d); the 0.23-branch fixes used here are dcdb9464 and f04804fa, both contained in the v/0.23.46 tag."
+ ]
+}

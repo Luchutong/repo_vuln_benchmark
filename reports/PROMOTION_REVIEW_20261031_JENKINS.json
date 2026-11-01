@@ -1,0 +1,29 @@
+{
+ "generated_for": "2026-10-31 jenkinsci/jenkins promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The cited SECURITY-3707 patch applies exactly to the frozen jenkins-2.441 blob (77bc05b4bf12) under both the 2.555/2.568 fix commits; the anchored readItem result is the removed line. Admitted by the batch.",
+ "counts": {
+  "admit": 1,
+  "drop": 0,
+  "hold": 0,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-53435",
+   "advisory_record": "GHSA-g2xq-2v27-4rh3",
+   "repo": "jenkinsci/jenkins",
+   "snapshot_version": "jenkins-2.441",
+   "advisory_trust_tier": "T1",
+   "file": "core/src/main/java/hudson/util/CopyOnWriteList.java",
+   "function": "unmarshal",
+   "line_start": 204,
+   "line_end": 204,
+   "granularity": "line",
+   "fix_commit": "345a3190a49d",
+   "verdict": "admit",
+   "reason": "CopyOnWriteList.ConverterImpl.unmarshal adds every item XStream produced to the list without checking it against the declared element type, so an attacker-controlled config.xml can deserialize an arbitrary type into a typed list field and reach the usual XStream gadget surface (CWE-502). SECURITY-3707 adds the elementType check around this add; frozen line 204 is the removed unchecked items.add(item)."
+  }
+ ]
+}

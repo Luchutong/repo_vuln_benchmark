@@ -1,0 +1,198 @@
+{
+  "report": "Supplemental QA review of 9 T1 known positives promoted 2026-10-31",
+  "reason": "These rows were added after the seeded 15% stratified sample was generated from 148 T1 positives; all 9 were reviewed in full rather than sampled.",
+  "reviewer": "claude-code-static-review",
+  "reviewed_at": "2026-10-31T03:31:22Z",
+  "rows": {
+    "CVE-2026-20779": {
+      "qa_id": "qa_e797ed0c5ba99b94",
+      "ghsa": "GHSA-gx3v-q759-g323",
+      "reviewed": true,
+      "fixed": [
+        "1.26.3"
+      ],
+      "location": "routers/web/auth/password.go:181-195",
+      "function": "ResetPasswdPost",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "99f8b3d9a1d32f4c39828e07971455a18191e0b9",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-28740": {
+      "qa_id": "qa_dae99efe5c9aa797",
+      "ghsa": "GHSA-2m9v-5q2g-58vq",
+      "reviewed": true,
+      "fixed": [
+        "1.26.3"
+      ],
+      "location": "models/git/lfs.go:230-254",
+      "function": "LFSObjectAccessible",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "1c7b7ea72df7cf81e88b8e09049608254d32e56e",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-34966": {
+      "qa_id": "qa_bf406c9331e1ab41",
+      "ghsa": "GHSA-2wm4-vwp6-v7xc",
+      "reviewed": true,
+      "fixed": [
+        "1.27.0",
+        "1.27.0"
+      ],
+      "location": "modules/uri/uri.go:32-32",
+      "function": "Open",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "de4b8277e9cb576f2315fb03b5ab6478b42a1d31",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-56657": {
+      "qa_id": "qa_73b93b5f43d081d2",
+      "ghsa": "GHSA-4xjf-493q-98p3",
+      "reviewed": true,
+      "fixed": [
+        "1.27.0",
+        "1.27.0"
+      ],
+      "location": "models/asymkey/ssh_key_parse.go:77-77",
+      "function": "parseKeyString",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "de4b8277e9cb576f2315fb03b5ab6478b42a1d31",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-58422": {
+      "qa_id": "qa_1d1a273366193fd9",
+      "ghsa": "GHSA-g9g6-qhrc-p3qc",
+      "reviewed": true,
+      "fixed": [
+        "1.26.4"
+      ],
+      "location": "routers/web/auth/oauth.go:351-353",
+      "function": "oauth2SignInSync",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "c43eb7c33a100ffc7b2367adf165f7085e0ccdc5",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-58424": {
+      "qa_id": "qa_e67735efc03dff45",
+      "ghsa": "GHSA-777r-4v59-6486",
+      "reviewed": true,
+      "fixed": [
+        "1.26.3"
+      ],
+      "location": "services/actions/notifier_helper.go:476-494",
+      "function": "ifNeedApproval",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "699fe2ef43b9466ac1b0cb857029f91fd5b0056d",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-58425": {
+      "qa_id": "qa_0ceb2d4c99de1ca0",
+      "ghsa": "GHSA-vxv2-8j6r-pcpg",
+      "reviewed": true,
+      "fixed": [
+        "1.27.0"
+      ],
+      "location": "routers/web/auth/oauth2_provider.go:131-169",
+      "function": "IntrospectOAuth",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "c9920b7bd0f6ec1f7590f104711b09d55917f9e8",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-58429": {
+      "qa_id": "qa_1b0b87ab14330e8a",
+      "ghsa": "GHSA-fq2p-5p22-8g6j",
+      "reviewed": true,
+      "fixed": [
+        "1.27.0"
+      ],
+      "location": "routers/api/v1/repo/repo.go:133-134",
+      "function": "Search",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "a34eac5ef42ada433a7c7dafb98f15c13d7ad74e",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    },
+    "CVE-2026-59763": {
+      "qa_id": "qa_e4d0fd8a908fba55",
+      "ghsa": "GHSA-9mq6-mqjj-c2c5",
+      "reviewed": true,
+      "fixed": [
+        "1.27.0"
+      ],
+      "location": "modules/packages/arch/metadata.go:127-158",
+      "function": "ParsePackage",
+      "frozen_sha": "f913d90ab664c1deccdfbe8c563abb13e897d62b",
+      "fix_commit": "de4b8277e9cb576f2315fb03b5ab6478b42a1d31",
+      "checks": {
+        "advisory_reviewed": true,
+        "range_contains_tag": true,
+        "file_exists": true,
+        "function_present": true,
+        "excerpt_matches_span": true,
+        "no_counter_evidence": true
+      }
+    }
+  },
+  "checks_per_record": [
+    "github_reviewed advisory, not withdrawn",
+    "SEMVER range contains frozen tag v1.25.5",
+    "location file/function exists at frozen SHA",
+    "stored excerpt equals the 500-char prefix of the span",
+    "advisory fix commit removes lines still present",
+    "no counter-evidence"
+  ]
+}

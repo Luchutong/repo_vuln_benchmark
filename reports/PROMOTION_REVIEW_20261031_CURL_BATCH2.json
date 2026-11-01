@@ -1,0 +1,462 @@
+{
+ "report": "curl/curl curl-8_3_0 batch 2 row-level review",
+ "generated_at": "2026-10-31T07:52:41Z",
+ "applied": true,
+ "summary": {
+  "rows": 18,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-5545",
+   "candidate_id": "sweep_a16f8f158675f3e1",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/url.c",
+   "function": "ConnectionExists",
+   "line": 1387,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/url.c",
+   "fix_commit": "33e43985b8f3b9e66691d06e70be0395849856cd",
+   "pr": null,
+   "fixed_version": "8.20.0",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-305"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/url.c:1387 is the pre-image of the fix hunk in 33e43985b8f3 (removed_line); introduced e56ae1426cb7, fixed 33e43985b8f3 (8.20.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function ConnectionExists and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-6276",
+   "candidate_id": "sweep_b5d241ff520802c5",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/http.c",
+   "function": "Curl_http_host",
+   "line": 2253,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/http.c",
+   "fix_commit": "3a19987a87f393d9394fe5acc7643f6c263c92db",
+   "pr": null,
+   "fixed_version": "8.20.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-346"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/http.c:2253 is the pre-image of the fix hunk in 3a19987a87f3 (removed_line); introduced e15e51384a42, fixed 3a19987a87f3 (8.20.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function Curl_http_host and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-6429",
+   "candidate_id": "sweep_2e3ebad73f064131",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/transfer.c",
+   "function": "Curl_follow",
+   "line": 1589,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/http.c",
+   "fix_commit": "b4024bf808bd558026fdc6096e8457f199ae306",
+   "pr": null,
+   "fixed_version": "8.20.0",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-200"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/transfer.c:1589 is the pre-image of the fix hunk in b4024bf808bd (removed_line); introduced 01165e08e0d1, fixed b4024bf808bd (8.20.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function Curl_follow and present in the patch added lines for lib/http.c. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-7168",
+   "candidate_id": "sweep_9f6c9793965cbfd3",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/setopt.c",
+   "function": "Curl_vsetopt",
+   "line": 1151,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/setopt.c",
+   "fix_commit": "c1cfdf59acbaf9504c4578d4cf56cdd7c8594507",
+   "pr": null,
+   "fixed_version": "8.20.0",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-294"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/setopt.c:1151 is the pre-image of the fix hunk in c1cfdf59acba (removed_line); introduced fc6eff13b541, fixed c1cfdf59acba (8.20.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function Curl_vsetopt and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-80230",
+   "candidate_id": "sweep_cfdb910cabdf3914",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/vtls/openssl.c",
+   "function": "servercert",
+   "line": 4247,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/vtls/openssl.c",
+   "fix_commit": "5267ed859d545534d0c21675a2b70af5a3b6e3ef",
+   "pr": null,
+   "fixed_version": "8.22.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-295"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/vtls/openssl.c:4247 is the pre-image of the fix hunk in 5267ed859d54 (removed_line); introduced 8363656cb4e0, fixed 5267ed859d54 (8.22.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function servercert and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-80231",
+   "candidate_id": "sweep_2ca945ad38f89b5a",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/vtls/openssl.c",
+   "function": "populate_x509_store",
+   "line": 3033,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/vtls/openssl.c",
+   "fix_commit": "7be1e70cb6bcd83e130ecfe8cb91b6a7dcdeff42",
+   "pr": null,
+   "fixed_version": "8.22.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-488"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/vtls/openssl.c:3033 is the pre-image of the fix hunk in 7be1e70cb6bc (removed_line); introduced 148534db57dd, fixed 7be1e70cb6bc (8.22.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function populate_x509_store and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-82209",
+   "candidate_id": "sweep_fab196c72e7c071f",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/cookie.c",
+   "function": "Curl_cookie_add",
+   "line": 998,
+   "anchor_class": "adjacent_insertion",
+   "patch_file": "lib/cookie.c",
+   "fix_commit": "95c1e8915dce64606bd753fd47fc0bd236e31cd6",
+   "pr": null,
+   "fixed_version": "8.22.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-201"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/cookie.c:998 is the pre-image of the fix hunk in 95c1e8915dce (adjacent_insertion); introduced e77b5b7453c1, fixed 95c1e8915dce (8.22.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function Curl_cookie_add and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-8286",
+   "candidate_id": "sweep_2d2c71281e9529f3",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/url.c",
+   "function": "ConnectionExists",
+   "line": 1190,
+   "anchor_class": "adjacent_insertion",
+   "patch_file": "lib/url.c",
+   "fix_commit": "a86efdd7ca5433de9231e650f18247de8319ad16",
+   "pr": null,
+   "fixed_version": "8.21.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-295"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/url.c:1190 is the pre-image of the fix hunk in a86efdd7ca54 (adjacent_insertion); introduced a1701eea289f, fixed a86efdd7ca54 (8.21.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function ConnectionExists and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-8458",
+   "candidate_id": "sweep_66d7e692119e85a1",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/curl_sasl.c",
+   "function": "Curl_sasl_start",
+   "line": 348,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/curl_sasl.c",
+   "fix_commit": "5e99b73cf441d9c369768b9cd48b5389b9a2503d",
+   "pr": null,
+   "fixed_version": "8.21.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-488"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/curl_sasl.c:348 is the pre-image of the fix hunk in 5e99b73cf441 (removed_line); introduced 97c272e5d173, fixed 5e99b73cf441 (8.21.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function Curl_sasl_start and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-86409",
+   "candidate_id": "sweep_6c94f629afad25cf",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/setopt.c",
+   "function": "Curl_vsetopt",
+   "line": 694,
+   "anchor_class": "adjacent_insertion",
+   "patch_file": "lib/setopt.c",
+   "fix_commit": "c3c70440e8d9938c0bb732595751e8aebc614f24",
+   "pr": null,
+   "fixed_version": "8.22.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-201"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/setopt.c:694 is the pre-image of the fix hunk in c3c70440e8d9 (adjacent_insertion); introduced 08e8455dddc5, fixed c3c70440e8d9 (8.22.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function Curl_vsetopt and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-86414",
+   "candidate_id": "sweep_186b435a4e1965d2",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/cf-h1-proxy.c",
+   "function": "on_resp_header",
+   "line": 411,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/cf-h1-proxy.c",
+   "fix_commit": "2956af6c7451029fb12c12f8166dff211f930d52",
+   "pr": null,
+   "fixed_version": "8.23.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-201"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/cf-h1-proxy.c:411 is the pre-image of the fix hunk in 2956af6c7451 (removed_line); introduced 52ceab5e41a0, fixed 2956af6c7451 (8.23.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function on_resp_header and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-87865",
+   "candidate_id": "sweep_884619a5a00675d2",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/vssh/libssh2.c",
+   "function": "ssh_knownhost",
+   "line": 526,
+   "anchor_class": "adjacent_insertion",
+   "patch_file": "lib/vssh/libssh2.c",
+   "fix_commit": "323c184b6bdf5b1988a10c0a61560666e1588149",
+   "pr": null,
+   "fixed_version": "8.23.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-295"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/vssh/libssh2.c:526 is the pre-image of the fix hunk in 323c184b6bdf (adjacent_insertion); introduced e96fe70cabcb, fixed 323c184b6bdf (8.23.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function ssh_knownhost and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-8927",
+   "candidate_id": "sweep_89059a600b75b931",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/url.c",
+   "function": "create_conn_helper_init_proxy",
+   "line": 2480,
+   "anchor_class": "adjacent_insertion",
+   "patch_file": "lib/url.c",
+   "fix_commit": "5c225384b8d52c67ce8259c6e4203bc57aacb567",
+   "pr": null,
+   "fixed_version": "8.21.0",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-294"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/url.c:2480 is the pre-image of the fix hunk in 5c225384b8d5 (adjacent_insertion); introduced fc6eff13b541, fixed 5c225384b8d5 (8.21.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function create_conn_helper_init_proxy and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-92388",
+   "candidate_id": "sweep_59551ffed1e04293",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/ftp.c",
+   "function": "init_wc_data",
+   "line": 3829,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/ftplistparser.c",
+   "fix_commit": "ba8f8a7f27a5c5e19e4ef212b90b35a93559163e",
+   "pr": null,
+   "fixed_version": "8.23.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-416"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/ftp.c:3829 is the pre-image of the fix hunk in ba8f8a7f27a5 (removed_line); introduced 0825cd80a62c, fixed ba8f8a7f27a5 (8.23.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function init_wc_data and present in the patch added lines for lib/ftplistparser.c. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-92389",
+   "candidate_id": "sweep_e5060f5e99e54e8f",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/tftp.c",
+   "function": "tftp_send_first",
+   "line": 551,
+   "anchor_class": "adjacent_insertion",
+   "patch_file": "lib/tftp.c",
+   "fix_commit": "63dd390fab905a239a97e2700532929343ebc4e9",
+   "pr": null,
+   "fixed_version": "8.23.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-200"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/tftp.c:551 is the pre-image of the fix hunk in 63dd390fab90 (adjacent_insertion); introduced 56d9624b566a, fixed 63dd390fab90 (8.23.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function tftp_send_first and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-92391",
+   "candidate_id": "sweep_7bd17031d1a5fc6d",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/mime.c",
+   "function": "curl_mime_free",
+   "line": 1189,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/mime.c",
+   "fix_commit": "d7546809d5bd548b69ec49fca26565c8f6f0d344",
+   "pr": null,
+   "fixed_version": "8.23.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-674"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/mime.c:1189 is the pre-image of the fix hunk in d7546809d5bd (removed_line); introduced ce0881edee3c, fixed d7546809d5bd (8.23.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function curl_mime_free and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-94266",
+   "candidate_id": "sweep_444b4dfd5e033de4",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/getinfo.c",
+   "function": "getinfo_char",
+   "line": 98,
+   "anchor_class": "removed_line",
+   "patch_file": "lib/getinfo.c",
+   "fix_commit": "7a6bd027d0de2b6857472d35da090ef60cc29f19",
+   "pr": null,
+   "fixed_version": "8.23.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-522"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/getinfo.c:98 is the pre-image of the fix hunk in 7a6bd027d0de (removed_line); introduced 46e164069d1a, fixed 7a6bd027d0de (8.23.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function getinfo_char and present in the patch added lines. Severity/cwe from the curl advisory record."
+  },
+  {
+   "vulnerability_id": "CVE-2025-15079",
+   "candidate_id": "sweep_f997b97d1a952940",
+   "repo_id": "569041",
+   "snapshot_id": "snap_0ec1c11542393304",
+   "file": "lib/vssh/libssh.c",
+   "function": "myssh_connect",
+   "line": 2234,
+   "anchor_class": "adjacent_insertion",
+   "patch_file": "lib/vssh/libssh.c",
+   "fix_commit": "adca486c125d9a6d9565b9607a19dce803a8b479",
+   "pr": null,
+   "fixed_version": "8.18.0",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-297"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "curl-8_3_0 lib/vssh/libssh.c:2234 is the pre-image of the fix hunk in adca486c125d (adjacent_insertion); introduced c92d2e14cfb0, fixed adca486c125d (8.18.0); SEMVER range covers 8.3.0. The marker is absent from the frozen enclosing C function myssh_connect and present in the patch added lines. Severity/cwe from the curl advisory record."
+  }
+ ],
+ "failures": []
+}

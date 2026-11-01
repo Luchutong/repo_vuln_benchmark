@@ -1,0 +1,90 @@
+{
+ "repo": "vitejs/vite",
+ "repo_id": "257485422",
+ "snapshot_id": "snap_2e50b228f2432623",
+ "tag": "v5.0.11",
+ "sha": "b44c49302ffbf0c82f984f6219ed6376d1e4552a",
+ "applied": true,
+ "checked_at": "2026-10-31T10:51:45Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-112946",
+   "snapshot_id": "snap_2e50b228f2432623",
+   "location": "packages/vite/src/node/plugins/importAnalysis.ts:531-538",
+   "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/plugins/importAnalysis.ts#L531-L538",
+   "excerpt_head": "            const [url, resolvedId] = await normalizeUrl(specifier, start)\n\n            // record as safe modules\n            // safeModulesPath should not incl",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-112946",
+   "candidate_id": "adv3_866eeecc32b48fc9",
+   "fix_commit": "e570d8d016096b5f8f6f09808376ca6cf73f27d0"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-112945",
+   "snapshot_id": "snap_2e50b228f2432623",
+   "location": "packages/vite/src/node/server/middlewares/indexHtml.ts:100-104",
+   "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/indexHtml.ts#L100-L104",
+   "excerpt_head": "  if (url.startsWith(FS_PREFIX)) {\n    return decodeURIComponent(fsPathFromId(url))\n  } else {\n    return decodeURIComponent(\n      normalizePath(path.join(serv",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-112945",
+   "candidate_id": "adv3_05f1ef6e9e4620e9",
+   "fix_commit": "7dafd8e56f152403a3230608fa4005273c2e9e17"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-46565",
+   "snapshot_id": "snap_2e50b228f2432623",
+   "location": "packages/vite/src/node/server/middlewares/static.ts:151-151",
+   "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L151",
+   "excerpt_head": "    if (!ensureServingAccess(fileUrl, server, res, next)) {",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-46565",
+   "candidate_id": "disc2_a9e1d40f6d45b48f37ff8a9c",
+   "fix_commit": "c22c43de612eebb6c182dd67850c24e4fab8cacb"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-53571",
+   "snapshot_id": "snap_2e50b228f2432623",
+   "location": "packages/vite/src/node/server/middlewares/static.ts:212-216",
+   "permalink": "https://github.com/vitejs/vite/blob/b44c49302ffbf0c82f984f6219ed6376d1e4552a/packages/vite/src/node/server/middlewares/static.ts#L212-L216",
+   "excerpt_head": "  if (!server.config.server.fs.strict) return true\n\n  const file = fsPathFromUrl(url)\n\n  if (server._fsDenyGlob(file)) return false",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-53571",
+   "candidate_id": "disc2_c295c889c0b33759b48de476",
+   "fix_commit": "96b0c10162e9c55485d922db2cfc6b8227cbc176"
+  }
+ ],
+ "out_of_scope": [
+  "CVE-2026-112942",
+  "CVE-2026-112943",
+  "CVE-2026-112944",
+  "CVE-2026-53632",
+  "CVE-2024-52011",
+  "CVE-2025-58751"
+ ],
+ "confirmed_not_affected": [
+  "CVE-2026-118662"
+ ],
+ "still_open": [
+  "CVE-2025-62522"
+ ],
+ "fixes": {
+  "CVE-2026-112946": "e570d8d016096b5f8f6f09808376ca6cf73f27d0",
+  "CVE-2026-112945": "7dafd8e56f152403a3230608fa4005273c2e9e17",
+  "CVE-2025-46565": "c22c43de612eebb6c182dd67850c24e4fab8cacb",
+  "CVE-2026-53571": "96b0c10162e9c55485d922db2cfc6b8227cbc176"
+ },
+ "notes": [
+  "All four promoted advisories are repo-owned GHSAs -> vendor_official, T1, S2.",
+  "CVE-2026-112945 and CVE-2025-46565 had been promoted earlier with an affected_range taken from the first advisory row only (>=8.3.0,<8.3.3 and >=6.3.0,<6.3.4), which does not contain v5.0.11; they were re-promoted with --replace and the covering ranges (<=6.4.3 and >=5.0.0,<=5.4.18).",
+  "CVE-2026-112946 range row <=6.4.3 and CVE-2026-53571 row <=6.4.2 both contain the frozen 5.0.11 tag.",
+  "Fix hunks for all four fail to apply at v5.0.11 because the fixes target 6.x refactors (isFileLoadingAllowed, safeModulePaths rename, cleanUrl in getHtmlFilename); pre-images were verified verbatim and by absence of the added guards.",
+  "Six candidates are dependency-only (launch-editor x5, sirv x1) and are out_of_scope; GHSA-8g5g-mxqh-grgj affects only 6.4.4 and is confirmed_not_affected; CVE-2025-62522 stays open because the vendor ranges and the OSV range disagree and the pre-fix shape is present."
+ ]
+}

@@ -1,0 +1,318 @@
+{
+ "report": "libexpat/libexpat R_2_6_2 batch 1 row-level review (2.8.2 overflow set)",
+ "generated_at": "2026-10-31T07:33:04Z",
+ "applied": true,
+ "method": "each row anchors the frozen C statement its fix hunk protects; the fix marker must be absent from the frozen enclosing function and present in the patch added lines for the same file",
+ "summary": {
+  "rows": 10,
+  "duplicates": 10,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-56403",
+   "candidate_id": "disc2_dee23e9dec1050815f597fd6",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "storeAtts",
+   "line_start": 3735,
+   "line_end": 3736,
+   "anchor_class": "removed_line",
+   "fix_commit": "7dbc0f529cd7",
+   "pr": 1232,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:3735-3736 is the pre-image of the fix hunk in 7dbc0f529cd7 (PR #1232, removed_line); range introduced 0, fixed c61098da494e (2.8.2), PR #1232 (xmlparse.c storeAtts and xmlwf xcsdup) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56404",
+   "candidate_id": "disc2_a9c4ea7516f84d7953b4f49c",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "addBinding",
+   "line_start": 3947,
+   "line_end": 3947,
+   "anchor_class": "adjacent_insertion",
+   "fix_commit": "3d430baed5ea",
+   "pr": 1249,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:3947-3947 is the pre-image of the fix hunk in 3d430baed5ea (PR #1249, adjacent_insertion); range introduced 0, fixed c61098da494e (2.8.2), PR #1249 (xmlparse.c addBinding) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56405",
+   "candidate_id": "disc2_6b778eea1c4cd6bc73679e58",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "getAttributeId",
+   "line_start": 6635,
+   "line_end": 6635,
+   "anchor_class": "adjacent_insertion",
+   "fix_commit": "9273566b8038",
+   "pr": 1251,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:6635-6635 is the pre-image of the fix hunk in 9273566b8038 (PR #1251, adjacent_insertion); range introduced 0, fixed c61098da494e (2.8.2), PR #1251 (xmlparse.c getAttributeId) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56406",
+   "candidate_id": "disc2_83a79f96971c29d1f12727f1",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "XML_ParseBuffer",
+   "line_start": 2064,
+   "line_end": 2064,
+   "anchor_class": "adjacent_insertion",
+   "fix_commit": "2b19476b1fad",
+   "pr": 1255,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:2064-2064 is the pre-image of the fix hunk in 2b19476b1fad (PR #1255, adjacent_insertion); range introduced 0, fixed c61098da494e (2.8.2), PR #1255 (XML_ParseBuffer) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56407",
+   "candidate_id": "disc2_f5c592764526814ac9e79de6",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "doProlog",
+   "line_start": 5110,
+   "line_end": 5110,
+   "anchor_class": "adjacent_insertion",
+   "fix_commit": "7c99456a09a0",
+   "pr": 1262,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:5110-5110 is the pre-image of the fix hunk in 7c99456a09a0 (PR #1262, adjacent_insertion); range introduced 0, fixed c61098da494e (2.8.2), PR #1262 (doProlog entity textLen and storeEntityValue) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56408",
+   "candidate_id": "disc2_126afca09cdd86d6cceb05bd",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "copyString",
+   "line_start": 7780,
+   "line_end": 7780,
+   "anchor_class": "adjacent_insertion",
+   "fix_commit": "16e2efd867ea",
+   "pr": null,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:7780-7780 is the pre-image of the fix hunk in 16e2efd867ea (adjacent_insertion); range introduced 0, fixed c61098da494e (2.8.2) (copyString) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56409",
+   "candidate_id": "disc2_03a1e99ba980bfc383c3837c",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/xmlwf/xmlwf.c",
+   "function": "tmain",
+   "line_start": 1224,
+   "line_end": 1225,
+   "anchor_class": "removed_line",
+   "fix_commit": "1cc04c06acba",
+   "pr": 1259,
+   "severity": {
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:R/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/xmlwf/xmlwf.c:1224-1225 is the pre-image of the fix hunk in 1cc04c06acba (PR #1259, removed_line); range introduced 0, fixed c61098da494e (2.8.2), PR #1259 (xmlwf output path join) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56410",
+   "candidate_id": "disc2_839b3fbf96c2e626ee1ef221",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/xmlwf/xmlfile.c",
+   "function": "resolveSystemId",
+   "line_start": 137,
+   "line_end": 138,
+   "anchor_class": "removed_line",
+   "fix_commit": "84d520998f50",
+   "pr": 1252,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/xmlwf/xmlfile.c:137-138 is the pre-image of the fix hunk in 84d520998f50 (PR #1252, removed_line); range introduced 0, fixed c61098da494e (2.8.2), PR #1252 (xmlfile resolveSystemId) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56411",
+   "candidate_id": "disc2_b420f047dd69c2cccbc84683",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/xmlwf/xmlwf.c",
+   "function": "endDoctypeDecl",
+   "line_start": 398,
+   "line_end": 398,
+   "anchor_class": "adjacent_insertion",
+   "fix_commit": "56a5ffd3ac4e",
+   "pr": 1263,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-190"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/xmlwf/xmlwf.c:398-398 is the pre-image of the fix hunk in 56a5ffd3ac4e (PR #1263, adjacent_insertion); range introduced 0, fixed c61098da494e (2.8.2), PR #1263 (xmlwf endDoctypeDecl notation list) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56132",
+   "candidate_id": "disc2_4b5c9ab5c00ec607d76c8cc8",
+   "repo_id": "80314213",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "file": "expat/lib/xmlparse.c",
+   "function": "doProlog",
+   "line_start": 5419,
+   "line_end": 5421,
+   "anchor_class": "removed_line",
+   "fix_commit": "db1a48091b40",
+   "pr": 1272,
+   "severity": {
+    "score": 6.9,
+    "vector": "CVSS:3.1/AV:L/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:L",
+    "cwe": "CWE-821"
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen R_2_6_2 expat/lib/xmlparse.c:5419-5421 is the pre-image of the fix hunk in db1a48091b40 (PR #1272, removed_line); range introduced 0, fixed c61098da494e (2.8.2), PR #1272 (doProlog scaffold index grow against a shared DTD) covers the snapshot. The marker is absent from the frozen enclosing C function and present in the patch added lines. Severity/cwe from the OSV CVE record."
+  }
+ ],
+ "duplicates": [
+  {
+   "candidate_id": "sweep_313fd2bfe607aafe",
+   "vulnerability_id": "CVE-2026-56403",
+   "canonical_candidate_id": "disc2_dee23e9dec1050815f597fd6"
+  },
+  {
+   "candidate_id": "sweep_eb7b7e6e6bc7151c",
+   "vulnerability_id": "CVE-2026-56404",
+   "canonical_candidate_id": "disc2_a9c4ea7516f84d7953b4f49c"
+  },
+  {
+   "candidate_id": "sweep_a2f31a4f527f2a3a",
+   "vulnerability_id": "CVE-2026-56405",
+   "canonical_candidate_id": "disc2_6b778eea1c4cd6bc73679e58"
+  },
+  {
+   "candidate_id": "sweep_41d571b2103a310d",
+   "vulnerability_id": "CVE-2026-56406",
+   "canonical_candidate_id": "disc2_83a79f96971c29d1f12727f1"
+  },
+  {
+   "candidate_id": "sweep_addf950b762efd7c",
+   "vulnerability_id": "CVE-2026-56407",
+   "canonical_candidate_id": "disc2_f5c592764526814ac9e79de6"
+  },
+  {
+   "candidate_id": "sweep_62845ebf4486390b",
+   "vulnerability_id": "CVE-2026-56408",
+   "canonical_candidate_id": "disc2_126afca09cdd86d6cceb05bd"
+  },
+  {
+   "candidate_id": "sweep_b7babf3453dfc01a",
+   "vulnerability_id": "CVE-2026-56409",
+   "canonical_candidate_id": "disc2_03a1e99ba980bfc383c3837c"
+  },
+  {
+   "candidate_id": "sweep_bacf2b99e65301f2",
+   "vulnerability_id": "CVE-2026-56410",
+   "canonical_candidate_id": "disc2_839b3fbf96c2e626ee1ef221"
+  },
+  {
+   "candidate_id": "sweep_ea29ff494bf135f2",
+   "vulnerability_id": "CVE-2026-56411",
+   "canonical_candidate_id": "disc2_b420f047dd69c2cccbc84683"
+  },
+  {
+   "candidate_id": "sweep_c0744ec9053d877b",
+   "vulnerability_id": "CVE-2026-56132",
+   "canonical_candidate_id": "disc2_4b5c9ab5c00ec607d76c8cc8"
+  }
+ ],
+ "not_promotable": [
+  {
+   "vulnerabilities": "CVE-2026-56412",
+   "candidates": "disc2_6fb690827eb2a133c5143025",
+   "reason": "The fix guards XML_TOK_DATA_CHARS handler calls in doCdataSection with beforeHandler/afterHandler, the depth-tracking mechanism introduced for CVE-2026-50219; R_2_6_2 has neither helper, so the pre-image the fix modifies does not exist."
+  },
+  {
+   "vulnerabilities": "CVE-2026-56131",
+   "candidates": "disc2_74b087159d11d2d89fa445a4",
+   "reason": "The fix adds isCalledFromInsideHandler(parser) to XML_ResumeParser, which depends on the same post-50219 depth tracking; the helper does not exist at R_2_6_2."
+  }
+ ],
+ "failures": []
+}

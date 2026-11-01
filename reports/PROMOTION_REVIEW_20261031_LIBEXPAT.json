@@ -1,0 +1,139 @@
+{
+ "generated": "2026-10-31",
+ "scope": "libexpat PR-referenced advisories",
+ "apply": false,
+ "counts": {
+  "admit": 5,
+  "drop": 1,
+  "total": 6
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-45186",
+   "advisory_record": "CVE-2026-45186",
+   "repo": "libexpat/libexpat",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "snapshot_version": "R_2_6_2",
+   "tier": "T2",
+   "file": "expat/lib/xmlparse.c",
+   "function": "defineAttribute",
+   "lines": [
+    6517,
+    6520
+   ],
+   "fix_commit": "9bdfbc77e3355405ceefbe59420abed953a5657e",
+   "pr_refs": [
+    "libexpat/libexpat#1216"
+   ],
+   "title": "CVE-2026-45186",
+   "verdict": "admit",
+   "reason": "Located span is the O(n) linear default-attribute collision loop in defineAttribute that PR #1216 replaces with a hash lookup (ELEMENT_TYPE.defaultAttsNames); the advisory describes exactly this quadratic collision check as the DoS."
+  },
+  {
+   "vulnerability_id": "CVE-2026-50219",
+   "advisory_record": "CVE-2026-50219",
+   "repo": "libexpat/libexpat",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "snapshot_version": "R_2_6_2",
+   "tier": "T2",
+   "file": "expat/lib/xmlparse.c",
+   "function": "doProlog",
+   "lines": [
+    5170,
+    5172
+   ],
+   "fix_commit": "3fd4d1c19c30f71979b00d73d367f3d27935fad5",
+   "pr_refs": [
+    "libexpat/libexpat#1246"
+   ],
+   "title": "CVE-2026-50219",
+   "verdict": "admit",
+   "reason": "Located lines are the notStandaloneHandler call that the depth-tracking PR rewrites so the handler invocation can be wrapped in beforeHandler/afterHandler; the advisory names these handler calls as the reentry/UAF vector."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56131",
+   "advisory_record": "CVE-2026-56131",
+   "repo": "libexpat/libexpat",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "snapshot_version": "R_2_6_2",
+   "tier": "T2",
+   "file": "expat/lib/xmlparse.c",
+   "function": "XML_ResumeParser",
+   "lines": [
+    2259,
+    2259
+   ],
+   "fix_commit": "b0256a667f74e3eedb12eda2e72f34c9e8fb87f8",
+   "pr_refs": [
+    "libexpat/libexpat#1267"
+   ],
+   "title": "CVE-2026-56131",
+   "verdict": "admit",
+   "reason": "Located line is the XML_ResumeParser null guard that the fix extends with isCalledFromInsideHandler(parser); the advisory is the reentry of XML_ResumeParser from inside a handler."
+  },
+  {
+   "vulnerability_id": "CVE-2026-56404",
+   "advisory_record": "CVE-2026-56404",
+   "repo": "libexpat/libexpat",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "snapshot_version": "R_2_6_2",
+   "tier": "T2",
+   "file": "expat/lib/xmlparse.c",
+   "function": "addBinding",
+   "lines": [
+    3988,
+    3988
+   ],
+   "fix_commit": "3d430baed5ea6828ab32e98879681cf5ccc5547a",
+   "pr_refs": [
+    "libexpat/libexpat#1249"
+   ],
+   "title": "CVE-2026-56404",
+   "verdict": "admit",
+   "reason": "Located line is the m_namespaceSeparator branch in addBinding where the fix adds the INT_MAX guard before len++ (the same guard is added in the URI-length loop); the advisory is the signed integer overflow in addBinding."
+  },
+  {
+   "vulnerability_id": "CVE-2026-76957",
+   "advisory_record": "CVE-2026-76957",
+   "repo": "libexpat/libexpat",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "snapshot_version": "R_2_6_2",
+   "tier": "T2",
+   "file": "expat/lib/xmlparse.c",
+   "function": "XML_ParserReset",
+   "lines": [
+    1314,
+    1314
+   ],
+   "fix_commit": "6f80c72c0edf19dfca607a76e3bda88bb30ce3b8",
+   "pr_refs": [
+    "libexpat/libexpat#1322",
+    "libexpat/libexpat#1329"
+   ],
+   "title": "CVE-2026-76957",
+   "verdict": "admit",
+   "reason": "Located line is the unknownEncodingRelease call in XML_ParserReset that the fix routes through callUnknownEncodingRelease, which applies handler call depth tracking; the advisory is custom encoding callbacks reentering the parser."
+  },
+  {
+   "vulnerability_id": "CVE-2026-93990",
+   "advisory_record": "CVE-2026-93990",
+   "repo": "libexpat/libexpat",
+   "snapshot_id": "snap_67132f0363b8bc23",
+   "snapshot_version": "R_2_6_2",
+   "tier": "T2",
+   "file": "expat/lib/xmltok_impl.c",
+   "function": "included",
+   "lines": [
+    13,
+    13
+   ],
+   "fix_commit": "4b3f0b06f39fb5529cead381694f8929901bc273",
+   "pr_refs": [
+    "libexpat/libexpat#1282"
+   ],
+   "title": "Expat before 2.8.5 Malformed UTF-16 Acceptance via Unchecked Surrogate",
+   "verdict": "drop",
+   "reason": "The located hunk comes from commit 4b3f0b06, a release/mailmap merge whose series matched a copyright line in xmltok_impl.c; the real fix is ff6e1d7e (PR #1282). Its anchor (the IS_INVALID_CHAR fallback at xmltok_impl.c:44-46 and the UTF-16 engine tables) has no enclosing function, so it cannot be expressed as a function-scoped source location under the current schema."
+  }
+ ]
+}

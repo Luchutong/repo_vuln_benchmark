@@ -1,0 +1,50 @@
+{
+ "repo": "elixir-plug/plug",
+ "repo_id": "14421569",
+ "snapshot_id": "snap_69faea6949b7a9bb",
+ "tag": "v1.19.2",
+ "sha": "33858427c7f2737d560a2e40a0c9a9270d77d1d7",
+ "applied": true,
+ "checked_at": "2026-10-31T12:19:27Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-56814",
+   "snapshot_id": "snap_69faea6949b7a9bb",
+   "location": "lib/plug/parsers/multipart.ex:189-219",
+   "permalink": "https://github.com/elixir-plug/plug/blob/33858427c7f2737d560a2e40a0c9a9270d77d1d7/lib/plug/parsers/multipart.ex#L189-L219",
+   "excerpt_head": "  defp parse_multipart_headers(headers, conn, limit, opts, acc) do\n    case multipart_type(headers) do\n      {:binary, name} ->\n        {:ok, limit, body, conn}",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-56814",
+   "candidate_id": "disc2_56ec30554f5d9652b9e1a4a1",
+   "fix_commits": [
+    "0ee8afcc61466dc5f7a8f048d0632c899165b81f",
+    "56edca2ce35fe5589cd581644d8a4493fa5f484e"
+   ]
+  }
+ ],
+ "duplicate": {
+  "adv3_ecdc486aa8c45728": "GHSA-wpmj-jh88-rpgm (cookie attribute injection through unvalidated \";\" in Plug.Conn.Cookies.encode/2) is already a Ground Truth row on this same v1.19.2 snapshot at lib/plug/conn/cookies.ex:72-80 (fix 149d9ed68fee). This needs_version_check candidate is the same advisory reached through the GHSA rather than the EEF record, so it adds no distinct root cause.",
+  "adv3_29ec12f8d197715e": "GHSA-95qv-c9g9-rm63 is the GitHub copy of the multipart :length advisory whose EEF candidate (disc2_56ec30554f5d9652b9e1a4a1) is promoted in this same pass at lib/plug/parsers/multipart.ex:189-219 with fix commits 0ee8afcc/56edca2c. This needs_version_check candidate names the same advisory and adds no distinct root cause."
+ },
+ "not_affected": {
+  "sweep_de011f7010228c79": "Plug header injection through an unvalidated cookie value: the advisory and NVD configuration restrict the vulnerable ranges to plug > 1.0.6 to <= 1.1.9 and the 1.2/1.3 lines fixed in 1.2.5 and 1.3.5, so v1.19.2 is outside every range. Static corroboration: the 2017 fix 8857f8ab adds validate_header_value!(cookie) to verify_cookie!, and the frozen v1.19.2 code at lib/plug/conn.ex:1946-1948 already validates every Set-Cookie value with validate_header_key_value!(\"set-cookie\", cookie)."
+ },
+ "counts": {
+  "duplicate": 2,
+  "confirmed_not_affected": 1
+ },
+ "fixes": {
+  "CVE-2026-56814": [
+   "0ee8afcc61466dc5f7a8f048d0632c899165b81f",
+   "56edca2ce35fe5589cd581644d8a4493fa5f484e"
+  ]
+ },
+ "notes": [
+  "The frozen SHA is the v1.19.2 tag commit; the multipart anchor function and its :skip branch were read verbatim at the tag.",
+  "CVE-2026-56814 is promoted from the EEF candidate. The fix is additive: the header-size charge is inserted after the function head and the skip reader replaces a branch that returned without reading, so the anchor is the whole parse_multipart_headers scope (function granularity).",
+  "The two GHSA candidates are duplicates of rows that exist on this snapshot: CVE-2026-56813 was already GT (cookies.ex:72-80) and CVE-2026-56814 is promoted in this same pass.",
+  "CVE-2018-1000883 is not affected: every published range ends at plug 1.1.9/1.2.5/1.3.5 and the frozen tree validates Set-Cookie values at conn.ex:1946-1948 (the 2017 fix 8857f8ab)."
+ ]
+}

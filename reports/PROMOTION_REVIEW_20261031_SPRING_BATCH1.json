@@ -1,0 +1,300 @@
+{
+ "report": "spring-framework v4.1.1.RELEASE batch 1",
+ "generated_at": "2026-10-31T08:09:25Z",
+ "applied": true,
+ "summary": {
+  "rows": 12,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2015-0201",
+   "candidate_id": "disc2_ee65f680d3a7903ae35a5245",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-websocket/src/main/java/org/springframework/web/socket/sockjs/client/SockJsUrlInfo.java",
+   "function": "SockJsUrlInfo",
+   "line": 36,
+   "anchor_class": "static field initializer replaced in the same class",
+   "patch_file": "spring-websocket/src/main/java/org/springframework/web/socket/sockjs/client/SockJsUrlInfo.java",
+   "fix_commit": "d63cfc8eebc396be009e733a81ebb4c984811f6e",
+   "fixed_version": "4.1.5.RELEASE",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-330"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-websocket/src/main/java/org/springframework/web/socket/sockjs/client/SockJsUrlInfo.java:36 is the frozen pre-image of the fix in d63cfc8eebc3 (4.1.5.RELEASE). static field initializer replaced in the same class. The marker 'idGenerator = new JdkIdGenerator()' is absent from the frozen Java scope SockJsUrlInfo and present in the patch added lines used for spring-websocket/src/main/java/org/springframework/web/socket/sockjs/client/SockJsUrlInfo.java. 4.1.0.RELEASE - 4.1.4.RELEASE; introduced 4.1.0.RELEAS, fixed d63cfc8eebc3 (4.1.5.RELEASE); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2015-3192",
+   "candidate_id": "disc2_c379702e923d71e75e5ab6e6",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-oxm/src/main/java/org/springframework/oxm/support/AbstractMarshaller.java",
+   "function": "createXmlReader",
+   "line": 160,
+   "anchor_class": "SAX feature line gains a doctype guard before it",
+   "patch_file": "spring-oxm/src/main/java/org/springframework/oxm/support/AbstractMarshaller.java",
+   "fix_commit": "5a711c05ec750f069235597173084c2ee7962424",
+   "fixed_version": "4.1.7.RELEASE",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-776"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-oxm/src/main/java/org/springframework/oxm/support/AbstractMarshaller.java:160 is the frozen pre-image of the fix in 5a711c05ec75 (4.1.7.RELEASE). SAX feature line gains a doctype guard before it. The marker 'disallow-doctype-decl' is absent from the frozen Java scope createXmlReader and present in the patch added lines used for spring-oxm/src/main/java/org/springframework/oxm/support/AbstractMarshaller.java. 4.0.0.RELEASE - 4.1.6.RELEASE, 3.2.13.RELEASE and earlier; introduced 4.0.0.RELEAS, fixed 5a711c05ec75 (4.1.7.RELEASE); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2018-1271",
+   "candidate_id": "disc2_25061d5b9c47223d18cfbb5f",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-webmvc/src/main/java/org/springframework/web/servlet/resource/ResourceHttpRequestHandler.java",
+   "function": "isInvalidPath",
+   "line": 247,
+   "anchor_class": "single-expression check replaced by decoded-path checks",
+   "patch_file": "spring-webmvc/src/main/java/org/springframework/web/servlet/resource/ResourceHttpRequestHandler.java",
+   "fix_commit": "91b803a2310344d925e5d4b1709bbcea90375548",
+   "fixed_version": "5.0.5.RELEASE",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-22"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-webmvc/src/main/java/org/springframework/web/servlet/resource/ResourceHttpRequestHandler.java:247 is the frozen pre-image of the fix in 91b803a23103 (5.0.5.RELEASE). single-expression check replaced by decoded-path checks. The marker 'isInvalidEncodedPath(path)' is absent from the frozen Java scope isInvalidPath and present in the patch added lines used for spring-webmvc/src/main/java/org/springframework/web/servlet/resource/ResourceHttpRequestHandler.java. 5.0.0.RELEASE - 5.0.4.RELEASE, 4.3.14.RELEASE and earlier; introduced 4.0.0.RELEAS, fixed 91b803a23103 (5.0.5.RELEASE); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2022-22950",
+   "candidate_id": "disc2_ffa8c67a7bd134b7b9641a6a",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java",
+   "function": "createArray",
+   "line": 269,
+   "anchor_class": "dimension read is captured and checked before allocation",
+   "patch_file": "spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java",
+   "fix_commit": "83ac65915871067c39a4fb255e0d484c785c0c11",
+   "fixed_version": "5.3.17",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-770"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java:269 is the frozen pre-image of the fix in 83ac65915871 (5.3.17). dimension read is captured and checked before allocation. The marker 'checkNumElements(numElements)' is absent from the frozen Java scope createArray and present in the patch added lines used for spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java. 5.3.0 - 5.3.16, 5.2.19.RELEASE and earlier; introduced 3.0, fixed 83ac65915871 (5.3.17); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2022-22965",
+   "candidate_id": "disc2_22dd04072a3089deb50e4b39",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-beans/src/main/java/org/springframework/beans/CachedIntrospectionResults.java",
+   "function": "CachedIntrospectionResults",
+   "line": 292,
+   "anchor_class": "property-name blocklist widened to a type/name allowlist",
+   "patch_file": "spring-beans/src/main/java/org/springframework/beans/CachedIntrospectionResults.java",
+   "fix_commit": "002546b3e4b8d791ea6acccb81eb3168f51abb15",
+   "fixed_version": "5.3.18",
+   "severity": {
+    "level": "critical",
+    "cwe": "CWE-94"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-beans/src/main/java/org/springframework/beans/CachedIntrospectionResults.java:292 is the frozen pre-image of the fix in 002546b3e4b8 (5.3.18). property-name blocklist widened to a type/name allowlist. The marker 'endsWith(\"Name\")' is absent from the frozen Java scope CachedIntrospectionResults and present in the patch added lines used for spring-beans/src/main/java/org/springframework/beans/CachedIntrospectionResults.java. 5.3.0 - 5.3.17, 5.2.19.RELEASE and earlier; introduced 4.0.0.RELEAS, fixed 002546b3e4b8 (5.3.18); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2024-22259",
+   "candidate_id": "disc2_db0011fc6e287db60706bf1b",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java",
+   "function": "fromHttpUrl",
+   "line": 234,
+   "anchor_class": "host check extracted into a shared helper with IPv6 guard",
+   "patch_file": "spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java",
+   "fix_commit": "381f790329a48b74c2a49fc1384dd68ca9153501",
+   "fixed_version": "6.1.5",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-601"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java:234 is the frozen pre-image of the fix in 381f790329a4 (6.1.5). host check extracted into a shared helper with IPv6 guard. The marker 'checkSchemeAndHost(httpUrl, scheme, host)' is absent from the frozen Java scope fromHttpUrl and present in the patch added lines used for spring-web/src/main/java/org/springframework/web/util/UriComponentsBuilder.java. 6.1.0 - 6.1.4, 6.0.0 - 6.0.17, 5.3.32 and earlier; introduced 4.0.0.RELEAS, fixed 381f790329a4 (6.1.5); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2024-38808",
+   "candidate_id": "disc2_218c64d81c31533157d3faee",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java",
+   "function": "createArray",
+   "line": 262,
+   "anchor_class": "constructor-resolver guard added before the allocation",
+   "patch_file": "spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java",
+   "fix_commit": "f44d13cb7816e586b86c02421af4f5498391111c",
+   "fixed_version": "5.3.39",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-770"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java:262 is the frozen pre-image of the fix in f44d13cb7816 (5.3.39). constructor-resolver guard added before the allocation. The marker 'getConstructorResolvers().isEmpty()' is absent from the frozen Java scope createArray and present in the patch added lines used for spring-expression/src/main/java/org/springframework/expression/spel/ast/ConstructorReference.java. 5.3.38 and earlier; introduced 3.0, fixed f44d13cb7816 (5.3.39); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-22233",
+   "candidate_id": "disc2_0fc073d08374aed911603ec8",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-context/src/main/java/org/springframework/validation/DataBinder.java",
+   "function": "isAllowed",
+   "line": 688,
+   "anchor_class": "case-sensitive matcher replaced by the ignore-case variant",
+   "patch_file": "spring-context/src/main/java/org/springframework/validation/DataBinder.java",
+   "fix_commit": "edfcc6ffb188e4614ec9b212e3208b666981851c",
+   "fixed_version": "6.2.7",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-178"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-context/src/main/java/org/springframework/validation/DataBinder.java:688 is the frozen pre-image of the fix in edfcc6ffb188 (6.2.7). case-sensitive matcher replaced by the ignore-case variant. The marker 'simpleMatchIgnoreCase(disallowed, field)' is absent from the frozen Java scope isAllowed and present in the patch added lines used for spring-context/src/main/java/org/springframework/validation/DataBinder.java. 6.2.0 - 6.2.6, 6.1.0 - 6.1.19, 6.0.0 - 6.0.27, 5.3.42 and earlier; introduced 1.2, fixed edfcc6ffb188 (6.2.7); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-41845",
+   "candidate_id": "disc2_37e6fb0a44c1092eab8fa560",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-web/src/main/java/org/springframework/web/util/JavaScriptUtils.java",
+   "function": "javaScriptEscape",
+   "line": 91,
+   "anchor_class": "new escape branches in the character dispatch chain",
+   "patch_file": "spring-web/src/main/java/org/springframework/web/util/JavaScriptUtils.java",
+   "fix_commit": "86d99790dbaa8ce6bb1087ef92844d0abfdab015",
+   "fixed_version": "7.0.8",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-79"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-web/src/main/java/org/springframework/web/util/JavaScriptUtils.java:91 is the frozen pre-image of the fix in 86d99790dbaa (7.0.8). new escape branches in the character dispatch chain. The marker 'filtered.append(\"\\\\\\\\u0060\")' is absent from the frozen Java scope javaScriptEscape and present in the patch added lines used for spring-web/src/main/java/org/springframework/web/util/JavaScriptUtils.java. 7.0.0 - 7.0.7, 6.2.0 - 6.2.18, 6.1.0 - 6.1.27, 5.3.48 and earlier; introduced 1.1.1, fixed 86d99790dbaa (7.0.8); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-41846",
+   "candidate_id": "disc2_ca254dd122c52340354651f1",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-webmvc/src/main/java/org/springframework/web/servlet/tags/form/AbstractHtmlElementTag.java",
+   "function": "writeOptionalAttributes",
+   "line": 433,
+   "anchor_class": "unescaped attribute writer replaced by the escaping helper",
+   "patch_file": "spring-webmvc/src/main/java/org/springframework/web/servlet/tags/form/AbstractHtmlElementTag.java",
+   "fix_commit": "e8f10244e3859e8bb5b6be3823c9bbea2c130573",
+   "fixed_version": "7.0.8",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-79"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-webmvc/src/main/java/org/springframework/web/servlet/tags/form/AbstractHtmlElementTag.java:433 is the frozen pre-image of the fix in e8f10244e385 (7.0.8). unescaped attribute writer replaced by the escaping helper. The marker 'writeOptionalAttribute(tagWriter, STYLE_ATTRIBUTE, getCssStyle())' is absent from the frozen Java scope writeOptionalAttributes and present in the patch added lines used for spring-webmvc/src/main/java/org/springframework/web/servlet/tags/form/AbstractHtmlElementTag.java. 7.0.0 - 7.0.7, 6.2.0 - 6.2.18, 6.1.0 - 6.1.27, 5.3.48 and earlier; introduced 2.0, fixed e8f10244e385 (7.0.8); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-41848",
+   "candidate_id": "disc2_3f74c9b2dcfe84e127e45a47",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-core/src/main/java/org/springframework/util/AntPathMatcher.java",
+   "function": "matchStrings",
+   "line": 557,
+   "anchor_class": "match input wrapped in a bounded CharSequence",
+   "patch_file": "spring-core/src/main/java/org/springframework/util/AntPathMatcher.java",
+   "fix_commit": "12b44f2545a1bec6150c7a05e66092c732597a94",
+   "fixed_version": "7.0.8",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-1333"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-core/src/main/java/org/springframework/util/AntPathMatcher.java:557 is the frozen pre-image of the fix in 12b44f2545a1 (7.0.8). match input wrapped in a bounded CharSequence. The marker 'new MaxAttemptsCharSequence(str)' is absent from the frozen Java scope matchStrings and present in the patch added lines used for spring-core/src/main/java/org/springframework/util/AntPathMatcher.java. 7.0.0 - 7.0.7, 6.2.0 - 6.2.18, 6.1.0 - 6.1.27, 5.3.48 and earlier; introduced 3.0, fixed 12b44f2545a1 (7.0.8); 4.1.1.RELEASE is inside the vendor range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-47884",
+   "candidate_id": "disc2_b0eaf3c49e23b38208ba5d89",
+   "repo_id": "1148753",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "file": "spring-webmvc/src/main/java/org/springframework/web/servlet/view/xslt/XsltView.java",
+   "function": "getStylesheetSource",
+   "line": 459,
+   "anchor_class": "resource lookup guarded by shared path normalisation checks",
+   "patch_file": "spring-webmvc/src/main/java/org/springframework/web/servlet/view/xslt/XsltView.java",
+   "fix_commit": "692dbc9160de3b5de50ccedeee014716d0cedb7b",
+   "fixed_version": "7.0.9",
+   "severity": {
+    "level": "critical",
+    "cwe": "CWE-918"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v4.1.1.RELEASE spring-webmvc/src/main/java/org/springframework/web/servlet/view/xslt/XsltView.java:459 is the frozen pre-image of the fix in 692dbc9160de (7.0.9). resource lookup guarded by shared path normalisation checks. The marker 'ResourceHandlerUtils.shouldIgnoreInputPath(location)' is absent from the frozen Java scope getStylesheetSource and present in the patch added lines used for spring-webmvc/src/main/java/org/springframework/web/servlet/view/xslt/XsltView.java. 7.0.0 - 7.0.8, 6.2.0 - 6.2.19, 6.1.0 - 6.1.28, 6.0.0 - 6.0.30, 5.3.0 - 5.3.49, 5.2.25.RELEASE and earlier; introduced 1.1, fixed 692dbc9160de (7.0.9); 4.1.1.RELEASE is inside the vendor range."
+  }
+ ],
+ "failures": []
+}

@@ -1,0 +1,222 @@
+{
+  "dataset": "/home/luchitong/work/repo-vuln-bench-v040-dataset",
+  "mode": "apply",
+  "rate": 0.15,
+  "seed": 20261030,
+  "t1_known_positive_count": 148,
+  "random_sampled": 22,
+  "mandatory_count": 15,
+  "total_qa_rows": 34,
+  "random_fraction_of_t1": 0.1486,
+  "sample_fraction_of_t1": 0.2297,
+  "mandatory_reason_counts": {
+    "mandatory:multiple_cves_share_location": 11,
+    "mandatory:unreviewed_advisory_source": 4
+  },
+  "strata": {
+    "105379569": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "1064563": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "10649374": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "106995": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "1103607": {
+      "t1": 6,
+      "sampled": 1
+    },
+    "1148753": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "11939484": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "133092972": {
+      "t1": 14,
+      "sampled": 2
+    },
+    "135525225": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "1420053": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "14421569": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "153667429": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "16072585": {
+      "t1": 2,
+      "sampled": 1
+    },
+    "17620347": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "20904437": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "2253830": {
+      "t1": 2,
+      "sampled": 1
+    },
+    "23088740": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "23357588": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "237159": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "24195339": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "2493904": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "257485422": {
+      "t1": 11,
+      "sampled": 2
+    },
+    "27729880": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "29207621": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "31504491": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "3542607": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "3955647": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "4164482": {
+      "t1": 40,
+      "sampled": 6
+    },
+    "458058": {
+      "t1": 18,
+      "sampled": 3
+    },
+    "569041": {
+      "t1": 4,
+      "sampled": 1
+    },
+    "57920736": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "596892": {
+      "t1": 2,
+      "sampled": 1
+    },
+    "6181245": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "67836789": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "70107786": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "72174164": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "72495579": {
+      "t1": 3,
+      "sampled": 1
+    },
+    "7548986": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "80945428": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "8514": {
+      "t1": 1,
+      "sampled": 0
+    },
+    "96071": {
+      "t1": 14,
+      "sampled": 2
+    },
+    "997338": {
+      "t1": 2,
+      "sampled": 1
+    }
+  },
+  "qa_ids": [
+    "qa_13022a9e5d74bb3e",
+    "qa_14f1f1236d2bde42",
+    "qa_16b3942438c4dd8c",
+    "qa_16bb6c23e48b8db7",
+    "qa_1b6b9a3a333b8f3a",
+    "qa_33356149f338c59f",
+    "qa_340deb0494e70986",
+    "qa_3a1beb6af6a3fd46",
+    "qa_42537cc72cabca0d",
+    "qa_44d40af987edc302",
+    "qa_6de46fd8693c3ca2",
+    "qa_709cbfdde19b3fd0",
+    "qa_8352e6854a7bcfc3",
+    "qa_8424643c253f3790",
+    "qa_86753e5e6d1093b0",
+    "qa_8a4fbf5e17eb9438",
+    "qa_8bdb86a15baf720e",
+    "qa_8c22f88ecec96c11",
+    "qa_8d693d9249fc51a5",
+    "qa_8e7e1e9bfa65c4a9",
+    "qa_91299860fdf7d418",
+    "qa_ae58d45fa2d31dd8",
+    "qa_b52cee1db4e87e94",
+    "qa_c3e818fd6a9f3478",
+    "qa_cc15abe4d75e11e4",
+    "qa_cf3ee88122d68f92",
+    "qa_da03df945ea31a21",
+    "qa_dba87d0d16acf860",
+    "qa_dc9c3c18648ef059",
+    "qa_dddf1ea22a999e69",
+    "qa_e3b993e660c8f452",
+    "qa_e6223414b0f6b143",
+    "qa_e765ecd5fa5228d2",
+    "qa_fcfebdd465b87062"
+  ]
+}

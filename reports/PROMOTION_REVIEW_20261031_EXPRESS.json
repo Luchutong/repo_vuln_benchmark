@@ -1,0 +1,29 @@
+{
+ "generated_for": "2026-10-31 expressjs/express promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The GHSA was withdrawn on 2025-12-02 as a correctness bug with no security impact; it must not enter the Ground Truth.",
+ "counts": {
+  "admit": 0,
+  "drop": 1,
+  "hold": 0,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2024-51999",
+   "advisory_record": "GHSA-pj86-cfqh-vqx6",
+   "repo": "expressjs/express",
+   "snapshot_version": "4.19.2",
+   "advisory_trust_tier": "T1",
+   "file": "lib/utils.js",
+   "function": "parseExtendedQueryString",
+   "line_start": 290,
+   "line_end": 290,
+   "granularity": "line",
+   "fix_commit": "2f64f68c37c6",
+   "verdict": "drop",
+   "reason": "GHSA-pj86-cfqh-vqx6 is withdrawn: 'This advisory has been withdrawn because it describes a correctness bug, not a vulnerability with real security impact.' Prototype-property shadowing in the extended query parser is a correctness issue, so the row is not a positive."
+  }
+ ]
+}

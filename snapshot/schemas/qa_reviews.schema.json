@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["qa_id", "vulnerability_id", "snapshot_id", "repo_id", "sampled_at", "stratum", "status"],
+  "properties": {
+    "qa_id": {"type": "string", "minLength": 1},
+    "vulnerability_id": {"type": "string", "minLength": 1},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "repo_id": {"type": "string", "minLength": 1},
+    "sampled_at": {"type": "string", "format": "date-time"},
+    "stratum": {"type": "string", "minLength": 1},
+    "sample_reason": {"type": "string", "minLength": 1},
+    "status": {"enum": ["pending", "pass", "fail"]},
+    "reviewer": {"type": ["string", "null"]},
+    "reviewed_at": {"type": ["string", "null"], "format": "date-time"},
+    "findings": {"type": ["string", "null"]},
+    "action": {"enum": ["none", "downgrade", "correct", "escalate", null]}
+  },
+  "additionalProperties": true
+}

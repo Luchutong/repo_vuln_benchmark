@@ -1,0 +1,72 @@
+{
+ "generated_for": "2026-10-31 labstack/echo promotion dry-run review",
+ "source_dryrun": "workdir/promote_echo.json",
+ "apply": true,
+ "note": "Both proposals were anchored on lines of the merged fork patch that do not carry the advisory's change: the scheme advisory on the removal of a local req variable, and the JSONP advisory on Context.Scheme, which belongs to the scheme fix. Both rows are held here and were relocated and applied via promote_candidate.py (see relocated_rows). The frozen v4.15.2 tree matches the v4 backport b838391e2ead, not the v5 commit fc410094b2f3.",
+ "counts": {
+  "admit": 0,
+  "drop": 0,
+  "hold": 2,
+  "total": 2
+ },
+ "relocated_rows": [
+  {
+   "vulnerability_id": "GHSA-2ffq-g2xg-c22p",
+   "verdict": "admit",
+   "file": "middleware/secure.go",
+   "function": "SecureWithConfig",
+   "line_start": 121,
+   "line_end": 121,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/b838391e2eade87ae7e5a09d7bb5087bec271ec1",
+   "applied": true,
+   "reason": "The frozen HSTS condition trusts X-Forwarded-Proto from any client when the connection is not TLS, so a plain-HTTP request carrying the header is treated as secure; Context.Scheme has the same unconditional trust and lets direct clients bypass HTTPSRedirect. The fix requires the peer to be a trusted proxy before using forwarded scheme headers and rewrites this condition to config.HSTSMaxAge != 0 && c.Scheme() == \"https\"."
+  },
+  {
+   "vulnerability_id": "GHSA-h9g5-28mm-hx3g",
+   "verdict": "admit",
+   "file": "context.go",
+   "function": "jsonPBlob",
+   "line_start": 501,
+   "line_end": 502,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/labstack/echo/commit/b838391e2eade87ae7e5a09d7bb5087bec271ec1",
+   "applied": true,
+   "reason": "jsonPBlob writes the caller-supplied callback straight into the JavaScript body, so any route forwarding attacker-controlled input as the JSONP callback yields reflected XSS. The fix replaces these two lines with c.writeJSONPHeader, which validates the callback (empty, identifier, or dot-separated identifier path), rejects other values with a 400 wrapping ErrInvalidJSONPCallback before writing, and sets X-Content-Type-Options: nosniff."
+  }
+ ],
+ "rows": [
+  {
+   "vulnerability_id": "GHSA-2ffq-g2xg-c22p",
+   "advisory_record": "GHSA-2ffq-g2xg-c22p",
+   "repo": "labstack/echo",
+   "snapshot_version": "v4.15.2",
+   "advisory_trust_tier": "T1",
+   "file": "middleware/secure.go",
+   "function": "SecureWithConfig",
+   "line_start": 109,
+   "line_end": 109,
+   "granularity": "line",
+   "fix_commit": "b838391e2ead",
+   "verdict": "hold",
+   "reason": "Frozen 109 is only the local req := c.Request() assignment that the fix deletes as part of the refactor. The trust decision is the HSTS condition at frozen 121, which reads X-Forwarded-Proto from any client; the fix changes it to c.Scheme() == \"https\" and moves the forwarded-header trust behind proxy checks. Relocate to 121."
+  },
+  {
+   "vulnerability_id": "GHSA-h9g5-28mm-hx3g",
+   "advisory_record": "GHSA-h9g5-28mm-hx3g",
+   "repo": "labstack/echo",
+   "snapshot_version": "v4.15.2",
+   "advisory_trust_tier": "T1",
+   "file": "context.go",
+   "function": "Scheme",
+   "line_start": 291,
+   "line_end": 306,
+   "granularity": "function",
+   "fix_commit": "b838391e2ead",
+   "verdict": "hold",
+   "reason": "Context.Scheme is the sink of the other advisory in the same fork merge. The JSONP XSS sink is jsonPBlob, which writes the unvalidated callback into the body; the fix routes it through writeJSONPHeader/isValidJSONPCallback. Relocate to context.go jsonPBlob 501-502."
+  }
+ ]
+}

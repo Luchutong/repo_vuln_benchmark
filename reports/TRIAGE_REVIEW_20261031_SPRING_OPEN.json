@@ -1,0 +1,169 @@
+{
+ "report": "spring-framework v4.1.1.RELEASE open-candidate triage",
+ "generated_at": "2026-10-31T08:17:01Z",
+ "applied": true,
+ "summary": {
+  "updated": 31,
+  "skipped": 0,
+  "not_affected": 14,
+  "possible_affected": 17
+ },
+ "rows": [
+  {
+   "candidate_id": "disc2_050060bfefbe32bcebe9819b",
+   "cve": "CVE-2024-38820",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_0b115e6f8310d6dcbd0402a8",
+   "cve": "CVE-2018-1257",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_1c6522fa4c16866c05ff5d82",
+   "cve": "CVE-2025-41254",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_23eab99885d76157c43f31a0",
+   "cve": "CVE-2023-20861",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_247a6de21bd7e05fa1f686b7",
+   "cve": "CVE-2026-41852",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_32c0112373cc7bc14c652a7c",
+   "cve": "CVE-2018-1270",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_36526e79c56c2f1b1aa4dfa0",
+   "cve": "CVE-2026-41841",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_3aed71da95a346ad9ee441e3",
+   "cve": "CVE-2024-38809",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_3b488ff21952d51f81ff245c",
+   "cve": "CVE-2026-41842",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_3bfbdb28ff4e8464b6f17a86",
+   "cve": "CVE-2026-41839",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_4ab592265007fa3f42a569f1",
+   "cve": "CVE-2016-1000027",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_4db33cfe09635803a4be0786",
+   "cve": "CVE-2026-41847",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_57562532d8808658ecaa7c58",
+   "cve": "CVE-2026-41838",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_605b9e7e06a2175cfd5b59fb",
+   "cve": "CVE-2026-41840",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_6aa51f362b4b5468e27dcdd3",
+   "cve": "CVE-2026-41843",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_6ced22d92eeafad988dd858a",
+   "cve": "CVE-2024-38819",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_7488370b9a3faed70f688724",
+   "cve": "CVE-2023-20863",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_7494818a5a533a33dab50e08",
+   "cve": "CVE-2026-41850",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_77d30595836ae6d7334f17e4",
+   "cve": "CVE-2026-41844",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_7829a032e67a5fff742c25a6",
+   "cve": "CVE-2018-1275",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_85ac89cdf1aecf53864b9d8c",
+   "cve": "CVE-2022-22970",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_8664d76e6cee9921f0c70d27",
+   "cve": "CVE-2026-41851",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_98dab6c38e969dcee29d093b",
+   "cve": "CVE-2026-22741",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_a50e9f0ce0387e2abf781694",
+   "cve": "CVE-2022-22971",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_a5b1b70cecd953fb0314d9a3",
+   "cve": "CVE-2026-41855",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_ac9c5df2a03d6b22e63af912",
+   "cve": "CVE-2026-41849",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_c35b76e938898f1f2c3e0ffd",
+   "cve": "CVE-2026-41853",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_ce6ec36f44f4f9b974ce367d",
+   "cve": "CVE-2016-5007",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_e581321435abc8123e86f2f6",
+   "cve": "CVE-2026-22740",
+   "decision": "confirmed_not_affected"
+  },
+  {
+   "candidate_id": "disc2_ee011fa833421022b45e0f3e",
+   "cve": "CVE-2020-5421",
+   "decision": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_ff57ecdadd0374e84e4aa318",
+   "cve": "CVE-2026-22745",
+   "decision": "possible_affected"
+  }
+ ],
+ "skipped": []
+}

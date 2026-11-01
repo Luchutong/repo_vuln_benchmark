@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["repo_id", "snapshot_id", "coverage_mode", "source_checks", "passes", "outcome", "unresolved_relevant_candidates"],
+  "properties": {
+    "repo_id": {"type": "string", "minLength": 1},
+    "snapshot_id": {"type": "string", "minLength": 1},
+    "coverage_mode": {"const": "selected_snapshot_advisory_static"},
+    "source_checks": {"type": "array", "items": {"type": "object"}},
+    "passes": {"type": "array", "items": {"type": "object", "properties": {"new_relevant_candidate_count": {"type": "integer", "minimum": 0}}}},
+    "outcome": {"enum": ["PASS_KNOWN_SWEEP", "NEEDS_REVIEW"]},
+    "unresolved_relevant_candidates": {"type": "integer", "minimum": 0},
+    "limitations": {"type": "array", "items": {"type": "string"}}
+  },
+  "additionalProperties": true
+}

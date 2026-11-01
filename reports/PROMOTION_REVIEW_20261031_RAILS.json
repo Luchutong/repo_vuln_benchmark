@@ -1,0 +1,139 @@
+{
+ "generated_for": "2026-10-31 rails/rails promotion dry-run review",
+ "source_dryrun": "workdir/promote_rails.json",
+ "apply": true,
+ "note": "Five rows were promoted by the batch after verifying each anchor against its fix hunk and the frozen v8.0.4 tree. Four further advisories of the same 8.0.4.1 security release were anchored manually because the locator only found yarn.lock for them (see relocated_rows). CVE-2026-33195 (also fixed in 8.0.4.1) is absent from the advisory pool and is therefore not part of this snapshot.",
+ "counts": {
+  "admit": 5,
+  "drop": 0,
+  "hold": 0,
+  "total": 5
+ },
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2026-33170",
+   "verdict": "admit",
+   "file": "activesupport/lib/active_support/core_ext/string/output_safety.rb",
+   "function": "%",
+   "line_start": 131,
+   "line_end": 131,
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/rails/rails/commit/6e8a81108001d58043de9e54a06fca58962fc2db",
+   "applied": true,
+   "reason": "6e8a81108001 is the 8-0-stable copy of the fix: SafeBuffer#% now copies @html_safe to the new buffer instead of returning self.class.new(super(escaped_args)). Frozen line 131 is exactly that removed constructor call."
+  },
+  {
+   "vulnerability_id": "CVE-2026-33173",
+   "verdict": "admit",
+   "file": "activestorage/app/models/active_storage/blob.rb",
+   "function": "create_before_direct_upload!",
+   "line_start": 106,
+   "line_end": 107,
+   "evidence_type": "source_review",
+   "fix_commit": "https://github.com/rails/rails/commit/8fcb934caadc79c8cc4ce53287046d0f67005b3e",
+   "applied": true,
+   "reason": "The 8-0 fix inserts metadata = filter_metadata(metadata) at the top of create_before_direct_upload!; the frozen function passes the unfiltered client metadata straight to create!, so analyzed/identified/composed can be pre-set by the uploader."
+  },
+  {
+   "vulnerability_id": "CVE-2026-33658",
+   "verdict": "admit",
+   "file": "activestorage/app/controllers/concerns/active_storage/streaming.rb",
+   "function": "send_blob_byte_range_data",
+   "line_start": 15,
+   "line_end": 17,
+   "evidence_type": "source_review",
+   "fix_commit": "https://github.com/rails/rails/commit/d7da4ef03f99035fba5add8828646f1e9173549c",
+   "applied": true,
+   "reason": "d7da4ef03f99 is patch 06/15 of the 8.0.4.1 release and adds a ranges.length > streaming_max_ranges check; frozen 8.0.4 parses an unbounded Range list at line 15 and branches on it at 17 with no range-count limit."
+  },
+  {
+   "vulnerability_id": "CVE-2026-66066",
+   "verdict": "admit",
+   "file": "activestorage/lib/active_storage/analyzer/image_analyzer/vips.rb",
+   "function": "read_image",
+   "line_start": 23,
+   "line_end": 23,
+   "evidence_type": "source_review",
+   "fix_commit": "https://github.com/rails/rails/commit/1c01bb587206ee6eb0e1179c2cef96a6a47acb1e",
+   "applied": true,
+   "reason": "The 8-0 fix (released in 8.0.5.1) adds activestorage/lib/active_storage/vips.rb which calls Vips.block_untrusted(true), and requires it at the top of the analyzer. Frozen 8.0.4 has no such guard and loads blob content with Vips::Image.new_from_file at the anchor."
+  }
+ ],
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-33202",
+   "advisory_record": "CVE-2026-33202",
+   "repo": "rails/rails",
+   "snapshot_version": "v8.0.4",
+   "advisory_trust_tier": "T2",
+   "file": "activestorage/lib/active_storage/service/disk_service.rb",
+   "function": "delete_prefixed",
+   "line_start": 63,
+   "line_end": 63,
+   "granularity": "line",
+   "fix_commit": "8c9676b80382",
+   "verdict": "admit",
+   "reason": "Fix 8c9676b80382 'Prevent glob injection in ActiveStorage' removes the Dir.glob(path_for(\"#{prefix}*\")) call at frozen line 63 and replaces it with escaped matching; that is exactly the unescaped glob metacharacter sink described in the advisory."
+  },
+  {
+   "vulnerability_id": "CVE-2026-33174",
+   "advisory_record": "CVE-2026-33174",
+   "repo": "rails/rails",
+   "snapshot_version": "v8.0.4",
+   "advisory_trust_tier": "T2",
+   "file": "activestorage/app/controllers/concerns/active_storage/streaming.rb",
+   "function": "send_blob_byte_range_data",
+   "line_start": 17,
+   "line_end": 17,
+   "granularity": "line",
+   "fix_commit": "2cd933c366b7",
+   "verdict": "admit",
+   "reason": "Fix 2cd933c366b7 'Configurable maxmimum streaming chunk size' removes the unbounded branch at frozen line 17 and splits proxy-mode range responses into bounded chunks, which is the memory-exhaustion DoS the advisory describes for a large Range header."
+  },
+  {
+   "vulnerability_id": "CVE-2026-33168",
+   "advisory_record": "CVE-2026-33168",
+   "repo": "rails/rails",
+   "snapshot_version": "v8.0.4",
+   "advisory_trust_tier": "T2",
+   "file": "actionview/lib/action_view/helpers/tag_helper.rb",
+   "function": "tag_options",
+   "line_start": 256,
+   "line_end": 262,
+   "granularity": "function",
+   "fix_commit": "0b6f8002b52b",
+   "verdict": "admit",
+   "reason": "Fix 0b6f8002b52b 'Skip blank attribute names in Action View tag helpers' removes the 'next if v.nil?' guards at frozen 256 and 262 and replaces them with a blank-name check, so an empty attribute name is no longer emitted unescaped; the two removed lines are present verbatim at the anchor."
+  },
+  {
+   "vulnerability_id": "CVE-2026-33169",
+   "advisory_record": "GHSA-cg4j-q9v8-6v38",
+   "repo": "rails/rails",
+   "snapshot_version": "v8.0.4",
+   "advisory_trust_tier": "T2",
+   "file": "activesupport/lib/active_support/number_helper/number_to_delimited_converter.rb",
+   "function": "parts",
+   "line_start": 19,
+   "line_end": 20,
+   "granularity": "line",
+   "fix_commit": "29154f1097da13d48fdb3200760b3e3da66dcb11",
+   "verdict": "admit",
+   "reason": "Fix 29154f1097da 'Improve performance of NumberToDelimitedConverter' removes the left.gsub!(delimiter_pattern) block at frozen 19-20 and replaces it with a non-backtracking delimiter insertion, which is the quadratic-time lookahead/gsub! interaction the advisory describes (CWE-1333)."
+  },
+  {
+   "vulnerability_id": "CVE-2026-33176",
+   "advisory_record": "GHSA-2j26-frm8-cmj9",
+   "repo": "rails/rails",
+   "snapshot_version": "v8.0.4",
+   "advisory_trust_tier": "T2",
+   "file": "activesupport/lib/active_support/number_helper/number_converter.rb",
+   "function": "valid_bigdecimal",
+   "line_start": 183,
+   "line_end": 183,
+   "granularity": "line",
+   "fix_commit": "19dbab51ca086a657bb86458042bc44314916bcb",
+   "verdict": "admit",
+   "reason": "Fix 19dbab51ca08 'NumberConverter: reject scientific notation' rejects exponent notation before BigDecimal in valid_bigdecimal; frozen line 183 still calls BigDecimal(number, exception: false) for any String, so '1e10000' expands into an enormous decimal representation (CWE-400/770), as the advisory states."
+  }
+ ]
+}

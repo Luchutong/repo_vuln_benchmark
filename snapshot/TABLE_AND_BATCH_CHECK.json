@@ -1,0 +1,76 @@
+{
+  "data_files": [
+    {
+      "path": "data/candidates.jsonl",
+      "rows": 1405,
+      "schema_applied": true
+    },
+    {
+      "path": "data/discovery_coverage.jsonl",
+      "rows": 47,
+      "schema_applied": true
+    },
+    {
+      "path": "data/discovery_tasks.jsonl",
+      "rows": 47,
+      "schema_applied": false
+    },
+    {
+      "path": "data/evaluation_selection.jsonl",
+      "rows": 47,
+      "schema_applied": true
+    },
+    {
+      "path": "data/evidence.jsonl",
+      "rows": 7245,
+      "schema_applied": true
+    },
+    {
+      "path": "data/locations.jsonl",
+      "rows": 721,
+      "schema_applied": true
+    },
+    {
+      "path": "data/qa_reviews.jsonl",
+      "rows": 43,
+      "schema_applied": true
+    },
+    {
+      "path": "data/repositories.jsonl",
+      "rows": 50,
+      "schema_applied": true
+    },
+    {
+      "path": "data/selection_queue.jsonl",
+      "rows": 3,
+      "schema_applied": false
+    },
+    {
+      "path": "data/snapshot_candidate_triage.jsonl",
+      "rows": 2939,
+      "schema_applied": true
+    },
+    {
+      "path": "data/snapshot_vulnerability_status.jsonl",
+      "rows": 721,
+      "schema_applied": true
+    },
+    {
+      "path": "data/snapshots.jsonl",
+      "rows": 47,
+      "schema_applied": true
+    },
+    {
+      "path": "data/vulnerabilities.jsonl",
+      "rows": 721,
+      "schema_applied": true
+    }
+  ],
+  "data_file_count": 13,
+  "total_rows": 14036,
+  "errors": [],
+  "completed_batch_count": 34,
+  "completed_batch_known_positive_count": 434,
+  "completed_batch_unresolved_candidates": [],
+  "source_copy_hashes_verified": true
+}

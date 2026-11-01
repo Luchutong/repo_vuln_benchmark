@@ -1,0 +1,27 @@
+{
+ "repo": "netty/netty",
+ "repo_id": "1064563",
+ "snapshot_id": "snap_5c3900a03253c043",
+ "tag": "netty-4.1.137.Final",
+ "sha": "5471f0a6ffa4ab39db22c468c6c851af4ecae709",
+ "applied": true,
+ "checked_at": "2026-10-31T12:44:52Z",
+ "promoted": [],
+ "not_affected": {
+  "adv3_850a5376f5b38b86": "The advisory (CWE-626, vector CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:N/I:H/A:N) lists io.netty:netty-codec-socks \"<= 4.1.136.Final\" as vulnerable and 4.1.137.Final as patched; the frozen snapshot is the 4.1.137.Final release commit. Static check at the frozen SHA: Socks4ClientEncoder writes userId and dstAddr through sanitize(\"userId\"/\"dstAddr\") (:50-57) and sanitize (:61-70) walks every char and throws EncoderException when AsciiString.c2b(c) == 0, so an embedded NUL can no longer create a second SOCKS4 string terminator; Socks5ClientEncoder now writes the auth-method count, username length, password length and a DOMAIN destination length through writeFieldLength/checkFieldLength (:114/:120-129), which rejects lengths > 255 or < 0 instead of letting ByteBuf.writeByte truncate them to one byte and desynchronise the frame. Both hunks are part of 9e05192391 (\"Merge changes from forks (#17213) (#17217)\"), which the v4.1.136...v4.1.137 compare places in this release; tag netty-4.1.136.Final has neither (Socks4ClientEncoder there calls ByteBufUtil.writeAscii directly on msg.userId()/msg.dstAddr()). Note on scope: the advisory also claims SOCKS5 domain and username/password \"null byte and CRLF injection\", but those fields are length-prefixed per RFC 1928 (ATYP=0x03: LEN + domain) and RFC 1929 (ULEN + UNAME, PLEN + PASSWD), so NUL and CRLF are ordinary data there and the 4.1.137 patch deliberately leaves them uninspected; netty-4.1.139.Final and netty-4.2.17.Final still contain no such check, which confirms that only the SOCKS4 terminator and the SOCKS5 length bounds were treated as the defect.",
+  "adv3_33773ab2442e713d": "The advisory (CWE-297, CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N) describes the OpenSSL client path where hostname verification depends on JDK-internal trust-manager wrapping: OpenSslX509TrustManagerWrapper only builds its Unsafe-based wrapper when PlatformDependent.getUnsafeUnavailabilityCause() is null, and otherwise installs the pass-through DEFAULT (OpenSslX509TrustManagerWrapper.java:50-55, :57-145) — so on Java 25+, where Unsafe is unavailable, a plain X509TrustManager stays unwrapped. It lists io.netty:netty-handler \"<= 4.1.136.Final\" vulnerable and 4.1.137.Final patched. At the frozen 4.1.137.Final release commit the OpenSSL client context fails closed: after chooseTrustManager (:172-173), if endpointIdentificationAlgorithm is set and non-empty and !useExtendedTrustManager(manager), it throws UnsupportedOperationException(\"Endpoint identification algorithm '...' is configured but the trust manager does not support extended trust manager verification. Please provide an X509ExtendedTrustManager or use the SslProvider.JDK.\") (ReferenceCountedOpenSslClientContext.java:181-187). useExtendedTrustManager is PlatformDependent.javaVersion() >= 7 && manager instanceof X509ExtendedTrustManager (ReferenceCountedOpenSslContext.java:791-793), so the unwrapped-manager case that the advisory describes now aborts context construction instead of continuing without hostname verification. The guard is part of 9e05192391 and is absent from netty-4.1.136.Final, matching the advisory. Scope note (static fact, not a new finding): the guard is evaluated at client-context creation; a later engine setSSLParameters call reaches configureEndpointVerification (ReferenceCountedOpenSslEngine.java:2250-2266), which only sets SSL_CVERIFY_REQUIRED and does not re-check the trust-manager type."
+ },
+ "counts": {
+  "promoted": 0,
+  "not_affected": 2
+ },
+ "fixes": {
+  "GHSA-cc6x-ffm5-83wf": "9e0519239108a69b7e9bbc5e9182ee139a0d7961 (Merge changes from forks #17213/#17217)",
+  "GHSA-p85m-gvr3-788c": "9e0519239108a69b7e9bbc5e9182ee139a0d7961 (Merge changes from forks #17213/#17217)"
+ },
+ "notes": [
+  "Both advisories were published 2026-08-07 and name 4.1.137.Final as the patched release; the frozen snapshot is that release commit, so both candidates are confirmed_not_affected rather than promotable positives.",
+  "GHSA-cc6x: the frozen tree rejects NUL in SOCKS4 userId/domain and bounds every SOCKS5 field length to 0..255; both come from 9e05192391 and are missing at netty-4.1.136.Final. The advisory's SOCKS5 \"null byte/CRLF\" part concerns length-prefixed RFC 1928/1929 fields and is not patched in 4.1.139 or 4.2.17 either.",
+  "GHSA-p85m: the frozen tree throws UnsupportedOperationException at ReferenceCountedOpenSslClientContext:181-187 when endpoint identification is configured and the manager is not an X509ExtendedTrustManager, which is exactly the no-Unsafe (Java 25+) case; the guard is missing at 4.1.136."
+ ]
+}

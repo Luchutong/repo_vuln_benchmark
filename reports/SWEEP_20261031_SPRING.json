@@ -1,0 +1,302 @@
+{
+ "repo": "spring-projects/spring-framework",
+ "repo_id": "1148753",
+ "snapshot_id": "snap_0cb7894bf83f49db",
+ "tag": "4.1.1.RELEASE",
+ "sha": "993dfbfda2dfc0415409975764f2df7a7a8e622e",
+ "applied": true,
+ "checked_at": "2026-10-31T11:56:23Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2016-1000027",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-web/src/main/java/org/springframework/remoting/httpinvoker/HttpInvokerServiceExporter.java:112-121",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-web/src/main/java/org/springframework/remoting/httpinvoker/HttpInvokerServiceExporter.java#L112-L121",
+   "excerpt_head": "\tprotected RemoteInvocation readRemoteInvocation(HttpServletRequest request, InputStream is)\n\t\t\tthrows IOException, ClassNotFoundException {\n\n\t\tObjectInputStrea",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2016-1000027",
+   "candidate_id": "disc2_4ab592265007fa3f42a569f1",
+   "fix_commits": [
+    "2b051b8b321768a4cfef83077db65c6328ffd60f",
+    "5cbe90b2cd91b866a5a9586e460f311860e11cfa"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2022-22970",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-beans/src/main/java/org/springframework/beans/CachedIntrospectionResults.java:289-303",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-beans/src/main/java/org/springframework/beans/CachedIntrospectionResults.java#L289-L303",
+   "excerpt_head": "\t\t\tPropertyDescriptor[] pds = this.beanInfo.getPropertyDescriptors();\n\t\t\tfor (PropertyDescriptor pd : pds) {\n\t\t\t\tif (Class.class.equals(beanClass) &&\n\t\t\t\t\t\t(\"cl",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2022-22970",
+   "candidate_id": "disc2_85ac89cdf1aecf53864b9d8c",
+   "fix_commits": [
+    "50177b1ad3485bd44239b1756f6c14607476fcf2",
+    "83186b689f11f5e6efe7ccc08fdeb92f66fcd583"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2022-22971",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-messaging/src/main/java/org/springframework/messaging/simp/broker/SimpleBrokerMessageHandler.java:156-166",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-messaging/src/main/java/org/springframework/messaging/simp/broker/SimpleBrokerMessageHandler.java#L156-L166",
+   "excerpt_head": "\t\telse if (SimpMessageType.CONNECT.equals(messageType)) {\n\t\t\tif (logger.isDebugEnabled()) {\n\t\t\t\tlogger.debug(\"Processing \" + accessor.getShortLogMessage(EMPTY_P",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2022-22971",
+   "candidate_id": "disc2_a50e9f0ce0387e2abf781694",
+   "fix_commits": [
+    "159a99bbafdd6c01871228113d7042c3f83f360f",
+    "dc2947c52df18d5e99cad03383f7d6ba13d031fd"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2023-20861",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-expression/src/main/java/org/springframework/expression/spel/ast/OperatorMatches.java:67-69",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-expression/src/main/java/org/springframework/expression/spel/ast/OperatorMatches.java#L67-L69",
+   "excerpt_head": "\t\t\tPattern pattern = Pattern.compile((String) right);\n\t\t\tMatcher matcher = pattern.matcher((String) left);\n\t\t\treturn BooleanTypedValue.forValue(matcher.matches(",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2023-20861",
+   "candidate_id": "disc2_23eab99885d76157c43f31a0",
+   "fix_commits": [
+    "430fc25acad2e85cbdddcd52b64481691f03ebd1",
+    "52c93b1c4b24d70de233a958e60e7c5822bd274f",
+    "935c29e3ddba5b19951e54f6685c70ed45d9cbe5"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2023-20863",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-expression/src/main/java/org/springframework/expression/spel/standard/InternalSpelExpressionParser.java:118-127",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-expression/src/main/java/org/springframework/expression/spel/standard/InternalSpelExpressionParser.java#L118-L127",
+   "excerpt_head": "\tprotected SpelExpression doParseExpression(String expressionString, ParserContext context) throws ParseException {\n\t\ttry {\n\t\t\tthis.expressionString = expressio",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2023-20863",
+   "candidate_id": "disc2_7488370b9a3faed70f688724",
+   "fix_commits": [
+    "965a6392757d20f9db19241126fcc719a51eac15",
+    "b73f5fcac22555f844cf27a7eeb876cb9d7f7f7e",
+    "ebc82654282bda547fbc20a9749ab1bda886a46f"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-41254",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-websocket/src/main/java/org/springframework/web/socket/messaging/StompSubProtocolHandler.java:184-231",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-websocket/src/main/java/org/springframework/web/socket/messaging/StompSubProtocolHandler.java#L184-L231",
+   "excerpt_head": "\tpublic void handleMessageFromClient(WebSocketSession session,\n\t\t\tWebSocketMessage<?> webSocketMessage, MessageChannel outputChannel) {\n\n\t\tList<Message<byte[]>>",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-41254",
+   "candidate_id": "disc2_1c6522fa4c16866c05ff5d82",
+   "fix_commits": [
+    "c88bfc54c9256e3c07511aa303be2b136c03e0e2"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-22745",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-core/src/main/java/org/springframework/core/io/FileSystemResource.java:105-107",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-core/src/main/java/org/springframework/core/io/FileSystemResource.java#L105-L107",
+   "excerpt_head": "\tpublic boolean isReadable() {\n\t\treturn (this.file.canRead() && !this.file.isDirectory());\n\t}",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-22745",
+   "candidate_id": "disc2_ff57ecdadd0374e84e4aa318",
+   "fix_commits": [
+    "684b1e8a4b3df9589f3e9abb8c09a5e98a47e4b5"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41841",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-webmvc/src/main/java/org/springframework/web/servlet/resource/CachingResourceResolver.java:64-65",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-webmvc/src/main/java/org/springframework/web/servlet/resource/CachingResourceResolver.java#L64-L65",
+   "excerpt_head": "\t\tString key = RESOLVED_RESOURCE_CACHE_KEY_PREFIX + requestPath;\n\t\tResource resource = this.cache.get(key, Resource.class);",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41841",
+   "candidate_id": "disc2_36526e79c56c2f1b1aa4dfa0",
+   "fix_commits": [
+    "46867fad81dc8a3c9552d96750f5e37b1a4edd75"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41842",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-webmvc/src/main/java/org/springframework/web/servlet/resource/AbstractVersionStrategy.java:114-116",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-webmvc/src/main/java/org/springframework/web/servlet/resource/AbstractVersionStrategy.java#L114-L116",
+   "excerpt_head": "\t\tpublic String removeVersion(String requestPath, String version) {\n\t\t\treturn StringUtils.delete(requestPath, \"-\" + version);\n\t\t}",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41842",
+   "candidate_id": "disc2_3b488ff21952d51f81ff245c",
+   "fix_commits": [
+    "8d51f47357e4830076b9630ffc8bfbb2a2831260"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41843",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-webmvc/src/main/java/org/springframework/web/servlet/resource/VersionResourceResolver.java:151-156",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-webmvc/src/main/java/org/springframework/web/servlet/resource/VersionResourceResolver.java#L151-L156",
+   "excerpt_head": "\t\tString simplePath = versionStrategy.removeVersion(requestPath, candidateVersion);\n\t\tif (logger.isTraceEnabled()) {\n\t\t\tlogger.trace(\"Extracted version from pat",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41843",
+   "candidate_id": "disc2_6aa51f362b4b5468e27dcdd3",
+   "fix_commits": [
+    "8d51f47357e4830076b9630ffc8bfbb2a2831260"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41844",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-webmvc/src/main/java/org/springframework/web/servlet/view/DefaultRequestToViewNameTranslator.java:175-178",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-webmvc/src/main/java/org/springframework/web/servlet/view/DefaultRequestToViewNameTranslator.java#L175-L178",
+   "excerpt_head": "\tpublic String getViewName(HttpServletRequest request) {\n\t\tString lookupPath = this.urlPathHelper.getLookupPathForRequest(request);\n\t\treturn (this.prefix + tran",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41844",
+   "candidate_id": "disc2_77d30595836ae6d7334f17e4",
+   "fix_commits": [
+    "3aaec987651cf82fd4ed7e0ed9b3deddcdf58853",
+    "7add5243b9db13a9f8e765c8ab8545c8e8fe606b"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41850",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-expression/src/main/java/org/springframework/expression/spel/ExpressionState.java:189-200",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-expression/src/main/java/org/springframework/expression/spel/ExpressionState.java#L189-L200",
+   "excerpt_head": "\tpublic TypedValue operate(Operation op, Object left, Object right) throws EvaluationException {\n\t\tOperatorOverloader overloader = this.relatedContext.getOperat",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41850",
+   "candidate_id": "disc2_7494818a5a533a33dab50e08",
+   "fix_commits": [
+    "76a36dfd707cddbe7118a81c2e055b36501d2cff",
+    "2c18c33ce0f89bf718c184190cfb7ed49b4276fb"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41853",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-core/src/main/java/org/springframework/util/MimeTypeUtils.java:205-241",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-core/src/main/java/org/springframework/util/MimeTypeUtils.java#L205-L241",
+   "excerpt_head": "\tpublic static MimeType parseMimeType(String mimeType) {\n\t\tif (!StringUtils.hasLength(mimeType)) {\n\t\t\tthrow new InvalidMimeTypeException(mimeType, \"'mimeType' m",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41853",
+   "candidate_id": "disc2_c35b76e938898f1f2c3e0ffd",
+   "fix_commits": [
+    "8a93a889620cb5ca9a5f1060b1cd815170e28472"
+   ]
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-41855",
+   "snapshot_id": "snap_0cb7894bf83f49db",
+   "location": "spring-jms/src/main/java/org/springframework/jms/support/converter/MappingJackson2MessageConverter.java:362-377",
+   "permalink": "https://github.com/spring-projects/spring-framework/blob/993dfbfda2dfc0415409975764f2df7a7a8e622e/spring-jms/src/main/java/org/springframework/jms/support/converter/MappingJackson2MessageConverter.java#L362-L377",
+   "excerpt_head": "\tprotected JavaType getJavaTypeForMessage(Message message) throws JMSException {\n\t\tString typeId = message.getStringProperty(this.typeIdPropertyName);\n\t\tif (typ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-41855",
+   "candidate_id": "disc2_a5b1b70cecd953fb0314d9a3",
+   "fix_commits": [
+    "9bec52b1ec741976658e916850b31f41afd2da2d"
+   ]
+  }
+ ],
+ "not_affected": {
+  "disc2_ee011fa833421022b45e0f3e": "The advisory describes a bypass of the CVE-2015-5211 RFD protection through a \";jsessionid=\" path parameter: the fixed 4.3.29/5.x code must strip the session id before the RFD content-disposition check runs. At 4.1.1 neither half exists: UrlPathHelper.removeSemicolonContent (spring-web/src/main/java/org/springframework/web/util/UrlPathHelper.java:454-478) drops all \";\" content in the default removeSemicolonContent branch and always removes \";jsessionid=\" through removeJsessionid in the disabled branch, and the RFD protection (addContentDispositionHeader in RequestResponseBodyMethodProcessor) was only added by the CVE-2015-5211 fix, after this snapshot. The 2020 fix eb11c6fa2330 reinstates exactly the jsessionid removal that 4.1.1 already performs, so the bypass mechanism does not exist here; the underlying RFD issue is the separately tracked CVE-2015-5211 row.",
+  "disc2_8664d76e6cee9921f0c70d27": "The advisory describes unbounded growth of a SpEL pattern cache. That cache is the parser-level ConcurrentMap/ConcurrentLruCache introduced by the CVE-2023-20861 fix in 5.2.23; at 4.1.1 OperatorMatches.getValueInternal calls Pattern.compile((String) right) inline (spring-expression/src/main/java/org/springframework/expression/spel/ast/OperatorMatches.java:67) and no pattern, expression or AST cache exists in the spring-expression module, so there is no cache whose growth can exhaust memory. The 6.2.19 fix e8f08b415849/ec89834fa8f6 bounds the cache (MAX_PATTERN_CACHE_SIZE = 256) that a later release introduced, which is a regression fix for 5.2.23+ code, not a pre-image present at 4.1.1."
+ },
+ "left_open": {
+  "disc2_ac9c5df2a03d6b22e63af912": "Vendor page scope is \"5.3.48 and earlier\", so 4.1.1.RELEASE is nominally inside the affected range, but the only published fix is 5.3.49 Enterprise Support Only; there is no public commit, the v5.3.48/v5.3.49 tags are not public, and no source hunk shows where the SpEL integer overflow is. The CWE-190 defect cannot be located by static review at 4.1.1 without the fix diff, so the row stays open rather than being promoted or refuted."
+ },
+ "counts": {
+  "confirmed_not_affected": 2,
+  "possible_affected": 1
+ },
+ "fixes": {
+  "CVE-2016-1000027": [
+   "2b051b8b321768a4cfef83077db65c6328ffd60f",
+   "5cbe90b2cd91b866a5a9586e460f311860e11cfa"
+  ],
+  "CVE-2022-22970": [
+   "50177b1ad3485bd44239b1756f6c14607476fcf2",
+   "83186b689f11f5e6efe7ccc08fdeb92f66fcd583"
+  ],
+  "CVE-2022-22971": [
+   "159a99bbafdd6c01871228113d7042c3f83f360f",
+   "dc2947c52df18d5e99cad03383f7d6ba13d031fd"
+  ],
+  "CVE-2023-20861": [
+   "430fc25acad2e85cbdddcd52b64481691f03ebd1",
+   "52c93b1c4b24d70de233a958e60e7c5822bd274f",
+   "935c29e3ddba5b19951e54f6685c70ed45d9cbe5"
+  ],
+  "CVE-2023-20863": [
+   "965a6392757d20f9db19241126fcc719a51eac15",
+   "b73f5fcac22555f844cf27a7eeb876cb9d7f7f7e",
+   "ebc82654282bda547fbc20a9749ab1bda886a46f"
+  ],
+  "CVE-2025-41254": [
+   "c88bfc54c9256e3c07511aa303be2b136c03e0e2"
+  ],
+  "CVE-2026-22745": [
+   "684b1e8a4b3df9589f3e9abb8c09a5e98a47e4b5"
+  ],
+  "CVE-2026-41841": [
+   "46867fad81dc8a3c9552d96750f5e37b1a4edd75"
+  ],
+  "CVE-2026-41842": [
+   "8d51f47357e4830076b9630ffc8bfbb2a2831260"
+  ],
+  "CVE-2026-41843": [
+   "8d51f47357e4830076b9630ffc8bfbb2a2831260"
+  ],
+  "CVE-2026-41844": [
+   "3aaec987651cf82fd4ed7e0ed9b3deddcdf58853",
+   "7add5243b9db13a9f8e765c8ab8545c8e8fe606b"
+  ],
+  "CVE-2026-41850": [
+   "76a36dfd707cddbe7118a81c2e055b36501d2cff",
+   "2c18c33ce0f89bf718c184190cfb7ed49b4276fb"
+  ],
+  "CVE-2026-41853": [
+   "8a93a889620cb5ca9a5f1060b1cd815170e28472"
+  ],
+  "CVE-2026-41855": [
+   "9bec52b1ec741976658e916850b31f41afd2da2d"
+  ]
+ },
+ "notes": [
+  "The frozen SHA is the 4.1.1.RELEASE tag commit (2014-10-01); the cached source is a shallow single-commit clone, so all fix hunks were fetched through the GitHub API and compared against a direct read of the frozen tree.",
+  "Fourteen rows are promoted with a real 4.1.1 file:line/function anchor. Eleven anchor on code that the 5.2.x/5.3.x/6.1.x/6.2.x fixes change; CVE-2016-1000027 (removal at 6.0.0) and CVE-2022-22970 (guard rewritten by 50177b1ad3) are anchored on a direct source review of the sink the advisory names.",
+  "The vendor pages for the 2026-418xx batch list \"5.3.48 and earlier\", which includes 4.1.1.RELEASE. The GHSA-parsed text narrows some of them to \"5.3.0 through 5.3.48\"; where the two disagree the vendor page is used and the GHSA range is recorded in the row.",
+  "CVE-2026-41849 stays open: its vendor range covers 4.1.1 but the only fix is 5.3.49 Enterprise and no public commit reveals the CWE-190 overflow site.",
+  "CVE-2020-5421 is closed not affected because its jsessionid bypass targets the CVE-2015-5211 RFD check that 4.1.1 does not have; CVE-2026-41851 is closed not affected because the unbounded pattern cache it describes was introduced in 5.2.23 and no cache exists at 4.1.1.",
+  "Severity levels and vectors are taken verbatim from the GHSA database_specific severity and CVSS_V3 vector; no numeric base score is derived here, so severity.status stays unknown unless a publisher score exists in the record."
+ ]
+}

@@ -1,0 +1,49 @@
+{
+ "repo": "jenkinsci/jenkins",
+ "repo_id": "1103607",
+ "snapshot_id": "snap_d9b0ffa82cd068d0",
+ "tag": "jenkins-2.441",
+ "sha": "3b0de10df3bedba515e13032104d4d84f83045be",
+ "applied": true,
+ "checked_at": "2026-10-31T11:30:38Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2025-67639",
+   "snapshot_id": "snap_d9b0ffa82cd068d0",
+   "location": "core/src/main/java/hudson/security/AuthenticationProcessingFilter2.java:55-63",
+   "permalink": "https://github.com/jenkinsci/jenkins/blob/3b0de10df3bedba515e13032104d4d84f83045be/core/src/main/java/hudson/security/AuthenticationProcessingFilter2.java#L55-L63",
+   "excerpt_head": "public final class AuthenticationProcessingFilter2 extends UsernamePasswordAuthenticationFilter {\n\n    @SuppressFBWarnings(value = \"HARD_CODE_PASSWORD\", justifi",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2025-67639",
+   "candidate_id": "disc2_aef565bb5e2c8ffabd3b8b28",
+   "fix_commits": [
+    "https://github.com/jenkinsci/jenkins/commit/31598feb0aa514d8978d2c27a4c9a5a9b8d80a57"
+   ]
+  }
+ ],
+ "duplicates": {
+  "sweep_e9303dbdf684b561": "disc2_2224e6601a4776dd178ef34f"
+ },
+ "not_affected": {
+  "disc2_47d0d2b10db3d2d894a2b0a7": "SECURITY-3625 fixes the authenticated-user profile dropdown by wrapping the action list of core/src/main/resources/jenkins/model/navigation/UserAction/jumplist.jelly in app.hasPermission(app.READ). Neither that file nor the jenkins/model/navigation package exists at 2.441 (git history: the file was introduced on 2025-04-18 by c42ab43c49, \"Redesign the Jenkins header (#10245)\"), and no jumplist/JumpList symbol appears anywhere under core/src at the SHA. The 2.441 header (core/src/main/resources/jenkins/views/JenkinsHeader/headerContent.jelly) renders only the profile link and the logout link, so the dropdown menu whose options the advisory says leak (e.g. whether the Credentials plugin is installed) does not exist at this snapshot."
+ },
+ "out_of_scope": {
+  "disc2_563a4eef3001d061833821bd": "SECURITY-3424 fixes the console log formatter in the io.jenkins.lib:support-log-formatter artifact: commit a2d1bce6 changes only version properties, support-log-formatter 1.3 -> 1.3.1 in war/pom.xml (plus winstone 8.13 -> 8.13.1 in pom.xml). The formatter class is not in this repository; core only loads it reflectively by FQCN at core/src/main/java/hudson/WebAppMain.java:144 and copies the jar in war/pom.xml:564-576, where 2.441 pins version 1.2. No source file that formats log records exists in the tree, so the vulnerable code is in the dependency.",
+  "disc2_f994da4f217884ea196762e9": "The arbitrary file read is ClassLoaderProxy#fetchJar in the Remoting library (org.jenkins-ci.main:remoting), not in Jenkins core. The core-side fix 5d26b53a only bumps the bundled remoting 3256.v88a_f6e922152 -> 3256.3258.v858f3c9a_f69d and adds jenkins/security/s2m/JarURLValidatorImpl.java plus PluginManager.ClassLoader#isPluginJar; at 2.441 pom.xml:89 pins remoting 3206.vb_15dcf73f6a_9, no JarURLValidator type exists, and core contains no fetchJar implementation to anchor. The vulnerable class is in the remoting repository.",
+  "sweep_77c380ed78f8ebca": "The JSON and Python renderings are produced by Stapler, not by Jenkins core: Api.doJson (core/src/main/java/hudson/model/Api.java:227-234) and Api.doPython (:239-243) call StaplerResponse.serveExposedBean(..., Flavor.JSON/JSONP/PYTHON), and the serializer is org.kohsuke.stapler:json-lib. The core fix commit 56fe87ef contains only a regression test (test/src/test/java/hudson/model/Security3879Test.java) and no production change; the map-key escaping ships in the Stapler/json-lib dependency, which is not source in this repository."
+ },
+ "fixes": {
+  "CVE-2025-67639": [
+   "https://github.com/jenkinsci/jenkins/commit/31598feb0aa514d8978d2c27a4c9a5a9b8d80a57"
+  ]
+ },
+ "notes": [
+  "The frozen SHA is the jenkins-2.441 tag commit (compare jenkins-2.441...3b0de10d -> identical).",
+  "CVE-2025-67639 is promoted at AuthenticationProcessingFilter2.java:55-63; the login POST to j_spring_security_check is authenticated without a crumb, and login.jelly:77-78 posts no crumb. The fix 31598feb is the 2.541 / 2.528.3 change (attemptAuthentication + hidden crumb fields).",
+  "CVE-2025-59475 is not affected at 2.441: the fixed jumplist.jelly and the jenkins.model.navigation package were introduced by the 2025-04-18 header redesign c42ab43c, after this snapshot.",
+  "CVE-2025-59476, CVE-2024-43044 and CVE-2026-84655 are dependency-only: support-log-formatter (war/pom.xml:573-574 pins 1.2), remoting (pom.xml:89 pins 3206.vb_15dcf73f6a_9, fetchJar is in remoting), and Stapler/json-lib (Api.doJson/doPython call serveExposedBean; the core fix commit 56fe87ef is test-only).",
+  "CVE-2026-70427 is a duplicate of the CVE-2026-33001 GT row at FilePath.readFromTar:3082: the advisory calls it an incomplete fix of SECURITY-3657, and the 3657 guard its hunk patches does not exist at 2.441, where the whole extraction path is unvalidated."
+ ]
+}

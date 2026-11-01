@@ -1,0 +1,564 @@
+{
+ "report": "apache/tomcat 9.0.98 batch 1",
+ "generated_at": "2026-10-31T08:26:59Z",
+ "applied": true,
+ "summary": {
+  "rows": 23,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2025-49124",
+   "candidate_id": "disc2_698317a3bf474359f806c342",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "res/install-win/tomcat.nsi",
+   "function": null,
+   "line": 378,
+   "anchor_class": "executable path qualified with $SYSDIR in every icacls invocation",
+   "patch_file": "res/install-win/tomcat.nsi",
+   "fix_commit": "28726cc2e63bed68771f5eb0f65a78dc70805718",
+   "fixed_version": "9.0.106",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-426"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 res/install-win/tomcat.nsi:378 is the frozen pre-image of the fix in 28726cc2e63b (9.0.106). executable path qualified with $SYSDIR in every icacls invocation. The marker '\\'$SYSDIR\\\\icacls \"$INSTDIR\" /inheritance:r' is absent from the frozen scope Windows NSIS installer script: the defect is an unqualified icacls.exe invocation in the post-install Section, which has no enclosing function and present in the fix patch for res/install-win/tomcat.nsi (added lines or hunk post-image). 9.0.23 - 9.0.105; fixed in 9.0.106 (28726cc2e63b); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-61795",
+   "candidate_id": "disc2_cbd675cc0ad83bd6044b9483",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/connector/Request.java",
+   "function": "parseParts",
+   "line": 2625,
+   "anchor_class": "FileItem list hoisted out of try, explicit delete() in a finally block",
+   "patch_file": "java/org/apache/catalina/connector/Request.java",
+   "fix_commit": "afa422bd7ca1eef0f507259c682fd876494d9c3b",
+   "fixed_version": "9.0.110",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-459"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/connector/Request.java:2625 is the frozen pre-image of the fix in afa422bd7ca1 (9.0.110). FileItem list hoisted out of try, explicit delete() in a finally block. The marker 'item.delete();' is absent from the frozen scope parseParts and present in the fix patch for java/org/apache/catalina/connector/Request.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.109; fixed in 9.0.110 (afa422bd7ca1); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-25854",
+   "candidate_id": "disc2_7bac6182af73d49450eb5141",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/valves/LoadBalancerDrainingValve.java",
+   "function": "invoke",
+   "line": 212,
+   "anchor_class": "redirect target passes through collapseLeadingSlashes before use",
+   "patch_file": "java/org/apache/catalina/valves/LoadBalancerDrainingValve.java",
+   "fix_commit": "c5a45ae68d07f7a07be2a875e5b6772d66c4e5d0",
+   "fixed_version": "9.0.116",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-601"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/valves/LoadBalancerDrainingValve.java:212 is the frozen pre-image of the fix in c5a45ae68d07 (9.0.116). redirect target passes through collapseLeadingSlashes before use. The marker 'collapseLeadingSlashes(request.getRequestURI())' is absent from the frozen scope invoke and present in the fix patch for java/org/apache/catalina/valves/LoadBalancerDrainingValve.java (added lines or hunk post-image). 9.0.0.M23 - 9.0.115; fixed in 9.0.116 (c5a45ae68d07); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-34483",
+   "candidate_id": "disc2_d8a9cc34835fc35dae6cadc3",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/valves/AbstractAccessLogValve.java",
+   "function": "addElement",
+   "line": 1158,
+   "anchor_class": "URI and query appends routed through the JSON escaping helper",
+   "patch_file": "java/org/apache/catalina/valves/AbstractAccessLogValve.java",
+   "fix_commit": "97566842589d0b80de138ca719378861fd017d68",
+   "fixed_version": "9.0.117",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-117"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/valves/AbstractAccessLogValve.java:1158 is the frozen pre-image of the fix in 97566842589d (9.0.117). URI and query appends routed through the JSON escaping helper. The marker 'escapeAndAppend(request.getRequestURI(), buf)' is absent from the frozen scope addElement and present in the fix patch for java/org/apache/catalina/valves/AbstractAccessLogValve.java (added lines or hunk post-image). 9.0.40 - 9.0.116; fixed in 9.0.117 (97566842589d); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-43512",
+   "candidate_id": "disc2_99f4c176c89b05483241d064",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/realm/RealmBase.java",
+   "function": "getDigest",
+   "line": 1154,
+   "anchor_class": "null-password short cut added before the digest is computed",
+   "patch_file": "java/org/apache/catalina/realm/RealmBase.java",
+   "fix_commit": "6565a6cb6499e56fe2f34457cec99f9d1c4f39e9",
+   "fixed_version": "9.0.118",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-287"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/realm/RealmBase.java:1154 is the frozen pre-image of the fix in 6565a6cb6499 (9.0.118). null-password short cut added before the digest is computed. The marker '// Short-cut null password case' is absent from the frozen scope getDigest and present in the fix patch for java/org/apache/catalina/realm/RealmBase.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.117; fixed in 9.0.118 (6565a6cb6499); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-65905",
+   "candidate_id": "disc2_9f744883a78f0be419b72941",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/authenticator/DigestAuthenticator.java",
+   "function": "nonceCountValid",
+   "line": 735,
+   "anchor_class": "count increment moved before the window slot is cleared",
+   "patch_file": "java/org/apache/catalina/authenticator/DigestAuthenticator.java",
+   "fix_commit": "a31181af45e494b6035575519f6d1d33875f050d",
+   "fixed_version": "9.0.121",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-294"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/authenticator/DigestAuthenticator.java:735 is the frozen pre-image of the fix in a31181af45e4 (9.0.121). count increment moved before the window slot is cleared. The marker 'count++;\\n                seen[count % seen.length] = false;' is absent from the frozen scope nonceCountValid and present in the fix patch for java/org/apache/catalina/authenticator/DigestAuthenticator.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.120; fixed in 9.0.121 (a31181af45e4); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-31650",
+   "candidate_id": "sweep_c4afe1f7439ad976",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/coyote/http2/Http2Parser.java",
+   "function": "readPriorityUpdateFrame",
+   "line": 480,
+   "anchor_class": "priority parse guarded by an IllegalArgumentException catch",
+   "patch_file": "java/org/apache/coyote/http2/Http2Parser.java",
+   "fix_commit": "40ae788c2e64d018b4e58cd4210bb96434d0100d",
+   "fixed_version": "9.0.104",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-401"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/coyote/http2/Http2Parser.java:480 is the frozen pre-image of the fix in 40ae788c2e64 (9.0.104). priority parse guarded by an IllegalArgumentException catch. The marker '} catch (IllegalArgumentException iae) {' is absent from the frozen scope readPriorityUpdateFrame and present in the fix patch for java/org/apache/coyote/http2/Http2Parser.java (added lines or hunk post-image). 9.0.76 - 9.0.102; fixed in 9.0.104 (40ae788c2e64); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-52434",
+   "candidate_id": "sweep_47e63d7a35cccd9c",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/tomcat/util/net/AprEndpoint.java",
+   "function": "stopInternal",
+   "line": 632,
+   "anchor_class": "socket close and populate methods serialised on the wrapper lock",
+   "patch_file": "java/org/apache/tomcat/util/net/AprEndpoint.java",
+   "fix_commit": "8a83c3c42d20762782678932c14005cd3397a018",
+   "fixed_version": "9.0.107",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-362"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/tomcat/util/net/AprEndpoint.java:632 is the frozen pre-image of the fix in 8a83c3c42d20 (9.0.107). socket close and populate methods serialised on the wrapper lock. The marker 'Lock lock = getLock();' is absent from the frozen scope stopInternal and present in the fix patch for java/org/apache/tomcat/util/net/AprEndpoint.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.106; fixed in 9.0.107 (8a83c3c42d20); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-53506",
+   "candidate_id": "sweep_af2a4983f6609ccd",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/coyote/http2/Http2UpgradeHandler.java",
+   "function": "Http2UpgradeHandler",
+   "line": 163,
+   "anchor_class": "initial local settings written with force=true instead of the ACK-gated setter",
+   "patch_file": "java/org/apache/coyote/http2/Http2UpgradeHandler.java",
+   "fix_commit": "434772930f362145516dd60681134e7f0cf8115b",
+   "fixed_version": "9.0.107",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-770"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/coyote/http2/Http2UpgradeHandler.java:163 is the frozen pre-image of the fix in 434772930f36 (9.0.107). initial local settings written with force=true instead of the ACK-gated setter. The marker 'localSettings.set(Setting.MAX_CONCURRENT_STREAMS, protocol.getMaxConcurrentStreams(), true);' is absent from the frozen scope Http2UpgradeHandler and present in the fix patch for java/org/apache/coyote/http2/Http2UpgradeHandler.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.106; fixed in 9.0.107 (434772930f36); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2025-48989",
+   "candidate_id": "sweep_dbff243f406ccccb",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/coyote/http2/Http2UpgradeHandler.java",
+   "function": "headersContinue",
+   "line": 1648,
+   "anchor_class": "RESET frames added to the overhead accounting and CONTINUATION split from HEADERS",
+   "patch_file": "java/org/apache/coyote/http2/Http2UpgradeHandler.java",
+   "fix_commit": "f36b8a4eea4ce8a0bc035079e1d259d29f5eb7bf",
+   "fixed_version": "9.0.108",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-770"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/coyote/http2/Http2UpgradeHandler.java:1648 is the frozen pre-image of the fix in f36b8a4eea4c (9.0.108). RESET frames added to the overhead accounting and CONTINUATION split from HEADERS. The marker 'increaseOverheadCount(FrameType.RST, getProtocol().getOverheadResetFactor());' is absent from the frozen scope headersContinue and present in the fix patch for java/org/apache/coyote/http2/Http2UpgradeHandler.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.107; fixed in 9.0.108 (f36b8a4eea4c); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-24880",
+   "candidate_id": "sweep_b8457665b2e09944",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/coyote/http11/filters/ChunkedInputFilter.java",
+   "function": "parseChunkHeader",
+   "line": 351,
+   "anchor_class": "boolean extension flag replaced by the ChunkExtension parser state",
+   "patch_file": "java/org/apache/coyote/http11/filters/ChunkedInputFilter.java",
+   "fix_commit": "1b586d6aa8ae65726da5fa8799427b5d4718478a",
+   "fixed_version": "9.0.116",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-444"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/coyote/http11/filters/ChunkedInputFilter.java:351 is the frozen pre-image of the fix in 1b586d6aa8ae (9.0.116). boolean extension flag replaced by the ChunkExtension parser state. The marker 'extensionState = State.PRE_NAME;' is absent from the frozen scope parseChunkHeader and present in the fix patch for java/org/apache/coyote/http11/filters/ChunkedInputFilter.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.115; fixed in 9.0.116 (1b586d6aa8ae); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-29146",
+   "candidate_id": "sweep_fdc98576bbc77f77",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java",
+   "function": "createEncryptionManager",
+   "line": 328,
+   "anchor_class": "default cipher mode changed from CBC to GCM",
+   "patch_file": "java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java",
+   "fix_commit": "0112ed22abfccc3d54e44d91eb08804d0886acd1",
+   "fixed_version": "9.0.116",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-327"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java:328 is the frozen pre-image of the fix in 0112ed22abfc (9.0.116). default cipher mode changed from CBC to GCM. The marker 'algorithmMode = \"GCM\";' is absent from the frozen scope createEncryptionManager and present in the fix patch for java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java (added lines or hunk post-image). 9.0.13 - 9.0.115; fixed in 9.0.116 (0112ed22abfc); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-34487",
+   "candidate_id": "sweep_52b60167fc483911",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/tribes/membership/cloud/AbstractStreamProvider.java",
+   "function": "openConnection",
+   "line": 84,
+   "anchor_class": "request headers removed from the connection debug message",
+   "patch_file": "java/org/apache/catalina/tribes/membership/cloud/AbstractStreamProvider.java",
+   "fix_commit": "f593292a082e5ef9336a8db2b4b522f7f3e36976",
+   "fixed_version": "9.0.117",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-532"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/tribes/membership/cloud/AbstractStreamProvider.java:84 is the frozen pre-image of the fix in f593292a082e (9.0.117). request headers removed from the connection debug message. The marker 'log.debug(sm.getString(\"abstractStream.connection\", getClass().getSimpleName(), url,\\n                    Integer.toString(connectTimeout), Integer.toString(readTimeout)));' is absent from the frozen scope openConnection and present in the fix patch for java/org/apache/catalina/tribes/membership/cloud/AbstractStreamProvider.java (added lines or hunk post-image). 9.0.13 - 9.0.116; fixed in 9.0.117 (f593292a082e); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-41293",
+   "candidate_id": "sweep_d3de69636576c3fc",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/coyote/http2/HpackDecoder.java",
+   "function": "decode",
+   "line": 117,
+   "anchor_class": "HPACK string reader validates field names against the HTTP token rule",
+   "patch_file": "java/org/apache/coyote/http2/HpackDecoder.java",
+   "fix_commit": "cf9452443bcbf3b1a4b435ef7d624364f1b65ca3",
+   "fixed_version": "9.0.118",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-20"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/coyote/http2/HpackDecoder.java:117 is the frozen pre-image of the fix in cf9452443bcb (9.0.118). HPACK string reader validates field names against the HTTP token rule. The marker 'String headerValue = readHpackString(buffer, false);' is absent from the frozen scope decode and present in the fix patch for java/org/apache/coyote/http2/HpackDecoder.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.117; fixed in 9.0.118 (cf9452443bcb); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-55276",
+   "candidate_id": "sweep_62d31d00a753291a",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/tomcat/util/descriptor/web/WebXml.java",
+   "function": "toXml",
+   "line": 1122,
+   "anchor_class": "auth-constraint element emitted for special roles and for empty constraints",
+   "patch_file": "java/org/apache/tomcat/util/descriptor/web/WebXml.java",
+   "fix_commit": "3ca8cae5fd3796b1bd9759e11b0e238161e7a39c",
+   "fixed_version": "9.0.119",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-223"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/tomcat/util/descriptor/web/WebXml.java:1122 is the frozen pre-image of the fix in 3ca8cae5fd37 (9.0.119). auth-constraint element emitted for special roles and for empty constraints. The marker 'if (constraint.findAuthRoles().length > 0 || constraint.getAllRoles() || constraint.getAuthenticatedUsers()) {' is absent from the frozen scope toXml and present in the fix patch for java/org/apache/tomcat/util/descriptor/web/WebXml.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.118; fixed in 9.0.119 (3ca8cae5fd37); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-55955",
+   "candidate_id": "sweep_561d7bf4db9f7e3f",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java",
+   "function": "messageReceived",
+   "line": 140,
+   "anchor_class": "timestamp and replay window checked before a decrypted message is delivered",
+   "patch_file": "java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java",
+   "fix_commit": "6a7a432cd7fb4ef358dc12e8da99cf3ab320f3fe",
+   "fixed_version": "9.0.119",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-294"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java:140 is the frozen pre-image of the fix in 6a7a432cd7fb (9.0.119). timestamp and replay window checked before a decrypted message is delivered. The marker 'if (!encryptionManager.checkIncomingMessage(encryptedData, trustedTimestamp)) {' is absent from the frozen scope messageReceived and present in the fix patch for java/org/apache/catalina/tribes/group/interceptors/EncryptInterceptor.java (added lines or hunk post-image). 9.0.13 - 9.0.118; fixed in 9.0.119 (6a7a432cd7fb); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-55956",
+   "candidate_id": "sweep_4ce7b222506584b7",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/realm/RealmBase.java",
+   "function": "findSecurityConstraints",
+   "line": 737,
+   "anchor_class": "default-servlet constraint match now requires the collection method to match",
+   "patch_file": "java/org/apache/catalina/realm/RealmBase.java",
+   "fix_commit": "a0374c450970760efafbd8806a1db278830ba7bd",
+   "fixed_version": "9.0.119",
+   "severity": {
+    "level": "medium",
+    "cwe": "CWE-284"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/realm/RealmBase.java:737 is the frozen pre-image of the fix in a0374c450970 (9.0.119). default-servlet constraint match now requires the collection method to match. The marker 'if (pattern.equals(\"/\") && securityCollection.findMethod(method)) {' is absent from the frozen scope findSecurityConstraints and present in the fix patch for java/org/apache/catalina/realm/RealmBase.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.118; fixed in 9.0.119 (a0374c450970); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-65183",
+   "candidate_id": "sweep_2f31be384e8cbfec",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/tomcat/util/net/NioEndpoint.java",
+   "function": "initServerSocket",
+   "line": 256,
+   "anchor_class": "parent-directory permissions applied when the socket path is created",
+   "patch_file": "java/org/apache/tomcat/util/net/NioEndpoint.java",
+   "fix_commit": "0206022f3aae65c5e0f23334b080849fdaaef444",
+   "fixed_version": "9.0.121",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-367"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/tomcat/util/net/NioEndpoint.java:256 is the frozen pre-image of the fix in 0206022f3aae (9.0.121). parent-directory permissions applied when the socket path is created. The marker 'getUnixDomainSocketParentPermissionsInternal()' is absent from the frozen scope initServerSocket and present in the fix patch for java/org/apache/tomcat/util/net/NioEndpoint.java (added lines or hunk post-image). 9.0.42 - 9.0.120; fixed in 9.0.121 (0206022f3aae); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-65927",
+   "candidate_id": "sweep_a9fe980c6e125607",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/valves/rewrite/RewriteValve.java",
+   "function": "invoke",
+   "line": 313,
+   "anchor_class": "next-rule restart index changed from 0 to -1",
+   "patch_file": "java/org/apache/catalina/valves/rewrite/RewriteValve.java",
+   "fix_commit": "ffa86dc683645f784e36ec87236d51ea866dcadf",
+   "fixed_version": "9.0.121",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/valves/rewrite/RewriteValve.java:313 is the frozen pre-image of the fix in ffa86dc68364 (9.0.121). next-rule restart index changed from 0 to -1. The marker 'i = -1;' is absent from the frozen scope invoke and present in the fix patch for java/org/apache/catalina/valves/rewrite/RewriteValve.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.120; fixed in 9.0.121 (ffa86dc68364); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-66422",
+   "candidate_id": "sweep_dd151582c57beeef",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/realm/RealmBase.java",
+   "function": "hasRole",
+   "line": 890,
+   "anchor_class": "role alias resolved on the Context instead of the Wrapper",
+   "patch_file": "java/org/apache/catalina/realm/RealmBase.java",
+   "fix_commit": "bd05d5ced387da0c967bb232f7e3cd57685d2a7b",
+   "fixed_version": "9.0.121",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-863"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/realm/RealmBase.java:890 is the frozen pre-image of the fix in bd05d5ced387 (9.0.121). role alias resolved on the Context instead of the Wrapper. The marker 'String realRole = context.findRoleMapping(role);' is absent from the frozen scope hasRole and present in the fix patch for java/org/apache/catalina/realm/RealmBase.java (added lines or hunk post-image). 9.0.25 - 9.0.120; fixed in 9.0.121 (bd05d5ced387); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-68569",
+   "candidate_id": "sweep_436a2d9a2e2b580d",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/catalina/realm/JDBCRealm.java",
+   "function": "getPrincipal",
+   "line": 553,
+   "anchor_class": "principal construction fails closed when user or role lookup fails",
+   "patch_file": "java/org/apache/catalina/realm/JDBCRealm.java",
+   "fix_commit": "8efd51f061c026f6339bfa4fe4ef919a04ef130a",
+   "fixed_version": "9.0.121",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-287"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/catalina/realm/JDBCRealm.java:553 is the frozen pre-image of the fix in 8efd51f061c0 (9.0.121). principal construction fails closed when user or role lookup fails. The marker 'if (!validateUser(username)) {' is absent from the frozen scope getPrincipal and present in the fix patch for java/org/apache/catalina/realm/JDBCRealm.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.120; fixed in 9.0.121 (8efd51f061c0); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-68763",
+   "candidate_id": "sweep_97f4dd65e355691f",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/coyote/http2/Http2UpgradeHandler.java",
+   "function": "reserveWindowSize",
+   "line": 959,
+   "anchor_class": "unused allocation returned and backlog size decremented on allocation",
+   "patch_file": "java/org/apache/coyote/http2/Http2UpgradeHandler.java",
+   "fix_commit": "0747dd58cc631f90e044df246bd2ede6e2b48250",
+   "fixed_version": "9.0.121",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-401"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/coyote/http2/Http2UpgradeHandler.java:959 is the frozen pre-image of the fix in 0747dd58cc63 (9.0.121). unused allocation returned and backlog size decremented on allocation. The marker 'if (stream.getConnectionAllocationRequested() == 0) {' is absent from the frozen scope reserveWindowSize and present in the fix patch for java/org/apache/coyote/http2/Http2UpgradeHandler.java (added lines or hunk post-image). 9.0.39 - 9.0.120; fixed in 9.0.121 (0747dd58cc63); 9.0.98 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-73180",
+   "candidate_id": "sweep_c72d664a27d63189",
+   "repo_id": "2493904",
+   "snapshot_id": "snap_1afe89480f20c291",
+   "file": "java/org/apache/tomcat/websocket/server/WsServerContainer.java",
+   "function": "WsServerContainer",
+   "line": 73,
+   "anchor_class": "WebSocket sessions bound to the life of the HTTP session",
+   "patch_file": "java/org/apache/tomcat/websocket/server/WsServerContainer.java",
+   "fix_commit": "4b41a73a2f1a16647d7444ad6ee87d41a3ec414b",
+   "fixed_version": "9.0.121",
+   "severity": {
+    "level": "low",
+    "cwe": "CWE-613"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v9.0.98 java/org/apache/tomcat/websocket/server/WsServerContainer.java:73 is the frozen pre-image of the fix in 4b41a73a2f1a (9.0.121). WebSocket sessions bound to the life of the HTTP session. The marker 'private final Map<String,Set<WsSession>> httpSessionKeyToWebSocketSession = new HashMap<>();' is absent from the frozen scope WsServerContainer and present in the fix patch for java/org/apache/tomcat/websocket/server/WsServerContainer.java (added lines or hunk post-image). 9.0.0.M1 - 9.0.120; fixed in 9.0.121 (4b41a73a2f1a); 9.0.98 is inside the vendor affected range."
+  }
+ ],
+ "failures": []
+}

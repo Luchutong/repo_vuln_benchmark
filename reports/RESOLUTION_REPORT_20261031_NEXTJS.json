@@ -1,0 +1,713 @@
+{
+ "generated_at": "2026-10-31T08:54:04Z",
+ "totals": {
+  "candidates": 1404,
+  "open": 356,
+  "resolved": 1048,
+  "decisions": {
+   "confirmed_not_affected": 362,
+   "possible_affected": 246,
+   "unknown": 74,
+   "out_of_scope": 223,
+   "confirmed_affected": 371,
+   "duplicate": 92,
+   "no_triage": 36
+  }
+ },
+ "per_repo": [
+  {
+   "repo_id": "1064563",
+   "repo": "netty/netty",
+   "version": "netty-4.1.137.Final",
+   "candidates": 96,
+   "open": 32,
+   "resolved": 64,
+   "decisions": {
+    "confirmed_not_affected": 64,
+    "possible_affected": 3,
+    "unknown": 29
+   },
+   "status": {
+    "needs_version_check": 93,
+    "needs_static_location": 3
+   }
+  },
+  {
+   "repo_id": "17620347",
+   "repo": "dotnet/aspnetcore",
+   "version": "v8.0.13",
+   "candidates": 43,
+   "open": 24,
+   "resolved": 19,
+   "decisions": {
+    "possible_affected": 22,
+    "out_of_scope": 3,
+    "confirmed_not_affected": 16,
+    "unknown": 2
+   },
+   "status": {
+    "needs_static_location": 22,
+    "needs_version_check": 21
+   }
+  },
+  {
+   "repo_id": "54280778",
+   "repo": "DaveGamble/cJSON",
+   "version": "v1.7.16",
+   "candidates": 37,
+   "open": 22,
+   "resolved": 15,
+   "decisions": {
+    "unknown": 12,
+    "possible_affected": 10,
+    "out_of_scope": 7,
+    "confirmed_not_affected": 2,
+    "confirmed_affected": 6
+   },
+   "status": {
+    "needs_version_check": 21,
+    "needs_static_location": 16
+   }
+  },
+  {
+   "repo_id": "70107786",
+   "repo": "vercel/next.js",
+   "version": "v14.2.24",
+   "candidates": 45,
+   "open": 22,
+   "resolved": 23,
+   "decisions": {
+    "confirmed_not_affected": 9,
+    "possible_affected": 22,
+    "confirmed_affected": 9,
+    "duplicate": 5
+   },
+   "status": {
+    "needs_version_check": 9,
+    "needs_static_location": 36
+   }
+  },
+  {
+   "repo_id": "11939484",
+   "repo": "pyca/cryptography",
+   "version": "41.0.5",
+   "candidates": 23,
+   "open": 20,
+   "resolved": 3,
+   "decisions": {
+    "confirmed_not_affected": 3,
+    "possible_affected": 20
+   },
+   "status": {
+    "needs_version_check": 3,
+    "needs_static_location": 20
+   }
+  },
+  {
+   "repo_id": "24195339",
+   "repo": "angular/angular",
+   "version": "19.2.15",
+   "candidates": 37,
+   "open": 20,
+   "resolved": 17,
+   "decisions": {
+    "confirmed_not_affected": 1,
+    "confirmed_affected": 16,
+    "possible_affected": 20
+   },
+   "status": {
+    "needs_version_check": 1,
+    "needs_static_location": 36
+   }
+  },
+  {
+   "repo_id": "1148753",
+   "repo": "spring-projects/spring-framework",
+   "version": "v4.1.1.RELEASE",
+   "candidates": 49,
+   "open": 17,
+   "resolved": 32,
+   "decisions": {
+    "confirmed_affected": 17,
+    "possible_affected": 17,
+    "confirmed_not_affected": 15
+   },
+   "status": {
+    "needs_static_location": 48,
+    "needs_version_check": 1
+   }
+  },
+  {
+   "repo_id": "72495579",
+   "repo": "go-gitea/gitea",
+   "version": "v1.25.5",
+   "candidates": 221,
+   "open": 16,
+   "resolved": 205,
+   "decisions": {
+    "confirmed_not_affected": 17,
+    "confirmed_affected": 125,
+    "possible_affected": 16,
+    "duplicate": 62,
+    "out_of_scope": 1
+   },
+   "status": {
+    "needs_version_check": 7,
+    "needs_static_location": 214
+   }
+  },
+  {
+   "repo_id": "27729880",
+   "repo": "grpc/grpc",
+   "version": "v1.52.0",
+   "candidates": 23,
+   "open": 15,
+   "resolved": 8,
+   "decisions": {
+    "possible_affected": 4,
+    "no_triage": 5,
+    "unknown": 6,
+    "confirmed_not_affected": 6,
+    "out_of_scope": 2
+   },
+   "status": {
+    "needs_static_location": 9,
+    "needs_version_check": 14
+   }
+  },
+  {
+   "repo_id": "3219804",
+   "repo": "libarchive/libarchive",
+   "version": "v3.7.7",
+   "candidates": 25,
+   "open": 14,
+   "resolved": 11,
+   "decisions": {
+    "unknown": 11,
+    "confirmed_affected": 5,
+    "no_triage": 3,
+    "confirmed_not_affected": 6
+   },
+   "status": {
+    "needs_version_check": 17,
+    "needs_static_location": 8
+   }
+  },
+  {
+   "repo_id": "2493904",
+   "repo": "apache/tomcat",
+   "version": "9.0.98",
+   "candidates": 60,
+   "open": 12,
+   "resolved": 48,
+   "decisions": {
+    "confirmed_not_affected": 10,
+    "confirmed_affected": 38,
+    "possible_affected": 12
+   },
+   "status": {
+    "needs_version_check": 10,
+    "needs_static_location": 50
+   }
+  },
+  {
+   "repo_id": "33100064",
+   "repo": "jbeder/yaml-cpp",
+   "version": "yaml-cpp-0.6.2",
+   "candidates": 13,
+   "open": 11,
+   "resolved": 2,
+   "decisions": {
+    "possible_affected": 6,
+    "no_triage": 3,
+    "confirmed_not_affected": 2,
+    "unknown": 2
+   },
+   "status": {
+    "needs_static_location": 9,
+    "needs_version_check": 4
+   }
+  },
+  {
+   "repo_id": "23088740",
+   "repo": "axios/axios",
+   "version": "v1.19.0",
+   "candidates": 12,
+   "open": 10,
+   "resolved": 2,
+   "decisions": {
+    "confirmed_not_affected": 1,
+    "possible_affected": 10,
+    "confirmed_affected": 1
+   },
+   "status": {
+    "needs_version_check": 1,
+    "needs_static_location": 11
+   }
+  },
+  {
+   "repo_id": "31504491",
+   "repo": "labstack/echo",
+   "version": "v4.15.2",
+   "candidates": 14,
+   "open": 10,
+   "resolved": 4,
+   "decisions": {
+    "possible_affected": 5,
+    "confirmed_affected": 4,
+    "no_triage": 5
+   },
+   "status": {
+    "needs_static_location": 14
+   }
+  },
+  {
+   "repo_id": "997338",
+   "repo": "pallets/werkzeug",
+   "version": "3.0.2",
+   "candidates": 10,
+   "open": 10,
+   "resolved": 0,
+   "decisions": {
+    "possible_affected": 10
+   },
+   "status": {
+    "needs_static_location": 10
+   }
+  },
+  {
+   "repo_id": "1420053",
+   "repo": "guzzle/guzzle",
+   "version": "7.14.1",
+   "candidates": 10,
+   "open": 9,
+   "resolved": 1,
+   "decisions": {
+    "confirmed_not_affected": 1,
+    "possible_affected": 5,
+    "no_triage": 4
+   },
+   "status": {
+    "needs_version_check": 1,
+    "needs_static_location": 9
+   }
+  },
+  {
+   "repo_id": "257485422",
+   "repo": "vitejs/vite",
+   "version": "v5.0.11",
+   "candidates": 12,
+   "open": 9,
+   "resolved": 3,
+   "decisions": {
+    "possible_affected": 9,
+    "confirmed_affected": 2,
+    "confirmed_not_affected": 1
+   },
+   "status": {
+    "needs_static_location": 11,
+    "needs_version_check": 1
+   }
+  },
+  {
+   "repo_id": "96071",
+   "repo": "rack/rack",
+   "version": "v3.1.13",
+   "candidates": 8,
+   "open": 8,
+   "resolved": 0,
+   "decisions": {
+    "possible_affected": 8
+   },
+   "status": {
+    "needs_static_location": 8
+   }
+  },
+  {
+   "repo_id": "133092972",
+   "repo": "nodejs/undici",
+   "version": "v5.19.0",
+   "candidates": 7,
+   "open": 7,
+   "resolved": 0,
+   "decisions": {
+    "no_triage": 7
+   },
+   "status": {
+    "needs_static_location": 7
+   }
+  },
+  {
+   "repo_id": "7634677",
+   "repo": "openssl/openssl",
+   "version": "openssl-3.5.8",
+   "candidates": 118,
+   "open": 7,
+   "resolved": 111,
+   "decisions": {
+    "confirmed_not_affected": 97,
+    "confirmed_affected": 13,
+    "unknown": 7,
+    "out_of_scope": 1
+   },
+   "status": {
+    "needs_version_check": 105,
+    "needs_static_location": 13
+   }
+  },
+  {
+   "repo_id": "1103607",
+   "repo": "jenkinsci/jenkins",
+   "version": "jenkins-2.441",
+   "candidates": 38,
+   "open": 6,
+   "resolved": 32,
+   "decisions": {
+    "possible_affected": 6,
+    "confirmed_affected": 31,
+    "confirmed_not_affected": 1
+   },
+   "status": {
+    "needs_static_location": 38
+   }
+  },
+  {
+   "repo_id": "67836789",
+   "repo": "tokio-rs/tokio",
+   "version": "tokio-1.8.0",
+   "candidates": 6,
+   "open": 6,
+   "resolved": 0,
+   "decisions": {
+    "possible_affected": 5,
+    "no_triage": 1
+   },
+   "status": {
+    "needs_static_location": 6
+   }
+  },
+  {
+   "repo_id": "80314213",
+   "repo": "libexpat/libexpat",
+   "version": "R_2_6_2",
+   "candidates": 92,
+   "open": 6,
+   "resolved": 86,
+   "decisions": {
+    "confirmed_not_affected": 30,
+    "out_of_scope": 5,
+    "possible_affected": 5,
+    "confirmed_affected": 28,
+    "duplicate": 23,
+    "no_triage": 1
+   },
+   "status": {
+    "needs_version_check": 34,
+    "needs_static_location": 58
+   }
+  },
+  {
+   "repo_id": "57920736",
+   "repo": "rustls/rustls",
+   "version": "v/0.23.4",
+   "candidates": 7,
+   "open": 5,
+   "resolved": 2,
+   "decisions": {
+    "confirmed_not_affected": 2,
+    "possible_affected": 5
+   },
+   "status": {
+    "needs_version_check": 2,
+    "needs_static_location": 5
+   }
+  },
+  {
+   "repo_id": "72174164",
+   "repo": "SixLabors/ImageSharp",
+   "version": "v3.1.6",
+   "candidates": 8,
+   "open": 5,
+   "resolved": 3,
+   "decisions": {
+    "possible_affected": 5,
+    "confirmed_affected": 3
+   },
+   "status": {
+    "needs_static_location": 8
+   }
+  },
+  {
+   "repo_id": "10649374",
+   "repo": "elixir-ecto/ecto",
+   "version": "v2.2.0",
+   "candidates": 4,
+   "open": 4,
+   "resolved": 0,
+   "decisions": {
+    "unknown": 3,
+    "no_triage": 1
+   },
+   "status": {
+    "needs_version_check": 3,
+    "needs_static_location": 1
+   }
+  },
+  {
+   "repo_id": "14421569",
+   "repo": "elixir-plug/plug",
+   "version": "v1.19.2",
+   "candidates": 6,
+   "open": 4,
+   "resolved": 2,
+   "decisions": {
+    "confirmed_affected": 1,
+    "unknown": 2,
+    "possible_affected": 1,
+    "confirmed_not_affected": 1,
+    "no_triage": 1
+   },
+   "status": {
+    "needs_static_location": 3,
+    "needs_version_check": 3
+   }
+  },
+  {
+   "repo_id": "4164482",
+   "repo": "django/django",
+   "version": "4.2.13",
+   "candidates": 7,
+   "open": 4,
+   "resolved": 3,
+   "decisions": {
+    "confirmed_not_affected": 2,
+    "possible_affected": 2,
+    "confirmed_affected": 1,
+    "no_triage": 2
+   },
+   "status": {
+    "needs_version_check": 2,
+    "needs_static_location": 5
+   }
+  },
+  {
+   "repo_id": "458058",
+   "repo": "symfony/symfony",
+   "version": "v5.4.45",
+   "candidates": 21,
+   "open": 4,
+   "resolved": 17,
+   "decisions": {
+    "confirmed_not_affected": 13,
+    "confirmed_affected": 4,
+    "possible_affected": 2,
+    "no_triage": 2
+   },
+   "status": {
+    "needs_version_check": 13,
+    "needs_static_location": 8
+   }
+  },
+  {
+   "repo_id": "7548986",
+   "repo": "laravel/framework",
+   "version": "v11.30.0",
+   "candidates": 11,
+   "open": 4,
+   "resolved": 7,
+   "decisions": {
+    "confirmed_affected": 4,
+    "confirmed_not_affected": 1,
+    "possible_affected": 4,
+    "duplicate": 2
+   },
+   "status": {
+    "needs_static_location": 10,
+    "needs_version_check": 1
+   }
+  },
+  {
+   "repo_id": "23357588",
+   "repo": "protocolbuffers/protobuf",
+   "version": "v3.25.4",
+   "candidates": 5,
+   "open": 3,
+   "resolved": 2,
+   "decisions": {
+    "confirmed_not_affected": 1,
+    "possible_affected": 3,
+    "confirmed_affected": 1
+   },
+   "status": {
+    "needs_version_check": 1,
+    "needs_static_location": 4
+   }
+  },
+  {
+   "repo_id": "2253830",
+   "repo": "PHPMailer/PHPMailer",
+   "version": "v6.1.5",
+   "candidates": 2,
+   "open": 2,
+   "resolved": 0,
+   "decisions": {
+    "possible_affected": 2
+   },
+   "status": {
+    "needs_static_location": 2
+   }
+  },
+  {
+   "repo_id": "3542607",
+   "repo": "leethomason/tinyxml2",
+   "version": "10.0.0",
+   "candidates": 3,
+   "open": 2,
+   "resolved": 1,
+   "decisions": {
+    "possible_affected": 1,
+    "confirmed_not_affected": 1,
+    "no_triage": 1
+   },
+   "status": {
+    "needs_static_location": 2,
+    "needs_version_check": 1
+   }
+  },
+  {
+   "repo_id": "569041",
+   "repo": "curl/curl",
+   "version": "curl-8_3_0",
+   "candidates": 304,
+   "open": 2,
+   "resolved": 302,
+   "decisions": {
+    "out_of_scope": 203,
+    "confirmed_not_affected": 49,
+    "confirmed_affected": 50,
+    "possible_affected": 2
+   },
+   "status": {
+    "needs_version_check": 250,
+    "needs_static_location": 54
+   }
+  },
+  {
+   "repo_id": "237159",
+   "repo": "expressjs/express",
+   "version": "4.19.2",
+   "candidates": 1,
+   "open": 1,
+   "resolved": 0,
+   "decisions": {
+    "possible_affected": 1
+   },
+   "status": {
+    "needs_static_location": 1
+   }
+  },
+  {
+   "repo_id": "29207621",
+   "repo": "caddyserver/caddy",
+   "version": "v2.11.4",
+   "candidates": 1,
+   "open": 1,
+   "resolved": 0,
+   "decisions": {
+    "possible_affected": 1
+   },
+   "status": {
+    "needs_static_location": 1
+   }
+  },
+  {
+   "repo_id": "3955647",
+   "repo": "lodash/lodash",
+   "version": "4.17.23",
+   "candidates": 1,
+   "open": 1,
+   "resolved": 0,
+   "decisions": {
+    "possible_affected": 1
+   },
+   "status": {
+    "needs_static_location": 1
+   }
+  },
+  {
+   "repo_id": "8514",
+   "repo": "rails/rails",
+   "version": "v8.0.4",
+   "candidates": 17,
+   "open": 1,
+   "resolved": 16,
+   "decisions": {
+    "possible_affected": 1,
+    "confirmed_not_affected": 7,
+    "confirmed_affected": 9
+   },
+   "status": {
+    "needs_static_location": 10,
+    "needs_version_check": 7
+   }
+  },
+  {
+   "repo_id": "105379569",
+   "repo": "actix/actix-web",
+   "version": "http-v3.12.0",
+   "candidates": 2,
+   "open": 0,
+   "resolved": 2,
+   "decisions": {
+    "confirmed_not_affected": 2
+   },
+   "status": {
+    "needs_version_check": 2
+   }
+  },
+  {
+   "repo_id": "596892",
+   "repo": "pallets/flask",
+   "version": "2.3.1",
+   "candidates": 1,
+   "open": 0,
+   "resolved": 1,
+   "decisions": {
+    "confirmed_not_affected": 1
+   },
+   "status": {
+    "needs_version_check": 1
+   }
+  },
+  {
+   "repo_id": "80945428",
+   "repo": "nestjs/nest",
+   "version": "v11.2.3",
+   "candidates": 3,
+   "open": 0,
+   "resolved": 3,
+   "decisions": {
+    "out_of_scope": 1,
+    "confirmed_affected": 2
+   },
+   "status": {
+    "needs_version_check": 1,
+    "needs_static_location": 2
+   }
+  },
+  {
+   "repo_id": "106995",
+   "repo": "sinatra/sinatra",
+   "version": "v4.0.1",
+   "candidates": 1,
+   "open": 0,
+   "resolved": 1,
+   "decisions": {
+    "confirmed_affected": 1
+   },
+   "status": {
+    "needs_static_location": 1
+   }
+  }
+ ]
+}

@@ -1,0 +1,87 @@
+{
+ "generated_for": "2026-10-31 vercel/next.js promotion dry-run review",
+ "source_dryrun": "workdir/promote_nextjs.json",
+ "apply": true,
+ "note": "CVE-2026-64647 is admitted at the proposed anchor. CVE-2026-27980 and CVE-2026-64643 were anchored on collateral lines of their fix commits (a function signature rename and a type-only refactor) and are held here; both were relocated and applied via promote_candidate.py (see relocated_rows).",
+ "counts": {
+  "admit": 1,
+  "drop": 0,
+  "hold": 2,
+  "total": 3
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-27980",
+   "advisory_record": "GHSA-3x4c-7xq6-9pq8",
+   "repo": "vercel/next.js",
+   "snapshot_version": "v14.2.24",
+   "advisory_trust_tier": "T1",
+   "file": "packages/next/src/server/image-optimizer.ts",
+   "function": "writeToCacheDir",
+   "line_start": 101,
+   "line_end": 101,
+   "granularity": "line",
+   "fix_commit": "39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+   "verdict": "hold",
+   "reason": "The anchored 'dir: string,' line is a parameter rename in the fix's signature shuffle, not the missing bound. The security change installs an LRU (getOrInitDiskLRU) and accounts each entry at the write site inside ImageOptimizerCache.set before writeToCacheDir. Relocate to image-optimizer.ts set 392."
+  },
+  {
+   "vulnerability_id": "CVE-2026-64647",
+   "advisory_record": "GHSA-4633-3j49-mh5q",
+   "repo": "vercel/next.js",
+   "snapshot_version": "v14.2.24",
+   "advisory_trust_tier": "T1",
+   "file": "packages/next/src/server/lib/incremental-cache/index.ts",
+   "function": "generateCacheKey",
+   "line_start": 329,
+   "line_end": 335,
+   "granularity": "function",
+   "fix_commit": "025bf4a5f7b4",
+   "verdict": "admit",
+   "reason": "The stream body handler at frozen 329-335 decodes each chunk with TextDecoder (lossy for invalid UTF-8) and hashes the decoded text, so distinct binary bodies collapse to the same key. The fix removes those lines and pushes the raw bytes instead; the removed lines are present verbatim at the anchor."
+  },
+  {
+   "vulnerability_id": "CVE-2026-64643",
+   "advisory_record": "GHSA-955p-x3mx-jcvp",
+   "repo": "vercel/next.js",
+   "snapshot_version": "v14.2.24",
+   "advisory_trust_tier": "T1",
+   "file": "packages/next/src/server/app-render/encryption-utils.ts",
+   "function": "getServerModuleMap",
+   "line_start": 142,
+   "line_end": 148,
+   "granularity": "function",
+   "fix_commit": "ff12a6124e1504f17b62de948b8a553fdecaef7b",
+   "verdict": "hold",
+   "reason": "The encryption-utils.ts hunk only replaces an inline index signature with the ServerModuleMap type - no behaviour change. The validation is added to the Proxy get trap in createServerModuleMap (action-utils.ts): well-known properties pass through, and any other id must satisfy mightBeServerReferenceId() or the lookup throws. Relocate to action-utils.ts 20-27."
+  }
+ ],
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2026-27980",
+   "verdict": "admit",
+   "file": "packages/next/src/server/image-optimizer.ts",
+   "function": "set",
+   "line_start": 392,
+   "line_end": 392,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/vercel/next.js/commit/39eb8e0ac498b48855a0430fbf4c22276a73b4bd",
+   "applied": true,
+   "reason": "ImageOptimizerCache.set wrote every generated variant through writeToCacheDir with no size accounting, so unique variants grow the disk cache without bound. The fix inserts cacheDiskLRU.set(cacheKey, buffer.byteLength) immediately before the (rewritten) writeToCacheDir call at frozen line 392, which is one of the removed lines of the hunk."
+  },
+  {
+   "vulnerability_id": "CVE-2026-64643",
+   "verdict": "admit",
+   "file": "packages/next/src/server/app-render/action-utils.ts",
+   "function": "createServerModuleMap",
+   "line_start": 20,
+   "line_end": 27,
+   "granularity": "function",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/vercel/next.js/commit/ff12a6124e1504f17b62de948b8a553fdecaef7b",
+   "applied": true,
+   "reason": "Frozen createServerModuleMap returns a module entry for any id used as a Proxy key, so arbitrary client-supplied ids are looked up in the server actions manifest and can disclose server function endpoints. The fix rewrites this trap to gate lookups on mightBeServerReferenceId(); the frozen lines 20-27 are the removed rejection-free lookup."
+  }
+ ]
+}

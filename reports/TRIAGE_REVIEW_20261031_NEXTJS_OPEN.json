@@ -1,0 +1,174 @@
+{
+ "report": "vercel/next.js v14.2.24 open-candidate triage",
+ "generated_at": "2026-10-31T08:53:40Z",
+ "applied": true,
+ "summary": {
+  "updated": 27,
+  "missing": 0
+ },
+ "updated": [
+  {
+   "candidate_id": "adv3_10fb59fcb5800e26",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "adv3_34f96fde48f69132",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "adv3_86ef089391008788",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "adv3_b8e39225010ac61d",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "adv3_c71d115b3aa6a14a",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "adv3_c7b17a760a27ce3c",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "adv3_e83efe88ba153617",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_07e0f1a88dbc7e0d97d059e0",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_0a06e67944652b11e82e36b1",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_107d1e97808c925501c452eb",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_256f7730d886766876428eae",
+   "vulnerability_id": null,
+   "before": "duplicate",
+   "after": "duplicate"
+  },
+  {
+   "candidate_id": "disc2_2c17cf88dda453f13d80c546",
+   "vulnerability_id": null,
+   "before": "duplicate",
+   "after": "duplicate"
+  },
+  {
+   "candidate_id": "disc2_2dff514f8f281cf2756c65ff",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_3a243d7e14832787d807fb90",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_46066f8f36990c9b4562baac",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_47d7d3cee8e8d0f8ae3691bb",
+   "vulnerability_id": null,
+   "before": "duplicate",
+   "after": "duplicate"
+  },
+  {
+   "candidate_id": "disc2_49ae8a9332fc36e900e2412a",
+   "vulnerability_id": null,
+   "before": "duplicate",
+   "after": "duplicate"
+  },
+  {
+   "candidate_id": "disc2_528c95e0d7ca564583c6e2d9",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_68e4cb21e2827e3cf9061267",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_899ae7e374fe615afee1ca05",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_bd84de2be71a1b79168a3e1c",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_bed0c867130812cd677caf86",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_d35ee832fcafc2b404cd9e8a",
+   "vulnerability_id": null,
+   "before": "duplicate",
+   "after": "duplicate"
+  },
+  {
+   "candidate_id": "disc2_d3e3c92902c9f8a1c22a9591",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_dfc9e1b0718c997aa176bf5b",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_e2dc713dd9317b11b19062a3",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  },
+  {
+   "candidate_id": "disc2_efca93103d552319f2cf3875",
+   "vulnerability_id": null,
+   "before": "possible_affected",
+   "after": "possible_affected"
+  }
+ ],
+ "missing": []
+}

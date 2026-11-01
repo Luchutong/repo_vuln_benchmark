@@ -1,0 +1,261 @@
+{
+ "report": "dotnet/aspnetcore v8.0.13 sweep",
+ "generated_at": "2026-10-31T09:11:23Z",
+ "applied": true,
+ "promotions": {
+  "rows": [
+   {
+    "vulnerability_id": "CVE-2025-55315",
+    "candidate_id": "adv3_0c015197f7987011",
+    "ghsa": "GHSA-5rrx-jjjq-q2r5",
+    "file": "src/Servers/Kestrel/Core/src/Internal/Http/Http1ChunkedEncodingMessageBody.cs",
+    "function": "ParseExtension",
+    "line": 379,
+    "anchor": "if (suffixSpan[1] == '\\n')",
+    "severity": "critical",
+    "score": 9.9,
+    "category": "http_request_smuggling"
+   },
+   {
+    "vulnerability_id": "CVE-2026-26130",
+    "candidate_id": "adv3_d65394838f0b391c",
+    "ghsa": "GHSA-4vgm-c2wm-63mw",
+    "file": "src/SignalR/server/Core/src/HubConnectionContext.cs",
+    "function": "WriteCore",
+    "line": 272,
+    "anchor": "return _messageBuffer.WriteAsync(message, cancellationToken);",
+    "severity": "high",
+    "score": 7.5,
+    "category": "resource_exhaustion"
+   },
+   {
+    "vulnerability_id": "CVE-2026-56170",
+    "candidate_id": "adv3_ac691c550567ad82",
+    "ghsa": "GHSA-j8gr-8fp3-5q5h",
+    "file": "src/SignalR/common/Shared/MessageBuffer.cs",
+    "function": "WriteAsyncCore",
+    "line": 138,
+    "anchor": "while (await _waitForAck.Reader.WaitToReadAsync(cancellationToken).ConfigureAwait(false))",
+    "severity": "high",
+    "score": 7.5,
+    "category": "resource_exhaustion"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70159",
+    "candidate_id": "adv3_5c1601229ec54068",
+    "ghsa": "GHSA-334f-vvp4-7g6p",
+    "file": "src/SignalR/common/Shared/MessageBuffer.cs",
+    "function": "ResendAsync",
+    "line": 279,
+    "anchor": "finalResult = await _writer.WriteAsync(item.HubMessage).ConfigureAwait(false);",
+    "severity": "high",
+    "score": 7.5,
+    "category": "resource_exhaustion"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70183",
+    "candidate_id": "adv3_8b358841def8ab49",
+    "ghsa": "GHSA-494h-xx7x-5frh",
+    "file": "src/Components/Authorization/src/AuthorizeViewCore.cs",
+    "function": "OnParametersSetAsync",
+    "line": 90,
+    "anchor": "currentAuthenticationState = await AuthenticationState;",
+    "severity": "high",
+    "score": 7.5,
+    "category": "authorization_bypass"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70196",
+    "candidate_id": "adv3_8fd96478e384d33d",
+    "ghsa": "GHSA-57xr-hfxx-jw5x",
+    "file": "src/Http/WebUtilities/src/FormPipeReader.cs",
+    "function": "ParseFormValuesFast",
+    "line": 167,
+    "anchor": "var ampersand = span.IndexOf(andDelimiter);",
+    "severity": "medium",
+    "score": 5.9,
+    "category": "denial_of_service"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70181",
+    "candidate_id": "adv3_d6742d52bc73b10a",
+    "ghsa": "GHSA-w5qq-qrpp-rf4c",
+    "file": "src/Http/WebUtilities/src/FileBufferingReadStream.cs",
+    "function": "FileBufferingReadStream",
+    "line": 82,
+    "anchor": "_rentedBuffer = bytePool.Rent(memoryThreshold);",
+    "severity": "high",
+    "score": 7.5,
+    "category": "resource_exhaustion"
+   },
+   {
+    "vulnerability_id": "CVE-2026-96236",
+    "candidate_id": "adv3_5d2eeeaab4c77385",
+    "ghsa": "GHSA-f4g7-52wc-p8x7",
+    "file": "src/Middleware/Localization/src/RequestLocalizationMiddleware.cs",
+    "function": "GetCultureInfo",
+    "line": 170,
+    "anchor": "culture = CultureInfo.GetCultureInfo(cultureName.ToString());",
+    "severity": "high",
+    "score": 7.5,
+    "category": "resource_exhaustion"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70188",
+    "candidate_id": "adv3_79c85436ad2084f7",
+    "ghsa": "GHSA-fpq8-4vhr-rcxx",
+    "file": "src/Servers/Kestrel/Core/src/Internal/Http2/Http2Connection.cs",
+    "function": "OnHeaderCore",
+    "line": 1526,
+    "anchor": "_currentHeadersStream.OnHeader(name, value, checkForNewlineChars: false);",
+    "severity": "critical",
+    "score": 9.1,
+    "category": "http_request_smuggling"
+   },
+   {
+    "vulnerability_id": "CVE-2026-88092",
+    "candidate_id": "adv3_402c07186c95d606",
+    "ghsa": "GHSA-rv87-ccxw-8ggf",
+    "file": "src/Servers/Kestrel/Core/src/Internal/Http/HttpProtocol.cs",
+    "function": "CancelRequestAbortedToken",
+    "line": 498,
+    "anchor": "_connectionAborted = true;",
+    "severity": "critical",
+    "score": 9.4,
+    "category": "http_request_smuggling"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70186",
+    "candidate_id": "adv3_c110310a070bd89d",
+    "ghsa": "GHSA-mf4x-w4gh-4656",
+    "file": "src/Servers/Kestrel/Core/src/Internal/Http3/Http3Stream.cs",
+    "function": "AbortCore",
+    "line": 176,
+    "anchor": "_http3Output.Stop();",
+    "severity": "high",
+    "score": 7.5,
+    "category": "denial_of_service"
+   },
+   {
+    "vulnerability_id": "CVE-2026-69304",
+    "candidate_id": "adv3_684409f5b904c30b",
+    "ghsa": "GHSA-8cp2-47hg-mfgh",
+    "file": "src/Servers/IIS/IISIntegration/src/IISMiddleware.cs",
+    "function": "Invoke",
+    "line": 135,
+    "anchor": "bodySizeFeature.MaxRequestBodySize = null;",
+    "severity": "medium",
+    "score": null,
+    "category": "resource_exhaustion"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70179",
+    "candidate_id": "adv3_d31564bf1ea8b665",
+    "ghsa": "GHSA-vrrp-6v32-2p8g",
+    "file": "src/Security/Authentication/Negotiate/src/Internal/LdapAdapter.cs",
+    "function": "RetrieveClaimsAsync",
+    "line": 62,
+    "anchor": "var userFound = searchResponse.Entries[0]; //Get the object that was found on ldap",
+    "severity": "high",
+    "score": 7.5,
+    "category": "authorization_bypass"
+   },
+   {
+    "vulnerability_id": "CVE-2026-47303",
+    "candidate_id": "adv3_de297974925608a9",
+    "ghsa": "GHSA-2p3q-h3hg-jcqq",
+    "file": "src/Security/Authentication/Negotiate/src/Internal/LdapAdapter.cs",
+    "function": "RetrieveClaimsAsync",
+    "line": 44,
+    "anchor": "var filter = $\"(&(objectClass=user)(sAMAccountName={userAccountName}))\"; // This is using ldap search query language, it is looking on the server for someUser",
+    "severity": "high",
+    "score": 8.8,
+    "category": "injection"
+   },
+   {
+    "vulnerability_id": "CVE-2026-47300",
+    "candidate_id": "adv3_980f4fa92daa61ec",
+    "ghsa": "GHSA-8prm-248r-h957",
+    "file": "src/Security/Authentication/Negotiate/src/Internal/LdapAdapter.cs",
+    "function": "GetNestedGroups",
+    "line": 105,
+    "anchor": "var filter = $\"(&(objectClass=group)(sAMAccountName={groupCN}))\"; // This is using ldap search query language, it is looking on the server for someUser",
+    "severity": "high",
+    "score": 8.8,
+    "category": "authorization_bypass"
+   },
+   {
+    "vulnerability_id": "CVE-2026-70175",
+    "candidate_id": "adv3_2ab91aed61368d97",
+    "ghsa": "GHSA-x3vp-85cm-q97r",
+    "file": "src/Identity/UI/src/Areas/Identity/Pages/V5/Account/ForgotPassword.cshtml.cs",
+    "function": "OnPostAsync",
+    "line": 83,
+    "anchor": "await _emailSender.SendPasswordResetLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));",
+    "severity": "high",
+    "score": 8.1,
+    "category": "credential_exposure"
+   },
+   {
+    "vulnerability_id": "CVE-2026-96230",
+    "candidate_id": "adv3_6f6b46cf5f60fe83",
+    "ghsa": "GHSA-qjpx-jqm5-h2c4",
+    "file": "src/Components/WebAssembly/Server/src/TargetPickerUi.cs",
+    "function": "Display",
+    "line": 296,
+    "anchor": "<pre>{ex}</pre>",
+    "severity": "high",
+    "score": 8.8,
+    "category": "xss"
+   }
+  ],
+  "failures": []
+ },
+ "triage": {
+  "rows": [
+   {
+    "candidate_id": "disc2_05ed96dc1c16b758a459c217",
+    "cve": "CVE-2025-55315",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   },
+   {
+    "candidate_id": "adv3_643983364278b759",
+    "cve": "CVE-2021-43877",
+    "decision": "confirmed_not_affected",
+    "review_method": "upstream_advisory"
+   },
+   {
+    "candidate_id": "adv3_683c84ac5fc83514",
+    "cve": "CVE-2026-92707",
+    "decision": "possible_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "adv3_7342c684aa3a0592",
+    "cve": "CVE-2023-36038",
+    "decision": "confirmed_not_affected",
+    "review_method": "trusted_range_with_branch"
+   },
+   {
+    "candidate_id": "adv3_d44f1a8a0469acb7",
+    "cve": "CVE-2026-45591",
+    "decision": "possible_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "adv3_da32ca8459b0648d",
+    "cve": "CVE-2026-42899",
+    "decision": "possible_affected",
+    "review_method": "source_code_review"
+   },
+   {
+    "candidate_id": "disc2_86c1150dea87225c6d537e75",
+    "cve": "CVE-2026-69304",
+    "decision": "duplicate",
+    "review_method": "alias_cluster"
+   }
+  ],
+  "missing": []
+ }
+}

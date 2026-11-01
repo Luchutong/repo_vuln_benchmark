@@ -1,0 +1,625 @@
+{
+ "report": "gitea/go-gitea v1.25.5 batch row-level review (1.27.0 security batch)",
+ "scope": "the 15 candidates of the 1.27.0 security advisories whose vulnerable code exists verbatim in the frozen v1.25.5 tree",
+ "method": "frozen anchors derived by whole-hunk pre-image matching (removed_line) or by the HINTS context line at an insertion (adjacent_insertion); two drifted files anchored from the frozen text (manual_anchor); every row checked for marker absence at v1.25.5 and marker presence in the released v1.27.0 tree",
+ "generated_at": "2026-10-31T06:50:07Z",
+ "summary": {
+  "rows": 15,
+  "removed_line": 5,
+  "adjacent_insertion": 8,
+  "manual_anchor": 2,
+  "T1": 13,
+  "T2": 2,
+  "skipped": 2,
+  "failures": 0,
+  "applied": true
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-42931",
+   "candidate_id": "adv3_f6c18e1e04f54757",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/packages/npm/npm.go",
+   "function": "AddPackageTag",
+   "line_start": 336,
+   "line_end": 336,
+   "anchor_class": "removed_line",
+   "anchor_mode": "pre_image",
+   "frozen_text": [
+    "\tbody, err := io.ReadAll(ctx.Req.Body)"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-wwqq-x6w4-frm2",
+   "ghsa": "GHSA-wwqq-x6w4-frm2",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
+    "cwe": [
+     "CWE-770"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/packages/npm/npm.go:336-336 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (removed_line/pre_image); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-wwqq-x6w4-frm2 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-50105",
+   "candidate_id": "adv3_d474d3e014f08f4d",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/feed/profile.go",
+   "function": "showUserFeed",
+   "line_start": 44,
+   "line_end": 44,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hunk_preimage",
+   "frozen_text": [
+    "\tactions, _, err := feed_service.GetFeeds(ctx, activities_model.GetFeedsOptions{"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-6cqf-375w-639g",
+   "ghsa": "GHSA-6cqf-375w-639g",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-200",
+     "CWE-862"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/feed/profile.go:44-44 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hunk_preimage); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-6cqf-375w-639g places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-54481",
+   "candidate_id": "adv3_b6c429caa979c316",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "modules/private/internal.go",
+   "function": "internalAPITransport",
+   "line_start": 60,
+   "line_end": 61,
+   "anchor_class": "removed_line",
+   "anchor_mode": "pre_image",
+   "frozen_text": [
+    "\t\t\tInsecureSkipVerify: true,",
+    "\t\t\tServerName:         setting.Domain,"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-94v3-77j7-vm48",
+   "ghsa": "GHSA-94v3-77j7-vm48",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "high",
+    "score": 7.5,
+    "vector": "CVSS:3.1/AV:A/AC:H/PR:N/UI:N/S:U/C:H/I:H/A:H",
+    "cwe": [
+     "CWE-295"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 modules/private/internal.go:60-61 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (removed_line/pre_image); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-94v3-77j7-vm48 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-55982",
+   "candidate_id": "adv3_04fa43818c47be59",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/auth/oauth2_provider.go",
+   "function": "InfoOAuth",
+   "line_start": 101,
+   "line_end": 101,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hunk_preimage",
+   "frozen_text": [
+    "\tresponse := &userInfoResponse{"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-mg4f-x9v4-6h2p",
+   "ghsa": "GHSA-mg4f-x9v4-6h2p",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": null,
+    "score": null,
+    "vector": null,
+    "cwe": [
+     "CWE-200"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/auth/oauth2_provider.go:101-101 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hunk_preimage); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-mg4f-x9v4-6h2p places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-55984",
+   "candidate_id": "adv3_f8953a8dd83564a8",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/repo/issue_tracked_time.go",
+   "function": "AddTime",
+   "line_start": 209,
+   "line_end": 209,
+   "anchor_class": "removed_line",
+   "anchor_mode": "pre_image",
+   "frozen_text": [
+    "\t\t\t\tctx.APIErrorInternal(err)"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-m932-crvm-gcp5",
+   "ghsa": "GHSA-m932-crvm-gcp5",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "low",
+    "score": 2.7,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:N/I:N/A:L",
+    "cwe": [
+     "CWE-476"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/repo/issue_tracked_time.go:209-209 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (removed_line/pre_image); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-m932-crvm-gcp5 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-55986",
+   "candidate_id": "adv3_21a9a72a88e7ad4e",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/user/email.go",
+   "function": "AddEmail",
+   "line_start": 60,
+   "line_end": 60,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hunk_preimage",
+   "frozen_text": [
+    "\tform := web.GetForm(ctx).(*api.CreateEmailOption)"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://osv.dev/vulnerability/CVE-2026-55986",
+   "ghsa": null,
+   "advisory_range": "< 1.27.0 (CVE record last_affected 1.26.4; fixed in 1.27.0)",
+   "severity": {
+    "level": null,
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:N",
+    "cwe": [
+     "CWE-284"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/user/email.go:60-60 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hunk_preimage); v1.27.0 ships the fix and the frozen tree does not; advisory https://osv.dev/vulnerability/CVE-2026-55986 places v1.25.5 in < 1.27.0 (CVE record last_affected 1.26.4; fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-57897",
+   "candidate_id": "adv3_98769ce5657837c6",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/shared/action.go",
+   "function": "ListJobs",
+   "line_start": 50,
+   "line_end": 50,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hunk_preimage",
+   "frozen_text": [
+    "\tjobs, total, err := db.FindAndCount[actions_model.ActionRunJob](ctx, opts)"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-frpw-3h2q-4jj6",
+   "ghsa": "GHSA-frpw-3h2q-4jj6",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 6.5,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+    "cwe": [
+     "CWE-200",
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/shared/action.go:50-50 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hunk_preimage); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-frpw-3h2q-4jj6 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58434",
+   "candidate_id": "adv3_5866fe306eb1cf2d",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "models/repo/user_repo.go",
+   "function": "ToConds",
+   "line_start": 35,
+   "line_end": 35,
+   "anchor_class": "removed_line",
+   "anchor_mode": "pre_image",
+   "frozen_text": [
+    "\tif !opts.IncludePrivate {"
+   ],
+   "fix_commit": "362539b78e50dfcc4bd1b9368fdd2a1b8cab0129",
+   "fix_subject": "fix(api): stop leaking private repo metadata after access revocation (#38321)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-j2w3-9c3r-g83q",
+   "ghsa": "GHSA-j2w3-9c3r-g83q",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "low",
+    "score": null,
+    "vector": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:L/VI:N/VA:N/SC:N/SI:N/SA:N",
+    "cwe": [
+     "CWE-200",
+     "CWE-862"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 models/repo/user_repo.go:35-35 carries the pre-image of fix 362539b78e50 (\"fix(api): stop leaking private repo metadata after access revocation (#38321)\") (removed_line/pre_image); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-j2w3-9c3r-g83q places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58443",
+   "candidate_id": "adv3_2714929245939f8c",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/repo/pull.go",
+   "function": "UpdatePullRequest",
+   "line_start": 1248,
+   "line_end": 1248,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hint_line",
+   "frozen_text": [
+    "\tif err = pr.LoadHeadRepo(ctx); err != nil {"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-xxjv-752h-3vp2",
+   "ghsa": "GHSA-xxjv-752h-3vp2",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "critical",
+    "score": 9.6,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:N/I:H/A:H",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/repo/pull.go:1248-1248 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hint_line); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-xxjv-752h-3vp2 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58444",
+   "candidate_id": "adv3_ee99299956e4cf94",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/repo/view_home.go",
+   "function": "Home",
+   "line_start": 369,
+   "line_end": 369,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hunk_preimage",
+   "frozen_text": [
+    "\tcheckHomeCodeViewable(ctx)"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-cp3q-vrj2-ghhh",
+   "ghsa": "GHSA-cp3q-vrj2-ghhh",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-863"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/repo/view_home.go:369-369 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hunk_preimage); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-cp3q-vrj2-ghhh places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58445",
+   "candidate_id": "adv3_386abd48a05cc690",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/api/v1/repo/issue_label.go",
+   "function": "DeleteIssueLabel",
+   "line_start": 181,
+   "line_end": 188,
+   "anchor_class": "manual_anchor",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\tlabel, err := issues_model.GetLabelByID(ctx, ctx.PathParamInt64(\"id\"))",
+    "\tif err != nil {",
+    "\t\tif issues_model.IsErrLabelNotExist(err) {",
+    "\t\t\tctx.APIError(http.StatusUnprocessableEntity, err)",
+    "\t\t} else {",
+    "\t\t\tctx.APIErrorInternal(err)",
+    "\t\t}",
+    "\t\treturn"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-pgqf-926r-548m",
+   "ghsa": "GHSA-pgqf-926r-548m",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "low",
+    "score": 2.7,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-203",
+     "CWE-639"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/api/v1/repo/issue_label.go:181-188 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (manual_anchor/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-pgqf-926r-548m places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58507",
+   "candidate_id": "adv3_0b5028ee7dc2b599",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "routers/web/goget.go",
+   "function": "goGet",
+   "line_start": 55,
+   "line_end": 57,
+   "anchor_class": "removed_line",
+   "anchor_mode": "pre_image",
+   "frozen_text": [
+    "\trepo, err := repo_model.GetRepositoryByOwnerAndName(ctx, ownerName, repoName)",
+    "\tif err == nil && len(repo.DefaultBranch) > 0 {",
+    "\t\tbranchName = repo.DefaultBranch"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-p4mj-98mv-xq26",
+   "ghsa": "GHSA-p4mj-98mv-xq26",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 5.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-200",
+     "CWE-284"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 routers/web/goget.go:55-57 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (removed_line/pre_image); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-p4mj-98mv-xq26 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58508",
+   "candidate_id": "adv3_5cf8bc343d20e64c",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/mirror/mirror_pull.go",
+   "function": "runSync",
+   "line_start": 272,
+   "line_end": 272,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hint_line",
+   "frozen_text": [
+    "\tenvs := proxy.EnvWithProxy(remoteURL.URL)"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://osv.dev/vulnerability/CVE-2026-58508",
+   "ghsa": null,
+   "advisory_range": "< 1.27.0 (CVE record last_affected 1.26.4; fixed in 1.27.0)",
+   "severity": {
+    "level": null,
+    "score": null,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
+    "cwe": [
+     "CWE-284"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/mirror/mirror_pull.go:272-272 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hint_line); v1.27.0 ships the fix and the frozen tree does not; advisory https://osv.dev/vulnerability/CVE-2026-58508 places v1.25.5 in < 1.27.0 (CVE record last_affected 1.26.4; fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58510",
+   "candidate_id": "adv3_5777ed8ff736d457",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/repository/repository.go",
+   "function": "updateRepository",
+   "line_start": 316,
+   "line_end": 316,
+   "anchor_class": "adjacent_insertion",
+   "anchor_mode": "hunk_preimage",
+   "frozen_text": [
+    "\t\t\tif err = repo_model.ClearRepoStars(ctx, repo.ID); err != nil {"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-q423-49rw-g9mh",
+   "ghsa": "GHSA-q423-49rw-g9mh",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "medium",
+    "score": 4.3,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-200",
+     "CWE-281",
+     "CWE-359"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/repository/repository.go:316-316 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (adjacent_insertion/hunk_preimage); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-q423-49rw-g9mh places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  },
+  {
+   "vulnerability_id": "CVE-2026-58511",
+   "candidate_id": "adv3_cddeb9f86f2f1b1a",
+   "repo_id": "72495579",
+   "snapshot_id": "snap_bd8b4ed626b39794",
+   "file": "services/webhook/general.go",
+   "function": "ToHook",
+   "line_start": 407,
+   "line_end": 419,
+   "anchor_class": "manual_anchor",
+   "anchor_mode": "manual",
+   "frozen_text": [
+    "\tauthorizationHeader, err := w.HeaderAuthorization()",
+    "\tif err != nil {",
+    "\t\treturn nil, err",
+    "\t}",
+    "",
+    "\treturn &api.Hook{",
+    "\t\tID:                  w.ID,",
+    "\t\tType:                w.Type,",
+    "\t\tURL:                 fmt.Sprintf(\"%s/settings/hooks/%d\", repoLink, w.ID),",
+    "\t\tActive:              w.IsActive,",
+    "\t\tConfig:              config,",
+    "\t\tEvents:              w.EventsArray(),",
+    "\t\tAuthorizationHeader: authorizationHeader,"
+   ],
+   "fix_commit": "f69e15afe7496cc62e96dab244629c69eb31a7bf",
+   "fix_subject": "fix: various security fixes (#38406)",
+   "fixed_release": "v1.27.0",
+   "release_url": "https://github.com/go-gitea/gitea/releases/tag/v1.27.0",
+   "advisory": "https://github.com/go-gitea/gitea/security/advisories/GHSA-3r5c-2xxx-h872",
+   "ghsa": "GHSA-3r5c-2xxx-h872",
+   "advisory_range": "< 1.27.0 (fixed in 1.27.0)",
+   "severity": {
+    "level": "low",
+    "score": 2.7,
+    "vector": "CVSS:3.1/AV:N/AC:L/PR:H/UI:N/S:U/C:L/I:N/A:N",
+    "cwe": [
+     "CWE-200"
+    ]
+   },
+   "checks": {
+    "frozen_function_lacks_marker": true,
+    "v1270_has_marker": true
+   },
+   "verdict": "admit",
+   "basis": "frozen v1.25.5 services/webhook/general.go:407-419 carries the pre-image of fix f69e15afe749 (\"fix: various security fixes (#38406)\") (manual_anchor/manual); v1.27.0 ships the fix and the frozen tree does not; advisory https://github.com/go-gitea/gitea/security/advisories/GHSA-3r5c-2xxx-h872 places v1.25.5 in < 1.27.0 (fixed in 1.27.0). The release-wide OSV GIT records cite 73e0e442 (\"Fix various problems (#37129)\", 9 files) for every CVE in the 1.27.0 batch; the per-file fix hunk is in the 93-file security commit f69e15afe749 and in 58434 362539b78e/500a09e044."
+  }
+ ],
+ "skipped": [
+  {
+   "id": "CVE-2026-58416",
+   "cand": "adv3_dcb058828f808b2c",
+   "ghsa": "GHSA-fj8v-hjwv-qm88",
+   "verdict": "not_promotable_at_v1.25.5",
+   "reason": "GetActionsUserRepoPermission and the Actions collaborative-owner feature are absent from the frozen v1.25.5 tree; the function first appears in v1.26.4 (unguarded line 372) and is guarded in v1.27.0 (line 374). The advisory range < 1.27.0 is imprecise at its lower bound, so no frozen location exists to anchor. Both candidate rows were already triaged confirmed_not_affected (source_code_review) in the 2026-10-31 GITEA_PR review; this review re-checked the same absence and left the decision in place."
+  },
+  {
+   "id": "CVE-2026-55987",
+   "cand": "adv3_4843a875b11de563",
+   "ghsa": "GHSA-vrhc-jjfc-m3m3",
+   "verdict": "not_promotable_at_v1.25.5",
+   "reason": "The flawed gate `if !u.IsActive { ... isDisabledByAutoSync := hasExt && extLogin.RefreshToken == \"\" }` does not exist at v1.25.5: the frozen routers/web/auth/oauth.go:351-354 block is the pre-#38009 unconditional reactivation that CVE-2026-58422 already anchors (fix c43eb7c33a). The advisory is an incomplete fix of #38009 and only applies once that gate ships. Anchoring it again at 351-354 would duplicate the CVE-2026-58422 location."
+  }
+ ],
+ "failures": [],
+ "sibling_dedupe": {
+  "rewritten": 13,
+  "appended": 0,
+  "candidates": [
+   "disc2_a742f0d2307a3cc5bef15a81",
+   "disc2_b6261034679b24a4ab6e69a6",
+   "disc2_37573af27e83f5df0699334f",
+   "disc2_539781658b086c8ce7f5e576",
+   "disc2_29011814f7b7ca5dd6cf67df",
+   "disc2_6c4b6d1e022136cb7f93d201",
+   "disc2_eef8ae8da49bdbac83d54513",
+   "disc2_9b7ea199eec2aeec66784b5c",
+   "disc2_6fa822bafd1a92a3d9cdd5c1",
+   "disc2_3da29c8d17ea33e94ecdb220",
+   "disc2_72803eede8c63dbfc40c7152",
+   "disc2_670913a326a9ea8a85295f7f",
+   "disc2_2160c860195d45b5d7deac2a"
+  ],
+  "note": "each disc2_* row carried the same advisory aliases as the promoted adv3_* row on the same snapshot; rewritten from possible_affected to duplicate with canonical_candidate_id, mirroring dedupe_gitea_siblings.py"
+ }
+}

@@ -1,0 +1,29 @@
+{
+ "generated_for": "2026-10-31 sinatra/sinatra promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The single removed line of the cited fix is present verbatim at the frozen v4.0.1 anchor. Admitted by the batch.",
+ "counts": {
+  "admit": 1,
+  "drop": 0,
+  "hold": 0,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2025-61921",
+   "advisory_record": "GHSA-mr3q-g2mv-mr4q",
+   "repo": "sinatra/sinatra",
+   "snapshot_version": "v4.0.1",
+   "advisory_trust_tier": "T1",
+   "file": "lib/sinatra/base.rb",
+   "function": "etag_matches?",
+   "line_start": 713,
+   "line_end": 713,
+   "granularity": "line",
+   "fix_commit": "3fe8c38dc405",
+   "verdict": "admit",
+   "reason": "Fix 3fe8c38dc405 replaces split(/\\s*,\\s*/) with split(',').map(&:strip): the original regex backtracks quadratically on an ETag list of whitespace-separated segments supplied in If-None-Match (ReDoS, CWE-1333/CWE-400), and frozen line 713 is exactly that removed call."
+  }
+ ]
+}

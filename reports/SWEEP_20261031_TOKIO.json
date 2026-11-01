@@ -1,0 +1,92 @@
+{
+ "repo": "tokio-rs/tokio",
+ "repo_id": "67836789",
+ "snapshot_id": "snap_bb1aca4519b1aae6",
+ "tag": "tokio-1.8.0",
+ "sha": "677107d8d9278265798c5efdc75374a25b41a4b8",
+ "applied": true,
+ "checked_at": "2026-10-31T11:06:30Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2021-45710",
+   "snapshot_id": "snap_bb1aca4519b1aae6",
+   "location": "tokio/src/sync/oneshot.rs:854-860",
+   "permalink": "https://github.com/tokio-rs/tokio/blob/677107d8d9278265798c5efdc75374a25b41a4b8/tokio/src/sync/oneshot.rs#L854-L860",
+   "excerpt_head": "    fn set_complete(cell: &AtomicUsize) -> State {\n        // TODO: This could be `Release`, followed by an `Acquire` fence *if*\n        // the `RX_TASK_SET` fl",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2021-45710",
+   "candidate_id": "disc2_13c5754ff8be1fa0e8a9603b",
+   "fix_commit": "e0cf906ae16122a8714711a2baeac7713eaeaae2"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2023-22466",
+   "snapshot_id": "snap_bb1aca4519b1aae6",
+   "location": "tokio/src/net/windows/named_pipe.rs:1449-1456",
+   "permalink": "https://github.com/tokio-rs/tokio/blob/677107d8d9278265798c5efdc75374a25b41a4b8/tokio/src/net/windows/named_pipe.rs#L1449-L1456",
+   "excerpt_head": "    pub fn pipe_mode(&mut self, pipe_mode: PipeMode) -> &mut Self {\n        self.pipe_mode = match pipe_mode {\n            PipeMode::Byte => winbase::PIPE_TYPE_",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2023-22466",
+   "candidate_id": "disc2_dc6c44cdd599bad4d9e2abcc",
+   "fix_commit": "9ca156c0b80347bb7b1406c6050d602f22efc709"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "RUSTSEC-2023-0005",
+   "snapshot_id": "snap_bb1aca4519b1aae6",
+   "location": "tokio/src/io/split.rs:77-89",
+   "permalink": "https://github.com/tokio-rs/tokio/blob/677107d8d9278265798c5efdc75374a25b41a4b8/tokio/src/io/split.rs#L77-L89",
+   "excerpt_head": "    pub fn unsplit(self, wr: WriteHalf<T>) -> T {\n        if self.is_pair_of(&wr) {\n            drop(wr);\n\n            let inner = Arc::try_unwrap(self.inner)\n ",
+   "returncode": 0,
+   "vulnerability_id": "RUSTSEC-2023-0005",
+   "candidate_id": "disc2_c78f4bcf14c9243798db8253",
+   "fix_commit": "d6ea7a742b92d3e516035a584ab9347a96be363a"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "RUSTSEC-2025-0023",
+   "snapshot_id": "snap_bb1aca4519b1aae6",
+   "location": "tokio/src/sync/broadcast.rs:1060-1065",
+   "permalink": "https://github.com/tokio-rs/tokio/blob/677107d8d9278265798c5efdc75374a25b41a4b8/tokio/src/sync/broadcast.rs#L1060-L1065",
+   "excerpt_head": "    fn clone_value(&self) -> Option<T>\n    where\n        T: Clone,\n    {\n        self.slot.val.with(|ptr| unsafe { (*ptr).clone() })\n    }",
+   "returncode": 0,
+   "vulnerability_id": "RUSTSEC-2025-0023",
+   "candidate_id": "disc2_57500a0d368e5d9eaa8bad4e",
+   "fix_commit": "4b174ce2c95fe1d1a217917db93fcc935e17e0da"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "RUSTSEC-2026-0386",
+   "snapshot_id": "snap_bb1aca4519b1aae6",
+   "location": "tokio/src/io/async_fd.rs:175-196",
+   "permalink": "https://github.com/tokio-rs/tokio/blob/677107d8d9278265798c5efdc75374a25b41a4b8/tokio/src/io/async_fd.rs#L175-L196",
+   "excerpt_head": "    pub fn new(inner: T) -> io::Result<Self>\n    where\n        T: AsRawFd,\n    {\n        Self::with_interest(inner, ALL_INTEREST)\n    }\n\n    #[inline]\n    /// C",
+   "returncode": 0,
+   "vulnerability_id": "RUSTSEC-2026-0386",
+   "candidate_id": "sweep_61446f946a34e737",
+   "fix_commit": "fb57e675b0dcdd45f251e286b5ddcd96607e1e90"
+  }
+ ],
+ "duplicates": {
+  "adv3_261c1f2dd536e5cd": "disc2_dc6c44cdd599bad4d9e2abcc"
+ },
+ "fixes": {
+  "CVE-2021-45710": "e0cf906ae16122a8714711a2baeac7713eaeaae2",
+  "CVE-2023-22466": "9ca156c0b80347bb7b1406c6050d602f22efc709",
+  "RUSTSEC-2023-0005": "d6ea7a742b92d3e516035a584ab9347a96be363a",
+  "RUSTSEC-2025-0023": "4b174ce2c95fe1d1a217917db93fcc935e17e0da",
+  "RUSTSEC-2026-0386": "fb57e675b0dcdd45f251e286b5ddcd96607e1e90"
+ },
+ "notes": [
+  "All five advisories cover tokio-1.8.0 by their vendor version rows: RUSTSEC-2021-0124 (0.1.14..1.8.4), RUSTSEC-2023-0001 (1.7.0..1.18.4), RUSTSEC-2023-0005 (0.2.0..1.18.5), RUSTSEC-2025-0023 (0.2.5..1.38.2) and RUSTSEC-2026-0386 (0.3.2..1.51.6).",
+  "Fix commits were resolved from release compares and PR commit lists; the OSV GIT \"fixed\" events in these records are release-prep/CI commits (2273eb1a, 2a3c803d, 9241c3ed, 1a997ffb, ba81945f, and the branch tips aa303bc2 / 2598543b / 204aa8b2) and are not used as evidence.",
+  "git apply --check against the frozen 1.8.0 tree: oneshot.rs (rc 0), named_pipe.rs (rc 0), split.rs (rc 0). broadcast.rs and async_fd.rs do not apply because those files changed across 1.8.0..1.51; the defect pre-image lines were verified by direct read instead.",
+  "The second CVE-2023-22466 candidate (adv3_261c1f2dd536e5cd) is closed as a duplicate of the promoted disc2 candidate."
+ ]
+}

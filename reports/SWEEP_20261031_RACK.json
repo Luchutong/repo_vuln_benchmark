@@ -1,0 +1,132 @@
+{
+ "repo": "rack/rack",
+ "repo_id": "96071",
+ "snapshot_id": "snap_245aee01ea5112b9",
+ "tag": "v3.1.13",
+ "sha": "037953789da9cd49c4a3453ade6ede13619276e0",
+ "applied": true,
+ "checked_at": "2026-10-31T10:56:38Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-26961",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/multipart/parser.rb:80-84",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/multipart/parser.rb#L80-L84",
+   "excerpt_head": "      def self.parse_boundary(content_type)\n        return unless content_type\n        data = content_type.match(MULTIPART)\n        return unless data\n        d",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-26961",
+   "candidate_id": "disc2_d3d82dd48a478bfdf16977cc",
+   "fix_commit": "10626530f3c54a0cd54bee1150e851aa238249e4"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-34827",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/multipart/parser.rb:337-358",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/multipart/parser.rb#L337-L358",
+   "excerpt_head": "                while i = disposition.index(/([\"\\\\])/)\n                  c = $1\n\n                  # Append all content until ending quote or escape\n           ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-34827",
+   "candidate_id": "disc2_846c4e32894518ce0b0aabde",
+   "fix_commit": "17ce7836be1523a7b453f3c06fe070ad7c954708"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-34763",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/directory.rb:53-55",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/directory.rb#L53-L55",
+   "excerpt_head": "      def each\n        show_path = Utils.escape_html(path.sub(/^#{root}/, ''))\n        yield(DIR_PAGE_HEADER % [ show_path, show_path ])",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-34763",
+   "candidate_id": "disc2_ff220534134df76d93da7a74",
+   "fix_commit": "29b17c58e55539b5b9c1afd0d86266e54150193f"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-34829",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/multipart/parser.rb:258-261",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/multipart/parser.rb#L258-L261",
+   "excerpt_head": "      def read_data(io, outbuf)\n        content = io.read(@bufsize, outbuf)\n        handle_empty_content!(content)\n        @sbuf.concat(content)",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-34829",
+   "candidate_id": "disc2_a75c5f9755ef7c1f21626e38",
+   "fix_commit": "367a2a0ec6fbef605c9412dadfd5763b7867441f"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-34230",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/utils.rb:197-207",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/utils.rb#L197-L207",
+   "excerpt_head": "      accept_encoding.each do |m, q|\n        preference = available_encodings.index(m) || available_encodings.size\n\n        if m == \"*\"\n          (available_enc",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-34230",
+   "candidate_id": "disc2_4e6751d629634df378a31761",
+   "fix_commit": "55db26e7f43d3d45e1476f02ada75e0503abc2f1"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-32762",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/utils.rb:149-160",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/utils.rb#L149-L160",
+   "excerpt_head": "    def forwarded_values(forwarded_header)\n      return nil unless forwarded_header\n      forwarded_header = forwarded_header.to_s.gsub(\"\\n\", \";\")\n\n      forwar",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-32762",
+   "candidate_id": "disc2_c2bc3b08858266621e5a2c8f",
+   "fix_commit": "9df5d34d4f496b22b8d07e919447e9dfa3240d41"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-26962",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/multipart/parser.rb:306-311",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/multipart/parser.rb#L306-L311",
+   "excerpt_head": "      def handle_mime_head\n        if @sbuf.scan_until(@head_regex)\n          head = @sbuf[1]\n          content_type = head[MULTIPART_CONTENT_TYPE, 1]\n         ",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-26962",
+   "candidate_id": "disc2_759d5967fac89b016c34ad12",
+   "fix_commit": "ae320b46617e9131c34ad77ea15f1c3b036c43e6"
+  },
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-34831",
+   "snapshot_id": "snap_245aee01ea5112b9",
+   "location": "lib/rack/files.rb:190-200",
+   "permalink": "https://github.com/rack/rack/blob/037953789da9cd49c4a3453ade6ede13619276e0/lib/rack/files.rb#L190-L200",
+   "excerpt_head": "    def fail(status, body, headers = {})\n      body += \"\\n\"\n\n      [\n        status,\n        {\n          CONTENT_TYPE   => \"text/plain\",\n          CONTENT_LENGT",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-34831",
+   "candidate_id": "disc2_cff14a55cab5ed80a28832ac",
+   "fix_commit": "c3645d377f0335a779812bf3f36e238d87d9b4e6"
+  }
+ ],
+ "fixes": {
+  "CVE-2026-26961": "10626530f3c54a0cd54bee1150e851aa238249e4",
+  "CVE-2026-34827": "17ce7836be1523a7b453f3c06fe070ad7c954708",
+  "CVE-2026-34763": "29b17c58e55539b5b9c1afd0d86266e54150193f",
+  "CVE-2026-34829": "367a2a0ec6fbef605c9412dadfd5763b7867441f",
+  "CVE-2026-34230": "55db26e7f43d3d45e1476f02ada75e0503abc2f1",
+  "CVE-2026-32762": "9df5d34d4f496b22b8d07e919447e9dfa3240d41",
+  "CVE-2026-26962": "ae320b46617e9131c34ad77ea15f1c3b036c43e6",
+  "CVE-2026-34831": "c3645d377f0335a779812bf3f36e238d87d9b4e6"
+ },
+ "notes": [
+  "All eight advisories are repo-owned GHSAs -> vendor_official, T1, S2.",
+  "Every advisory has <2.2.x, 3.0-3.1.x and 3.2-3.2.x branch rows; the 3.0-3.1.x row (>=3.0,<3.1.21, or <3.1.22 for CVE-2026-26962) contains the frozen v3.1.13 tag.",
+  "OSV GIT \"fixed\" events name the 3.1.21/3.1.22 release-bump commits, so the code fixes were recovered from the v3.1.20...v3.1.21 and v3.1.21...v3.1.22 compares.",
+  "Four patches (34763, 34230, 32762, 34831) and the obs-fold backport (26962) apply with git apply --check at v3.1.13. The other three parser.rb fixes fail only on hunks whose context references later 3.1.x identifiers (FWS/HEADER_VALUE from 3.1.16, BUFFERED_UPLOAD_BYTESIZE_LIMIT from 3.1.17, PARSER_BYTESIZE_LIMIT from 3.1.21); their substantive hunks were replayed individually and land on the frozen code.",
+  "The repository already had 14 ground-truth rows at this snapshot (QueryParser, multipart header/queue limits, Sendfile, Directory, Static, byte ranges); these eight are distinct advisories."
+ ]
+}

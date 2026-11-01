@@ -1,0 +1,41 @@
+{
+ "repo": "nodejs/undici",
+ "repo_id": "133092972",
+ "snapshot_id": "snap_24c4a191fd049fc3",
+ "tag": "v5.19.0",
+ "sha": "f5c89e5c87c7d702996b152c4ad86302b60c4181",
+ "applied": true,
+ "checked_at": "2026-10-31T11:00:53Z",
+ "promoted": [
+  {
+   "ok": true,
+   "applied": true,
+   "vulnerability": "CVE-2026-1528",
+   "snapshot_id": "snap_24c4a191fd049fc3",
+   "location": "lib/websocket/receiver.js:194-216",
+   "permalink": "https://github.com/nodejs/undici/blob/f5c89e5c87c7d702996b152c4ad86302b60c4181/lib/websocket/receiver.js#L194-L216",
+   "excerpt_head": "      } else if (this.#state === parserStates.PAYLOADLENGTH_64) {\n        if (this.#byteOffset < 8) {\n          return callback()\n        }\n\n        const buffe",
+   "returncode": 0,
+   "vulnerability_id": "CVE-2026-1528",
+   "candidate_id": "sweep_9245e6163fa8b494",
+   "fix_commit": "5a97f0893b53ba7d1d5549d3df7e55d9c2673f89"
+  }
+ ],
+ "confirmed_not_affected": [
+  "CVE-2026-16728",
+  "CVE-2026-9679",
+  "CVE-2026-18540",
+  "CVE-2026-2229",
+  "CVE-2026-1526",
+  "CVE-2026-12151"
+ ],
+ "fixes": {
+  "CVE-2026-1528": "5a97f0893b53ba7d1d5549d3df7e55d9c2673f89"
+ },
+ "notes": [
+  "Six of seven candidates are confirmed_not_affected because the vulnerable API or feature does not exist at v5.19.0: no retry interceptor (16728, 18540), no cookie percent-decoding (9679), no permessage-deflate negotiation (2229, 1526), no maxPayloadSize (12151).",
+  "CVE-2026-1528 is promoted: the 64-bit length math at receiver.js:194-216 is byte-identical to the 6.23.0 pre-image that 5a97f089 replaces in 6.24.0.",
+  "The vendor rows for 1528 are >=6.0.0,<6.24.0 and >=7.0.0,<7.24.0; the record extends the 6.x row to 0.0.0 because 5.x carries the same code and has no fix, matching the CVE-2026-1527 row already in GT.",
+  "The four advisories without a lower bound (< 6.27.0, < 6.28.0, < 6.28.1) are GitHub first-branch rows; the OSV introduced 0 events come from that shape, not from a claim about 5.x code."
+ ]
+}

@@ -1,0 +1,60 @@
+{
+ "report": "vercel/next.js v14.2.24 batch 2",
+ "generated_at": "2026-10-31T08:51:36Z",
+ "applied": true,
+ "summary": {
+  "rows": 2,
+  "failures": 0
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-64648",
+   "candidate_id": "disc2_7cd9c5f4c142fe903f81e201",
+   "repo_id": "70107786",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "file": "packages/next/src/server/lib/patch-fetch.ts",
+   "function": "createPatchedFetcher",
+   "line": 278,
+   "anchor_class": "the cache key ignores init overrides of a Request input",
+   "patch_file": "packages/next/src/server/lib/patch-fetch.ts",
+   "fix_commit": "73b94872bc343d09494b50394d8c08eb9fc8e56a",
+   "fixed_version": "15.5.21 / 16.2.11",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-524"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v14.2.24 packages/next/src/server/lib/patch-fetch.ts:278 is the frozen pre-image of the fix in 73b94872bc34 (15.5.21 / 16.2.11). the cache key ignores init overrides of a Request input. The marker 'if (isRequestInput && init) {' is absent from the frozen scope createPatchedFetcher and present in the fix patch for packages/next/src/server/lib/patch-fetch.ts (added lines or hunk post-image). next >=12.0.0 <15.5.21 and >=16.0.0 <16.2.11 (advisory: fixed in 15.5.21 and 16.2.11); fixed in 15.5.21 / 16.2.11 (73b94872bc34); 14.2.24 is inside the vendor affected range."
+  },
+  {
+   "vulnerability_id": "CVE-2026-64649",
+   "candidate_id": "disc2_b56186bddcdabbe070e60bb1",
+   "repo_id": "70107786",
+   "snapshot_id": "snap_ccfc92616d383a5b",
+   "file": "packages/next/src/server/app-render/action-handler.ts",
+   "function": "createForwardedActionResponse",
+   "line": 182,
+   "anchor_class": "the forwarded request origin comes from an attacker-controlled Host header",
+   "patch_file": "packages/next/src/server/app-render/action-handler.ts",
+   "fix_commit": "e3e5666ccead3a15162793d697af5e48b7cc0498",
+   "fixed_version": "15.5.21 / 16.2.11",
+   "severity": {
+    "level": "high",
+    "cwe": "CWE-918"
+   },
+   "checks": {
+    "preimage_present_in_frozen": true,
+    "frozen_function_lacks_marker": true,
+    "fix_patch_adds_marker": true
+   },
+   "verdict": "admit",
+   "basis": "v14.2.24 packages/next/src/server/app-render/action-handler.ts:182 is the frozen pre-image of the fix in e3e5666ccead (15.5.21 / 16.2.11). the forwarded request origin comes from an attacker-controlled Host header. The marker \"const initUrl = getRequestMeta(req, 'initURL')\" is absent from the frozen scope createForwardedActionResponse and present in the fix patch for packages/next/src/server/app-render/action-handler.ts (added lines or hunk post-image). next >=14.1.1 <15.5.21 and >=16.0.0 <16.2.11 (advisory: fixed in 15.5.21 and 16.2.11); fixed in 15.5.21 / 16.2.11 (e3e5666ccead); 14.2.24 is inside the vendor affected range."
+  }
+ ],
+ "failures": []
+}

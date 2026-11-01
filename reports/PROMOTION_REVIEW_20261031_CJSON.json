@@ -1,0 +1,44 @@
+{
+ "generated_for": "2026-10-31 DaveGamble/cJSON promotion dry-run review",
+ "source_dryrun": "workdir/promote_all_dry2.json",
+ "apply": true,
+ "note": "The anchored span is exactly the removed block of the cited fix commit and is present verbatim in the frozen v1.7.16 tree. The dataset proposals file marks this candidate no_fix_commit because the advisory cites PR #1065 rather than a commit, so the batch gate skips it; GitHub confirms PR #1065 is merged with merge_commit_sha 6d9f2443ab071f86e5d9b43025a40929ec41c46c, and the row was applied directly via promote_candidate.py (relocated_rows[0].applied = true).",
+ "counts": {
+  "admit": 1,
+  "drop": 0,
+  "hold": 0,
+  "total": 1
+ },
+ "rows": [
+  {
+   "vulnerability_id": "CVE-2026-87933",
+   "advisory_record": "CVE-2026-87933",
+   "repo": "DaveGamble/cJSON",
+   "snapshot_version": "v1.7.16",
+   "advisory_trust_tier": "T2",
+   "file": "cJSON_Utils.c",
+   "function": "merge_patch",
+   "line_start": 1327,
+   "line_end": 1329,
+   "granularity": "line",
+   "fix_commit": "6d9f2443ab07",
+   "verdict": "admit",
+   "reason": "Fix 6d9f2443ab07 duplicates the patch before deleting the target: frozen 1328 cJSON_Delete(target) frees memory that may contain the patch itself (patch is a subtree of target), and the very next line reads it through cJSON_Duplicate (heap-use-after-free, CWE-416). The three removed lines are present verbatim at 1327-1329."
+  }
+ ],
+ "relocated_rows": [
+  {
+   "vulnerability_id": "CVE-2026-87933",
+   "verdict": "admit",
+   "file": "cJSON_Utils.c",
+   "function": "merge_patch",
+   "line_start": 1327,
+   "line_end": 1329,
+   "granularity": "line",
+   "evidence_type": "fix_diff_comparison",
+   "fix_commit": "https://github.com/DaveGamble/cJSON/commit/6d9f2443ab071f86e5d9b43025a40929ec41c46c",
+   "applied": true,
+   "reason": "Applied directly (not by the batch) because the proposals file records no_fix_commit for PR-only advisories. Advisory FIX reference is PR #1065, merged as 6d9f2443ab071f86e5d9b43025a40929ec41c46c."
+  }
+ ]
+}
